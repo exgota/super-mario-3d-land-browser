@@ -4246,7 +4246,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C5964,0x001C59C8,0x001C59D0,          ,U,f,,
 0x001C59D0,0x001C5A60,0x001C5A70,          ,U,f,,
 0x001C5A70,          ,0x001C5A88,          ,U,f,,
-0x001C5A88,          ,0x001C5AB4,          ,M,f,fn_001C5A88,
+0x001C5A88,          ,0x001C5AB4,          ,O,f,fn_001C5A88,
 0x001C5AB4,          ,0x001C5B08,          ,U,f,,
 0x001C5B08,0x001C5BD0,0x001C5BD4,          ,U,f,_ZN2al13KeyPoseKeeper4initERKNS_13ActorInitInfoE,
 0x001C5BD4,          ,0x001C5D10,          ,U,f,,
