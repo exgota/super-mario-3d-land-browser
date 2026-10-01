@@ -75,3 +75,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:00:07-04:00,0x002905F0,_ZN2al9ByamlIterC1EPKh,matched,2,0.0268
 2026-10-01T07:00:07-04:00,0x00290F60,_ZNK2al9ByamlIter15tryGetBoolByKeyEPbPKc,matched,4,2.6938
 2026-10-01T07:00:08-04:00,0x00290FB0,_ZNK2al9ByamlIter15tryGetIterByKeyEPS0_PKc,matched,4,7.1939
+2026-10-01T07:00:08-04:00,0x0029107C,_ZNK2al9ByamlIter17tryGetIterByIndexEPS0_i,matched,4,7.1968
