@@ -11,4 +11,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T03:57:19-04:00,0x0032C744,_ZNK19PlayerAnimFrameCtrl15getCurrentFrameEv,matched,2,1
 2026-10-01T03:58:27-04:00,0x0019D7B0,_ZN21PlayerActionCondition5setupEv,matched,2,1
 2026-10-01T04:01:59-04:00,0x001C2D40,_ZN2al12calcHashCodeEPKc,matched,9,5
-2026-10-01T04:16:12-04:00,0x001781EC,_ZN16alSensorFunction20findSensorTypeByNameEPKc,matched,40,10000,unavailable,20
+2026-10-01T04:16:12-04:00,0x001781EC,_ZN16alSensorFunction20findSensorTypeByNameEPKc,matched,47,10000,unavailable,20
+2026-10-01T04:21:13-04:00,0x00140E94,fn_00140e94,matched,3,1200,unavailable,5

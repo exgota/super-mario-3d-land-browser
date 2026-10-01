@@ -1383,7 +1383,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00140C38,0x00140C98,0x00140CA0,          ,U,f,,
 0x00140CA0,0x00140DDC,0x00140DE8,          ,U,f,,
 0x00140DE8,0x00140E80,0x00140E94,          ,U,f,,
-0x00140E94,0x00140ED8,0x00140EDC,          ,U,f,fn_00140e94,
+0x00140E94,0x00140ED8,0x00140EDC,          ,O,f,fn_00140e94,
 0x00140EDC,          ,0x00140EEC,          ,U,f,,
 0x00140EEC,0x00140EF8,0x00140EFC,          ,U,f,,
 0x00140EFC,0x00140F08,0x00140F0C,          ,U,f,,
