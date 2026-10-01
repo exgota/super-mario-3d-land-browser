@@ -37,8 +37,8 @@ private:
 public:
         void init( const char*, const ExecuteOrder* order, int );
         void createExecutorListTable();
-        void tryRegisterUser( al::IUseExecutor* p, const char* name );
-        void tryRegisterFunctor( const al::FunctorBase& base, const char* name );
+        bool tryRegisterUser( al::IUseExecutor* p, const char* name );
+        bool tryRegisterFunctor( const al::FunctorBase& base, const char* name );
 
 public:
         ExecuteTableHolderDraw();

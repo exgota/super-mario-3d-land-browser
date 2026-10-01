@@ -417,3 +417,9 @@ The runtime reports the observed six-word uniform-6 packet and descriptor byte+5
 ## 2026-10-01: Complete actor-group canonical acceptance
 
 All21 enrolled actor-group roots pass the project's committed-source canonical checker, adding1240 complete bytes. Each has a separate acceptance commit. Source closure consumes the independently reconstructed dead/clipped helpers with no residual helper code or invented target addresses. Strict coverage is189 functions and14220/2,756,024 bytes. Fresh small/medium matching proceeds in parallel; dot intake remains one lane.
+
+## 2026-10-01: Restore executor wrapper ABI and registration returns
+
+Seven reviewed local CPP/header files correct two global wrappers to name-first arguments and four table methods to boolean returns. Independent LiveActorKit caller registers establish the global order; director methods remain functor-first. Independent registration loops return a success accumulator and visit every matching list. The private ExecutorRegistrationList view describes only the existing vtable/name prefix and is never allocated. No complete executor class layout is asserted. Two existing global map names are corrected, and the independently supported request import is named at its unchanged interval while its blocked implementation stays reserved.
+
+Eight new roots are enrolled M, totaling564 bytes. Four earlier dot/local overlaps remain accepted and receive no duplicate ledger row. The corrected dot source is preserved byte for byte. Ledger attempts count scratch structural variants plus one local check; prior minutes are the recorded shared executor windows, repeated across related roots and not isolated labor. Root will rebuild, check new roots, and recheck all189 previously accepted functions because shared headers changed. No function/data boundary, data row, compiler flag or checker change is made.
