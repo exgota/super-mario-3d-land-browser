@@ -13462,7 +13462,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032BE6C,0x0032BEDC,0x0032BEF4,          ,O,f,fn_0032BE6C,
 0x0032BEF4,0x0032BF38,0x0032BF44,          ,O,f,fn_0032BEF4,
 0x0032BF44,0x0032BF98,0x0032BFA4,          ,O,f,fn_0032BF44,
-0x0032BFA4,0x0032C014,0x0032C028,          ,M,f,fn_0032BFA4,
+0x0032BFA4,0x0032C014,0x0032C028,          ,O,f,fn_0032BFA4,
 0x0032C028,0x0032C030,0x0032C038,          ,U,f,,
 0x0032C038,          ,0x0032C050,          ,U,f,,
 0x0032C050,          ,0x0032C068,          ,U,f,,
