@@ -4187,7 +4187,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C2BC8,0x001C2BE0,0x001C2BF0,          ,U,f,,
 0x001C2BF0,          ,0x001C2CC8,          ,U,f,,
 0x001C2CC8,          ,0x001C2D40,          ,U,f,,
-0x001C2D40,          ,0x001C2D6C,          ,m,f,_ZN2al12calcHashCodeEPKc,
+0x001C2D40,          ,0x001C2D6C,          ,O,f,_ZN2al12calcHashCodeEPKc,
 0x001C2D6C,          ,0x001C2D88,          ,U,f,,
 0x001C2D88,          ,0x001C2D9C,          ,U,f,,
 0x001C2D9C,          ,0x001C2DA4,          ,U,f,,

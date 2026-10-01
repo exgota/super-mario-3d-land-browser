@@ -6,7 +6,7 @@ namespace al
 u32 calcHashCode( const char* str )
 {
         u32  result  = 0;
-        char curChar = *str;
+        char curChar;
 
         while ( ( curChar = *str ) )
         {
