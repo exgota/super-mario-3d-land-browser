@@ -8997,7 +8997,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002775AC,          ,0x002775B0,          ,U,f,,
 0x002775B0,          ,0x002775B8,          ,U,f,,
 0x002775B8,          ,0x002775C0,          ,U,f,,
-0x002775C0,          ,0x002775D8,          ,M,f,_ZN2al11getSceneObjEi,
+0x002775C0,          ,0x002775D8,          ,O,f,_ZN2al11getSceneObjEi,
 0x002775D8,          ,0x00277638,          ,U,f,,
 0x00277638,          ,0x00277650,          ,U,f,,
 0x00277650,          ,0x00277658,          ,U,f,,
