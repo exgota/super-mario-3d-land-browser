@@ -8930,7 +8930,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00275048,          ,0x00275054,          ,O,f,_ZNK2al19StageResourceKeeper14getResourceMapEv,
 0x00275054,0x00275308,0x002753E8,          ,U,f,,
 0x002753E8,0x002754E0,0x00275514,          ,U,f,,
-0x00275514,          ,0x00275520,          ,M,f,_ZNK2al19StageResourceKeeper17getResourceDesignEv,
+0x00275514,          ,0x00275520,          ,O,f,_ZNK2al19StageResourceKeeper17getResourceDesignEv,
 0x00275520,0x0027561C,0x00275638,          ,U,f,,
 0x00275638,0x00275698,0x0027569C,          ,U,f,,
 0x0027569C,0x002756EC,0x002756F4,          ,U,f,,
