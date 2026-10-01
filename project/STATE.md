@@ -1,35 +1,39 @@
 # Project state
 
-Last updated: 2026-10-01, autonomous matching session.
+Last updated: 2026-10-01, autonomous Phase2 and runtime session.
 
 ## Final objective
-M2: 100% byte-exact matching. The pilot has no review stop. Follow current project/BRIEF.md.
+M2: 100% byte-exact matching. No pilot or review stop. Follow project/BRIEF.md.
 
-## Current milestone
-M1 passes: all50 pilot functions have recorded outcomes and the report is committed. Phase2 matching and the runtime lane proceed. M0 remains one of three required compiler discriminators; M2 remains the final objective.
+## Current milestones
+M1 passes: all50 pilot outcomes and the report are committed. M0 has2 of3 required compiler discriminators. M2 remains the final goal. M3 gameplay/replay is unverified.
 
-## Done
-- EU executable hash confirmed. The original .3ds and target bytes remain untouched.
-- Clean sead API headers and declaration-only SDK entry points enable all 37 Game and 75 lib/al sources in the normal build.
-- check.py accepts O only after isolating source-generated object bytes, linking their relocations at original map addresses and comparing complete function intervals including literal pools. Unknown addresses, wrong sizes and changed bytes are rejected.
+## Verified
+- Original dump and EU executable hashes remain unchanged. No game data is committed.
+- Normal ARMCC build compiles40 Game and77 al sources plus the clean SDK priority unit. The compact main links/exports and unchanged progress.py runs. It remains a scaffold.
 - Accepted coverage: 80 functions from canonical project ARMCC objects with committed source/header provenance, covering 5056 / 2,756,024 complete function bytes (0.183453%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
-- Sensor-name lookup matches791 and fails 894. Final paired evidence lives under build/compiler_probe. The other leaf/lookup matches reproduce both compiler builds and do not settle M0.
-- The refreshed pilot manifest is project/pilot_functions.csv: 20 small, 20 medium and 10 large or branch-heavy functions. All selected rows were unmatched at selection time.
+- Sensor-name lookup and fn_001C5A88 pass791 and fail894. Current paired canonical-primary evidence is build/game_compiler_check/evidence.json. A third discriminator is required.
+- New accepted classes/helpers include SensorHitGroup, NerveExecutor, LayoutActor, typed Byaml child lookup, EffectKeeper and the724-byte course-selection update. Only check.py setsO.
+- The pilot has40 matched,1 NonMatching and9 abandoned fragments. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase2 continues.
+- Runtime tools verify all73,421 RomFS IVFC blocks and49 selected World1-1 files. Native C++ reader independently validates placement bits,3853 collision prisms and39 model/145 texture catalogs, with sanitizer and damaged-input checks. No level has run.
 
-## In flight
-- Root integrates the new724-byte CourseSelectMap function and compiler-generated switch marker handling. Both compiler versions match diagnostically. Wanwan remains a provisional nonmatching draft under build/compiler_probe.
-- sead_headers reconstructs SensorHitGroup add/remove and its verified layout. The FireBar, controller and thread-shutdown probes compile identically under both builds.
-- compiler_candidates starts the runtime asset-loading lane: clean RomFS indexing and World1-1 resource discovery from the owner's dump. No gameplay or replay claim.
-- Committed-source provenance is enforced. All53 O rows pass after the iterator/header change. The pilot ends with40 matches,1 NonMatching and9 abandoned fragments; see pilot_report.md and pilot_results.csv.
+## Five lanes in flight
+- Root owns canonical acceptance, map/ledger/shared project docs and private-origin pushes. Shared source headers freeze across commit/build/check checkpoints.
+- sead_headers implements provenance-checked linker inline closure. Committed StageProgress.cpp and StageProgressAccessors.cpp are the positive fixture. fn_0016BCE0 remainsU until the projection/checker support lands.
+- actor_helpers recovers effect-set callees and additional binary-supported reference helpers. New fields/functions are staged independently; it never edits ranks or ledger.
+- byaml_matching investigates the224-byte file verifier and384-byte string-table verifier with an eight-variant first pass. Separate constructor closure candidates remain scratch proposals.
+- compiler_candidates builds a native scene definition and static collision instances from retail placement/resource/SRT rules. Unknown actor overrides remain unresolved. Runtime code stays outside Game/al.
 
-## Next tasks
-1. Prove two more natural C++ functions under 791 and against894, without changing global flags or importing game instructions.
-2. Match shared helpers and classes with verified layouts, starting with SensorHitGroup and the course-map update.
-3. Load/index the owner's RomFS for the runtime and locate World1-1 assets. Continue until M2 or a current brief stop condition.
+## Next three tasks
+1. Validate and commit source-closure checker/projection support. Enroll and accept the252-byte stage function only after all helper code disappears and canonical inputs reverify.
+2. Integrate ready effect-set methods, find a third natural compiler discriminator and continue shared-helper matching.
+3. Assemble verified World1-1 scene bindings/transforms, then continue runtime toward differential replay alongside M2 matching.
 
-## Blockers and limits
-- One compiler discriminator is insufficient for M0; do not report it complete.
-- The normal compact main build links/exports and progress.py runs. It remains a scaffold with mapped placeholders, not a runnable game.
-- Legacy progress.py counts map rows and matching words. Exact coverage is the sum of complete O function intervals, including literal pools.
-- Source remains under Game/backup/src and backup/include; configuration names these existing paths.
-- Historical attempt counts are measured lower bounds where earlier broad sweeps could not be recovered; pilot iterations must be recorded as they occur.
+## Blockers and measurement limits
+- M0 lacks its third discriminator. Both compilers match most current methods.
+- NerveExecutor/LayoutActor constructors have unresolved vtable data identities. Existing map data rows begin eight bytes before their ABI headers; no boundaries were changed to rescue them.
+- Late-inlined Byaml constructors and stage accessors have no established standalone addresses. They must come from canonical committed C++ definitions, never guessed imports.
+- Legacy progress counts all map rows and matching words. Its refreshed similarity fell to1112/3,092,336 bytes after compact relayout; exact coverage increased independently.
+- Ledger times explicitly mix canonical-check-only rows and measured shared preparation windows. Windows overlap between functions and exclude earlier inspection where unmeasured. They are not isolated person-hours.
+- Runtime still lacks actor overrides, full graphics decoding/rendering, game execution and replay. Three nested layout archives remain opaque to inspection.
+- Stop only under current BRIEF conditions. Latest accepted functions keep the six-hour/100-attempt stall condition clear.
