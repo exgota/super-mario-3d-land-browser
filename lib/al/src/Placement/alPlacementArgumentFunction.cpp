@@ -60,3 +60,13 @@ bool tryGetArg( bool* out, const PlacementInfo& info, const char* argName )
 }
 
 } // namespace al
+
+// Retail AreaObj and actor callers establish this direct-placement reader.
+// The original public name is unknown; keep its existing address identity.
+extern "C" const char dat_003A2DBC[];
+
+extern "C" bool fn_00252EC4( int* out, const al::PlacementInfo* info )
+{
+        *out = -1;
+        return al::tryGetArg( out, *info, dat_003A2DBC );
+}
