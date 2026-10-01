@@ -7889,7 +7889,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025AA34,          ,0x0025AAA4,          ,O,f,_ZN2al9LiveActor8calcAnimEv,
 0x0025AAA4,          ,0x0025AAEC,          ,U,f,,
 0x0025AAEC,          ,0x0025AB3C,          ,U,f,,
-0x0025AB3C,0x0025AB78,0x0025AB80,          ,M,f,fn_0025AB3C,
+0x0025AB3C,0x0025AB78,0x0025AB80,          ,O,f,fn_0025AB3C,
 0x0025AB80,          ,0x0025ABE8,          ,U,f,,
 0x0025ABE8,          ,0x0025AC28,          ,U,f,,
 0x0025AC28,0x0025AC64,0x0025AC6C,          ,M,f,fn_0025AC28,
