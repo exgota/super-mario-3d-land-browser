@@ -9328,7 +9328,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027DB4C,          ,0x0027DB6C,          ,U,f,,
 0x0027DB6C,          ,0x0027DB98,          ,U,f,,
 0x0027DB98,          ,0x0027DBA8,          ,O,f,_ZN2al25isMsgPlayerFireBallAttackEj,
-0x0027DBA8,          ,0x0027DBB8,          ,M,f,_ZN2al21isMsgPlayerTailAttackEj,
+0x0027DBA8,          ,0x0027DBB8,          ,O,f,_ZN2al21isMsgPlayerTailAttackEj,
 0x0027DBB8,          ,0x0027DBC8,          ,M,f,_ZN2al27isMsgPlayerBoomerangReflectEj,
 0x0027DBC8,          ,0x0027DC18,          ,U,f,,
 0x0027DC18,          ,0x0027DC28,          ,M,f,_ZN2al22isMsgPlayerStatueTouchEj,
