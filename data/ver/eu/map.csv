@@ -8057,7 +8057,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025EBB4,          ,0x0025EBF0,          ,U,f,,
 0x0025EBF0,          ,0x0025ECE0,          ,U,f,,
 0x0025ECE0,          ,0x0025ECE8,          ,O,f,_ZN2al25isPadTriggerLeftStickDownEi,
-0x0025ECE8,          ,0x0025ECF0,          ,M,f,_ZN2al23isPadTriggerLeftStickUpEi,
+0x0025ECE8,          ,0x0025ECF0,          ,O,f,_ZN2al23isPadTriggerLeftStickUpEi,
 0x0025ECF0,0x0025ED24,0x0025ED28,          ,U,f,,
 0x0025ED28,          ,0x0025ED38,          ,U,f,,
 0x0025ED38,          ,0x0025ED48,          ,U,f,,
