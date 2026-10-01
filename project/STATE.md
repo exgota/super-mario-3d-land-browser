@@ -10,31 +10,33 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
-- Normal ARMCC build compiles 42 Game and 91 al sources plus the clean SDK unit. The compact main links/exports; it remains a scaffold.
+- Normal ARMCC build compiles 42 Game and 93 al sources plus the clean SDK unit. The compact main links/exports; it remains a scaffold.
 - Accepted coverage: 391 functions from canonical project ARMCC objects with committed source/header provenance, covering 21576 / 2,756,024 complete function bytes (0.782867%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
 - Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
-- Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings, 127 materials,217 direct texture references, raw skeleton/vertex/index fields and serialized topology. No level has run.
-- Native math matches 3422 direct retail float bits in debug/O3. All145 raw texture headers/extents agree with bytes and226 bounded original consumer cases. Shape uniform transfer and command-copy gate interfaces pass 822 native words and 548 original gate cases. Shader meaning, rendering and gameplay remain unverified.
+- Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings,127 materials and217 direct texture references. No level has run.
+- Native math matches3422 direct retail float bits in debug/O3. All145 texture headers/extents agree with bytes and226 bounded original consumer cases. Shape transfer/copy interfaces pass822 native words and548 original gate cases.
+- RGB565 storage passes37824 packed words,113472 channel integers and all75648 bytes across8 images/11 supported mip levels. Independent traversal,65536 word fixtures,6 tile patterns,7 unsupported/cache cases and6 malformed cases pass. Frozen manifest: data/runtime/romfs/native_rgb565_frozen/command_result_manifest.json.
 
 ## Lanes and acceptance queue
-- Root alone owns dot intake, canonical acceptance, map, ledger, shared docs, Git and origin pushes. Other matching lanes work disjoint eligible small/medium U families; runtime continues. Maximum 8 lanes.
-- All 24 exact claims from eight dot proposals pass locally, 3700 bytes total. Latest proposals add placement144, CourseList120 and ExecuteDirector1012. Heap adds zero exact bytes. All source/header/report intake is reviewed; no dot map/rank/ledger/tool changes are imported.
-- All33 execution/helper candidates,21 actor-group candidates and eight executor follow-ons pass locally. The latest full shared-header recheck passes197/197 at14784 bytes; frozen evidence is build/executor_header_recheck_frozen.json.
-- Guarded sensor execute is rank m with810 bounded ARM11 pairs. Placement initialization agrees on76 contract-bounded pairs. Heap creation agrees on380 returning pairs and30 fault pairs. All three bounded NonMatching reports and ledger outcomes are frozen separately from exact coverage.
-- Ready queues: fresh actor-placement4/188, HitReaction11/176 and camera2/232, Scene4/56 and execution-info2/40; independent NerveStateBase data repair/ctor32; updateCollider168.
-- Fresh matching lanes: actor clipping/collider helpers; ActorInitInfo/link readers; actor pose mutations; request-queue drains; effect emission; KeyPoseKeeper helpers. Preserve their minimal patches and independently evidenced identities. Do not edit production during root's source-frozen checks.
-- Active dot branches reserve blocked.md entries, unanswered packets and U functions >=0x400 bytes. Fetch every few hours. Ten hard-function packets are committed; Pro relay is paused.
+- Root alone owns dot intake, canonical acceptance, map, ledger, shared docs, Git and origin pushes. Seven other lanes continue disjoint matching/runtime work. Maximum8 lanes.
+- All24 exact claims from eight earlier dot proposals pass locally,3700 bytes total. New dot/effect-action-update and dot/item-type-lookup proposals await root review. No dot map/rank/ledger/tool edits are imported directly.
+- Full shared-header recheck passes197/197 at14784 bytes, frozen in build/executor_header_recheck_frozen.json. Later source-only checkpoints preserve affected previous roots: Byaml12, actor/execution33, effect4 and Scene7. No later shared-header edits.
+- Latest reaction/placement/camera/Scene/Nerve38 checkpoint passes1032 bytes; stage/area/collision/effect-interface/NerveBase13 passes396 bytes. Independent NerveStateBase table ownership repair is committed separately as d5d925f.
+- Ready queue: updateCollider168; StageSwitchKeeper constructor84 with source-generated inline closure; Byaml numeric/rail3 with176 bytes; Matrix34 makeST84. Scratch proposals count only after canonical checks.
+- Matching lanes continue collision/actor helpers, ActorInitInfo/link readers, actor-group helpers, math/layout work, effects and stage switches. Runtime inspects ETC1 storage independently. Production remains frozen during canonical checks.
+- Guarded sensor execute records810 bounded ARM11 pairs, placement initialization76 and heap creation380 returning/30 fault pairs. These frozen NonMatching results add zero exact bytes.
+- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Ten hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
-1. Accept fresh actor-placement4, hit-reaction11, camera2, Scene4 and execution-info2 in a source-frozen checkpoint. Keep all other lanes matching eligible fresh functions.
-2. Accept queued Byaml/placement, effect and pose families in small source-frozen checkpoints. Keep main linking/exporting, STATE and private-origin pushes current.
-3. Continue native World1-1 resource/runtime work alongside matching. Texture identity and all145 raw payload records are committed. Inspect a bounded independently verifiable pixel-format/tiling slice next.
+1. Accept fresh source-frozen helper proposals in small checkpoints and preserve affected earlier matches. Keep the seven other lanes on eligible fresh families.
+2. Review the two new dot branches in root's intake lane. Keep main linking/exporting, STATE and hourly private-origin pushes current.
+3. Continue native World1-1 storage/runtime work. RGB565 is committed; inspect a bounded independently verifiable ETC1 slice next.
 
 ## Blockers and measurement limits
-- Independently repaired virtual-table data ownership is separate from source/rank acceptance. Compact main uses verified weak zero-filled imports for whole U tables and named BSS. These placeholders do not reconstruct game behavior.
+- Whole U tables and named BSS have independently verified weak zero-filled compact-main imports. They do not reconstruct game behavior.
 - Unmapped source helpers require provenance-checked inline closure and must disappear fully. No guessed standalone address is allowed.
-- Legacy progress last reports247 matches,7 Non-matching and15124/3,092,336 word-similarity bytes. Strict function coverage is measured independently. Run it after the next source checkpoint.
+- Legacy progress now reports391 matches,7 Non-matching and20528/3,092,336 word-similarity bytes. Strict function coverage uses complete intervals independently.
 - Ledger times include check-only rows and shared measured script windows. Related windows overlap and exclude unmeasured preparation; they are not independent person-hours. No cost tracking.
-- Runtime lacks actor overrides, complete graphics/material decoding, rendering, game execution and replay. Three nested layout archives remain opaque.
-- Stop only under current BRIEF conditions. Latest accepted functions keep the six-hour/100-attempt stall condition clear.
+- Runtime lacks actor overrides, complete texture/material decoding, rendering, game execution and replay. Three nested layout archives remain opaque. Other137 image formats retain explicit unsupported storage status.
+- Stop only under current BRIEF conditions. Latest matches keep the six-hour/100-attempt stall condition clear.

@@ -942,6 +942,23 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
     return result;
 }
 
+struct TextureStorageTexel {
+    std::uint32_t x;
+    std::uint32_t y;
+    std::size_t sourceOffset;
+    std::uint16_t packedWord;
+    std::array<std::uint8_t, 3> channels;
+};
+
+struct TextureStorageLevel {
+    std::uint32_t level;
+    std::uint32_t width;
+    std::uint32_t height;
+    std::size_t serializedOffset;
+    std::size_t byteCount;
+    std::vector<TextureStorageTexel> texels;
+};
+
 struct TextureImage {
     std::string name;
     std::size_t offset = 0;
@@ -958,7 +975,56 @@ struct TextureImage {
     std::uint32_t payloadByteCount = 0;
     std::size_t payloadOffset = 0;
     std::uint32_t cachedPointerField = 0;
+    std::string storageDecodingStatus = "image_fields_unavailable";
+    std::vector<TextureStorageLevel> storageLevels;
 };
+
+void readTextureStorage(Bytes data, TextureImage& texture) {
+    texture.storageDecodingStatus = "unsupported_image_fields";
+    if (texture.status != "resource_local_image_fields")
+        return;
+    texture.storageDecodingStatus = "unsupported_texture_format";
+    if (texture.format != 3)
+        return;
+    std::uint32_t width = texture.width;
+    std::uint32_t height = texture.height;
+    std::size_t remaining = texture.payloadByteCount;
+    std::size_t offset = texture.payloadOffset;
+    std::vector<TextureStorageLevel> levels;
+    for (std::uint32_t level = 0; level < texture.mipmapLevels; ++level) {
+        if (width < 8 || height < 8 || width % 8 || height % 8) {
+            texture.storageDecodingStatus = level ? "unsupported_mipmap_tail" : "unsupported_storage_dimensions";
+            return;
+        }
+        require(height <= remaining / 2 / width, "CGFX RGB565 mip level exceeds its image payload");
+        const std::size_t byteCount = std::size_t(width) * height * 2;
+        levels.push_back({level, width, height, offset, byteCount, {}});
+        offset += byteCount;
+        remaining -= byteCount;
+        width /= 2;
+        height /= 2;
+    }
+    require(remaining == 0, "CGFX RGB565 mip levels do not cover their image payload");
+    ByteReader input(data);
+    for (TextureStorageLevel& level : levels) {
+        level.texels.reserve(level.byteCount / 2);
+        for (std::uint32_t y = 0; y < level.height; ++y)
+            for (std::uint32_t x = 0; x < level.width; ++x) {
+                std::size_t withinTile = 0;
+                for (std::uint32_t bit = 0; bit < 3; ++bit) {
+                    withinTile |= std::size_t((x >> bit) & 1) << (2 * bit);
+                    withinTile |= std::size_t((y >> bit) & 1) << (2 * bit + 1);
+                }
+                const std::size_t tile = std::size_t(y / 8) * (level.width / 8) + x / 8;
+                const std::size_t source = level.serializedOffset + (tile * 64 + withinTile) * 2;
+                const std::uint16_t packed = std::uint16_t(input.integer(source, 2));
+                level.texels.push_back({x, y, source, packed,
+                    {std::uint8_t((packed >> 11) & 31), std::uint8_t((packed >> 5) & 63), std::uint8_t(packed & 31)}});
+            }
+    }
+    texture.storageLevels = std::move(levels);
+    texture.storageDecodingStatus = "rgb565_integer_storage";
+}
 
 TextureImage readTextureImage(Bytes data, std::size_t dataEnd, std::size_t imageStart,
                               std::uint32_t revision, const ResourceEntry& entry) {
@@ -1010,6 +1076,7 @@ TextureImage readTextureImage(Bytes data, std::size_t dataEnd, std::size_t image
         result.status = "unsupported_texture_format";
     else if (!result.mipmapLevels)
         result.status = "unsupported_mipmap_count";
+    readTextureStorage(data, result);
     return result;
 }
 
@@ -1633,8 +1700,31 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                    << ",\"payload_byte_count\":" << texture.payloadByteCount
                    << ",\"payload_offset\":" << texture.payloadOffset
                    << ",\"cached_pointer_field\":" << texture.cachedPointerField;
-        output << ",\"pixel_decoding\":\"unresolved\",\"runtime_pointer_application\":\"unresolved\","
-                  "\"platform_address_translation\":\"unresolved\"}";
+        output << ",\"storage_decoding\":";
+        writeString(output, texture.storageDecodingStatus);
+        output << ",\"storage_mipmaps\":[";
+        for (std::size_t number = 0; number < texture.storageLevels.size(); ++number) {
+            if (number)
+                output << ',';
+            const TextureStorageLevel& level = texture.storageLevels[number];
+            output << "{\"level\":" << level.level << ",\"width\":" << level.width << ",\"height\":" << level.height
+                   << ",\"serialized_offset\":" << level.serializedOffset << ",\"byte_count\":" << level.byteCount
+                   << ",\"texels\":[";
+            for (std::size_t index = 0; index < level.texels.size(); ++index) {
+                if (index)
+                    output << ',';
+                const TextureStorageTexel& texel = level.texels[index];
+                output << "{\"storage_x\":" << texel.x << ",\"storage_y\":" << texel.y
+                       << ",\"source_offset\":" << texel.sourceOffset << ",\"packed_word\":" << texel.packedWord
+                       << ",\"red_integer\":" << unsigned(texel.channels[0])
+                       << ",\"green_integer\":" << unsigned(texel.channels[1])
+                       << ",\"blue_integer\":" << unsigned(texel.channels[2]) << '}';
+            }
+            output << "]}";
+        }
+        output << "],\"pixel_decoding\":\"unresolved\",\"runtime_pointer_application\":\"unresolved\","
+                  "\"platform_address_translation\":\"unresolved\",\"color_expansion\":\"unresolved\","
+                  "\"display_orientation\":\"unresolved\",\"gpu_sampling\":\"unresolved\"}";
     }
     output << "],\"models\":[";
     for (std::size_t index = 0; index < catalog.models.size(); ++index) {
