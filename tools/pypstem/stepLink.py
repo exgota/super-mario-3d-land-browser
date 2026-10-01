@@ -40,12 +40,15 @@ def find_scaffold_data_import(record, section_index, mapped_data):
     if (row[MapFmt.Rank] != "U" or "c" not in row[MapFmt.Type]
             or symbol["st_info"]["type"] != "STT_OBJECT"
             or symbol["st_info"]["bind"] not in ("STB_GLOBAL", "STB_WEAK") or symbol["st_value"] != 0
-            or size <= 0 or symbol["st_size"] != size or section["sh_size"] != size
+            or size < 8 or size % 4
+            or section["sh_size"] < 8 or section["sh_size"] % 4
+            or symbol["st_size"] != section["sh_size"]
             or section.name != section_name):
         return None
     return {"symbol": symbol.name, "section": section_name,
             "original_start": row[MapFmt.Start], "original_end": row[MapFmt.End],
-            "size": size}
+            "size": size, "native_table_size": section["sh_size"],
+            "table_bytes_accepted": False}
 
 def write_compact_object(record, retained, output):
     """Project compiler sections for the scaffold, never for matching checks."""
