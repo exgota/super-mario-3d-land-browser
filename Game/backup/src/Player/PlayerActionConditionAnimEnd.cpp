@@ -13,9 +13,17 @@ bool PlayerActionConditionAnimEnd::check()
 {
         if ( mAnimName )
         {
-                if ( !( mUsePlayerAnimator->isAnim( mAnimName ) && !mUsePlayerAnimator->isAnimEnd() &&
-                             ( mAnimEndFrame < 0 || mUsePlayerAnimator->getAnimFrame() < mAnimEndFrame ) ) )
-                        return true;
+                if ( mUsePlayerAnimator->isAnim( mAnimName ) )
+                {
+                        if ( mUsePlayerAnimator->isAnimEnd() )
+                                return true;
+                        if ( mAnimEndFrame < 0 )
+                                return false;
+                        if ( !( mUsePlayerAnimator->getAnimFrame() < mAnimEndFrame ) )
+                                return true;
+                        return false;
+                }
+                return true;
         }
         else
         {
