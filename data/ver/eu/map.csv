@@ -8496,7 +8496,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026AB84,0x0026AC40,0x0026AC54,          ,U,f,,
 0x0026AC54,          ,0x0026AC60,          ,U,f,,
 0x0026AC60,          ,0x0026ACA0,          ,U,f,,
-0x0026ACA0,          ,0x0026ACC8,          ,M,f,_ZN2al13ActorInitInfo14initViewIdHostEPKNS_9ByamlIterERKS0_,
+0x0026ACA0,          ,0x0026ACC8,          ,O,f,_ZN2al13ActorInitInfo14initViewIdHostEPKNS_9ByamlIterERKS0_,
 0x0026ACC8,0x0026ACD4,0x0026ACDC,          ,U,f,,
 0x0026ACDC,          ,0x0026ACEC,          ,U,f,,
 0x0026ACEC,          ,0x0026AD1C,          ,U,f,,
