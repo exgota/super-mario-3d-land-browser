@@ -21,6 +21,33 @@ def map_rows(text):
             for row in csv.DictReader(io.StringIO(text))]
 
 
+
+def check_candidates(candidates, root, report, save):
+    """Undo every candidate rank change when the complete batch fails."""
+    map_path = root / 'data/ver/eu/map.csv'
+    prior_map = map_path.read_bytes()
+    try:
+        for candidate in candidates:
+            object_path = root / 'build/eu/obj' / Path(candidate['source']).with_suffix('.o')
+            started = time.monotonic()
+            result = subprocess.run([sys.executable, 'tools/check.py', candidate['symbol'], '--object', str(object_path)], capture_output=True, text=True)
+            report['candidate_checks'].append({'candidate': candidate, 'returncode': result.returncode,
+                                               'seconds': time.monotonic() - started,
+                                               'output': result.stdout, 'error': result.stderr})
+            save()
+        report['accepted'] = all(check['returncode'] == 0 for check in report['candidate_checks'])
+    except BaseException:
+        map_path.write_bytes(prior_map)
+        report['candidate_ranks_restored'] = True
+        report['accepted'] = False
+        save()
+        raise
+    if not report['accepted']:
+        map_path.write_bytes(prior_map)
+        report['candidate_ranks_restored'] = True
+    save()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('manifest', type=Path)
@@ -101,9 +128,9 @@ def main():
     for index, row in enumerate(previous):
         available = definitions[row['Symbol']]
         strong = [entry for entry in available if entry[0]]
-        selected = strong or available
-        paths = sorted({entry[1] for entry in selected})
-        if not paths or (strong and len(paths) != 1):
+        paths = sorted({entry[1] for entry in available})
+        strong_paths = {entry[1] for entry in strong}
+        if not paths or len(strong_paths) > 1:
             report['prior_checks'].append({'symbol': row['Symbol'], 'error': 'Missing or ambiguous canonical definition'})
             save()
             return 1
@@ -117,16 +144,9 @@ def main():
     if any(check.get('returncode', 1) for check in report['prior_checks']):
         print('Preservation rejected. Return the unchanged source proposal to its owner.', flush=True)
         return 1
-    # Test every new root before accepting ranks individually. Only the original
-    # project checker writes ranks; no rank is inferred from diagnostic output.
-    for candidate in candidates:
-        object_path = root / 'build/eu/obj' / Path(candidate['source']).with_suffix('.o')
-        result = subprocess.run([sys.executable, 'tools/check.py', candidate['symbol'], '--object', str(object_path)], capture_output=True, text=True)
-        report['candidate_checks'].append({'candidate': candidate, 'returncode': result.returncode,
-                                           'output': result.stdout, 'error': result.stderr})
-        save()
-    report['accepted'] = all(check['returncode'] == 0 for check in report['candidate_checks'])
-    save()
+    # Only the unchanged project checker writes O. Its candidate rank changes
+    # remain provisional until the entire batch succeeds; failure restores M.
+    check_candidates(candidates, root, report, save)
     print('Canonical candidates:', sum(check['returncode'] == 0 for check in report['candidate_checks']), '/', len(candidates), flush=True)
     return 0 if report['accepted'] else 1
 
