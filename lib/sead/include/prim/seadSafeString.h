@@ -48,17 +48,24 @@ public:
 
 typedef BufferedSafeStringBase<char> BufferedSafeString;
 
-template <s32 BufferSize>
-class FixedSafeString : public BufferedSafeString
+template <typename Character, s32 BufferSize>
+class FixedSafeStringBase : public BufferedSafeStringBase<Character>
 {
 private:
-        char mBuffer[ BufferSize ];
+        Character mBuffer[ BufferSize ];
 
 public:
-        FixedSafeString() : BufferedSafeString( mBuffer, BufferSize )
+        FixedSafeStringBase() : BufferedSafeStringBase<Character>( mBuffer, BufferSize )
         {
                 mBuffer[ 0 ] = 0;
         }
+};
+
+template <s32 BufferSize>
+class FixedSafeString : public FixedSafeStringBase<char, BufferSize>
+{
+public:
+        FixedSafeString() : FixedSafeStringBase<char, BufferSize>() {}
 };
 
 } // namespace sead
