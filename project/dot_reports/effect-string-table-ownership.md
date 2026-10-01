@@ -1,5 +1,9 @@
 # Effect string virtual-table ownership proposal
 
+> **2026-10-01 17:52 UTC qualification: symbolic table ownership is unresolved.** Do not adopt the proposed `_ZTVN4sead15FixedSafeStringILi64EEE` identity at `0x003DA280` as confirmed metadata. The permitted open-ead API-shape reference distinguishes `FixedSafeStringBase<char,N>` from `FixedSafeString<N>`, while this clean source sketch collapses them. Independent retail constructors also reference the additional 64-byte-string address point `0x003D9D0C`. A missing source-level layer is now under audit. The observed 20-byte header/slot bounds are separate evidence; they do not establish the class owner. The named repair rows below are historical proposals suspended pending that audit. No table metadata or source/header intake is claimed accepted.
+
+API-shape sources, after README provenance review: [open-ead README](https://github.com/open-ead/sead/blob/master/README.md) and [SafeString declarations](https://github.com/open-ead/sead/blob/master/include/prim/seadSafeString.h). These are hints about API structure only; no Switch implementation is used as 3DS source.
+
 Read-only followup, 2026-10-01, current main `48c97b5157698b6722a6d96330ad718f5351a854`. This supplies a concrete data-only repair proposal for the main lane. No map row, boundary, rank, tool, object, or original byte was changed. The action-update source remains unverified by the canonical checker because these imports are unresolved; this note grants no exact credit.
 
 ## Three complete 20-byte tables
