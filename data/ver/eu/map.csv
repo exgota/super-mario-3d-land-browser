@@ -4133,7 +4133,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BFB30,          ,0x001BFB98,          ,U,f,,
 0x001BFB98,          ,0x001BFBB8,          ,U,f,,
 0x001BFBB8,          ,0x001BFC10,          ,U,f,,
-0x001BFC10,          ,0x001BFC48,          ,M,f,_ZN2al12EffectKeeper23deleteAndClearEffectAllEv,
+0x001BFC10,          ,0x001BFC48,          ,O,f,_ZN2al12EffectKeeper23deleteAndClearEffectAllEv,
 0x001BFC48,          ,0x001BFC60,          ,U,f,,
 0x001BFC60,          ,0x001BFC98,          ,U,f,,
 0x001BFC98,0x001BFD6C,0x001BFD70,          ,U,f,,

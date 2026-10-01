@@ -12,7 +12,7 @@ M1 passes: all50 pilot functions have recorded outcomes and the report is commit
 - EU executable hash confirmed. The original .3ds and target bytes remain untouched.
 - Clean sead API headers and declaration-only SDK entry points enable all 37 Game and 75 lib/al sources in the normal build.
 - check.py accepts O only after isolating source-generated object bytes, linking their relocations at original map addresses and comparing complete function intervals including literal pools. Unknown addresses, wrong sizes and changed bytes are rejected.
-- Accepted coverage: 75 functions from canonical project ARMCC objects with committed source/header provenance, covering 4728 / 2,756,024 complete function bytes (0.171551%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Accepted coverage: 76 functions from canonical project ARMCC objects with committed source/header provenance, covering 4784 / 2,756,024 complete function bytes (0.173583%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup matches791 and fails 894. Final paired evidence lives under build/compiler_probe. The other leaf/lookup matches reproduce both compiler builds and do not settle M0.
 - The refreshed pilot manifest is project/pilot_functions.csv: 20 small, 20 medium and 10 large or branch-heavy functions. All selected rows were unmatched at selection time.
 
