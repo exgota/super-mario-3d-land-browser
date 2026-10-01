@@ -7,8 +7,8 @@ class EnemyStateBlowDown;
 class Fugumannen : public al::MapObjActor
 {
 private:
-        float               mRailMoveSpeed;
-        EnemyStateBlowDown* mStateBlowDown;
+        float               mRailMoveSpeed; // 0x60
+        EnemyStateBlowDown* mStateBlowDown; // 0x64
 
 public:
         void exeMove();
@@ -23,3 +23,5 @@ public:
 public:
         Fugumannen( const sead::SafeString& name );
 };
+
+static_assert( sizeof( Fugumannen ) == 0x68, "" );
