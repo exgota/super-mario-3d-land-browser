@@ -16674,7 +16674,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003769B0,          ,0x003769EC,          ,U,f,,
 0x003769EC,          ,0x00376A00,          ,U,f,,
 0x00376A00,          ,0x00376A3C,          ,U,f,,
-0x00376A3C,          ,0x00376A44,          ,M,f,_ZThn8_NK2al11LayoutActor15getEffectKeeperEv,
+0x00376A3C,          ,0x00376A44,          ,O,f,_ZThn8_NK2al11LayoutActor15getEffectKeeperEv,
 0x00376A44,          ,0x00376A4C,          ,U,f,_ZThn8_NK2al9LiveActor14getAudioKeeperEv,
 0x00376A4C,          ,0x00376A54,          ,U,f,,
 0x00376A54,          ,0x00376A9C,          ,U,f,,
