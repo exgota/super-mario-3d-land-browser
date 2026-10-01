@@ -22,3 +22,13 @@ These three unnamed U intervals reached eight ordinary C++ structural forms with
 | 0x001E98DC | fn_001E98DC | Complete192-byte scratch output differs by8 register-allocation bytes. | A grounded source/ABI hypothesis passes the canonical complete-interval gate; packet pro_requests/001E98DC.md. |
 | 0x001E9A10 | fn_001E9A10 | Complete204-byte scratch output differs by16 bytes. | A grounded source/ABI hypothesis passes the canonical complete-interval gate; packet pro_requests/001E9A10.md. |
 | 0x0023F494 | fn_0023F494 | Best164-byte source form differs by114 bytes; separate-helper form retains helper code and is inadmissible. | Independently grounded argument/codegen reconstruction removes both byte and structural failures; packet pro_requests/0023F494.md. |
+
+## New structural and identity packets
+
+Translation reaches eight structural forms. Quaternion stalls after seven distinct forms and eight physical paired runs, including an unchanged repeat. These are abandoned structural searches, not functionally verified NonMatching implementations. The effect-action packet is an unaccepted external proposal; its source/header intake awaits independent data ownership.
+
+| Address | Function | First blocker | Unblocks when |
+|---|---|---|---|
+| 0x00267254 | al::tryGetTrans(Vector3f*, const ActorInitInfo&) | Complete172-byte output differs in9 register-assignment bytes after8 structures. | New independently grounded source/codegen hypothesis; pro_requests/00267254.md. |
+| 0x00270778 | sead::Matrix34CalcCtr<float>::makeQ | Best complete204-byte ordinary output differs by131 bytes; structural search stalls after7 forms. | Grounded float scheduling/ABI hypothesis; pro_requests/00270778.md. |
+| 0x001E9B30 | fn_001E9B30 from dot/effect-action-update | Three required whole string virtual tables have no established current map starts; branch reports1244 bytes but unresolved closure and differing code. | Independent whole-table identities/boundaries, then canonical build/check; pro_requests/001E9B30.md. |

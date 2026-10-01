@@ -20,13 +20,13 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 
 ## Lanes and acceptance queue
 - Root alone owns dot intake, canonical acceptance, map, ledger, shared docs, Git and origin pushes. Seven other lanes continue disjoint matching/runtime work. Maximum8 lanes.
-- All24 exact claims from eight earlier dot proposals pass locally,3700 bytes total. New dot/effect-action-update and dot/item-type-lookup proposals await root review. No dot map/rank/ledger/tool edits are imported directly.
-- Full shared-header recheck passes197/197 at14784 bytes, frozen in build/executor_header_recheck_frozen.json. Later source-only checkpoints preserve affected previous roots: Byaml12, actor/execution33, effect4 and Scene7. No later shared-header edits.
+- All24 exact claims from eight earlier dot proposals pass locally,3700 bytes total. The additional dot/item-type-lookup passes locally,1116 bytes. Dot/effect-action-update claims no match; its report/packet are imported while source/header intake awaits whole-table identities. No dot map/rank/ledger/tool edits are imported directly.
+- Latest full shared-header recheck preserves391/391 at21576 bytes, frozen in build/stage_matrix_header_recheck_frozen.json. All19 weak Nerve::executeOnEnd definitions pass independently. Later5 canonical roots add1376 bytes.
 - Latest reaction/placement/camera/Scene/Nerve38 checkpoint passes1032 bytes; stage/area/collision/effect-interface/NerveBase13 passes396 bytes. Independent NerveStateBase table ownership repair is committed separately as d5d925f.
-- Ready queue: updateCollider168; StageSwitchKeeper constructor84 with source-generated inline closure; Byaml numeric/rail3 with176 bytes; Matrix34 makeST84. Scratch proposals count only after canonical checks.
+- Ready queue: factory3/264, EffectObj3/100, LayoutKit32, pose default getter12 and AreaShape constructors76; updateCollider168. StageSwitchKeeper84 is rejected by canonical closure and under diagnosis. Scratch proposals count only after canonical checks.
 - Matching lanes continue collision/actor helpers, ActorInitInfo/link readers, actor-group helpers, math/layout work, effects and stage switches. Runtime inspects ETC1 storage independently. Production remains frozen during canonical checks.
 - Guarded sensor execute records810 bounded ARM11 pairs, placement initialization76 and heap creation380 returning/30 fault pairs. These frozen NonMatching results add zero exact bytes.
-- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Ten hard-function packets are committed; Pro relay is paused.
+- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Thirteen hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
 1. Accept fresh source-frozen helper proposals in small checkpoints and preserve affected earlier matches. Keep the seven other lanes on eligible fresh families.

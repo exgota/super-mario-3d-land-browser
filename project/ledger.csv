@@ -413,3 +413,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T12:04:25-04:00,0x0027B650,_ZN2al11isExistRailERKNS_13ActorInitInfoE,matched,2,0.3347
 2026-10-01T12:04:25-04:00,0x0027D238,_ZN2al10tryGetArg0EPfRKNS_13ActorInitInfoE,matched,2,0.3347
 2026-10-01T12:04:26-04:00,0x00250DC4,_ZN2al9tryGetArgEPfRKNS_9ByamlIterEPKc,matched,9,16.5980
+2026-10-01T12:08:00-04:00,0x00267254,_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_13ActorInitInfoE,abandoned,8,15.8729
