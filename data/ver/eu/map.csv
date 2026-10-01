@@ -9376,7 +9376,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027E9DC,          ,0x0027E9EC,          ,U,f,_ZN2al8getScaleEPKNS_9LiveActorE,
 0x0027E9EC,          ,0x0027EA1C,          ,U,f,,
 0x0027EA1C,          ,0x0027EA40,          ,U,f,,
-0x0027EA40,          ,0x0027EBAC,          ,M,f,_ZN2al9LiveActor17makeActorAppearedEv,
+0x0027EA40,          ,0x0027EBAC,          ,O,f,_ZN2al9LiveActor17makeActorAppearedEv,
 0x0027EBAC,          ,0x0027EBF0,          ,U,f,,
 0x0027EBF0,          ,0x0027EBFC,          ,O,f,_ZN2al9LiveActor4killEv,
 0x0027EBFC,          ,0x0027EC44,          ,U,f,,

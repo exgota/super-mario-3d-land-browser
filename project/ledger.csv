@@ -158,3 +158,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:43-04:00,0x001EBC58,_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_,matched,3,0.0049
 2026-10-01T09:44:43-04:00,0x001EBC60,_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_,matched,3,0.0049
 2026-10-01T09:44:44-04:00,0x002797F4,_ZN2al9LiveActor10endClippedEv,matched,6,0.0546
+2026-10-01T09:44:45-04:00,0x0027EA40,_ZN2al9LiveActor17makeActorAppearedEv,matched,5,0.0335
