@@ -7468,7 +7468,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024FD4C,          ,0x0024FDB8,          ,U,f,,
 0x0024FDB8,0x0024FE54,0x0024FE58,          ,U,f,,
 0x0024FE58,          ,0x0024FE70,          ,U,f,,
-0x0024FE70,          ,0x0024FE98,          ,U,f,_ZNK2al9ByamlIter15isTypeContainerEv,
+0x0024FE70,          ,0x0024FE98,          ,O,f,_ZNK2al9ByamlIter15isTypeContainerEv,
 0x0024FE98,          ,0x0024FEB0,          ,U,f,,
 0x0024FEB0,          ,0x0024FEB8,          ,U,f,,
 0x0024FEB8,          ,0x0024FEC8,          ,U,f,,
