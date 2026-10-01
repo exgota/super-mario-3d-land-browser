@@ -528,3 +528,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:01:58-04:00,0x0035308C,_ZNK13NrvRailDotEnd17RailDotEndNrvWait7executeEPN2al11NerveKeeperE,matched,2,0.0274
 2026-10-01T14:01:58-04:00,0x0025AA18,_ZN2al3Sky8calcAnimEv,matched,2,0.0179
 2026-10-01T14:01:59-04:00,0x0027E828,_ZN2al10WipeSimple6appearEv,matched,2,0.0273
+2026-10-01T14:01:59-04:00,0x0035A064,_ZNK2al13NrvBreakModel17BreakModelNrvWait7executeEPNS_11NerveKeeperE,matched,2,0.0273
