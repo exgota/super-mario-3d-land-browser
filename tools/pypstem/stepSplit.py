@@ -25,16 +25,20 @@ def write_depend():
 
     # write depends.s
     in_depend = getBuildDependFile().with_suffix(".s")
-    with open(in_depend, "w") as f:
-        for func in func_list:
-            f.write(f"    IMPORT {func}\n")
-        if "__ctr_start" not in func_list: # pull the entry point in even before crt0 is decompiled
-            f.write("    IMPORT __ctr_start\n")
-        f.write("\n    PRESERVE8\n    END\n")
+    content = "".join(f"    IMPORT {func}\n" for func in func_list)
+    if "__ctr_start" not in func_list: # pull the entry point in even before crt0 is decompiled
+        content += "    IMPORT __ctr_start\n"
+    content += "\n    PRESERVE8\n    END\n"
+    changed = not in_depend.exists() or in_depend.read_text() != content
+    if changed:
+        in_depend.write_text(content)
 
-    # compile depends.o
-    asm_flags = flags_asm + ["-o", str(getBuildDependFile()), str(in_depend)]
-    do_assemble(asm_flags)
+    # Recompile and relink when the enrolled root set changes.
+    if changed or not getBuildDependFile().exists():
+        asm_flags = flags_asm + ["-o", str(getBuildDependFile()), str(in_depend)]
+        do_assemble(asm_flags)
+        return True
+    return False
 
 def find_scaffold_aliases(prefix):
     aliases = {}
@@ -105,14 +109,16 @@ def write_stubs():
             else:
                 f.write(f"STUB({func});\n")
         content = f.getvalue()
-    if not getStubsFile().exists() or getStubsFile().read_text() != content:
+    changed = not getStubsFile().exists() or getStubsFile().read_text() != content
+    if changed:
         getStubsFile().write_text(content)
+    return changed
 
 def exec_split(clear=False):
     if not cfg.split:
-        write_stubs()
-        write_depend()
-        return False
+        changed_stubs = write_stubs()
+        changed_depend = write_depend()
+        return changed_stubs or changed_depend
 
     if not clear and getSplitLibFile().exists() and (getSplitAsmDir().exists() and cfg.keep_objects):# and not isSymMapDiff():
         echo ("Split up to date")

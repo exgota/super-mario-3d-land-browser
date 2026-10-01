@@ -76,11 +76,12 @@ def main():
     is_new = args.force_link or is_new_split or is_new_build
 
     # link binary
-    if is_new or not getElfFile().exists():
+    needs_link = is_new or not getElfFile().exists()
+    if needs_link:
         pypstem.exec_link()
 
-    # export code.bin
-    if is_new or not getExportFile().exists():
+    # Export the newly linked image, including recovery from a missing ELF.
+    if needs_link or not getExportFile().exists():
         pypstem.exec_export_bin()
 
 if __name__ == "__main__":
