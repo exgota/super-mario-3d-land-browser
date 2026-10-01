@@ -5402,7 +5402,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EA730,          ,0x001EA738,          ,U,f,,
 0x001EA738,          ,0x001EA7A0,          ,U,f,,
 0x001EA7A0,          ,0x001EA7B0,          ,U,f,,
-0x001EA7B0,          ,0x001EA7EC,          ,M,f,_ZN2al7KeyPose4initERKNS_9ByamlIterE,
+0x001EA7B0,          ,0x001EA7EC,          ,O,f,_ZN2al7KeyPose4initERKNS_9ByamlIterE,
 0x001EA7EC,0x001EA834,0x001EA840,          ,O,f,_ZN2al7KeyPoseC1Ev,
 0x001EA840,0x001EA898,0x001EA8A0,          ,U,f,,
 0x001EA8A0,0x001EAA30,0x001EAA34,          ,U,f,,
