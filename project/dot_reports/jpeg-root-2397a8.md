@@ -1,0 +1,7 @@
+# JPEG decoder root at 0x002397A8
+
+Reservation from main `57f902421f6874f132d5ea971d1aa5b224c5a528`, branch `dot/jpeg-root-2397a8`. The unchanged U function interval is 0x002397A8..0x0023A854, with pool at 0x0023A834 (4,268 bytes total). The owner binary SHA-256 is e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64.
+
+This is a JPEG decoder marker/scan driver, independent of the actor BYAML roots. Its sole input is r0, a decoder context; all five direct callers ignore its return register and inspect the error byte at context+0x44. The real callers are 0x001FBC94 (BL at 0x001FBD10), 0x001FBD54 (+0xF0), 0x00218BAC (+0x68), 0x00218DAC (+0x68), and 0x0021DF28 (+0x74). They pass a context loaded from their wrapper's first word after initialization at 0x0023A854. The root consumes SOI, APP1/APP2, SOF0/SOF1, DHT, SOS, DQT and DRI markers. Named assembly decoder helpers at 0x00233598, 0x002335E8, 0x0023361C and 0x00233A7C independently establish the context family. This report assigns no original SDK function name.
+
+Configured source module is lib/CtrSDK, ARMCC 4.0/902, rather than the Game/Actor 4.1/791 module. The reconstruction will use ordinary guarded C++ and existing binary-backed imports. No upstream SDK code, assembly or copied instruction bytes are used. No source has been compiled or checked at this initial reservation; exact credit is zero. Full control-flow and context/data ownership recovery is in progress.
