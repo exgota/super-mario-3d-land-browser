@@ -67,3 +67,15 @@ These nine searches are abandoned scratch proposals, with zero exact bytes and n
 | 0x00252054 | _ZN26PlayerActionMultiConditionC1Ev | Both44-byte ordinary initialization forms differ by8 store-order bytes. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/00252054.md. |
 
 | 0x0021EF6C | _ZN4sead8ListImpl5clearEv | Guarded canonical 56-byte body differs in seven register bytes; 306 bounded states/612 whole-function pairs agree. | A new grounded source hypothesis reproduces all bytes; see pro_requests/0021EF6C.md. |
+
+## Identifier, audio and factory structural stalls
+
+No functional NonMatching claim or production source intake follows from these scratch searches. Dot owns the parked roots and unanswered packets.
+
+| Address | Function | First blocker | Unblocks when |
+|---|---|---|---|
+| 0x001CD794 | fn_001CD794 | Seven valid structures plus one failed compile consume eight steps; 80-byte best differs five bytes. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
+| 0x00218B18 | fn_00218B18 | Companion 80-byte identifier predicate differs five bytes after the same capped shared search. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
+| 0x00252EC4 | fn_00252EC4 | Direct identifier reader has 92 generated versus 96 target bytes and 37 differences. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
+| 0x0024AD94 | fn_0024AD94 | Two ordinary 32-byte source forms stall at two zero-register differences; return ABI remains unresolved. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/0024AD94.md. |
+| 0x00268EB0 | _ZNK2al12ActorFactory10getCreatorEPKc | Six source structures stall at nine setup-register bytes in 264; helper closure grows to 280. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/00268EB0.md. |
