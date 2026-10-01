@@ -671,3 +671,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T16:56:26-04:00,0x0024EC80,fn_0024EC80,abandoned,4,2.7615
 2026-10-01T16:56:26-04:00,0x00171334,fn_00171334,abandoned,4,2.7838
 2026-10-01T16:56:26-04:00,0x001E37D8,_ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi,abandoned,4,6.7983
+2026-10-01T17:20:27-04:00,0x001BB810,_ZN2al10BreakModel6appearEv,matched,2,0.0202

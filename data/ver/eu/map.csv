@@ -3995,7 +3995,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BB694,          ,0x001BB780,          ,U,f,,
 0x001BB780,          ,0x001BB7AC,          ,U,f,,
 0x001BB7AC,0x001BB808,0x001BB810,          ,U,f,_ZN2al10BreakModel4initERKNS_13ActorInitInfoE,
-0x001BB810,0x001BB85C,0x001BB860,          ,M,f,_ZN2al10BreakModel6appearEv,
+0x001BB810,0x001BB85C,0x001BB860,          ,O,f,_ZN2al10BreakModel6appearEv,
 0x001BB860,0x001BB8E4,0x001BB8F0,          ,U,f,,
 0x001BB8F0,          ,0x001BB904,          ,U,f,,
 0x001BB904,          ,0x001BB928,          ,U,f,,
