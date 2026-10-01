@@ -16,6 +16,7 @@ if not any(argument == "--object" or argument.startswith("--object=") for argume
     from tools.low.readElfMap import *
     from tools.low.callAsmdiff import *
 from tools.low.checkExactBytes import check_exact_bytes
+from tools.low.buildProvenance import verify_build_output
 from tools.pypstem._utils import getFileBuildPath
 
 is_skip_mode = False
@@ -69,7 +70,12 @@ def exact_rank(symbol, decomp_symbol):
                     candidates.append(object_path)
     if len(candidates) != 1:
         return 'm'
-    result = check_exact_bytes(symbol[MapFmt.Symbol], candidates[0], getVersion(), cfg.compiler)
+    try:
+        provenance = verify_build_output(candidates[0])
+    except (ValueError, OSError, KeyError) as error:
+        echo(f"Object provenance rejected: {error}")
+        return 'm'
+    result = check_exact_bytes(symbol[MapFmt.Symbol], candidates[0], getVersion(), provenance["compiler"])
     if result["exact"]:
         return 'O'
     return 'm'
@@ -262,7 +268,12 @@ def check_object(symbol_name, object_path):
     if len(symbols) != 1 or "f" not in symbols[0][MapFmt.Type]:
         raise ValueError("The object check requires one established function symbol.")
     symbol = symbols[0]
-    result = check_exact_bytes(symbol_name, object_path.resolve(), getVersion(), cfg.compiler)
+    try:
+        provenance = verify_build_output(object_path)
+    except (ValueError, OSError, KeyError) as error:
+        echo(f"Object provenance rejected: {error}")
+        return False
+    result = check_exact_bytes(symbol_name, object_path.resolve(), getVersion(), provenance["compiler"])
     previous_rank = symbol[MapFmt.Rank]
     if result["exact"]:
         rank = "O"

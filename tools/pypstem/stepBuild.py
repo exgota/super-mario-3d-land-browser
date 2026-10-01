@@ -8,6 +8,7 @@ from tools.low.glob import *
 from tools.pypstem.manSetup import *
 from tools.pypstem.callProcess import *
 from tools.pypstem._utils import *
+from tools.low.buildProvenance import provenance_path, snapshot_build_inputs, record_build_output
 
 # __init__.py: main build routine
 
@@ -15,19 +16,6 @@ flags_asm = []
 flags_cxx = []
 
 # todo: add check to enforce specific formats for specific configs (cfg.py)
-
-def postProcSrc(file, file_src):
-    sect_formats = [f"||.{x}||" for x in ["constdata", "data", "conststring", "bss"]]
-
-    # read in whole
-    text = file.read_text()
-
-    for s in sect_formats:
-        text = text.replace(s, s[:-2] + "." + file_src.name + "||").replace("        THUMB", "        ARM")
-
-    file.write_text(text)
-
-    return True
 
 def buildFile(file_in, file_out):
     if not file_in.exists():
@@ -39,18 +27,14 @@ def buildFile(file_in, file_out):
     file_out.parent.mkdir(parents=True, exist_ok=True)
 
     if "c" in file_in.suffix:
-        file_tmp = file_out.with_suffix(".s")
-        flags = flags_cxx + ["-S", "-c", f'-D__BASE_FILE_NAME__=\"{file_in.name}\"', "-o", file_tmp, "--depend", file_out.with_suffix(".d"), file_in]
-
+        before = snapshot_build_inputs(file_in)
+        flags = flags_cxx + ["-c", f'-D__BASE_FILE_NAME__=\"{file_in.name}\"', "-o", file_out, "--depend", file_out.with_suffix(".d"), file_in]
         do_compile(flags)
-
-        if not postProcSrc(file_tmp, file_in):
-            return False
-
-        file_in = file_tmp # ONLY AFTER FLAGS!
-
-    flags = flags_asm + ["-o", file_out, file_in]
-    do_assemble(flags)
+        record_build_output(file_in, file_out, flags, before)
+    else:
+        provenance_path(file_out).unlink(missing_ok=True)
+        flags = flags_asm + ["-o", file_out, file_in]
+        do_assemble(flags)
 
     return True
 
@@ -284,6 +268,8 @@ def exec_build():
             elif not out_path.exists(): # output not exist
                 do_update = True
             elif not dep_path.exists(): # dependency doesnt exist
+                do_update = True
+            elif file.suffix in (".cpp", ".cc", ".cxx") and not provenance_path(out_path).exists():
                 do_update = True
             elif areDependsNew(dep_path): # timestamp mismatch
                 do_update = True

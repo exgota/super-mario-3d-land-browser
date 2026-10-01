@@ -12,14 +12,14 @@ M0: settle the game compiler. One of three required discriminating functions is 
 - EU executable hash confirmed. The original .3ds and target bytes remain untouched.
 - Clean sead API headers and declaration-only SDK entry points enable all 37 Game and 75 lib/al sources in the normal build.
 - check.py accepts O only after isolating source-generated object bytes, linking their relocations at original map addresses and comparing complete function intervals including literal pools. Unknown addresses, wrong sizes and changed bytes are rejected.
-- Exact mapped coverage: 52 functions, 2892 / 2,756,024 function bytes, including literal pools. Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Previously checked coverage: 52 functions, 2892 / 2,756,024 function bytes, including literal pools. This must be revalidated through the new project-build provenance gate before reporting current accepted coverage. Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup matches791 and fails 894. Final paired evidence lives under build/compiler_probe. The other leaf/lookup matches reproduce both compiler builds and do not settle M0.
 - The refreshed pilot manifest is project/pilot_functions.csv: 20 small, 20 medium and 10 large or branch-heavy functions. All selected rows were unmatched at selection time.
 
 ## In flight
-- Wanwan initialization at 0x0030D024, compiler_candidates agent. Its two compiler builds differ naturally; strict matching remains in progress.
-- FireBar constructor at 0x00310588, sead_headers agent. The previous parameter-controller probe compiled identically under both builds.
-- Root runs the fixed pilot sample. Initial strict checks completed: 50 / 50. Both other lanes continue M0.
+- Wanwan source-only reconstruction at 0x0030D024 is ready for root integration. Its two compiler builds differ naturally but neither passes the target check.
+- Compact main-link repair, sead_headers agent. The FireBar, controller and thread-shutdown probes compile identically under both builds.
+- Root enforces new hard rule 5: only committed C++ compiled directly by the project build can establish O. Revalidate all 52 existing O rows after rebuilding with provenance. Pilot initial checks cover 50 / 50 functions.
 
 ## Next tasks
 1. Prove two more natural C++ functions under 791 and against894, without changing global flags or importing game instructions.
@@ -28,6 +28,6 @@ M0: settle the game compiler. One of three required discriminating functions is 
 
 ## Blockers and limits
 - One compiler discriminator is insufficient for M0; do not report it complete.
-- The compact main build is a stub scaffold. Exact per-function links do not make a runnable port.
+- The compact main link currently fails on retained M-function dependencies. A lane is repairing retention and verified address aliases. Exact per-function links do not make a runnable port.
 - Source remains under Game/backup/src and backup/include; configuration names these existing paths.
 - Historical attempt counts are measured lower bounds where earlier broad sweeps could not be recovered; pilot iterations must be recorded as they occur.
