@@ -2921,7 +2921,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00189160,          ,0x00189164,          ,U,f,_ZN2rp14getPlayerActorEv,
 0x00189164,          ,0x00189174,          ,U,f,,
 0x00189174,          ,0x00189184,          ,U,f,,
-0x00189184,          ,0x00189198,          ,M,f,_ZN2al16initLiveActorKitEPNS_12LiveActorKitE,
+0x00189184,          ,0x00189198,          ,O,f,_ZN2al16initLiveActorKitEPNS_12LiveActorKitE,
 0x00189198,          ,0x001891A8,          ,U,f,,
 0x001891A8,          ,0x001891C0,          ,U,f,_ZN2al5Scene18initSceneObjHolderEv,
 0x001891C0,          ,0x001891D4,          ,U,f,,
