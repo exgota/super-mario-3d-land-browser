@@ -8,7 +8,7 @@ def main():
     parser = argparse.ArgumentParser(description="Build RE:Pepper")
     parser.add_argument("version", nargs="?", default=None, help="Version to use")
     parser.add_argument("--warn", '-w', action='store_true', help="Omit many warnings (nintendo standard)")
-    parser.add_argument("--split", '-s', action='store_true', help="Enable splitting process (slow)")
+    parser.add_argument("--split", '-s', action='store_true', help="Link an isolated EU source-and-placeholder full-image diagnostic")
     parser.add_argument("--vfe", '-vf', action='store_true', help="Enable VFE for building")
     parser.add_argument("--debug", '-d', action='store_true', help="Build with debug info")
     parser.add_argument("--delete", '-k', action='store_true', help="Delete temporary built files")
@@ -19,6 +19,13 @@ def main():
     parser.add_argument("--force_link", '-fl', action='store_true', help="Force linking anyways")
     parser.add_argument("--silent", '-q', action='store_true', help="Silent mode (not added yet)")
     args = parser.parse_args()
+    if args.split:
+        compact_options = ("warn", "vfe", "debug", "delete", "clean", "clear_all",
+                           "clear_build", "clear_split", "force_link", "silent")
+        if args.version != "eu" or any(getattr(args, name) for name in compact_options):
+            parser.error("--split requires explicit eu and no compact-build options")
+        from tools.full_image_diagnostic import main as run_full_image_diagnostic
+        return run_full_image_diagnostic([])
     sys.argv = [sys.argv[0]] # clear args
 
     # TODO: remove this hack, upstrem should contain matches.
@@ -29,10 +36,7 @@ def main():
         args.clear_build = True
         args.clear_split = True
 
-    if args.split:
-        cfg.split = True
-    else:
-        cfg.flags_link.append("--tailreorder")
+    cfg.flags_link.append("--tailreorder")
     if args.delete:
         cfg.keep_objects = True
     if args.debug:
@@ -85,4 +89,4 @@ def main():
         pypstem.exec_export_bin()
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
