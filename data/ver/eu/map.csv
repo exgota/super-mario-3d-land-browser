@@ -3014,7 +3014,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0018BA34,          ,0x0018BA84,          ,O,f,_ZN18alSubActorFunction12trySyncAliveEPN2al14SubActorKeeperE,
 0x0018BA84,          ,0x0018BAE8,          ,O,f,_ZN18alSubActorFunction11tryCalcAnimEPN2al14SubActorKeeperE,
 0x0018BAE8,          ,0x0018BB4C,          ,U,f,fn_0018BAE8,
-0x0018BB4C,          ,0x0018BBC4,          ,M,f,_ZN18alSubActorFunction18trySyncClippingEndEPN2al14SubActorKeeperE,
+0x0018BB4C,          ,0x0018BBC4,          ,O,f,_ZN18alSubActorFunction18trySyncClippingEndEPN2al14SubActorKeeperE,
 0x0018BBC4,          ,0x0018BC3C,          ,M,f,_ZN18alSubActorFunction20trySyncClippingStartEPN2al14SubActorKeeperE,
 0x0018BC3C,          ,0x0018BC44,          ,U,f,,
 0x0018BC44,          ,0x0018BC70,          ,U,f,,
