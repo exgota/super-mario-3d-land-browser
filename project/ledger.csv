@@ -619,3 +619,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:45:11-04:00,0x002677F4,_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc,matched,5,0.0578
 2026-10-01T15:45:12-04:00,0x00276884,_ZN19PlayerActorInitInfoC1Ev,matched,2,0.0143
 2026-10-01T15:45:12-04:00,0x0027EE64,_ZN2al30initCreateActorNoPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE,matched,2,0.0181
+2026-10-01T15:45:12-04:00,0x0027F0BC,_ZN2al10BreakModelC1EPNS_9LiveActorEPKcS4_PKN4sead8Matrix34IfEES4_,matched,2,0.0173
