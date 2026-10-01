@@ -78,12 +78,23 @@ int calcLinkChildNum( const ActorInitInfo& info )
 
 #ifdef NON_MATCHING
 
-// 4 bytes less on stack ?
+// Capped packet baseline, reconstructed from the independently named wrapper.
 bool tryGetTrans( sead::Vector3f* out, const ActorInitInfo& info )
 {
-        if ( tryGetTrans( out, getPlacementInfo( info ) ) )
-                return true;
-        return false;
+        const PlacementInfo& placement = getPlacementInfo( info );
+        sead::Vector3f trans;
+        bool valid = placement.isValid();
+        bool complete = false;
+        if ( valid )
+                complete = placement.tryGetFloatByKey( &trans.x, dat_003A2DE4 ) &&
+                           placement.tryGetFloatByKey( &trans.y, dat_003A2DEC ) &&
+                           placement.tryGetFloatByKey( &trans.z, dat_003A2DF4 );
+        if ( !complete )
+                return complete;
+        out->x = trans.x;
+        out->y = trans.y;
+        out->z = trans.z;
+        return true;
 }
 #endif
 
