@@ -4419,7 +4419,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CC810,          ,0x001CC820,          ,U,f,,
 0x001CC820,0x001CC8D8,0x001CC8EC,          ,U,f,,
 0x001CC8EC,          ,0x001CC93C,          ,U,f,,
-0x001CC93C,          ,0x001CC960,          ,M,f,_ZN2al23registerExecutorFunctorEPKcRKNS_11FunctorBaseE,
+0x001CC93C,          ,0x001CC960,          ,O,f,_ZN2al23registerExecutorFunctorEPKcRKNS_11FunctorBaseE,
 0x001CC960,          ,0x001CC9B0,          ,O,f,_ZN2al15ExecuteDirector15registerFunctorERKNS_11FunctorBaseEPKc,
 0x001CC9B0,          ,0x001CC9D4,          ,M,f,_ZN2al27registerExecutorFunctorDrawEPKcRKNS_11FunctorBaseE,
 0x001CC9D4,          ,0x001CCA1C,          ,O,f,_ZN2al15ExecuteDirector19registerFunctorDrawERKNS_11FunctorBaseEPKc,
