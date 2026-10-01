@@ -8430,7 +8430,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00268DAC,0x00268DC4,0x00268DC8,          ,U,f,,
 0x00268DC8,          ,0x00268DF8,          ,U,f,,
 0x00268DF8,          ,0x00268E3C,          ,U,f,,
-0x00268E3C,0x00268E5C,0x00268E60,          ,M,f,_ZN2al13NerveExecutorD1Ev,
+0x00268E3C,0x00268E5C,0x00268E60,          ,O,f,_ZN2al13NerveExecutorD1Ev,
 0x00268E60,          ,0x00268E64,          ,U,f,,
 0x00268E64,          ,0x00268E78,          ,U,f,,
 0x00268E78,          ,0x00268E80,          ,U,f,,
