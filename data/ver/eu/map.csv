@@ -16694,7 +16694,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00376B60,          ,0x00376B68,          ,U,f,,
 0x00376B68,0x00376BB8,0x00376BBC,          ,U,f,,
 0x00376BBC,          ,0x00376BC4,          ,U,f,,
-0x00376BC4,          ,0x00376BE8,          ,M,f,_ZThn96_N11CoinRotater26initAfterPlacementSceneObjERKN2al13ActorInitInfoE,
+0x00376BC4,          ,0x00376BE8,          ,O,f,_ZThn96_N11CoinRotater26initAfterPlacementSceneObjERKN2al13ActorInitInfoE,
 0x00376BE8,          ,0x00376BF4,          ,U,f,,
 0x00376BF4,          ,0x00376BFC,          ,U,f,,
 0x00376BFC,0x00376C08,0x00376C0C,          ,U,f,,
