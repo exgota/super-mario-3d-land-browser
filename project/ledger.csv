@@ -194,3 +194,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:25:07-04:00,0x001CCEAC,_ZN2al15HitSensorKeeper8validateEv,matched,2,0.0686
 2026-10-01T10:25:07-04:00,0x0024AE08,_ZN2al15HitSensorKeeper18invalidateBySystemEv,matched,2,0.0684
 2026-10-01T10:25:07-04:00,0x0024B900,_ZN2al15HitSensorKeeper16validateBySystemEv,matched,2,0.0684
+2026-10-01T10:25:08-04:00,0x0024EDF4,_ZNK2al15HitSensorKeeper9getSensorEPKc,matched,2,0.0685
