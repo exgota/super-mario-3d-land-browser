@@ -7808,7 +7808,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00257F74,          ,0x00257F88,          ,U,f,,
 0x00257F88,0x00257FDC,0x00257FE4,          ,U,f,,
 0x00257FE4,          ,0x00257FF8,          ,O,f,_ZN2al20getSceneResourceHeapEv,
-0x00257FF8,0x00258010,0x00258024,          ,M,f,_ZN2al24makeStageDataArchivePathEPN4sead22BufferedSafeStringBaseIcEEPKciS5_,
+0x00257FF8,0x00258010,0x00258024,          ,O,f,_ZN2al24makeStageDataArchivePathEPN4sead22BufferedSafeStringBaseIcEEPKciS5_,
 0x00258024,          ,0x00258048,          ,U,f,,
 0x00258048,          ,0x00258064,          ,U,f,,
 0x00258064,          ,0x002580EC,          ,U,f,,
