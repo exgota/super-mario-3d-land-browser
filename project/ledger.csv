@@ -376,3 +376,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:32:47-04:00,0x00260A84,_ZN2al6Camera4loadEPKNS_9ByamlIterE,matched,2,0.0128
 2026-10-01T11:32:48-04:00,0x0012A6AC,_ZN2al6Camera2v7Ev,matched,2,0.0122
 2026-10-01T11:32:48-04:00,0x0012A6B0,_ZN2al6Camera2v2Ev,matched,2,0.0124
+2026-10-01T11:32:48-04:00,0x0012A6B4,_ZN2al6Camera2v4Ev,matched,2,0.0127
