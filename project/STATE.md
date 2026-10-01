@@ -14,7 +14,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - Accepted coverage: 197 functions from canonical project ARMCC objects with committed source/header provenance, covering 14784 / 2,756,024 complete function bytes (0.536425%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
 - Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
-- Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings, 127 materials, raw skeleton/vertex/index fields and serialized topology. No level has run.
+- Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings, 127 materials,217 direct texture references, raw skeleton/vertex/index fields and serialized topology. No level has run.
 - Native math matches 3422 direct retail float bits in debug/O3. Shape uniform transfer and command-copy gate interfaces pass 822 native words and 548 original gate cases. Shader meaning, rendering and gameplay remain unverified.
 
 ## Lanes and acceptance queue
@@ -29,7 +29,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 ## Next three tasks
 1. Accept the pose45 family from one minimal source checkpoint. Recheck affected previously accepted roots; keep other lanes matching fresh eligible small/medium functions.
 2. Accept queued Byaml/placement, effect and pose families in small source-frozen checkpoints. Keep main linking/exporting, STATE and private-origin pushes current.
-3. Continue native World1-1 resource/runtime work alongside matching. Review the frozen resource-local texture identity checkpoint, then continue bounded payload/header decoding.
+3. Continue native World1-1 resource/runtime work alongside matching. Texture identity is committed. Continue bounded texture payload/header decoding with explicit unsupported layouts.
 
 ## Blockers and measurement limits
 - Independently repaired virtual-table data ownership is separate from source/rank acceptance. Compact main uses verified weak zero-filled imports for whole U tables and named BSS. These placeholders do not reconstruct game behavior.

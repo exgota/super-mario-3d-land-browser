@@ -433,3 +433,9 @@ Heap creation agrees on380 returning pairs and30 separate fault-agreement pairs 
 Both ledger rows include eight dot structural attempts plus one root canonical check. Minutes measure only the final validation windows,1.208631 seconds for placement and2.239063 seconds for heap; external preparation and untimed root work are excluded. These are guarded NonMatching outcomes and add zero exact bytes. Neither result proves gameplay or replay.
 
 The executor shared-header checkpoint passes all197 accepted roots again from canonical committed-source objects,14784 complete bytes. The frozen result is build/executor_header_recheck_frozen.json. Rechecks add no duplicate ledger matches.
+
+## 2026-10-01: Preserve resource-local texture identity
+
+The isolated native reader now retains three material mapper/reference slots, encoded names, raw cache fields and resource-local direct target identities. Independent resource-byte reads and unchanged original resolver execution agree for217 direct references and164 absent slots across127 materials. Four original missing/alias fixtures and eleven native identity/status/cache fixtures preserve explicit unresolved states. The reader reports raw cache values without applying them or guessing alias recursion. Texture images, sampler state, shader/material interpretation and rendering remain unresolved.
+
+Root reviewed the bounded offset/pointer checks, deferred model traversal and explicit unsupported statuses, then verified every frozen manifest input/report/executable/dump hash, including the keyed executable paths. Fifty-one malformed-input cases reject; prior scene/geometry,822 draw words,548 original gate cases and3422 direct-bit math comparisons pass. Original/working dump, executable and selected asset hashes remain unchanged. Evidence is data/runtime/romfs/native_texture_identity_frozen/command_result_manifest.json and project/native_mesh_evidence.md. No Game/al source or matching flags change.

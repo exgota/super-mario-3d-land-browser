@@ -588,10 +588,27 @@ struct ModelSkeleton {
     std::vector<ModelJoint> joints;
 };
 
+struct MaterialTextureReference {
+    std::string status;
+    std::int32_t mapperRelativePointerField = 0;
+    std::size_t mapperOffset = 0;
+    std::uint32_t mapperFlags = 0;
+    std::size_t referenceOffset = 0;
+    std::uint32_t referenceFlags = 0;
+    bool referenceNamePresent = false;
+    std::string referenceName;
+    std::string targetName;
+    std::int32_t cachedRelativePointerField = 0;
+    std::size_t targetOffset = 0;
+    std::uint32_t targetFlags = 0;
+};
+
 struct ModelMaterial {
     std::string name;
     std::size_t offset;
     std::uint32_t flags;
+    std::string textureReferenceLayout;
+    std::array<MaterialTextureReference, 3> textureReferences;
 };
 
 struct ModelMesh {
@@ -900,7 +917,7 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
             require(!name.empty() && input.terminatedText(materialName, dataEnd - materialName) == name &&
                     names.insert(name).second && offsets.insert(material).second,
                     "Invalid or duplicate CGFX material name or record");
-            result.materials.push_back({name, material, input.integer(material)});
+            result.materials.push_back({name, material, input.integer(material), {}, {}});
         }
     } else {
         require(input.integer(entry.offset + 0xC0) == 0, "Empty CGFX material dictionary has a nonnull pointer");
@@ -930,6 +947,81 @@ struct ModelCatalog {
     std::vector<ResourceCategory> categories;
     std::vector<ModelGeometry> models;
 };
+
+void readMaterialTextureReferences(Bytes data, std::size_t dataEnd, ModelCatalog& catalog) {
+    ByteReader input(data);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "CGFX texture-reference metadata escapes DATA");
+    };
+    auto encodedName = [&](std::size_t field) {
+        const std::size_t offset = input.relative(field);
+        metadata(offset, 1);
+        return input.terminatedText(offset, dataEnd - offset);
+    };
+    std::map<std::string, std::size_t> textures;
+    for (const ResourceCategory& category : catalog.categories)
+        if (category.index == 1)
+            for (const ResourceEntry& entry : category.entries)
+                textures.emplace(entry.name, entry.offset);
+    for (ModelGeometry& model : catalog.models)
+        for (ModelMaterial& material : model.materials) {
+            material.textureReferenceLayout = "unsupported_material_layout";
+            if (material.flags != 0x08000000)
+                continue;
+            metadata(material.offset, 0x280);
+            material.textureReferenceLayout = "observed_three_slot_layout";
+            for (std::size_t slot = 0; slot < material.textureReferences.size(); ++slot) {
+                MaterialTextureReference& record = material.textureReferences[slot];
+                const std::size_t field = material.offset + 0x274 + slot * 4;
+                record.mapperRelativePointerField = std::bit_cast<std::int32_t>(input.integer(field));
+                record.status = "absent_mapper";
+                if (!record.mapperRelativePointerField)
+                    continue;
+                record.mapperOffset = input.relative(field);
+                metadata(record.mapperOffset, 4);
+                record.mapperFlags = input.integer(record.mapperOffset);
+                record.status = "unsupported_mapper_layout";
+                if (record.mapperFlags != 0x80000000)
+                    continue;
+                metadata(record.mapperOffset, 0xC);
+                record.status = "absent_reference";
+                if (!input.integer(record.mapperOffset + 8))
+                    continue;
+                record.referenceOffset = input.relative(record.mapperOffset + 8);
+                metadata(record.referenceOffset, 8);
+                require(input.magic(record.referenceOffset + 4, "TXOB"),
+                        "CGFX texture reference has no TXOB signature");
+                record.referenceFlags = input.integer(record.referenceOffset);
+                record.status = "unsupported_reference_layout";
+                if (record.referenceFlags != 0x20000004)
+                    continue;
+                metadata(record.referenceOffset, 0x20);
+                record.referenceNamePresent = input.integer(record.referenceOffset + 0xC) != 0;
+                if (record.referenceNamePresent)
+                    record.referenceName = encodedName(record.referenceOffset + 0xC);
+                record.cachedRelativePointerField =
+                    std::bit_cast<std::int32_t>(input.integer(record.referenceOffset + 0x1C));
+                record.status = "absent_target_name";
+                if (!input.integer(record.referenceOffset + 0x18))
+                    continue;
+                record.targetName = encodedName(record.referenceOffset + 0x18);
+                record.status = "missing_local_target";
+                const auto target = textures.find(record.targetName);
+                if (target == textures.end())
+                    continue;
+                record.targetOffset = target->second;
+                metadata(record.targetOffset, 8);
+                require(input.magic(record.targetOffset + 4, "TXOB"),
+                        "CGFX texture target has no TXOB signature");
+                record.targetFlags = input.integer(record.targetOffset);
+                // Retail 0x0022E73C resolves this name in the same CGFX dictionary.
+                // Alias recursion and runtime cache application remain outside this reader.
+                record.status = record.targetFlags == 0x20000011 ? "resolved_local_texture" :
+                    record.targetFlags == 0x20000004 ? "alias_target_unresolved" : "unsupported_target_layout";
+            }
+        }
+}
 
 ModelCatalog readCgfx(Bytes data) {
     ByteReader input(data);
@@ -981,12 +1073,14 @@ ModelCatalog readCgfx(Bytes data) {
             const std::string name = input.terminatedText(symbol, 20 + dataSize - symbol);
             require(!name.empty() && uniqueNames.insert(name).second, "Empty or duplicate CGFX resource name");
             category.entries.push_back({name, object});
-            if (number == 0)
-                result.models.push_back(readModelGeometry(data, 20 + dataSize, imageStart,
-                                                          result.revision, category.entries.back()));
         }
         result.categories.push_back(std::move(category));
     }
+    for (const ResourceCategory& category : result.categories)
+        if (category.index == 0)
+            for (const ResourceEntry& entry : category.entries)
+                result.models.push_back(readModelGeometry(data, 20 + dataSize, imageStart, result.revision, entry));
+    readMaterialTextureReferences(data, 20 + dataSize, result);
     return result;
 }
 
@@ -1227,7 +1321,39 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
         firstMaterial = false;
         output << "{\"name_hex\":";
         writeString(output, hexadecimal(material.name));
-        output << ",\"offset\":" << material.offset << ",\"flags\":" << material.flags << '}';
+        output << ",\"offset\":" << material.offset << ",\"flags\":" << material.flags
+               << ",\"texture_reference_layout\":";
+        writeString(output, material.textureReferenceLayout);
+        output << ",\"runtime_texture_cache\":\"unresolved\",\"texture_references\":[";
+        if (material.textureReferenceLayout == "observed_three_slot_layout")
+            for (std::size_t slot = 0; slot < material.textureReferences.size(); ++slot) {
+                if (slot)
+                    output << ',';
+                const MaterialTextureReference& reference = material.textureReferences[slot];
+                output << "{\"slot\":" << slot << ",\"status\":";
+                writeString(output, reference.status);
+                output << ",\"mapper_relative_pointer_field\":" << reference.mapperRelativePointerField;
+                if (reference.mapperOffset)
+                    output << ",\"mapper_offset\":" << reference.mapperOffset
+                           << ",\"mapper_flags\":" << reference.mapperFlags;
+                if (reference.referenceOffset) {
+                    output << ",\"reference_offset\":" << reference.referenceOffset
+                           << ",\"reference_flags\":" << reference.referenceFlags;
+                    if (reference.referenceFlags == 0x20000004) {
+                        output << ",\"reference_name_present\":" << (reference.referenceNamePresent ? "true" : "false")
+                               << ",\"reference_name_hex\":";
+                        writeString(output, hexadecimal(reference.referenceName));
+                        output << ",\"target_name_hex\":";
+                        writeString(output, hexadecimal(reference.targetName));
+                        output << ",\"cached_relative_pointer_field\":" << reference.cachedRelativePointerField;
+                    }
+                }
+                if (reference.targetOffset)
+                    output << ",\"target_offset\":" << reference.targetOffset
+                           << ",\"target_flags\":" << reference.targetFlags;
+                output << '}';
+            }
+        output << "]}";
     }
     output << "],\"meshes\":[";
     bool firstMesh = true;
