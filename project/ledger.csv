@@ -726,3 +726,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T18:21:45-04:00,0x00314EE4,_ZN8FireBall4initERKN2al13ActorInitInfoE,matched,2,8.2131
 2026-10-01T18:21:45-04:00,0x0034CD58,_ZNK11NrvFireBall15FireBallNrvShot7executeEPN2al11NerveKeeperE,matched,3,8.2128
 2026-10-01T18:50:09-04:00,0x0024EC80,fn_0024EC80,matched,6,9.4871
+2026-10-01T18:51:42-04:00,0x001F9F48,fn_001F9F48,abandoned,4,6.4172
