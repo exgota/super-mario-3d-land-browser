@@ -21,3 +21,7 @@ Split mode requires explicit `eu` and no compact-build options. First refresh co
 ## Updated checkpoint618de8b
 
 The installed split path preserves569/569 accepted intervals and30108 complete bytes. It captures156 canonical objects and343 source/header/configuration inputs. Output is build/eu/full_image_diagnostic/1790881561203094000. The3096576-byte linked SHA is9a4399182e64a3cbfad4782bfb9d8db10d7cb9e83da90d239f435e6de740ac19, with2488803 differing and607773 equal bytes. Whole-image equality remains false. Incidental equality does not increase the1.092443% strict function coverage. The same placeholder/fill/data and gameplay limitations above apply.
+
+## Updated checkpoint7cbdd8f
+
+The installed split path preserves597/597 accepted intervals and32056 complete bytes. It captures158 canonical objects and345 source/header/configuration inputs. Output is build/eu/full_image_diagnostic/1790884339208614000. The3096576-byte linked SHA is5fba4f5348774c619fa926371254bd2678b0939968ec4b1c6459c32c53dd8349, with2487194 differing and609382 equal bytes. Whole-image equality remains false. Incidental equality adds no exact function credit. The same placeholder, data and gameplay limits above apply.

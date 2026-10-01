@@ -2303,6 +2303,125 @@ struct CpuJointPalette {
     bool rotationTablePresent = false;
 };
 
+struct CpuFaceGroupTransfer {
+    std::size_t shapeIndex = 0;
+    std::size_t faceGroupIndex = 0;
+    std::string status;
+    std::vector<std::uint32_t> jointIdentifiers;
+    std::vector<std::string> paletteSources;
+    std::vector<std::uint32_t> commandWords;
+    std::size_t cursorAdvanceBytes = 0;
+};
+
+// The original draw loop at 0x00191098 selects buffer identities, then the
+// packers at 0x00254D9C/0x00254DD4 transfer reversed binary32 row words.
+// These commands establish an interface, without evaluating a vertex shader.
+CpuFaceGroupTransfer buildCpuFaceGroupTransfer(const ModelFaceGroup& face,
+                                              const ModelSkeleton& skeleton,
+                                              const CpuJointPalette& palette,
+                                              const Matrix34* modelMatrix8c,
+                                              bool skeletalCachePresent = true) {
+    CpuFaceGroupTransfer result;
+    auto unsupported = [&](const std::string& status) {
+        result.status = status;
+        result.jointIdentifiers.clear();
+        result.paletteSources.clear();
+        result.commandWords.clear();
+        result.cursorAdvanceBytes = 0;
+        return result;
+    };
+    std::vector<const Matrix34*> matrices;
+    if (!skeletalCachePresent || face.boneReferences.empty()) {
+        if (!modelMatrix8c)
+            return unsupported("unavailable_model_matrix_8c");
+        matrices.push_back(modelMatrix8c);
+        result.paletteSources.push_back("model_matrix_8c");
+    } else {
+        // c25..c84 is the resource shader's observed 60-register array.
+        // Larger transfers remain raw face fields until their ownership is known.
+        if (face.boneReferences.size() > 20)
+            return unsupported("unsupported_uniform_palette_extent");
+        if (palette.status != "bounded_static_mode_zero_cpu_palette")
+            return unsupported("unavailable_cpu_joint_palette");
+        for (std::uint32_t identifier : face.boneReferences) {
+            if (identifier >= skeleton.joints.size() || skeleton.joints[identifier].identifier != identifier)
+                return unsupported("unsupported_joint_buffer_identity");
+            const bool secondary = (skeleton.joints[identifier].flags & 0x200) && face.skinningField == 2;
+            if (identifier >= palette.primaryMatrices.size() || identifier >= palette.secondaryPresent.size())
+                return unsupported("unavailable_cpu_joint_palette");
+            if (secondary && (!palette.secondaryPresent[identifier] || identifier >= palette.secondaryMatrices.size()))
+                return unsupported("unavailable_secondary_joint_palette");
+            matrices.push_back(secondary ? &palette.secondaryMatrices[identifier] : &palette.primaryMatrices[identifier]);
+            result.jointIdentifiers.push_back(identifier);
+            result.paletteSources.push_back(secondary ? "secondary" : "primary");
+        }
+    }
+    for (const Matrix34* matrix : matrices)
+        for (const auto& row : *matrix)
+            for (float value : row)
+                if (!std::isfinite(value))
+                    return unsupported("unsupported_nonfinite_transfer_matrix");
+    result.commandWords = {0x80000019, 0x000F02C0};
+    for (std::size_t index = 0; index < matrices.size(); ++index)
+        for (std::size_t row = 0; row < 3; ++row)
+            for (std::size_t column = 4; column-- != 0;) {
+                result.commandWords.push_back(std::bit_cast<std::uint32_t>((*matrices[index])[row][column]));
+                if (index == 0 && row == 0 && column == 3)
+                    result.commandWords.push_back(std::uint32_t((12 * matrices.size() - 1) << 20) | 0x000F02C1);
+            }
+    // The draw loop advances over a final word without writing it. Do not invent
+    // padding bytes or include that word in the recovered command payload.
+    result.cursorAdvanceBytes = (result.commandWords.size() + 1) * 4;
+    result.status = "bounded_cpu_float32_uniform_transfer";
+    return result;
+}
+
+std::vector<CpuFaceGroupTransfer> buildCpuModelFaceGroupTransfers(const ModelGeometry& model,
+                                                                const CpuJointPalette& palette,
+                                                                const Matrix34* modelMatrix8c) {
+    std::vector<CpuFaceGroupTransfer> result;
+    for (std::size_t shapeIndex = 0; shapeIndex < model.shapes.size(); ++shapeIndex)
+        for (std::size_t faceIndex = 0; faceIndex < model.shapes[shapeIndex].faceGroups.size(); ++faceIndex) {
+            auto transfer = buildCpuFaceGroupTransfer(model.shapes[shapeIndex].faceGroups[faceIndex],
+                                                     model.skeleton, palette, modelMatrix8c);
+            transfer.shapeIndex = shapeIndex;
+            transfer.faceGroupIndex = faceIndex;
+            result.push_back(std::move(transfer));
+        }
+    return result;
+}
+
+void writeCpuFaceGroupTransfers(std::ostream& output, const std::vector<CpuFaceGroupTransfer>& transfers) {
+    output << "{\"interface\":\"cpu_float32_uniform_transfer\",\"input_ownership\":\"constructed_cpu_palette_buffers\",\"first_uniform_register\":25,"
+              "\"shader_arithmetic\":\"unresolved\",\"active_shader_selection\":\"unresolved\","
+              "\"final_vertex_use\":\"unresolved\",\"face_groups\":[";
+    for (std::size_t index = 0; index < transfers.size(); ++index) {
+        if (index) output << ',';
+        const auto& transfer = transfers[index];
+        output << "{\"shape_index\":" << transfer.shapeIndex << ",\"face_group_index\":" << transfer.faceGroupIndex
+               << ",\"status\":";
+        writeString(output, transfer.status);
+        output << ",\"joint_identifiers\":[";
+        for (std::size_t number = 0; number < transfer.jointIdentifiers.size(); ++number) {
+            if (number) output << ',';
+            output << transfer.jointIdentifiers[number];
+        }
+        output << "],\"palette_sources\":[";
+        for (std::size_t number = 0; number < transfer.paletteSources.size(); ++number) {
+            if (number) output << ',';
+            writeString(output, transfer.paletteSources[number]);
+        }
+        output << "],\"command_words\":[";
+        for (std::size_t number = 0; number < transfer.commandWords.size(); ++number) {
+            if (number) output << ',';
+            writeString(output, integerHexadecimal(transfer.commandWords[number]));
+        }
+        output << "],\"cursor_advance_bytes\":" << transfer.cursorAdvanceBytes
+               << ",\"unwritten_trailing_bytes\":" << (transfer.commandWords.empty() ? 0 : 4) << '}';
+    }
+    output << "]}";
+}
+
 // CPU affine product at 0x00281CF8. Each VMLA rounds its product first.
 Matrix34 multiplyAffineBinary32(const Matrix34& left, const Matrix34& right) {
     Matrix34 result{};
@@ -2497,8 +2616,12 @@ CpuModelRoot placementModelRoot(const Placement& placement, const ModelGeometry&
     CpuModelRoot result;
     if (rotationTable)
         result = initializeCpuModelRoot(model, *rotationTable);
-    else
+    else {
         result.local.flags = result.composed.flags = 0x801;
+        for (std::size_t row = 0; row < 3; ++row)
+            for (std::size_t column = 0; column < 4; ++column)
+                result.matrix8c[row][column] = model.initializationMatrix84[row * 4 + column];
+    }
     updateCpuModelRoot(result, placementMatrix(unscaled), placement.scale);
     return result;
 }
@@ -2594,6 +2717,7 @@ struct SceneInstance {
     Matrix34 matrix{};
     CollisionMesh collisionMesh{};
     CpuJointPalette cpuJointPalette{};
+    std::vector<CpuFaceGroupTransfer> cpuFaceGroupTransfers;
 };
 
 struct SceneDefinition {
@@ -2634,7 +2758,7 @@ SceneDefinition readScene(const std::filesystem::path& factoryPath,
     SceneDefinition result{readPlacements(stageRoot.get<Value::Dictionary>()), {}};
     for (std::size_t index = 0; index < result.stage.placements.size(); ++index) {
         const Placement& placement = result.stage.placements[index];
-        SceneInstance instance{index, {}, "unresolved_placement_category", {}, {}, {}, {}, {}, {}, {}};
+        SceneInstance instance{index, {}, "unresolved_placement_category", {}, {}, {}, {}, {}, {}, {}, {}};
         if (placement.category != "ObjInfo") {
             result.instances.push_back(std::move(instance));
             continue;
@@ -2697,9 +2821,15 @@ SceneDefinition readScene(const std::filesystem::path& factoryPath,
                             const CpuModelRoot root = placementModelRoot(placement, *selected, rotationTable);
                             instance.cpuJointPalette = buildCpuJointPalette(selected->skeleton, root.local,
                                                                            root.composed, rotationTable);
+                            instance.cpuFaceGroupTransfers = buildCpuModelFaceGroupTransfers(*selected,
+                                                                                           instance.cpuJointPalette,
+                                                                                           &root.matrix8c);
                         } else {
                             instance.cpuJointPalette.status = "unsupported_model_rotation_domain";
                             instance.cpuJointPalette.rotationTablePresent = true;
+                            instance.cpuFaceGroupTransfers = buildCpuModelFaceGroupTransfers(*selected,
+                                                                                           instance.cpuJointPalette,
+                                                                                           nullptr);
                         }
                         instance.cpuJointPalette.rootInputOwnership = "constructed_actor_pose_model_inputs";
                         instance.cpuJointPalette.modelInitializationAdapter = "bounded_original_animation_call_chain";
@@ -2765,6 +2895,8 @@ void writeScene(std::ostream& output, const SceneDefinition& scene) {
         writeString(output, instance.collisionStatus);
         output << ",\"cpu_joint_palette\":";
         writeCpuJointPalette(output, instance.cpuJointPalette);
+        output << ",\"cpu_face_group_transfers\":";
+        writeCpuFaceGroupTransfers(output, instance.cpuFaceGroupTransfers);
         if (!instance.archive.empty()) {
             output << ",\"matrix\":[";
             for (std::size_t row = 0; row < 3; ++row) {
