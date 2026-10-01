@@ -62,7 +62,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Resources**
 11. There is no spend cap and no cost tracking (D4). Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong.
-12. Run at most 5 parallel lanes (agents, compiles, emulator instances) at once. Claude watches memory and load every 30 minutes and may lower this if the Mac strains.
+12. Run at most 8 parallel lanes (agents, compiles, emulator instances) at once. Claude watches memory and load every 30 minutes and may lower this if the Mac strains.
 
 ## 5. Working protocol for unattended operation
 
@@ -70,7 +70,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Follow-through.** Persist until the current milestone's exit check passes. Do not stop at a plan, a proposal, or an offer to continue. Do not settle for a partial result to save time, effort, or tokens. When you have a question, first finish all the work that does not depend on the answer, write the question to `project/QUESTIONS.md`, and keep working on whatever remains. Do not add warnings, disclaimers, or approval steps for hypothetical risks.
 
-**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 5 lanes at once (rule 12). More lanes means more functions per hour, since the work waits on the model and not on the Mac. Messages between agents must be legible to a human reader.
+**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 8 lanes at once (rule 12). Match reasoning effort to difficulty when the subagent tool lets you choose it: `xhigh` for small functions and helpers, `ultra` for large, branch-heavy or unnamed functions and for reverse engineering layouts. More lanes means more functions per hour, since the work waits on the model and not on the Mac. Messages between agents must be legible to a human reader.
 
 **Writing.** Daily reports and decision entries use short plain paragraphs, active voice, and the real numbers. No filler phrases and no concluding summaries.
 
@@ -116,6 +116,14 @@ Remaining:
 - Recover class layouts, vtables and names as you go. A good name is worth more than a fast match because later functions depend on it.
 - Use RedPepper's `Source/` game code and names as references (never its `Library/`), and verify every name against the binary.
 - Re-run the full progress check at least once a day and record the numbers in the daily report.
+
+### External lane: the owner's dot
+The owner may run an OpenAI dot (a cloud agent) on the hardest functions. Its brief is `project/DOT_BRIEF.md`. The dot pushes only to branches named `dot/<topic>` and never to `main`.
+- Check for new `dot/*` branches at least every few hours (`git fetch origin`).
+- Treat dot work as proposals. Merge only source, headers, names and notes. Never take its edits to `data/ver/eu/map.csv`, `project/ledger.csv`, ranks, or tools without reviewing them as you would your own.
+- A dot function counts only after it passes `tools/check.py` here, built by this repository's build step, under the same hard rules.
+- Credit it in commit messages ("from dot/<topic>") so its share is traceable.
+- While any `dot/*` branch is active, leave the functions in `project/blocked.md` and `U` functions of 0x400 bytes or more to the dot unless every other lane is idle.
 
 ### Phase 3: port runtime (exit M3, M4)
 Scope depends on D3. In outline:
