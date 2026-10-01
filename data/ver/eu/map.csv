@@ -17754,7 +17754,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00398EC4,0x00398EF0,0x00398EF4,          ,U,f,,
 0x00398EF4,          ,0x00398F1C,          ,U,f,,
 0x00398F1C,          ,0x00398F44,          ,U,f,,
-0x00398F44,          ,0x00398F6C,          ,M,ft,_ZN2al21createAreaObjFunctionINS_7AreaObjEEEPS1_PKc,
+0x00398F44,          ,0x00398F6C,          ,O,ft,_ZN2al21createAreaObjFunctionINS_7AreaObjEEEPS1_PKc,
 0x00398F6C,          ,0x00398F94,          ,U,f,,
 0x00398F94,          ,0x00398FBC,          ,U,f,,
 0x00398FBC,          ,0x00398FE4,          ,U,f,,
