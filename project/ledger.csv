@@ -73,3 +73,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:00:06-04:00,0x00278C30,_ZNK2al9ByamlIter16tryGetFloatByKeyEPfPKc,matched,4,2.6941
 2026-10-01T07:00:06-04:00,0x0027E068,_ZNK2al9ByamlIter14tryGetIntByKeyEPiPKc,matched,4,2.6939
 2026-10-01T07:00:07-04:00,0x002905F0,_ZN2al9ByamlIterC1EPKh,matched,2,0.0268
+2026-10-01T07:00:07-04:00,0x00290F60,_ZNK2al9ByamlIter15tryGetBoolByKeyEPbPKc,matched,4,2.6938

@@ -9816,7 +9816,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00290B18,0x00290E94,0x00290EB0,          ,U,f,,
 0x00290EB0,0x00290EEC,0x00290F00,          ,U,f,_ZN2al24makeLocalizedArchivePathEPN4sead22BufferedSafeStringBaseIcEERKNS0_14SafeStringBaseIcEE,
 0x00290F00,          ,0x00290F60,          ,U,f,,
-0x00290F60,          ,0x00290FB0,          ,M,f,_ZNK2al9ByamlIter15tryGetBoolByKeyEPbPKc,
+0x00290F60,          ,0x00290FB0,          ,O,f,_ZNK2al9ByamlIter15tryGetBoolByKeyEPbPKc,
 0x00290FB0,          ,0x0029101C,          ,M,f,_ZNK2al9ByamlIter15tryGetIterByKeyEPS0_PKc,
 0x0029101C,          ,0x0029107C,          ,U,f,,
 0x0029107C,          ,0x002910E8,          ,M,f,_ZNK2al9ByamlIter17tryGetIterByIndexEPS0_i,
