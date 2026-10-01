@@ -9218,7 +9218,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B364,          ,0x0027B39C,          ,O,f,_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi,
 0x0027B39C,0x0027B4CC,0x0027B4D8,          ,U,f,,
 0x0027B4D8,          ,0x0027B510,          ,U,f,,
-0x0027B510,          ,0x0027B51C,          ,M,f,_ZN2al10offCollideEPNS_9LiveActorE,
+0x0027B510,          ,0x0027B51C,          ,O,f,_ZN2al10offCollideEPNS_9LiveActorE,
 0x0027B51C,          ,0x0027B54C,          ,U,f,,
 0x0027B54C,0x0027B5DC,0x0027B60C,          ,U,f,_ZN18EnemyStateBlowDownC1EPN2al9LiveActorEP23EnemyStateBlowDownParamPKci,
 0x0027B60C,          ,0x0027B638,          ,U,f,_ZN2al18setSyncRailToStartEPNS_9LiveActorE,
