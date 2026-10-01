@@ -12562,7 +12562,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00318A1C,0x00318A28,0x00318A2C,          ,U,f,,
 0x00318A2C,          ,0x00318A30,          ,O,f,_ZN2al8Sequence4initEv,
 0x00318A30,          ,0x00318A4C,          ,O,f,_ZN2al8Sequence4unk3Ev,
-0x00318A4C,          ,0x00318A68,          ,M,f,_ZN2al8Sequence4unk1Ev,
+0x00318A4C,          ,0x00318A68,          ,O,f,_ZN2al8Sequence4unk1Ev,
 0x00318A68,          ,0x00318A84,          ,M,f,_ZN2al8Sequence4unk2Ev,
 0x00318A84,0x00318C08,0x00318C1C,          ,U,f,,
 0x00318C1C,0x00318C3C,0x00318C44,          ,U,f,,
