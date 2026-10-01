@@ -9679,7 +9679,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028B5D4,          ,0x0028B610,          ,U,f,,
 0x0028B610,          ,0x0028B644,          ,U,f,_ZN4sead12MessageQueueC1Ev,
 0x0028B644,          ,0x0028B65C,          ,U,f,_ZN2nn3svc11GetThreadIdEPjNS_6HandleE,.nn.svc.GetThreadId
-0x0028B65C,0x0028B6A0,0x0028B6A4,          ,M,f,_ZN4sead8DateUtil10isLeapYearEj,
+0x0028B65C,0x0028B6A0,0x0028B6A4,          ,O,f,_ZN4sead8DateUtil10isLeapYearEj,
 0x0028B6A4,0x0028B7E8,0x0028B7F0,          ,U,f,,
 0x0028B7F0,          ,0x0028B808,          ,U,f,,
 0x0028B808,0x0028B814,0x0028B818,          ,U,f,,
