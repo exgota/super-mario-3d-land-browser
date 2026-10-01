@@ -948,6 +948,7 @@ struct TextureStorageTexel {
     std::size_t sourceOffset;
     std::uint16_t packedWord;
     std::array<std::uint8_t, 3> channels;
+    std::array<std::uint8_t, 2> componentBytes{};
 };
 
 struct TextureStorageBlock {
@@ -1004,7 +1005,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
     if (texture.status != "resource_local_image_fields")
         return;
     texture.storageDecodingStatus = "unsupported_texture_format";
-    if (texture.format != 3 && texture.format != 12 && texture.format != 13)
+    if (texture.format != 3 && texture.format != 6 && texture.format != 12 && texture.format != 13)
         return;
     std::uint32_t width = texture.width;
     std::uint32_t height = texture.height;
@@ -1016,7 +1017,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
             texture.storageDecodingStatus = level ? "unsupported_mipmap_tail" : "unsupported_storage_dimensions";
             return;
         }
-        const std::size_t bytesPerTexelNumerator = texture.format == 3 ? 2 : 1;
+        const std::size_t bytesPerTexelNumerator = texture.format == 3 || texture.format == 6 ? 2 : 1;
         const std::size_t bytesPerTexelDenominator = texture.format == 12 ? 2 : 1;
         require(height / bytesPerTexelDenominator <= remaining / bytesPerTexelNumerator / width,
                 "CGFX texture storage mip level exceeds its image payload");
@@ -1031,7 +1032,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
     ByteReader input(data);
     bool definedEndpoints = true;
     for (TextureStorageLevel& level : levels) {
-        if (texture.format != 3) {
+        if (texture.format == 12 || texture.format == 13) {
             const std::size_t bytesPerBlock = texture.format == 13 ? 16 : 8;
             level.blocks.reserve(level.byteCount / bytesPerBlock);
             for (std::uint32_t y = 0; y < level.height; y += 4)
@@ -1084,12 +1085,18 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
                 const std::size_t tile = std::size_t(y / 8) * (level.width / 8) + x / 8;
                 const std::size_t source = level.serializedOffset + (tile * 64 + withinTile) * 2;
                 const std::uint16_t packed = std::uint16_t(input.integer(source, 2));
-                level.texels.push_back({x, y, source, packed,
-                    {std::uint8_t((packed >> 11) & 31), std::uint8_t((packed >> 5) & 63), std::uint8_t(packed & 31)}});
+                TextureStorageTexel texel{x, y, source, packed, {}};
+                if (texture.format == 6)
+                    texel.componentBytes = {std::uint8_t(packed & 255), std::uint8_t(packed >> 8)};
+                else
+                    texel.channels = {std::uint8_t((packed >> 11) & 31), std::uint8_t((packed >> 5) & 63),
+                                      std::uint8_t(packed & 31)};
+                level.texels.push_back(std::move(texel));
             }
     }
     texture.storageLevels = std::move(levels);
-    texture.storageDecodingStatus = texture.format == 3 ? "rgb565_integer_storage" : texture.format == 12 ?
+    texture.storageDecodingStatus = texture.format == 3 ? "rgb565_integer_storage" : texture.format == 6 ?
+        "hilo8_raw_byte_storage" : texture.format == 12 ?
         (definedEndpoints ? "etc1_raw_block_storage" : "etc1_undefined_differential_endpoints") :
         (definedEndpoints ? "etc1a4_raw_block_storage" : "etc1a4_undefined_differential_endpoints");
 }
@@ -1770,6 +1777,8 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                    << ",\"cached_pointer_field\":" << texture.cachedPointerField;
         output << ",\"storage_decoding\":";
         writeString(output, texture.storageDecodingStatus);
+        if (texture.imageFieldsDecoded && texture.format == 6)
+            output << ",\"component_signedness\":\"unresolved\",\"sample_channel_mapping\":\"unresolved\"";
         output << ",\"storage_mipmaps\":[";
         for (std::size_t number = 0; number < texture.storageLevels.size(); ++number) {
             if (number)
@@ -1783,10 +1792,15 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                     output << ',';
                 const TextureStorageTexel& texel = level.texels[index];
                 output << "{\"storage_x\":" << texel.x << ",\"storage_y\":" << texel.y
-                       << ",\"source_offset\":" << texel.sourceOffset << ",\"packed_word\":" << texel.packedWord
-                       << ",\"red_integer\":" << unsigned(texel.channels[0])
-                       << ",\"green_integer\":" << unsigned(texel.channels[1])
-                       << ",\"blue_integer\":" << unsigned(texel.channels[2]) << '}';
+                       << ",\"source_offset\":" << texel.sourceOffset << ",\"packed_word\":" << texel.packedWord;
+                if (texture.format == 6)
+                    output << ",\"component_bytes\":[" << unsigned(texel.componentBytes[0]) << ','
+                           << unsigned(texel.componentBytes[1]) << ']';
+                else
+                    output << ",\"red_integer\":" << unsigned(texel.channels[0])
+                           << ",\"green_integer\":" << unsigned(texel.channels[1])
+                           << ",\"blue_integer\":" << unsigned(texel.channels[2]);
+                output << '}';
             }
             output << "],\"compressed_blocks\":[";
             for (std::size_t index = 0; index < level.blocks.size(); ++index) {
