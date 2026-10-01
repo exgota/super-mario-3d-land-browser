@@ -3174,7 +3174,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00192C08,0x00192C24,0x00192C28,          ,U,f,,
 0x00192C28,          ,0x00192C80,          ,U,f,,
 0x00192C80,0x001930F0,0x001931B4,          ,U,f,,
-0x001931B4,0x001931E0,0x001931E8,          ,M,f,_ZN20BlockDragonGenerator11startAppearEv,
+0x001931B4,0x001931E0,0x001931E8,          ,O,f,_ZN20BlockDragonGenerator11startAppearEv,
 0x001931E8,          ,0x001931F0,          ,U,f,,
 0x001931F0,0x00193464,0x00193484,          ,U,f,,
 0x00193484,0x00193520,0x00193538,          ,U,f,,

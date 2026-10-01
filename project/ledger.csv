@@ -715,3 +715,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:55:47-04:00,0x001E36EC,_ZN2al24ExecuteTableHolderUpdate23createExecutorListTableEv,matched,2,1.5387
 2026-10-01T17:55:48-04:00,0x001E2044,_ZN2al22ExecuteTableHolderDraw23createExecutorListTableEv,matched,2,1.5386
 2026-10-01T17:55:49-04:00,0x0033753C,_ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci,matched,10,12.7297
+2026-10-01T17:55:49-04:00,0x001931B4,_ZN20BlockDragonGenerator11startAppearEv,matched,2,0.0050
