@@ -8362,7 +8362,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00266DDC,0x00266DF8,0x00266E04,          ,U,f,,
 0x00266E04,0x00266EDC,0x00266EF4,          ,U,f,,
 0x00266EF4,          ,0x00266F34,          ,U,f,,
-0x00266F34,          ,0x00266F5C,          ,M,f,_ZN2al17initActorPoseTRSVEPNS_9LiveActorE,
+0x00266F34,          ,0x00266F5C,          ,O,f,_ZN2al17initActorPoseTRSVEPNS_9LiveActorE,
 0x00266F5C,          ,0x00266FF8,          ,U,f,,
 0x00266FF8,          ,0x00267050,          ,U,f,_ZN4sead12PtrArrayImpl5eraseEii,
 0x00267050,0x00267084,0x00267088,          ,O,f,_ZN2al12isObjectNameERKNS_9ByamlIterEPKc,

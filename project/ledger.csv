@@ -623,3 +623,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:45:13-04:00,0x00321A60,_ZN9PeachRope4initERKN2al13ActorInitInfoE,matched,2,0.0198
 2026-10-01T15:45:13-04:00,0x00376BC4,_ZThn96_N11CoinRotater26initAfterPlacementSceneObjERKN2al13ActorInitInfoE,matched,2,0.0165
 2026-10-01T15:45:14-04:00,0x00244CC4,_ZN2al18initActorPoseTFGSVEPNS_9LiveActorE,matched,2,0.0334
+2026-10-01T15:45:14-04:00,0x00266F34,_ZN2al17initActorPoseTRSVEPNS_9LiveActorE,matched,2,0.0347
