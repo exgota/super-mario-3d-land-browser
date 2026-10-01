@@ -151,3 +151,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:40-04:00,0x0026A920,_ZN2al12getNerveStepEPKNS_9IUseNerveE,matched,3,11.7184
 2026-10-01T09:44:41-04:00,0x0027B194,_ZN2al13NerveExecutorC1EPKc,matched,3,0.0049
 2026-10-01T09:44:41-04:00,0x00268E3C,_ZN2al13NerveExecutorD1Ev,matched,3,0.0049
+2026-10-01T09:44:41-04:00,0x0027E648,_ZN2al11LayoutActorC1EPKc,matched,3,0.0049
