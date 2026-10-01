@@ -21,6 +21,11 @@ public:
                 return mIsClosed;
         }
 
+        const PlacementInfo* getPointPlacementInfo( int index ) const
+        {
+                return reinterpret_cast<const PlacementInfo* const*>( _0 )[ index ];
+        }
+
         void init( const PlacementInfo& info );
 
         float getTotalLength() const;

@@ -6,6 +6,10 @@
 #include <Stage/alStageResourceKeeper.h>
 #include <System/Application.h>
 
+extern "C" al::SceneObjHolder* fn_00166ac8();
+extern "C" void fn_001891c0( al::SceneObjHolder* holder );
+extern "C" void fn_001dcbe4( al::StageResourceKeeper* keeper, const char* stageName, int scenario, sead::Heap* heap );
+
 namespace al
 {
 
@@ -49,13 +53,11 @@ AudioKeeper* Scene::getAudioKeeper() const
         return mAudioKeeper;
 }
 
-#ifdef NON_MATCHING
 void Scene::initAndLoadStageResource( const char* stageName, int scenario, sead::Heap* heap )
 {
         mResourceKeeper = new StageResourceKeeper;
-        mResourceKeeper->initAndLoadResource( stageName, scenario, heap );
+        fn_001dcbe4( mResourceKeeper, stageName, scenario, heap );
 }
-#endif
 
 void Scene::initActorFactory()
 {
@@ -64,9 +66,9 @@ void Scene::initActorFactory()
 
 void Scene::initSceneObjHolder()
 {
-        SceneObjHolder* holder = SceneObjFactory::createSceneObjHolder();
+        SceneObjHolder* holder = fn_00166ac8();
         mSceneObjHolder        = holder;
-        Application::instance()->setSceneObjHolder( holder );
+        fn_001891c0( holder );
 }
 
 void Scene::endInit( const ActorInitInfo& info )

@@ -9,4 +9,9 @@ CalendarTime::Date::Date( const Year& year, const Month& month, const Day& day )
 {
 }
 
+CalendarTime::Time::Time( const Hour& hour, const Minute& minute, const Second& second )
+        : mHour( hour ), mMinute( minute ), mSecond( second )
+{
+}
+
 } // namespace sead

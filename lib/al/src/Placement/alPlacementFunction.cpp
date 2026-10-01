@@ -12,6 +12,59 @@ extern "C" const char dat_003A2E50[];
 
 extern "C" const char dat_003A2E58[];
 
+extern "C" bool fn_001E4B3C( sead::Vector3f* out, const al::ByamlIter* iter )
+{
+        sead::Vector3f value;
+        if ( !iter->tryGetFloatByKey( &value.x, "pnt2_x" ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.y, "pnt2_y" ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.z, "pnt2_z" ) )
+                return false;
+        out->x = value.x;
+        out->y = value.y;
+        out->z = value.z;
+        return true;
+}
+
+extern "C" bool fn_001E4BD4( sead::Vector3f* out, const al::ByamlIter* iter )
+{
+        sead::Vector3f value;
+        if ( !iter->tryGetFloatByKey( &value.x, "pnt1_x" ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.y, "pnt1_y" ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.z, "pnt1_z" ) )
+                return false;
+        out->x = value.x;
+        out->y = value.y;
+        out->z = value.z;
+        return true;
+}
+
+extern "C" bool fn_0023F550( sead::Vector3f* out, const al::ByamlIter* iter )
+{
+        sead::Vector3f value;
+        if ( !iter->tryGetFloatByKey( &value.x, "pnt0_x" ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.y, "pnt0_y" ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.z, "pnt0_z" ) )
+                return false;
+        out->x = value.x;
+        out->y = value.y;
+        out->z = value.z;
+        return true;
+}
+
+extern "C" void fn_001BBE0C( float* out, const al::ByamlIter* iter )
+{
+        iter->tryGetFloatByKey( &out[ 0 ], "InMin" );
+        iter->tryGetFloatByKey( &out[ 1 ], "InMax" );
+        iter->tryGetFloatByKey( &out[ 2 ], "OutMin" );
+        iter->tryGetFloatByKey( &out[ 3 ], "OutMax" );
+}
+
 extern "C" int fn_00192768( const al::ActorInitInfo* info )
 {
         int value = -1;

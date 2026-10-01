@@ -18,6 +18,8 @@
 #include <Nerve/alNerveActionCtrl.h>
 #include <Nerve/alNerveFunction.h>
 
+extern "C" const sead::Matrix34f* fn_002519B0( al::ModelKeeper* keeper, const char* jointName );
+
 void alLiveActorFunction::calcAnimDirect( al::LiveActor* actor )
 {
         sead::Matrix34f baseMtx;
@@ -135,16 +137,29 @@ bool tryStartMclAnimIfExist( LiveActor* actor, const char* animName )
 }
 #endif
 
-#ifdef NON_MATCHING
-// ldr for getting ModelKeeper is optimized
+struct JointMatrixRequest
+{
+        ModelKeeper* keeper;
+        const char* jointName;
+};
+
+#pragma push
+#pragma no_inline
+static __value_in_regs JointMatrixRequest makeJointMatrixRequest( const LiveActor* actor, const char* jointName )
+{
+        JointMatrixRequest request = { actor->getModelKeeper(), jointName };
+        return request;
+}
+#pragma pop
+
 void calcJointPos( sead::Vector3f* out, const LiveActor* actor, const char* jointName )
 {
-        const sead::Matrix34f* jointMtx = getJointMtxPtr( actor->getModelKeeper(), jointName );
+        const JointMatrixRequest request = makeJointMatrixRequest( actor, jointName );
+        const sead::Matrix34f* jointMtx = ::fn_002519B0( request.keeper, request.jointName );
         out->x                          = jointMtx->m[ 0 ][ 3 ];
         out->y                          = jointMtx->m[ 1 ][ 3 ];
         out->z                          = jointMtx->m[ 2 ][ 3 ];
 }
-#endif
 
 // HitSensorKeeper
 

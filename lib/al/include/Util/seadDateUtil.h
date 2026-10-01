@@ -10,6 +10,19 @@ public:
         struct Year { int mValue; };
         struct Month { int mValue; };
         struct Day { int mValue; };
+        struct Hour { int mValue; };
+        struct Minute { int mValue; };
+        struct Second { int mValue; };
+        class Time
+        {
+        public:
+                Time( const Hour& hour, const Minute& minute, const Second& second );
+
+        private:
+                Hour mHour;
+                Minute mMinute;
+                Second mSecond;
+        };
         class Date
         {
         public:
