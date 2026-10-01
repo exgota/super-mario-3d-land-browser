@@ -9373,7 +9373,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027E8C0,          ,0x0027E90C,          ,U,f,,
 0x0027E90C,          ,0x0027E930,          ,U,f,,
 0x0027E930,          ,0x0027E9DC,          ,U,f,,
-0x0027E9DC,          ,0x0027E9EC,          ,M,f,_ZN2al8getScaleEPKNS_9LiveActorE,
+0x0027E9DC,          ,0x0027E9EC,          ,O,f,_ZN2al8getScaleEPKNS_9LiveActorE,
 0x0027E9EC,          ,0x0027EA1C,          ,U,f,,
 0x0027EA1C,          ,0x0027EA40,          ,U,f,,
 0x0027EA40,          ,0x0027EBAC,          ,O,f,_ZN2al9LiveActor17makeActorAppearedEv,
