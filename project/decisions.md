@@ -138,3 +138,11 @@ The updated brief adds hard rule5. Earlier direct object checks used scratch ARM
 The old build emitted C++ to temporary assembly, renamed assembly sections and invoked armasm. It now invokes armcc directly with -c and the existing module flags, records the actual command, compiler/source/object hashes and repository dependency hashes, and builds the normal archive from that object. The checker accepts only the canonical build path with this record. It verifies that source, configuration and referenced repository headers equal committed Git blobs, rejects edited output, and rejects copied/scratch objects. SDK assembly remains a build input where permitted, but it cannot pass this C++ object mode.
 
 The removed C++ assembly postprocessing helper has zero code references in tools. The strict byte comparison and original executable remain unchanged. Provenance rejection returns failure before changing a rank. The compact main link remains under separate repair; no failed link is reported as a runnable game.
+
+## 2026-10-01: Revalidate accepted matches through committed-source build output
+
+All52 previous O functions pass check.py --object again using their canonical objects under build/eu/obj, produced directly by the project build at ccc99c2. Coverage remains2892 of2,756,024 mapped function bytes, or0.104933%. The SDK48-byte interval uses its configured4.0/902 compiler; all51 Game/al intervals use4.1/791. The verification output is retained locally in build/provenance_validation.json.
+
+A copied untouched compiler object outside the canonical build path rejects. The actual ByamlHashIter project object rejects because its source differs from the committed Git blob. An incorrect object hash in the provenance record rejects through the verifier; restoring only that record restores acceptance. None of these rejection checks changes a rank or edits an object. Evidence is in build/provenance_rejection_checks/results.json.
+
+checkGameCompiler.py now takes its primary candidate from the canonical verified project object and requires check.py to accept it. The alternative compiler remains a diagnostic source compilation with unchanged flags. The sensor lookup still discriminates791 from894, so M0 remains1 of3.

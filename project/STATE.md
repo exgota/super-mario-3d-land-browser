@@ -12,14 +12,14 @@ M0: settle the game compiler. One of three required discriminating functions is 
 - EU executable hash confirmed. The original .3ds and target bytes remain untouched.
 - Clean sead API headers and declaration-only SDK entry points enable all 37 Game and 75 lib/al sources in the normal build.
 - check.py accepts O only after isolating source-generated object bytes, linking their relocations at original map addresses and comparing complete function intervals including literal pools. Unknown addresses, wrong sizes and changed bytes are rejected.
-- Previously checked coverage: 52 functions, 2892 / 2,756,024 function bytes, including literal pools. This must be revalidated through the new project-build provenance gate before reporting current accepted coverage. Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Accepted coverage: all 52 functions revalidated from canonical project ARMCC objects with committed source and header provenance. They cover 2892 / 2,756,024 function bytes, including literal pools (0.104933%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup matches791 and fails 894. Final paired evidence lives under build/compiler_probe. The other leaf/lookup matches reproduce both compiler builds and do not settle M0.
 - The refreshed pilot manifest is project/pilot_functions.csv: 20 small, 20 medium and 10 large or branch-heavy functions. All selected rows were unmatched at selection time.
 
 ## In flight
 - Wanwan source-only reconstruction at 0x0030D024 is ready for root integration. Its two compiler builds differ naturally but neither passes the target check.
 - Compact main-link repair, sead_headers agent. The FireBar, controller and thread-shutdown probes compile identically under both builds.
-- Root enforces new hard rule 5: only committed C++ compiled directly by the project build can establish O. Revalidate all 52 existing O rows after rebuilding with provenance. Pilot initial checks cover 50 / 50 functions.
+- New hard rule 5 is enforced and all 52 prior O rows pass. Copied objects, uncommitted source and an incorrect recorded object hash reject without changing ranks. The compiler proof also requires its primary result from the verified project object. Pilot initial checks cover 50 / 50 functions.
 
 ## Next tasks
 1. Prove two more natural C++ functions under 791 and against894, without changing global flags or importing game instructions.

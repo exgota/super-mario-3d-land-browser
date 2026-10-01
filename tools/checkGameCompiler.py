@@ -10,8 +10,10 @@ import subprocess
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from tools.low.checkExactBytes import check_exact_bytes
+from tools.low.buildProvenance import verify_build_output
 from tools.low import cfg
 from tools.low.glob import getProjDir, getCompilersDir, needsWibo
+from tools.pypstem._utils import getFileBuildPath
 from tools.pypstem.defaultFlags import default_flags_comp, default_flags_comp_cxx
 from tools.pypstem.manSetup import setup_compiler
 
@@ -68,7 +70,26 @@ def main():
         for compiler in (arguments.primary, arguments.alternative):
             directory = output_root / compiler / row['symbol']
             directory.mkdir(parents=True, exist_ok=True)
-            output, evidence = compile_source(row['source'], compiler, directory)
+            if compiler == arguments.primary:
+                source = root / row['source']
+                output = getFileBuildPath(source)
+                evidence = {'source': row['source'], 'compiler': compiler,
+                            'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
+                            'source_unchanged': True, 'compile_exit': 1}
+                try:
+                    provenance = verify_build_output(output)
+                    if provenance['source'] != row['source'] or provenance['compiler'] != compiler:
+                        raise ValueError('The configured project object uses a different source or compiler.')
+                    checked = subprocess.run(
+                        [sys.executable, str(root / 'tools/check.py'), row['symbol'], '--object', str(output)],
+                        cwd=root, capture_output=True, text=True)
+                    evidence.update({'provenance': provenance, 'compile_exit': 0,
+                                     'project_check_exit': checked.returncode,
+                                     'project_check_output': checked.stdout + checked.stderr})
+                except (OSError, ValueError, KeyError) as error:
+                    evidence['provenance_rejection'] = str(error)
+            else:
+                output, evidence = compile_source(row['source'], compiler, directory)
             if evidence['compile_exit'] == 0:
                 evidence['check'] = check_exact_bytes(row['symbol'], output, compiler_version=compiler,
                                                        output_directory=directory / 'exact')
@@ -79,7 +100,8 @@ def main():
         valid_difference = alternative.get('check', {}).get('reason') in (
             'The complete compiled section, including its literal pool, has a different size from the original interval.',
             'The linked candidate differs from the unchanged original interval.')
-        entry['discriminates'] = (stable and primary.get('check', {}).get('exact', False)
+        entry['discriminates'] = (stable and primary.get('project_check_exit') == 0
+                                 and primary.get('check', {}).get('exact', False)
                                  and alternative['compile_exit'] == 0 and valid_difference)
         report['functions'].append(entry)
         print(row['symbol'], 'discriminates' if entry['discriminates'] else 'does not discriminate', flush=True)
