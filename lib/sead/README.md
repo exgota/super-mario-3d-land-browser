@@ -33,3 +33,5 @@ The L, R, Start, Home, and Minus indices remain declarations until their wrapper
 The vector constant addresses recovered from static initialization and pose getters are zero `0x004305F8`, ones `0x004305EC`, ex `0x004305C8`, ey `0x004305D4`, and ez `0x004305E0`. These constants are declared, not defined, in this header-only reconstruction.
 
 Compile and byte-exact check results are maintained in the project's attempt ledger and decision log. This module has no independent matching claim.
+
+The pointer-valued OffsetListNode constructor takes its value by value. PlayerActionMultiCondition::append at0x00252008 preserves that pointer in r5 across the allocation call and initializes node offsets4,0,8 before inserting at the stored list offset. The complete76-byte caller matches with this constructor shape. Iterator representation remains provisional: PlayerActionMultiCondition::setup still differs from the original loop.

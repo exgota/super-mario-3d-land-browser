@@ -124,3 +124,9 @@ Only five previously empty symbol-name columns changed. Starts, ends, literal-po
 ## 2026-10-01: Identify the recorder frame constructor
 
 GhostPlayerRecorder::create passes36-byte elements and its literal0x0018D400 to the already mapped __aeabi_vec_ctor_nocookie_nodtor helper at0x0028EABC. The pointed-to interval is exactly one bx lr. The clean Frame type is36 bytes and leaves its fields uninitialized, so its generated default constructor also returns immediately. The empty symbol column at0x0018D400 is assigned the corresponding reconstructed C++ ABI name. No boundaries, pool fields or target bytes change.
+
+## 2026-10-01: Match the animation predicate and pointer-list append
+
+PlayerActionConditionAnimEnd::check now expresses the named-animation case as positive branches, followed by the same explicit frame-limit predicate used by its unnamed-animation case. This removes ARMCC boolean materialization caused by the inherited negated compound expression. Its fourth pilot iteration matches the full236-byte interval, including the SafeString vtable literal. The branches and call offsets come from the retail body.
+
+The pointer-list append takes a reference to its condition list before allocating a node. OffsetListNode now accepts its stored value by value, which preserves the incoming condition pointer in r5 across allocation instead of spilling a referenced parameter to the stack. The fourth pilot iteration reproduces all76 bytes, including null handling, node-field initialization and list-size increment. This is a binary-derived correction to the clean internal template API, with no compiler flag change.

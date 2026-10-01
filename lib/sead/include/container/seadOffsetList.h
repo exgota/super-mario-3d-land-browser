@@ -12,7 +12,7 @@ class OffsetListNode
 public:
         T mValue;
         ListNode mListNode;
-        OffsetListNode( const T& value ) : mValue( value ) {}
+        OffsetListNode( T value ) : mValue( value ) {}
         static s32 getListNodeOffset() { return offsetof( OffsetListNode, mListNode ); }
 };
 
