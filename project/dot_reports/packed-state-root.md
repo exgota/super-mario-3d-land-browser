@@ -1,5 +1,7 @@
 # Float-state root 0x0020ACAC
 
+**Integration qualification:** shared graphics C-symbol declarations differ between the state and shader branches. Do not claim combined integration until they are reconciled and regression checked. See [the exact conflict, common layout evidence, and proposed declaration contract](graphics-shared-declarations.md).
+
 Base: e2cbf8db72566da78fc16b77a5b90026bfd9ea0a. Branch: dot/packed-state-root.
 Target interval stays 0x0020ACAC..0x0020F690, 18,916 bytes. The map's final
 pool marker is 0x0020F688; this is not the first pool. Final result: a complete,
