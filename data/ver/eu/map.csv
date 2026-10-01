@@ -9266,7 +9266,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027C23C,0x0027C338,0x0027C340,0x0027C16C,U,fa,_ZN4sead15Matrix33CalcCtrIfE7inverseERN2nn4math5MTX33ERKS4_,
 0x0027C340,          ,0x0027C43C,0x0027C16C,U,fa,_ZN4sead15Matrix33CalcCtrIfE16inverseTransposeERN2nn4math5MTX33ERKS4_,
 0x0027C43C,          ,0x0027C4E4,0x0027C16C,U,fa,_ZN4sead15Matrix33CalcCtrIfE8multiplyERN2nn4math5MTX33ERKS4_S7_,
-0x0027C4E4,          ,0x0027C510,0x0027C16C,M,fa,_ZN4sead15Matrix33CalcCtrIfE11transposeToERN2nn4math5MTX33ERKS4_,
+0x0027C4E4,          ,0x0027C510,0x0027C16C,O,fa,_ZN4sead15Matrix33CalcCtrIfE11transposeToERN2nn4math5MTX33ERKS4_,
 0x0027C510,          ,0x0027C52C,0x0027C16C,U,fa,_ZN4sead15Matrix33CalcCtrIfE8makeZeroERN2nn4math5MTX33E,
 0x0027C52C,          ,0x0027C674,0x0027C16C,U,fa,_ZN4sead15Matrix34CalcCtrIfE7inverseERN2nn4math5MTX34ERKS4_,
 0x0027C674,0x0027C798,0x0027C79C,0x0027C16C,U,fa,_ZN4sead15Matrix34CalcCtrIfE16inverseTransposeERN2nn4math5MTX34ERKS4_,
