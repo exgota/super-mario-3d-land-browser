@@ -456,3 +456,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:18-04:00,0x00270370,_ZN2al14isPadTriggerUpEi,matched,2,0.0691
 2026-10-01T13:11:18-04:00,0x001C0ECC,_ZN2al12MemorySystem19freeAllSequenceHeapEv,matched,2,0.0511
 2026-10-01T13:11:19-04:00,0x001CD698,_ZN2al15getSequenceHeapEv,matched,2,0.0523
+2026-10-01T13:11:19-04:00,0x001E576C,_ZN2al26isCreatedSceneResourceHeapEv,matched,2,0.0525

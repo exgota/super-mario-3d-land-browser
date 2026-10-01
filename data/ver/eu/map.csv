@@ -5232,7 +5232,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E5628,0x001E56A4,0x001E56B0,          ,U,f,,
 0x001E56B0,          ,0x001E5728,          ,U,f,,
 0x001E5728,          ,0x001E576C,          ,U,f,,
-0x001E576C,          ,0x001E5788,          ,M,f,_ZN2al26isCreatedSceneResourceHeapEv,
+0x001E576C,          ,0x001E5788,          ,O,f,_ZN2al26isCreatedSceneResourceHeapEv,
 0x001E5788,          ,0x001E57A4,          ,U,f,,
 0x001E57A4,          ,0x001E57FC,          ,U,f,,
 0x001E57FC,0x001E5A00,0x001E5A04,          ,U,f,,
