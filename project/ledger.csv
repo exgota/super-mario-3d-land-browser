@@ -674,3 +674,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:27-04:00,0x001BB810,_ZN2al10BreakModel6appearEv,matched,2,0.0202
 2026-10-01T17:20:28-04:00,0x001175A4,_ZN10AppearStep11startAppearEv,matched,2,0.0322
 2026-10-01T17:20:28-04:00,0x00117608,_ZN10AppearStep14startDisappearEv,matched,2,0.0320
+2026-10-01T17:20:29-04:00,0x00350810,_ZNK13NrvAppearStep17AppearStepNrvWait7executeEPN2al11NerveKeeperE,matched,2,0.0318
