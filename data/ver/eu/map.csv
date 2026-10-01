@@ -11422,7 +11422,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002DA3B0,          ,0x002DA3DC,          ,U,f,_ZN4sead11WriteStream8writeS32Ei,
 0x002DA3DC,          ,0x002DA408,          ,U,f,,
 0x002DA408,          ,0x002DA40C,          ,U,f,,
-0x002DA40C,          ,0x002DA434,          ,M,f,_ZN4sead12CalendarTime7setDateERKNS0_4DateE,
+0x002DA40C,          ,0x002DA434,          ,O,f,_ZN4sead12CalendarTime7setDateERKNS0_4DateE,
 0x002DA434,          ,0x002DA4A8,          ,U,f,_ZN4sead12CalendarTimeC2ERKN2nn3fnd18DateTimeParametersE,
 0x002DA4A8,          ,0x002DA504,          ,M,f,_ZN4sead12CalendarTimeC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE,
 0x002DA504,0x002DA604,0x002DA60C,          ,U,f,,
