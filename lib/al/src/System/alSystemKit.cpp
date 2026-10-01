@@ -6,6 +6,13 @@
 namespace al
 {
 
+SystemKit::SystemKit()
+    : mMemorySystem( nullptr ), mFileLoader( nullptr ), _8( nullptr ), mSaveDataDirector( nullptr )
+{
+        for ( int i = 0; i < 7; i++ )
+                _10[ i ] = nullptr;
+}
+
 void SystemKit::createFileLoader( int r1 )
 {
         mFileLoader = new FileLoader( r1 );

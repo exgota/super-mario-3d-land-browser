@@ -5,6 +5,34 @@
 #include <Yaml/alByamlIter.h>
 #include <Yaml/alByamlStringTableIter.h>
 
+extern "C" const char* fn_0024BBA0( const al::ByamlIter* iter, const char* key )
+{
+        const char* value = nullptr;
+        if ( iter->tryGetStringByKey( &value, key ) )
+                return value;
+        return nullptr;
+}
+
+extern "C" const char* fn_0024BBC4( const al::ByamlIter* iter, const char* key )
+{
+        const char* value = nullptr;
+        if ( iter->tryGetStringByKey( &value, key ) )
+                return value;
+        return nullptr;
+}
+
+extern "C" bool fn_0024C7B4( unsigned short* out, const al::ByamlIter* iter, const char* key )
+{
+        bool result = false;
+        int value = result;
+        if ( iter->tryGetIntByKey( &value, key ) )
+        {
+                *out = static_cast<unsigned short>( value );
+                result = true;
+        }
+        return result;
+}
+
 namespace al
 {
 

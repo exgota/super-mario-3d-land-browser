@@ -62,6 +62,7 @@ private:
 public:
         ByamlHashIter( const u8* data );
 
+        const ByamlHashPair* getPairByIndex( int index ) const;
         const ByamlHashPair* findPair( int keyIdx ) const;
         bool                 getDataByKey( ByamlData* out, int index ) const;
 };

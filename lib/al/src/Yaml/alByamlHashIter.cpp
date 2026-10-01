@@ -3,6 +3,16 @@
 namespace al
 {
 
+const ByamlHashPair* ByamlHashIter::getPairByIndex( int index ) const
+{
+        if ( index < 0 )
+                return nullptr;
+        int size = !mData ? 0 : static_cast<int>( getSize() );
+        if ( size <= index )
+                return nullptr;
+        return getPairTable() + index;
+}
+
 // The binary-search behavior is reconstructed. Register allocation still differs.
 #ifdef NON_MATCHING
 const ByamlHashPair* ByamlHashIter::findPair( int keyIdx ) const

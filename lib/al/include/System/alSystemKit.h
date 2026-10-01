@@ -33,6 +33,8 @@ public:
                 return mSaveDataDirector;
         }
 
+        SystemKit();
+
         void createFileLoader( int r1 );
         void createSaveDataSystem( u32 r1, s32 r2 );
 };

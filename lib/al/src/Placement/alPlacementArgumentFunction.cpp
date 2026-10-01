@@ -30,6 +30,21 @@ static inline bool readPlacementIntegerArgument( int* out, const PlacementInfo& 
         return false;
 }
 
+bool tryGetArg( int* out, const PlacementInfo& info, const char* argName )
+{
+        if ( !info.isValid() )
+                return false;
+        int value;
+        if ( !info.tryGetIntByKey( &value, argName ) )
+                return false;
+        if ( value != -1 )
+        {
+                *out = value;
+                return true;
+        }
+        return false;
+}
+
 bool tryGetArg( bool* out, const PlacementInfo& info, const char* argName )
 {
         int value;

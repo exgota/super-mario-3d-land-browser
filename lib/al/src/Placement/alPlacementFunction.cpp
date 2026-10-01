@@ -12,6 +12,22 @@ extern "C" const char dat_003A2E50[];
 
 extern "C" const char dat_003A2E58[];
 
+extern "C" int fn_00192768( const al::ActorInitInfo* info )
+{
+        int value = -1;
+        if ( info->mPlacementInfo->tryGetIntByKey( &value, "ClippingGroupId" ) )
+                return value;
+        return -1;
+}
+
+extern "C" int fn_00257D58( const al::ActorInitInfo* info )
+{
+        int value = -1;
+        if ( info->mPlacementInfo->tryGetIntByKey( &value, "CameraId" ) )
+                return value;
+        return -1;
+}
+
 namespace al
 {
 

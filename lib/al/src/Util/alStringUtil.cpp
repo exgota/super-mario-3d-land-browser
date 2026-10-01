@@ -36,12 +36,12 @@ bool isEqualString( const char* s1, const char* s2 )
         return false;
 }
 
-#ifdef NON_MATCHING
 bool isEqualString( const sead::SafeString& s1, const sead::SafeString& s2 )
 {
-        return isEqualString( s1.cstr(), s2.cstr() );
+        const char* left = s1.cstr();
+        const char* right = s2.cstr();
+        return isEqualString( left, right );
 }
-#endif
 
 bool isEqualSubString( const char* str, const char* substr )
 {
