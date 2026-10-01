@@ -16652,7 +16652,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00376528,          ,0x0037655C,          ,U,f,,
 0x0037655C,          ,0x003765A0,          ,U,f,,
 0x003765A0,          ,0x003765A8,          ,O,f,_ZThn4_NK2al11LayoutActor14getAudioKeeperEv,
-0x003765A8,          ,0x003765B0,          ,M,f,_ZThn4_NK2al9LiveActor15getEffectKeeperEv,
+0x003765A8,          ,0x003765B0,          ,O,f,_ZThn4_NK2al9LiveActor15getEffectKeeperEv,
 0x003765B0,          ,0x003765F8,          ,U,f,,
 0x003765F8,          ,0x00376604,          ,U,f,,
 0x00376604,          ,0x003766B4,          ,U,f,,
