@@ -8364,7 +8364,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00266EF4,          ,0x00266F34,          ,U,f,,
 0x00266F34,          ,0x00266F5C,          ,O,f,_ZN2al17initActorPoseTRSVEPNS_9LiveActorE,
 0x00266F5C,          ,0x00266FF8,          ,U,f,,
-0x00266FF8,          ,0x00267050,          ,M,f,_ZN4sead12PtrArrayImpl5eraseEii,
+0x00266FF8,          ,0x00267050,          ,O,f,_ZN4sead12PtrArrayImpl5eraseEii,
 0x00267050,0x00267084,0x00267088,          ,O,f,_ZN2al12isObjectNameERKNS_9ByamlIterEPKc,
 0x00267088,0x002670D4,0x002670D8,          ,O,f,_ZN2al19getLinksInfoByIndexEPNS_9ByamlIterERKNS_13ActorInitInfoEi,
 0x002670D8,0x0026712C,0x00267134,          ,U,f,,
