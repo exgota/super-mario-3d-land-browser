@@ -105,3 +105,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T08:08:07-04:00,0x001EBE64,_ZN2al9LiveActor18initAfterPlacementEv,matched,3,0.0680
 2026-10-01T08:08:07-04:00,0x001EBF28,_ZN2al9LiveActor4initERKNS_13ActorInitInfoE,matched,3,0.0681
 2026-10-01T08:08:07-04:00,0x001EBF2C,_ZN2al9LiveActor7controlEv,matched,3,0.0680
+2026-10-01T08:08:08-04:00,0x00244CEC,_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE,matched,3,0.0684

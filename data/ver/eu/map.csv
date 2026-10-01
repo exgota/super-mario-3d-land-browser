@@ -7196,7 +7196,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00244C5C,          ,0x00244C6C,          ,U,f,,
 0x00244C6C,0x00244CBC,0x00244CC4,          ,U,f,,
 0x00244CC4,          ,0x00244CEC,          ,U,f,_ZN2al18initActorPoseTFGSVEPNS_9LiveActorE,
-0x00244CEC,          ,0x00244CF4,          ,M,f,_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE,
+0x00244CEC,          ,0x00244CF4,          ,O,f,_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE,
 0x00244CF4,          ,0x00244D04,          ,U,f,,
 0x00244D04,          ,0x00244D24,          ,U,f,,
 0x00244D24,          ,0x00244D80,          ,U,f,,
