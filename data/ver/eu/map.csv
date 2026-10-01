@@ -8216,7 +8216,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00262DA0,          ,0x00262DB0,          ,U,f,,
 0x00262DB0,0x00262DD0,0x00262DD4,          ,U,f,,
 0x00262DD4,          ,0x00262DE4,          ,U,f,,
-0x00262DE4,          ,0x00262E00,          ,M,f,_ZN2al27sendMsgPlayerFireBallAttackEPNS_9HitSensorES1_,
+0x00262DE4,          ,0x00262E00,          ,O,f,_ZN2al27sendMsgPlayerFireBallAttackEPNS_9HitSensorES1_,
 0x00262E00,0x00262E38,0x00262E40,          ,U,f,,
 0x00262E40,0x00262FC8,0x00262FD0,          ,U,f,,
 0x00262FD0,          ,0x00262FE8,          ,U,f,,
