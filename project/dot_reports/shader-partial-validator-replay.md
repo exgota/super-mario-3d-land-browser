@@ -2,7 +2,7 @@
 
 This appendix preserves the exact six final diagnostic scripts in a reviewable text note. They require the owner's fingerprinted EU executable, the normal ARMCC 4.0/902 project build, pyelftools and Unicorn with ARM1176 support. No game data or generated object is included. Run from the repository root after materializing each fenced block at the named ignored `build/research/` path. The original routines execute from the untouched private executable; candidate sections come exclusively from the normal project-generated object. The allocation test supplies a deterministic external allocation callback and compares its arguments and returned storage. These are bounded fixtures, not game execution or exact-byte acceptance.
 
-Build the committed source with `. ./development_environment.sh`, `export DEVKITARM=/usr`, and `python make.py eu -ca`. The canonical command is `python tools/check.py __shv_partialValidateShaderValidator --object build/eu/obj/lib/CtrSDK/sources/shv_PartialValidator.o`; it reports M because 16,260 compiled bytes differ in size from the complete 14,408-byte original interval. The ordinary compact build leaves this proposal unaccepted until the main run imports it.
+Build the committed source with `. ./development_environment.sh`, `export DEVKITARM=/usr`, and `python make.py eu -ca`. The canonical command is `python tools/check.py __shv_partialValidateShaderValidator --object build/eu/obj/lib/CtrSDK/sources/shv_PartialValidator.o`; it reports M because 16,276 complete compiled section bytes differ in size from the complete 14,408-byte original interval. The ordinary compact build leaves this proposal unaccepted until the main run imports it.
 
 The following preparation script resolves only existing map identities, links the unmodified canonical object into an isolated diagnostic image, and runs all six suites sequentially. It does not change the target, map, checker or object.
 
@@ -786,6 +786,8 @@ for name, output in zip(names, outputs):
 
 ## Frozen final evidence
 
+Size-label correction: the original manifest's `compiled_bytes: 16260` measured the ELF function symbol. Independent inspection of the same frozen object measures a 16,276-byte complete section, including 16 trailing pool bytes. The two fields below distinguish these quantities. All replay scripts load complete allocated ELF sections; source, object hashes, tested bytes, and results are unchanged.
+
 ```json
 {
   "source_commit": "b37cf54e36688bda0a9ed0d2213981634dc0f927",
@@ -795,7 +797,8 @@ for name, output in zip(names, outputs):
     "0x0037B818"
   ],
   "original_bytes": 14408,
-  "compiled_bytes": 16260,
+  "function_symbol_bytes": 16260,
+  "complete_compiled_section_bytes": 16276,
   "canonical": "M: complete compiled section size mismatch",
   "fixtures": 4740,
   "comparisons": 9480,
