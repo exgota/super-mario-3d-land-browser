@@ -4414,7 +4414,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CC5D0,0x001CC6C4,0x001CC6C8,          ,U,f,,
 0x001CC6C8,0x001CC770,0x001CC788,          ,U,f,,
 0x001CC788,          ,0x001CC79C,          ,U,f,,
-0x001CC79C,          ,0x001CC7C0,          ,M,f,_ZN2al20registerExecutorUserEPNS_12IUseExecutorEPKc,
+0x001CC79C,          ,0x001CC7C0,          ,O,f,_ZN2al20registerExecutorUserEPNS_12IUseExecutorEPKc,
 0x001CC7C0,          ,0x001CC810,          ,O,f,_ZN2al15ExecuteDirector12registerUserEPNS_12IUseExecutorEPKc,
 0x001CC810,          ,0x001CC820,          ,U,f,,
 0x001CC820,0x001CC8D8,0x001CC8EC,          ,U,f,,
