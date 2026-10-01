@@ -2397,7 +2397,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001715D8,0x0017164C,0x00171658,          ,U,f,,
 0x00171658,          ,0x00171660,          ,U,f,,
 0x00171660,0x00171824,0x00171830,          ,U,f,,
-0x00171830,0x00171890,0x001718A0,          ,M,f,_ZN16NoteObjGeneratorC1ERKN4sead14SafeStringBaseIcEE,
+0x00171830,0x00171890,0x001718A0,          ,O,f,_ZN16NoteObjGeneratorC1ERKN4sead14SafeStringBaseIcEE,
 0x001718A0,          ,0x001718D4,          ,U,f,,
 0x001718D4,          ,0x001718FC,          ,U,f,,
 0x001718FC,0x00171938,0x0017194C,          ,U,f,,
