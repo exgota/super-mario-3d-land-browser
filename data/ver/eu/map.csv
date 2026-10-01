@@ -11390,7 +11390,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002D9B9C,          ,0x002D9BC8,          ,U,f,,
 0x002D9BC8,          ,0x002D9BF4,          ,U,f,_ZN4sead10ReadStream7readS32ERi,
 0x002D9BF4,          ,0x002D9C20,          ,U,f,_ZN4sead10ReadStream7readU16ERt,
-0x002D9C20,0x002D9CC8,0x002D9CD0,          ,M,f,_ZN4sead10StereoUtil18getProjectionParamEPfS1_S1_S1_S1_S1_RKNS_8Matrix44IfEE,
+0x002D9C20,0x002D9CC8,0x002D9CD0,          ,O,f,_ZN4sead10StereoUtil18getProjectionParamEPfS1_S1_S1_S1_S1_RKNS_8Matrix44IfEE,
 0x002D9CD0,0x002D9CDC,0x002D9CE0,          ,U,f,,
 0x002D9CE0,0x002D9D00,0x002D9D08,          ,U,f,,
 0x002D9D08,          ,0x002D9D0C,          ,U,f,,
