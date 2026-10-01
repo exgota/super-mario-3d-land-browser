@@ -22,12 +22,11 @@ public:
         T x, y, z;
         Vector3() {}
         Vector3( T xValue, T yValue, T zValue ) : x( xValue ), y( yValue ), z( zValue ) {}
-        Vector3& operator=( const Vector3& other )
+        void set( const Vector3& other )
         {
                 x = other.x;
                 y = other.y;
                 z = other.z;
-                return *this;
         }
         Vector3& operator*=( T scalar )
         {

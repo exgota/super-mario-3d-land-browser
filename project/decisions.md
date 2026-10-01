@@ -841,3 +841,9 @@ Name only the existing whole U/f172-byte row24EC80..24ED2C as fn_0024EC80. Origi
 Both stated copy forms pass paired791/894 complete172-byte diagnostics and preserve direct reader156 plus all56 emitted accepted Placement definitions. Root verifies154 frozen files and13 unchanged current inputs. Isolated local branch project builds of committed source41c55a7 and77b8a15 pass both wrapper/direct checker calls; those branch O results add no main credit.
 
 Choose the primary explicit memberwise Vector3 assignment and existing direct-reader delegation. This ordinary C++ copy operator preserves layout and semantics; its return-reference live range changes compiler allocation without flags or assembly. Commit the primary CPP/header and enroll only the wrapper as M. A clean main build and complete prior accepted-root canonical preservation gate are required before credit. The fallback setter stays a tested proposal.
+
+### Pro copy primary fails shared preservation; use stated fallback
+
+The complete primary main audit passes662/666 earlier roots and rejects four: setRotate/setVelocity retain copy-helper code, while PlayerProperty setUpVec/setFrontVec change complete extents. The direct reader and proposed wrapper themselves pass. No new wrapper credit is taken. This is why the full shared-header gate is required; paired Placement-only preservation did not cover the other callers.
+
+Restore baseline implicit assignment and apply Pro's already tested void set(other) fallback with the same delegating wrapper. The copy helper is used only by this reader. Keep the wrapper M; clean rebuild, recheck the four rejected definitions so only the checker restores ranks, then repeat the full666-root gate. Source and oracle boundaries remain unchanged. Evidence: build/pro_scale_main_explicit_assignment_prior_recheck.json.

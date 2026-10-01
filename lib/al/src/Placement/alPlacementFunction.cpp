@@ -81,7 +81,7 @@ extern "C" bool fn_00240FA8( sead::Vector3f* out, const al::ByamlIter* iter )
                 return false;
         if ( !iter->tryGetFloatByKey( &value.z, dat_003A2E24 ) )
                 return false;
-        *out = value;
+        out->set( value );
         return true;
 }
 
