@@ -9169,7 +9169,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027A724,0x0027A7AC,0x0027A7B0,          ,U,f,,
 0x0027A7B0,0x0027A7C0,0x0027A7C4,          ,U,f,,
 0x0027A7C4,          ,0x0027A81C,          ,U,f,,
-0x0027A81C,          ,0x0027A83C,          ,M,f,_ZN4sead12PtrArrayImpl9setBufferEiPv,
+0x0027A81C,          ,0x0027A83C,          ,O,f,_ZN4sead12PtrArrayImpl9setBufferEiPv,
 0x0027A83C,0x0027A8E4,0x0027A910,          ,U,f,,
 0x0027A910,0x0027A948,0x0027A94C,          ,U,f,,
 0x0027A94C,0x0027A98C,0x0027A990,          ,U,f,,
