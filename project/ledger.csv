@@ -161,3 +161,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:45-04:00,0x0027EA40,_ZN2al9LiveActor17makeActorAppearedEv,matched,5,0.0335
 2026-10-01T09:44:46-04:00,0x0026DF44,_ZN2al9LiveActor8movementEv,matched,5,0.0329
 2026-10-01T09:44:46-04:00,0x0017A3DC,_ZN2al17CameraParamVision4initEPKNS_9ByamlIterE,matched,3,0.0047
+2026-10-01T09:44:46-04:00,0x001B64FC,_ZN2al25CameraDashAngleTunerParam4initEPKNS_9ByamlIterE,matched,3,0.0047
