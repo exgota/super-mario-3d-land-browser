@@ -33,6 +33,14 @@ extern "C" bool fn_0024C7B4( unsigned short* out, const al::ByamlIter* iter, con
         return result;
 }
 
+extern "C" bool fn_0024BB7C( const al::ByamlIter* iter, const char* key )
+{
+        bool value = false;
+        if ( iter->tryGetBoolByKey( &value, key ) )
+                return value;
+        return false;
+}
+
 namespace al
 {
 

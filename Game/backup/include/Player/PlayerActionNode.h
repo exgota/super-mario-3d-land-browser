@@ -11,10 +11,7 @@ private:
         sead::ListImpl mList;
 
 public:
-        PlayerAction* getAction() const
-        {
-                return mAction;
-        }
+        PlayerAction* getAction() const;
 
         virtual ~PlayerActionNode();
 };

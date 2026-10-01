@@ -9,6 +9,8 @@
 #include "System/GameSystem.h"
 #include "System/RootTask.h"
 
+extern "C" RootTask* fn_0028e678( const Application* application );
+
 // Source-defined strings from the EU course list pool. Type, Normal and
 // Miniature share an address anchor because the constructor derives Normal
 // from Miniature - 8. Other strings retain their independently mapped rows.
@@ -150,5 +152,5 @@ void CourseList::init( const al::Resource* gameSystemDataTable )
 
 CourseList* rp::getCourseList()
 {
-        return al::getApplication()->getRootTask()->getGameSystem()->getCourseList();
+        return fn_0028e678( al::getApplication() )->getGameSystem()->getCourseList();
 }

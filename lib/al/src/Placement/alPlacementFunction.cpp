@@ -28,6 +28,19 @@ extern "C" int fn_00257D58( const al::ActorInitInfo* info )
         return -1;
 }
 
+extern "C" bool fn_00213474( bool* out, const al::ByamlIter* iter )
+{
+        return al::tryGetArg( out, *iter, "Arg4" );
+}
+
+extern "C" int fn_001D79F4( const al::ByamlIter* iter )
+{
+        al::ByamlIter children;
+        if ( iter->tryGetIterByKey( &children, "AreaChildren" ) )
+                return children.getSize();
+        return 0;
+}
+
 namespace al
 {
 

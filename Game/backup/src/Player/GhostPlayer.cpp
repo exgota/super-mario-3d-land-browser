@@ -18,6 +18,14 @@ NERVE_DEF( GhostPlayer, Nrv5 );
 
 } // namespace NrvGhostPlayer
 
+#pragma push
+#pragma no_inline
+static void assignRecordedGhostPlayer( GhostPlayerRecorder* recorder, GhostPlayer* player )
+{
+        recorder->initGhostPlayer( player );
+}
+#pragma pop
+
 GhostPlayer::GhostPlayer( const sead::SafeString& name )
     : MapObjActor( name ), _64( false ), _65( false ), _66( false ), _67( false ), _68( false ), _69( true ),
       _6A( false ), _6B( true ), _6C( false ), _70( -1 ), _74( -1 ), _78( -1 )
@@ -26,7 +34,7 @@ GhostPlayer::GhostPlayer( const sead::SafeString& name )
                 static_cast<GhostPlayerRecorder*>( al::createSceneObj( SceneObjType_GhostPlayerRecorder ) );
         if ( recorder->mFrames == nullptr )
                 recorder->create( 30 );
-        recorder->initGhostPlayer( this );
+        assignRecordedGhostPlayer( recorder, this );
 }
 
 #ifdef NON_MATCHING

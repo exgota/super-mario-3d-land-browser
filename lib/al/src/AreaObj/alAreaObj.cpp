@@ -31,3 +31,58 @@ bool AreaObj::isInVolume( const sead::Vector3f& trans ) const
 }
 
 } // namespace al
+
+#include <Yaml/alByamlIter.h>
+
+static inline int readAreaPlacementInteger( const char* key, const al::AreaObj* area )
+{
+        const al::ByamlIter* iter = area->getPlacementInfo();
+        if ( iter != nullptr )
+        {
+                int value = -1;
+                if ( iter->tryGetIntByKey( &value, key ) )
+                        return value;
+        }
+        return -1;
+}
+
+extern "C" int fn_00267C1C( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg0", area );
+}
+
+extern "C" int fn_00253420( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg1", area );
+}
+
+extern "C" int fn_001CBE10( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg2", area );
+}
+
+extern "C" int fn_0024C664( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg3", area );
+}
+
+extern "C" int fn_0024C764( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg4", area );
+}
+
+extern "C" int fn_0024C724( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg5", area );
+}
+
+extern "C" int fn_0024C6E4( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg6", area );
+}
+
+extern "C" int fn_0024C6A4( const al::AreaObj* area )
+{
+        return readAreaPlacementInteger( "Arg7", area );
+}
+

@@ -7,6 +7,7 @@
 namespace al
 {
 class AreaInitInfo;
+class ByamlIter;
 class AreaShape;
 class StageSwitchKeeper;
 
@@ -22,6 +23,11 @@ private:
         bool               _48;
 
 public:
+        const ByamlIter* getPlacementInfo() const
+        {
+                return static_cast<const ByamlIter*>( _40 );
+        }
+
         virtual StageSwitchKeeper* getStageSwitchKeeper() const;
         virtual void               initStageSwitchKeeper();
         virtual void               init( const AreaInitInfo& info );
