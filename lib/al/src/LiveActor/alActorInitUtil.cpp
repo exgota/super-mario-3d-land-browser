@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitByaml.h>
 #include <LiveActor/alActorInitInfo.h>
 #include <LiveActor/alActorInitUtil.h>
 #include <LiveActor/alLiveActor.h>
@@ -7,17 +8,6 @@
 namespace al
 {
 
-#pragma push
-#pragma no_inline
-
-#ifdef NON_MATCHING
-static void initActorImpl( LiveActor* actor, const ActorInitInfo& info, const sead::SafeString& objectName, const sead::SafeString& archivePath, const char* suffix = nullptr )
-{ // placeholder
-}
-#endif
-
-#pragma pop
-
 #ifdef NON_MATCHING
 
 // SafeString construction backwards
@@ -25,13 +15,13 @@ void initActor( LiveActor* actor, const ActorInitInfo& info )
 {
         const char* objectName = nullptr;
         tryGetObjectName( &objectName, info );
-        initActorImpl( actor, info, objectName, StringTmp<256>( "ObjectData/%s", objectName ) );
+        fn_002417E8( actor, info, objectName, StringTmp<256>( "ObjectData/%s", objectName ), nullptr );
 }
 
 // ???
 void initActorWithArchiveName( LiveActor* actor, const ActorInitInfo& info, const sead::SafeString& archiveName, const char* suffix )
 {
-        initActorImpl( actor, info, archiveName.cstr(), StringTmp<256>( "ObjectData/%s", archiveName.cstr() ), suffix );
+        fn_002417E8( actor, info, archiveName.cstr(), StringTmp<256>( "ObjectData/%s", archiveName.cstr() ), suffix );
 }
 #endif
 
