@@ -182,3 +182,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:16:12-04:00,0x001CCD40,_ZN2al15ExecuteDirectorC1Ei,matched,1,0.0049
 2026-10-01T10:25:01-04:00,0x00189184,_ZN2al16initLiveActorKitEPNS_12LiveActorKitE,matched,2,0.0212
 2026-10-01T10:25:02-04:00,0x0018B9E4,_ZN18alSubActorFunction11trySyncDeadEPN2al14SubActorKeeperE,matched,2,0.0503
+2026-10-01T10:25:02-04:00,0x0018BA34,_ZN18alSubActorFunction12trySyncAliveEPN2al14SubActorKeeperE,matched,2,0.0502
