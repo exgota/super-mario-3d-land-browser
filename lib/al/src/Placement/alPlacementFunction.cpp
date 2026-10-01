@@ -87,6 +87,18 @@ extern "C" bool fn_00240FA8( sead::Vector3f* out, const al::ByamlIter* iter )
         return true;
 }
 
+#ifdef NON_MATCHING
+// Full 172-byte interval; R6/R7 roles differ from retail. See the dot report.
+// Failure preserves the output, and success copies all three scale components.
+extern "C" bool fn_0024EC80( sead::Vector3f* out, const al::ActorInitInfo* info )
+{
+        bool valid = fn_00240FA8( out, info->mPlacementInfo );
+        if ( valid )
+                return true;
+        return valid;
+}
+#endif
+
 extern "C" bool fn_001E7964( const al::ByamlIter* iter, const char** name, int* count )
 {
         al::ByamlIter sound;
