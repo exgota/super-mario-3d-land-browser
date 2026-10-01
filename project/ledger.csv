@@ -237,3 +237,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:01:58-04:00,0x001DB6D4,_ZN2al19ActorPoseKeeperBase10getQuatPtrEv,matched,2,0.0944
 2026-10-01T11:01:58-04:00,0x001DB6DC,_ZN2al19ActorPoseKeeperBase11getFrontPtrEv,matched,2,0.0930
 2026-10-01T11:01:59-04:00,0x001DB6E4,_ZN2al19ActorPoseKeeperBase12getRotatePtrEv,matched,2,0.0932
+2026-10-01T11:01:59-04:00,0x001DB734,_ZN2al19ActorPoseKeeperTFSV11getFrontPtrEv,matched,2,0.0920
