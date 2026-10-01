@@ -8206,7 +8206,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00262AF8,          ,0x00262B14,          ,U,f,,
 0x00262B14,          ,0x00262B84,          ,U,f,,
 0x00262B84,          ,0x00262BA4,          ,U,f,,
-0x00262BA4,0x00262BC4,0x00262BC8,          ,U,f,_ZN2al16isCollidedGroundEPKNS_9LiveActorE,
+0x00262BA4,0x00262BC4,0x00262BC8,          ,O,f,_ZN2al16isCollidedGroundEPKNS_9LiveActorE,
 0x00262BC8,0x00262C34,0x00262C38,          ,U,f,,
 0x00262C38,0x00262CA4,0x00262CA8,          ,U,f,,
 0x00262CA8,          ,0x00262CC8,          ,U,f,,
