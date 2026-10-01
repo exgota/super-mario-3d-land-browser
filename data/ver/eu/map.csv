@@ -14744,7 +14744,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0034C2AC,0x0034C378,0x0034C384,          ,U,f,,
 0x0034C384,0x0034C408,0x0034C410,          ,U,f,,
 0x0034C410,0x0034C4DC,0x0034C4E8,          ,U,f,,
-0x0034C4E8,          ,0x0034C4EC,          ,M,f,_ZNK10NrvRailDot14RailDotNrvWait7executeEPN2al11NerveKeeperE,
+0x0034C4E8,          ,0x0034C4EC,          ,O,f,_ZNK10NrvRailDot14RailDotNrvWait7executeEPN2al11NerveKeeperE,
 0x0034C4EC,0x0034C5C0,0x0034C5C4,          ,U,f,,
 0x0034C5C4,0x0034C6C8,0x0034C6D4,          ,U,f,,
 0x0034C6D4,0x0034C72C,0x0034C738,          ,U,f,,
