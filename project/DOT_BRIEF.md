@@ -9,7 +9,7 @@ Repository: `github.com/exgota/super-mario-3d-land-browser` (private). Read `AGE
 - Do all work on your own cloud computer. Do not start Codex tasks or ChatGPT Work tasks: those count against the owner's usage, and your own work does not.
 - Work only on branches named `dot/<topic>`, for example `dot/fugumannen-init`. Never push to `main`.
 - Commit only source (`Game/`, `lib/`), headers, and notes. Never commit changes to `data/ver/eu/map.csv`, `project/ledger.csv`, `project/STATE.md`, or anything under `tools/`. The main run owns those and re-verifies everything you send.
-- Your targets, in order: the functions listed in `project/blocked.md`, then functions of 0x400 bytes or more whose rank in `data/ver/eu/map.csv` is `U`. Fetch `main` before choosing, and skip anything that is no longer `U`.
+- Your targets, in order: packets in `project/pro_requests/` that have no matching file in `project/pro_responses/` (each is a self-contained write-up of a function the main run got stuck on), the functions listed in `project/blocked.md`, then functions of 0x400 bytes or more whose rank in `data/ver/eu/map.csv` is `U`. Fetch `main` before choosing, and skip anything that is no longer `U`.
 - Push small and often. One class or one function family per branch.
 - For each branch, add `project/dot_reports/<branch name>.md`: which functions you believe match, the `tools/check.py` output that shows it, and what you learned about layouts, names or callees that the main run can reuse.
 
