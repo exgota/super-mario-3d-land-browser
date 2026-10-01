@@ -7553,7 +7553,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00251CD8,0x00251D44,0x00251D60,          ,U,f,,
 0x00251D60,          ,0x00251E28,          ,U,f,_ZN4sead12PtrArrayImpl4sortEPFiPKvS2_E,
 0x00251E28,          ,0x00251EA0,          ,U,f,,
-0x00251EA0,0x00251EB8,0x00251EBC,          ,M,f,_ZN28PlayerActionConditionAnimEndC1EP18IUsePlayerAnimatorPKci,
+0x00251EA0,0x00251EB8,0x00251EBC,          ,O,f,_ZN28PlayerActionConditionAnimEndC1EP18IUsePlayerAnimatorPKci,
 0x00251EBC,0x00251EE0,0x00251EE4,          ,U,f,,
 0x00251EE4,0x00251EF8,0x00251EFC,          ,U,f,,
 0x00251EFC,0x00251F10,0x00251F14,          ,U,f,,
