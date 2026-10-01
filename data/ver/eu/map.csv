@@ -7886,7 +7886,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025A938,0x0025A980,0x0025A988,          ,U,f,,
 0x0025A988,0x0025AA04,0x0025AA18,          ,U,f,,
 0x0025AA18,          ,0x0025AA34,          ,U,f,_ZN2al3Sky8calcAnimEv,
-0x0025AA34,          ,0x0025AAA4,          ,M,f,_ZN2al9LiveActor8calcAnimEv,
+0x0025AA34,          ,0x0025AAA4,          ,O,f,_ZN2al9LiveActor8calcAnimEv,
 0x0025AAA4,          ,0x0025AAEC,          ,U,f,,
 0x0025AAEC,          ,0x0025AB3C,          ,U,f,,
 0x0025AB3C,0x0025AB78,0x0025AB80,          ,U,f,,
