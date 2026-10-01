@@ -12620,7 +12620,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0031B340,          ,0x0031B344,          ,U,f,,
 0x0031B344,          ,0x0031B368,          ,U,f,,
 0x0031B368,          ,0x0031B378,          ,U,f,,
-0x0031B378,0x0031B3A4,0x0031B3AC,          ,M,f,_ZN2al9EffectObj17makeActorAppearedEv,
+0x0031B378,0x0031B3A4,0x0031B3AC,          ,O,f,_ZN2al9EffectObj17makeActorAppearedEv,
 0x0031B3AC,0x0031B450,0x0031B45C,          ,U,f,_ZN2al9EffectObj4initERKNS_13ActorInitInfoE,
 0x0031B45C,0x0031B4EC,0x0031B4F8,          ,U,f,_ZN2al17EffectObjFunction18initActorEffectObjEPNS_9EffectObjERKNS_13ActorInitInfoEPKc,
 0x0031B4F8,0x0031B518,0x0031B520,          ,M,f,_ZN2al9EffectObj4killEv,
