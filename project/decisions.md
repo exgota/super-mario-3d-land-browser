@@ -803,3 +803,9 @@ Local intake adds four Fall callbacks484bytes, two executor-list bodies472bytes 
 ### Byaml string getter source-scheduling cap, 2026-10-01
 
 The first committed-source canonical probe and three ordinary scratch variants exhaust this pass. Baseline and the first two variants emit24 bytes with15 differing bytes under both compilers; the last emits20 bytes and fails the extent check. All six additional compiles preserve accepted findStringIndex raw code/relocations. Root verifies79 frozen files before committing the216-line packet. No behavior equality is claimed. Ledger time combines the measured1.275743900-minute scratch wall with0.291332291-second canonical driver; full canonical wall/preparation remain untimed. Source stays unchanged after its first canonical probe; no new source is adopted from the failed variants.
+
+### Collider invalidation preservation blocker, 2026-10-01
+
+Root verifies all1633 frozen handoff files and the332-line packet. Four unsuccessful ordinary C++ forms leave8 differing bytes in the complete88-byte interval under791/894. Eight target compiles and four preservation compiles all succeed. The proposed aggregate-result header changes4 bytes in previously accepted isCollidedGround262BA4..262BC8, so neither source nor header enters production. The independently grounded512-byte storage, three0x8C result strides, sentinel-99999.0f and output-position provider are retained as evidence, without exact or functional credit.
+
+The ledger records6.845910 minutes for the measured preparation and all diagnostic window, including preservation. The narrower target-only window is3.878167 minutes; initial selection and final packaging are excluded. The first sentinel transcription error is disclosed in the packet. Requeue only after other work with a new scheduling hypothesis that also preserves accepted callers. Evidence: build/library_collider_invalidation_matching/handoff_manifest.json.
