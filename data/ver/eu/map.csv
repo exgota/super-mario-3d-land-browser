@@ -3060,7 +3060,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0018D600,          ,0x0018D60C,          ,U,f,,
 0x0018D60C,          ,0x0018D640,          ,U,f,,
 0x0018D640,          ,0x0018D828,          ,U,f,,
-0x0018D828,0x0018D85C,0x0018D860,          ,M,f,_ZN19GhostPlayerRecorderC1Ev,
+0x0018D828,0x0018D85C,0x0018D860,          ,O,f,_ZN19GhostPlayerRecorderC1Ev,
 0x0018D860,0x0018D898,0x0018D8A4,          ,U,f,,
 0x0018D8A4,0x0018D958,0x0018D96C,          ,U,f,,
 0x0018D96C,0x0018DA54,0x0018DA74,          ,U,f,,
