@@ -684,3 +684,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:31-04:00,0x0035DDE0,_ZNK17NrvTrickHintPanel21TrickHintPanelNrvnrv37executeEPN2al11NerveKeeperE,matched,2,0.0272
 2026-10-01T17:20:31-04:00,0x0035DE20,_ZNK17NrvTrickHintPanel20TrickHintPanelNrvOff7executeEPN2al11NerveKeeperE,matched,2,0.0272
 2026-10-01T17:20:32-04:00,0x0035DD80,_ZNK17NrvTrickHintPanel19TrickHintPanelNrvOn7executeEPN2al11NerveKeeperE,matched,3,4.8485
+2026-10-01T17:20:32-04:00,0x00334EF8,_ZNK2al19ActorPoseKeeperBase7getQuatEv,matched,2,0.0197
