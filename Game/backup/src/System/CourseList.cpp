@@ -1,5 +1,6 @@
 #include "System/CourseList.h"
 
+
 #include <Resource/alResource.h>
 #include <System/Application.h>
 #include <Util/alStringUtil.h>
@@ -8,53 +9,70 @@
 #include "System/GameSystem.h"
 #include "System/RootTask.h"
 
+// Source-defined strings from the EU course list pool. Type, Normal and
+// Miniature share an address anchor because the constructor derives Normal
+// from Miniature - 8. Other strings retain their independently mapped rows.
+static const char force_section( ".sdata_dat_003A2884" ) s_koopaCastle[12] = "KoopaCastle";
+static const char force_section( ".sdata_dat_003A2890" ) s_type[8] = "Type";
+static const char force_section( ".sdata_dat_003A2890" ) s_normal[8] = "Normal";
+static const char force_section( ".sdata_dat_003A2890" ) s_miniature[12] = "Miniature";
+static const char force_section( ".sdata_dat_003A28AC" ) s_koopaFortress[16] = "KoopaFortress";
+static const char force_section( ".sdata_dat_003A28BC" ) s_koopaBattleShip[16] = "KoopaBattleShip";
+static const char force_section( ".sdata_dat_003A28CC" ) s_championship[16] = "Championship";
+static const char force_section( ".sdata_dat_003A28DC" ) s_kinopioHousePresent[20] = "KinopioHousePresent";
+static const char force_section( ".sdata_dat_003A28F0" ) s_kinopioHouseAlbum[20] = "KinopioHouseAlbum";
+static const char force_section( ".sdata_dat_003A2904" ) s_mysteryBox[12] = "MysteryBox";
+static const char force_section( ".sdata_dat_003A2910" ) s_dokan[8] = "Dokan";
+static const char force_section( ".sdata_dat_003A2918" ) s_empty[8] = "Empty";
+static const char force_section( ".sdata_dat_003A2920" ) s_collectCoinNum[16] = "CollectCoinNum";
+static const char force_section( ".sdata_dat_003A2930" ) s_scenario[12] = "Scenario";
+static const char force_section( ".sdata_dat_003A293C" ) s_stage[8] = "Stage";
+static const char force_section( ".sdata_dat_003A2944" ) s_worlds[8] = "Worlds";
+struct CourseListResourceName
+{
+        char name[11];
+        unsigned char padding;
+};
+static const CourseListResourceName force_section( ".sdata_dat_003A294C" ) s_courseList = {
+        "CourseList", 0xFF
+};
+static_assert( sizeof( CourseListResourceName ) == 12, "CourseList name and alignment byte" );
+
+
 CourseList::Course::Course( const al::ByamlIter* course )
     : mCourseType( CourseType_Normal ), mStageName( nullptr ), mScenario( -1 ),
-      mMiniatureModelName( "Miniature" ), mCoinCollectNum( 0 )
+      mMiniatureModelName( s_miniature ), mCoinCollectNum( 0 )
 
 {
-        const char* type = "Normal";
-        course->tryGetStringByKey( &type, "Type" );
+        const char* type = s_normal;
+        course->tryGetStringByKey( &type, s_type );
 
-        if ( al::isEqualString( type, "KoopaCastle" ) )
+        if ( al::isEqualString( type, s_koopaCastle ) )
                 mCourseType = CourseType_KoopaCastle;
-        else if ( al::isEqualString( type, "KoopaFortress" ) )
+        else if ( al::isEqualString( type, s_koopaFortress ) )
                 mCourseType = CourseType_KoopaFortress;
-        else if ( al::isEqualString( type, "KoopaBattleShip" ) )
+        else if ( al::isEqualString( type, s_koopaBattleShip ) )
                 mCourseType = CourseType_KoopaBattleShip;
-        else if ( al::isEqualString( type, "Championship" ) )
+        else if ( al::isEqualString( type, s_championship ) )
                 mCourseType = CourseType_Championship;
-        else if ( al::isEqualString( type, "KinopioHousePresent" ) )
+        else if ( al::isEqualString( type, s_kinopioHousePresent ) )
                 mCourseType = CourseType_KinopioHousePresent;
-        else if ( al::isEqualString( type, "KinopioHouseAlbum" ) )
+        else if ( al::isEqualString( type, s_kinopioHouseAlbum ) )
                 mCourseType = CourseType_KinopioHouseAlbum;
-        else if ( al::isEqualString( type, "MysteryBox" ) )
+        else if ( al::isEqualString( type, s_mysteryBox ) )
                 mCourseType = CourseType_MysteryBox;
-        else if ( al::isEqualString( type, "Dokan" ) )
+        else if ( al::isEqualString( type, s_dokan ) )
                 mCourseType = CourseType_Dokan;
-        else if ( al::isEqualString( type, "Empty" ) )
+        else if ( al::isEqualString( type, s_empty ) )
                 mCourseType = CourseType_Empty;
 
-        course->tryGetStringByKey( &mStageName, "Stage" );
-        course->tryGetIntByKey( &mScenario, "Scenario" );
-        course->tryGetStringByKey( &mMiniatureModelName, "Miniature" );
-        course->tryGetIntByKey( &mCoinCollectNum, "CollectCoinNum" );
+        course->tryGetStringByKey( &mStageName, s_stage );
+        course->tryGetIntByKey( &mScenario, s_scenario );
+        course->tryGetStringByKey( &mMiniatureModelName, s_miniature );
+        course->tryGetIntByKey( &mCoinCollectNum, s_collectCoinNum );
 }
 
-#pragma push
-#pragma no_inline
-
 #ifdef NON_MATCHING
-bool CourseList::Course::isCourseTypeStage( CourseType type )
-{
-        return type <= 4;
-}
-#endif
-
-#pragma pop
-
-#ifdef NON_MATCHING
-// strings and random mov r1, r4
 CourseList::World::World( const al::ByamlIter* world )
     : mCourses( nullptr ), mNumCourses( 0 ), mIsSpecialWorld( false )
 {
@@ -82,10 +100,11 @@ CourseList::World::World( const al::ByamlIter* world )
         }
 }
 
+
 CourseList::List::List( const al::ByamlIter& courseListIter ) : mWorlds( nullptr ), mNumWorlds( 0 )
 {
         al::ByamlIter worlds;
-        if ( courseListIter.tryGetIterByKey( &worlds, "Worlds" ) )
+        if ( courseListIter.tryGetIterByKey( &worlds, s_worlds ) )
         {
                 mNumWorlds = worlds.getSize();
                 if ( mNumWorlds )
@@ -102,6 +121,7 @@ CourseList::List::List( const al::ByamlIter& courseListIter ) : mWorlds( nullptr
                 }
         }
 }
+
 #endif
 
 CourseList::CourseList() : mCourseList( 0 )
@@ -112,7 +132,7 @@ CourseList::CourseList() : mCourseList( 0 )
 #ifdef NON_MATCHING
 void CourseList::init( const al::Resource* gameSystemDataTable )
 {
-        mCourseList = new List( al::ByamlIter( gameSystemDataTable->getByml( "CourseList" ) ) );
+        mCourseList = new List( al::ByamlIter( gameSystemDataTable->getByml( s_courseList.name ) ) );
         mNumStages  = 0;
 
         for ( int i = 0; i < mCourseList->mNumWorlds; i++ )

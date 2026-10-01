@@ -369,3 +369,9 @@ The normal main links/exports after source intake. tryGetPlacementInfo passes th
 ## 2026-10-01: Record independent CourseList shared-data ownership
 
 Before source intake from dot/course-list, root independently reconstructed212 ordinary initializer bytes and compared them with the unchanged target. Fifteen source sections cover16 existing rows; only the28-byte Type/Normal/Miniature section at0x003A2890 spans two rows. Retail independently derives Normal as Miniature-8. project/course_list_data_evidence.md documents the complete extent and source-data hash. No map, boundary, rank or source changes are made here. Canonical emitted-data comparison and function acceptance remain pending.
+
+## 2026-10-01: Review CourseList source from dot/course-list
+
+Intake takes only CourseList.cpp, the separate CourseListCourse.cpp leaf, two reports and the capped World packet. Complete Byaml headers/providers remain unchanged. Independent factory construction and resource-search/create continuation identify findOrCreateResource at the existing0x00243260..0x0024327C interval. The independently established string-tag reader at0x0029101C..0x0029107C receives its semantic name; Resource::getByml is already named by placement intake. No function/data interval moves.
+
+The leaf now uses the retail unsigned0..4 enum test, rejecting negative bit patterns. Its ordinary separate translation unit retains the external call boundary. Source strings follow the separately committed212-byte ownership evidence. Constructor104 and leaf16 are enrolled M for exact checking; guarded init408 and World700 are enrolled M for diagnostics, with no functional claim. The abandoned separate List constructor and artificial allocator arguments are not imported. Local ledger times cover checking only, excluding dot preparation.
