@@ -9202,7 +9202,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B100,          ,0x0027B118,          ,U,f,_ZN2al14isSensorPlayerEPKNS_9HitSensorE,
 0x0027B118,0x0027B17C,0x0027B180,          ,U,f,,
 0x0027B180,          ,0x0027B194,          ,U,f,,
-0x0027B194,0x0027B1A4,0x0027B1A8,          ,M,f,_ZN2al13NerveExecutorC1EPKc,
+0x0027B194,0x0027B1A4,0x0027B1A8,          ,O,f,_ZN2al13NerveExecutorC1EPKc,
 0x0027B1A8,          ,0x0027B1C0,          ,U,f,,
 0x0027B1C0,          ,0x0027B274,          ,U,f,,
 0x0027B274,          ,0x0027B278,          ,U,f,,
