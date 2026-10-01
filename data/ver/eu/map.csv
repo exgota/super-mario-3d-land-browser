@@ -8666,7 +8666,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026EBE8,          ,0x0026EBFC,          ,O,f,_ZN13PlayerTrigger3setENS_14ESensorTriggerE,
 0x0026EBFC,          ,0x0026EC10,          ,U,f,,
 0x0026EC10,          ,0x0026EC24,          ,U,f,,
-0x0026EC24,          ,0x0026EC40,          ,M,f,_ZN2al9sendMsg58EPNS_9HitSensorES1_,
+0x0026EC24,          ,0x0026EC40,          ,O,f,_ZN2al9sendMsg58EPNS_9HitSensorES1_,
 0x0026EC40,0x0026ECFC,0x0026ED14,          ,U,f,,
 0x0026ED14,0x0026ED68,0x0026ED70,          ,U,f,,
 0x0026ED70,          ,0x0026EDBC,          ,U,f,,
