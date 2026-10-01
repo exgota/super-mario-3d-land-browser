@@ -503,3 +503,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:37-04:00,0x00395E8C,_ZN2al19createActorFunctionI10FugumannenEEPNS_9LiveActorEPKc,matched,2,0.0388
 2026-10-01T13:11:38-04:00,0x00395D3C,_ZN2al19createActorFunctionI10AppearStepEEPNS_9LiveActorEPKc,matched,2,0.0399
 2026-10-01T13:11:38-04:00,0x00397404,_ZN2al19createActorFunctionI15TransparentWallEEPNS_9LiveActorEPKc,matched,2,0.0411
+2026-10-01T13:11:38-04:00,0x0039643C,_ZN2al19createActorFunctionI11GhostPlayerEEPNS_9LiveActorEPKc,matched,2,0.0425

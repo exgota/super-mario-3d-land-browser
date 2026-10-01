@@ -17552,7 +17552,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00396394,0x003963C8,0x003963CC,          ,U,f,,
 0x003963CC,0x00396400,0x00396404,          ,U,f,,
 0x00396404,0x00396438,0x0039643C,          ,U,f,,
-0x0039643C,0x00396470,0x00396474,          ,M,f,_ZN2al19createActorFunctionI11GhostPlayerEEPNS_9LiveActorEPKc,
+0x0039643C,0x00396470,0x00396474,          ,O,f,_ZN2al19createActorFunctionI11GhostPlayerEEPNS_9LiveActorEPKc,
 0x00396474,0x003964A8,0x003964AC,          ,U,f,,
 0x003964AC,0x003964E0,0x003964E4,          ,U,f,,
 0x003964E4,0x00396518,0x0039651C,          ,U,f,,
