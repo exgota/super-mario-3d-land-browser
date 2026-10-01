@@ -308,3 +308,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:01-04:00,0x001E34C8,_ZN2al23sendMsgPlayerTailAttackEPNS_9HitSensorES1_,matched,2,0.2216
 2026-10-01T11:15:01-04:00,0x001E34E4,_ZN2al9sendMsg52EPNS_9HitSensorES1_,matched,2,0.2215
 2026-10-01T11:15:02-04:00,0x001E3500,_ZN2al9sendMsg51EPNS_9HitSensorES1_,matched,2,0.2223
+2026-10-01T11:15:02-04:00,0x001E4A60,_ZN2al7isMsg14Ej,matched,2,0.2220
