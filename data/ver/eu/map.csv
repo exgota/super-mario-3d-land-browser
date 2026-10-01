@@ -2218,7 +2218,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0016A048,0x0016A07C,0x0016A08C,          ,U,f,,
 0x0016A08C,0x0016A0FC,0x0016A11C,          ,U,f,,
 0x0016A11C,0x0016A2A8,0x0016A2B4,          ,M,f,_ZN10CourseList4initEPKN2al8ResourceE,
-0x0016A2B4,0x0016A2F8,0x0016A31C,          ,M,f,_ZN10CourseListC1Ev,
+0x0016A2B4,0x0016A2F8,0x0016A31C,          ,O,f,_ZN10CourseListC1Ev,
 0x0016A31C,0x0016A324,0x0016A328,          ,U,f,,
 0x0016A328,0x0016A37C,0x0016A390,          ,U,f,,
 0x0016A390,0x0016A438,0x0016A458,          ,U,f,,
