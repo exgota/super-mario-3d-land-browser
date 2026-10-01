@@ -1,3 +1,4 @@
 symbol,source
 _ZN16alSensorFunction20findSensorTypeByNameEPKc,lib/al/src/LiveActor/alSensorFunction.cpp
 fn_001C5A88,lib/al/src/Effect/alEffectHandleFunction.cpp
+fn_001BB19C,Game/backup/src/Player/PlayerFlagFunction.cpp
