@@ -3821,7 +3821,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001B64B4,0x001B64E4,0x001B64E8,          ,U,f,,
 0x001B64E8,0x001B64F8,0x001B64FC,          ,U,f,,
 0x001B64FC,0x001B654C,0x001B657C,          ,U,f,_ZN2al25CameraDashAngleTunerParam4initEPKNS_9ByamlIterE,
-0x001B657C,0x001B658C,0x001B6594,          ,U,f,_ZN2al25CameraDashAngleTunerParamC1Ev,
+0x001B657C,0x001B658C,0x001B6594,          ,O,f,_ZN2al25CameraDashAngleTunerParamC1Ev,
 0x001B6594,          ,0x001B659C,          ,U,f,,
 0x001B659C,0x001B6784,0x001B678C,          ,U,f,,
 0x001B678C,0x001B681C,0x001B6874,          ,U,f,,
