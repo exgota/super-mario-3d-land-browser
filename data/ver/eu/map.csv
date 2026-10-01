@@ -14672,7 +14672,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00349BE8,0x00349C24,0x00349C28,          ,O,f,_ZNK9NrvTogezo14TogezoNrvChase7executeEPN2al11NerveKeeperE,
 0x00349C28,0x00349C78,0x00349C80,          ,O,f,_ZNK9NrvTogezo15TogezoNrvWander7executeEPN2al11NerveKeeperE,
 0x00349C80,0x00349D20,0x00349D34,          ,O,f,_ZNK9NrvTogezo13TogezoNrvTurn7executeEPN2al11NerveKeeperE,
-0x00349D34,0x00349D90,0x00349D9C,          ,M,f,_ZNK9NrvTogezo15TogezoNrvAttack7executeEPN2al11NerveKeeperE,
+0x00349D34,0x00349D90,0x00349D9C,          ,O,f,_ZNK9NrvTogezo15TogezoNrvAttack7executeEPN2al11NerveKeeperE,
 0x00349D9C,0x00349E60,0x00349E68,          ,U,f,,
 0x00349E68,0x00349EB4,0x00349EBC,          ,U,f,,
 0x00349EBC,0x00349F2C,0x00349F34,          ,U,f,,
