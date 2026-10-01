@@ -8347,7 +8347,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002660F8,0x00266140,0x00266148,          ,U,f,,
 0x00266148,0x0026619C,0x002661A4,          ,U,f,,
 0x002661A4,          ,0x00266248,          ,U,f,,
-0x00266248,          ,0x0026625C,          ,M,f,_ZN2al8copyPoseEPNS_9LiveActorEPKS0_,
+0x00266248,          ,0x0026625C,          ,O,f,_ZN2al8copyPoseEPNS_9LiveActorEPKS0_,
 0x0026625C,          ,0x00266320,          ,U,f,,
 0x00266320,          ,0x00266B18,          ,U,f,,
 0x00266B18,          ,0x00266B8C,          ,U,f,,

@@ -223,3 +223,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:01:52-04:00,0x0027F3B4,_ZN2al10getQuatPtrEPNS_9LiveActorE,matched,2,0.0644
 2026-10-01T11:01:52-04:00,0x0027F3C4,_ZN2al11getTransPtrEPNS_9LiveActorE,matched,2,0.0643
 2026-10-01T11:01:52-04:00,0x0028028C,_ZN2al8getTransEPKNS_9LiveActorE,matched,2,0.0641
+2026-10-01T11:01:53-04:00,0x00266248,_ZN2al8copyPoseEPNS_9LiveActorEPKS0_,matched,2,0.0466
