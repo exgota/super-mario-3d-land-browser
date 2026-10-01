@@ -9344,7 +9344,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027DCE0,          ,0x0027DCF4,          ,O,f,_ZN14PlayerProperty11setFrontVecERKN4sead7Vector3IfEE,
 0x0027DCF4,0x0027DDC0,0x0027DDC4,          ,U,f,,
 0x0027DDC4,          ,0x0027DEF0,          ,U,f,,
-0x0027DEF0,          ,0x0027DEFC,          ,M,f,_ZN11PlayerActor11getPropertyEv,
+0x0027DEF0,          ,0x0027DEFC,          ,O,f,_ZN11PlayerActor11getPropertyEv,
 0x0027DEFC,          ,0x0027DF38,          ,U,f,,
 0x0027DF38,          ,0x0027DF40,          ,U,f,,
 0x0027DF40,          ,0x0027DF88,          ,U,f,,
