@@ -622,12 +622,15 @@ struct Placement {
     std::array<float, 3> orientation;
     std::array<float, 3> scale;
     Value::Dictionary numericFields;
+    Value::Dictionary fields;
 };
 
 struct StagePlacement {
     std::map<std::string, std::size_t> categoryCounts;
     std::vector<Placement> placements;
     std::size_t railCount = 0;
+    Value::Dictionary rails;
+    Value::Array layers;
 };
 
 float coordinate(const Value::Dictionary& dictionary, const std::string& key) {
@@ -643,7 +646,7 @@ StagePlacement readPlacements(const Value::Dictionary& root) {
         result.categoryCounts[category] = entries.size();
         for (std::size_t index = 0; index < entries.size(); ++index) {
             const auto& item = entries[index].get<Value::Dictionary>();
-            Placement placement{category, index, item.at("name").get<std::string>(), {}, {}, {}, {}};
+            Placement placement{category, index, item.at("name").get<std::string>(), {}, {}, {}, {}, item};
             const std::array<std::string, 3> axes = {"x", "y", "z"};
             for (std::size_t axis = 0; axis < 3; ++axis) {
                 placement.position[axis] = coordinate(item, "pos_" + axes[axis]);
@@ -659,12 +662,55 @@ StagePlacement readPlacements(const Value::Dictionary& root) {
         }
     }
     if (root.contains("AllRailInfos")) {
+        result.rails = root.at("AllRailInfos").get<Value::Dictionary>();
         for (const auto& [name, category] : root.at("AllRailInfos").get<Value::Dictionary>()) {
             static_cast<void>(name);
             result.railCount += category.get<Value::Array>().size();
         }
     }
+    if (root.contains("LayerInfos"))
+        result.layers = root.at("LayerInfos").get<Value::Array>();
     return result;
+}
+
+void writeValue(std::ostream& output, const Value& value) {
+    if (std::holds_alternative<std::monostate>(value.data)) {
+        output << "null";
+    } else if (const bool* boolean = std::get_if<bool>(&value.data)) {
+        output << (*boolean ? "true" : "false");
+    } else if (const std::int32_t* integer = std::get_if<std::int32_t>(&value.data)) {
+        output << "{\"type\":\"int32\",\"value\":" << *integer << '}';
+    } else if (const std::uint32_t* integer = std::get_if<std::uint32_t>(&value.data)) {
+        output << "{\"type\":\"uint32\",\"value\":" << *integer << '}';
+    } else if (const float* floating = std::get_if<float>(&value.data)) {
+        output << "{\"type\":\"float32\",\"bits\":";
+        writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(*floating)));
+        output << '}';
+    } else if (const std::string* text = std::get_if<std::string>(&value.data)) {
+        output << "{\"type\":\"encoded_string\",\"hex\":";
+        writeString(output, hexadecimal(*text));
+        output << '}';
+    } else if (const Value::Array* array = std::get_if<Value::Array>(&value.data)) {
+        output << '[';
+        for (std::size_t index = 0; index < array->size(); ++index) {
+            if (index)
+                output << ',';
+            writeValue(output, (*array)[index]);
+        }
+        output << ']';
+    } else {
+        output << '{';
+        bool first = true;
+        for (const auto& [key, field] : value.get<Value::Dictionary>()) {
+            if (!first)
+                output << ',';
+            first = false;
+            writeString(output, key);
+            output << ':';
+            writeValue(output, field);
+        }
+        output << '}';
+    }
 }
 
 void writeNumericFields(std::ostream& output, const Value::Dictionary& fields) {
@@ -724,9 +770,15 @@ void writePlacements(std::ostream& output, const StagePlacement& stage) {
         writeVector(output, placement.scale);
         output << ",\"numeric_fields\":";
         writeNumericFields(output, placement.numericFields);
+        output << ",\"fields\":";
+        writeValue(output, Value{placement.fields});
         output << '}';
     }
-    output << "]}";
+    output << "],\"rails\":";
+    writeValue(output, Value{stage.rails});
+    output << ",\"layers\":";
+    writeValue(output, Value{stage.layers});
+    output << '}';
 }
 
 void writeCollision(std::ostream& output, const CollisionMesh& mesh) {
@@ -770,6 +822,258 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
             output << ",\"offset\":" << entry.offset << '}';
         }
         output << "]}";
+    }
+    output << "]}";
+}
+
+class AssetArchive {
+    std::vector<std::uint8_t> mData;
+    std::map<std::string, Bytes> mMembers;
+
+public:
+    explicit AssetArchive(const std::filesystem::path& path) {
+        auto source = readFile(path);
+        mData = ByteReader(source).magic(0, "Yaz0") ? decompressYaz0(source) : std::move(source);
+        for (const ArchiveMember& member : readNarc(mData))
+            mMembers.emplace(member.name, member.content);
+    }
+
+    Bytes find(const std::string& name) const {
+        const auto found = mMembers.find(name);
+        return found == mMembers.end() ? Bytes{} : found->second;
+    }
+
+    Value table(const std::string& name) const {
+        const Bytes content = find(name + ".byml");
+        require(!content.empty(), "Required archive table is missing: " + name);
+        return ByamlReader(content).read();
+    }
+};
+
+using Matrix34 = std::array<std::array<float, 4>, 3>;
+
+// Retail TQSV rotation update: 0x001DB88C -> 0x0026E674.
+// Its base matrix is 0x00334F90, followed by column scaling at 0x002DDC70.
+// The host's trigonometric functions are used here. Retail math/replay equivalence
+// is not established by this scene assembly diagnostic.
+Matrix34 placementMatrix(const Placement& placement) {
+    const float degreeToRadian = std::bit_cast<float>(std::uint32_t{0x3C8EFA35});
+    std::array<float, 3> sine, cosine;
+    for (std::size_t axis = 0; axis < 3; ++axis) {
+        const float radians = placement.orientation[axis] * degreeToRadian;
+        const float halfAngle = radians * 0.5f;
+        sine[axis] = std::sin(halfAngle);
+        cosine[axis] = std::cos(halfAngle);
+    }
+    const float x = cosine[2] * cosine[1] * sine[0] - sine[2] * sine[1] * cosine[0];
+    const float y = cosine[2] * sine[1] * cosine[0] + sine[2] * cosine[1] * sine[0];
+    const float z = sine[2] * cosine[1] * cosine[0] - cosine[2] * sine[1] * sine[0];
+    const float w = cosine[2] * cosine[1] * cosine[0] + sine[2] * sine[1] * sine[0];
+    Matrix34 result = {{{1.0f - 2.0f * y * y - 2.0f * z * z,
+                         2.0f * x * y - 2.0f * w * z, 2.0f * x * z + 2.0f * w * y, 0},
+                        {2.0f * x * y + 2.0f * w * z,
+                         1.0f - 2.0f * x * x - 2.0f * z * z, 2.0f * y * z - 2.0f * w * x, 0},
+                        {2.0f * x * z - 2.0f * w * y, 2.0f * y * z + 2.0f * w * x,
+                         1.0f - 2.0f * x * x - 2.0f * y * y, 0}}};
+    for (std::size_t row = 0; row < 3; ++row) {
+        for (std::size_t column = 0; column < 3; ++column) {
+            result[row][column] *= placement.scale[column];
+            require(std::isfinite(result[row][column]), "Placement matrix is nonfinite");
+        }
+        result[row][3] = placement.position[row];
+    }
+    return result;
+}
+
+Vector3 transformPoint(const Matrix34& matrix, const Vector3& position) {
+    Vector3 result{};
+    for (std::size_t row = 0; row < 3; ++row) {
+        result[row] = matrix[row][3];
+        for (std::size_t column = 0; column < 3; ++column)
+            result[row] += double(matrix[row][column]) * position[column];
+        require(std::isfinite(result[row]), "Transformed collision point is nonfinite");
+    }
+    return result;
+}
+
+struct SceneInstance {
+    std::size_t placementIndex;
+    std::string actorClass;
+    std::string status;
+    std::string archive;
+    std::string model;
+    std::string collision;
+    std::string collisionStatus;
+    Matrix34 matrix{};
+    CollisionMesh collisionMesh{};
+};
+
+struct SceneDefinition {
+    StagePlacement stage;
+    std::vector<SceneInstance> instances;
+};
+
+std::string numberedName(const std::string& name, std::int32_t number) {
+    std::ostringstream output;
+    output << name << std::internal << std::setfill('0') << std::setw(3) << number;
+    return output.str();
+}
+
+SceneDefinition readScene(const std::filesystem::path& factoryPath,
+                          const std::filesystem::path& stagePath,
+                          const std::vector<std::filesystem::path>& resourcePaths) {
+    AssetArchive factoryArchive(factoryPath), stageArchive(stagePath);
+    const Value factoryRoot = factoryArchive.table("CreatorClassNameTable");
+    std::map<std::string, std::string> actorClasses;
+    for (const Value& record : factoryRoot.get<Value::Array>()) {
+        const auto& item = record.get<Value::Dictionary>();
+        const std::string& name = item.at("ObjectName").get<std::string>();
+        const std::string& actorClass = item.at("ClassName").get<std::string>();
+        require(!name.empty() && !actorClass.empty(), "Empty actor factory name");
+        // getCreator at 0x00268EB0 returns the first matching conversion entry.
+        actorClasses.emplace(name, actorClass);
+    }
+    std::map<std::string, AssetArchive> resources;
+    for (const auto& path : resourcePaths) {
+        const std::string directory = path.parent_path().filename().string();
+        require(directory == "ObjectData" || directory == "MapPartsData",
+                "Scene resource must be in ObjectData or MapPartsData");
+        const std::string key = directory + "/" + path.stem().string();
+        require(resources.try_emplace(key, path).second, "Duplicate scene archive key: " + key);
+    }
+    const Value stageRoot = stageArchive.table("StageData");
+    SceneDefinition result{readPlacements(stageRoot.get<Value::Dictionary>()), {}};
+    for (std::size_t index = 0; index < result.stage.placements.size(); ++index) {
+        const Placement& placement = result.stage.placements[index];
+        SceneInstance instance{index, {}, "unresolved_placement_category", {}, {}, {}, {}, {}, {}};
+        if (placement.category != "ObjInfo") {
+            result.instances.push_back(std::move(instance));
+            continue;
+        }
+        instance.status = "unresolved_actor_factory_entry";
+        const auto creator = actorClasses.find(placement.name);
+        if (creator == actorClasses.end()) {
+            result.instances.push_back(std::move(instance));
+            continue;
+        }
+        instance.actorClass = creator->second;
+        instance.status = "unresolved_actor_initializer";
+        if (instance.actorClass != "FixMapParts") {
+            result.instances.push_back(std::move(instance));
+            continue;
+        }
+        // FixMapParts creator 0x00396404, ctor 0x0012C328, init 0x0012C228.
+        // The init calls the map-part helper at 0x002D5664/0x002D5668.
+        const auto shape = placement.fields.find("ShapeModelNo");
+        const std::int32_t shapeNumber = shape == placement.fields.end() ? -1 : shape->second.get<std::int32_t>();
+        const std::string modelName = shapeNumber == -1 ? placement.name : numberedName(placement.name, shapeNumber);
+        instance.archive = shapeNumber >= 0 ? "MapPartsData/" + modelName : "ObjectData/" + placement.name;
+        instance.matrix = placementMatrix(placement);
+        instance.status = "unresolved_archive";
+        const auto resource = resources.find(instance.archive);
+        if (resource == resources.end()) {
+            result.instances.push_back(std::move(instance));
+            continue;
+        }
+        const Value initialization = resource->second.table("InitActor");
+        const auto& parameters = initialization.get<Value::Dictionary>();
+        // InitActor dispatch at 0x002417E8 tests key presence, including null Model.
+        instance.status = "resolved_fixed_resource_binding";
+        const auto pose = parameters.find("Pose");
+        if (pose != parameters.end() && std::holds_alternative<std::string>(pose->second.data))
+            instance.status = "unresolved_pose_override";
+        if (parameters.contains("Model")) {
+            instance.model = modelName + ".bcmdl";
+            const Bytes model = resource->second.find(instance.model);
+            if (model.empty()) {
+                instance.status = "unresolved_model_resource";
+            } else {
+                const ModelCatalog catalog = readCgfx(model);
+                bool foundModel = false;
+                for (const ResourceCategory& category : catalog.categories)
+                    if (category.index == 0)
+                        for (const ResourceEntry& entry : category.entries)
+                            foundModel |= entry.name == modelName;
+                if (!foundModel)
+                    instance.status = "unresolved_model_identity";
+            }
+        }
+        instance.collisionStatus = "not_requested";
+        if (parameters.contains("Collision")) {
+            std::string collisionName = instance.archive.substr(instance.archive.find_last_of('/') + 1);
+            const auto* options = std::get_if<Value::Dictionary>(&parameters.at("Collision").data);
+            bool followsJoint = false;
+            if (options) {
+                const auto name = options->find("Name");
+                if (name != options->end())
+                    if (const auto* text = std::get_if<std::string>(&name->second.data))
+                        collisionName = *text;
+                const auto joint = options->find("Joint");
+                followsJoint = joint != options->end() && std::holds_alternative<std::string>(joint->second.data);
+            }
+            // 0x00242014 defaults Name to resource basename; 0x0024F8CC uses .kcl.
+            instance.collision = collisionName + ".kcl";
+            const Bytes collision = resource->second.find(instance.collision);
+            instance.collisionStatus = collision.empty() ? "absent_member" : "initial_pose_geometry";
+            if (followsJoint)
+                instance.collisionStatus = "unresolved_joint_transform";
+            else if (!collision.empty() && instance.status != "resolved_fixed_resource_binding")
+                instance.collisionStatus = "unresolved_initial_transform";
+            if (!collision.empty() && !followsJoint && instance.status == "resolved_fixed_resource_binding") {
+                instance.collisionMesh = readKcl(collision);
+                for (CollisionTriangle& triangle : instance.collisionMesh.triangles)
+                    for (Vector3& position : triangle.positions)
+                        position = transformPoint(instance.matrix, position);
+            }
+        }
+        result.instances.push_back(std::move(instance));
+    }
+    return result;
+}
+
+void writeScene(std::ostream& output, const SceneDefinition& scene) {
+    output << "{\"placement_source\":\"AllInfos\",\"layer_filter_applied\":false,"
+              "\"collision_activation\":\"unresolved_stage_switch_state\","
+              "\"trigonometry\":\"host_library_numerical_parity_not_guaranteed\",\"stage\":";
+    writePlacements(output, scene.stage);
+    output << ",\"instances\":[";
+    for (std::size_t number = 0; number < scene.instances.size(); ++number) {
+        if (number)
+            output << ',';
+        const SceneInstance& instance = scene.instances[number];
+        output << "{\"placement_index\":" << instance.placementIndex << ",\"actor_class_hex\":";
+        writeString(output, hexadecimal(instance.actorClass));
+        output << ",\"status\":";
+        writeString(output, instance.status);
+        output << ",\"archive_hex\":";
+        writeString(output, hexadecimal(instance.archive));
+        output << ",\"model_member_hex\":";
+        writeString(output, hexadecimal(instance.model));
+        output << ",\"collision_member_hex\":";
+        writeString(output, hexadecimal(instance.collision));
+        output << ",\"collision_status\":";
+        writeString(output, instance.collisionStatus);
+        if (!instance.archive.empty()) {
+            output << ",\"matrix\":[";
+            for (std::size_t row = 0; row < 3; ++row) {
+                if (row)
+                    output << ',';
+                output << '[';
+                for (std::size_t column = 0; column < 4; ++column) {
+                    if (column)
+                        output << ',';
+                    output << instance.matrix[row][column];
+                }
+                output << ']';
+            }
+            output << ']';
+        }
+        if (!instance.collisionMesh.triangles.empty()) {
+            output << ",\"plane_residual_space\":\"resource_local\"";
+            output << ",\"initial_collision_geometry\":";
+            writeCollision(output, instance.collisionMesh);
+        }
+        output << '}';
     }
     output << "]}";
 }
@@ -845,11 +1149,24 @@ void inspectFile(std::ostream& output, const std::filesystem::path& path) {
 int main(int argumentCount, char** arguments) {
     if (argumentCount < 2) {
         std::cerr << "Usage: asset_reader <verified local archive or asset>...\n"
+                  << "       asset_reader --scene <factory archive> <stage archive> <resource archives>...\n"
                   << "Write the JSON report only to ignored data/build storage.\n";
         return 2;
     }
     try {
         std::ostringstream report;
+        if (std::string(arguments[1]) == "--scene") {
+            runtime::require(argumentCount >= 4, "Scene mode requires factory and stage archives");
+            std::vector<std::filesystem::path> resources;
+            for (int number = 4; number < argumentCount; ++number)
+                resources.emplace_back(arguments[number]);
+            report << std::setprecision(std::numeric_limits<double>::max_digits10)
+                   << "{\"schema_version\":1,\"string_storage\":\"raw_encoded_bytes\",\"scene\":";
+            runtime::writeScene(report, runtime::readScene(arguments[2], arguments[3], resources));
+            report << "}\n";
+            std::cout << report.str();
+            return 0;
+        }
         report << std::setprecision(std::numeric_limits<double>::max_digits10)
                << "{\"schema_version\":1,\"string_storage\":\"raw_encoded_bytes\",\"files\":[";
         for (int number = 1; number < argumentCount; ++number) {
