@@ -5383,7 +5383,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EA31C,          ,0x001EA364,          ,U,f,,
 0x001EA364,          ,0x001EA3AC,          ,U,f,,
 0x001EA3AC,0x001EA490,0x001EA49C,          ,U,f,,
-0x001EA49C,          ,0x001EA4A8,          ,M,f,fn_001EA49C,
+0x001EA49C,          ,0x001EA4A8,          ,O,f,fn_001EA49C,
 0x001EA4A8,          ,0x001EA4C8,          ,U,f,_ZN2al7AreaObj21initStageSwitchKeeperEv,
 0x001EA4C8,          ,0x001EA4D4,          ,M,f,fn_001EA4C8,
 0x001EA4D4,          ,0x001EA4DC,          ,U,f,,
