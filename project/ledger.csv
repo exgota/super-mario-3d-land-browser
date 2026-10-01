@@ -394,3 +394,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:32:55-04:00,0x001CB48C,_ZN2al11setSceneObjEPNS_9ISceneObjEi,matched,3,0.0502
 2026-10-01T11:32:55-04:00,0x00276590,_ZN2al14createSceneObjEi,matched,3,0.0498
 2026-10-01T11:32:55-04:00,0x002775C0,_ZN2al11getSceneObjEi,matched,3,0.0497
+2026-10-01T11:32:56-04:00,0x00332840,_ZN2al15isExistSceneObjEi,matched,3,0.0498
