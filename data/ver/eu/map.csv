@@ -13836,7 +13836,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00332738,          ,0x0033282C,          ,U,f,,
 0x0033282C,          ,0x00332840,          ,U,f,,
 0x00332840,          ,0x00332858,          ,U,f,_ZN2al15isExistSceneObjEi,
-0x00332858,          ,0x0033286C,          ,M,f,_ZNK2al14SceneObjHolder7isExistEi,
+0x00332858,          ,0x0033286C,          ,O,f,_ZNK2al14SceneObjHolder7isExistEi,
 0x0033286C,          ,0x00332884,          ,U,f,,
 0x00332884,          ,0x00332890,          ,M,f,_ZNK2al14SceneObjHolder6getObjEi,
 0x00332890,          ,0x003328AC,          ,U,f,,
