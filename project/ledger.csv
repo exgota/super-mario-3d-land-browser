@@ -134,3 +134,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:14:39-04:00,0x00349B2C,_ZNK9NrvTogezo15TogezoNrvSearch7executeEPN2al11NerveKeeperE,matched,1,0.0061
 2026-10-01T09:14:39-04:00,0x00349BE8,_ZNK9NrvTogezo14TogezoNrvChase7executeEPN2al11NerveKeeperE,matched,1,0.0061
 2026-10-01T09:14:40-04:00,0x00349C28,_ZNK9NrvTogezo15TogezoNrvWander7executeEPN2al11NerveKeeperE,matched,1,0.0058
+2026-10-01T09:14:40-04:00,0x00349C80,_ZNK9NrvTogezo13TogezoNrvTurn7executeEPN2al11NerveKeeperE,matched,1,0.0064
