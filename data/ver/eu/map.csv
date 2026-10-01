@@ -14042,7 +14042,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00336E50,          ,0x00336E64,          ,U,f,,
 0x00336E64,          ,0x00336EAC,          ,U,f,,
 0x00336EAC,0x00336F68,0x00336F6C,          ,U,f,,
-0x00336F6C,          ,0x00336F70,          ,M,f,_ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE,
+0x00336F6C,          ,0x00336F70,          ,O,f,_ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE,
 0x00336F70,          ,0x00336F94,          ,U,f,,
 0x00336F94,          ,0x00336FE4,          ,U,f,,
 0x00336FE4,          ,0x00337030,          ,U,f,,
