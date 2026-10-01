@@ -6266,7 +6266,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002187C4,          ,0x00218810,          ,U,f,,
 0x00218810,0x00218920,0x00218950,          ,U,f,,
 0x00218950,0x00218A30,0x00218A48,          ,U,f,,
-0x00218A48,          ,0x00218A64,          ,M,f,_ZN2al19sendMsgGororiAttackEPNS_9HitSensorES1_,
+0x00218A48,          ,0x00218A64,          ,O,f,_ZN2al19sendMsgGororiAttackEPNS_9HitSensorES1_,
 0x00218A64,          ,0x00218A80,          ,M,f,_ZN2al22sendMsgGororiBigAttackEPNS_9HitSensorES1_,
 0x00218A80,0x00218B14,0x00218B18,          ,U,f,,
 0x00218B18,0x00218B64,0x00218B68,          ,U,f,,
