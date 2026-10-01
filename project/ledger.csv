@@ -533,3 +533,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:02:00-04:00,0x0027C1B8,_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKNS3_5MTX44E,matched,2,0.9348
 2026-10-01T14:02:01-04:00,0x0027C18C,_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKS4_,matched,2,2.7799
 2026-10-01T14:02:01-04:00,0x002D9C20,_ZN4sead10StereoUtil18getProjectionParamEPfS1_S1_S1_S1_S1_RKNS_8Matrix44IfEE,matched,2,4.4555
+2026-10-01T14:02:01-04:00,0x00331314,_ZNK2al13ByamlHashIter14getPairByIndexEi,matched,4,6.7048

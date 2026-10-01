@@ -13797,7 +13797,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00331234,          ,0x0033123C,          ,U,f,,
 0x0033123C,          ,0x00331258,          ,U,f,,
 0x00331258,          ,0x00331314,          ,U,f,,
-0x00331314,          ,0x00331350,          ,M,f,_ZNK2al13ByamlHashIter14getPairByIndexEi,
+0x00331314,          ,0x00331350,          ,O,f,_ZNK2al13ByamlHashIter14getPairByIndexEi,
 0x00331350,          ,0x003313C4,          ,m,f,_ZNK2al13ByamlHashIter8findPairEi,
 0x003313C4,          ,0x003313F8,          ,U,f,,
 0x003313F8,0x00331428,0x0033142C,          ,U,f,,
