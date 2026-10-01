@@ -403,3 +403,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:48:48-04:00,0x00337054,_ZNK2al7AreaObj20getStageSwitchKeeperEv,matched,2,0.0440
 2026-10-01T11:48:48-04:00,0x001D0970,_ZN2al16KCollisionServer20initKCollisionServerEPvPKv,matched,2,0.0352
 2026-10-01T11:48:49-04:00,0x001D09D0,_ZN2al16KCollisionServerC1Ev,matched,2,0.0356
+2026-10-01T11:48:49-04:00,0x001EB78C,_ZN8JMapInfo6attachEPKv,matched,2,0.0350
