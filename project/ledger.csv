@@ -505,3 +505,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:38-04:00,0x00397404,_ZN2al19createActorFunctionI15TransparentWallEEPNS_9LiveActorEPKc,matched,2,0.0411
 2026-10-01T13:11:38-04:00,0x0039643C,_ZN2al19createActorFunctionI11GhostPlayerEEPNS_9LiveActorEPKc,matched,2,0.0425
 2026-10-01T13:11:39-04:00,0x00398F44,_ZN2al21createAreaObjFunctionINS_7AreaObjEEEPS1_PKc,matched,2,0.0470
+2026-10-01T13:11:39-04:00,0x00117710,_ZN10AppearStepC1ERKN4sead14SafeStringBaseIcEE,matched,2,0.0533
