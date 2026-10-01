@@ -8745,7 +8745,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00270724,          ,0x00270778,          ,U,f,,
 0x00270778,0x00270838,0x00270844,          ,U,f,_ZN4sead15Matrix34CalcCtrIfE5makeQERN2nn4math5MTX34ERKNS3_4QUATE,
 0x00270844,0x00270898,0x0027089C,          ,U,f,,
-0x0027089C,0x002708A8,0x002708B0,          ,M,f,_ZN2al10tryGetArg1EPfRKNS_13ActorInitInfoE,
+0x0027089C,0x002708A8,0x002708B0,          ,O,f,_ZN2al10tryGetArg1EPfRKNS_13ActorInitInfoE,
 0x002708B0,          ,0x002708C4,          ,U,f,,
 0x002708C4,          ,0x002708DC,          ,U,f,,
 0x002708DC,0x002709E0,0x002709FC,          ,U,f,,

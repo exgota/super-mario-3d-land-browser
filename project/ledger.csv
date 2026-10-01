@@ -469,3 +469,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:23-04:00,0x001C50EC,_ZN2al13AreaShapeCubeC2Eb,matched,2,0.0116
 2026-10-01T13:11:24-04:00,0x001EB930,_ZN2al9AreaShape8setScaleERKN4sead7Vector3IfEE,matched,3,0.0119
 2026-10-01T13:11:24-04:00,0x00250E20,_ZN2al9tryGetArgEPbRKNS_9ByamlIterEPKc,matched,5,2.7504
+2026-10-01T13:11:25-04:00,0x0027089C,_ZN2al10tryGetArg1EPfRKNS_13ActorInitInfoE,matched,2,0.4080
