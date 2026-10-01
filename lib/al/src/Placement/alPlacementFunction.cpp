@@ -81,10 +81,13 @@ extern "C" bool fn_00240FA8( sead::Vector3f* out, const al::ByamlIter* iter )
                 return false;
         if ( !iter->tryGetFloatByKey( &value.z, dat_003A2E24 ) )
                 return false;
-        out->x = value.x;
-        out->y = value.y;
-        out->z = value.z;
+        *out = value;
         return true;
+}
+
+extern "C" bool fn_0024EC80( sead::Vector3f* out, const al::ActorInitInfo* info )
+{
+        return fn_00240FA8( out, info->mPlacementInfo );
 }
 
 extern "C" bool fn_001E7964( const al::ByamlIter* iter, const char** name, int* count )

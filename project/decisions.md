@@ -835,3 +835,9 @@ Root verifies440 hashes/373 paths and independently decodes the four binder call
 ### Actor scale wrapper neutral identity, 2026-10-01
 
 Name only the existing whole U/f172-byte row24EC80..24ED2C as fn_0024EC80. Original calls preserve ActorInitInfo's independently established first placement-pointer member and reach accepted isValid276AA0/FloatByKey278C30. Its complete12-byte pool refers to the previously named whole scale_x/y/z rows. No class/public method spelling, boundary, pool, type or rank changes. This identity supports the owner-authorized Pro test without changing the oracle.
+
+### Pro actor scale primary source intake, 2026-10-01
+
+Both stated copy forms pass paired791/894 complete172-byte diagnostics and preserve direct reader156 plus all56 emitted accepted Placement definitions. Root verifies154 frozen files and13 unchanged current inputs. Isolated local branch project builds of committed source41c55a7 and77b8a15 pass both wrapper/direct checker calls; those branch O results add no main credit.
+
+Choose the primary explicit memberwise Vector3 assignment and existing direct-reader delegation. This ordinary C++ copy operator preserves layout and semantics; its return-reference live range changes compiler allocation without flags or assembly. Commit the primary CPP/header and enroll only the wrapper as M. A clean main build and complete prior accepted-root canonical preservation gate are required before credit. The fallback setter stays a tested proposal.
