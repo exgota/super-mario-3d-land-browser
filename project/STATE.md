@@ -11,7 +11,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
 - Normal ARMCC build compiles 42 Game and 88 al sources plus the clean SDK unit. The compact main links/exports; it remains a scaffold.
-- Accepted coverage: 338 functions from canonical project ARMCC objects with committed source/header provenance, covering 19932 / 2,756,024 complete function bytes (0.723216%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Accepted coverage: 339 functions from canonical project ARMCC objects with committed source/header provenance, covering 20028 / 2,756,024 complete function bytes (0.726699%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
 - Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
 - Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings, 127 materials,217 direct texture references, raw skeleton/vertex/index fields and serialized topology. No level has run.
