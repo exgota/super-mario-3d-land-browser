@@ -9883,7 +9883,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00293234,0x00293240,0x00293244,          ,U,f,,
 0x00293244,0x00293284,0x00293288,          ,U,f,,
 0x00293288,          ,0x0029329C,          ,U,f,,
-0x0029329C,          ,0x002932B0,          ,M,f,_ZN2al16getStationedHeapEv,
+0x0029329C,          ,0x002932B0,          ,O,f,_ZN2al16getStationedHeapEv,
 0x002932B0,0x002932E8,0x002932EC,          ,U,f,_ZnwjRKSt9nothrow_t,
 0x002932EC,0x00293314,0x00293318,          ,U,f,_ZN4sead7HeapMgr15setCurrentHeap_EPNS_4HeapE,
 0x00293318,0x0029336C,0x00293374,          ,U,f,,
