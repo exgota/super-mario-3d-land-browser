@@ -7892,7 +7892,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025AB3C,0x0025AB78,0x0025AB80,          ,O,f,fn_0025AB3C,
 0x0025AB80,          ,0x0025ABE8,          ,U,f,,
 0x0025ABE8,          ,0x0025AC28,          ,U,f,,
-0x0025AC28,0x0025AC64,0x0025AC6C,          ,M,f,fn_0025AC28,
+0x0025AC28,0x0025AC64,0x0025AC6C,          ,O,f,fn_0025AC28,
 0x0025AC6C,          ,0x0025ACD0,          ,U,f,,
 0x0025ACD0,0x0025AE18,0x0025AE20,          ,U,f,,
 0x0025AE20,0x0025AE3C,0x0025AE44,          ,U,f,,
