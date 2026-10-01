@@ -9446,7 +9446,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002803F4,          ,0x00280414,          ,U,f,,
 0x00280414,          ,0x00280418,          ,U,f,,
 0x00280418,          ,0x00280428,          ,U,f,,
-0x00280428,0x00280470,0x00280474,          ,M,f,_ZN2al11MapObjActorC1ERKN4sead14SafeStringBaseIcEE,
+0x00280428,0x00280470,0x00280474,          ,O,f,_ZN2al11MapObjActorC1ERKN4sead14SafeStringBaseIcEE,
 0x00280474,          ,0x00280538,          ,U,f,,
 0x00280538,          ,0x0028058C,          ,U,f,,
 0x0028058C,          ,0x00280590,          ,U,f,,
