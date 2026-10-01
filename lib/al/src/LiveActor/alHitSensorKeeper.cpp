@@ -6,9 +6,6 @@
 namespace al
 {
 
-#ifdef NON_MATCHING
-
-// r5 <-> r6
 void HitSensorKeeper::attackSensor()
 {
         for ( int i = 0; i < mSensors.size(); i++ )
@@ -18,11 +15,10 @@ void HitSensorKeeper::attackSensor()
                 {
                         HitSensor* attacked = sensor->mSensors[ j ];
                         if ( !al::isDead( attacked->getHost() ) )
-                                attacked->getHost()->attackSensor( sensor, attacked );
+                                sensor->getHost()->attackSensor( sensor, attacked );
                 }
         }
 }
-#endif
 
 void HitSensorKeeper::validate()
 {
