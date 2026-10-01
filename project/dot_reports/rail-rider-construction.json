@@ -1,0 +1,13 @@
+{
+  "base": "a4f1579f9f0f13dacfe91d92501cf74154c131ad",
+  "candidate_commit": "b73ba6e406e913d75a1a7ad606987efec93f1a51",
+  "object_sha256": "a8c16a6a5bff0c1fb37932d4799a94a98ec669b1199dbdcfc70b3c43eb2fcd99",
+  "source_sha256": "2c100a5b6fc5a1f445e39be726cd9c224bc5158d28fe2168f0cd6a7c0d65ab74",
+  "target_bytes": 116,
+  "candidate_bytes": 108,
+  "forms": "4 prior main forms + 1 new actual-method reuse form",
+  "checker": "7c0ccd93b7387a2f9afa9b304b5254f34149b318",
+  "byte_gate": "U -> M: The complete compiled section, including its literal pool, has a different size from the original interval.",
+  "controls": "All three accepted RailRider methods O -> O",
+  "clean_build": "make.py eu -ca exit0, link/export success"
+}
