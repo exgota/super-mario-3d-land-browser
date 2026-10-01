@@ -42,3 +42,7 @@ The current worktree also contains independently reported source proposals and t
 - Source SHA256: `0430d41ceefa8631cb5ad97d31bf939e1b33a2b8c1f23c4817e27644b2a4bf37`
 - Canonical object SHA256: `7c7fccca9de47d42fe2dcd53d2a4cb50aad60b8f784b04a93cfea9ab1b2d695f`
 - ARMCC4.1/791 SHA256: `d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d`
+
+## Isolated main-header control
+
+A second fresh worktree started at unchanged main a5041a5 and applied only this single source file (local committed checkpoint `c2de8c2`), retaining every original main header and no other dot proposal. The only local map edit named the original target row. A full clean canonical build linked/exported, and the identical object-check command again returned `U -> O: The complete source-generated function interval matches byte for byte.` This establishes that no proposed shared-header changes or unrelated lane source are prerequisites.
