@@ -11,7 +11,7 @@ M1 passes: all50 pilot outcomes and the report are committed. M0 passes three of
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
 - Normal ARMCC build compiles41 Game and85 al sources plus the clean SDK priority unit. The compact main links/exports and unchanged progress.py runs. It remains a scaffold.
-- Accepted coverage: 122 functions from canonical project ARMCC objects with committed source/header provenance, covering 8428 / 2,756,024 complete function bytes (0.305803%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Accepted coverage: 123 functions from canonical project ARMCC objects with committed source/header provenance, covering 8516 / 2,756,024 complete function bytes (0.308996%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 passes; paired canonical-primary evidence is build/game_compiler_check/evidence.json.
 - New accepted classes/helpers include SensorHitGroup, NerveExecutor, LayoutActor, typed Byaml child lookup, EffectKeeper and the724-byte course-selection update. Only check.py setsO.
 - The pilot has40 matched,1 NonMatching and9 abandoned fragments. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase2 continues.
