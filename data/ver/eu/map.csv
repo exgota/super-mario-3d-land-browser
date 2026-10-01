@@ -15048,7 +15048,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00352EF0,0x00352F58,0x00352F68,          ,U,f,,
 0x00352F68,0x00353018,0x00353020,          ,U,f,,
 0x00353020,0x00353084,0x0035308C,          ,U,f,,
-0x0035308C,          ,0x00353090,          ,M,f,_ZNK13NrvRailDotEnd17RailDotEndNrvWait7executeEPN2al11NerveKeeperE,
+0x0035308C,          ,0x00353090,          ,O,f,_ZNK13NrvRailDotEnd17RailDotEndNrvWait7executeEPN2al11NerveKeeperE,
 0x00353090,          ,0x00353094,          ,U,f,,
 0x00353094,0x00353114,0x0035312C,          ,U,f,,
 0x0035312C,0x0035317C,0x00353184,          ,U,f,,

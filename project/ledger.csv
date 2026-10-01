@@ -525,3 +525,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:01:57-04:00,0x0024E734,_ZNK2al19StageSwitchAccesser12FUN_0024e734Ev,matched,2,0.0153
 2026-10-01T14:01:57-04:00,0x00101148,_ZN2al9SystemKitC2Ev,matched,2,0.0202
 2026-10-01T14:01:57-04:00,0x0034C4E8,_ZNK10NrvRailDot14RailDotNrvWait7executeEPN2al11NerveKeeperE,matched,2,0.0268
+2026-10-01T14:01:58-04:00,0x0035308C,_ZNK13NrvRailDotEnd17RailDotEndNrvWait7executeEPN2al11NerveKeeperE,matched,2,0.0274
