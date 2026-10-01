@@ -656,3 +656,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T16:22:20-04:00,0x001C0CD4,_ZN2al12LiveActorKitC1Ei,matched,2,0.0174
 2026-10-01T16:22:20-04:00,0x002DA40C,_ZN4sead12CalendarTime7setDateERKNS0_4DateE,matched,2,55.4922
 2026-10-01T16:22:20-04:00,0x002DA4A8,_ZN4sead12CalendarTimeC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE,matched,2,60.9627
+2026-10-01T16:22:21-04:00,0x0028E964,_ZN4sead8ListNode6erase_Ev,matched,2,2.0061
