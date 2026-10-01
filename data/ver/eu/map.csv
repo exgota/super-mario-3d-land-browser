@@ -4446,7 +4446,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CD320,          ,0x001CD35C,          ,U,f,,
 0x001CD35C,0x001CD38C,0x001CD390,          ,U,f,,
 0x001CD390,          ,0x001CD394,          ,U,f,,
-0x001CD394,          ,0x001CD42C,          ,M,f,_ZN2al15NerveActionCtrlC1EPN15alNerveFunction20NerveActionCollectorE,
+0x001CD394,          ,0x001CD42C,          ,O,f,_ZN2al15NerveActionCtrlC1EPN15alNerveFunction20NerveActionCollectorE,
 0x001CD42C,          ,0x001CD430,          ,U,f,,
 0x001CD430,          ,0x001CD450,          ,U,f,,
 0x001CD450,          ,0x001CD460,          ,U,f,,
