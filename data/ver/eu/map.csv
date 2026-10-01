@@ -13808,7 +13808,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003314BC,          ,0x003314D4,          ,U,f,,
 0x003314D4,          ,0x003314EC,          ,U,f,,
 0x003314EC,0x0033151C,0x00331520,          ,U,f,,
-0x00331520,          ,0x00331528,          ,M,f,_ZNK2al13NerveExecutor14getNerveKeeperEv,
+0x00331520,          ,0x00331528,          ,O,f,_ZNK2al13NerveExecutor14getNerveKeeperEv,
 0x00331528,0x003315BC,0x003315C0,          ,U,f,,
 0x003315C0,0x00331600,0x0033160C,          ,U,f,,
 0x0033160C,          ,0x00331624,          ,U,f,,
