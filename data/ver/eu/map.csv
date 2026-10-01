@@ -2265,7 +2265,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0016BC14,          ,0x0016BC88,          ,U,f,,
 0x0016BC88,          ,0x0016BCC8,          ,U,f,,
 0x0016BCC8,          ,0x0016BCE0,          ,U,f,,
-0x0016BCE0,          ,0x0016BDDC,          ,M,f,fn_0016BCE0,
+0x0016BCE0,          ,0x0016BDDC,          ,O,f,fn_0016BCE0,
 0x0016BDDC,          ,0x0016BE18,          ,U,f,,
 0x0016BE18,          ,0x0016BE2C,          ,U,f,,
 0x0016BE2C,          ,0x0016BE40,          ,U,f,,
