@@ -660,3 +660,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T16:22:21-04:00,0x002F28E0,_ZN4sead8ListImpl8popFrontEv,matched,2,2.0062
 2026-10-01T16:22:21-04:00,0x0027A81C,_ZN4sead12PtrArrayImpl9setBufferEiPv,matched,2,2.0304
 2026-10-01T16:22:22-04:00,0x001D9EC0,fn_001D9EC0,matched,2,0.0186
+2026-10-01T16:22:22-04:00,0x00330618,fn_00330618,matched,2,0.0193
