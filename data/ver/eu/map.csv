@@ -4134,7 +4134,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BFB98,          ,0x001BFBB8,          ,U,f,fn_001BFB98,
 0x001BFBB8,          ,0x001BFC10,          ,O,f,_ZN2al12EffectKeeper13setActionNameEPKc,
 0x001BFC10,          ,0x001BFC48,          ,O,f,_ZN2al12EffectKeeper23deleteAndClearEffectAllEv,
-0x001BFC48,          ,0x001BFC60,          ,M,f,fn_001BFC48,
+0x001BFC48,          ,0x001BFC60,          ,O,f,fn_001BFC48,
 0x001BFC60,          ,0x001BFC98,          ,O,f,_ZN2al12EffectKeeper15deleteEffectAllEv,
 0x001BFC98,0x001BFD6C,0x001BFD70,          ,U,f,,
 0x001BFD70,0x001BFDB0,0x001BFDB4,          ,U,f,,
