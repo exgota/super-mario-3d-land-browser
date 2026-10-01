@@ -8,7 +8,7 @@ class ISceneObj;
 class SceneObjHolder
 {
 private:
-        typedef ISceneObj* ( *CreateFunc )( int id );
+        typedef void* ( *CreateFunc )( int id );
 
         CreateFunc  mCreateFunc;
         ISceneObj** mObjs;

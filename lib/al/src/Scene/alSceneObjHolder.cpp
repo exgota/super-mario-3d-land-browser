@@ -32,7 +32,7 @@ ISceneObj* SceneObjHolder::create( int id )
 {
         if ( mObjs[ id ] == nullptr )
         {
-                ISceneObj* newObj = mCreateFunc( id );
+                ISceneObj* newObj = static_cast<ISceneObj*>( mCreateFunc( id ) );
                 mObjs[ id ]       = newObj;
                 newObj->initSceneObj();
         }

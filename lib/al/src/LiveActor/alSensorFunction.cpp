@@ -50,8 +50,6 @@ al::SensorType findSensorTypeByName( const char* name )
         {
                 if ( al::isEqualString( sNameToTypeLookupTable[ i ].name, name ) )
                 {
-                        // nop before beq
-                        __nop();
                         type = sNameToTypeLookupTable[ i ].type;
                         break;
                 }

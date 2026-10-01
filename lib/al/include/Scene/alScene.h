@@ -3,6 +3,7 @@
 #include <Audio/alAudioKeeper.h>
 #include <Nerve/alNerveExecutor.h>
 #include <heap/seadHeap.h>
+#include <prim/seadSafeString.h>
 
 namespace al
 {
