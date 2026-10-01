@@ -9763,7 +9763,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028E2D4,0x0028E310,0x0028E314,          ,U,f,,
 0x0028E314,0x0028E34C,0x0028E350,          ,U,f,_ZN4sead14DelegateThreadC2ERKNS_14SafeStringBaseIcEEPNS_10IDelegate2IPNS_6ThreadEiEEPNS_4HeapEiNS_12MessageQueue9BlockTypeEiii,
 0x0028E350,0x0028E3B0,0x0028E3BC,          ,U,f,,
-0x0028E3BC,          ,0x0028E42C,          ,M,f,_ZN2al13isEqualStringERKN4sead14SafeStringBaseIcEES4_,
+0x0028E3BC,          ,0x0028E42C,          ,O,f,_ZN2al13isEqualStringERKN4sead14SafeStringBaseIcEES4_,
 0x0028E42C,          ,0x0028E678,          ,U,f,,
 0x0028E678,          ,0x0028E688,          ,U,f,,
 0x0028E688,0x0028E694,0x0028E698,          ,U,f,_ZN2al14getApplicationEv,
