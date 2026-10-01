@@ -337,3 +337,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:13-04:00,0x0027B758,_ZN2al6isMsg9Ej,matched,2,0.2225
 2026-10-01T11:15:13-04:00,0x0027D548,_ZN2al9sendMsg41EPNS_9HitSensorES1_,matched,2,0.2219
 2026-10-01T11:15:14-04:00,0x0027D56C,_ZN2al18sendMsgEnemyAttackEPNS_9HitSensorES1_,matched,2,0.2215
+2026-10-01T11:15:14-04:00,0x0027DB98,_ZN2al25isMsgPlayerFireBallAttackEj,matched,2,0.2224
