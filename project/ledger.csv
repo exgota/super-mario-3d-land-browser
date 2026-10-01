@@ -648,3 +648,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T16:05:43-04:00,0x00278C6C,fn_00278C6C,abandoned,4,6.3430
 2026-10-01T16:22:17-04:00,0x001EC0F4,_ZN2al9RailRider15moveToRailStartEv,matched,3,0.0538
 2026-10-01T16:22:17-04:00,0x00242A44,_ZN2al9RailRider17moveToNearestRailERKN4sead7Vector3IfEE,matched,3,0.0531
+2026-10-01T16:22:18-04:00,0x00337618,_ZNK2al9RailRider13isReachedGoalEv,matched,3,0.0531
