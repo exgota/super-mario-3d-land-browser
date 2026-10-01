@@ -5437,7 +5437,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EBD94,          ,0x001EBDD4,          ,U,f,_ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi,
 0x001EBDD4,          ,0x001EBDDC,          ,O,f,_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE,
 0x001EBDDC,          ,0x001EBE64,          ,U,f,,
-0x001EBE64,          ,0x001EBE68,          ,M,f,_ZN2al9LiveActor18initAfterPlacementEv,
+0x001EBE64,          ,0x001EBE68,          ,O,f,_ZN2al9LiveActor18initAfterPlacementEv,
 0x001EBE68,          ,0x001EBE8C,          ,U,f,,
 0x001EBE8C,          ,0x001EBE94,          ,U,f,,
 0x001EBE94,          ,0x001EBF20,          ,U,f,,

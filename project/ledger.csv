@@ -102,3 +102,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T08:08:05-04:00,0x001E2DF0,_ZN2al14NerveStateBase7controlEv,matched,3,1.2867
 2026-10-01T08:08:06-04:00,0x001CAC78,_ZN2al16updateNerveStateEPNS_9IUseNerveE,matched,3,7.3439
 2026-10-01T08:08:06-04:00,0x001EBDD4,_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE,matched,3,0.0681
+2026-10-01T08:08:07-04:00,0x001EBE64,_ZN2al9LiveActor18initAfterPlacementEv,matched,3,0.0680
