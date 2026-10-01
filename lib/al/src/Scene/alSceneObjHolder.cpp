@@ -3,6 +3,8 @@
 #include <Scene/alSceneObjHolder.h>
 #include <System/Application.h>
 
+extern "C" al::SceneObjHolder* fn_00267230();
+
 namespace al
 {
 
@@ -56,22 +58,22 @@ void SceneObjHolder::initAfterPlacementSceneObj( const ActorInitInfo& info )
 
 ISceneObj* createSceneObj( int id )
 {
-        return getSceneObjHolder()->create( id );
+        return ::fn_00267230()->create( id );
 }
 
 ISceneObj* getSceneObj( int id )
 {
-        return getSceneObjHolder()->getObj( id );
+        return ::fn_00267230()->getObj( id );
 }
 
 bool isExistSceneObj( int id )
 {
-        return getSceneObjHolder()->isExist( id );
+        return ::fn_00267230()->isExist( id );
 }
 
 void setSceneObj( ISceneObj* obj, int id )
 {
-        return getSceneObjHolder()->setObj( obj, id );
+        return ::fn_00267230()->setObj( obj, id );
 }
 
 } // namespace al

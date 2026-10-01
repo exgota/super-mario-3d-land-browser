@@ -1,5 +1,7 @@
 #include <LiveActor/alActorActionKeeper.h>
 
+extern const char dat_003A97E0[];
+
 namespace al
 {
 
@@ -14,7 +16,7 @@ AL_LIVEACTOR_REACTION( Disappear, "消滅" )
 AL_LIVEACTOR_REACTION( PressDown, "踏み潰され" )
 AL_LIVEACTOR_REACTION( Death, "死亡" )
 AL_LIVEACTOR_REACTION( Hit, "命中" )
-AL_LIVEACTOR_REACTION( BlowHit, "吹き飛びヒット" )
+AL_LIVEACTOR_REACTION( BlowHit, dat_003A97E0 )
 AL_LIVEACTOR_REACTION( Break, "破壊" )
 AL_LIVEACTOR_REACTION( Start, "開始" )
 AL_LIVEACTOR_REACTION( End, "終了" )
