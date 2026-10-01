@@ -12,6 +12,8 @@ public:
         virtual void startClipped();
         virtual void endClipped();
 
+        void startAppear();
+
 public:
         BlockDragonGenerator( const sead::SafeString& name );
 };

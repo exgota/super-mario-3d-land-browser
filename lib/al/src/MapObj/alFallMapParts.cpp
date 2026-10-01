@@ -9,6 +9,21 @@
 #include <Nerve/alNerveKeeper.h>
 #include <Placement/alPlacementFunction.h>
 
+extern "C" const char dat_003bd9dc[];
+extern "C" const char dat_003bd9e4[];
+extern "C" const char dat_003bd9f8[];
+extern "C" const char dat_003bda04[];
+extern "C" const char dat_003bda0c[];
+extern "C" bool fn_0027063c( al::LiveActor*, const char* );
+extern "C" void fn_0026a9fc( al::LiveActor* );
+extern "C" void fn_00279e8c( al::LiveActor*, float );
+extern "C" void fn_00279e5c( al::LiveActor*, float );
+
+extern "C" void fn_0027C05C( al::LiveActor* );
+extern "C" void fn_0026FB1C( al::LiveActor* );
+
+extern "C" void fn_001C96B8( al::LiveActor* );
+
 namespace al
 {
 
@@ -61,27 +76,24 @@ bool FallMapParts::receiveMsg( u32 msg, HitSensor* other, HitSensor* me )
         return false;
 }
 
-#ifdef NON_MATCHING
-// inline nop
 void FallMapParts::exeAppear()
 {
         if ( isFirstStep( this ) )
         {
-                validateCollisionPartsBySystem( this );
-                if ( !tryStartAction( this, "Appear" ) )
+                fn_0026FB1C( this );
+                if ( !fn_0027063c( this, dat_003bd9dc ) )
                         goto end; // ?
         }
         if ( isActionEnd( this ) )
         end:
                 setNerve( this, &NrvFallMapParts::Wait );
 }
-#endif
 
 void FallMapParts::exeWait()
 {
         if ( isFirstStep( this ) )
         {
-                tryStartAction( this, "Wait" );
+                fn_0027063c( this, dat_003bd9e4 );
                 validateClipping( this );
         }
 }
@@ -95,37 +107,34 @@ void FallMapParts::exeFallSign()
 extern "C" bool fn_00268df8( IUseAudioKeeper*,
         const sead::SafeString& name ); // something with sound
 
-#ifdef NON_MATCHING
-// inline nop, string locations
 void FallMapParts::exeFall()
 {
         if ( isFirstStep( this ) )
         {
-                tryStartAction( this, "Fall" );
-                fn_00268df8( this, "FallStart" );
+                fn_0027063c( this, dat_003bda04 );
+                fn_00268df8( this, dat_003bd9f8 );
                 setTrans( this, mStartTrans );
         }
-        addVelocityToGravity( this, 1.0 );
-        scaleVelocity( this, 0.9 );
+        fn_00279e8c( this, 1.0 );
+        fn_00279e5c( this, 0.9 );
         if ( isGreaterStep( this, mFallFrames ) )
                 setNerve( this, &NrvFallMapParts::End );
 }
-#endif
 
 void FallMapParts::exeEnd()
 {
         if ( isFirstStep( this ) )
         {
-                tryStartAction( this, "End" );
+                fn_0027063c( this, dat_003bda0c );
                 hideModel( this );
-                invalidateCollisionPartsBySystem( this );
+                fn_001C96B8( this );
                 setVelocityZero( this );
         }
         if ( isGreaterStep( this, 60 ) )
         {
                 setTrans( this, mStartTrans );
-                resetPosition( this );
-                showModel( this );
+                fn_0027C05C( this );
+                fn_0026a9fc( this );
                 setNerve( this, &NrvFallMapParts::Appear );
         }
 }

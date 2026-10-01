@@ -19,7 +19,7 @@ private:
 public:
         ByamlDataType getType() const
         {
-                return mType;
+                return static_cast<ByamlDataType>( mKeyIndex >> 24 );
         }
 
         u32 getKeyIndex() const

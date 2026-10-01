@@ -258,4 +258,19 @@ bool ByamlIter::tryConvertFloat( float* out, const ByamlData* data ) const
         return false;
 }
 
+bool ByamlIter::getByamlDataAndKeyName( ByamlData* out, const char** key, int index ) const
+{
+        if ( !isTypeHash() )
+                return false;
+        ByamlHashIter hash( mRootNode );
+        const ByamlHashPair* pair = hash.getPairByIndex( index );
+        if ( pair == nullptr )
+                return false;
+        out->setType( pair->getType() );
+        out->setIntValue( pair->getValue() );
+        ByamlStringTableIter table( mData + mHeader->getHashKeyTableOffset() );
+        *key = table.getString( pair->getKeyIndex() );
+        return true;
+}
+
 } // namespace al
