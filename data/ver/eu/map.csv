@@ -8990,7 +8990,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002770D0,0x0027721C,0x00277224,          ,U,f,,
 0x00277224,          ,0x00277228,          ,U,f,,
 0x00277228,          ,0x00277250,          ,U,f,,
-0x00277250,          ,0x00277260,          ,M,f,_ZN2al15getLiveActorKitEv,
+0x00277250,          ,0x00277260,          ,O,f,_ZN2al15getLiveActorKitEv,
 0x00277260,0x002773A4,0x00277504,          ,U,f,,
 0x00277504,          ,0x00277544,          ,U,f,,
 0x00277544,          ,0x002775AC,          ,U,f,,

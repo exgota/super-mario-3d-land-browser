@@ -198,3 +198,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:25:08-04:00,0x00259328,_ZN2al14LiveActorGroup7killAllEv,matched,9,0.0884
 2026-10-01T10:25:09-04:00,0x00264150,_ZN2al7isAliveEPKNS_9LiveActorE,matched,2,0.0350
 2026-10-01T10:25:09-04:00,0x00267234,_ZN2al17getSceneObjHolderEv,matched,2,0.0257
+2026-10-01T10:25:09-04:00,0x00277250,_ZN2al15getLiveActorKitEv,matched,2,0.0204
