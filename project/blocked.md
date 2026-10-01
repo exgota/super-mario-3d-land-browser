@@ -81,3 +81,7 @@ No functional NonMatching claim or production source intake follows from these s
 | 0x00268EB0 | _ZNK2al12ActorFactory10getCreatorEPKc | Six source structures stall at nine setup-register bytes in 264; helper closure grows to 280. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/00268EB0.md. |
 
 | 0x0027C23C | Matrix33CalcCtr<float>::inverse | Three ordinary structures emit308/288 plus36 data/316 bytes versus260. Early structural stall. No evidenced helper entry. Packet project/pro_requests/0027C23C.md; dot-owned. |
+
+| 0x0032B89C | fn_0032B89C | Four structures miss8 preparation-order bytes. No functional claim. Packet project/pro_requests/0032B89C.md; dot-owned. |
+
+| 0x001EC128 | _ZN2al9RailRiderC1EPNS_4RailE | Four structures refuse imports or emit104/104/108 versus116 bytes. No functional claim. Packet project/pro_requests/001EC128.md; dot-owned. |
