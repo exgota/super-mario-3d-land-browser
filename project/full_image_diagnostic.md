@@ -17,3 +17,7 @@ python make.py eu --split
 ```
 
 Split mode requires explicit `eu` and no compact-build options. First refresh committed canonical objects with the normal clean build. Split prints its unique evidence directory and exits nonzero on provenance, placement, ownership, helper, extent or accepted-interval failures. The legacy Game.s generator is bypassed because it cannot satisfy BRIEF hard rule3. Final M2 still requires every function and the whole linked-image hash to match the original.
+
+## Updated checkpoint618de8b
+
+The installed split path preserves569/569 accepted intervals and30108 complete bytes. It captures156 canonical objects and343 source/header/configuration inputs. Output is build/eu/full_image_diagnostic/1790881561203094000. The3096576-byte linked SHA is9a4399182e64a3cbfad4782bfb9d8db10d7cb9e83da90d239f435e6de740ac19, with2488803 differing and607773 equal bytes. Whole-image equality remains false. Incidental equality does not increase the1.092443% strict function coverage. The same placeholder/fill/data and gameplay limitations above apply.
