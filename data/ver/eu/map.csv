@@ -9418,7 +9418,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027F488,0x0027F4CC,0x0027F4D4,          ,U,f,,
 0x0027F4D4,0x0027F508,0x0027F50C,          ,U,f,,
 0x0027F50C,          ,0x0027F514,          ,U,f,,
-0x0027F514,          ,0x0027F538,          ,M,f,_ZN2al11isFirstStepEPKNS_9IUseNerveE,
+0x0027F514,          ,0x0027F538,          ,O,f,_ZN2al11isFirstStepEPKNS_9IUseNerveE,
 0x0027F538,0x0027F89C,0x0027FAB8,          ,U,f,,
 0x0027FAB8,0x0027FB3C,0x0027FB44,          ,U,f,,
 0x0027FB44,          ,0x0027FBE0,          ,U,f,_ZN2al15initNerveActionEPNS_9LiveActorEPKcPN15alNerveFunction20NerveActionCollectorEi,

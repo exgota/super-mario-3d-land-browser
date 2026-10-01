@@ -141,3 +141,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:36-04:00,0x002799EC,_ZN2al13isGreaterStepEPKNS_9IUseNerveEi,matched,3,0.5253
 2026-10-01T09:44:37-04:00,0x00279D14,_ZN2al6isStepEPNS_9IUseNerveEi,matched,3,0.5277
 2026-10-01T09:44:37-04:00,0x0027F340,_ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi,matched,3,0.5287
+2026-10-01T09:44:38-04:00,0x0027F514,_ZN2al11isFirstStepEPKNS_9IUseNerveE,matched,3,0.5305
