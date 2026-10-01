@@ -9335,7 +9335,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027DC28,          ,0x0027DC38,          ,U,f,,
 0x0027DC38,          ,0x0027DC40,          ,O,f,_ZN2al12isSensorNameEPNS_9HitSensorEPKc,
 0x0027DC40,          ,0x0027DC50,          ,O,f,_ZN2al27isMsgPlayerInvincibleAttackEj,
-0x0027DC50,          ,0x0027DC60,          ,M,f,_ZN2al26isMsgPlayerInvincibleTouchEj,
+0x0027DC50,          ,0x0027DC60,          ,O,f,_ZN2al26isMsgPlayerInvincibleTouchEj,
 0x0027DC60,          ,0x0027DC94,          ,U,f,,
 0x0027DC94,          ,0x0027DCBC,          ,U,f,,
 0x0027DCBC,          ,0x0027DCC4,          ,U,f,,
