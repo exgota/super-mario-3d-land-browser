@@ -2587,7 +2587,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00179EFC,0x0017A230,0x0017A250,          ,U,f,,
 0x0017A250,0x0017A2E0,0x0017A33C,          ,U,f,,
 0x0017A33C,0x0017A3BC,0x0017A3DC,          ,U,f,,
-0x0017A3DC,0x0017A468,0x0017A4D0,          ,M,f,_ZN2al17CameraParamVision4initEPKNS_9ByamlIterE,
+0x0017A3DC,0x0017A468,0x0017A4D0,          ,O,f,_ZN2al17CameraParamVision4initEPKNS_9ByamlIterE,
 0x0017A4D0,          ,0x0017A520,          ,U,f,,
 0x0017A520,          ,0x0017AC10,          ,U,f,,
 0x0017AC10,          ,0x0017AC60,          ,U,f,,
