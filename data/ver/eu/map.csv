@@ -4356,7 +4356,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CAB90,          ,0x001CABC8,          ,U,f,,
 0x001CABC8,          ,0x001CABD8,          ,U,f,,
 0x001CABD8,          ,0x001CAC3C,          ,O,f,_ZN2al14NerveStateCtrl10startStateEPKNS_5NerveE,
-0x001CAC3C,          ,0x001CAC78,          ,M,f,_ZN2al14NerveStateCtrl18tryEndCurrentStateEv,
+0x001CAC3C,          ,0x001CAC78,          ,O,f,_ZN2al14NerveStateCtrl18tryEndCurrentStateEv,
 0x001CAC78,          ,0x001CAC94,          ,M,f,_ZN2al16updateNerveStateEPNS_9IUseNerveE,
 0x001CAC94,          ,0x001CACB4,          ,M,f,_ZN2al14NerveStateCtrl18updateCurrentStateEv,
 0x001CACB4,          ,0x001CAD00,          ,U,f,,
