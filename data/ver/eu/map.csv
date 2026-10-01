@@ -7428,7 +7428,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024ED90,          ,0x0024EDCC,          ,U,f,,
 0x0024EDCC,          ,0x0024EDD8,          ,U,f,,
 0x0024EDD8,          ,0x0024EDEC,          ,U,f,,
-0x0024EDEC,          ,0x0024EDF4,          ,M,f,_ZN2al12getHitSensorEPKNS_9LiveActorEPKc,
+0x0024EDEC,          ,0x0024EDF4,          ,O,f,_ZN2al12getHitSensorEPKNS_9LiveActorEPKc,
 0x0024EDF4,          ,0x0024EE64,          ,O,f,_ZNK2al15HitSensorKeeper9getSensorEPKc,
 0x0024EE64,          ,0x0024EEE4,          ,U,f,,
 0x0024EEE4,          ,0x0024EFA4,          ,U,f,,
