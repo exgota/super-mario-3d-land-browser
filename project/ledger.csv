@@ -713,3 +713,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:55:47-04:00,0x00357AD8,_ZNK2al15NrvFallMapParts19FallMapPartsNrvWait7executeEPNS_11NerveKeeperE,matched,3,1.3968
 2026-10-01T17:55:47-04:00,0x00357B10,_ZNK2al15NrvFallMapParts21FallMapPartsNrvAppear7executeEPNS_11NerveKeeperE,matched,4,2.3522
 2026-10-01T17:55:47-04:00,0x001E36EC,_ZN2al24ExecuteTableHolderUpdate23createExecutorListTableEv,matched,2,1.5387
+2026-10-01T17:55:48-04:00,0x001E2044,_ZN2al22ExecuteTableHolderDraw23createExecutorListTableEv,matched,2,1.5386
