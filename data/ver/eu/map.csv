@@ -8966,7 +8966,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00276BF0,0x00276C04,0x00276C08,          ,U,f,_ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE,
 0x00276C08,          ,0x00276C3C,          ,U,f,_ZN2al17initActorInitInfoEPNS_13ActorInitInfoEPKNS_9ByamlIterERKS0_,
 0x00276C3C,          ,0x00276C60,          ,U,f,_ZN2al13ActorInitInfoC1Ev,
-0x00276C60,0x00276CE4,0x00276CF0,          ,M,f,_ZN2al19tryGetPlacementInfoEPNS_9ByamlIterEPKNS_8ResourceEPKc,
+0x00276C60,0x00276CE4,0x00276CF0,          ,O,f,_ZN2al19tryGetPlacementInfoEPNS_9ByamlIterEPKNS_8ResourceEPKc,
 0x00276CF0,          ,0x00276D04,          ,U,f,,
 0x00276D04,          ,0x00276D1C,          ,U,f,,
 0x00276D1C,          ,0x00276D44,          ,U,f,,
