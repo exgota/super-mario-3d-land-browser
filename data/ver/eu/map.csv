@@ -6514,7 +6514,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00222C44,          ,0x00222CE4,          ,U,f,,
 0x00222CE4,          ,0x00222D20,          ,U,f,,
 0x00222D20,          ,0x00222D7C,          ,U,f,,
-0x00222D7C,0x00222DBC,0x00222DC4,          ,M,f,_ZN4sead14MathCalcCommonIfE8atanIdx_Ef,
+0x00222D7C,0x00222DBC,0x00222DC4,          ,O,f,_ZN4sead14MathCalcCommonIfE8atanIdx_Ef,
 0x00222DC4,0x00222DD0,0x00222DD4,          ,U,f,,
 0x00222DD4,          ,0x00222F4C,          ,U,f,,
 0x00222F4C,          ,0x00222F50,          ,U,f,,
