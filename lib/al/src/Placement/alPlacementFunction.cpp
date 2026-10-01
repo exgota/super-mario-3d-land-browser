@@ -15,6 +15,11 @@ extern "C" const char dat_003A2E58[];
 namespace al
 {
 
+bool tryGetArg0( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg0" );
+}
+
 bool tryGetStringArg( const char** out, const PlacementInfo& info, const char* argName )
 {
         const char* arg = dat_003A2DCC;

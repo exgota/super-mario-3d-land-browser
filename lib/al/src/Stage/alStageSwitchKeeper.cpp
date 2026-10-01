@@ -4,13 +4,16 @@
 namespace al
 {
 
-#ifdef NON_MATCHING
+namespace StageSwitchKeeperReconstruction
+{
+int getStageSwitchTypeCount();
+}
+
 StageSwitchKeeper::StageSwitchKeeper() : mSwitches( nullptr ), mSwitchCount( 0 )
 {
-        mSwitchCount = 5; // optimized away
-        mSwitches    = new StageSwitchAccesser[ 5 ];
+        mSwitchCount = StageSwitchKeeperReconstruction::getStageSwitchTypeCount();
+        mSwitches    = new StageSwitchAccesser[ mSwitchCount ];
 }
-#endif
 
 StageSwitchAccesser* StageSwitchKeeper::getStageSwitchAccesser( int type )
 {
