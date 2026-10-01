@@ -19,19 +19,31 @@
       "flags_cxx": [
         "--sys_include"
       ],
-      "disabled": 1
+      "source_dir": "backup/src",
+      "include_dir": "backup/include",
+      "source_files": [
+        "Player/PlayerTrigger.cpp"
+      ],
+      "compiler": "4.1/791"
     },
     "lib/al": {
       "name": "Actor",
       "flags_cxx": [
         "--sys_include"
       ],
-      "disabled": 1
+      "source_files": [
+        "Math/alHashUtil.cpp"
+      ],
+      "compiler": "4.1/791"
     },
     "lib/CtrSDK": {
       "name": "SDK",
       "source_dir": "sources",
       "compiler": "4.0/902"
+    },
+    "lib/sead": {
+      "name": "Sead",
+      "source_files": []
     }
   },
   "compiler": "4.1/791",

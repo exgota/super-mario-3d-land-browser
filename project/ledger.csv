@@ -1,2 +1,10 @@
 timestamp,address,symbol,outcome,attempts,estimated_tokens,estimated_cost_usd,minutes
 2026-10-01T03:30:00-04:00,0x0010766C,_ZN2nn2os6detail27ConvertSvcToLibraryPriorityEi,matched,3,,,5
+2026-10-01T03:47:27-04:00,0x0014377C,_ZN13PlayerTrigger18clearSensorTriggerEv,matched,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x00143788,_ZN13PlayerTrigger21clearCollisionTriggerEv,matched,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x00143794,_ZN13PlayerTriggerC1Ev,nonmatching,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x001C2D40,_ZN2al12calcHashCodeEPKc,nonmatching,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x0026E7AC,_ZN13PlayerTrigger3setENS_17ECollisionTriggerE,matched,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x0026EA40,_ZNK13PlayerTrigger4isOnENS_17ECollisionTriggerE,matched,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x0026EA60,_ZNK13PlayerTrigger4isOnENS_14ESensorTriggerE,matched,2,600,unavailable,2
+2026-10-01T03:47:27-04:00,0x0026EBE8,_ZN13PlayerTrigger3setENS_14ESensorTriggerE,matched,2,600,unavailable,2
