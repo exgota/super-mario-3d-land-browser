@@ -6,6 +6,8 @@
 namespace al
 {
 
+extern "C" void fn_001eba8c( HitSensor* sensor );
+
 void HitSensorKeeper::attackSensor()
 {
         for ( int i = 0; i < mSensors.size(); i++ )
@@ -58,7 +60,7 @@ HitSensor* HitSensorKeeper::getSensor( const char* name ) const
 void HitSensorKeeper::update()
 {
         for ( int i = 0; i < mSensors.size(); i++ )
-                mSensors.unsafeAt( i )->update();
+                fn_001eba8c( mSensors.unsafeAt( i ) );
 }
 
 } // namespace al

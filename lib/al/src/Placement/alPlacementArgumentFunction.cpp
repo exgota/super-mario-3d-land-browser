@@ -19,4 +19,29 @@ bool tryGetArg( float* out, const PlacementInfo& info, const char* argName )
         return readPlacementFloatArgument( info, argName, out );
 }
 
+static inline bool readPlacementIntegerArgument( int* out, const PlacementInfo& info, const char* argName )
+{
+        int value;
+        if ( info.isValid() && info.tryGetIntByKey( &value, argName ) && value != -1 )
+        {
+                *out = value;
+                return true;
+        }
+        return false;
+}
+
+bool tryGetArg( bool* out, const PlacementInfo& info, const char* argName )
+{
+        int value;
+        if ( readPlacementIntegerArgument( &value, info, argName ) )
+        {
+                if ( value == 0 )
+                        *out = false;
+                else
+                        *out = true;
+                return true;
+        }
+        return false;
+}
+
 } // namespace al

@@ -7,6 +7,11 @@
 #include <Se/alSeFunction.h>
 #include <Util/alStringUtil.h>
 
+extern "C" void fn_00266EF4( sead::Matrix34f* matrix, const al::LiveActor* actor );
+extern "C" void fn_0027BEA0( al::IUseEffectKeeper* effectUser, const char* name, const sead::Vector3f* position );
+extern "C" void fn_002796C0( al::IUseEffectKeeper* effectUser, const char* name );
+extern "C" int fn_00262810( al::IUseAudioKeeper* audioUser, const sead::SafeString& name, int parameter );
+
 namespace al
 {
 
@@ -28,13 +33,13 @@ void EffectObj::init( const ActorInitInfo& info )
 void EffectObj::makeActorAppeared()
 {
         LiveActor::makeActorAppeared();
-        makeMtxSRT( &mBaseMtx, this );
-        emitEffect( this, "Wait", nullptr );
+        fn_00266EF4( &mBaseMtx, this );
+        fn_0027BEA0( this, "Wait", nullptr );
 }
 
 void EffectObj::kill()
 {
-        tryEmitEffect( this, "Wait" );
+        fn_002796C0( this, "Wait" );
         LiveActor::kill();
 }
 
@@ -45,8 +50,8 @@ const sead::Matrix34f* EffectObj::getBaseMtx() const
 
 void EffectObj::control()
 {
-        makeMtxSRT( &mBaseMtx, this );
-        tryStartSe( this, "Wait", 2 );
+        fn_00266EF4( &mBaseMtx, this );
+        fn_00262810( this, "Wait", 2 );
 }
 
 void EffectObjFunction::initActorEffectObj( EffectObj* actor, const ActorInitInfo& info, const char* objectName )

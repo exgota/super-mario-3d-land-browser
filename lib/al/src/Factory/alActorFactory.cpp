@@ -5,8 +5,6 @@
 namespace al
 {
 
-#ifdef NON_MATCHING
-// unnecessary streq for mConvertNameData missing
 ActorFactory::ActorFactory()
     : mArchive( nullptr ), mConvertNameData( nullptr )
 {
@@ -14,7 +12,6 @@ ActorFactory::ActorFactory()
         mConvertNameData =
                 new ByamlIter( static_cast<const u8*>( mArchive->getByml( "CreatorClassNameTable" ) ) );
 }
-#endif
 
 } // namespace al
 
@@ -22,6 +19,10 @@ ActorFactory::ActorFactory()
 #include <Npc/alEffectObj.h>
 #include <Npc/alSky.h>
 
+#include "Enemy/Fugumannen.h"
+#include "MapObj/AppearStep.h"
+#include "MapObj/TransparentWall.h"
+#include "Player/GhostPlayer.h"
 #include "Enemy/Togezo.h"
 #include "MapObj/NoteObj.h" // GAMEUSE
 #include "MapObj/NoteObjGenerator.h"
@@ -55,11 +56,11 @@ const NameToActorCreator staticd( sActorFactoryEntries )[] = {
         { "Dossun", nullptr },
         { "DossunTail", nullptr },
         { "EnemyCounter", nullptr },
-        { "Fugumannen", nullptr },
+        { "Fugumannen", createActorFunction<Fugumannen> },
         { "FugumannenGenerator", nullptr },
         { "GamaguchiKun", nullptr },
         { "Gesso", nullptr },
-        { "GhostPlayer", nullptr },
+        { "GhostPlayer", createActorFunction<GhostPlayer> },
         { "HammerBros", nullptr },
         { "Hoppun", nullptr },
         { "Indy", nullptr },
@@ -127,7 +128,7 @@ const NameToActorCreator staticd( sActorFactoryEntries )[] = {
         { "Telescope", nullptr },
         { "TelescopeTarget", nullptr },
         { "TimerClock", nullptr },
-        { "AppearStep", nullptr },
+        { "AppearStep", createActorFunction<AppearStep> },
         { "AquariumSwimDebris", nullptr },
         { "BalanceTruck", nullptr },
         { "BeatBlock", nullptr },
@@ -214,7 +215,7 @@ const NameToActorCreator staticd( sActorFactoryEntries )[] = {
         { "SwingSpike", nullptr },
         { "TrampleSwitch", nullptr },
         { "Trampoline", nullptr },
-        { "TransparentWall", nullptr },
+        { "TransparentWall", createActorFunction<TransparentWall> },
         { "TreeA", nullptr },
         { "TrickHintPanel", createActorFunction<TrickHintPanel> },
         { "Trilift", nullptr },

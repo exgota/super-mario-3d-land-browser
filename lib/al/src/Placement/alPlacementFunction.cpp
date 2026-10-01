@@ -20,6 +20,46 @@ bool tryGetArg0( float* out, const ActorInitInfo& info )
         return tryGetArg( out, getPlacementInfo( info ), "Arg0" );
 }
 
+bool tryGetArg1( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg1" );
+}
+
+bool tryGetArg2( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg2" );
+}
+
+bool tryGetArg3( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg3" );
+}
+
+bool tryGetArg4( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg4" );
+}
+
+bool tryGetArg5( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg5" );
+}
+
+bool tryGetArg6( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg6" );
+}
+
+bool tryGetArg7( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg7" );
+}
+
+bool tryGetArg8( float* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg8" );
+}
+
 bool tryGetStringArg( const char** out, const PlacementInfo& info, const char* argName )
 {
         const char* arg = dat_003A2DCC;
@@ -130,6 +170,71 @@ const char* getLinksActorObjectName( const ActorInitInfo& info, int index )
         const char* objectName = nullptr;
         tryGetObjectName( &objectName, placementInfo );
         return objectName;
+}
+
+bool tryGetArg0( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg0" );
+}
+
+bool tryGetArg1( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg1" );
+}
+
+bool tryGetArg2( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg2" );
+}
+
+bool tryGetArg3( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg3" );
+}
+
+bool tryGetArg4( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg4" );
+}
+
+bool tryGetArg5( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg5" );
+}
+
+bool tryGetArg6( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg6" );
+}
+
+bool tryGetArg7( bool* out, const ActorInitInfo& info )
+{
+        return tryGetArg( out, getPlacementInfo( info ), "Arg7" );
+}
+
+bool tryGetArg0( float* out, const PlacementInfo& info )
+{
+        return tryGetArg( out, info, "Arg0" );
+}
+
+bool tryGetArg6( float* out, const PlacementInfo& info )
+{
+        return tryGetArg( out, info, "Arg6" );
+}
+
+bool tryGetArg3( bool* out, const PlacementInfo& info )
+{
+        return tryGetArg( out, info, "Arg3" );
+}
+
+bool tryGetArg5( bool* out, const PlacementInfo& info )
+{
+        return tryGetArg( out, info, "Arg5" );
+}
+
+bool tryGetArg7( bool* out, const PlacementInfo& info )
+{
+        return tryGetArg( out, info, "Arg7" );
 }
 
 } // namespace al
