@@ -612,3 +612,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:01:59-04:00,0x00360330,_ZNK18NrvProductSequence24ProductSequenceNrvEnding7executeEPN2al11NerveKeeperE,matched,4,0.0870
 2026-10-01T15:01:59-04:00,0x00360380,_ZNK18NrvProductSequence25ProductSequenceNrvOpening7executeEPN2al11NerveKeeperE,matched,4,0.0869
 2026-10-01T15:02:00-04:00,0x003604E4,_ZNK18NrvProductSequence30ProductSequenceNrvKinopioHouse7executeEPN2al11NerveKeeperE,matched,6,0.0870
+2026-10-01T15:34:51-04:00,0x0027C23C,_ZN4sead15Matrix33CalcCtrIfE7inverseERN2nn4math5MTX33ERKS4_,abandoned,3,16.3110

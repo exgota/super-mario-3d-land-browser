@@ -661,3 +661,7 @@ ProductSequence C1 installs address point0x003CB108; its native table is56 bytes
 ### Independent LiveActorGroup table ownership
 
 Retail constructor pool0x00277DDC installs address point0x003D6444. The independent neighbor constructor0x001CAB74 installs0x003D6450, bounding the Group table at0x003D643C..0x003D6448,12 bytes with its sole slot pointing to already accepted registerActor0x001CAB14. The native canonical table also independently occupies12 bytes. Root verifies six frozen files and preserves all48 bytes of the old anonymous union as preceding data, the named U table and anonymous successor header. All function rows and ranks stay unchanged. This separate boundary repair adds zero credit; the blocked Group constructor remains dot-owned and nonexact. Evidence is in build/phase_two_actor_group/live_actor_group_table_identity/report.md.
+
+### Matrix33 inverse structural stall
+
+Root verifies all39 frozen artifacts. Three source structures diverge in size/scheduling from the260-byte original; the aggregate form also retains36 bytes of constant data. No independently established helper address supports a split. Park the source-only proposal and commit its315-line packet for the dot, with zero exact or functional credit. The16.310985-minute shared window includes research and interleaved work; recorded compiler-driver time is1.532115 seconds. No source, rank, interval or tool changes follow.
