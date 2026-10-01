@@ -8438,7 +8438,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00268EB0,0x00268FAC,0x00268FB8,          ,U,f,_ZNK2al12ActorFactory10getCreatorEPKc,
 0x00268FB8,          ,0x00268FE8,          ,U,f,,
 0x00268FE8,          ,0x0026902C,          ,U,f,,
-0x0026902C,0x002690AC,0x002690EC,          ,M,f,_ZN2al12ActorFactoryC1Ev,
+0x0026902C,0x002690AC,0x002690EC,          ,O,f,_ZN2al12ActorFactoryC1Ev,
 0x002690EC,          ,0x00269128,          ,U,f,,
 0x00269128,0x002691A0,0x002691A4,          ,U,f,,
 0x002691A4,          ,0x002691BC,          ,U,f,,
