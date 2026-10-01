@@ -9333,7 +9333,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027DBC8,          ,0x0027DC18,          ,U,f,,
 0x0027DC18,          ,0x0027DC28,          ,O,f,_ZN2al22isMsgPlayerStatueTouchEj,
 0x0027DC28,          ,0x0027DC38,          ,U,f,,
-0x0027DC38,          ,0x0027DC40,          ,M,f,_ZN2al12isSensorNameEPNS_9HitSensorEPKc,
+0x0027DC38,          ,0x0027DC40,          ,O,f,_ZN2al12isSensorNameEPNS_9HitSensorEPKc,
 0x0027DC40,          ,0x0027DC50,          ,M,f,_ZN2al27isMsgPlayerInvincibleAttackEj,
 0x0027DC50,          ,0x0027DC60,          ,M,f,_ZN2al26isMsgPlayerInvincibleTouchEj,
 0x0027DC60,          ,0x0027DC94,          ,U,f,,
