@@ -1,5 +1,7 @@
 # Integer-state writer 0x00206474
 
+**Integration qualification:** shared graphics C-symbol declarations differ between the state and shader branches. Do not claim combined integration until they are reconciled and regression checked. See [the exact conflict, common layout evidence, and proposed declaration contract](graphics-shared-declarations.md).
+
 Base: 5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c. Branch: dot/integer-state-root.
 The original interval remains 0x00206474..0x0020ACAC, 18,488 bytes, with final
 pool marker 0x0020ACA8. Source commit: 49c607d. This is an ordinary-C++
