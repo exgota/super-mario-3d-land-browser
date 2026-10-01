@@ -9113,7 +9113,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002796E0,          ,0x002796FC,          ,U,f,,
 0x002796FC,          ,0x00279788,          ,U,f,,
 0x00279788,          ,0x002797F4,          ,U,f,,
-0x002797F4,          ,0x0027992C,          ,M,f,_ZN2al9LiveActor10endClippedEv,
+0x002797F4,          ,0x0027992C,          ,O,f,_ZN2al9LiveActor10endClippedEv,
 0x0027992C,          ,0x00279954,          ,U,f,,
 0x00279954,          ,0x002799E0,          ,U,f,,
 0x002799E0,          ,0x002799EC,          ,U,f,,
