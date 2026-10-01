@@ -49,3 +49,19 @@ Ten existing intervals share an eight-form code-generation miss. Their5.032019-m
 | 0x002730F8 | _ZN2al10tryGetArg7EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
 | 0x001BD080 | _ZN2al10tryGetArg8EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
 | 0x002670D8 | _ZN2al10tryGetArg2EPiRKNS_9ByamlIterE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+
+## Helper follow-on structural stalls
+
+These nine searches are abandoned scratch proposals, with zero exact bytes and no functionally verified NonMatching claim. All except the eight-form Byaml consumer stopped early on a concrete structural/code-generation gap. Timings are shared measured windows through the stated diagnostic endpoints, overlap ready sibling work and exclude unmeasured preparation/packaging. The two constructor windows are added without claiming individual labor.
+
+| Address | Function | First blocker | Unblocks when |
+|---|---|---|---|
+| 0x001EA31C | fn_001EA31C | Full72-byte byte equality retains an unmapped28-byte source helper and is structurally inadmissible. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/001EA31C.md. |
+| 0x001EA364 | fn_001EA364 | Full72-byte byte equality retains an unmapped28-byte source helper and is structurally inadmissible. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/001EA364.md. |
+| 0x0027C510 | _ZN4sead15Matrix33CalcCtrIfE8makeZeroERN2nn4math5MTX33E | Complete44/48-byte forms exceed28-byte target. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/0027C510.md. |
+| 0x0027C198 | _ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKNS3_5MTX33ERKNS3_4VEC3E | Complete44/72/52-byte forms exceed32-byte target; aggregate syntax correction is not a new form. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/0027C198.md. |
+| 0x0027C880 | _ZN4sead15Matrix34CalcCtrIfE11transposeToERN2nn4math5MTX34ERKS4_ | Both96-byte forms exceed60-byte target; retail zero literal belongs to preceding pool. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/0027C880.md. |
+| 0x0027C208 | _ZN4sead15Matrix22CalcCtrIfE8multiplyERN2nn4math5MTX22ERKS4_S7_ | Complete80/84/84-byte forms exceed52-byte target. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/0027C208.md. |
+| 0x00260554 | _ZN4sead11QuatCalcCtrIfE18makeVectorRotationERN2nn4math4QUATERKNS3_4VEC3ES8_ | Aggregate184-byte form has a separate16-byte data section; explicit-field180-byte form exceeds172-byte target. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/00260554.md. |
+| 0x0033753C | _ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci | Eight-form cap; best complete160-byte form differs by5 register-allocation bytes. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/0033753C.md. |
+| 0x00252054 | _ZN26PlayerActionMultiConditionC1Ev | Both44-byte ordinary initialization forms differ by8 store-order bytes. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/00252054.md. |
