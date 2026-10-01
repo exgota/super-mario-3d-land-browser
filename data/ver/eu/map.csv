@@ -8388,7 +8388,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00267698,          ,0x0026770C,          ,U,f,,
 0x0026770C,          ,0x00267738,          ,U,f,,
 0x00267738,0x002677E8,0x002677F4,          ,U,f,,
-0x002677F4,          ,0x00267828,          ,M,f,_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc,
+0x002677F4,          ,0x00267828,          ,O,f,_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc,
 0x00267828,0x0026792C,0x00267934,          ,U,f,,
 0x00267934,          ,0x00267974,          ,U,f,,
 0x00267974,          ,0x002679B4,          ,U,f,,
