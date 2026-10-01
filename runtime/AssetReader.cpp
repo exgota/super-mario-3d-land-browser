@@ -942,10 +942,82 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
     return result;
 }
 
+struct TextureImage {
+    std::string name;
+    std::size_t offset = 0;
+    std::uint32_t flags = 0;
+    std::string status;
+    bool imageFieldsDecoded = false;
+    std::uint32_t height = 0;
+    std::uint32_t width = 0;
+    std::uint32_t mipmapLevels = 0;
+    std::uint32_t format = 0;
+    std::size_t descriptorOffset = 0;
+    std::uint32_t descriptorHeight = 0;
+    std::uint32_t descriptorWidth = 0;
+    std::uint32_t payloadByteCount = 0;
+    std::size_t payloadOffset = 0;
+    std::uint32_t cachedPointerField = 0;
+};
+
+TextureImage readTextureImage(Bytes data, std::size_t dataEnd, std::size_t imageStart,
+                              std::uint32_t revision, const ResourceEntry& entry) {
+    ByteReader input(data);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "CGFX texture-image metadata escapes DATA");
+    };
+    metadata(entry.offset, 8);
+    require(input.magic(entry.offset + 4, "TXOB"), "CGFX texture image has no TXOB signature");
+    TextureImage result{};
+    result.name = entry.name;
+    result.offset = entry.offset;
+    result.flags = input.integer(entry.offset);
+    result.status = "unsupported_texture_revision";
+    if (revision != 0x05000000)
+        return result;
+    result.status = result.flags == 0x20000004 ? "alias_texture_unresolved" : "unsupported_texture_layout";
+    if (result.flags != 0x20000011)
+        return result;
+    metadata(entry.offset, 0x3C);
+    const std::size_t nameOffset = input.relative(entry.offset + 0xC);
+    metadata(nameOffset, 1);
+    require(input.terminatedText(nameOffset, dataEnd - nameOffset) == entry.name,
+            "CGFX texture name disagrees with its dictionary");
+    result.height = input.integer(entry.offset + 0x18);
+    result.width = input.integer(entry.offset + 0x1C);
+    result.mipmapLevels = input.integer(entry.offset + 0x28);
+    result.format = input.integer(entry.offset + 0x34);
+    result.descriptorOffset = input.relative(entry.offset + 0x38);
+    metadata(result.descriptorOffset, 0x1C);
+    result.descriptorHeight = input.integer(result.descriptorOffset);
+    result.descriptorWidth = input.integer(result.descriptorOffset + 4);
+    result.payloadByteCount = input.integer(result.descriptorOffset + 8);
+    result.cachedPointerField = input.integer(result.descriptorOffset + 0x18);
+    require(result.payloadByteCount != 0 && imageStart != 0, "CGFX texture has an empty image payload");
+    result.payloadOffset = input.relative(result.descriptorOffset + 0xC);
+    require(result.payloadOffset >= imageStart && result.payloadOffset <= data.size() &&
+            result.payloadByteCount <= data.size() - result.payloadOffset, "CGFX texture payload escapes IMAG");
+    // Retail 0x002AC858 reads this descriptor and its serialized payload pointer.
+    // Report the raw runtime cache without following it or translating addresses.
+    result.imageFieldsDecoded = true;
+    result.status = "resource_local_image_fields";
+    if (result.height != result.descriptorHeight || result.width != result.descriptorWidth)
+        result.status = "inconsistent_texture_dimensions";
+    else if (!result.height || !result.width)
+        result.status = "unsupported_texture_dimensions";
+    else if (result.format != 3 && result.format != 6 && result.format != 12 && result.format != 13)
+        result.status = "unsupported_texture_format";
+    else if (!result.mipmapLevels)
+        result.status = "unsupported_mipmap_count";
+    return result;
+}
+
 struct ModelCatalog {
     std::uint32_t revision;
     std::vector<ResourceCategory> categories;
     std::vector<ModelGeometry> models;
+    std::vector<TextureImage> textures;
 };
 
 void readMaterialTextureReferences(Bytes data, std::size_t dataEnd, ModelCatalog& catalog) {
@@ -1046,7 +1118,7 @@ ModelCatalog readCgfx(Bytes data) {
     }
     require(section == data.size(), "CGFX sections do not cover their file");
     require(dataSize >= 8 + 16 * 8, "CGFX DATA catalog is truncated");
-    ModelCatalog result{input.integer(8), {}, {}};
+    ModelCatalog result{input.integer(8), {}, {}, {}};
     for (std::uint32_t number = 0; number < 16; ++number) {
         const std::size_t slot = 20 + 8 + number * 8;
         const std::size_t count = input.integer(slot);
@@ -1081,6 +1153,10 @@ ModelCatalog readCgfx(Bytes data) {
             for (const ResourceEntry& entry : category.entries)
                 result.models.push_back(readModelGeometry(data, 20 + dataSize, imageStart, result.revision, entry));
     readMaterialTextureReferences(data, 20 + dataSize, result);
+    for (const ResourceCategory& category : result.categories)
+        if (category.index == 1)
+            for (const ResourceEntry& entry : category.entries)
+                result.textures.push_back(readTextureImage(data, 20 + dataSize, imageStart, result.revision, entry));
     return result;
 }
 
@@ -1538,6 +1614,27 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
             output << ",\"offset\":" << entry.offset << '}';
         }
         output << "]}";
+    }
+    output << "],\"textures\":[";
+    for (std::size_t index = 0; index < catalog.textures.size(); ++index) {
+        if (index)
+            output << ',';
+        const TextureImage& texture = catalog.textures[index];
+        output << "{\"name_hex\":";
+        writeString(output, hexadecimal(texture.name));
+        output << ",\"offset\":" << texture.offset << ",\"flags\":" << texture.flags << ",\"status\":";
+        writeString(output, texture.status);
+        if (texture.imageFieldsDecoded)
+            output << ",\"height\":" << texture.height << ",\"width\":" << texture.width
+                   << ",\"mipmap_levels\":" << texture.mipmapLevels << ",\"format\":" << texture.format
+                   << ",\"descriptor_offset\":" << texture.descriptorOffset
+                   << ",\"descriptor_height\":" << texture.descriptorHeight
+                   << ",\"descriptor_width\":" << texture.descriptorWidth
+                   << ",\"payload_byte_count\":" << texture.payloadByteCount
+                   << ",\"payload_offset\":" << texture.payloadOffset
+                   << ",\"cached_pointer_field\":" << texture.cachedPointerField;
+        output << ",\"pixel_decoding\":\"unresolved\",\"runtime_pointer_application\":\"unresolved\","
+                  "\"platform_address_translation\":\"unresolved\"}";
     }
     output << "],\"models\":[";
     for (std::size_t index = 0; index < catalog.models.size(); ++index) {
