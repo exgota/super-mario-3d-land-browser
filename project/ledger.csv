@@ -520,3 +520,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:01:54-04:00,0x00314FE4,_ZN8FireBallC1ERKN4sead14SafeStringBaseIcEE,matched,2,0.0680
 2026-10-01T14:01:55-04:00,0x00171830,_ZN16NoteObjGeneratorC1ERKN4sead14SafeStringBaseIcEE,matched,2,0.0741
 2026-10-01T14:01:55-04:00,0x00272634,_ZN2al11getBaseNameEPKc,matched,2,0.0241
+2026-10-01T14:01:56-04:00,0x0027044C,_ZN2al16isEqualSubStringEPKcS1_,matched,2,0.0255
