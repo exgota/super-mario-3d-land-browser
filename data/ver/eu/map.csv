@@ -4393,7 +4393,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CBEA0,          ,0x001CBEB8,          ,U,f,,
 0x001CBEB8,          ,0x001CBED0,          ,U,f,,
 0x001CBED0,          ,0x001CBEE4,          ,U,f,,
-0x001CBEE4,          ,0x001CBF08,          ,M,f,_ZN2al14isSensorSimpleEPKNS_9HitSensorE,
+0x001CBEE4,          ,0x001CBF08,          ,O,f,_ZN2al14isSensorSimpleEPKNS_9HitSensorE,
 0x001CBF08,          ,0x001CBF20,          ,U,f,,
 0x001CBF20,          ,0x001CBF3C,          ,U,f,,
 0x001CBF3C,0x001CBF6C,0x001CBF70,          ,O,f,_ZN2al14tryGetRailIterEPNS_9ByamlIterERKS0_,
