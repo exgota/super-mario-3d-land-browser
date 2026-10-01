@@ -530,3 +530,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:01:59-04:00,0x0027E828,_ZN2al10WipeSimple6appearEv,matched,2,0.0273
 2026-10-01T14:01:59-04:00,0x0035A064,_ZNK2al13NrvBreakModel17BreakModelNrvWait7executeEPNS_11NerveKeeperE,matched,2,0.0273
 2026-10-01T14:02:00-04:00,0x0027C4E4,_ZN4sead15Matrix33CalcCtrIfE11transposeToERN2nn4math5MTX33ERKS4_,matched,2,1.7166
+2026-10-01T14:02:00-04:00,0x0027C1B8,_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKNS3_5MTX44E,matched,2,0.9348
