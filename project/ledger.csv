@@ -71,3 +71,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:00:04-04:00,0x0027B364,_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi,matched,4,0.0047
 2026-10-01T07:00:04-04:00,0x00331520,_ZNK2al13NerveExecutor14getNerveKeeperEv,matched,4,0.0058
 2026-10-01T07:00:06-04:00,0x00278C30,_ZNK2al9ByamlIter16tryGetFloatByKeyEPfPKc,matched,4,2.6941
+2026-10-01T07:00:06-04:00,0x0027E068,_ZNK2al9ByamlIter14tryGetIntByKeyEPiPKc,matched,4,2.6939
