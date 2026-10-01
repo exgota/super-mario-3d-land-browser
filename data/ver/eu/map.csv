@@ -17710,7 +17710,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003985B4,0x003985E8,0x003985EC,          ,U,f,,
 0x003985EC,0x00398620,0x00398624,          ,U,f,,
 0x00398624,0x00398658,0x0039865C,          ,U,f,,
-0x0039865C,          ,0x00398684,          ,M,ft,_ZN2al19createActorFunctionI7NoteObjEEPNS_9LiveActorEPKc,
+0x0039865C,          ,0x00398684,          ,O,ft,_ZN2al19createActorFunctionI7NoteObjEEPNS_9LiveActorEPKc,
 0x00398684,0x003986B8,0x003986BC,          ,U,f,,
 0x003986BC,0x003986F0,0x003986F4,          ,U,f,,
 0x003986F4,0x00398728,0x0039872C,          ,U,f,,
