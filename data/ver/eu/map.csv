@@ -7422,7 +7422,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024EB8C,          ,0x0024EBC0,          ,U,f,,
 0x0024EBC0,0x0024EBD0,0x0024EBD4,          ,U,f,,
 0x0024EBD4,0x0024EC7C,0x0024EC80,          ,U,f,,
-0x0024EC80,0x0024ED20,0x0024ED2C,          ,U,f,,
+0x0024EC80,0x0024ED20,0x0024ED2C,          ,U,f,fn_0024EC80,
 0x0024ED2C,0x0024ED70,0x0024ED7C,          ,U,f,_ZN2al19ActorPoseKeeperTRSVC1Ev,
 0x0024ED7C,          ,0x0024ED90,          ,U,f,,
 0x0024ED90,          ,0x0024EDCC,          ,U,f,,

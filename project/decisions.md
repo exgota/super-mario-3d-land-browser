@@ -831,3 +831,7 @@ The queue retains two paired source snapshots/four successful physical compiles,
 ### Conditional shader instance evidence, 2026-10-01
 
 Root verifies440 hashes/373 paths and independently decodes the four binder calls and keeper/context stores. Reachable original resource and named-context chains select the same FastShader instance only with explicit optional Shader archive input. Record this bounded interface and corrections in native_mesh_evidence.md. Do not replace missing material-modified state with constructor defaults or treat cached root pointers as DVLE pointers. Keep proposed native changes in scratch until original/native differential checks pass.
+
+### Actor scale wrapper neutral identity, 2026-10-01
+
+Name only the existing whole U/f172-byte row24EC80..24ED2C as fn_0024EC80. Original calls preserve ActorInitInfo's independently established first placement-pointer member and reach accepted isValid276AA0/FloatByKey278C30. Its complete12-byte pool refers to the previously named whole scale_x/y/z rows. No class/public method spelling, boundary, pool, type or rank changes. This identity supports the owner-authorized Pro test without changing the oracle.
