@@ -7,6 +7,7 @@ import re
 from tools.low.glob import *
 
 from tools.low.readSymMap import *
+from tools.low.getSection import typeToSection
 from tools.pypstem._utils import *
 from tools.pypstem.callProcess import *
 from tools.pypstem.manSetup import setup_compiler
@@ -35,7 +36,7 @@ def write_depend():
     asm_flags = flags_asm + ["-o", str(getBuildDependFile()), str(in_depend)]
     do_assemble(asm_flags)
 
-def find_scaffold_function_aliases():
+def find_scaffold_aliases(prefix):
     aliases = {}
     for module_path, module in cfg.modules.items():
         root = getProjDir() / module_path
@@ -43,7 +44,7 @@ def find_scaffold_function_aliases():
             continue
         for path in root.rglob("*"):
             if path.is_file() and path.suffix in (".c", ".cpp", ".h", ".hpp"):
-                for name, address in re.findall(r"\b(fn_([0-9A-Fa-f]{8}))\b", path.read_bytes().decode("latin1")):
+                for name, address in re.findall(rf"\b({prefix}_([0-9A-Fa-f]{{8}}))\b", path.read_bytes().decode("latin1")):
                     aliases.setdefault(int(address, 16), set()).add(name)
     return aliases
 
@@ -52,7 +53,8 @@ def write_stubs():
     cfg.modules[str(getSplitPath().relative_to(getProjDir()))] = {"name": getStubsLibName(), "extensions": set(["c"]), "source_dir": "."}
 
     getSplitPath().mkdir(parents=True, exist_ok=True)
-    aliases = find_scaffold_function_aliases()
+    aliases = find_scaffold_aliases("fn")
+    data_aliases = find_scaffold_aliases("dat")
 
     # write stubs.c
     with io.StringIO() as f:
@@ -64,6 +66,16 @@ def write_stubs():
         f.write( "\n")
 
         for sym in read_sym_file():
+            if "d" in sym[MapFmt.Type]:
+                for name in sorted(data_aliases.get(sym[MapFmt.Start], set())):
+                    size = sym[MapFmt.End] - sym[MapFmt.Start]
+                    if size <= 0:
+                        raise ValueError("A scaffold data alias requires a nonempty established interval.")
+                    section = sym[MapFmt.SectionName] or typeToSection(sym[MapFmt.Type], name)
+                    qualifier = "const " if "c" in sym[MapFmt.Type] else ""
+                    f.write(f"/* Zero-filled scaffold data at 0x{sym[MapFmt.Start]:08X}, not reconstructed data. */\n")
+                    f.write(f'__weak __attribute__((section("{section}"), aligned(4))) {qualifier}unsigned char {name}[{size}] = {{0}};\n')
+                continue
             if not "f" in sym[MapFmt.Type]:
                 continue
             if "s" in sym[MapFmt.Type]:

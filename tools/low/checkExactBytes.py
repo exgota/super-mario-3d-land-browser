@@ -146,6 +146,13 @@ def _isolate_function(object_path, symbol_name, rows, candidate_path):
         raise ExactByteError("Selected section alignment above four bytes is unsupported.")
     for symbol in symbols.iter_symbols():
         if symbol["st_shndx"] == section_index and symbol["st_info"]["type"] == "STT_FUNC" and symbol["st_value"] != 0:
+            # ARMCC marks its switch-table base as a local, zero-size function
+            # label. It belongs to this section and keeps its original value
+            # for the compiler's ABS32 case-table relocations.
+            if (symbol.name == "__switch$$" and symbol["st_info"]["bind"] == "STB_LOCAL"
+                    and symbol["st_size"] == 0 and symbol["st_value"] % 4 == 0
+                    and symbol["st_value"] < code_section["sh_size"]):
+                continue
             raise ExactByteError(f"The selected section is shared with {symbol.name}.")
 
     relocations = []
