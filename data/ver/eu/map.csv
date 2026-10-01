@@ -9191,7 +9191,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027AE3C,0x0027AE7C,0x0027AE84,          ,U,f,,
 0x0027AE84,          ,0x0027AED8,          ,U,f,_ZN2al9hideModelEPNS_9LiveActorE,
 0x0027AED8,          ,0x0027AF08,          ,U,f,,
-0x0027AF08,          ,0x0027AF28,          ,M,f,_ZN2al9onCollideEPNS_9LiveActorE,
+0x0027AF08,          ,0x0027AF28,          ,O,f,_ZN2al9onCollideEPNS_9LiveActorE,
 0x0027AF28,0x0027AFAC,0x0027AFE4,          ,U,f,,
 0x0027AFE4,0x0027AFF0,0x0027AFF8,          ,U,f,,
 0x0027AFF8,0x0027B04C,0x0027B054,          ,U,f,,

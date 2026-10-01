@@ -278,3 +278,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:05:38-04:00,0x00271210,_ZNK2al9ByamlIter10isExistKeyEPKc,matched,2,0.2367
 2026-10-01T11:05:39-04:00,0x00290F00,_ZNK2al9ByamlIter19tryGetStringByIndexEPPKci,matched,2,0.2354
 2026-10-01T11:14:49-04:00,0x0027B510,_ZN2al10offCollideEPNS_9LiveActorE,matched,2,0.0334
+2026-10-01T11:14:50-04:00,0x0027AF08,_ZN2al9onCollideEPNS_9LiveActorE,matched,2,0.0402
