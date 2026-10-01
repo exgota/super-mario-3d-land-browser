@@ -5130,7 +5130,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E2890,          ,0x001E2898,          ,U,f,,
 0x001E2898,0x001E28D4,0x001E28D8,          ,U,f,,
 0x001E28D8,          ,0x001E28F4,          ,U,f,,
-0x001E28F4,          ,0x001E2910,          ,M,f,_ZN2al22sendMsgKickStoneAttackEPNS_9HitSensorES1_,
+0x001E28F4,          ,0x001E2910,          ,O,f,_ZN2al22sendMsgKickStoneAttackEPNS_9HitSensorES1_,
 0x001E2910,0x001E2940,0x001E2944,          ,U,f,,
 0x001E2944,          ,0x001E2954,          ,U,f,,
 0x001E2954,0x001E2AAC,0x001E2AB8,          ,U,f,,

@@ -302,3 +302,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:14:59-04:00,0x001E13A0,_ZN2al7isMsg49Ej,matched,2,0.2214
 2026-10-01T11:14:59-04:00,0x001E13B0,_ZN2al7isMsg52Ej,matched,2,0.2214
 2026-10-01T11:14:59-04:00,0x001E13C0,_ZN2al7isMsg51Ej,matched,2,0.2215
+2026-10-01T11:15:00-04:00,0x001E28F4,_ZN2al22sendMsgKickStoneAttackEPNS_9HitSensorES1_,matched,2,0.2220
