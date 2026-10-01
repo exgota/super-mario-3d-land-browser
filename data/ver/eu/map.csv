@@ -7089,7 +7089,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002429DC,          ,0x002429E4,          ,U,f,,
 0x002429E4,          ,0x00242A38,          ,U,f,,
 0x00242A38,          ,0x00242A44,          ,U,f,,
-0x00242A44,0x00242A7C,0x00242A80,          ,M,f,_ZN2al9RailRider17moveToNearestRailERKN4sead7Vector3IfEE,
+0x00242A44,0x00242A7C,0x00242A80,          ,O,f,_ZN2al9RailRider17moveToNearestRailERKN4sead7Vector3IfEE,
 0x00242A80,0x00242A8C,0x00242A90,          ,U,f,,
 0x00242A90,0x00242AAC,0x00242AB0,          ,U,f,,
 0x00242AB0,          ,0x00242AC8,          ,U,f,,
