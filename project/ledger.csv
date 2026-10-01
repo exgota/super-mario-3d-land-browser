@@ -558,3 +558,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:09:44-04:00,0x0036417C,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvWait7getNameEv,matched,2,0.0295
 2026-10-01T14:09:44-04:00,0x003641F4,_ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7getNameEv,matched,2,0.0294
 2026-10-01T14:09:45-04:00,0x00364238,_ZNK19NrvNoteObjGenerator28NoteObjGeneratorNrvDisappear7getNameEv,matched,2,0.0294
+2026-10-01T14:09:45-04:00,0x0032C73C,_ZNK14PlayerAnimator12getAnimFrameEv,matched,2,0.0292
