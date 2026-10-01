@@ -9441,7 +9441,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002801E0,0x0028025C,0x00280270,          ,U,f,_ZN2al24initActorWithArchiveNameEPNS_9LiveActorERKNS_13ActorInitInfoERKN4sead14SafeStringBaseIcEEPKc,
 0x00280270,0x00280278,0x00280280,          ,U,f,_ZN2al19startHitReactionGetEPKNS_9LiveActorE,
 0x00280280,          ,0x0028028C,          ,U,f,,
-0x0028028C,          ,0x00280298,          ,M,f,_ZN2al8getTransEPKNS_9LiveActorE,
+0x0028028C,          ,0x00280298,          ,O,f,_ZN2al8getTransEPKNS_9LiveActorE,
 0x00280298,0x002803D8,0x002803F4,          ,U,f,,
 0x002803F4,          ,0x00280414,          ,U,f,,
 0x00280414,          ,0x00280418,          ,U,f,,
