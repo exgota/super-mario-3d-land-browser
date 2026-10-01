@@ -488,3 +488,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:31-04:00,0x001BD030,_ZN2al10tryGetArg0EPfRKNS_9ByamlIterE,matched,2,0.1571
 2026-10-01T13:11:32-04:00,0x001BD060,_ZN2al10tryGetArg6EPfRKNS_9ByamlIterE,matched,2,0.1572
 2026-10-01T13:11:32-04:00,0x001BD040,_ZN2al10tryGetArg3EPbRKNS_9ByamlIterE,matched,2,0.1568
+2026-10-01T13:11:32-04:00,0x001BD050,_ZN2al10tryGetArg5EPbRKNS_9ByamlIterE,matched,2,0.1568
