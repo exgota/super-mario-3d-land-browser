@@ -11424,7 +11424,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002DA408,          ,0x002DA40C,          ,U,f,,
 0x002DA40C,          ,0x002DA434,          ,O,f,_ZN4sead12CalendarTime7setDateERKNS0_4DateE,
 0x002DA434,          ,0x002DA4A8,          ,U,f,_ZN4sead12CalendarTimeC2ERKN2nn3fnd18DateTimeParametersE,
-0x002DA4A8,          ,0x002DA504,          ,M,f,_ZN4sead12CalendarTimeC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE,
+0x002DA4A8,          ,0x002DA504,          ,O,f,_ZN4sead12CalendarTimeC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE,
 0x002DA504,0x002DA604,0x002DA60C,          ,U,f,,
 0x002DA60C,0x002DA6D8,0x002DA6E0,          ,U,f,,
 0x002DA6E0,0x002DA710,0x002DA718,          ,U,f,,
