@@ -4874,7 +4874,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001DB590,0x001DB5C0,0x001DB5C4,          ,U,f,,
 0x001DB5C4,          ,0x001DB5D4,          ,U,f,,
 0x001DB5D4,          ,0x001DB620,          ,U,f,,
-0x001DB620,          ,0x001DB628,          ,M,f,_ZN2al18isPadTriggerSelectEi,
+0x001DB620,          ,0x001DB628,          ,O,f,_ZN2al18isPadTriggerSelectEi,
 0x001DB628,          ,0x001DB654,          ,U,f,,
 0x001DB654,          ,0x001DB684,          ,U,f,,
 0x001DB684,0x001DB6D0,0x001DB6D4,          ,U,f,,
