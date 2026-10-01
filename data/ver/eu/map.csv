@@ -9109,7 +9109,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279554,          ,0x002795C0,          ,U,f,,
 0x002795C0,          ,0x002796A4,          ,O,f,_ZN2al9LiveActor12startClippedEv,
 0x002796A4,          ,0x002796C0,          ,U,f,,
-0x002796C0,          ,0x002796E0,          ,M,f,fn_002796C0,
+0x002796C0,          ,0x002796E0,          ,O,f,fn_002796C0,
 0x002796E0,          ,0x002796FC,          ,U,f,,
 0x002796FC,          ,0x00279788,          ,U,f,,
 0x00279788,          ,0x002797F4,          ,U,f,,
