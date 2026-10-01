@@ -125,3 +125,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:09:20-04:00,0x001D1F90,_ZN2al17HitSensorDirectorC1Ev,matched,1,0.0071
 2026-10-01T09:11:58-04:00,0x0011A38C,_ZN10Fugumannen10receiveMsgEjPN2al9HitSensorES2_,matched,1,0.0064
 2026-10-01T09:11:58-04:00,0x0011A43C,_ZN10Fugumannen12attackSensorEPN2al9HitSensorES2_,matched,1,0.0052
+2026-10-01T09:11:59-04:00,0x0011A498,_ZN10Fugumannen4initERKN2al13ActorInitInfoE,matched,1,0.0065

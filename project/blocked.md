@@ -6,7 +6,6 @@ Nine large candidates remain unverified fragments. Their first diagnostic compil
 
 | Address | Function | First blocker | Unblocks when |
 |---|---|---|---|
-| 0x0011A498 | _ZN10Fugumannen4initERKN2al13ActorInitInfoE | No established original address for _ZN18EnemyStateBlowDownC1EPN2al9LiveActorEP23EnemyStateBlowDownParamPKci. | Independent retail callee/data identity and layout evidence establish all inputs. |
 | 0x0024F344 | _ZN2al12MemorySystem23createSceneResourceHeapEPKc | No established original address for _ZN2al20findOrCreateResourceERKN4sead14SafeStringBaseIcEE. | Independent retail callee/data identity and layout evidence establish all inputs. |
 | 0x00274EF0 | _ZN2al16initPlacementMapEPNS_5SceneEPKNS_8ResourceERKNS_13ActorInitInfoEPKc | No established original address for .constdata. | Independent retail callee/data identity and layout evidence establish all inputs. |
 | 0x0016A11C | _ZN10CourseList4initEPKN2al8ResourceE | No established original address for .constdata. | Independent retail callee/data identity and layout evidence establish all inputs. |
