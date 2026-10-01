@@ -4069,7 +4069,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BDFBC,          ,0x001BDFF0,          ,U,f,,
 0x001BDFF0,          ,0x001BE024,          ,U,f,,
 0x001BE024,          ,0x001BE028,          ,O,f,_ZN2al11LayoutActor7controlEv,
-0x001BE028,          ,0x001BE04C,          ,M,f,_ZN2al11LayoutActor8calcAnimEv,
+0x001BE028,          ,0x001BE04C,          ,O,f,_ZN2al11LayoutActor8calcAnimEv,
 0x001BE04C,          ,0x001BE104,          ,U,f,,
 0x001BE104,0x001BE174,0x001BE178,          ,U,f,,
 0x001BE178,0x001BE1F0,0x001BE1F8,          ,U,f,,

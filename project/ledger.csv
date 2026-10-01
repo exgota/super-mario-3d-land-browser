@@ -84,3 +84,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:03:12-04:00,0x0032FA80,_ZNK2al11LayoutActor15getEffectKeeperEv,matched,4,0.0060
 2026-10-01T07:03:12-04:00,0x003765A0,_ZThn4_NK2al11LayoutActor14getAudioKeeperEv,matched,5,0.0050
 2026-10-01T07:03:13-04:00,0x00376A3C,_ZThn8_NK2al11LayoutActor15getEffectKeeperEv,matched,4,0.0050
+2026-10-01T07:03:13-04:00,0x001BE028,_ZN2al11LayoutActor8calcAnimEv,matched,3,0.0048
