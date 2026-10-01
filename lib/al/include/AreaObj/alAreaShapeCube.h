@@ -8,7 +8,7 @@ namespace al
 class AreaShapeCube : public AreaShape
 {
 private:
-        bool mIsCubeBase;
+        u8 mIsCubeBase;
 
 public:
         virtual bool isInVolume( const sead::Vector3f& trans ) const;
