@@ -16592,7 +16592,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00375DA8,          ,0x00375DD8,          ,U,f,,
 0x00375DD8,0x00375E34,0x00375E3C,          ,U,f,,
 0x00375E3C,0x00375E48,0x00375E4C,          ,U,f,,
-0x00375E4C,          ,0x00375E6C,          ,M,f,_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv,
+0x00375E4C,          ,0x00375E6C,          ,O,f,_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv,
 0x00375E6C,          ,0x00375E94,          ,U,f,,
 0x00375E94,          ,0x00375F00,          ,U,f,,
 0x00375F00,          ,0x00375F08,          ,U,f,,
