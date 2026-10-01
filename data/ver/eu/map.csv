@@ -12443,7 +12443,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003123A8,0x00312520,0x00312540,          ,U,f,,
 0x00312540,0x003125B0,0x003125BC,          ,U,f,,
 0x003125BC,0x0031265C,0x00312660,          ,U,f,,
-0x00312660,          ,0x00312664,          ,M,f,_ZN7NoteObj18initAfterPlacementEv,
+0x00312660,          ,0x00312664,          ,O,f,_ZN7NoteObj18initAfterPlacementEv,
 0x00312664,0x0031272C,0x00312738,          ,U,f,_ZN7NoteObj4initERKN2al13ActorInitInfoE,
 0x00312738,0x00312788,0x00312790,          ,U,f,,
 0x00312790,0x003127BC,0x003127C0,          ,U,f,_ZN7NoteObj7controlEv,
