@@ -129,7 +129,7 @@ The owner may run an OpenAI dot (a cloud agent) on the hardest functions. Its br
 - Treat dot work as proposals. Merge only source, headers, names and notes. Never take its edits to `data/ver/eu/map.csv`, `project/ledger.csv`, ranks, or tools without reviewing them as you would your own.
 - A dot function counts only after it passes `tools/check.py` here, built by this repository's build step, under the same hard rules.
 - Credit it in commit messages ("from dot/<topic>") so its share is traceable.
-- While any `dot/*` branch is active, leave the functions in `project/blocked.md` and `U` functions of 0x400 bytes or more to the dot unless every other lane is idle.
+- The dot owns the hard functions, because its compute does not count against the owner's Codex usage (owner: "push the HARDEST tasks to the dot ... just to save on usage"). Hard means: anything in `project/blocked.md` or `project/pro_requests/`, any unmatched function of 0x200 bytes or more, and any function this run has tried 4 times without reaching a match. Do not start those yourself while the dot is active. Instead, when a function hits 4 attempts without a match, write its packet to `project/pro_requests/` and move on. Spend your lanes on small and medium functions, intake and verification of dot proposals, and the runtime. Take hard functions back only when no small or medium functions are left.
 
 ### Phase 3: port runtime (exit M3, M4)
 Scope depends on D3. In outline:
