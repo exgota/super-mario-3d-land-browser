@@ -4259,7 +4259,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C618C,0x001C61D4,0x001C61F4,          ,U,f,,
 0x001C61F4,0x001C63EC,0x001C6410,          ,U,f,,
 0x001C6410,0x001C6808,0x001C70FC,          ,U,f,,
-0x001C70FC,          ,0x001C712C,          ,U,f,_ZN2al13LiveActorFlagC1Ev,
+0x001C70FC,          ,0x001C712C,          ,O,f,_ZN2al13LiveActorFlagC1Ev,
 0x001C712C,0x001C7188,0x001C7194,          ,U,f,,
 0x001C7194,0x001C71D4,0x001C71DC,          ,U,f,,
 0x001C71DC,0x001C7394,0x001C73D4,          ,U,f,,
