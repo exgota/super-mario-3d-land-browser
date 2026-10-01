@@ -1,5 +1,7 @@
 # Full shader-validator reconstruction
 
+**Integration qualification:** shared graphics C-symbol declarations differ between the state and shader branches. Do not claim combined integration until they are reconciled and regression checked. See [the exact conflict, common layout evidence, and proposed declaration contract](graphics-shared-declarations.md).
+
 `dot/shader-full-validator`, based on `5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c`.
 Target: `__shv_validateShaderValidator`, unchanged EU interval
 `0x0037B8D0..0x0037F0E0`, 14,352 bytes, originally rank U.
