@@ -609,3 +609,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:01:58-04:00,0x0033603C,fn_0033603C,matched,2,0.0308
 2026-10-01T15:01:58-04:00,0x00336044,fn_00336044,matched,2,0.0318
 2026-10-01T15:01:58-04:00,0x003602D8,_ZNK18NrvProductSequence23ProductSequenceNrvTitle7executeEPN2al11NerveKeeperE,matched,4,0.0872
+2026-10-01T15:01:59-04:00,0x00360330,_ZNK18NrvProductSequence24ProductSequenceNrvEnding7executeEPN2al11NerveKeeperE,matched,4,0.0870

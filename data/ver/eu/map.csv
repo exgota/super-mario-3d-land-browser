@@ -15641,7 +15641,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003602C8,          ,0x003602D0,          ,U,f,,
 0x003602D0,          ,0x003602D8,          ,U,f,,
 0x003602D8,0x00360324,0x00360330,          ,O,f,_ZNK18NrvProductSequence23ProductSequenceNrvTitle7executeEPN2al11NerveKeeperE,
-0x00360330,0x00360378,0x00360380,          ,M,f,_ZNK18NrvProductSequence24ProductSequenceNrvEnding7executeEPN2al11NerveKeeperE,
+0x00360330,0x00360378,0x00360380,          ,O,f,_ZNK18NrvProductSequence24ProductSequenceNrvEnding7executeEPN2al11NerveKeeperE,
 0x00360380,0x003603AC,0x003603B0,          ,M,f,_ZNK18NrvProductSequence25ProductSequenceNrvOpening7executeEPN2al11NerveKeeperE,
 0x003603B0,0x003604A0,0x003604B4,          ,U,f,,
 0x003604B4,0x003604E0,0x003604E4,          ,U,f,,
