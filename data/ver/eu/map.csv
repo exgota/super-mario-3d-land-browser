@@ -17700,7 +17700,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00398384,0x003983B8,0x003983BC,          ,U,f,,
 0x003983BC,0x003983F0,0x003983F4,          ,U,f,,
 0x003983F4,0x00398428,0x0039842C,          ,U,f,,
-0x0039842C,0x00398460,0x00398464,          ,M,ft,_ZN2al19createActorFunctionI6TogezoEEPNS_9LiveActorEPKc,
+0x0039842C,0x00398460,0x00398464,          ,O,ft,_ZN2al19createActorFunctionI6TogezoEEPNS_9LiveActorEPKc,
 0x00398464,0x00398498,0x0039849C,          ,U,f,,
 0x0039849C,0x003984D0,0x003984D4,          ,U,f,,
 0x003984D4,0x00398508,0x0039850C,          ,U,f,,
