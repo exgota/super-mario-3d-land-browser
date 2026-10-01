@@ -7,7 +7,7 @@ M2 requires every game function byte-exact and the original EU whole linked-imag
 
 ## Verified matching
 - M0 passes three committed-source game compiler discriminators under791 and fails894. M1 passes the50-function pilot and its report. M2 and gameplay/replay remain open.
-- Strict accepted coverage:600 canonical project ARMCC functions,32296/2756024 complete function bytes including pools,1.171833%. Only the project checker setsO. NonMatching code adds zero exact credit.
+- Strict accepted coverage:601 canonical project ARMCC functions,32364/2756024 complete function bytes including pools,1.174300%. Only the project checker setsO. NonMatching code adds zero exact credit.
 - Clean make.py eu -ca compiles42 Game/115 al sources, links and exports. Compact main remains an explicit scaffold. Original dump/executable hashes remain unchanged; no game data is committed.
 - The20-root1136-byte checkpoint preserves527 earlier roots/all545 canonical definitions. The22-root1588-byte checkpoint preserves547 earlier roots/all565 definitions. New proposals pass20/20,22/22 and28/28 canonical checks, including eliminated source helpers. The28-root1948-byte batch preserves569 earlier roots/all587 definitions.
 - Independent checkout7cbdd8f with its build directory absent clean-builds and full linked-map checking preserves597/597O functions in203.824 seconds including build. No objects or archives are shared. Frozen report: build/clean_checkout_597_empty_summary.json.
