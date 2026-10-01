@@ -9400,7 +9400,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027F188,          ,0x0027F198,          ,U,f,,
 0x0027F198,          ,0x0027F1A8,          ,U,f,,
 0x0027F1A8,          ,0x0027F1B8,          ,U,f,,
-0x0027F1B8,          ,0x0027F1C8,          ,M,f,_ZN2al24isMsgPlayerRollingAttackEj,
+0x0027F1B8,          ,0x0027F1C8,          ,O,f,_ZN2al24isMsgPlayerRollingAttackEj,
 0x0027F1C8,0x0027F224,0x0027F228,          ,U,f,,
 0x0027F228,          ,0x0027F23C,          ,U,f,,
 0x0027F23C,          ,0x0027F244,          ,U,f,,
