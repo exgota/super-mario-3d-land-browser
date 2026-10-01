@@ -223,7 +223,10 @@ sead::Vector3f* ActorPoseKeeperTRSV::getVelocityPtr()
 
 void setTrans( LiveActor* actor, const sead::Vector3f& trans )
 {
-        *actor->getActorPoseKeeper()->getTransPtr() = trans;
+        sead::Vector3f* destination = actor->getActorPoseKeeper()->getTransPtr();
+        destination->x = trans.x;
+        destination->y = trans.y;
+        destination->z = trans.z;
 }
 
 void setRotate( LiveActor* actor, const sead::Vector3f& rotate )
@@ -233,7 +236,10 @@ void setRotate( LiveActor* actor, const sead::Vector3f& rotate )
 
 void setScale( LiveActor* actor, const sead::Vector3f& scale )
 {
-        *actor->getActorPoseKeeper()->getScalePtr() = scale;
+        sead::Vector3f* destination = actor->getActorPoseKeeper()->getScalePtr();
+        destination->x = scale.x;
+        destination->y = scale.y;
+        destination->z = scale.z;
 }
 
 void setVelocity( LiveActor* actor, const sead::Vector3f& velocity )
