@@ -173,3 +173,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:57:49-04:00,0x001D1DA0,_ZN2al17HitSensorDirector7executeEv,nonmatching,9,0.100186
 2026-10-01T10:01:24-04:00,0x00276C60,_ZN2al19tryGetPlacementInfoEPNS_9ByamlIterEPKNS_8ResourceEPKc,matched,1,0.0052
 2026-10-01T10:05:24-04:00,0x0016A2B4,_ZN10CourseListC1Ev,matched,1,0.0059
+2026-10-01T10:05:24-04:00,0x0025BD18,_ZN10CourseList6Course17isCourseTypeStageENS0_10CourseTypeE,matched,1,0.0051

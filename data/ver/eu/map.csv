@@ -7971,7 +7971,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025BC98,          ,0x0025BCC0,          ,U,f,,
 0x0025BCC0,          ,0x0025BD08,          ,U,f,,
 0x0025BD08,          ,0x0025BD18,          ,U,f,,
-0x0025BD18,          ,0x0025BD28,          ,M,f,_ZN10CourseList6Course17isCourseTypeStageENS0_10CourseTypeE,
+0x0025BD18,          ,0x0025BD28,          ,O,f,_ZN10CourseList6Course17isCourseTypeStageENS0_10CourseTypeE,
 0x0025BD28,          ,0x0025BD38,          ,U,f,,
 0x0025BD38,0x0025BD90,0x0025BDB0,          ,U,f,,
 0x0025BDB0,0x0025BDF0,0x0025BE14,          ,U,f,,
