@@ -700,3 +700,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:37-04:00,0x00331704,fn_00331704,matched,2,0.0407
 2026-10-01T17:20:37-04:00,0x0028CC00,_ZN4sead8TreeNodeC2Ev,matched,2,3.1077
 2026-10-01T17:20:38-04:00,0x002F2B14,_ZN4sead8TreeNode27clearChildLinksRecursively_Ev,matched,2,3.1077
+2026-10-01T17:20:38-04:00,0x00222978,_ZN4sead8TreeNode13detachSubTreeEv,matched,3,9.0817
