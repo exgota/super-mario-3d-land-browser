@@ -9319,7 +9319,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027D588,          ,0x0027D598,          ,U,f,_ZN2al10getGravityEPKNS_9LiveActorE,
 0x0027D598,          ,0x0027D5C4,          ,U,f,,
 0x0027D5C4,0x0027D614,0x0027D61C,          ,U,f,,
-0x0027D61C,          ,0x0027D644,          ,M,f,_ZN2al10isLessStepEPKNS_9IUseNerveEi,
+0x0027D61C,          ,0x0027D644,          ,O,f,_ZN2al10isLessStepEPKNS_9IUseNerveEi,
 0x0027D644,          ,0x0027D660,          ,U,f,,
 0x0027D660,0x0027D668,0x0027D674,          ,U,f,_ZN2al25startHitReactionPressDownEPKNS_9LiveActorE,
 0x0027D674,          ,0x0027D688,          ,U,f,,
