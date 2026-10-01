@@ -9248,7 +9248,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027BEC8,0x0027BF28,0x0027BF34,          ,U,f,_ZN2al9StringTmpILi32EEC1EPKcz,
 0x0027BF34,          ,0x0027C000,          ,U,f,,
 0x0027C000,0x0027C048,0x0027C04C,          ,U,f,,
-0x0027C04C,          ,0x0027C05C,          ,M,f,_ZN2al11getFrontPtrEPNS_9LiveActorE,
+0x0027C04C,          ,0x0027C05C,          ,O,f,_ZN2al11getFrontPtrEPNS_9LiveActorE,
 0x0027C05C,          ,0x0027C0C8,          ,U,f,fn_0027C05C,
 0x0027C0C8,0x0027C13C,0x0027C140,          ,U,f,,
 0x0027C140,          ,0x0027C150,          ,M,f,_ZN2al10getRailDirEPKNS_9LiveActorE,
