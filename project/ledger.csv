@@ -129,3 +129,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:11:59-04:00,0x0011A5B4,_ZN10FugumannenC1ERKN4sead14SafeStringBaseIcEE,matched,1,0.0071
 2026-10-01T09:12:00-04:00,0x0035113C,_ZNK13NrvFugumannen21FugumannenNrvBlowDown7executeEPN2al11NerveKeeperE,matched,1,0.0060
 2026-10-01T09:14:37-04:00,0x0030B60C,_ZN6Togezo4initERKN2al13ActorInitInfoE,matched,1,0.0087
+2026-10-01T09:14:38-04:00,0x0030B860,_ZN6TogezoC1ERKN4sead14SafeStringBaseIcEE,matched,1,0.0054

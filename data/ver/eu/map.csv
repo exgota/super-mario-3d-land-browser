@@ -12331,7 +12331,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0030B53C,0x0030B604,0x0030B60C,          ,U,f,,
 0x0030B60C,0x0030B770,0x0030B7D4,          ,O,f,_ZN6Togezo4initERKN2al13ActorInitInfoE,
 0x0030B7D4,0x0030B858,0x0030B860,          ,U,f,,
-0x0030B860,0x0030B89C,0x0030B8A0,          ,M,f,_ZN6TogezoC1ERKN4sead14SafeStringBaseIcEE,
+0x0030B860,0x0030B89C,0x0030B8A0,          ,O,f,_ZN6TogezoC1ERKN4sead14SafeStringBaseIcEE,
 0x0030B8A0,0x0030BAF8,0x0030BB78,          ,U,f,,
 0x0030BB78,          ,0x0030BB80,          ,U,f,,
 0x0030BB80,0x0030BD3C,0x0030BD5C,          ,U,f,,
