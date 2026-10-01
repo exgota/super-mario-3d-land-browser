@@ -8377,7 +8377,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00267254,0x002672F4,0x00267300,          ,U,f,_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_13ActorInitInfoE,
 0x00267300,          ,0x00267310,          ,U,f,,
 0x00267310,0x0026734C,0x00267354,          ,U,f,,
-0x00267354,0x0026735C,0x00267364,          ,M,f,_ZN2al25startHitReactionDisappearEPKNS_9LiveActorE,
+0x00267354,0x0026735C,0x00267364,          ,O,f,_ZN2al25startHitReactionDisappearEPKNS_9LiveActorE,
 0x00267364,0x00267390,0x00267394,          ,U,f,,
 0x00267394,0x0026739C,0x002673A4,          ,M,f,_ZN2al19startHitReactionHitEPKNS_9LiveActorE,
 0x002673A4,          ,0x002673B0,          ,U,f,,

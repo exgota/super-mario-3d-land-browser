@@ -362,3 +362,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:32:42-04:00,0x0027EF70,_ZN2al12isObjectNameERKNS_13ActorInitInfoEPKc,matched,2,2.6704
 2026-10-01T11:32:42-04:00,0x00265178,_ZN2al15tryGetStringArgEPPKcRKNS_13ActorInitInfoES1_,matched,3,6.4157
 2026-10-01T11:32:42-04:00,0x00256BB0,_ZN2al22startHitReactionAppearEPKNS_9LiveActorE,matched,2,0.1013
+2026-10-01T11:32:43-04:00,0x00267354,_ZN2al25startHitReactionDisappearEPKNS_9LiveActorE,matched,2,0.1012
