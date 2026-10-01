@@ -653,7 +653,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0011ABAC,0x0011ABE4,0x0011ABFC,          ,U,f,,
 0x0011ABFC,          ,0x0011AC18,          ,U,f,,
 0x0011AC18,          ,0x0011AC34,          ,U,f,,
-0x0011AC34,0x0011AC80,0x0011AC94,          ,M,f,_ZN10GameSystemC1Ev,
+0x0011AC34,0x0011AC80,0x0011AC94,          ,O,f,_ZN10GameSystemC1Ev,
 0x0011AC94,0x0011AD98,0x0011ADA8,          ,U,f,,
 0x0011ADA8,0x0011AE9C,0x0011AEB4,          ,U,f,,
 0x0011AEB4,          ,0x0011AEB8,          ,U,f,,

@@ -577,3 +577,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:43:29-04:00,0x001D79F4,fn_001D79F4,matched,2,0.2723
 2026-10-01T14:43:30-04:00,0x0012CBE8,_ZN11GhostPlayerC1ERKN4sead14SafeStringBaseIcEE,matched,3,0.0318
 2026-10-01T14:43:31-04:00,0x0018153C,_ZN17PlayerActionGraph4moveEv,matched,4,0.0295
+2026-10-01T14:43:31-04:00,0x0011AC34,_ZN10GameSystemC1Ev,matched,2,0.0385
