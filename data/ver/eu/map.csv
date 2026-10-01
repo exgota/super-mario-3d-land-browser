@@ -8597,7 +8597,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026D49C,0x0026D4D4,0x0026D51C,          ,U,f,,
 0x0026D51C,0x0026D58C,0x0026D5E0,          ,U,f,,
 0x0026D5E0,          ,0x0026D610,          ,U,f,,
-0x0026D610,0x0026D618,0x0026D620,          ,M,f,_ZN2al21startHitReactionStartEPKNS_9LiveActorE,
+0x0026D610,0x0026D618,0x0026D620,          ,O,f,_ZN2al21startHitReactionStartEPKNS_9LiveActorE,
 0x0026D620,          ,0x0026D668,          ,U,f,,
 0x0026D668,          ,0x0026D698,          ,O,f,_ZN2al16validateClippingEPNS_9LiveActorE,
 0x0026D698,0x0026D6BC,0x0026D6C0,          ,O,f,_ZN2al10isNearZeroEff,
