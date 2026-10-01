@@ -4154,7 +4154,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C0DA8,0x001C0E1C,0x001C0E28,          ,U,f,,
 0x001C0E28,          ,0x001C0E78,          ,U,f,,
 0x001C0E78,0x001C0EB8,0x001C0ECC,          ,U,f,_ZN2al12MemorySystem18createSequenceHeapEv,
-0x001C0ECC,          ,0x001C0EDC,          ,M,f,_ZN2al12MemorySystem19freeAllSequenceHeapEv,
+0x001C0ECC,          ,0x001C0EDC,          ,O,f,_ZN2al12MemorySystem19freeAllSequenceHeapEv,
 0x001C0EDC,0x001C0F3C,0x001C0F6C,          ,U,f,,
 0x001C0F6C,          ,0x001C0F70,          ,U,f,,
 0x001C0F70,0x001C0F94,0x001C0F98,          ,U,f,,
