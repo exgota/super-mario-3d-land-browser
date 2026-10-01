@@ -104,3 +104,11 @@ Two lanes continue the required M0 compiler investigation while the root perform
 Enrolling the whole pilot in the compact image exposed67 unresolved dependencies from unrelated functions retained in the same archive objects. No candidate was accepted from that failed build. check.py now accepts --object and sends that compiler-generated object directly through the existing strict linker/comparison. Only check.py still writes O. Unknown original addresses and byte/size mismatches still reject a match. The direct mode returns a failing process status for rejected candidates.
 
 The unchanged SDK object remains O through direct invocation; the nonmatching PlayerTrigger constructor remains m. Pilot ranks were restored to their pre-enrollment values after the failed compact link. Each subsequent candidate enters through its own strict object check. The compact image is a diagnostic scaffold and carries no runtime-completion claim.
+
+## 2026-10-01: Recover nerve transition ordering and floating comparison semantics
+
+The inherited NerveKeeper::update executed mNerve after tryChangeNerve had cleared it. Retail code executes the current nerve at offset4, taking a pending nerve from offset8 when present. Calling getCurrentNerve and ordering the transition stores as pending=null, current=next, step=0 reproduces all160 bytes. The matched update no longer carries a NonMatching guard.
+
+The near-zero helper conditionally negates with ARM LE, including unordered comparisons. The source form value>0 ? value : -value reproduces that condition; the inherited value<0 and a tested value<=0 produce LO and LS instead. The third pilot iteration matches all40 bytes. This is binary-derived floating-point control flow, with no inserted instruction or flag change. The two matched PlayerProperty setters also lose their stale NonMatching guards.
+
+The pilot tracks timestamped iterations with source/object hashes and compiler/comparison evidence under ignored build/pilot. Ledger minutes measure elapsed time from the first recorded compile/check to acceptance, including interleaved work on revisited functions. Initial passes measure their direct processing time; preparation and source-reading overhead is reported separately in the pilot report rather than invented per-function estimates.
