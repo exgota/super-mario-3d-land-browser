@@ -2545,7 +2545,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00177E18,0x0017807C,0x0017808C,          ,U,f,,
 0x0017808C,0x0017818C,0x00178190,          ,U,f,,
 0x00178190,          ,0x001781EC,          ,U,f,,
-0x001781EC,0x0017823C,0x00178240,          ,U,f,_ZN16alSensorFunction20findSensorTypeByNameEPKc,
+0x001781EC,0x0017823C,0x00178240,          ,O,f,_ZN16alSensorFunction20findSensorTypeByNameEPKc,
 0x00178240,0x0017836C,0x00178378,          ,U,f,,
 0x00178378,0x00178480,0x00178494,          ,U,f,,
 0x00178494,          ,0x001784C0,          ,U,f,,

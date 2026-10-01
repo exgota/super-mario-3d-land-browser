@@ -9,13 +9,13 @@ M0: toolchain settled. Compiler discrimination remains unresolved.
 - Original EU executable hash verified again.
 - Strict byte comparison, including literal pools, now gates `O`; a generated-output mutation confirmed rejection. The differ and target remain unchanged.
 - All 35 Game and 75 lib/al sources compile, archive, link and export in the normal build with unchanged global flags.
-- Six PlayerTrigger functions pass check.py. PlayerAnimFrameCtrl::getCurrentFrame also passes. PlayerActionCondition::setup also passes. al::calcHashCode also passes. Total: 10 exact functions, 204 / 3,092,336 code bytes.
-- ARMCC 4.1/791 and 4.1/894 both reproduce those six functions. Neither has been proved to be the game compiler.
+- Six PlayerTrigger functions pass check.py. PlayerAnimFrameCtrl::getCurrentFrame also passes. PlayerActionCondition::setup also passes. al::calcHashCode also passes. The sensor-name lookup also passes. Total: 11 exact functions, 284 / 3,092,336 code bytes.
+- One pure C++ lookup matches under791 and fails894. M0 requires three; the final production paired evidence is being recorded.
 
 ## In flight
-- Original-address relocation proof, by the sead_headers agent.
+- Original-address strict checking is integrated and validated.
 - Isolated compiler probes under build/compiler_probe, by compiler_candidates.
-- Incremental integration and missing global declarations, by the root agent.
+- Two target-first lookup helpers are being integrated by the root agent.
 
 ## Next tasks
 1. Integrate fixed-address checking for call and data relocations without importing game bytes.
@@ -24,5 +24,5 @@ M0: toolchain settled. Compiler discrimination remains unresolved.
 
 ## Blockers
 - Game source is under backup/src and backup/include; configuration points there explicitly.
-- Missing original-address relocation in the compact stub link will prevent strict raw matches for external calls. A faithful link solution is needed before claiming those functions.
+- The compact build remains a stub scaffold. Strict per-function links now verify relocations faithfully; this is not a runnable port.
 - Spend estimates are unavailable from this subscription session. Ledger token/time values are coarse estimates, not billing measurements; no zero-cost claim is made.

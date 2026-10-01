@@ -13,8 +13,6 @@ struct NameToType
         al::SensorType type;
 };
 
-//NON_MATCHING
-
 #define ALSENSORFUNCTION_ENTRY( TYPE ) { #TYPE, al::SensorType_##TYPE },
 
 // clang-format off
@@ -41,22 +39,23 @@ ALSENSORFUNCTION_ENTRY(WooGanSandBody)
 
 #undef ALSENSORFUNCTION_ENTRY
 
-#ifdef NON_MATCHING
 al::SensorType findSensorTypeByName( const char* name )
 {
-        int            size = sizeof( sNameToTypeLookupTable ) / sizeof( sNameToTypeLookupTable[ 0 ] );
+        int size = sizeof( sNameToTypeLookupTable ) / sizeof( sNameToTypeLookupTable[ 0 ] );
+        const char* searchName = name;
+        const NameToType* table = sNameToTypeLookupTable;
         al::SensorType type = al::SensorType_MapObj;
-        for ( int i = 0; i < size; i++ )
+        int index = 0;
+        for ( ; index < size; ++index )
         {
-                if ( al::isEqualString( sNameToTypeLookupTable[ i ].name, name ) )
+                if ( al::isEqualString( table[ index ].name, searchName ) )
                 {
-                        type = sNameToTypeLookupTable[ i ].type;
+                        type = table[ index ].type;
                         break;
                 }
         }
         return type;
 }
-#endif
 
 void updateHitSensorsAll( al::LiveActor* actor )
 {
