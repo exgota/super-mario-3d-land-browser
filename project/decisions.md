@@ -681,3 +681,7 @@ The28-root proposal covers1948 unchanged mapped bytes. Root verifies all frozen 
 ### Four-attempt PowerUp metadata and RailRider constructor packets
 
 Root verifies443 scene-metadata and111 RailRider frozen artifacts. PowerUpItemNum stops after four structures at an8-byte preparation-order miss; its3.467799-minute window runs first compiler start to cap. RailRider C1 stops after four forms, best108 versus116 bytes. Its5.999074-minute recorded start/end window overlaps the three helper proposals;2.887047 seconds is their recorded driver total, not the full wall window. Commit the255/279-line packets without source, rank or boundary changes and without a NonMatching claim. The dot owns both.
+
+### Canonical28-root acceptance and preservation
+
+Every frozen proposal passes tools/check.py on committed project ARMCC output. The joint aggregate bridge is completely eliminated by the provenance-checked closure gate; no fabricated helper address is used. The newly typed audio reset passes its first canonical compile/check, independently of the earlier raw-word object. All569 prior accepted functions/all587 actual definitions pass again. Total597O functions cover32056 complete mapped bytes including pools. Frozen root results: build/joint_rail_calendar_checkpoint_candidates_canonical_acceptance.json and joint_rail_calendar_checkpoint_prior_recheck.json. Clean compact main links/exports44 Game/115 al/1 SDK objects. Independent empty-build linked-map checking remains pending before push.
