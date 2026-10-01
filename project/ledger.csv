@@ -312,3 +312,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:03-04:00,0x001E6690,_ZN2al28sendMsgPlayerBoomerangAttackEPNS_9HitSensorES1_,matched,2,0.2231
 2026-10-01T11:15:03-04:00,0x001E723C,_ZN2al9sendMsg34EPNS_9HitSensorES1_,matched,2,0.2226
 2026-10-01T11:15:03-04:00,0x001E7258,_ZN2al29sendMsgPlayerBoomerangReflectEPNS_9HitSensorES1_,matched,2,0.2217
+2026-10-01T11:15:04-04:00,0x0021777C,_ZN2al21sendMsgKickKouraBreakEPNS_9HitSensorES1_,matched,2,0.2221

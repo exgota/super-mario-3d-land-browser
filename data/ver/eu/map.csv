@@ -6235,7 +6235,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002175A0,0x002175F8,0x002175FC,          ,U,f,,
 0x002175FC,          ,0x00217624,          ,U,f,,
 0x00217624,0x00217774,0x0021777C,          ,U,f,,
-0x0021777C,          ,0x00217798,          ,M,f,_ZN2al21sendMsgKickKouraBreakEPNS_9HitSensorES1_,
+0x0021777C,          ,0x00217798,          ,O,f,_ZN2al21sendMsgKickKouraBreakEPNS_9HitSensorES1_,
 0x00217798,0x00217898,0x002178E4,          ,U,f,,
 0x002178E4,          ,0x00217904,          ,U,f,,
 0x00217904,          ,0x00217964,          ,U,f,,
