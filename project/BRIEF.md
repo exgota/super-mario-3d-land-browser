@@ -118,7 +118,7 @@ Remaining:
 - Re-run the full progress check at least once a day and record the numbers in the daily report.
 
 ### Hard-function packets for GPT-6 Pro
-These packets go to GPT-6 Pro in the owner's ChatGPT, which reasons deeply but cannot compile. The owner chose to skip GPT-6 Pro for now ("let frog handle it"), so the dot owns unanswered packets as targets. The budget is about 15 packets a day.
+These packets go to GPT-6 Pro in the owner's ChatGPT, which reasons deeply but cannot compile. The owner chose to skip GPT-6 Pro for now ("let frog handle it"), so the dot prioritizes unanswered packets alongside local lanes. The budget is about 15 packets a day.
 - When a function reaches the attempt cap, or a lane is stuck on it, write `project/pro_requests/<address>.md` and commit it. Include the mangled symbol and address range, the target disassembly with literal pool, your best C++ and the headers and class layouts it depends on, the current diff from `tools/diff.py`, what you already tried, and the compiler build and flags. Keep it self-contained and under about 600 lines.
 - Claude saves each answer as `project/pro_responses/<address>.md`. Apply the suggested C++ in the source tree, build, and verify with `tools/check.py` exactly like any other attempt. Pro's answers are proposals and count only after they pass here.
 - Note the outcome at the end of the response file (matched, closer, or no help) so the packet format can improve.
@@ -129,7 +129,7 @@ The owner may run an OpenAI dot (a cloud agent) on the hardest functions. Its br
 - Treat dot work as proposals. Merge only source, headers, names and notes. Never take its edits to `data/ver/eu/map.csv`, `project/ledger.csv`, ranks, or tools without reviewing them as you would your own.
 - A dot function counts only after it passes `tools/check.py` here, built by this repository's build step, under the same hard rules.
 - Credit it in commit messages ("from dot/<topic>") so its share is traceable.
-- The dot owns the hard functions, because its compute does not count against the owner's Codex usage (owner: "push the HARDEST tasks to the dot ... just to save on usage"). Hard means: anything in `project/blocked.md` or `project/pro_requests/`, any unmatched function of 0x200 bytes or more, and any function this run has tried 4 times without reaching a match. Do not start those yourself while the dot is active. Instead, when a function hits 4 attempts without a match, write its packet to `project/pro_requests/` and move on. Spend your lanes on small and medium functions, intake and verification of dot proposals, and the runtime. Take hard functions back only when no small or medium functions are left.
+- Local lanes may start large functions of 0x200 bytes or more and functions in `project/blocked.md` or `project/pro_requests/` without waiting for the dot. Before choosing a target, check open `dot/*` branches and `project/dot_reports/` to avoid working on the same function concurrently. Keep the four-attempt cap: after four unsuccessful attempts in a working pass, write or update its packet in `project/pro_requests/`, preserve the attempt history, and move on. Return that function to the local queue after other work; the dot may also take it. The dot is one lane among several, with no exclusive hard-function ownership. Local matching, intake/verification and runtime work continue under the current lane cap.
 
 ### Phase 3: port runtime (exit M3, M4)
 Scope depends on D3. In outline:
