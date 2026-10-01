@@ -4423,7 +4423,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CC960,          ,0x001CC9B0,          ,O,f,_ZN2al15ExecuteDirector15registerFunctorERKNS_11FunctorBaseEPKc,
 0x001CC9B0,          ,0x001CC9D4,          ,U,f,_ZN2al27registerExecutorFunctorDrawERKNS_11FunctorBaseEPKc,
 0x001CC9D4,          ,0x001CCA1C,          ,O,f,_ZN2al15ExecuteDirector19registerFunctorDrawERKNS_11FunctorBaseEPKc,
-0x001CCA1C,          ,0x001CCA5C,          ,M,f,_ZN2al15ExecuteDirector23createExecutorListTableEv,
+0x001CCA1C,          ,0x001CCA5C,          ,O,f,_ZN2al15ExecuteDirector23createExecutorListTableEv,
 0x001CCA5C,          ,0x001CCA94,          ,U,f,_ZN2al9LayoutKit21createExecuteDirectorEi,
 0x001CCA94,0x001CCC3C,0x001CCD40,          ,M,f,_ZN2al15ExecuteDirector4initEv,
 0x001CCD40,          ,0x001CCD60,          ,M,f,_ZN2al15ExecuteDirectorC1Ei,

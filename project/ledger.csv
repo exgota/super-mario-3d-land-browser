@@ -177,3 +177,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:16:10-04:00,0x001CC7C0,_ZN2al15ExecuteDirector12registerUserEPNS_12IUseExecutorEPKc,matched,1,0.0064
 2026-10-01T10:16:11-04:00,0x001CC960,_ZN2al15ExecuteDirector15registerFunctorERKNS_11FunctorBaseEPKc,matched,1,0.0055
 2026-10-01T10:16:11-04:00,0x001CC9D4,_ZN2al15ExecuteDirector19registerFunctorDrawERKNS_11FunctorBaseEPKc,matched,1,0.0051
+2026-10-01T10:16:11-04:00,0x001CCA1C,_ZN2al15ExecuteDirector23createExecutorListTableEv,matched,1,0.0053
