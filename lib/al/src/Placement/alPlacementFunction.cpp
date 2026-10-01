@@ -124,6 +124,22 @@ static inline bool readSceneMetadataInteger( const char* key, const al::ByamlIte
         return iter->tryGetIntByKey( out, key );
 }
 
+#ifdef NON_MATCHING
+
+// Slot 15 metadata: null/missing/non-integer PowerUpItemNum defaults to two.
+extern "C" int fn_0032B89C( const SceneByamlMetadataStorage* metadata )
+{
+        if ( metadata->iter )
+        {
+                int value = 2;
+                metadata->iter->tryGetIntByKey( &value, "PowerUpItemNum" );
+                return value;
+        }
+        return 2;
+}
+
+#endif
+
 extern "C" bool fn_00185150( int* out )
 {
         const SceneByamlMetadataStorage* metadata = reinterpret_cast<const SceneByamlMetadataStorage*>( al::getSceneObj( 15 ) );
@@ -453,3 +469,57 @@ int getClippingViewId( const al::PlacementInfo& info )
 }
 
 } // namespace alPlacementFunction
+
+#ifdef NON_MATCHING
+
+// Component-reader names are neutral; their output layouts follow the retail ABI.
+extern "C" const char dat_003A274C[];
+extern "C" const char dat_003A2750[];
+extern "C" const char dat_003A2754[];
+
+extern "C" bool fn_002253C8( sead::Vector3f* out, const al::ByamlIter* iter )
+{
+        float x = 0.0f;
+        bool found = false;
+        if ( iter->tryGetFloatByKey( &x, dat_003A274C ) )
+                found = true;
+        float y = 0.0f;
+        if ( iter->tryGetFloatByKey( &y, dat_003A2750 ) )
+                found = true;
+        float z = 0.0f;
+        if ( iter->tryGetFloatByKey( &z, dat_003A2754 ) )
+                found = true;
+        *out = sead::Vector3f( x, y, z );
+        return found;
+}
+
+extern "C" bool fn_0025BE14( sead::Vector3f* out, const al::ByamlIter* iter, const char* key )
+{
+        al::ByamlIter entry;
+        if ( iter->tryGetIterByKey( &entry, key ) )
+                return fn_002253C8( out, &entry );
+        return false;
+}
+
+static inline bool readFloatPairComponents( sead::Vector2f* out, const al::ByamlIter* iter )
+{
+        float x = 0.0f;
+        bool found = false;
+        if ( iter->tryGetFloatByKey( &x, dat_003A274C ) )
+                found = true;
+        float y = 0.0f;
+        if ( iter->tryGetFloatByKey( &y, dat_003A2750 ) )
+                found = true;
+        *out = sead::Vector2f( x, y );
+        return found;
+}
+
+extern "C" bool fn_00278C6C( sead::Vector2f* out, const al::ByamlIter* iter, const char* key )
+{
+        al::ByamlIter entry;
+        if ( iter->tryGetIterByKey( &entry, key ) )
+                return readFloatPairComponents( out, &entry );
+        return false;
+}
+
+#endif
