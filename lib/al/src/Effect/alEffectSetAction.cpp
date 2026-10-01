@@ -1,3 +1,4 @@
+#ifdef NON_MATCHING
 #include <Effect/alEffectSetAction.h>
 #include <Util/alStringUtil.h>
 #include <stddef.h>
@@ -136,5 +137,7 @@ extern "C" void fn_001E9B30( void* effectSet, const char* actionName, int action
         }
         set->mCurrentAction.format( "%s", nextAction.cstr() );
 }
+
+#endif
 
 #endif

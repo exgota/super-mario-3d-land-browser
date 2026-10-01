@@ -27,7 +27,7 @@ public:
         {
                 assureTermination();
                 s32 length = 0;
-                while ( length < 0x10000 && mStringTop[ length ] != 0 )
+                while ( length < 0x10000 && this->mStringTop[ length ] != 0 )
                         ++length;
                 if ( length >= 0x10000 )
                         return 0;
@@ -37,7 +37,7 @@ public:
         const Character* cstr() const
         {
                 assureTermination();
-                return mStringTop;
+                return this->mStringTop;
         }
 };
 
@@ -65,41 +65,49 @@ public:
 
 typedef BufferedSafeStringBase<char> BufferedSafeString;
 
-template <s32 BufferSize>
-class FixedSafeString : public BufferedSafeString
+template <typename Character, s32 BufferSize>
+class FixedSafeStringBase : public BufferedSafeStringBase<Character>
 {
 private:
-        char mBuffer[ BufferSize ];
+        Character mBuffer[ BufferSize ];
 
 public:
-        FixedSafeString() : BufferedSafeString( mBuffer, BufferSize )
+        FixedSafeStringBase() : BufferedSafeStringBase<Character>( mBuffer, BufferSize )
         {
-                const_cast<char*>( mStringTop )[ 0 ] = 0;
+                const_cast<Character*>( this->mStringTop )[ 0 ] = 0;
         }
 
         // A fixed string must rebind its pointer to its own buffer when copied.
         // The same closure occurs independently at 0x001090CC (capacity 128)
         // and in the action-name return at 0x001E9BAC (capacity 64).
-        FixedSafeString( const FixedSafeString& other )
-            : BufferedSafeString( mBuffer, BufferSize )
+        FixedSafeStringBase( const FixedSafeStringBase& other )
+            : BufferedSafeStringBase<Character>( mBuffer, BufferSize )
         {
                 if ( this != &other )
                 {
-                        const_cast<char*>( mStringTop )[ 0 ] = 0;
-                        char* buffer = const_cast<char*>( mStringTop );
+                        const_cast<Character*>( this->mStringTop )[ 0 ] = 0;
+                        Character* buffer = const_cast<Character*>( this->mStringTop );
                         s32 position = 0;
-                        s32 previousLength = calcLength();
+                        s32 previousLength = this->calcLength();
                         s32 length = other.calcLength();
-                        if ( position + length >= mBufferSize )
-                                length = mBufferSize - position - 1;
+                        if ( position + length >= this->mBufferSize )
+                                length = this->mBufferSize - position - 1;
                         if ( length > 0 )
                         {
-                                nnnstdMemCpy( buffer + position, other.cstr(), length );
+                                nnnstdMemCpy( buffer + position, other.cstr(), length * sizeof(Character) );
                                 if ( position + length > previousLength )
                                         buffer[ position + length ] = 0;
                         }
                 }
         }
+};
+
+// The generic fixed-buffer base and char wrapper are distinct retail layers.
+template <s32 BufferSize>
+class FixedSafeString : public FixedSafeStringBase<char, BufferSize>
+{
+public:
+        FixedSafeString() : FixedSafeStringBase<char, BufferSize>() {}
 };
 
 } // namespace sead
