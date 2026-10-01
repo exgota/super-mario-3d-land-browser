@@ -4535,7 +4535,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CFFA4,0x001D038C,0x001D0464,          ,U,f,,
 0x001D0464,0x001D0750,0x001D0758,          ,U,f,,
 0x001D0758,0x001D0964,0x001D0970,          ,U,f,,
-0x001D0970,          ,0x001D09D0,          ,M,f,_ZN2al16KCollisionServer20initKCollisionServerEPvPKv,
+0x001D0970,          ,0x001D09D0,          ,O,f,_ZN2al16KCollisionServer20initKCollisionServerEPvPKv,
 0x001D09D0,0x001D0A04,0x001D0A08,          ,M,f,_ZN2al16KCollisionServerC1Ev,
 0x001D0A08,          ,0x001D0A14,          ,U,f,,
 0x001D0A14,          ,0x001D0A28,          ,U,f,,
