@@ -9117,7 +9117,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027992C,          ,0x00279954,          ,U,f,,
 0x00279954,          ,0x002799E0,          ,U,f,,
 0x002799E0,          ,0x002799EC,          ,U,f,,
-0x002799EC,          ,0x00279A14,          ,M,f,_ZN2al13isGreaterStepEPKNS_9IUseNerveEi,
+0x002799EC,          ,0x00279A14,          ,O,f,_ZN2al13isGreaterStepEPKNS_9IUseNerveEi,
 0x00279A14,          ,0x00279A50,          ,U,f,,
 0x00279A50,          ,0x00279ABC,          ,U,f,,
 0x00279ABC,          ,0x00279AC0,          ,U,f,,
