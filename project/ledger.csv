@@ -266,3 +266,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:05:32-04:00,0x00276B54,_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_9ByamlIterE,matched,2,3.8610
 2026-10-01T11:05:33-04:00,0x00276BF0,_ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE,matched,2,3.8613
 2026-10-01T11:05:33-04:00,0x00267050,_ZN2al12isObjectNameERKNS_9ByamlIterEPKc,matched,2,15.1226
+2026-10-01T11:05:34-04:00,0x00253C5C,_ZN2al15tryGetStringArgEPPKcRKNS_9ByamlIterES1_,matched,2,15.1229
