@@ -6579,7 +6579,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00225BD0,          ,0x00225BE0,          ,U,f,,
 0x00225BE0,          ,0x00225C3C,          ,U,f,,
 0x00225C3C,          ,0x00225C44,          ,O,f,_ZN2al13isPadTriggerYEi,
-0x00225C44,          ,0x00225C4C,          ,M,f,_ZN2al13isPadTriggerXEi,
+0x00225C44,          ,0x00225C4C,          ,O,f,_ZN2al13isPadTriggerXEi,
 0x00225C4C,          ,0x00225C50,          ,U,f,,
 0x00225C50,          ,0x00225C68,          ,U,f,,
 0x00225C68,0x00225CC4,0x00225CD0,          ,U,f,,
