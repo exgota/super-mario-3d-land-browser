@@ -8273,7 +8273,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00264474,0x002644C0,0x002644C8,          ,U,f,,
 0x002644C8,          ,0x00264514,          ,U,f,,
 0x00264514,0x002645A8,0x002645AC,          ,U,f,,
-0x002645AC,          ,0x002645C4,          ,M,f,_ZN2rp13getCourseListEv,
+0x002645AC,          ,0x002645C4,          ,O,f,_ZN2rp13getCourseListEv,
 0x002645C4,          ,0x00264600,          ,U,f,,
 0x00264600,0x00264670,0x0026467C,          ,U,f,,
 0x0026467C,          ,0x00264694,          ,U,f,,
