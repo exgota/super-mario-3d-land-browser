@@ -7757,7 +7757,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00256ACC,0x00256B54,0x00256B58,          ,U,f,,
 0x00256B58,          ,0x00256B88,          ,U,f,,
 0x00256B88,          ,0x00256BB0,          ,U,f,,
-0x00256BB0,0x00256BB8,0x00256BC0,          ,M,f,_ZN2al22startHitReactionAppearEPKNS_9LiveActorE,
+0x00256BB0,0x00256BB8,0x00256BC0,          ,O,f,_ZN2al22startHitReactionAppearEPKNS_9LiveActorE,
 0x00256BC0,          ,0x00256BE8,          ,U,f,,
 0x00256BE8,          ,0x00256C30,          ,U,f,,
 0x00256C30,          ,0x00256C48,          ,U,f,,
