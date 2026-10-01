@@ -5412,7 +5412,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EAF34,0x001EB284,0x001EB664,          ,U,f,,
 0x001EB664,0x001EB77C,0x001EB78C,          ,U,f,,
 0x001EB78C,          ,0x001EB7A0,          ,O,f,_ZN8JMapInfo6attachEPKv,
-0x001EB7A0,0x001EB7B0,0x001EB7BC,          ,M,f,_ZN8JMapInfoC1Ev,
+0x001EB7A0,0x001EB7B0,0x001EB7BC,          ,O,f,_ZN8JMapInfoC1Ev,
 0x001EB7BC,0x001EB918,0x001EB920,          ,U,f,,
 0x001EB920,          ,0x001EB930,          ,U,f,,
 0x001EB930,          ,0x001EB94C,          ,U,f,_ZN2al9AreaShape8setScaleERKN4sead7Vector3IfEE,
