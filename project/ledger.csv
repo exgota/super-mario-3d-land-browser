@@ -29,3 +29,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:04-04:00,0x001DCD20,_ZN2al19StageResourceKeeperC1Ev,matched,1,0.008
 2026-10-01T04:52:05-04:00,0x0028C2F8,_ZN2al9ByamlIterC1ERKS0_,matched,1,0.010
 2026-10-01T04:52:05-04:00,0x002910E8,_ZN2al9ByamlIterC1Ev,matched,1,0.009
+2026-10-01T04:52:06-04:00,0x00276AA0,_ZNK2al9ByamlIter7isValidEv,matched,1,0.009
