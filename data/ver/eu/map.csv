@@ -9131,7 +9131,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279C8C,0x00279CE8,0x00279CF0,          ,U,f,,
 0x00279CF0,          ,0x00279D14,          ,U,f,,
 0x00279D14,          ,0x00279D3C,          ,O,f,_ZN2al6isStepEPNS_9IUseNerveEi,
-0x00279D3C,          ,0x00279D54,          ,M,f,fn_00279D3C,
+0x00279D3C,          ,0x00279D54,          ,O,f,fn_00279D3C,
 0x00279D54,          ,0x00279D98,          ,U,f,,
 0x00279D98,0x00279E2C,0x00279E3C,          ,U,f,,
 0x00279E3C,0x00279E44,0x00279E4C,          ,O,f,_ZN2al21startHitReactionDeathEPKNS_9LiveActorE,
