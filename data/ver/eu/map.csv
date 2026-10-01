@@ -8777,7 +8777,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00271188,          ,0x002711A8,          ,U,f,,
 0x002711A8,          ,0x002711E0,          ,U,f,,
 0x002711E0,0x00271200,0x00271210,          ,O,f,_ZN2al17CameraParamVisionC1Ev,
-0x00271210,          ,0x00271294,          ,M,f,_ZNK2al9ByamlIter10isExistKeyEPKc,
+0x00271210,          ,0x00271294,          ,O,f,_ZNK2al9ByamlIter10isExistKeyEPKc,
 0x00271294,          ,0x00271300,          ,U,f,,
 0x00271300,0x00271328,0x00271330,          ,U,f,,
 0x00271330,          ,0x00271340,          ,U,f,,

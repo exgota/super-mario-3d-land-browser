@@ -275,3 +275,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:05:36-04:00,0x0027AB64,_ZN2al16calcLinkChildNumERKNS_13ActorInitInfoE,matched,2,0.3462
 2026-10-01T11:05:37-04:00,0x00267088,_ZN2al19getLinksInfoByIndexEPNS_9ByamlIterERKNS_13ActorInitInfoEi,matched,2,0.3458
 2026-10-01T11:05:37-04:00,0x0027AAEC,_ZN2al23getLinksActorObjectNameERKNS_13ActorInitInfoEi,matched,2,0.3458
+2026-10-01T11:05:38-04:00,0x00271210,_ZNK2al9ByamlIter10isExistKeyEPKc,matched,2,0.2367
