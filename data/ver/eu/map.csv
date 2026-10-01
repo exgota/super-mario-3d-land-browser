@@ -8739,7 +8739,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00270420,          ,0x0027044C,          ,U,f,,
 0x0027044C,          ,0x00270460,          ,U,f,_ZN2al16isEqualSubStringEPKcS1_,
 0x00270460,0x002705DC,0x00270628,          ,U,f,,
-0x00270628,          ,0x0027063C,          ,M,f,_ZN2al14isSensorMapObjEPKNS_9HitSensorE,
+0x00270628,          ,0x0027063C,          ,O,f,_ZN2al14isSensorMapObjEPKNS_9HitSensorE,
 0x0027063C,          ,0x00270710,          ,U,f,,
 0x00270710,          ,0x00270724,          ,U,f,,
 0x00270724,          ,0x00270778,          ,U,f,,
