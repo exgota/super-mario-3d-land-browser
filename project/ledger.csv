@@ -291,3 +291,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:14:54-04:00,0x001E2C60,fn_001E2C60,matched,2,2.0960
 2026-10-01T11:14:54-04:00,0x001E2CE0,fn_001E2CE0,matched,2,2.0954
 2026-10-01T11:14:55-04:00,0x00249618,_ZNK2al13KeyPoseKeeper17getCurrentKeyPoseEv,matched,2,0.0117
+2026-10-01T11:14:55-04:00,0x0024B0E8,_ZNK2al13KeyPoseKeeper14getNextKeyPoseEv,matched,2,0.0129

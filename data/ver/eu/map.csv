@@ -7301,7 +7301,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024AFB0,          ,0x0024B008,          ,U,f,,
 0x0024B008,          ,0x0024B064,          ,U,f,,
 0x0024B064,0x0024B0E0,0x0024B0E8,          ,U,f,,
-0x0024B0E8,          ,0x0024B12C,          ,M,f,_ZNK2al13KeyPoseKeeper14getNextKeyPoseEv,
+0x0024B0E8,          ,0x0024B12C,          ,O,f,_ZNK2al13KeyPoseKeeper14getNextKeyPoseEv,
 0x0024B12C,          ,0x0024B168,          ,U,f,_ZN4sead6Random6getU32Ev,
 0x0024B168,0x0024B49C,0x0024B56C,          ,U,f,_ZN2al22ExecuteTableHolderDraw4initEPKcPKNS_12ExecuteOrderEi,
 0x0024B56C,0x0024B5B4,0x0024B5C4,          ,U,f,,
