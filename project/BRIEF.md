@@ -62,7 +62,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Resources**
 11. There is no spend cap and no cost tracking (D4). Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong.
-12. Run at most 8 parallel lanes (agents, compiles, emulator instances) at once. Claude watches memory and load every 30 minutes and may lower this if the Mac strains.
+12. Run at most 6 parallel lanes (agents, compiles, emulator instances) at once, following the latest supervisory steering on 2026-10-01. Claude watches memory and load every 30 minutes and may lower this if the Mac strains.
 
 ## 5. Working protocol for unattended operation
 
@@ -70,7 +70,15 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Follow-through.** Persist until the current milestone's exit check passes. Do not stop at a plan, a proposal, or an offer to continue. Do not settle for a partial result to save time, effort, or tokens. When you have a question, first finish all the work that does not depend on the answer, write the question to `project/QUESTIONS.md`, and keep working on whatever remains. Do not add warnings, disclaimers, or approval steps for hypothetical risks.
 
-**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 8 lanes at once (rule 12). Match reasoning effort to difficulty when the subagent tool lets you choose it: `xhigh` for small functions and helpers, `ultra` for large, branch-heavy or unnamed functions and for reverse engineering layouts. More lanes means more functions per hour, since the work waits on the model and not on the Mac. Messages between agents must be legible to a human reader.
+**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 6 lanes at once (rule 12). Match reasoning effort to difficulty when the subagent tool lets you choose it: `xhigh` for small functions and helpers, `ultra` for large, branch-heavy or unnamed functions and for reverse engineering layouts. Choose lane work by expected accepted bytes per hour; model and integration time matter more than physical compile time. Messages between agents must be legible to a human reader.
+
+**Acceptance factory, owner approved 2026-10-01.** Root is an acceptance gate, not a source assembler. Lanes submit apply-clean family patches or commits against a named frozen base commit, with final-source hashes, scratch diff/check results, required compiler builds, previous-root preservation evidence, complete proposed family bytes, source/helper closure scope, actual timing windows and explicit limits. An unchanged-source proposal supplies its exact source hash and an explicitly empty patch. Evidence must describe the submitted final source, rather than an earlier fragment. Root applies the submitted patch unchanged, commits the intended source inputs, runs the canonical project build and checker, and checks every previously accepted root and every actual canonical definition before accepting any new root. A conflict, source assembly requirement or preservation failure returns the proposal to its owning lane. Root does not rewrite or compose lane fragments. Only the project checker may set O; an unsuccessful batch adds no exact credit.
+
+For each batch, assign exactly one owning lane to each shared header and translation-unit family. Record the ownership and base in STATE before work begins. A patch may not modify another lane's family. Keep ABI, data identity, table ownership and boundary questions in a separate evidence queue, with independently grounded proposals and separate evidence commits where required by rule 2. Hold only their dependent patches, so unrelated ready families can proceed. Existing acceptance, clean-room, attempt-cap and hourly clean-link requirements remain unchanged. Runtime investigation and early port work continue without a new time box.
+
+**Queue scoring and measurement.** Rank matching candidates roughly by `(chance of canonical acceptance * complete family bytes + downstream bytes unlocked) / (investigation + implementation + intake hours)`. Record the assumptions rather than treating estimated scores as observed throughput. Prefer whole families and shared prerequisites with independent evidence, rather than selecting solely by function count or difficulty. Before starting, check active local/dot work and Pro reservations. Keep the four-unsuccessful-form cap, packet history and other work before requeue.
+
+Record aggregate accepted complete bytes/hour and per-lane accepted bytes/hour in STATE with the measurement interval, attributed acceptance records and elapsed wall time. Do not sum overlapping ledger minutes as elapsed time. Keep the six-column ledger unchanged. Distinguish ready inventory carried into a batch from newly investigated work, and report after-throughput only once canonical acceptance has occurred. Include integration/build/preservation time in end-to-end throughput. Zero new accepted bytes is zero throughput, not unmeasured success.
 
 **Writing.** Daily reports and decision entries use short plain paragraphs, active voice, and the real numbers. No filler phrases and no concluding summaries.
 
@@ -112,7 +120,7 @@ Remaining:
 4. Commit the report and continue straight into Phase 2. Do not stop for review. Claude reviews the report and the run from outside.
 
 ### Phase 2: matching at scale (exit M2)
-- Order the work so that matches compound. Do shared library code and small helpers first, then classes whose layout and vtables are recovered, then large gameplay actors.
+- Score work by expected accepted complete bytes per hour, including downstream bytes unlocked and intake time. Prefer coherent families and shared prerequisites; use small, medium and large functions when their estimated acceptance yield warrants them.
 - Recover class layouts, vtables and names as you go. A good name is worth more than a fast match because later functions depend on it.
 - Use RedPepper's `Source/` game code and names as references (never its `Library/`), and verify every name against the binary.
 - Re-run the full progress check at least once a day and record the numbers in the daily report.
@@ -122,7 +130,7 @@ The owner re-enabled the relay on 2026-10-01 and approved a small measured test 
 - When a function reaches the attempt cap, or a lane is stuck on it, write `project/pro_requests/<address>.md` and commit it. Include the mangled symbol and address range, target disassembly with literal pool, best C++, current diff, attempted forms, compiler build and flags. Packets on origin may reference committed headers/sources instead of inlining them. Keep packets self-contained through those references and under about 600 lines.
 - Claude saves answers to `project/pro_responses/<address>.md` as uncommitted proposals. Root grades them with priority: inspect the proposal, commit the intended C++/header inputs, build through this repository and run `tools/check.py` under every acceptance rule. Scratch output alone adds no exact credit.
 - Append the observed outcome to the response file: matched, closer N bytes, or no help. For a closer result, record both the measured remaining differences and the previous baseline so the improvement is clear. Commit the graded response, source and actual attempt records; only the checker may set O.
-- Initial test reservations are 00156758 (BeatBlockHolder::init),001F9F48 (fixed-point processor) and0024EC80 (actor-scale reader). Keep local lanes and the dot off these three until their responses are graded. Other local matching, dot intake and runtime work continue.
+- The initial three test responses are graded: one exact root through a fallback, two partial improvements. Their reservations are released subject to normal requeue and overlap rules. The next relay batch reserves001E37D8,0030E678,001D1DA0,0016A11C,0024F344,00268EB0,001EA220 and00252B1C against local lanes and the dot until their responses are graded. Pro now supplies three ranked forms. Grade every supplied form in rank order, including fallbacks, and preserve prior accepted readers/callers. Other matching and runtime work continue.
 
 ### External lane: the owner's dot
 The owner may run an OpenAI dot (a cloud agent) on the hardest functions. Its brief is `project/DOT_BRIEF.md`. The dot pushes only to branches named `dot/<topic>` and never to `main`.
