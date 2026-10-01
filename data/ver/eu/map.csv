@@ -16017,7 +16017,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00367CB8,0x00367D80,0x00367D90,          ,U,f,,
 0x00367D90,0x00367DEC,0x00367DF0,          ,U,f,,
 0x00367DF0,0x00367EB4,0x00367EC8,          ,U,f,,
-0x00367EC8,0x00367EF4,0x00367EF8,          ,M,f,_ZNK21NrvAquariumSwimDebris27AquariumSwimDebrisNrvAppear7executeEPN2al11NerveKeeperE,
+0x00367EC8,0x00367EF4,0x00367EF8,          ,O,f,_ZNK21NrvAquariumSwimDebris27AquariumSwimDebrisNrvAppear7executeEPN2al11NerveKeeperE,
 0x00367EF8,          ,0x00367F28,          ,U,f,,
 0x00367F28,0x00367F68,0x00367F70,          ,U,f,,
 0x00367F70,0x00367FD8,0x00367FE4,          ,U,f,,
