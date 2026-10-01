@@ -51,7 +51,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00100E48,0x001010C0,0x001010F0,          ,U,f,_ZN2al9SystemKit20createResourceSystemEPKciib,
 0x001010F0,          ,0x00101124,          ,U,f,_ZN2al9SystemKit20createSaveDataSystemEji,
 0x00101124,          ,0x00101148,          ,U,f,,
-0x00101148,          ,0x0010117C,          ,O,f,_ZN2al9SystemKitC2Ev,
+0x00101148,          ,0x0010117C,          ,O,f,_ZN2al9SystemKitC2Ev,i._ZN2al9SystemKitC1Ev
 0x0010117C,0x00101220,0x0010123C,          ,U,f,_ZN2al9getRegionEv,
 0x0010123C,0x00101274,0x00101278,          ,U,f,_ZN2nn2os15WaitableCounter10InitializeEv,
 0x00101278,          ,0x0010128C,          ,U,f,nninitSetupDefault,
