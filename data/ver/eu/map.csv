@@ -16554,7 +16554,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0037562C,0x00375634,0x00375638,          ,U,f,,
 0x00375638,0x00375640,0x00375644,          ,U,f,,
 0x00375644,0x00375744,0x00375754,          ,U,f,,
-0x00375754,          ,0x0037575C,          ,M,f,_ZNK2al8Sequence12isDisposableEv,
+0x00375754,          ,0x0037575C,          ,O,f,_ZNK2al8Sequence12isDisposableEv,
 0x0037575C,          ,0x00375774,          ,U,f,,
 0x00375774,0x00375A40,0x00375A4C,          ,U,f,,
 0x00375A4C,          ,0x00375A64,          ,M,f,_ZN2al8Sequence4unk5Ev,
