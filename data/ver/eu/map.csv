@@ -9378,7 +9378,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027EA1C,          ,0x0027EA40,          ,U,f,,
 0x0027EA40,          ,0x0027EBAC,          ,U,f,_ZN2al9LiveActor17makeActorAppearedEv,
 0x0027EBAC,          ,0x0027EBF0,          ,U,f,,
-0x0027EBF0,          ,0x0027EBFC,          ,M,f,_ZN2al9LiveActor4killEv,
+0x0027EBF0,          ,0x0027EBFC,          ,O,f,_ZN2al9LiveActor4killEv,
 0x0027EBFC,          ,0x0027EC44,          ,U,f,,
 0x0027EC44,          ,0x0027EC94,          ,U,f,,
 0x0027EC94,0x0027EC9C,0x0027ECA4,          ,U,f,_ZN2al21startHitReactionBreakEPKNS_9LiveActorE,
