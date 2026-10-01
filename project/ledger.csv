@@ -554,3 +554,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:09:42-04:00,0x00277D94,_ZN2al32initCreateActorWithPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE,matched,2,0.0283
 2026-10-01T14:09:43-04:00,0x0026C70C,_ZN2rp14getCoinRotateYEv,matched,2,0.0333
 2026-10-01T14:09:43-04:00,0x0027DEF0,_ZN11PlayerActor11getPropertyEv,matched,2,0.0382
+2026-10-01T14:09:43-04:00,0x0036416C,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvMove7getNameEv,matched,2,0.0295

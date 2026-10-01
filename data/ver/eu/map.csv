@@ -15830,7 +15830,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00364030,          ,0x00364080,          ,U,f,,
 0x00364080,0x00364128,0x00364138,          ,U,f,,
 0x00364138,0x00364168,0x0036416C,          ,U,f,,
-0x0036416C,0x00364174,0x0036417C,          ,M,f,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvMove7getNameEv,
+0x0036416C,0x00364174,0x0036417C,          ,O,f,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvMove7getNameEv,
 0x0036417C,0x00364184,0x0036418C,          ,M,f,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvWait7getNameEv,
 0x0036418C,0x003641E8,0x003641F4,          ,U,f,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvWait7executeEPN2al11NerveKeeperE,
 0x003641F4,0x003641FC,0x00364204,          ,M,f,_ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7getNameEv,
