@@ -242,3 +242,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:02:00-04:00,0x001DB778,_ZN2al19ActorPoseKeeperTFSV14getVelocityPtrEv,matched,2,0.0914
 2026-10-01T11:02:01-04:00,0x00334F78,_ZNK2al19ActorPoseKeeperTFSV11getVelocityEv,matched,2,0.0937
 2026-10-01T11:02:01-04:00,0x00334F80,_ZNK2al19ActorPoseKeeperTFSV8getFrontEv,matched,2,0.0932
+2026-10-01T11:02:02-04:00,0x00334F88,_ZNK2al19ActorPoseKeeperTFSV8getScaleEv,matched,2,0.0927
