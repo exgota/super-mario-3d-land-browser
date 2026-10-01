@@ -9162,7 +9162,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027A5FC,          ,0x0027A624,          ,U,f,,
 0x0027A624,0x0027A658,0x0027A65C,          ,U,f,,
 0x0027A65C,0x0027A6C0,0x0027A6C4,          ,U,f,,
-0x0027A6C4,          ,0x0027A6D4,          ,M,f,_ZN2al26isMsgPlayerBoomerangAttackEj,
+0x0027A6C4,          ,0x0027A6D4,          ,O,f,_ZN2al26isMsgPlayerBoomerangAttackEj,
 0x0027A6D4,          ,0x0027A700,          ,U,f,,
 0x0027A700,          ,0x0027A710,          ,U,f,,
 0x0027A710,          ,0x0027A724,          ,U,f,,
