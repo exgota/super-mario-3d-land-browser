@@ -8801,7 +8801,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00272570,0x002725B4,0x002725B8,          ,U,f,,
 0x002725B8,0x0027260C,0x00272610,          ,U,f,,
 0x00272610,          ,0x00272634,          ,U,f,,
-0x00272634,          ,0x00272654,          ,M,f,_ZN2al11getBaseNameEPKc,
+0x00272634,          ,0x00272654,          ,O,f,_ZN2al11getBaseNameEPKc,
 0x00272654,0x00272844,0x0027285C,          ,U,f,,
 0x0027285C,          ,0x002728C0,          ,U,f,,
 0x002728C0,          ,0x00272918,          ,U,f,,
