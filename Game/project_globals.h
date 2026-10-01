@@ -1,5 +1,10 @@
 #include <nn/types.h>
 
+// The original compiler implements C++03. Existing game sources use this spelling.
+#ifndef nullptr
+#define nullptr 0
+#endif
+
 #ifndef RP_SHUTUP
 #define RP_SHUTUP \
         _Pragma("diag_suppress 177,550,940")
@@ -16,6 +21,8 @@
 #define force_section(Section) __attribute__((section(Section)))
 
 #define force_func_section(Symbol) force_section("i." #Symbol)
+
+#define staticd(Name) force_section(".sdata_" #Name) Name
 
 #define var(Namespace, Name, Type) static Type force_section(".sdata_" #Namespace "::" #Name) Name
 #define varc(Namespace, Class, Name, Type) Type force_section(".sdata_" #Namespace "::" #Class "::" #Name) Class::Name
@@ -34,6 +41,8 @@
 #define force_section(Section)
 
 #define force_func_section(Symbol)
+
+#define staticd(Name) Name
 
 // Force a section for static namespaced variables
 // Example: var(nn::fs, s_Initialized, bool) = False // == bool s_Initialized;

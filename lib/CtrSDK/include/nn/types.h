@@ -3,6 +3,7 @@
 #pragma once
 
 #include <stddef.h>
+#include <stdint.h>
 
 typedef unsigned char      u8;
 typedef unsigned short     u16;
