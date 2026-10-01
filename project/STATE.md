@@ -24,7 +24,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - Guarded sensor execute is rank m with810 bounded ARM11 pairs. Placement initialization agrees on76 contract-bounded pairs. Heap creation agrees on380 returning pairs and30 fault pairs. All three bounded NonMatching reports and ledger outcomes are frozen separately from exact coverage.
 - Ready queues: fresh actor-placement4/188, HitReaction11/176 and camera2/232, Scene4/56 and execution-info2/40; independent NerveStateBase data repair/ctor32; updateCollider168.
 - Fresh matching lanes: actor clipping/collider helpers; ActorInitInfo/link readers; actor pose mutations; request-queue drains; effect emission; KeyPoseKeeper helpers. Preserve their minimal patches and independently evidenced identities. Do not edit production during root's source-frozen checks.
-- Active dot branches reserve blocked.md entries, unanswered packets and U functions >=0x400 bytes. Fetch every few hours. Seven hard-function packets are committed; Pro relay is paused.
+- Active dot branches reserve blocked.md entries, unanswered packets and U functions >=0x400 bytes. Fetch every few hours. Ten hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
 1. Accept fresh actor-placement4, hit-reaction11, camera2, Scene4 and execution-info2 in a source-frozen checkpoint. Keep all other lanes matching eligible fresh functions.
