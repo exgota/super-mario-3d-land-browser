@@ -281,3 +281,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:14:50-04:00,0x0027AF08,_ZN2al9onCollideEPNS_9LiveActorE,matched,2,0.0402
 2026-10-01T11:14:50-04:00,0x0027A15C,_ZN2al14onDrawClippingEPNS_9LiveActorE,matched,2,0.0327
 2026-10-01T11:14:50-04:00,0x0026D668,_ZN2al16validateClippingEPNS_9LiveActorE,matched,2,0.0395
+2026-10-01T11:14:51-04:00,0x0028065C,_ZN2al18invalidateClippingEPNS_9LiveActorE,matched,2,0.0398

@@ -9454,7 +9454,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002805B8,          ,0x00280610,          ,U,f,,
 0x00280610,          ,0x00280630,          ,O,f,_ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE,
 0x00280630,          ,0x0028065C,          ,U,f,,
-0x0028065C,          ,0x002806A8,          ,M,f,_ZN2al18invalidateClippingEPNS_9LiveActorE,
+0x0028065C,          ,0x002806A8,          ,O,f,_ZN2al18invalidateClippingEPNS_9LiveActorE,
 0x002806A8,          ,0x002806D0,          ,O,f,_ZN2al7isNerveEPKNS_9IUseNerveEPKNS_5NerveE,
 0x002806D0,          ,0x002806F8,          ,U,f,,
 0x002806F8,0x00280764,0x00280768,          ,U,f,,
