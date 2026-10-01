@@ -4586,7 +4586,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D19C4,          ,0x001D1A8C,          ,U,f,,
 0x001D1A8C,          ,0x001D1B08,          ,U,f,,
 0x001D1B08,0x001D1D9C,0x001D1DA0,          ,U,f,,
-0x001D1DA0,          ,0x001D1F90,          ,M,f,_ZN2al17HitSensorDirector7executeEv,
+0x001D1DA0,          ,0x001D1F90,          ,m,f,_ZN2al17HitSensorDirector7executeEv,
 0x001D1F90,0x001D20BC,0x001D20FC,          ,O,f,_ZN2al17HitSensorDirectorC1Ev,
 0x001D20FC,          ,0x001D2100,          ,U,f,,
 0x001D2100,0x001D217C,0x001D2180,          ,U,f,,
