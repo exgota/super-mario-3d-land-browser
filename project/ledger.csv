@@ -33,3 +33,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:06-04:00,0x0024C85C,_ZNK2al9ByamlIter11isTypeArrayEv,matched,1,0.009
 2026-10-01T04:52:07-04:00,0x0024FE70,_ZNK2al9ByamlIter15isTypeContainerEv,matched,1,0.009
 2026-10-01T04:52:08-04:00,0x002910F8,_ZNK2al9ByamlIter7getSizeEv,matched,1,0.009
+2026-10-01T04:52:36-04:00,0x0028B518,_ZNK2al20ByamlStringTableIter15findStringIndexEPKc,matched,1,0.009
