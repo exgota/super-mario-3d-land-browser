@@ -39,3 +39,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:39-04:00,0x001CB4B8,_ZN2al14SceneObjHolder26initAfterPlacementSceneObjERKNS_13ActorInitInfoE,matched,1,0.009
 2026-10-01T04:52:41-04:00,0x001BEE64,_ZN2al11NerveKeeper8setNerveEPKNS_5NerveE,matched,1,0.009
 2026-10-01T04:52:41-04:00,0x001CABD8,_ZN2al14NerveStateCtrl10startStateEPKNS_5NerveE,matched,1,0.009
+2026-10-01T04:52:42-04:00,0x001E2130,_ZN2al22ExecuteTableHolderDrawC1Ev,matched,1,0.009
