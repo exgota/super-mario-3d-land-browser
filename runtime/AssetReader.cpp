@@ -23,6 +23,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <variant>
 #include <vector>
 
@@ -579,6 +580,7 @@ struct ModelJoint {
     std::array<float, 3> rotation;
     std::array<float, 3> translation;
     std::array<std::array<float, 12>, 3> matrixFields;
+    std::uint32_t billboardField;
 };
 
 struct ModelSkeleton {
@@ -586,6 +588,8 @@ struct ModelSkeleton {
     std::uint32_t flags;
     std::string status;
     std::vector<ModelJoint> joints;
+    std::uint32_t hierarchyMode = 0;
+    std::uint32_t transformFlags = 0;
 };
 
 struct MaterialTextureReference {
@@ -687,8 +691,10 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
         require(input.magic(skeleton + 4, "SOBJ"), "CGFX skeleton has no SOBJ signature");
         result.skeleton = {skeleton, input.integer(skeleton), "unresolved_skeleton_layout", {}};
         if (result.skeleton.flags == 0x02000000) {
-            metadata(skeleton, 0x20);
+            metadata(skeleton, 0x2C);
             result.skeleton.status = "decoded_raw_joint_fields";
+            result.skeleton.hierarchyMode = input.integer(skeleton + 0x24);
+            result.skeleton.transformFlags = input.integer(skeleton + 0x28);
             const std::size_t count = input.integer(skeleton + 0x18);
             require(count <= (dataEnd - 20) / 0xE0, "CGFX joint count exceeds DATA");
             if (count) {
@@ -715,7 +721,8 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
                             names.insert(name).second && offsets.insert(bone).second,
                             "Invalid or duplicate CGFX joint name or record");
                     ModelJoint joint{name, bone, input.integer(bone + 4), input.integer(bone + 8),
-                                     std::bit_cast<std::int32_t>(input.integer(bone + 0xC)), 0, {}, {}, {}, {}};
+                                     std::bit_cast<std::int32_t>(input.integer(bone + 0xC)), 0, {}, {}, {}, {},
+                                     input.integer(bone + 0xD4)};
                     require(identifiers.emplace(joint.identifier, index).second, "Duplicate CGFX joint identifier");
                     if (input.integer(bone + 0x10)) {
                         joint.parentOffset = input.relative(bone + 0x10);
@@ -1649,7 +1656,11 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
     }
     output << "],\"skeleton\":{\"offset\":" << model.skeleton.offset << ",\"flags\":" << model.skeleton.flags << ",\"status\":";
     writeString(output, model.skeleton.status);
-    output << ",\"transform_application\":\"unresolved\",\"joints\":[";
+    output << ",\"transform_application\":\"unresolved\"";
+    if (model.skeleton.status == "decoded_raw_joint_fields")
+        output << ",\"hierarchy_mode_field\":" << model.skeleton.hierarchyMode
+               << ",\"transform_flags_field\":" << model.skeleton.transformFlags;
+    output << ",\"joints\":[";
     bool firstJoint = true;
     for (const ModelJoint& joint : model.skeleton.joints) {
         if (!firstJoint)
@@ -1659,7 +1670,7 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
         writeString(output, hexadecimal(joint.name));
         output << ",\"offset\":" << joint.offset << ",\"flags\":" << joint.flags << ",\"identifier\":"
                << joint.identifier << ",\"parent_identifier\":" << joint.parentIdentifier
-               << ",\"parent_offset\":" << joint.parentOffset;
+               << ",\"parent_offset\":" << joint.parentOffset << ",\"billboard_field\":" << joint.billboardField;
         for (std::size_t vector = 0; vector < 3; ++vector) {
             output << ",\"" << std::array{"scale_bits", "rotation_bits", "translation_bits"}[vector] << "\":[";
             const auto& fields = vector == 0 ? joint.scale : vector == 1 ? joint.rotation : joint.translation;
@@ -2086,7 +2097,270 @@ Matrix34 placementMatrix(const Placement& placement) {
     return result;
 }
 
+struct CpuTransformRecord {
+    Matrix34 matrix{{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}}};
+    std::array<float, 3> scale{1, 1, 1};
+    std::uint32_t flags = 0xFE1;
+};
+
+struct CpuJointPalette {
+    std::string status = "not_requested";
+    std::vector<CpuTransformRecord> localRecords;
+    std::vector<CpuTransformRecord> composedRecords;
+    std::vector<Matrix34> primaryMatrices;
+    std::vector<Matrix34> secondaryMatrices;
+    std::vector<bool> secondaryPresent;
+};
+
+// CPU affine product at 0x00281CF8. Each VMLA rounds its product first.
+Matrix34 multiplyAffineBinary32(const Matrix34& left, const Matrix34& right) {
+    Matrix34 result{};
+    for (std::size_t row = 0; row < 3; ++row) {
+        for (std::size_t column = 0; column < 3; ++column) {
+            float value = left[row][0] * right[0][column];
+            value += left[row][1] * right[1][column];
+            value += left[row][2] * right[2][column];
+            result[row][column] = value;
+        }
+        float translation = left[row][3];
+        for (std::size_t column = 0; column < 3; ++column)
+            translation += left[row][column] * right[column][3];
+        result[row][3] = translation;
+    }
+    return result;
+}
+
+// 0x002723E0 scales columns and copies translation unchanged.
+Matrix34 scaleMatrixColumns(const Matrix34& matrix, const std::array<float, 3>& scale) {
+    Matrix34 result = matrix;
+    for (std::size_t row = 0; row < 3; ++row)
+        for (std::size_t column = 0; column < 3; ++column)
+            result[row][column] = matrix[row][column] * scale[column];
+    return result;
+}
+
+bool finiteTransformRecord(const CpuTransformRecord& record) {
+    for (const auto& row : record.matrix)
+        for (float value : row)
+            if (!std::isfinite(value))
+                return false;
+    for (float value : record.scale)
+        if (!std::isfinite(value))
+            return false;
+    return true;
+}
+
+// Bounded zero-radian branch of serialized joint intake at 0x002A567C.
+// The full intake uses a separate interpolation table, not placement sine/cosine.
+CpuTransformRecord zeroRotationJointRecord(const ModelJoint& joint) {
+    CpuTransformRecord result;
+    result.matrix[2][0] = -0.0f;
+    for (std::size_t axis = 0; axis < 3; ++axis)
+        result.matrix[axis][3] = joint.translation[axis];
+    result.scale = joint.scale;
+    result.flags = 0x801;
+    for (const auto [inputFlag, outputFlag] : std::array<std::pair<std::uint32_t, std::uint32_t>, 5>{
+             {{1, 0x20}, {2, 0x100}, {4, 0x80}, {8, 0x200}, {16, 0x400}}})
+        if (joint.flags & inputFlag)
+            result.flags |= outputFlag;
+    if ((joint.flags & 6) == 6)
+        result.flags |= 0x40;
+    return result;
+}
+
+// Mode-zero helper 0x0025C3E4 preserves its copy/translate/rotate branches.
+// A mathematical affine product alone would change its signed-zero schedule.
+CpuTransformRecord composeModeZeroJoint(const CpuTransformRecord& local,
+                                       const CpuTransformRecord& parentLocal,
+                                       const CpuTransformRecord& parentComposed) {
+    CpuTransformRecord result;
+    result.matrix = parentLocal.flags & 0x200 ? parentComposed.matrix
+                                            : scaleMatrixColumns(parentComposed.matrix, parentLocal.scale);
+    if (!(local.flags & 0x60)) {
+        for (std::size_t row = 0; row < 3; ++row) {
+            float translation = result.matrix[row][3];
+            for (std::size_t column = 0; column < 3; ++column)
+                translation += result.matrix[row][column] * local.matrix[column][3];
+            result.matrix[row][3] = translation;
+        }
+        if (!(local.flags & 0x80)) {
+            const Matrix34 parent = result.matrix;
+            for (std::size_t row = 0; row < 3; ++row)
+                for (std::size_t column = 0; column < 3; ++column) {
+                    float value = parent[row][0] * local.matrix[0][column];
+                    value += parent[row][1] * local.matrix[1][column];
+                    value += parent[row][2] * local.matrix[2][column];
+                    result.matrix[row][column] = value;
+                }
+        }
+    }
+    for (std::size_t axis = 0; axis < 3; ++axis)
+        result.scale[axis] = parentComposed.flags & 0x200 ? local.scale[axis]
+                                                       : parentComposed.scale[axis] * local.scale[axis];
+    // Core 0x003391DC clamps a near-zero aggregate scale using this exact threshold.
+    float squaredLength = result.scale[0] * result.scale[0];
+    squaredLength += result.scale[1] * result.scale[1];
+    squaredLength += result.scale[2] * result.scale[2];
+    const float minimum = binary32Constant(0x358637BE);
+    if (std::isfinite(squaredLength) && squaredLength < minimum)
+        for (float& value : result.scale)
+            value = value >= 0 ? minimum : -minimum;
+    result.flags &= ~0x7E0u;
+    if (result.scale[0] == result.scale[1] && result.scale[0] == result.scale[2]) {
+        result.flags |= 0x400;
+        if (std::bit_cast<std::uint32_t>(result.scale[0]) == 0x3F800000)
+            result.flags |= 0x200;
+    }
+    return result;
+}
+
+CpuJointPalette buildCpuJointPalette(const ModelSkeleton& skeleton, const CpuTransformRecord& rootLocal,
+                                    const CpuTransformRecord& rootComposed) {
+    CpuJointPalette result;
+    if (skeleton.status == "not_present") {
+        result.status = "not_present";
+        return result;
+    }
+    auto unsupported = [&](const std::string& status) {
+        result.status = status;
+        result.localRecords.clear();
+        result.composedRecords.clear();
+        result.primaryMatrices.clear();
+        result.secondaryMatrices.clear();
+        result.secondaryPresent.clear();
+        return result;
+    };
+    if (skeleton.status != "decoded_raw_joint_fields")
+        return unsupported("unsupported_skeleton_layout");
+    // The original dispatch uses the low byte. Higher bits remain raw fields.
+    if ((skeleton.hierarchyMode & 0xFF) != 0)
+        return unsupported("unsupported_hierarchy_mode");
+    if (skeleton.transformFlags & 1)
+        return unsupported("unsupported_identity_root_ownership");
+    if (!finiteTransformRecord(rootLocal) || !finiteTransformRecord(rootComposed))
+        return unsupported("unsupported_nonfinite_root");
+    for (std::size_t index = 0; index < skeleton.joints.size(); ++index) {
+        const ModelJoint& joint = skeleton.joints[index];
+        // The retail loop indexes buffers by parent identifier in dictionary order.
+        if (joint.identifier != index || joint.parentIdentifier < -1 ||
+            (joint.parentIdentifier >= 0 && std::size_t(joint.parentIdentifier) >= index))
+            return unsupported("unsupported_joint_buffer_order");
+        if (joint.billboardField & 0xFF)
+            return unsupported("unsupported_billboard_update");
+        for (float angle : joint.rotation)
+            if (angle != 0)
+                return unsupported("unsupported_joint_rotation_table");
+        const CpuTransformRecord local = zeroRotationJointRecord(joint);
+        if (!finiteTransformRecord(local))
+            return unsupported("unsupported_nonfinite_joint");
+        const CpuTransformRecord& parentLocal = joint.parentIdentifier == -1
+                                                   ? rootLocal : result.localRecords[joint.parentIdentifier];
+        const CpuTransformRecord& parentComposed = joint.parentIdentifier == -1
+                                                      ? rootComposed : result.composedRecords[joint.parentIdentifier];
+        const CpuTransformRecord composed = composeModeZeroJoint(local, parentLocal, parentComposed);
+        const Matrix34 primary = scaleMatrixColumns(composed.matrix, local.scale);
+        CpuTransformRecord primaryCheck{primary, composed.scale, composed.flags};
+        if (!finiteTransformRecord(primaryCheck))
+            return unsupported("unsupported_nonfinite_composition");
+        Matrix34 secondary{};
+        const bool secondaryPresent = (joint.flags & 0x240) == 0x240;
+        if (secondaryPresent) {
+            Matrix34 matrixA4{};
+            for (std::size_t row = 0; row < 3; ++row)
+                for (std::size_t column = 0; column < 4; ++column)
+                    matrixA4[row][column] = joint.matrixFields[2][row * 4 + column];
+            secondary = multiplyAffineBinary32(primary, matrixA4);
+            if (!finiteTransformRecord({secondary, {1, 1, 1}, 0}))
+                return unsupported("unsupported_nonfinite_secondary");
+        }
+        result.localRecords.push_back(local);
+        result.composedRecords.push_back(composed);
+        result.primaryMatrices.push_back(primary);
+        result.secondaryMatrices.push_back(secondary);
+        result.secondaryPresent.push_back(secondaryPresent);
+    }
+    result.status = "bounded_static_mode_zero_cpu_palette";
+    return result;
+}
+
+// These root records are asset-derived controlled inputs. The model initialization
+// adapter that populates owner+0x4C and owner+0xBC has not been replayed.
+CpuTransformRecord controlledPlacementRoot(const Placement& placement) {
+    Placement unscaled = placement;
+    unscaled.scale = {1, 1, 1};
+    CpuTransformRecord result{placementMatrix(unscaled), placement.scale, 0x801};
+    if (result.scale[0] == result.scale[1] && result.scale[0] == result.scale[2]) {
+        result.flags |= 0x400;
+        if (result.scale[0] == 1)
+            result.flags |= 0x200;
+    }
+    const Matrix34 identity{{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}}};
+    bool identityRotation = true;
+    bool zeroTranslation = true;
+    for (std::size_t row = 0; row < 3; ++row) {
+        zeroTranslation &= result.matrix[row][3] == 0;
+        for (std::size_t column = 0; column < 3; ++column)
+            identityRotation &= result.matrix[row][column] == identity[row][column];
+    }
+    if (identityRotation)
+        result.flags |= 0x80;
+    if (zeroTranslation)
+        result.flags |= 0x100;
+    if (identityRotation && zeroTranslation)
+        result.flags |= 0x40;
+    if ((result.flags & 0x240) == 0x240)
+        result.flags |= 0x20;
+    return result;
+}
+
 #pragma clang fp contract(on)
+
+void writeMatrixBits(std::ostream& output, const Matrix34& matrix) {
+    output << '[';
+    for (std::size_t row = 0; row < 3; ++row)
+        for (std::size_t column = 0; column < 4; ++column) {
+            if (row || column)
+                output << ',';
+            writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(matrix[row][column])));
+        }
+    output << ']';
+}
+
+void writeCpuJointPalette(std::ostream& output, const CpuJointPalette& palette) {
+    output << "{\"status\":";
+    writeString(output, palette.status);
+    output << ",\"root_input_ownership\":\"controlled_records\",\"model_initialization_adapter\":\"unreplayed\","
+              "\"callbacks\":\"empty\",\"animation\":\"not_applied\","
+              "\"billboard_update\":\"not_applied\",\"final_vertex_use\":\"unresolved\",\"joints\":[";
+    for (std::size_t index = 0; index < palette.localRecords.size(); ++index) {
+        if (index)
+            output << ',';
+        output << "{\"buffer_index\":" << index;
+        for (std::size_t recordIndex = 0; recordIndex < 2; ++recordIndex) {
+            const auto& record = recordIndex ? palette.composedRecords[index] : palette.localRecords[index];
+            output << (recordIndex ? ",\"composed\":{" : ",\"local\":{")
+                   << "\"flags\":" << record.flags << ",\"scale_bits\":[";
+            for (std::size_t axis = 0; axis < 3; ++axis) {
+                if (axis)
+                    output << ',';
+                writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(record.scale[axis])));
+            }
+            output << "],\"matrix_bits\":";
+            writeMatrixBits(output, record.matrix);
+            output << '}';
+        }
+        output << ",\"primary_matrix_bits\":";
+        writeMatrixBits(output, palette.primaryMatrices[index]);
+        output << ",\"secondary_matrix_status\":";
+        writeString(output, palette.secondaryPresent[index] ? "primary_times_serialized_a4" : "not_requested");
+        if (palette.secondaryPresent[index]) {
+            output << ",\"secondary_matrix_bits\":";
+            writeMatrixBits(output, palette.secondaryMatrices[index]);
+        }
+        output << '}';
+    }
+    output << "]}";
+}
 
 Vector3 transformPoint(const Matrix34& matrix, const Vector3& position) {
     Vector3 result{};
@@ -2109,6 +2383,7 @@ struct SceneInstance {
     std::string collisionStatus;
     Matrix34 matrix{};
     CollisionMesh collisionMesh{};
+    CpuJointPalette cpuJointPalette{};
 };
 
 struct SceneDefinition {
@@ -2148,7 +2423,7 @@ SceneDefinition readScene(const std::filesystem::path& factoryPath,
     SceneDefinition result{readPlacements(stageRoot.get<Value::Dictionary>()), {}};
     for (std::size_t index = 0; index < result.stage.placements.size(); ++index) {
         const Placement& placement = result.stage.placements[index];
-        SceneInstance instance{index, {}, "unresolved_placement_category", {}, {}, {}, {}, {}, {}};
+        SceneInstance instance{index, {}, "unresolved_placement_category", {}, {}, {}, {}, {}, {}, {}};
         if (placement.category != "ObjInfo") {
             result.instances.push_back(std::move(instance));
             continue;
@@ -2199,6 +2474,14 @@ SceneDefinition readScene(const std::filesystem::path& factoryPath,
                             foundModel |= entry.name == modelName;
                 if (!foundModel)
                     instance.status = "unresolved_model_identity";
+                if (foundModel && instance.status == "resolved_fixed_resource_binding") {
+                    const auto selected = std::find_if(catalog.models.begin(), catalog.models.end(),
+                        [&](const ModelGeometry& geometry) { return geometry.name == modelName; });
+                    if (selected != catalog.models.end()) {
+                        const CpuTransformRecord root = controlledPlacementRoot(placement);
+                        instance.cpuJointPalette = buildCpuJointPalette(selected->skeleton, root, root);
+                    }
+                }
             }
         }
         instance.collisionStatus = "not_requested";
@@ -2257,6 +2540,8 @@ void writeScene(std::ostream& output, const SceneDefinition& scene) {
         writeString(output, hexadecimal(instance.collision));
         output << ",\"collision_status\":";
         writeString(output, instance.collisionStatus);
+        output << ",\"cpu_joint_palette\":";
+        writeCpuJointPalette(output, instance.cpuJointPalette);
         if (!instance.archive.empty()) {
             output << ",\"matrix\":[";
             for (std::size_t row = 0; row < 3; ++row) {

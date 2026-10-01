@@ -10,7 +10,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
-- Clean python make.py eu -ca compiles42 Game/99 al sources and links/exports after scaffold ordering and unaccepted-table repairs. Main remains an explicit scaffold. Every push requires successful clean linking.
+- Clean python make.py eu -ca compiles42 Game/106 al sources and links/exports after scaffold ordering and unaccepted-table repairs. Main remains an explicit scaffold. Every push requires successful clean linking.
 - Accepted coverage: 547 functions from canonical project ARMCC objects with committed source/header provenance, covering 28520 / 2,756,024 complete function bytes (1.034824%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
 - Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
@@ -26,7 +26,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - The82-root checkpoint,35-root follow-on1452 bytes and13-root actor/audio424 bytes are accepted. Prior479 roots/all497 canonical definitions pass; the next clean build preserves all144 prior canonical objects byte-for-byte. Older updateCollider168 remains under import/source review.
 - Matching lanes continue collision/actor helpers, ActorInitInfo/link readers, actor-group helpers, math/layout work, effects and stage switches. Runtime verifies all four selected storage formats; GPU sampled output and geometry transforms remain under investigation. Production remains frozen during canonical checks.
 - Guarded sensor execute records810 bounded ARM11 pairs, placement initialization76 and heap creation380 returning/30 fault pairs. These frozen NonMatching results add zero exact bytes.
-- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Twenty-three hard-function packets are committed; Pro relay is paused.
+- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Twenty-seven hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
 1. Accept queued source-frozen helpers after the successful clean rebuild, preserving affected earlier roots. Keep matching lanes active; every push requires a successful clean -ca link.
@@ -52,3 +52,5 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - Installed full-image split verifies527/527 O intervals/27384 complete bytes. Actual3096576-byte image SHA b6df708858b6d793cac96d7a29e3a71c60aa9f20918cdad9c18107c4942f199f differs in2491041 bytes. Incidental zero/padding equality adds no credit; M2 remains open. See full_image_diagnostic.md.
 
 - Fresh separate f224734 checkout clean-builds and its repaired full linked-map audit preserves527/527 O roots. The prior run lost only SystemKitC2 from scatter section aliasing, now explicitly repaired. All root O canonical intervals also remain equal in the isolated full-image link.
+
+- Static mode-zero native CPU palette agrees with 404 original cases/509 joints/22,432 words per debug and optimized build. Root verifies 635 hashes over 631 paths. Eleven World1-1 instances construct the bounded palette; five preserve rotation-table blockers. Root records are controlled inputs, the actual model adapter and final vertex behavior remain unverified. One new malformed skeleton case and all prior native regressions pass.
