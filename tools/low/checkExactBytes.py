@@ -534,10 +534,14 @@ def _check_inline_closure(symbol_name, object_path, helper_paths, version, compi
                                + re.escape(root_section.name) + r'\)\s*$')
         root_symbols = re.findall(root_symbol_pattern, global_symbols, re.MULTILINE)
         if (len(root_symbols) != 1 or int(root_symbols[0][0], 16) != start
-                or int(root_symbols[0][1]) != end - start):
-            raise ExactByteError('The selected linked function has no unique original start and full size.')
+                or not 0 < int(root_symbols[0][1]) <= end - start
+                or int(root_symbols[0][1]) % 4):
+            raise ExactByteError('The selected linked function has no unique original start and valid ARM code size.')
+        # ARM Code symbol sizes exclude trailing literal pools. The allocated
+        # section and sole root memory entry enforce the complete extent.
         evidence['linked_root_symbol'] = {'name': symbol_name, 'address': start,
                                           'size': end - start, 'section': root_section.name,
+                                          'code_size': int(root_symbols[0][1]),
                                           'object': 'input0.o'}
         memory_map = linker_map.partition('Memory Map of the image')[2]
         memory_entries = []
