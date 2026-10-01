@@ -7122,7 +7122,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00243248,          ,0x00243260,          ,U,f,,
 0x00243260,          ,0x0024327C,          ,U,f,_ZN2al20findOrCreateResourceERKN4sead14SafeStringBaseIcEE,
 0x0024327C,0x00243310,0x00243318,          ,U,f,,
-0x00243318,0x00243364,0x00243374,          ,M,f,fn_00243318,
+0x00243318,0x00243364,0x00243374,          ,O,f,fn_00243318,
 0x00243374,0x002435F4,0x002435F8,          ,U,f,,
 0x002435F8,          ,0x0024368C,          ,U,f,,
 0x0024368C,          ,0x002436F8,          ,U,f,,
