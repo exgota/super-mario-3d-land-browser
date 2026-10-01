@@ -9386,7 +9386,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027ED20,          ,0x0027ED2C,          ,U,f,,
 0x0027ED2C,0x0027EDA4,0x0027EDAC,          ,U,f,,
 0x0027EDAC,0x0027EE08,0x0027EE10,          ,U,f,,
-0x0027EE10,0x0027EE1C,0x0027EE24,          ,M,f,_ZN2al10tryGetArg3EPbRKNS_13ActorInitInfoE,
+0x0027EE10,0x0027EE1C,0x0027EE24,          ,O,f,_ZN2al10tryGetArg3EPbRKNS_13ActorInitInfoE,
 0x0027EE24,          ,0x0027EE34,          ,O,f,_ZN2al7getQuatEPKNS_9LiveActorE,
 0x0027EE34,          ,0x0027EE64,          ,U,f,,
 0x0027EE64,          ,0x0027EEB0,          ,U,f,_ZN2al30initCreateActorNoPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE,
