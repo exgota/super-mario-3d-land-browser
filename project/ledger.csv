@@ -144,3 +144,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:38-04:00,0x0027F514,_ZN2al11isFirstStepEPKNS_9IUseNerveE,matched,3,0.5305
 2026-10-01T09:44:38-04:00,0x00280610,_ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE,matched,3,0.5325
 2026-10-01T09:44:38-04:00,0x002806A8,_ZN2al7isNerveEPKNS_9IUseNerveEPKNS_5NerveE,matched,3,0.5344
+2026-10-01T09:44:39-04:00,0x00332A7C,_ZNK2al15NerveActionCtrl9findNerveEPKc,matched,3,0.5394
