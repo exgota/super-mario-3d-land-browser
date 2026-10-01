@@ -4621,7 +4621,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D2C88,          ,0x001D2CD8,          ,U,f,,
 0x001D2CD8,          ,0x001D2CE8,          ,U,f,,
 0x001D2CE8,          ,0x001D2D10,          ,U,f,,
-0x001D2D10,          ,0x001D2D2C,          ,M,f,_ZN2al9sendMsg55EPNS_9HitSensorES1_,
+0x001D2D10,          ,0x001D2D2C,          ,O,f,_ZN2al9sendMsg55EPNS_9HitSensorES1_,
 0x001D2D2C,          ,0x001D2D44,          ,U,f,,
 0x001D2D44,          ,0x001D2DB0,          ,U,f,fn_001D2D44,
 0x001D2DB0,0x001D2E94,0x001D2EA8,          ,U,f,,
