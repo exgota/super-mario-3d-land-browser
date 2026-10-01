@@ -21,18 +21,12 @@
       ],
       "source_dir": "backup/src",
       "include_dir": "backup/include",
-      "source_files": [
-        "Player/PlayerTrigger.cpp"
-      ],
       "compiler": "4.1/791"
     },
     "lib/al": {
       "name": "Actor",
       "flags_cxx": [
         "--sys_include"
-      ],
-      "source_files": [
-        "Math/alHashUtil.cpp"
       ],
       "compiler": "4.1/791"
     },
