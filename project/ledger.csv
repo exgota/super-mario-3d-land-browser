@@ -8,3 +8,4 @@ timestamp,address,symbol,outcome,attempts,estimated_tokens,estimated_cost_usd,mi
 2026-10-01T03:47:27-04:00,0x0026EA40,_ZNK13PlayerTrigger4isOnENS_17ECollisionTriggerE,matched,2,600,unavailable,2
 2026-10-01T03:47:27-04:00,0x0026EA60,_ZNK13PlayerTrigger4isOnENS_14ESensorTriggerE,matched,2,600,unavailable,2
 2026-10-01T03:47:27-04:00,0x0026EBE8,_ZN13PlayerTrigger3setENS_14ESensorTriggerE,matched,2,600,unavailable,2
+2026-10-01T03:57:19-04:00,0x0032C744,_ZNK19PlayerAnimFrameCtrl15getCurrentFrameEv,matched,2,400,unavailable,1

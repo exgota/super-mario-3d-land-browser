@@ -13502,7 +13502,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032C6BC,0x0032C6FC,0x0032C708,          ,U,f,,
 0x0032C708,          ,0x0032C73C,          ,U,f,,
 0x0032C73C,          ,0x0032C744,          ,U,f,_ZNK14PlayerAnimator12getAnimFrameEv,
-0x0032C744,          ,0x0032C74C,          ,U,f,_ZNK19PlayerAnimFrameCtrl15getCurrentFrameEv,
+0x0032C744,          ,0x0032C74C,          ,O,f,_ZNK19PlayerAnimFrameCtrl15getCurrentFrameEv,
 0x0032C74C,0x0032C77C,0x0032C780,          ,U,f,,
 0x0032C780,          ,0x0032C788,          ,U,f,,
 0x0032C788,          ,0x0032C7A0,          ,U,f,,
