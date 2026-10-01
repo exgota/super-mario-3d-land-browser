@@ -1,5 +1,7 @@
 # Player action graph construction at 0x001A9574
 
+This file preserves the earlier layout checkpoint. Its statements that the root is unimplemented or has zero compile forms describe that historical checkpoint only. The complete source, current build results, and three inspected forms are documented in [player-action-builder-source.md](player-action-builder-source.md). The root remains nonmatching.
+
 Checkpoint from `dot/largest-root-layout`, based on main `e2cbf8db72566da78fc16b77a5b90026bfd9ea0a`. The original interval is `0x001A9574..0x001B4658` (45,284 bytes). Its first pool marker is `0x001AB32C`; that marker is not the end of the code. The root remains unimplemented and unmatched. There have been zero root compile-diff forms and no checker claim.
 
 The EU input SHA256 is `e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64`. Analysis uses only that executable and the existing clean repository. No original boundaries, map identities, ranks, shared tools, or accepted-source definitions are changed in this checkpoint.

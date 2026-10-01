@@ -1,5 +1,7 @@
 # Complete source proposal for the player action graph builder
 
+Tested baseline: main `5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c`; unchanged checker blobs `tools/check.py` = `7c0ccd93b7387a2f9afa9b304b5254f34149b318` and `tools/low/checkExactBytes.py` = `ce8fc0a5d747c1521d84a1ca1fbeaeab09e3bb47`. Immutable source and restored-build checkpoint: `fcbd23d7fb3ece12893b513c71544a84c563c23b`.
+
 This continues `largest-root-layout.md`. The verified two-constructor checkpoint `f15d147` remains unchanged on its own branch. `dot/player-action-builder-source` adds a complete ordinary C++ definition for the original `0x001A9574..0x001B4658` interval, under the descriptive name `PlayerActionGraphBuildOutputs::build(Player*)` and the project's `NON_MATCHING` convention.
 
 The configured ARMCC 4.1/791 build emits one function section of 28,856 bytes, versus 45,284 original bytes. Every inline source helper disappears into that single function; no new helper address is invented. There is no assembly, instruction interpreter, emulated register array, or function-byte stand-in. This is a nonmatching proposal and adds zero exact bytes for the builder.
