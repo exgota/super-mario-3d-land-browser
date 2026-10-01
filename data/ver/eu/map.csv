@@ -9339,7 +9339,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027DC60,          ,0x0027DC94,          ,U,f,,
 0x0027DC94,          ,0x0027DCBC,          ,U,f,,
 0x0027DCBC,          ,0x0027DCC4,          ,U,f,,
-0x0027DCC4,          ,0x0027DCD8,          ,U,f,_ZN14PlayerProperty8setUpVecERKN4sead7Vector3IfEE,
+0x0027DCC4,          ,0x0027DCD8,          ,O,f,_ZN14PlayerProperty8setUpVecERKN4sead7Vector3IfEE,
 0x0027DCD8,          ,0x0027DCE0,          ,U,f,,
 0x0027DCE0,          ,0x0027DCF4,          ,O,f,_ZN14PlayerProperty11setFrontVecERKN4sead7Vector3IfEE,
 0x0027DCF4,0x0027DDC0,0x0027DDC4,          ,U,f,,
