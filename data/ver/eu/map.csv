@@ -9306,7 +9306,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027D1DC,0x0027D230,0x0027D238,          ,U,f,,
 0x0027D238,0x0027D244,0x0027D24C,          ,U,f,,
 0x0027D24C,          ,0x0027D250,          ,U,f,,
-0x0027D250,          ,0x0027D354,          ,M,f,_ZN2al9LiveActor13makeActorDeadEv,
+0x0027D250,          ,0x0027D354,          ,O,f,_ZN2al9LiveActor13makeActorDeadEv,
 0x0027D354,          ,0x0027D370,          ,U,f,,
 0x0027D370,0x0027D4C0,0x0027D4D8,          ,U,f,,
 0x0027D4D8,0x0027D51C,0x0027D520,          ,U,f,,
