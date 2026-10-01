@@ -676,6 +676,7 @@ struct ModelMesh {
     std::uint32_t shapeIndex;
     std::uint32_t materialIndex;
     std::size_t parentOffset;
+    std::uint32_t drawFlagsField = 0;
 };
 
 struct ModelGeometry {
@@ -694,8 +695,81 @@ struct ModelGeometry {
     std::array<float, 12> initializationMatrix84{};
 };
 
+struct CpuMeshBooleanTransition {
+    static constexpr std::uint32_t ReplacementMask = 0x186;
+    std::uint32_t setBits;
+
+    std::uint32_t apply(std::uint32_t initialWord) const {
+        return (initialWord & ~ReplacementMask) | setBits;
+    }
+};
+
+// Original draw consumer 0x00191CE4 replaces four bits after material stages.
+// These resource fields establish a transition, without establishing its input.
+CpuMeshBooleanTransition meshBooleanTransition(const ModelMesh& mesh, const ModelShape& shape) {
+    const bool modeTwo = std::any_of(shape.faceGroups.begin(), shape.faceGroups.end(),
+                                    [](const ModelFaceGroup& face) { return face.skinningField == 2; });
+    return {((mesh.drawFlagsField & 1) << 7) | ((mesh.drawFlagsField & 2) << 7) | (modeTwo ? 2u : 4u)};
+}
+
+struct CpuShaderContextInput {
+    std::array<std::uint32_t, 6> vertexPacket{};
+    std::array<std::uint32_t, 6> geometryPacket{};
+    bool materialStatePresent = false;
+    bool geometrySelectorPresent = false;
+    std::int32_t geometrySelector = -1;
+    std::uint8_t optionalCallbackFlag = 0;
+};
+
+struct CpuShaderContextTransfer {
+    std::string status = "unavailable_caller_context";
+    bool callerContextPresent = false;
+    bool materialStatePresent = false;
+    std::vector<std::uint32_t> commandWords;
+    std::size_t cursorAdvanceBytes = 0;
+};
+
+// The original copies cached boolean/integer words through 0x002542BC.
+// Constructor defaults cannot replace caller state modified by material code.
+CpuShaderContextTransfer buildCpuShaderContextTransfer(const ModelMesh& mesh, const ModelShape& shape,
+                                                       const CpuShaderContextInput* input) {
+    CpuShaderContextTransfer result;
+    if (!input)
+        return result;
+    result.callerContextPresent = true;
+    result.materialStatePresent = input->materialStatePresent;
+    if (!input->materialStatePresent) {
+        result.status = "unavailable_material_context";
+        return result;
+    }
+    if (!input->geometrySelectorPresent) {
+        result.status = "unavailable_geometry_selector";
+        return result;
+    }
+    if (input->optionalCallbackFlag) {
+        result.status = "unsupported_context_callback";
+        return result;
+    }
+    if (input->vertexPacket[1] != 0x804F02B0) {
+        result.status = "unsupported_vertex_uniform_packet";
+        return result;
+    }
+    const bool geometryPresent = input->geometrySelector >= 0;
+    if (geometryPresent && input->geometryPacket[1] != 0x804F0280) {
+        result.status = "unsupported_geometry_uniform_packet";
+        return result;
+    }
+    result.commandWords.assign(input->vertexPacket.begin(), input->vertexPacket.end());
+    result.commandWords[0] = meshBooleanTransition(mesh, shape).apply(result.commandWords[0]);
+    if (geometryPresent)
+        result.commandWords.insert(result.commandWords.end(), input->geometryPacket.begin(), input->geometryPacket.end());
+    result.cursorAdvanceBytes = result.commandWords.size() * sizeof(std::uint32_t);
+    result.status = "bounded_caller_owned_uniform_context_transfer";
+    return result;
+}
+
 // The owner's revision uses OpenGL scalar enums in the documented CGFX records.
-// These records retain resource-local data. Bone, shape and draw semantics stay open.
+// These records retain resource-local data. Final vertex and material behavior stay open.
 ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t imageStart,
                                 std::uint32_t revision, const ResourceEntry& entry) {
     ByteReader input(data);
@@ -998,13 +1072,15 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
     std::set<std::size_t> meshOffsets;
     for (const std::size_t mesh : pointerList(entry.offset + 0xB8, input.integer(entry.offset + 0xB4))) {
         metadata(mesh, 0x24);
+        metadata(mesh + 0x2C, sizeof(std::uint32_t));
         require(input.magic(mesh + 4, "SOBJ"), "CGFX mesh has no SOBJ signature");
         require(input.integer(mesh) == 0x01000000, "Unsupported CGFX mesh identity layout");
         require(meshOffsets.insert(mesh).second, "Duplicate CGFX mesh record");
         const std::size_t nameOffset = input.relative(mesh + 0xC);
         metadata(nameOffset, 1);
         ModelMesh record{input.terminatedText(nameOffset, dataEnd - nameOffset), mesh, input.integer(mesh),
-                         input.integer(mesh + 0x18), input.integer(mesh + 0x1C), input.relative(mesh + 0x20)};
+                         input.integer(mesh + 0x18), input.integer(mesh + 0x1C), input.relative(mesh + 0x20),
+                         input.integer(mesh + 0x2C)};
         // Retail 0x0033549C uses these two indices in the model's own lists.
         require(record.shapeIndex < result.shapes.size(), "CGFX mesh shape index exceeds its model");
         require(record.materialIndex < result.materials.size(), "CGFX mesh material index exceeds its model");
@@ -1657,6 +1733,21 @@ void writeCollision(std::ostream& output, const CollisionMesh& mesh) {
     output << "]}";
 }
 
+void writeCpuShaderContextTransfer(std::ostream& output, const CpuShaderContextTransfer& transfer) {
+    output << "{\"status\":";
+    writeString(output, transfer.status);
+    output << ",\"input_ownership\":\"caller_supplied_raw_context\",\"caller_context_present\":"
+           << (transfer.callerContextPresent ? "true" : "false") << ",\"material_state_present\":"
+           << (transfer.materialStatePresent ? "true" : "false")
+           << ",\"active_program\":\"unresolved\",\"shader_arithmetic\":\"unresolved\",\"command_words\":[";
+    for (std::size_t index = 0; index < transfer.commandWords.size(); ++index) {
+        if (index) output << ',';
+        writeString(output, integerHexadecimal(transfer.commandWords[index]));
+    }
+    output << "],\"geometry_packet_copied\":" << (transfer.commandWords.size() == 12 ? "true" : "false")
+           << ",\"cursor_advance_bytes\":" << transfer.cursorAdvanceBytes << ",\"unwritten_trailing_bytes\":0}";
+}
+
 void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
     output << "{\"name_hex\":";
     writeString(output, hexadecimal(model.name));
@@ -1737,9 +1828,14 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
         output << "{\"name_hex\":";
         writeString(output, hexadecimal(mesh.name));
         output << ",\"offset\":" << mesh.offset << ",\"flags\":" << mesh.flags
+               << ",\"draw_flags_field\":" << mesh.drawFlagsField
                << ",\"shape_index\":" << mesh.shapeIndex << ",\"material_index\":" << mesh.materialIndex
                << ",\"parent_offset\":" << mesh.parentOffset
-               << ",\"visibility\":\"unresolved\",\"animation\":\"unresolved\"}";
+               << ",\"visibility\":\"unresolved\",\"animation\":\"unresolved\",\"shader_boolean_transition\":{"
+                  "\"replace_mask\":\"00000186\",\"set_bits\":";
+        writeString(output, integerHexadecimal(meshBooleanTransition(mesh, model.shapes[mesh.shapeIndex]).setBits));
+        output << ",\"caller_context\":\"unavailable\",\"material_context\":\"unavailable\","
+                  "\"active_program\":\"unresolved\",\"shader_arithmetic\":\"unresolved\"}}";
     }
     output << "],\"skeleton\":{\"offset\":" << model.skeleton.offset << ",\"flags\":" << model.skeleton.flags << ",\"status\":";
     writeString(output, model.skeleton.status);
