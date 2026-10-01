@@ -4119,7 +4119,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BF80C,          ,0x001BF824,          ,U,f,,
 0x001BF824,          ,0x001BF848,          ,U,f,,
 0x001BF848,          ,0x001BF86C,          ,O,f,fn_001BF848,
-0x001BF86C,          ,0x001BF87C,          ,M,f,fn_001BF86C,
+0x001BF86C,          ,0x001BF87C,          ,O,f,fn_001BF86C,
 0x001BF87C,          ,0x001BF8A0,          ,M,f,fn_001BF87C,
 0x001BF8A0,          ,0x001BF8B4,          ,M,f,fn_001BF8A0,
 0x001BF8B4,          ,0x001BF8D0,          ,U,f,,
