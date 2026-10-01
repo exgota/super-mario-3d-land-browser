@@ -40,3 +40,9 @@ The retail vtable has zero words at `0x003D6918` and `0x003D691C`, then function
 - `0x003D6924 -> 0x00330450`: the draw slot, a single `bx lr` instruction.
 
 These are independently grounded identities for later work, not additional matched functions. The current header still inherits the placeholder `IUseExecutor::execute()` and `draw()`. Accepting the constructor's reference to the independently mapped vtable does not establish that this C++ vtable or the class's execution behavior has been reconstructed. This report claims only the exact constructor interval above.
+
+## Current canonical checker revalidation
+
+On 2026-10-01, a clean worktree of main `a360142fbddd9ab875ab68314c55445ade05fd00` was reconstructed and its entire Git tree verified. The proposed source/header edits were applied and committed as local verification checkpoint `eace3c0`. The unchanged current project build (`python make.py eu`, ARMCC 4.1/791 for game code) compiled, linked, and exported successfully. The current canonical `tools/check.py --object` commands were then rerun on those freshly built objects. No checker/tool changes were made. The same independently evidenced local-only map identities were supplied; no existing function interval changed.
+
+The unchanged constructor reports `U -> O: The complete source-generated function interval matches byte for byte.` All 364 bytes pass without extra identities specific to this function. This is revalidation of existing source and resolution of a stale blocker.
