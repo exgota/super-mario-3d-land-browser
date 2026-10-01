@@ -1,0 +1,2 @@
+symbol,source
+_ZN16alSensorFunction20findSensorTypeByNameEPKc,lib/al/src/LiveActor/alSensorFunction.cpp

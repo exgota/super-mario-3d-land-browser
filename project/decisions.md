@@ -82,3 +82,13 @@ Inspection showed progress.py's byte percentage compares individual four-byte wo
 ## 2026-10-01: Use compiler invocations for the attempt counter
 
 To make the ledger convention explicit, attempts counts compile-and-compare invocations rather than distinct source forms. The sensor search therefore has a measured lower bound of86:82 successful paired scratch compilations,2 final paired production compilations and2 root production integration checks. Three additional root all-source compilation audits and earlier paired sweeps are excluded because their per-function comparison count is not fully recoverable. The previous47 source-evaluation floor used a different unit and was corrected in the ledger. The two short lookup rows count their2 final paired scratch compilations plus1 root integration compilation; earlier exploratory revisions are not silently claimed as counted. This counting correction does not change any matched function rank.
+
+## 2026-10-01: Restore the observed sensor data ABI
+
+A direct read of the retail17-entry table showed KickKoura as its third entry, and Dossun=8 / KillerMagnum=7. The inherited source had KickKoura near the end and swapped those enum values. The table order and enum declarations now follow the binary. This restores the existing ABI; it does not introduce a new persisted format. The lookup's instruction bytes alone could match while its separate source data was wrong, so code-interval coverage does not establish data coverage or runtime readiness. The data row remainsU until its own reconstruction is verified.
+
+## 2026-10-01: Permanent conservative compiler exit check
+
+`python tools/checkGameCompiler.py` compiles the manifest's source under791 and894 with the unchanged project flags, records commands and source/header hashes, and invokes strict original-address byte checking. It accepts an alternative failure as compiler evidence only for a successfully compiled body with a different complete section size or different linked bytes. Missing addresses or linker/tool failures are not proof. Changed source/header files invalidate the check. With the one established sensor function, it correctly reports1 /3 discriminators and exits nonzero: M0 is not proved yet.
+
+The current brief removes the pilot review stop and the extra ledger fields. STATE now points through the pilot directly into scaling. Historical decision entries remain append-only.

@@ -1,6 +1,5 @@
 #pragma once
 
-// somewhy getting optimized to byte?
 namespace al
 {
 enum SensorType
@@ -12,8 +11,8 @@ enum SensorType
         SensorType_Enemy,
         SensorType_EnemyBody,
         SensorType_EnemyAttack,
-        SensorType_Dossun,
         SensorType_KillerMagnum,
+        SensorType_Dossun,
         SensorType_EnemySimple,
         SensorType_MapObj,
         SensorType_MapObjSimple,
