@@ -8751,7 +8751,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002708DC,0x002709E0,0x002709FC,          ,U,f,,
 0x002709FC,          ,0x00270AB0,          ,U,f,,
 0x00270AB0,0x00270B6C,0x00270B74,          ,U,f,,
-0x00270B74,          ,0x00270B9C,          ,M,f,_ZN2al17initActorPoseTFSVEPNS_9LiveActorE,
+0x00270B74,          ,0x00270B9C,          ,O,f,_ZN2al17initActorPoseTFSVEPNS_9LiveActorE,
 0x00270B9C,          ,0x00270BAC,          ,U,f,,
 0x00270BAC,0x00270CA0,0x00270CA4,          ,U,f,,
 0x00270CA4,0x00270CC8,0x00270CCC,          ,U,f,,
