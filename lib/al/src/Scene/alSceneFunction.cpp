@@ -7,12 +7,35 @@
 namespace al
 {
 
-#ifdef NON_MATCHING
-// WIP
-void initPlacementMap( Scene* scene, const Resource* stageArchive, const ActorInitInfo& infoTemplate, const char* infoIterName )
+extern "C" const char dat_003B7848[]; // StageData
+extern "C" const char dat_003B783C[]; // AllInfos
+
+void initActorInitInfo( ActorInitInfo* info, const PlacementInfo* placement,
+        const ActorInitInfo& baseInfo );
+
+bool tryGetPlacementInfo( PlacementInfo* out, const Resource* stageArchive, const char* infoIterName )
 {
-        PlacementInfo infoIter;
-        if ( tryGetPlacementInfo( &infoIter, stageArchive, infoIterName ) && scene->getActorFactory() )
+        if ( !stageArchive )
+                return false;
+        const u8* stageData = stageArchive->getByml( dat_003B7848 );
+        ByamlIter stageDataByaml( stageData );
+        ByamlIter allInfosIter;
+        bool found = stageDataByaml.tryGetIterByKey( &allInfosIter, dat_003B783C );
+        if ( found )
+        {
+                ByamlIter unused;
+                found = allInfosIter.tryGetIterByKey( out, infoIterName );
+                if ( found )
+                        return true;
+        }
+        return found;
+}
+
+#ifdef NON_MATCHING
+static inline void initPlacementActors( Scene* scene, const PlacementInfo& infoIter,
+        const ActorInitInfo& infoTemplate )
+{
+        if ( scene->getActorFactory() )
         {
                 int size = infoIter.getSize();
                 for ( int i = 0; i < size; i++ )
@@ -26,7 +49,7 @@ void initPlacementMap( Scene* scene, const Resource* stageArchive, const ActorIn
                                 if ( create )
                                 {
                                         ActorInitInfo info;
-                                        info.initNew( &placementInfo, infoTemplate );
+                                        initActorInitInfo( &info, &placementInfo, infoTemplate );
                                         LiveActor* actor = create( objectName );
                                         al::initCreateActorWithPlacementInfo( actor, info );
                                 }
@@ -34,26 +57,14 @@ void initPlacementMap( Scene* scene, const Resource* stageArchive, const ActorIn
                 }
         }
 }
+
+void initPlacementMap( Scene* scene, const Resource* stageArchive, const ActorInitInfo& infoTemplate, const char* infoIterName )
+{
+        PlacementInfo infoIter;
+        if ( stageArchive && tryGetPlacementInfo( &infoIter, stageArchive, infoIterName ) )
+                initPlacementActors( scene, infoIter, infoTemplate );
+}
 #endif
 
-bool tryGetPlacementInfo( PlacementInfo* out, const Resource* stageArchive, const char* infoIterName )
-{
-        if ( !stageArchive )
-                return false;
-        if ( stageArchive )
-        {
-                const u8* stageData = stageArchive->getByml( "StageData" );
-                ByamlIter stageDataByaml( stageData );
-                ByamlIter allInfosIter;
-                if ( stageDataByaml.tryGetIterByKey( &allInfosIter, "AllInfos" ) )
-                {
-                        ByamlIter unused;
-                        if ( allInfosIter.tryGetIterByKey( out, infoIterName ) )
-                                return true;
-                }
-                else
-                        return false;
-        }
-}
 
 } // namespace al
