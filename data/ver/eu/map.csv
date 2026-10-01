@@ -8478,7 +8478,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00269A2C,          ,0x00269A60,          ,U,f,,
 0x00269A60,0x00269E48,0x0026A7E8,          ,U,f,,
 0x0026A7E8,0x0026A90C,0x0026A920,          ,U,f,,
-0x0026A920,          ,0x0026A938,          ,M,f,_ZN2al12getNerveStepEPKNS_9IUseNerveE,
+0x0026A920,          ,0x0026A938,          ,O,f,_ZN2al12getNerveStepEPKNS_9IUseNerveE,
 0x0026A938,          ,0x0026A958,          ,U,f,,
 0x0026A958,          ,0x0026A9B8,          ,U,f,,
 0x0026A9B8,          ,0x0026A9D4,          ,U,f,,
