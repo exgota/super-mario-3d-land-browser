@@ -4770,7 +4770,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D790C,0x001D7920,0x001D7924,          ,U,f,,
 0x001D7924,0x001D7974,0x001D7978,          ,O,f,_ZN2al17StageSwitchKeeperC1Ev,
 0x001D7978,          ,0x001D79F4,          ,U,f,,
-0x001D79F4,0x001D7A2C,0x001D7A3C,          ,M,f,fn_001D79F4,
+0x001D79F4,0x001D7A2C,0x001D7A3C,          ,O,f,fn_001D79F4,
 0x001D7A3C,0x001D7A84,0x001D7A88,          ,U,f,,
 0x001D7A88,          ,0x001D7A90,          ,O,f,_ZN2al17isPadTriggerTouchEi,
 0x001D7A90,          ,0x001D7AAC,          ,U,f,,
