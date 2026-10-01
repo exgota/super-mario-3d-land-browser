@@ -68,3 +68,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T06:24:47-04:00,0x001CB5EC,_ZN2al14SensorHitGroup6removeEPNS_9HitSensorE,matched,1,0.0048
 2026-10-01T06:24:48-04:00,0x002496F8,_ZN2al14SensorHitGroupC1EiPKc,matched,1,0.0051
 2026-10-01T07:00:03-04:00,0x0027B278,_ZN2al13NerveExecutor11updateNerveEv,matched,4,0.0051
+2026-10-01T07:00:04-04:00,0x0027B364,_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi,matched,4,0.0047

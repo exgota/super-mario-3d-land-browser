@@ -9215,7 +9215,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B31C,          ,0x0027B330,          ,U,f,,
 0x0027B330,          ,0x0027B350,          ,U,f,_ZN2al9LayoutKitC1EPNS_10FontHolderE,
 0x0027B350,0x0027B360,0x0027B364,          ,U,f,,
-0x0027B364,          ,0x0027B39C,          ,M,f,_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi,
+0x0027B364,          ,0x0027B39C,          ,O,f,_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi,
 0x0027B39C,0x0027B4CC,0x0027B4D8,          ,U,f,,
 0x0027B4D8,          ,0x0027B510,          ,U,f,,
 0x0027B510,          ,0x0027B51C,          ,U,f,_ZN2al10offCollideEPNS_9LiveActorE,
