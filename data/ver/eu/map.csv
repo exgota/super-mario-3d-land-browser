@@ -15333,7 +15333,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0035A060,          ,0x0035A064,          ,U,f,,
 0x0035A064,          ,0x0035A068,          ,O,f,_ZNK2al13NrvBreakModel17BreakModelNrvWait7executeEPNS_11NerveKeeperE,
 0x0035A068,          ,0x0035A098,          ,O,f,_ZNK2al13NrvBreakModel18BreakModelNrvBreak7executeEPNS_11NerveKeeperE,
-0x0035A098,0x0035A118,0x0035A11C,          ,M,f,_ZNK2al13NrvWipeSimple17WipeSimpleNrvOpen7executeEPNS_11NerveKeeperE,
+0x0035A098,0x0035A118,0x0035A11C,          ,O,f,_ZNK2al13NrvWipeSimple17WipeSimpleNrvOpen7executeEPNS_11NerveKeeperE,
 0x0035A11C,0x0035A158,0x0035A15C,          ,M,f,_ZNK2al13NrvWipeSimple18WipeSimpleNrvClose7executeEPNS_11NerveKeeperE,
 0x0035A15C,0x0035A19C,0x0035A1A4,          ,M,f,_ZNK2al13NrvWipeSimple17WipeSimpleNrvWait7executeEPNS_11NerveKeeperE,
 0x0035A1A4,          ,0x0035A1D4,          ,U,f,,
