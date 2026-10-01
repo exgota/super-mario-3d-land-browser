@@ -9014,7 +9014,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00277A08,0x00277A78,0x00277A7C,          ,U,f,,
 0x00277A7C,          ,0x00277AA4,          ,U,f,,
 0x00277AA4,          ,0x00277AB8,          ,U,f,,
-0x00277AB8,0x00277AC4,0x00277ACC,          ,M,f,_ZN2al10tryGetArg8EPfRKNS_13ActorInitInfoE,
+0x00277AB8,0x00277AC4,0x00277ACC,          ,O,f,_ZN2al10tryGetArg8EPfRKNS_13ActorInitInfoE,
 0x00277ACC,          ,0x00277AF0,          ,U,f,,
 0x00277AF0,          ,0x00277B04,          ,U,f,,
 0x00277B04,          ,0x00277B24,          ,U,f,,
