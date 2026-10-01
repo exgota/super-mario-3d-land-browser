@@ -513,3 +513,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:01:51-04:00,0x00321AB4,_ZN9PeachRope4killEv,matched,2,0.0599
 2026-10-01T14:01:52-04:00,0x00321ACC,_ZN9PeachRopeC1ERKN4sead14SafeStringBaseIcEE,matched,2,0.0619
 2026-10-01T14:01:52-04:00,0x0018D828,_ZN19GhostPlayerRecorderC1Ev,matched,2,0.0670
+2026-10-01T14:01:53-04:00,0x0018D400,_ZN19GhostPlayerRecorder5FrameC1Ev,matched,2,0.0688
