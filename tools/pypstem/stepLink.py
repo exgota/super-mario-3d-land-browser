@@ -2,6 +2,7 @@
 import hashlib
 import io
 import json
+import re
 import struct
 
 from elftools.elf.elffile import ELFFile
@@ -14,6 +15,7 @@ from tools.pypstem.manSetup import setup_compiler
 from tools.low.glob import *
 from tools.low.genScatter import gen_scatter
 from tools.low.readSymMap import MapFmt, read_sym_file
+from tools.low.buildProvenance import verify_build_output
 
 def write_compact_object(record, retained, output):
     """Project compiler sections for the scaffold, never for matching checks."""
@@ -138,8 +140,8 @@ def project_compact_archives():
     """Keep enrolled functions and their data/helper closure in separate archives."""
     roots = {symbol[MapFmt.Symbol] or f"fn_{symbol[MapFmt.Start]:08X}"
              for symbol in read_sym_file() if "f" in symbol[MapFmt.Type] and symbol[MapFmt.Rank] != "U"}
-    mapped_functions = {symbol[MapFmt.Symbol] for symbol in read_sym_file()
-                        if "f" in symbol[MapFmt.Type] and symbol[MapFmt.Symbol]}
+    mapped_functions = {symbol[MapFmt.Symbol] or f"fn_{symbol[MapFmt.Start]:08X}"
+                        for symbol in read_sym_file() if "f" in symbol[MapFmt.Type]}
     records = []
     definitions = {}
     for module_path, module in cfg.modules.items():
@@ -184,6 +186,8 @@ def project_compact_archives():
                     definitions.setdefault(symbol.name, []).append((index, symbol))
 
     retained = {index: set() for index in range(len(records))}
+    inline_helpers = {}
+    verified_inline_inputs = {}
     pending = [(index, symbol["st_shndx"]) for name in roots for index, symbol in definitions.get(name, [])]
     while pending:
         index, section_index = pending.pop()
@@ -210,8 +214,34 @@ def project_compact_archives():
                                  if item["st_shndx"] == target["st_shndx"] and item["st_info"]["type"] == "STT_FUNC"]
                     helper = functions and all(item["st_info"]["bind"] in ("STB_LOCAL", "STB_WEAK")
                                                and item.name not in mapped_functions for item in functions)
-                    if not any(item.name in roots for item in functions) and not helper:
-                        continue
+                    enrolled = any(item.name in roots for item in functions)
+                    if not enrolled and not helper:
+                        standalone = (functions and all(item["st_value"] == 0 for item in functions)
+                                      and all(item.name not in mapped_functions for item in functions)
+                                      and relocation["r_info_type"] in (1, 28, 29))
+                        if not standalone:
+                            continue
+                        for item in functions:
+                            providers = {(provider, definition["st_shndx"])
+                                         for provider, definition in definitions.get(item.name, [])}
+                            if len(providers) != 1:
+                                raise ValueError("An unmapped C++ inline helper has ambiguous definitions: " + item.name)
+                        for provider in (index, target_index):
+                            provider_record = records[provider]
+                            if provider not in verified_inline_inputs:
+                                provenance = verify_build_output(provider_record["path"])
+                                if provenance["object_sha256"] != provider_record["sha256"]:
+                                    raise ValueError("A C++ inline closure object changed during projection.")
+                                verified_inline_inputs[provider] = provenance
+                        if (verified_inline_inputs[index]["compiler"]
+                                != verified_inline_inputs[target_index]["compiler"]):
+                            raise ValueError("An unmapped inline helper uses a different configured compiler.")
+                        inline_helpers[(target_index, target["st_shndx"])] = {
+                            "canonical_object": str(records[target_index]["path"]),
+                            "section": target_section.name,
+                            "symbols": sorted(item.name for item in functions),
+                            "sha256": hashlib.sha256(target_section.data()).hexdigest(),
+                            "provenance": verified_inline_inputs[target_index]}
                 if target_section["sh_flags"] & 2:
                     pending.append((target_index, target["st_shndx"]))
 
@@ -219,7 +249,13 @@ def project_compact_archives():
     library_root = projection_root / "lib"
     library_root.mkdir(parents=True, exist_ok=True)
     report = {"purpose": "Compact scaffold link only. These projected objects are ineligible for matching checks.",
-              "roots": sorted(roots), "objects": [], "canonical_inputs": [
+              "roots": sorted(roots), "objects": [],
+              "inline_helpers": list(inline_helpers.values()),
+              "inline_inputs": [{"canonical_object": str(records[index]["path"]),
+                                 "provenance": provenance,
+                                 "provenance_sha256": records[index]["provenance_sha256"]}
+                                for index, provenance in sorted(verified_inline_inputs.items())],
+              "canonical_inputs": [
                   {"object": str(record["path"]), "sha256": record["sha256"],
                    "provenance_sha256": record["provenance_sha256"]} for record in records]}
     archives = {}
@@ -252,8 +288,40 @@ def project_compact_archives():
         if (hashlib.sha256(record["path"].read_bytes()).hexdigest() != record["sha256"]
                 or current_provenance != record["provenance_sha256"]):
             raise ValueError("A canonical object or provenance record changed while creating compact archives.")
+    for index, provenance in verified_inline_inputs.items():
+        if verify_build_output(records[index]["path"]) != provenance:
+            raise ValueError("An inline closure input changed during archive projection.")
     (projection_root / "projection.json").write_text(json.dumps(report, indent=2) + "\n")
     return [library_root / f"lib{module}.a" for module in archives]
+
+def verify_inline_helpers_removed():
+    """Keep unmapped strong helpers only when the scaffold linker inlines them."""
+    projection = getBuildPath() / "compact_link/projection.json"
+    if not projection.exists():
+        return
+    report = json.loads(projection.read_text())
+    helpers = report.get("inline_helpers", [])
+    if not helpers:
+        return
+    memory_map = getOutMapFile().read_text().partition("Memory Map of the image")[2]
+    if not memory_map:
+        raise ValueError("The compact linker map has no allocated-section evidence.")
+    entries = []
+    for line in memory_map.splitlines():
+        fields = line.split()
+        if (len(fields) >= 4 and fields[0].startswith("0x")
+                and fields[1].startswith("0x") and fields[2] in ("Code", "Data", "Zero")):
+            entries.append(line)
+    for helper in helpers:
+        if any(re.search(r"\s" + re.escape(helper["section"]) + r"\s", line) for line in entries):
+            raise ValueError("An unmapped source helper remained allocated in the compact link: " + helper["section"])
+    for record in report.get("inline_inputs", []):
+        path = Path(record["canonical_object"])
+        if (verify_build_output(path) != record["provenance"]
+                or hashlib.sha256(path.with_suffix(".provenance.json").read_bytes()).hexdigest()
+                != record["provenance_sha256"]):
+            raise ValueError("A C++ inline closure input changed during the compact link.")
+
 
 def exec_link():
     echo ("Generating ldscript")
@@ -312,3 +380,5 @@ def exec_link():
     echo (f"Linking {getElfFile().name}")
 
     do_link (flags)
+    if not cfg.split:
+        verify_inline_helpers_removed()

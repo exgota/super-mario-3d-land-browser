@@ -39,7 +39,10 @@ def rank_symbol(symbol, decomp_symbol):
     out = res.stdout
     if "CURRENT" not in out: raise RuntimeError(f"Unexpected output:\n{out}")
 
-    if exact_rank(symbol, decomp_symbol) == 'O':
+    exact = exact_rank(symbol, decomp_symbol)
+    if exact is None:
+        return symbol[MapFmt.Rank]
+    if exact == 'O':
         return 'O'
 
     rank = 'O'
@@ -74,8 +77,11 @@ def exact_rank(symbol, decomp_symbol):
         provenance = verify_build_output(candidates[0])
     except (ValueError, OSError, KeyError) as error:
         echo(f"Object provenance rejected: {error}")
-        return 'm'
+        return None
     result = check_exact_bytes(symbol[MapFmt.Symbol], candidates[0], getVersion(), provenance["compiler"])
+    if result.get("rejected"):
+        echo(f"Source closure rejected: {result['reason']}")
+        return None
     if result["exact"]:
         return 'O'
     return 'm'
@@ -263,7 +269,7 @@ def check_sym(symbol_name):
     else:
         printf (f"Unchanged. ({prevrank})")
 
-def check_object(symbol_name, object_path):
+def check_object(symbol_name, object_path, inline_objects=None):
     symbols = [row for row in read_sym_file() if row[MapFmt.Symbol] == symbol_name]
     if len(symbols) != 1 or "f" not in symbols[0][MapFmt.Type]:
         raise ValueError("The object check requires one established function symbol.")
@@ -273,7 +279,10 @@ def check_object(symbol_name, object_path):
     except (ValueError, OSError, KeyError) as error:
         echo(f"Object provenance rejected: {error}")
         return False
-    result = check_exact_bytes(symbol_name, object_path.resolve(), getVersion(), provenance["compiler"])
+    result = check_exact_bytes(symbol_name, object_path.resolve(), getVersion(), provenance["compiler"], inline_objects=inline_objects)
+    if result.get("rejected"):
+        echo(f"Source closure rejected: {result['reason']}")
+        return False
     previous_rank = symbol[MapFmt.Rank]
     if result["exact"]:
         rank = "O"
@@ -305,7 +314,10 @@ def main():
     parser.add_argument("-e", action="store_true", help="Error when map has differences.")
     parser.add_argument("sym", nargs="?", help="Only check this symbol")
     parser.add_argument("--object", type=Path, help="Check a compiled object directly, without the compact scaffold image")
+    parser.add_argument("--inline-object", type=Path, action="append", help="Supply a canonical C++ helper object for a strict inline closure check")
     args = parser.parse_args()
+    if args.inline_object and not args.object:
+        parser.error("--inline-object requires --object")
 
     is_skip_mode = args.f
     is_sim_mode = args.s
@@ -323,7 +335,7 @@ def main():
     if args.object:
         if not args.sym:
             parser.error("--object requires a function symbol")
-        return 0 if check_object(args.sym, args.object) else 1
+        return 0 if check_object(args.sym, args.object, args.inline_object) else 1
     if args.sym:
         check_sym(args.sym)
     else:

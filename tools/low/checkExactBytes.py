@@ -22,17 +22,26 @@ import re
 import struct
 import subprocess
 import tempfile
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 from elftools.elf.elffile import ELFFile
 from elftools.elf.relocation import RelocationSection
 from elftools.common.exceptions import ELFError
+from elftools.elf.enums import ENUM_SH_TYPE_ARM
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from tools.low.getSection import typeToSection
+from tools.low.buildProvenance import provenance_path, verify_build_output
+from tools.low.glob import getBuildObjPath, getVersion
 
 
 class ExactByteError(Exception):
+    pass
+
+
+class UnresolvedOriginalSymbol(ExactByteError):
     pass
 
 
@@ -70,7 +79,7 @@ def _resolve_symbol(symbol, source_section, rows):
             kind = "f" if address_name.group(1) == "fn" else "d"
             matches = [row for row in rows if row["Start"] == address and kind in row["Type"]]
     if not matches:
-        raise ExactByteError(f"No established original address for {name or '[unnamed symbol]'}.")
+        raise UnresolvedOriginalSymbol(f"No established original address for {name or '[unnamed symbol]'}.")
     addresses = {row["Start"] for row in matches}
     kinds = {"A" if "f" in row["Type"] else "D" for row in matches}
     if len(addresses) != 1 or len(kinds) != 1:
@@ -211,8 +220,445 @@ def _isolate_function(object_path, symbol_name, rows, candidate_path):
     return code_section.name, code_section.data(), imports
 
 
-def check_exact_bytes(symbol_name, object_path, version="eu", compiler_version="4.1/791", output_directory=None):
+def _write_closure_object(record, retained, output, external_names):
+    """Preserve source-generated sections and relocations for an isolated link."""
+    elf = record["elf"]
+    symbols = record["symbols"]
+    table = record["table"]
+    required = {0}
+    for index, symbol in enumerate(symbols):
+        if symbol["st_shndx"] in retained:
+            required.add(index)
+    for section_index in retained:
+        required.update(relocation["r_info_sym"] for relocation in record["relocations"].get(section_index, []))
+
+    ordered = sorted(retained)
+    section_indices = {index: destination for destination, index in enumerate(ordered, 1)}
+    strings = bytearray(b"\0")
+    entries = []
+    discarded = []
+    for index in sorted(required):
+        symbol = symbols[index]
+        _, value, size, information, other, section_index = struct.unpack_from("<IIIBBH", table.data(), index * 16)
+        if index == 0:
+            entries.append((index, 0, 0, 0, 0, 0, 0))
+            continue
+        name = symbol.name
+        if index in external_names:
+            name = external_names[index]
+            value, size, other, section_index = 0, 0, 0, 0
+            information = 0x10 | (2 if symbol["st_info"]["type"] == "STT_FUNC" else 0)
+        elif isinstance(symbol["st_shndx"], int):
+            if symbol["st_shndx"] in retained:
+                section_index = section_indices[symbol["st_shndx"]]
+            else:
+                if symbol["st_info"]["type"] == "STT_SECTION":
+                    functions = [item for item in symbols
+                                 if item["st_shndx"] == symbol["st_shndx"]
+                                 and item["st_info"]["type"] == "STT_FUNC" and item["st_value"] == 0]
+                    names = {item.name for item in functions if item.name}
+                    if len(names) != 1:
+                        raise ValueError("A discarded section has no unique function import: " + elf.get_section(symbol["st_shndx"]).name)
+                    name = next(iter(names))
+                if not name or value:
+                    raise ValueError("A discarded definition has no supported import identity: " + name)
+                discarded.append(name)
+                value, size, other, section_index = 0, 0, 0, 0
+                information = 0x10 | (2 if symbol["st_info"]["type"] == "STT_FUNC" else 0)
+        if not name and symbol["st_info"]["type"] == "STT_SECTION":
+            name = elf.get_section(symbol["st_shndx"]).name
+        name_offset = len(strings)
+        strings.extend(name.encode() + b"\0")
+        entries.append((index, name_offset, value, size, information, other, section_index))
+    entries.sort(key=lambda entry: entry[4] >> 4 != 0)
+    symbol_indices = {entry[0]: index for index, entry in enumerate(entries)}
+    local_count = sum(entry[4] >> 4 == 0 for entry in entries)
+
+    sections = [{"name": "", "type": 0, "flags": 0, "data": b"", "size": 0,
+                 "link": 0, "info": 0, "alignment": 0, "entry_size": 0}]
+    retained_evidence = []
+    for index in ordered:
+        source = elf.get_section(index)
+        kind = ENUM_SH_TYPE_ARM[source["sh_type"]]
+        data = source.data() if source["sh_type"] != "SHT_NOBITS" else b""
+        link = section_indices[source["sh_link"]] if source["sh_flags"] & 0x80 else 0
+        sections.append({"name": source.name, "type": kind, "flags": source["sh_flags"] & ~0x200,
+                         "data": data, "size": source["sh_size"], "link": link, "info": 0,
+                         "alignment": source["sh_addralign"], "entry_size": source["sh_entsize"]})
+        retained_evidence.append({"name": source.name, "source_index": index, "size": source["sh_size"],
+                                  "sha256": hashlib.sha256(data).hexdigest()})
+    attributes = [section for section in elf.iter_sections() if section["sh_type"] == "SHT_ARM_ATTRIBUTES"]
+    for source in attributes:
+        sections.append({"name": source.name, "type": 0x70000003, "flags": 0, "data": source.data(),
+                         "size": source["sh_size"], "link": 0, "info": 0, "alignment": 1, "entry_size": 0})
+    symbol_section = len(sections)
+    symbol_data = b"".join(struct.pack("<IIIBBH", *entry[1:]) for entry in entries)
+    sections.append({"name": ".symtab", "type": 2, "flags": 0, "data": symbol_data, "size": len(symbol_data),
+                     "link": symbol_section + 1, "info": local_count, "alignment": 4, "entry_size": 16})
+    sections.append({"name": ".strtab", "type": 3, "flags": 0, "data": bytes(strings), "size": len(strings),
+                     "link": 0, "info": 0, "alignment": 1, "entry_size": 0})
+    for index in ordered:
+        relocations = record["relocations"].get(index, [])
+        if not relocations:
+            continue
+        data = b"".join(struct.pack("<II", relocation["r_offset"],
+                                    symbol_indices[relocation["r_info_sym"]] << 8 | relocation["r_info_type"])
+                        for relocation in relocations)
+        sections.append({"name": ".rel" + elf.get_section(index).name, "type": 9, "flags": 0,
+                         "data": data, "size": len(data), "link": symbol_section,
+                         "info": section_indices[index], "alignment": 4, "entry_size": 8})
+    names = bytearray(b"\0")
+    for section in sections[1:]:
+        section["name_offset"] = len(names)
+        names.extend(section["name"].encode() + b"\0")
+    name_offset = len(names)
+    names.extend(b".shstrtab\0")
+    sections.append({"name": ".shstrtab", "name_offset": name_offset, "type": 3, "flags": 0,
+                     "data": bytes(names), "size": len(names), "link": 0, "info": 0,
+                     "alignment": 1, "entry_size": 0})
+    content = bytearray(52)
+    headers = [bytes(40)]
+    for section in sections[1:]:
+        alignment = max(1, section["alignment"])
+        content.extend(bytes((-len(content)) % alignment))
+        offset = len(content)
+        content.extend(section["data"])
+        headers.append(struct.pack("<10I", section["name_offset"], section["type"], section["flags"], 0,
+                                   offset, section["size"], section["link"], section["info"],
+                                   section["alignment"], section["entry_size"]))
+    content.extend(bytes((-len(content)) % 4))
+    section_offset = len(content)
+    content.extend(b"".join(headers))
+    content[:16] = b"\x7fELF\x01\x01\x01" + bytes(9)
+    content[16:52] = struct.pack("<HHIIIIIHHHHHH", 1, 40, 1, 0, 0, section_offset,
+                               elf["e_flags"], 52, 0, 0, 40, len(sections), len(sections) - 1)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_bytes(content)
+    projected = ELFFile(io.BytesIO(content))
+    for destination, source_index in enumerate(ordered, 1):
+        original = elf.get_section(source_index)
+        actual = projected.get_section(destination)
+        if original["sh_size"] != actual["sh_size"] or original.data() != actual.data():
+            raise ValueError("A compiler-generated section changed during compact projection: " + original.name)
+    return {"projected_object": str(output), "projected_sha256": hashlib.sha256(content).hexdigest(),
+            "retained_sections": retained_evidence, "discarded_definition_imports": sorted(set(discarded))}
+
+
+def _read_closure_object(path):
+    provenance = verify_build_output(path)
+    content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != provenance['object_sha256']:
+        raise ExactByteError('A canonical object changed while its provenance was being read.')
+    elf = ELFFile(io.BytesIO(content))
+    if elf.elfclass != 32 or not elf.little_endian or elf['e_type'] != 'ET_REL' or (elf['e_machine'] != 'EM_ARM'):
+        raise ExactByteError('A closure input is not an ELF32 ARM relocatable object.')
+    table = elf.get_section_by_name('.symtab')
+    if table is None or table['sh_entsize'] != 16:
+        raise ExactByteError('A closure input has no supported symbol table.')
+    relocations = {}
+    for section in elf.iter_sections():
+        if isinstance(section, RelocationSection):
+            if section['sh_type'] != 'SHT_REL' or section['sh_link'] != elf.get_section_index('.symtab'):
+                raise ExactByteError('A closure input has unsupported relocation metadata.')
+            relocations.setdefault(section['sh_info'], []).extend(section.iter_relocations())
+    return {'path': path, 'elf': elf, 'table': table,
+            'symbols': list(table.iter_symbols()), 'relocations': relocations,
+            'provenance': provenance, 'sha256': hashlib.sha256(content).hexdigest(),
+            'provenance_sha256': hashlib.sha256(provenance_path(path).read_bytes()).hexdigest()}
+
+def _validate_closure_function(record, section_index):
+    section = record['elf'].get_section(section_index)
+    functions = [s for s in record['symbols'] if s['st_shndx'] == section_index and s['st_info']['type'] == 'STT_FUNC']
+    if section['sh_type'] != 'SHT_PROGBITS' or section['sh_flags'] & 6 != 6 or section['sh_addralign'] > 4 or (not functions):
+        raise ExactByteError('A reached closure section is not supported executable compiler code.')
+    for symbol in functions:
+        if symbol['st_value'] == 0:
+            continue
+        if (symbol.name == '__switch$$' and symbol['st_info']['bind'] == 'STB_LOCAL'
+                and symbol['st_size'] == 0 and symbol['st_value'] % 4 == 0
+                and symbol['st_value'] < section['sh_size']):
+            continue
+        raise ExactByteError('A reached closure section is shared with another function: ' + symbol.name)
+    return section
+
+def _check_inline_closure(symbol_name, object_path, helper_paths, version, compiler_version, output):
+    repository = Path(__file__).resolve().parents[2]
+    evidence = {'symbol': symbol_name, 'root': str(object_path), 'helpers': list(map(str, helper_paths)), 'started_utc': datetime.now(timezone.utc).isoformat()}
+    began = time.monotonic()
+    try:
+        if not re.fullmatch('[A-Za-z0-9_]+', version) or not re.fullmatch('[0-9]+\\.[0-9]+/[0-9]+', compiler_version):
+            raise ExactByteError('The closure version or compiler identifier is invalid.')
+        if output is None:
+            parent = repository / 'build/exact_checks' / version
+            parent.mkdir(parents=True, exist_ok=True)
+            output = Path(tempfile.mkdtemp(prefix='inline_closure_', dir=parent))
+        else:
+            output = Path(output).resolve()
+        object_path = Path(object_path).resolve()
+        helper_paths = [Path(path).resolve() for path in helper_paths]
+        paths = [object_path.resolve()] + [p.resolve() for p in helper_paths]
+        if len(paths) != len(set(paths)):
+            raise ExactByteError('Closure inputs must be distinct canonical objects.')
+        records = [_read_closure_object(p) for p in paths]
+        compiler = records[0]['provenance']['compiler']
+        if compiler != compiler_version or version != getVersion():
+            raise ExactByteError('Closure objects must use the requested configured compiler and build version.')
+        if any((r['provenance']['compiler'] != compiler for r in records)):
+            raise ExactByteError('Closure objects must use the same configured compiler build.')
+        map_path = repository / 'data/ver' / version / 'map.csv'
+        map_hash = hashlib.sha256(map_path.read_bytes()).hexdigest()
+        rows = _read_map(map_path)
+        evidence['map_sha256'] = map_hash
+        selected = [r for r in rows if r['Symbol'] == symbol_name and 'f' in r['Type']]
+        if len(selected) != 1:
+            raise ExactByteError('The root requires one established original function interval.')
+        original = selected[0]
+        start, end = (original['Start'], original['End'])
+        if end <= start or start % 4:
+            raise ExactByteError('The original function interval is empty or unaligned.')
+        roots = [s for s in records[0]['symbols'] if s.name == symbol_name and isinstance(s['st_shndx'], int)]
+        if len(roots) != 1 or roots[0]['st_value'] != 0 or roots[0]['st_info']['type'] != 'STT_FUNC':
+            raise ExactByteError('The root requires one function at the start of its own compiler section.')
+        root_section = _validate_closure_function(records[0], roots[0]['st_shndx'])
+        evidence['compiled_root_size'] = root_section['sh_size']
+        definitions = {}
+        for index, record in enumerate(records):
+            for symbol in record['symbols']:
+                if symbol.name and isinstance(symbol['st_shndx'], int) and symbol['st_shndx'] and (symbol['st_info']['bind'] != 'STB_LOCAL'):
+                    definitions.setdefault(symbol.name, []).append((index, symbol))
+        retained = {index: set() for index in range(len(records))}
+        external_names = {index: {} for index in range(len(records))}
+        imports = {}
+        helpers = []
+        pending = [(0, roots[0]['st_shndx'])]
+        while pending:
+            index, section_index = pending.pop()
+            if section_index in retained[index]:
+                continue
+            record = records[index]
+            section = _validate_closure_function(record, section_index)
+            retained[index].add(section_index)
+            if (index, section_index) != (0, roots[0]['st_shndx']):
+                helpers.append({'object': str(record['path']), 'section': section.name,
+                                'size': section['sh_size'],
+                                'sha256': hashlib.sha256(section.data()).hexdigest()})
+            for relocation in record['relocations'].get(section_index, []):
+                offset = relocation['r_offset']
+                if offset % 4 or offset + 4 > section['sh_size']:
+                    raise ExactByteError('A closure relocation lies outside its section or is unaligned.')
+                symbol = record['symbols'][relocation['r_info_sym']]
+                if symbol['st_shndx'] == section_index:
+                    continue
+                source = record['elf'].get_section(symbol['st_shndx']) if isinstance(symbol['st_shndx'], int) else None
+                try:
+                    address, kind, mapped = _resolve_symbol(symbol, source, rows)
+                except UnresolvedOriginalSymbol:
+                    local = isinstance(symbol['st_shndx'], int) and symbol['st_info']['bind'] == 'STB_LOCAL'
+                    targets = [(index, symbol)] if local else definitions.get(symbol.name, [])
+                    targets = [(i, s) for i, s in targets if s['st_info']['type'] == 'STT_FUNC' and s['st_value'] == 0]
+                    if len(targets) != 1:
+                        raise ExactByteError('A source helper has no unique supplied C++ definition: ' + symbol.name)
+                    target_index, target = targets[0]
+                    _validate_closure_function(records[target_index], target['st_shndx'])
+                    pending.append((target_index, target['st_shndx']))
+                    continue
+                name = symbol.name or (source.name if source is not None else '')
+                if not name or any((c.isspace() for c in name)):
+                    raise ExactByteError('A runtime import has no supported identity.')
+                prior = imports.get(name)
+                if prior and (prior['address'], prior['kind']) != (address, kind):
+                    raise ExactByteError('A runtime import has ambiguous original addresses.')
+                imports[name] = {'symbol': name, 'address': address, 'kind': kind,
+                                 'map_symbol': mapped['Symbol'],
+                                 'map_start': mapped['Start'], 'map_end': mapped['End']}
+                external_names[index][relocation['r_info_sym']] = name
+        if any((not retained[index] for index in range(1, len(records)))):
+            raise ExactByteError('A supplied helper object is unrelated to the selected source closure.')
+        for index, record in enumerate(records):
+            for section_index in retained[index]:
+                for relocation in record['relocations'].get(section_index, []):
+                    symbol = record['symbols'][relocation['r_info_sym']]
+                    targets = definitions.get(symbol.name, [])
+                    if any((target['st_shndx'] in retained[target_index]
+                            and (target_index, target['st_shndx']) != (0, roots[0]['st_shndx'])
+                            for target_index, target in targets)):
+                        if relocation['r_info_type'] not in [1, 28, 29]:
+                            raise ExactByteError('A source helper is referenced by a non-branch relocation.')
+        if not output.resolve().is_relative_to(repository / 'build'):
+            raise ExactByteError('Closure outputs must remain in ignored build storage.')
+        output.mkdir(parents=True, exist_ok=True)
+        objects = []
+        projections = []
+        for index, record in enumerate(records):
+            if not retained[index]:
+                continue
+            target = output / f'input{index}.o'
+            projections.append(_write_closure_object(record, retained[index], target, external_names[index]))
+            objects.append(target)
+        symbol_file = output / 'original_symbols.sym'
+        symbol_file.write_text('#<SYMDEFS>#\n' + ''.join((f"0x{item['address']:08X} {item['kind']} {name}\n" for name, item in sorted(imports.items()))))
+        scatter = output / 'candidate.sct'
+        scatter.write_text(f'CANDIDATE_LOAD 0x{start:08X}\n{{\n'
+                           f' CANDIDATE_CODE 0x{start:08X}\n {{\n'
+                           f'  input0.o ({root_section.name}, +FIRST)\n  *(+RO)\n }}\n}}\n')
+        command = [str(repository / 'data/compilers/wibo'),
+                   str(repository / 'data/compilers' / compiler / 'bin/armlink.exe'),
+                   '--cpu=MPCore', '--fpu=VFPv2', '--arm_only', '--no_exceptions',
+                   '--inline', '--datacompressor=off', '--no_debug', '--no_scanlib',
+                   '--mangled', '--symbols', '--map', f'--entry={symbol_name}',
+                   f'--keep={symbol_name}', f'--scatter={scatter}',
+                   f"--output={output / 'candidate.axf'}",
+                   f"--list={output / 'candidate.map'}"] + list(map(str, objects)) + [str(symbol_file)]
+        result = subprocess.run(command, cwd=repository, env=dict(os.environ, TMP='/tmp'), capture_output=True, text=True, timeout=60)
+        (output / 'link.log').write_text(result.stdout + result.stderr)
+        evidence.update(compiler=compiler, original_start=start, original_end=end,
+                        helpers_reached=helpers, imports=list(imports.values()),
+                        objects=projections, link_command=command, link_exit=result.returncode)
+        for record in records:
+            after = verify_build_output(record['path'])
+            if after != record['provenance'] or hashlib.sha256(provenance_path(record['path']).read_bytes()).hexdigest() != record['provenance_sha256']:
+                raise ExactByteError('A closure object or provenance record changed during the check.')
+        if result.returncode:
+            raise ExactByteError('The source closure link failed.')
+        with (output / 'candidate.axf').open('rb') as stream:
+            elf = ELFFile(stream)
+            allocated = [s for s in elf.iter_sections() if s['sh_flags'] & 2 and s['sh_size']]
+            evidence['allocated_sections'] = [{'name': s.name, 'address': s['sh_addr'], 'size': s['sh_size']} for s in allocated]
+            if len(allocated) != 1 or allocated[0].name != 'CANDIDATE_CODE' or allocated[0]['sh_addr'] != start or (allocated[0]['sh_size'] != end - start):
+                raise ExactByteError('Residual helper code or another allocated extent remains after inlining.')
+            linked = allocated[0].data()
+        linker_map = (output / 'candidate.map').read_text()
+        global_symbols = linker_map.partition('Global Symbols')[2].partition('===')[0]
+        root_symbol_pattern = (r'^\s*' + re.escape(symbol_name)
+                               + r'\s+(0x[0-9a-fA-F]+)\s+ARM Code\s+(\d+)\s+input0\.o\('
+                               + re.escape(root_section.name) + r'\)\s*$')
+        root_symbols = re.findall(root_symbol_pattern, global_symbols, re.MULTILINE)
+        if (len(root_symbols) != 1 or int(root_symbols[0][0], 16) != start
+                or int(root_symbols[0][1]) != end - start):
+            raise ExactByteError('The selected linked function has no unique original start and full size.')
+        evidence['linked_root_symbol'] = {'name': symbol_name, 'address': start,
+                                          'size': end - start, 'section': root_section.name,
+                                          'object': 'input0.o'}
+        memory_map = linker_map.partition('Memory Map of the image')[2]
+        memory_entries = []
+        for line in memory_map.splitlines():
+            fields = line.split()
+            if len(fields) >= 4 and fields[0].startswith('0x') and fields[1].startswith('0x') and (fields[2] in ('Code', 'Data', 'Zero')):
+                memory_entries.append(line)
+        if len(memory_entries) != 1 or not re.search(re.escape(root_section.name) + r"\s+input0\.o\s*$", memory_entries[0]):
+            raise ExactByteError('The linker retained helper sections or another source extent.')
+        evidence['root_memory_entry'] = memory_entries[0].strip()
+        root_fields = memory_entries[0].split()
+        evidence['linked_root_extent'] = {'address': int(root_fields[0], 16),
+                                          'size': int(root_fields[1], 16)}
+        if evidence['linked_root_extent'] != {'address': start, 'size': end - start}:
+            raise ExactByteError('The selected root memory entry has a different original extent.')
+        if hashlib.sha256(map_path.read_bytes()).hexdigest() != map_hash:
+            raise ExactByteError('The original symbol map changed during the closure check.')
+        target = (repository / 'data/ver' / version / 'code.bin').read_bytes()
+        target_hash = hashlib.sha256(target).hexdigest()
+        if target_hash != json.loads((repository / 'data/config.json').read_text())['versions'][version]:
+            raise ExactByteError('The unchanged target version hash is invalid.')
+        header = (repository / 'data/ver' / version / 'exh.bin').read_bytes()
+        load_base = struct.unpack_from('<I', header, 16)[0]
+        offset = start - load_base
+        if offset < 0 or offset + end - start > len(target):
+            raise ExactByteError('The original interval lies outside the verified target executable.')
+        expected = target[offset:offset + end - start]
+        differences = [i for i, (a, b) in enumerate(zip(linked, expected)) if a != b]
+        evidence.update(different_bytes=len(differences),
+                        linked_sha256=hashlib.sha256(linked).hexdigest(),
+                        target_sha256=target_hash, provenance=[r['provenance'] for r in records])
+        result = {'exact': not differences, 'rejected': False,
+                  'reason': 'The complete source-generated function interval matches byte for byte.'
+                  if not differences else 'The linked candidate differs from the unchanged original interval.'}
+    except (OSError, ValueError, KeyError, ExactByteError, ELFError, struct.error, subprocess.TimeoutExpired) as error:
+        result = {'exact': False, 'reason': str(error), 'rejected': True}
+    evidence['inline_closure'] = True
+    evidence['seconds'] = time.monotonic() - began
+    evidence['finished_utc'] = datetime.now(timezone.utc).isoformat()
+    result['evidence'] = evidence
+    return result
+
+
+def _discover_inline_objects(object_path, symbol_name, rows):
+    """Find canonical source definitions only for unresolved branch helpers."""
+    root = _read_closure_object(Path(object_path).resolve())
+    records = {root["path"]: root}
+    definitions = {}
+    for path in sorted(getBuildObjPath().rglob("*.o")):
+        try:
+            provenance_record = json.loads(provenance_path(path).read_text())
+        except (OSError, ValueError):
+            continue
+        if Path(provenance_record.get("source", "")).suffix not in (".cpp", ".cc", ".cxx"):
+            continue
+        content = path.read_bytes()
+        try:
+            elf = ELFFile(io.BytesIO(content))
+            table = elf.get_section_by_name(".symtab")
+            if table is None:
+                continue
+            for symbol in table.iter_symbols():
+                if (symbol.name and isinstance(symbol["st_shndx"], int)
+                        and symbol["st_shndx"] and symbol["st_info"]["type"] == "STT_FUNC"
+                        and symbol["st_info"]["bind"] != "STB_LOCAL" and symbol["st_value"] == 0):
+                    definitions.setdefault(symbol.name, []).append(path.resolve())
+        except (ELFError, ValueError, KeyError, struct.error):
+            continue
+    selected = [symbol for symbol in root["symbols"]
+                if symbol.name == symbol_name and isinstance(symbol["st_shndx"], int)]
+    if len(selected) != 1:
+        raise ExactByteError("The root has no unique canonical function definition.")
+    pending = [(root["path"], selected[0]["st_shndx"])]
+    visited = set()
+    while pending:
+        path, section_index = pending.pop()
+        if (path, section_index) in visited:
+            continue
+        visited.add((path, section_index))
+        record = records[path]
+        _validate_closure_function(record, section_index)
+        for relocation in record["relocations"].get(section_index, []):
+            symbol = record["symbols"][relocation["r_info_sym"]]
+            if symbol["st_shndx"] == section_index:
+                continue
+            source = record["elf"].get_section(symbol["st_shndx"]) if isinstance(symbol["st_shndx"], int) else None
+            try:
+                _resolve_symbol(symbol, source, rows)
+                continue
+            except UnresolvedOriginalSymbol:
+                pass
+            if relocation["r_info_type"] not in (1, 28, 29):
+                raise ExactByteError("An unresolved source helper is referenced by a non-branch relocation.")
+            if isinstance(symbol["st_shndx"], int):
+                if symbol["st_info"]["type"] != "STT_FUNC" or symbol["st_value"]:
+                    raise ExactByteError("An unresolved reference is not a standalone C++ function helper.")
+                if symbol["st_info"]["bind"] != "STB_LOCAL":
+                    providers = set(definitions.get(symbol.name, []))
+                    if providers != {path}:
+                        raise ExactByteError("A source helper has ambiguous canonical C++ definitions: " + symbol.name)
+                pending.append((path, symbol["st_shndx"]))
+                continue
+            providers = sorted(set(definitions.get(symbol.name, [])))
+            if len(providers) != 1:
+                raise ExactByteError("A source helper has no unique canonical C++ definition: " + symbol.name)
+            provider = providers[0]
+            if provider not in records:
+                records[provider] = _read_closure_object(provider)
+            targets = [item for item in records[provider]["symbols"]
+                       if item.name == symbol.name and isinstance(item["st_shndx"], int)
+                       and item["st_info"]["type"] == "STT_FUNC" and item["st_value"] == 0]
+            if len(targets) != 1:
+                raise ExactByteError("A canonical provider has an ambiguous helper definition.")
+            pending.append((provider, targets[0]["st_shndx"]))
+    return sorted(path for path in records if path != root["path"])
+
+
+def check_exact_bytes(symbol_name, object_path, version="eu", compiler_version="4.1/791", output_directory=None, inline_objects=None):
     """Return {exact, reason, evidence}; never change ranks, maps, or source files."""
+    if inline_objects is not None:
+        return _check_inline_closure(symbol_name, Path(object_path), list(inline_objects), version, compiler_version, output_directory)
     evidence = {"symbol": symbol_name, "object": str(object_path), "version": version,
                 "compiler": compiler_version}
     try:
@@ -309,6 +755,13 @@ def check_exact_bytes(symbol_name, object_path, version="eu", compiler_version="
         exact = not different
         reason = "The complete source-generated function interval matches byte for byte." if exact else "The linked candidate differs from the unchanged original interval."
         return {"exact": exact, "reason": reason, "evidence": evidence}
+    except UnresolvedOriginalSymbol as error:
+        try:
+            helpers = _discover_inline_objects(object_path, symbol_name, rows)
+            return _check_inline_closure(symbol_name, object_path, helpers, version, compiler_version, output_directory)
+        except (ExactByteError, ELFError, OSError, ValueError, KeyError) as closure_error:
+            evidence["inline_closure"] = True
+            return {"exact": False, "rejected": True, "reason": str(closure_error), "evidence": evidence}
     except (ExactByteError, ELFError, OSError, ValueError, KeyError, struct.error, subprocess.TimeoutExpired) as error:
         return {"exact": False, "reason": str(error), "evidence": evidence}
 
