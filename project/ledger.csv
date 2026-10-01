@@ -81,3 +81,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:03:11-04:00,0x0027E82C,_ZN2al11LayoutActor6appearEv,matched,4,0.0049
 2026-10-01T07:03:11-04:00,0x0027E85C,_ZN2al11LayoutActor4killEv,matched,4,0.0048
 2026-10-01T07:03:11-04:00,0x0032FA78,_ZNK2al11LayoutActor14getNerveKeeperEv,matched,4,0.0049
+2026-10-01T07:03:12-04:00,0x0032FA80,_ZNK2al11LayoutActor15getEffectKeeperEv,matched,4,0.0060
