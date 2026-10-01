@@ -24,7 +24,7 @@ bool isSensorEnemy( const HitSensor* sensor )
 {
         return sensor->getType() == SensorType_Enemy || sensor->getType() == SensorType_EnemyBody ||
                sensor->getType() == SensorType_EnemyAttack ||
-               sensor->getType() == SensorType_KillerMagnum || sensor->getType() == SensorType_Dossun;
+               sensor->getType() == SensorType_Dossun || sensor->getType() == SensorType_KillerMagnum;
 }
 
 bool isSensorEnemyBody( const HitSensor* sensor )

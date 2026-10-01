@@ -6,6 +6,14 @@
 namespace al
 {
 
+SceneObjHolder::SceneObjHolder( CreateFunc func, int size )
+    : mCreateFunc( func ), mObjs( nullptr ), mSize( size )
+{
+        mObjs = new ISceneObj*[ mSize ];
+        for ( int i = 0; i < mSize; i++ )
+                mObjs[ i ] = nullptr;
+}
+
 #pragma no_inline // probably belongs in another file
 
 SceneObjHolder* getSceneObjHolder()

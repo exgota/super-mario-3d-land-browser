@@ -56,26 +56,4 @@ const KeyPose* KeyPoseKeeper::getNextKeyPose() const
         return &mKeyPoses[ idx ];
 }
 
-#ifdef NON_MATCHING
-// r4 not being pushed
-const sead::Vector3f& getCurrentKeyTrans( const KeyPoseKeeper* p )
-{
-        return p->getCurrentKeyPose()->getTrans();
-}
-#endif
-
-#ifdef NON_MATCHING
-const sead::Vector3f& getNextKeyTrans( const KeyPoseKeeper* p )
-{
-        return p->getNextKeyPose()->getTrans();
-}
-#endif
-
-#ifdef NON_MATCHING
-const PlacementInfo* getNextKeyPlacementInfo( const KeyPoseKeeper* p )
-{
-        return p->getNextKeyPose()->getPlacementInfo();
-}
-#endif
-
 } // namespace al

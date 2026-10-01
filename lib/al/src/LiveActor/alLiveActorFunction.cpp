@@ -75,7 +75,7 @@ void offCollide( LiveActor* actor )
 void onDrawClipping( LiveActor* actor )
 {
         actor->getLiveActorFlag().isDrawClipping = true;
-        if ( !isClipped( actor ) )
+        if ( isClipped( actor ) )
         {
                 alActorSystemFunction::addToExecutorMovement( actor );
                 if ( actor->getHitSensorKeeper() )
