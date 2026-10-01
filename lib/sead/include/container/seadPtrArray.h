@@ -16,6 +16,7 @@ private:
 public:
         PtrArray() : mCapacity( 0 ), mSize( 0 ), mBuffer( 0 ) {}
         s32 size() const { return mSize; }
+        s32 capacity() const { return mCapacity; }
         T* unsafeAt( s32 index ) const { return mBuffer[ index ]; }
         T* operator[]( s32 index ) const { return mBuffer[ index ]; }
         void pushBack( T* value )
