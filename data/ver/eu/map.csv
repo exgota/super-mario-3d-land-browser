@@ -5290,7 +5290,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E70C8,          ,0x001E710C,          ,U,f,,
 0x001E710C,          ,0x001E71BC,          ,U,f,,
 0x001E71BC,0x001E7238,0x001E723C,          ,U,f,,
-0x001E723C,          ,0x001E7258,          ,M,f,_ZN2al9sendMsg34EPNS_9HitSensorES1_,
+0x001E723C,          ,0x001E7258,          ,O,f,_ZN2al9sendMsg34EPNS_9HitSensorES1_,
 0x001E7258,          ,0x001E7274,          ,M,f,_ZN2al29sendMsgPlayerBoomerangReflectEPNS_9HitSensorES1_,
 0x001E7274,          ,0x001E7290,          ,U,f,,
 0x001E7290,          ,0x001E72AC,          ,U,f,,
