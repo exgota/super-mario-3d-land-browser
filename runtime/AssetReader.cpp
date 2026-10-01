@@ -542,6 +542,7 @@ struct ModelVertexGroup {
     std::uint32_t stride;
     std::size_t vertexCount;
     std::vector<ModelAttribute> attributes;
+    std::array<float, 4> inlineVectorFields;
 };
 
 struct ModelIndexStream {
@@ -565,12 +566,33 @@ struct ModelShape {
     std::vector<ModelFaceGroup> faceGroups;
 };
 
+struct ModelJoint {
+    std::string name;
+    std::size_t offset;
+    std::uint32_t flags;
+    std::uint32_t identifier;
+    std::int32_t parentIdentifier;
+    std::size_t parentOffset;
+    std::array<float, 3> scale;
+    std::array<float, 3> rotation;
+    std::array<float, 3> translation;
+    std::array<std::array<float, 12>, 3> matrixFields;
+};
+
+struct ModelSkeleton {
+    std::size_t offset;
+    std::uint32_t flags;
+    std::string status;
+    std::vector<ModelJoint> joints;
+};
+
 struct ModelGeometry {
     std::string name;
     std::size_t offset;
     std::uint32_t flags;
     std::string status;
     std::vector<ModelShape> shapes;
+    ModelSkeleton skeleton;
 };
 
 // The owner's revision uses OpenGL scalar enums in the documented CGFX records.
@@ -614,12 +636,95 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
     };
     metadata(entry.offset, 8);
     require(input.magic(entry.offset + 4, "CMDL"), "CGFX model has no CMDL signature");
-    ModelGeometry result{entry.name, entry.offset, input.integer(entry.offset), "resource_local_fields", {}};
+    ModelGeometry result{entry.name, entry.offset, input.integer(entry.offset), "resource_local_fields", {},
+                         {0, 0, "not_present", {}}};
     if (revision != 0x05000000) {
         result.status = "unsupported_model_revision";
         return result;
     }
     metadata(entry.offset, 0xE0);
+    if (result.flags & 0x80) {
+        metadata(entry.offset, 0xE4);
+        const std::size_t skeleton = input.relative(entry.offset + 0xE0);
+        metadata(skeleton, 8);
+        require(input.magic(skeleton + 4, "SOBJ"), "CGFX skeleton has no SOBJ signature");
+        result.skeleton = {skeleton, input.integer(skeleton), "unresolved_skeleton_layout", {}};
+        if (result.skeleton.flags == 0x02000000) {
+            metadata(skeleton, 0x20);
+            result.skeleton.status = "decoded_raw_joint_fields";
+            const std::size_t count = input.integer(skeleton + 0x18);
+            require(count <= (dataEnd - 20) / 0xE0, "CGFX joint count exceeds DATA");
+            if (count) {
+                const std::size_t dictionary = input.relative(skeleton + 0x1C);
+                metadata(dictionary, 28 + count * 16);
+                require(input.magic(dictionary, "DICT") && input.integer(dictionary + 8) == count &&
+                        input.integer(dictionary + 4) >= 28 + count * 16 &&
+                        input.integer(dictionary + 4) <= dataEnd - dictionary,
+                        "Invalid CGFX joint dictionary");
+                std::map<std::uint32_t, std::size_t> identifiers;
+                std::set<std::size_t> offsets;
+                std::set<std::string> names;
+                consume(count * 45);
+                for (std::size_t index = 0; index < count; ++index) {
+                    const std::size_t node = dictionary + 28 + index * 16;
+                    const std::size_t nameOffset = input.relative(node + 8);
+                    metadata(nameOffset, 1);
+                    const std::string name = input.terminatedText(nameOffset, dataEnd - nameOffset);
+                    const std::size_t bone = input.relative(node + 12);
+                    metadata(bone, 0xE0);
+                    const std::size_t boneName = input.relative(bone);
+                    metadata(boneName, 1);
+                    require(!name.empty() && input.terminatedText(boneName, dataEnd - boneName) == name &&
+                            names.insert(name).second && offsets.insert(bone).second,
+                            "Invalid or duplicate CGFX joint name or record");
+                    ModelJoint joint{name, bone, input.integer(bone + 4), input.integer(bone + 8),
+                                     std::bit_cast<std::int32_t>(input.integer(bone + 0xC)), 0, {}, {}, {}, {}};
+                    require(identifiers.emplace(joint.identifier, index).second, "Duplicate CGFX joint identifier");
+                    if (input.integer(bone + 0x10)) {
+                        joint.parentOffset = input.relative(bone + 0x10);
+                        metadata(joint.parentOffset, 0xE0);
+                    }
+                    for (std::size_t axis = 0; axis < 3; ++axis) {
+                        joint.scale[axis] = input.floating(bone + 0x20 + axis * 4);
+                        joint.rotation[axis] = input.floating(bone + 0x2C + axis * 4);
+                        joint.translation[axis] = input.floating(bone + 0x38 + axis * 4);
+                    }
+                    for (std::size_t matrix = 0; matrix < 3; ++matrix)
+                        for (std::size_t component = 0; component < 12; ++component)
+                            joint.matrixFields[matrix][component] = input.floating(bone + 0x44 + matrix * 0x30 + component * 4);
+                    result.skeleton.joints.push_back(std::move(joint));
+                }
+                for (const ModelJoint& joint : result.skeleton.joints) {
+                    if (joint.parentIdentifier == -1) {
+                        require(joint.parentOffset == 0, "CGFX root joint has a parent pointer");
+                    } else {
+                        const auto parent = identifiers.find(std::uint32_t(joint.parentIdentifier));
+                        require(joint.parentIdentifier >= 0 && parent != identifiers.end(), "CGFX joint parent identifier is missing");
+                        require(joint.parentOffset == result.skeleton.joints[parent->second].offset,
+                                "CGFX joint parent pointer disagrees with its identifier");
+                    }
+                }
+                std::vector<std::uint8_t> visited(count, 0);
+                for (std::size_t index = 0; index < count; ++index) {
+                    std::vector<std::size_t> path;
+                    std::size_t current = index;
+                    while (!visited[current]) {
+                        visited[current] = 1;
+                        path.push_back(current);
+                        const std::int32_t parent = result.skeleton.joints[current].parentIdentifier;
+                        if (parent == -1)
+                            break;
+                        current = identifiers.at(std::uint32_t(parent));
+                        require(visited[current] != 1, "CGFX joint hierarchy contains a cycle");
+                    }
+                    for (const std::size_t ancestor : path)
+                        visited[ancestor] = 2;
+                }
+            } else {
+                require(input.integer(skeleton + 0x1C) == 0, "Empty CGFX joint dictionary has a nonnull pointer");
+            }
+        }
+    }
     for (const std::size_t shape : pointerList(entry.offset + 0xC8, input.integer(entry.offset + 0xC4))) {
         metadata(shape, 8);
         require(input.magic(shape + 4, "SOBJ"), "CGFX shape has no SOBJ signature");
@@ -636,7 +741,15 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
         for (const std::size_t group : pointerList(shape + 0x3C, input.integer(shape + 0x38))) {
             metadata(group, 8);
             ModelVertexGroup vertices{input.integer(group), input.integer(group + 4),
-                                      "unresolved_vertex_group_layout", 0, 0, {}};
+                                      "unresolved_vertex_group_layout", 0, 0, {}, {}};
+            if (vertices.flags == 0x80000000) {
+                metadata(group, 0x30);
+                vertices.status = "decoded_inline_vector_fields";
+                for (std::size_t component = 0; component < 4; ++component)
+                    vertices.inlineVectorFields[component] = input.floating(group + 0x20 + component * 4);
+                record.vertexGroups.push_back(std::move(vertices));
+                continue;
+            }
             if (vertices.flags != 0x40000002) {
                 record.vertexGroups.push_back(std::move(vertices));
                 continue;
@@ -1023,7 +1136,42 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
     output << ",\"offset\":" << model.offset << ",\"flags\":" << model.flags << ",\"status\":";
     writeString(output, model.status);
     output << ",\"coordinate_space\":\"resource_local\",\"shape_transform\":\"unresolved\","
-              "\"bone_transforms\":\"unresolved\",\"material_mapping\":\"unresolved\",\"shapes\":[";
+              "\"bone_transforms\":\"unresolved\",\"material_mapping\":\"unresolved\",\"skeleton\":{\"offset\":"
+           << model.skeleton.offset << ",\"flags\":" << model.skeleton.flags << ",\"status\":";
+    writeString(output, model.skeleton.status);
+    output << ",\"transform_application\":\"unresolved\",\"joints\":[";
+    bool firstJoint = true;
+    for (const ModelJoint& joint : model.skeleton.joints) {
+        if (!firstJoint)
+            output << ',';
+        firstJoint = false;
+        output << "{\"name_hex\":";
+        writeString(output, hexadecimal(joint.name));
+        output << ",\"offset\":" << joint.offset << ",\"flags\":" << joint.flags << ",\"identifier\":"
+               << joint.identifier << ",\"parent_identifier\":" << joint.parentIdentifier
+               << ",\"parent_offset\":" << joint.parentOffset;
+        for (std::size_t vector = 0; vector < 3; ++vector) {
+            output << ",\"" << std::array{"scale_bits", "rotation_bits", "translation_bits"}[vector] << "\":[";
+            const auto& fields = vector == 0 ? joint.scale : vector == 1 ? joint.rotation : joint.translation;
+            for (std::size_t axis = 0; axis < 3; ++axis) {
+                if (axis)
+                    output << ',';
+                writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(fields[axis])));
+            }
+            output << ']';
+        }
+        for (std::size_t matrix = 0; matrix < 3; ++matrix) {
+            output << ",\"" << std::array{"matrix_44_bits", "matrix_74_bits", "matrix_a4_bits"}[matrix] << "\":[";
+            for (std::size_t component = 0; component < 12; ++component) {
+                if (component)
+                    output << ',';
+                writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(joint.matrixFields[matrix][component])));
+            }
+            output << ']';
+        }
+        output << '}';
+    }
+    output << "]},\"shapes\":[";
     bool firstShape = true;
     for (const ModelShape& shape : model.shapes) {
         if (!firstShape)
@@ -1049,6 +1197,15 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
             firstGroup = false;
             output << "{\"flags\":" << group.flags << ",\"semantic_field\":" << group.semantic << ",\"status\":";
             writeString(output, group.status);
+            if (group.status == "decoded_inline_vector_fields") {
+                output << ",\"inline_vector_bits\":[";
+                for (std::size_t component = 0; component < 4; ++component) {
+                    if (component)
+                        output << ',';
+                    writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(group.inlineVectorFields[component])));
+                }
+                output << ']';
+            }
             output << ",\"stride\":" << group.stride << ",\"vertex_count\":" << group.vertexCount << ",\"attributes\":[";
             bool firstAttribute = true;
             for (const ModelAttribute& attribute : group.attributes) {
