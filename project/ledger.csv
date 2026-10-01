@@ -650,3 +650,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T16:22:17-04:00,0x00242A44,_ZN2al9RailRider17moveToNearestRailERKN4sead7Vector3IfEE,matched,3,0.0531
 2026-10-01T16:22:18-04:00,0x00337618,_ZNK2al9RailRider13isReachedGoalEv,matched,3,0.0531
 2026-10-01T16:22:18-04:00,0x00185150,fn_00185150,matched,3,1.2878
+2026-10-01T16:22:18-04:00,0x00184FD0,fn_00184FD0,matched,3,1.2877
