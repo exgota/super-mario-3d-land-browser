@@ -556,3 +556,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:09:43-04:00,0x0027DEF0,_ZN11PlayerActor11getPropertyEv,matched,2,0.0382
 2026-10-01T14:09:43-04:00,0x0036416C,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvMove7getNameEv,matched,2,0.0295
 2026-10-01T14:09:44-04:00,0x0036417C,_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvWait7getNameEv,matched,2,0.0295
+2026-10-01T14:09:44-04:00,0x003641F4,_ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7getNameEv,matched,2,0.0294
