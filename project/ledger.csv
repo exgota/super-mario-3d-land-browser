@@ -272,3 +272,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:05:35-04:00,0x0026ACA0,_ZN2al13ActorInitInfo14initViewIdHostEPKNS_9ByamlIterERKS0_,matched,2,0.7027
 2026-10-01T11:05:36-04:00,0x00276C3C,_ZN2al13ActorInitInfoC1Ev,matched,2,0.7037
 2026-10-01T11:05:36-04:00,0x00276C08,_ZN2al17initActorInitInfoEPNS_13ActorInitInfoEPKNS_9ByamlIterERKS0_,matched,4,4.2302
+2026-10-01T11:05:36-04:00,0x0027AB64,_ZN2al16calcLinkChildNumERKNS_13ActorInitInfoE,matched,2,0.3462

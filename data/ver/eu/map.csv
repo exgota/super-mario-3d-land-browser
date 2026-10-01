@@ -9177,7 +9177,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027A9D4,          ,0x0027AA34,          ,U,f,,
 0x0027AA34,0x0027AADC,0x0027AAEC,          ,U,f,,
 0x0027AAEC,0x0027AB5C,0x0027AB64,          ,M,f,_ZN2al23getLinksActorObjectNameERKNS_13ActorInitInfoEi,
-0x0027AB64,0x0027AB9C,0x0027ABB0,          ,M,f,_ZN2al16calcLinkChildNumERKNS_13ActorInitInfoE,
+0x0027AB64,0x0027AB9C,0x0027ABB0,          ,O,f,_ZN2al16calcLinkChildNumERKNS_13ActorInitInfoE,
 0x0027ABB0,0x0027ABF0,0x0027ABF4,          ,U,f,,
 0x0027ABF4,0x0027AC68,0x0027AC78,          ,U,f,,
 0x0027AC78,          ,0x0027ACC4,          ,U,f,,
