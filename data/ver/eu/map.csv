@@ -5208,7 +5208,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E4A60,          ,0x001E4A70,          ,O,f,_ZN2al7isMsg14Ej,
 0x001E4A70,0x001E4B2C,0x001E4B3C,          ,U,f,,
 0x001E4B3C,0x001E4BBC,0x001E4BD4,          ,O,f,fn_001E4B3C,
-0x001E4BD4,0x001E4C54,0x001E4C6C,          ,M,f,fn_001E4BD4,
+0x001E4BD4,0x001E4C54,0x001E4C6C,          ,O,f,fn_001E4BD4,
 0x001E4C6C,0x001E4CAC,0x001E4CB0,          ,U,f,,
 0x001E4CB0,0x001E4D48,0x001E4D50,          ,U,f,,
 0x001E4D50,0x001E4DF8,0x001E4DFC,          ,U,f,,
