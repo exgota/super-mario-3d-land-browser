@@ -204,3 +204,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:40:09-04:00,0x001CC79C,_ZN2al20registerExecutorUserEPNS_12IUseExecutorEPKc,matched,2,4.0448
 2026-10-01T10:40:09-04:00,0x001CC93C,_ZN2al23registerExecutorFunctorEPKcRKNS_11FunctorBaseE,matched,3,4.5269
 2026-10-01T10:40:10-04:00,0x001CC9B0,_ZN2al27registerExecutorFunctorDrawEPKcRKNS_11FunctorBaseE,matched,3,4.5281
+2026-10-01T10:40:10-04:00,0x001E1E94,_ZN2al22ExecuteTableHolderDraw15tryRegisterUserEPNS_12IUseExecutorEPKc,matched,2,13.9433
