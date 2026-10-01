@@ -9104,7 +9104,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279334,0x002793B4,0x002793BC,          ,U,f,,
 0x002793BC,0x002794C4,0x002794D0,          ,U,f,,
 0x002794D0,0x002794DC,0x002794E4,          ,M,f,_ZN2al10tryGetArg4EPbRKNS_13ActorInitInfoE,
-0x002794E4,0x002794F0,0x002794F8,          ,M,f,_ZN2al10tryGetArg2EPfRKNS_13ActorInitInfoE,
+0x002794E4,0x002794F0,0x002794F8,          ,O,f,_ZN2al10tryGetArg2EPfRKNS_13ActorInitInfoE,
 0x002794F8,0x0027954C,0x00279554,          ,U,f,,
 0x00279554,          ,0x002795C0,          ,U,f,,
 0x002795C0,          ,0x002796A4,          ,O,f,_ZN2al9LiveActor12startClippedEv,
