@@ -209,3 +209,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:40:11-04:00,0x001E3614,_ZN2al24ExecuteTableHolderUpdate15tryRegisterUserEPNS_12IUseExecutorEPKc,matched,2,13.9392
 2026-10-01T10:40:11-04:00,0x001E3680,_ZN2al24ExecuteTableHolderUpdate18tryRegisterFunctorERKNS_11FunctorBaseEPKc,matched,2,13.9389
 2026-10-01T10:40:12-04:00,0x0024B938,_ZN21alActorSystemFunction21addToExecutorMovementEPN2al9LiveActorE,matched,2,4.0462
+2026-10-01T10:50:08-04:00,0x00274EF0,_ZN2al16initPlacementMapEPNS_5SceneEPKNS_8ResourceERKNS_13ActorInitInfoEPKc,nonmatching,9,0.020144
+2026-10-01T10:58:59-04:00,0x0024F344,_ZN2al12MemorySystem23createSceneResourceHeapEPKc,nonmatching,9,0.037318

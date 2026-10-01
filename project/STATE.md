@@ -20,16 +20,16 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 ## Lanes and acceptance queue
 - Root alone owns dot intake, canonical acceptance, map, ledger, shared docs, Git and origin pushes. Other matching lanes work disjoint eligible small/medium U families; runtime continues. Maximum 8 lanes.
 - All 24 exact claims from eight dot proposals pass locally, 3700 bytes total. Latest proposals add placement144, CourseList120 and ExecuteDirector1012. Heap adds zero exact bytes. All source/header/report intake is reviewed; no dot map/rank/ledger/tool changes are imported.
-- All 33 execution/helper candidates and 21 actor-group candidates pass locally. The prior full shared-header recheck passed126/126 at8980 bytes. New source-specific acceptance covers later roots; repeat the full check after the queued local executor header changes.
-- Guarded sensor execute is rank m, with810 bounded ARM11 pairs recorded separately as NonMatching. Placement initializer passes76 contract-bounded pairs; heap validation reports410 pairs, including30 fault pairs. Root still needs to review/freeze those latter reports and record bounded outcomes.
-- Ready queues: local executor8 remaining functions/564 bytes plus seven CPP/header corrections; Byaml2/228 and placement6/420; effect deletion3/316; effect lookup/deletion4/388; pose access12/184; independent NerveStateBase data repair/ctor32; updateCollider168.
+- All33 execution/helper candidates,21 actor-group candidates and eight executor follow-ons pass locally. The latest full shared-header recheck passes197/197 at14784 bytes; frozen evidence is build/executor_header_recheck_frozen.json.
+- Guarded sensor execute is rank m with810 bounded ARM11 pairs. Placement initialization agrees on76 contract-bounded pairs. Heap creation agrees on380 returning pairs and30 fault pairs. All three bounded NonMatching reports and ledger outcomes are frozen separately from exact coverage.
+- Ready queues: pose45/832; Byaml2/228, placement6/420, initialization/link6/404 and typed readers2/228; actor state7/264; effect deletion3/316, lookup4/388 and emission1/120; request drains3/316; KeyPose5/136; independent NerveStateBase data repair/ctor32; updateCollider168.
 - Fresh matching lanes: actor clipping/collider helpers; ActorInitInfo/link readers; actor pose mutations; request-queue drains; effect emission; KeyPoseKeeper helpers. Preserve their minimal patches and independently evidenced identities. Do not edit production during root's source-frozen checks.
 - Active dot branches reserve blocked.md entries, unanswered packets and U functions >=0x400 bytes. Fetch every few hours. Seven hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
-1. Review/accept the local executor follow-on source/header package, verify affected constructors and all189 accepted roots, preserving the six already credited dot functions without duplicate ledger rows.
-2. Accept queued Byaml/placement, effect and pose families in small source-frozen checkpoints. Review bounded placement/heap reports without broad gameplay claims. Keep main linking/exporting, STATE and private-origin pushes current.
-3. Continue native World1-1 resource/runtime work alongside matching. Next runtime slice is resource-local texture reference identity after the verified draw-transfer checkpoint.
+1. Accept the pose45 family from one minimal source checkpoint. Recheck affected previously accepted roots; keep other lanes matching fresh eligible small/medium functions.
+2. Accept queued Byaml/placement, effect and pose families in small source-frozen checkpoints. Keep main linking/exporting, STATE and private-origin pushes current.
+3. Continue native World1-1 resource/runtime work alongside matching. Review the frozen resource-local texture identity checkpoint, then continue bounded payload/header decoding.
 
 ## Blockers and measurement limits
 - Independently repaired virtual-table data ownership is separate from source/rank acceptance. Compact main uses verified weak zero-filled imports for whole U tables and named BSS. These placeholders do not reconstruct game behavior.
