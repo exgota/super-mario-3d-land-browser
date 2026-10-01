@@ -725,3 +725,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T18:21:44-04:00,0x00314E40,_ZN8FireBall12attackSensorEPN2al9HitSensorES2_,matched,2,8.2145
 2026-10-01T18:21:45-04:00,0x00314EE4,_ZN8FireBall4initERKN2al13ActorInitInfoE,matched,2,8.2131
 2026-10-01T18:21:45-04:00,0x0034CD58,_ZNK11NrvFireBall15FireBallNrvShot7executeEPN2al11NerveKeeperE,matched,3,8.2128
+2026-10-01T18:50:09-04:00,0x0024EC80,fn_0024EC80,matched,6,9.4871
