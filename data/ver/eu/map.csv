@@ -9450,7 +9450,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00280474,          ,0x00280538,          ,U,f,,
 0x00280538,          ,0x0028058C,          ,U,f,fn_00280538,
 0x0028058C,          ,0x00280590,          ,U,f,,
-0x00280590,          ,0x002805B8,          ,M,f,_ZN2al17initActorPoseTQSVEPNS_9LiveActorE,
+0x00280590,          ,0x002805B8,          ,O,f,_ZN2al17initActorPoseTQSVEPNS_9LiveActorE,
 0x002805B8,          ,0x00280610,          ,U,f,,
 0x00280610,          ,0x00280630,          ,O,f,_ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE,
 0x00280630,          ,0x0028065C,          ,U,f,,
