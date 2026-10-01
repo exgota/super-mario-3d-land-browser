@@ -10,7 +10,9 @@ The serialized pair's first word stores the key index in its low24 bits and the 
 
 This is one new API/layout hypothesis after the packet's eight structures. Initial source commitab4e3db placed the reader in a separate translation unit; canonical closure rejected its140-byte root plus a retained36-byte isTypeHash helper. Moving the same reader beside the existing isTypeHash definition, at71009e601f4cc89108c058fab92252edccdd8730, made the real predicate fully compiler-inline and produced a160-byte complete canonical match. No helper address or boundary was invented and no retained code was ignored.
 
-The final guard-only cleanup is source commit `70f29790ec5e18c1da2ae115949c094ae91a8f93`. Removing the NonMatching guard did not change a single byte of the whole ARMCC object. The published source is the final unconditional reader. Cumulative semantic form count is nine: eight historical plus this grounded getter-API form. There were two integration compiles, one final clean rebuild and one guard-only rebuild in this lane; repeated checks/restoration are not new hypotheses.
+The guard-only cleanup is source commit `70f29790ec5e18c1da2ae115949c094ae91a8f93`. Removing the NonMatching guard did not change a single byte of the whole ARMCC object. The published source is the final unconditional reader. Cumulative semantic form count is nine: eight historical plus this grounded getter-API form. There were two integration compiles, one final clean rebuild, one guard-only rebuild and one unsigned-storage clarification rebuild in this lane; repeated checks and byte-identical representation clarification are not new algorithmic hypotheses.
+
+The final source checkpoint `cf3d26bdc61227b58f161779e609c3e7b5e4e38f` reads the packed word through its existing unsigned `mKeyIndex` storage view, then extracts the tag. This avoids treating the packed type/key word as a decoded enum. The entire ARMCC object remained byte-identical and the canonical root again reported `O -> O`.
 
 ## Canonical evidence
 
@@ -30,7 +32,7 @@ Canonical linked image has exactly one allocated160-byte root extent and no resi
 - Original and linked160-byte interval SHA-256: `ea4d91c0824e91f41dcc69246164714533133ba5dd3ce850eff194b6d81228f6`
 - Complete canonical ARMCC object: `cd963a46e0853188a848670adce8dbf5c5d5c5018f927b2b42e77b10671beaab`
 - Final alByamlIter.cpp: `35e1f683f39ec8c38f475acf6a2607e54c05b9c16651fe5fb64d71f01a5a6466`
-- alByamlHashIter.h: `bb9f21cde638edcb9148d597eb0f3d30dbc2fcaed3cc2eb6b77f21ebc19b0070`
+- alByamlHashIter.h: `895eb2598237911c13b6a962de895545ae38845ebf0f7a33c023cd41de9e04c3`
 - ARMCC4.1/791: `d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d`
 - tools/check.py Git blob: `7c0ccd93b7387a2f9afa9b304b5254f34149b318`
 - tools/low/checkExactBytes.py Git blob: `ce8fc0a5d747c1521d84a1ca1fbeaeab09e3bb47`
