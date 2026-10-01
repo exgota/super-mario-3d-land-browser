@@ -13726,7 +13726,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032F348,          ,0x0032F3C8,          ,U,f,,
 0x0032F3C8,          ,0x0032F414,          ,U,f,,
 0x0032F414,0x0032F440,0x0032F444,          ,U,f,_ZNK2al10FunctorV0F5cloneEv,
-0x0032F444,          ,0x0032F44C,          ,M,f,_ZNK2al10FunctorV0FclEv,
+0x0032F444,          ,0x0032F44C,          ,O,f,_ZNK2al10FunctorV0FclEv,
 0x0032F44C,          ,0x0032F618,          ,U,f,,
 0x0032F618,          ,0x0032F628,          ,O,f,_ZNK2al10RailKeeper11isExistRailEv,
 0x0032F628,          ,0x0032F668,          ,U,f,,
