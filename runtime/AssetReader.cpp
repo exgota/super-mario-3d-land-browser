@@ -852,29 +852,116 @@ public:
 
 using Matrix34 = std::array<std::array<float, 4>, 3>;
 
-// Retail TQSV rotation update: 0x001DB88C -> 0x0026E674.
-// Its base matrix is 0x00334F90, followed by column scaling at 0x002DDC70.
-// The host's trigonometric functions are used here. Retail math/replay equivalence
-// is not established by this scene assembly diagnostic.
+// VFPv2 rounds the multiply separately from the following add/subtract.
+// This native-only setting preserves that rule through optimized Clang builds.
+#pragma clang fp contract(off)
+
+float binary32Constant(std::uint32_t bits) {
+    return std::bit_cast<float>(bits);
+}
+
+struct ReducedAngle {
+    int quadrant;
+    float remainder;
+};
+
+// Finite bounded branch shared by retail sine/cosine at 0x00287908/0x00287AD0.
+// Larger arguments call __mathlib_rredf2, which remains unreconstructed.
+ReducedAngle reduceAngle(float angle) {
+    const std::uint32_t bits = std::bit_cast<std::uint32_t>(angle);
+    const std::uint32_t magnitude = bits & 0x7FFFFFFF;
+    require(magnitude < 0x46490E49, "Angle requires unreconstructed large-argument reduction");
+    if (magnitude < 0x3F490FDB)
+        return {magnitude < 0x39800000 ? -1 : 0, angle};
+    const float scaled = angle * binary32Constant(0x3F22F983);
+    const float bias = binary32Constant(0x4B000000);
+    float rounded;
+    if (bits & 0x80000000) {
+        const float biased = scaled - bias;
+        rounded = biased + bias;
+    } else {
+        const float biased = scaled + bias;
+        rounded = biased - bias;
+    }
+    float remainder = angle - rounded * binary32Constant(0x3FC90000);
+    remainder -= rounded * binary32Constant(0x39FDA000);
+    remainder -= rounded * binary32Constant(0x33A22000);
+    remainder -= rounded * binary32Constant(0x2C34611A);
+    return {int(rounded) & 3, remainder};
+}
+
+float sinePolynomial(float angle) {
+    const float square = angle * angle;
+    const float first = binary32Constant(0x3C0882DA) - square * binary32Constant(0x394C6D33);
+    const float second = binary32Constant(0xBE2AAAA0) + square * first;
+    const float scaled = second * square;
+    return angle + angle * scaled;
+}
+
+float cosinePolynomial(float angle) {
+    const float square = angle * angle;
+    const float first = binary32Constant(0x3D2A9FCA) + square * binary32Constant(0xBAB23AB9);
+    const float second = binary32Constant(0xBEFFFFDD) + square * first;
+    return 1.0f + square * second;
+}
+
+float sineBinary32(float angle) {
+    const auto [quadrant, remainder] = reduceAngle(angle);
+    if (quadrant < 0)
+        return angle;
+    const float value = quadrant & 1 ? cosinePolynomial(remainder) : sinePolynomial(remainder);
+    return quadrant & 2 ? -value : value;
+}
+
+float cosineBinary32(float angle) {
+    const auto [quadrant, remainder] = reduceAngle(angle);
+    if (quadrant < 0)
+        return 1.0f;
+    if (quadrant & 1) {
+        const float value = sinePolynomial(remainder);
+        return quadrant & 2 ? value : -value;
+    }
+    const float value = cosinePolynomial(remainder);
+    return quadrant & 2 ? -value : value;
+}
+
+// TQSV degree/quaternion update: 0x001DB88C -> 0x0026E674.
+// Base matrix: 0x00334F90. Scale multiplies its columns at 0x002DDC70.
 Matrix34 placementMatrix(const Placement& placement) {
-    const float degreeToRadian = std::bit_cast<float>(std::uint32_t{0x3C8EFA35});
+    const float degreeToRadian = binary32Constant(0x3C8EFA35);
     std::array<float, 3> sine, cosine;
     for (std::size_t axis = 0; axis < 3; ++axis) {
         const float radians = placement.orientation[axis] * degreeToRadian;
         const float halfAngle = radians * 0.5f;
-        sine[axis] = std::sin(halfAngle);
-        cosine[axis] = std::cos(halfAngle);
+        sine[axis] = sineBinary32(halfAngle);
+        cosine[axis] = cosineBinary32(halfAngle);
     }
-    const float x = cosine[2] * cosine[1] * sine[0] - sine[2] * sine[1] * cosine[0];
-    const float y = cosine[2] * sine[1] * cosine[0] + sine[2] * cosine[1] * sine[0];
-    const float z = sine[2] * cosine[1] * cosine[0] - cosine[2] * sine[1] * sine[0];
-    const float w = cosine[2] * cosine[1] * cosine[0] + sine[2] * sine[1] * sine[0];
-    Matrix34 result = {{{1.0f - 2.0f * y * y - 2.0f * z * z,
-                         2.0f * x * y - 2.0f * w * z, 2.0f * x * z + 2.0f * w * y, 0},
-                        {2.0f * x * y + 2.0f * w * z,
-                         1.0f - 2.0f * x * x - 2.0f * z * z, 2.0f * y * z - 2.0f * w * x, 0},
-                        {2.0f * x * z - 2.0f * w * y, 2.0f * y * z + 2.0f * w * x,
-                         1.0f - 2.0f * x * x - 2.0f * y * y, 0}}};
+    const float cosineZCosineY = cosine[2] * cosine[1];
+    const float sineZCosineY = sine[2] * cosine[1];
+    const float cosineZSineY = cosine[2] * sine[1];
+    const float sineZSineY = sine[2] * sine[1];
+    float x = cosineZCosineY * sine[0];
+    float w = cosineZCosineY * cosine[0];
+    float z = sineZCosineY * cosine[0];
+    float y = cosineZSineY * cosine[0];
+    x -= sineZSineY * cosine[0];
+    w += sineZSineY * sine[0];
+    z -= cosineZSineY * sine[0];
+    y += sineZCosineY * sine[0];
+    const float xx = x * x * 2.0f;
+    const float wx = w * x * 2.0f;
+    const float yy = y * y * 2.0f;
+    const float wz = w * z * 2.0f;
+    const float xy = x * y * 2.0f;
+    const float zz = z * z * 2.0f;
+    const float xz = x * z * 2.0f;
+    const float yz = y * z * 2.0f;
+    const float wy = w * y * 2.0f;
+    const float oneMinusYY = 1.0f - yy;
+    const float oneMinusXX = 1.0f - xx;
+    Matrix34 result{{{oneMinusYY - zz, xy - wz, xz + wy, 0},
+                     {xy + wz, oneMinusXX - zz, yz - wx, 0},
+                     {xz - wy, yz + wx, oneMinusXX - yy, 0}}};
     for (std::size_t row = 0; row < 3; ++row) {
         for (std::size_t column = 0; column < 3; ++column) {
             result[row][column] *= placement.scale[column];
@@ -884,6 +971,8 @@ Matrix34 placementMatrix(const Placement& placement) {
     }
     return result;
 }
+
+#pragma clang fp contract(on)
 
 Vector3 transformPoint(const Matrix34& matrix, const Vector3& position) {
     Vector3 result{};
@@ -1034,7 +1123,8 @@ SceneDefinition readScene(const std::filesystem::path& factoryPath,
 void writeScene(std::ostream& output, const SceneDefinition& scene) {
     output << "{\"placement_source\":\"AllInfos\",\"layer_filter_applied\":false,"
               "\"collision_activation\":\"unresolved_stage_switch_state\","
-              "\"trigonometry\":\"host_library_numerical_parity_not_guaranteed\",\"stage\":";
+              "\"trigonometry\":\"reconstructed_bounded_binary32\","
+              "\"rounding_mode\":\"requires_round_to_nearest_even\",\"stage\":";
     writePlacements(output, scene.stage);
     output << ",\"instances\":[";
     for (std::size_t number = 0; number < scene.instances.size(); ++number) {
@@ -1063,6 +1153,19 @@ void writeScene(std::ostream& output, const SceneDefinition& scene) {
                     if (column)
                         output << ',';
                     output << instance.matrix[row][column];
+                }
+                output << ']';
+            }
+            output << ']';
+            output << ",\"matrix_bits\":[";
+            for (std::size_t row = 0; row < 3; ++row) {
+                if (row)
+                    output << ',';
+                output << '[';
+                for (std::size_t column = 0; column < 4; ++column) {
+                    if (column)
+                        output << ',';
+                    writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(instance.matrix[row][column])));
                 }
                 output << ']';
             }
