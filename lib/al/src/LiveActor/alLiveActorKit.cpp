@@ -27,7 +27,8 @@ extern "C" void fn_001cc9b0( const char*, const FunctorV0F& );
 
 #ifdef NON_MATCHING
 
-// loop is weird
+// Retail also loads the unknown +0x30 field before a register identity operation.
+// No source-level operation is invented for that unresolved code generation.
 void LiveActorKit::endInit()
 {
         fn_001cc9b0( "プレイヤー影ボリュームのフィル", FunctorV0F( fn_00240350 ) );
@@ -37,9 +38,9 @@ void LiveActorKit::endInit()
         mCollisionDirector->endInit();
         mFogDirector->endInit();
         mClippingDirector->endInit();
-        sead::PtrArray<LiveActor> actors = mAllActors->getArray<LiveActor>();
-        for ( int i = 0; i < actors.size(); i++ )
-                actors[ i ]->initAfterPlacement();
+        LiveActorGroup* group;
+        for ( int i = 0; ( group = mAllActors ), i < group->getActorCount(); i++ )
+                group->getActor( i )->initAfterPlacement();
 }
 #endif
 

@@ -13,6 +13,10 @@ private:
         sead::PtrArray<LiveActor> mActors;
 
 public:
+        // Count and storage offsets are independently established by the callback loop.
+        int getActorCount() const { return mActors.size(); }
+        LiveActor* getActor( int index ) const { return mActors[ index ]; }
+
         void killAll();
         void makeActorDeadAll();
 
