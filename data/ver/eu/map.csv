@@ -9223,7 +9223,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B54C,0x0027B5DC,0x0027B60C,          ,U,f,_ZN18EnemyStateBlowDownC1EPN2al9LiveActorEP23EnemyStateBlowDownParamPKci,
 0x0027B60C,          ,0x0027B638,          ,U,f,_ZN2al18setSyncRailToStartEPNS_9LiveActorE,
 0x0027B638,          ,0x0027B650,          ,O,f,_ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE,
-0x0027B650,0x0027B68C,0x0027B690,          ,M,f,_ZN2al11isExistRailERKNS_13ActorInitInfoE,
+0x0027B650,0x0027B68C,0x0027B690,          ,O,f,_ZN2al11isExistRailERKNS_13ActorInitInfoE,
 0x0027B690,0x0027B6F0,0x0027B704,          ,U,f,_ZN2al9initActorEPNS_9LiveActorERKNS_13ActorInitInfoE,
 0x0027B704,          ,0x0027B758,          ,U,f,,
 0x0027B758,          ,0x0027B768,          ,O,f,_ZN2al6isMsg9Ej,
