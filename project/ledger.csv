@@ -334,3 +334,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:12-04:00,0x0027A508,_ZN2al13isSensorEnemyEPKNS_9HitSensorE,matched,3,0.2226
 2026-10-01T11:15:12-04:00,0x0027A6C4,_ZN2al26isMsgPlayerBoomerangAttackEj,matched,2,0.2227
 2026-10-01T11:15:13-04:00,0x0027B100,_ZN2al14isSensorPlayerEPKNS_9HitSensorE,matched,2,0.2214
+2026-10-01T11:15:13-04:00,0x0027B758,_ZN2al6isMsg9Ej,matched,2,0.2225

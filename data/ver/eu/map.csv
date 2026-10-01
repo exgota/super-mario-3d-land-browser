@@ -9226,7 +9226,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B650,0x0027B68C,0x0027B690,          ,U,f,_ZN2al11isExistRailERKNS_13ActorInitInfoE,
 0x0027B690,0x0027B6F0,0x0027B704,          ,U,f,_ZN2al9initActorEPNS_9LiveActorERKNS_13ActorInitInfoE,
 0x0027B704,          ,0x0027B758,          ,U,f,,
-0x0027B758,          ,0x0027B768,          ,M,f,_ZN2al6isMsg9Ej,
+0x0027B758,          ,0x0027B768,          ,O,f,_ZN2al6isMsg9Ej,
 0x0027B768,          ,0x0027B860,          ,U,f,,
 0x0027B860,0x0027B8D0,0x0027B8FC,          ,U,f,,
 0x0027B8FC,          ,0x0027B91C,          ,U,f,,
