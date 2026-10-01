@@ -9,13 +9,13 @@ M0: toolchain settled. Compiler discrimination remains unresolved.
 - Original EU executable hash verified again.
 - Strict byte comparison, including literal pools, now gates `O`; a generated-output mutation confirmed rejection. The differ and target remain unchanged.
 - All 37 Game and 75 lib/al sources compile, archive, link and export in the normal build with unchanged global flags.
-- Six PlayerTrigger functions pass check.py. PlayerAnimFrameCtrl::getCurrentFrame also passes. PlayerActionCondition::setup also passes. al::calcHashCode also passes. The sensor-name lookup also passes. The photo scenario lookup also passes. Exact coverage: 12 functions, 364 / 2,756,024 mapped function bytes, including literal pools.
+- Six PlayerTrigger functions pass check.py. PlayerAnimFrameCtrl::getCurrentFrame also passes. PlayerActionCondition::setup also passes. al::calcHashCode also passes. The sensor-name lookup also passes. The photo scenario lookup also passes. Exact coverage: 13 functions, 440 / 2,756,024 mapped function bytes, including literal pools.
 - One pure C++ lookup matches under791 and fails894. M0 requires three; the final production paired evidence is being recorded.
 
 ## In flight
 - Original-address strict checking is integrated and validated.
 - Isolated compiler probes under build/compiler_probe, by compiler_candidates.
-- Placement-category lookup integration, by root; thread shutdown candidate0x00255E78 and parameter-controller candidate0x00199CA4 in parallel.
+- Placement-category lookup passes; thread shutdown candidate0x00255E78 and parameter-controller candidate0x00199CA4 in parallel.
 
 ## Next tasks
 1. Integrate fixed-address checking for call and data relocations without importing game bytes.
