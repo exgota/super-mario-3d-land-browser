@@ -14068,7 +14068,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003375F4,          ,0x003375FC,          ,O,f,_ZNK2al9LiveActor14getNerveKeeperEv,
 0x003375FC,          ,0x00337604,          ,O,f,_ZNK2al9LiveActor14getAudioKeeperEv,
 0x00337604,          ,0x0033760C,          ,O,f,_ZNK2al9LiveActor15getEffectKeeperEv,
-0x0033760C,          ,0x00337618,          ,M,f,_ZN2al17isRailReachedGoalEPKNS_9LiveActorE,
+0x0033760C,          ,0x00337618,          ,O,f,_ZN2al17isRailReachedGoalEPKNS_9LiveActorE,
 0x00337618,0x00337694,0x00337698,          ,U,f,_ZNK2al9RailRider13isReachedGoalEv,
 0x00337698,          ,0x003376A4,          ,U,f,,
 0x003376A4,0x003376DC,0x003376E0,          ,U,f,,
