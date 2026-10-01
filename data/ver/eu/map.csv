@@ -11719,7 +11719,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002E39B0,          ,0x002E3A10,          ,U,f,_ZN4sead4Heap15removeDisposer_EPNS_9IDisposerE,
 0x002E3A10,0x002E3AC4,0x002E3ACC,          ,U,f,,
 0x002E3ACC,0x002E3BEC,0x002E3BF8,          ,U,f,,
-0x002E3BF8,          ,0x002E3C50,          ,M,f,fn_002E3BF8,
+0x002E3BF8,          ,0x002E3C50,          ,O,f,fn_002E3BF8,
 0x002E3C50,0x002E3C8C,0x002E3C94,          ,U,f,,
 0x002E3C94,          ,0x002E3CCC,          ,U,f,,
 0x002E3CCC,0x002E3E30,0x002E3E34,          ,U,f,,
