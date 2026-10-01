@@ -7402,7 +7402,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024E568,          ,0x0024E598,          ,U,f,,
 0x0024E598,0x0024E5DC,0x0024E5E0,          ,U,f,,
 0x0024E5E0,          ,0x0024E638,          ,U,f,,
-0x0024E638,0x0024E660,0x0024E668,          ,M,f,_ZN19alPlacementFunction17getClippingViewIdERKN2al9ByamlIterE,
+0x0024E638,0x0024E660,0x0024E668,          ,O,f,_ZN19alPlacementFunction17getClippingViewIdERKN2al9ByamlIterE,
 0x0024E668,          ,0x0024E6C8,          ,U,f,,
 0x0024E6C8,0x0024E700,0x0024E704,          ,U,f,,
 0x0024E704,          ,0x0024E734,          ,U,f,,
