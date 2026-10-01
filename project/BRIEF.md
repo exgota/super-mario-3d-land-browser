@@ -118,7 +118,7 @@ Remaining:
 - Re-run the full progress check at least once a day and record the numbers in the daily report.
 
 ### Hard-function packets for GPT-6 Pro
-These packets go to GPT-6 Pro in the owner's ChatGPT, which reasons deeply but cannot compile. The relay is paused until the owner sends them himself, so until then the dot also treats unanswered packets as targets. The budget is about 15 packets a day.
+These packets go to GPT-6 Pro in the owner's ChatGPT, which reasons deeply but cannot compile. The owner chose to skip GPT-6 Pro for now ("let frog handle it"), so the dot owns unanswered packets as targets. The budget is about 15 packets a day.
 - When a function reaches the attempt cap, or a lane is stuck on it, write `project/pro_requests/<address>.md` and commit it. Include the mangled symbol and address range, the target disassembly with literal pool, your best C++ and the headers and class layouts it depends on, the current diff from `tools/diff.py`, what you already tried, and the compiler build and flags. Keep it self-contained and under about 600 lines.
 - Claude saves each answer as `project/pro_responses/<address>.md`. Apply the suggested C++ in the source tree, build, and verify with `tools/check.py` exactly like any other attempt. Pro's answers are proposals and count only after they pass here.
 - Note the outcome at the end of the response file (matched, closer, or no help) so the packet format can improve.
