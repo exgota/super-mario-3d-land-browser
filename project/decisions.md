@@ -251,3 +251,11 @@ In the parent-approved negative window, a changed helper object rejected before 
 
 Evidence is under build/inline_closure/production_validation/evidence.json, cli_rejection.json, staged_validation/evidence.json, negative_provenance/evidence.json and negative_retained_helper/evidence.json. The root enrolled the stage function asM. The normal main build links/exports with both verified helper definitions, and its post-link check confirms that their allocated sections disappear. Authoritative function acceptance follows this tooling commit. Both earlier compiler versions produced the same stage output, so this function does not add an M0 discriminator.
 
+
+### M0 compiler milestone, 2026-10-01
+
+The committed-source paired proof now passes three of three Game/al discriminators. The configured ARMCC 4.1/791 matches sensor-name lookup, fn_001C5A88 and Game fn_001BB19C; the same source and headers under 894 differ in complete bytes or size. tools/checkGameCompiler.py verifies each primary canonical project output with check.py before comparing the alternative. build/game_compiler_check/evidence.json records passes=true, three discriminators and unchanged headers. The player helper is 40 bytes under 791 and 36 under 894. Its independent PlayerActor caller and Move/SePmDashLoopStart neighbor establish Game ownership. M0 passes; M2 matching and runtime continue.
+
+### Shared helper source enrollment, 2026-10-01
+
+Twenty-nine reviewed candidates, 1,208 complete bytes, enter the ordinary build as M. The batch adds partial EffectSet/flag views, a behavior-inferred controller registration method and four LiveActor execution methods alongside existing named helpers. project/shared_helper_evidence.md distinguishes established names, inferred names, observed offsets and unresolved callee identities. No function boundaries or compiler flags changed. Only subsequent canonical checker acceptance may promote a row to O. The helper declarations at existing unnamed starts establish import identities without claiming their implementations.

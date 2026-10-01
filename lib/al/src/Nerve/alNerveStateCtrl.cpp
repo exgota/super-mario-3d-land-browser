@@ -30,6 +30,15 @@ NerveStateCtrl::State* NerveStateCtrl::findStateInfo( const Nerve* nerve )
         return nullptr;
 }
 
+void NerveStateCtrl::registerState( NerveStateBase* state, const Nerve* nerve, const char* name )
+{
+        State* stateInfo           = &mStates[ mStateCount ];
+        stateInfo->mState          = state;
+        stateInfo->mHostStateNerve = nerve;
+        stateInfo->mName           = name;
+        mStateCount++;
+}
+
 void NerveStateCtrl::startState( const Nerve* nerve )
 {
         mCurrentState = findStateInfo( nerve );

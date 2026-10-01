@@ -29,6 +29,7 @@ public:
                 return mCurrentState;
         }
 
+        void registerState( NerveStateBase* state, const Nerve* nerve, const char* name );
         void startState( const Nerve* nerve );
         void tryEndCurrentState();
         bool updateCurrentState();
