@@ -950,6 +950,21 @@ struct TextureStorageTexel {
     std::array<std::uint8_t, 3> channels;
 };
 
+struct TextureStorageBlock {
+    std::uint32_t x;
+    std::uint32_t y;
+    std::size_t sourceOffset;
+    std::uint64_t packedWord;
+    bool differential;
+    bool flipped;
+    bool definedEndpoints = true;
+    std::array<std::uint8_t, 2> tableCodewords{};
+    std::array<std::uint8_t, 3> endpointCodewords{};
+    std::array<std::uint8_t, 3> secondaryCodewords{};
+    std::array<std::int8_t, 3> signedDeltas{};
+    std::array<std::uint8_t, 16> selectors{};
+};
+
 struct TextureStorageLevel {
     std::uint32_t level;
     std::uint32_t width;
@@ -957,6 +972,7 @@ struct TextureStorageLevel {
     std::size_t serializedOffset;
     std::size_t byteCount;
     std::vector<TextureStorageTexel> texels;
+    std::vector<TextureStorageBlock> blocks;
 };
 
 struct TextureImage {
@@ -984,7 +1000,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
     if (texture.status != "resource_local_image_fields")
         return;
     texture.storageDecodingStatus = "unsupported_texture_format";
-    if (texture.format != 3)
+    if (texture.format != 3 && texture.format != 12)
         return;
     std::uint32_t width = texture.width;
     std::uint32_t height = texture.height;
@@ -996,17 +1012,54 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
             texture.storageDecodingStatus = level ? "unsupported_mipmap_tail" : "unsupported_storage_dimensions";
             return;
         }
-        require(height <= remaining / 2 / width, "CGFX RGB565 mip level exceeds its image payload");
-        const std::size_t byteCount = std::size_t(width) * height * 2;
-        levels.push_back({level, width, height, offset, byteCount, {}});
+        const std::size_t bytesPerTexelNumerator = texture.format == 3 ? 2 : 1;
+        const std::size_t bytesPerTexelDenominator = texture.format == 3 ? 1 : 2;
+        require(height / bytesPerTexelDenominator <= remaining / bytesPerTexelNumerator / width,
+                "CGFX texture storage mip level exceeds its image payload");
+        const std::size_t byteCount = std::size_t(width) * (height / bytesPerTexelDenominator) * bytesPerTexelNumerator;
+        levels.push_back({level, width, height, offset, byteCount, {}, {}});
         offset += byteCount;
         remaining -= byteCount;
         width /= 2;
         height /= 2;
     }
-    require(remaining == 0, "CGFX RGB565 mip levels do not cover their image payload");
+    require(remaining == 0, "CGFX texture storage mip levels do not cover their image payload");
     ByteReader input(data);
+    bool definedEndpoints = true;
     for (TextureStorageLevel& level : levels) {
+        if (texture.format == 12) {
+            level.blocks.reserve(level.byteCount / 8);
+            for (std::uint32_t y = 0; y < level.height; y += 4)
+                for (std::uint32_t x = 0; x < level.width; x += 4) {
+                    const std::size_t tile = std::size_t(y / 8) * (level.width / 8) + x / 8;
+                    const std::size_t withinTile = ((y % 8) / 4) * 2 + (x % 8) / 4;
+                    const std::size_t source = level.serializedOffset + tile * 32 + withinTile * 8;
+                    const std::uint64_t packed = input.integer(source) | (std::uint64_t(input.integer(source + 4)) << 32);
+                    TextureStorageBlock block{x, y, source, packed, bool((packed >> 33) & 1), bool((packed >> 32) & 1)};
+                    block.tableCodewords = {std::uint8_t((packed >> 37) & 7), std::uint8_t((packed >> 34) & 7)};
+                    for (std::size_t axis = 0; axis < 3; ++axis) {
+                        const std::size_t shift = 56 - axis * 8;
+                        block.endpointCodewords[axis] = std::uint8_t((packed >> (shift + (block.differential ? 3 : 4))) &
+                                                                    (block.differential ? 31 : 15));
+                        block.secondaryCodewords[axis] = std::uint8_t((packed >> shift) & (block.differential ? 7 : 15));
+                        if (block.differential) {
+                            const int encoded = block.secondaryCodewords[axis];
+                            block.signedDeltas[axis] = std::int8_t(encoded < 4 ? encoded : encoded - 8);
+                            const int endpoint = block.endpointCodewords[axis] + block.signedDeltas[axis];
+                            block.definedEndpoints = block.definedEndpoints && endpoint >= 0 && endpoint <= 31;
+                        }
+                    }
+                    for (std::uint32_t row = 0; row < 4; ++row)
+                        for (std::uint32_t column = 0; column < 4; ++column) {
+                            const std::uint32_t bit = column * 4 + row;
+                            block.selectors[row * 4 + column] = std::uint8_t(((packed >> (bit + 16)) & 1) * 2 +
+                                                                           ((packed >> bit) & 1));
+                        }
+                    definedEndpoints = definedEndpoints && block.definedEndpoints;
+                    level.blocks.push_back(std::move(block));
+                }
+            continue;
+        }
         level.texels.reserve(level.byteCount / 2);
         for (std::uint32_t y = 0; y < level.height; ++y)
             for (std::uint32_t x = 0; x < level.width; ++x) {
@@ -1023,7 +1076,8 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
             }
     }
     texture.storageLevels = std::move(levels);
-    texture.storageDecodingStatus = "rgb565_integer_storage";
+    texture.storageDecodingStatus = texture.format == 3 ? "rgb565_integer_storage" :
+        definedEndpoints ? "etc1_raw_block_storage" : "etc1_undefined_differential_endpoints";
 }
 
 TextureImage readTextureImage(Bytes data, std::size_t dataEnd, std::size_t imageStart,
@@ -1719,6 +1773,47 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                        << ",\"red_integer\":" << unsigned(texel.channels[0])
                        << ",\"green_integer\":" << unsigned(texel.channels[1])
                        << ",\"blue_integer\":" << unsigned(texel.channels[2]) << '}';
+            }
+            output << "],\"compressed_blocks\":[";
+            for (std::size_t index = 0; index < level.blocks.size(); ++index) {
+                if (index)
+                    output << ',';
+                const TextureStorageBlock& block = level.blocks[index];
+                output << "{\"storage_x\":" << block.x << ",\"storage_y\":" << block.y
+                       << ",\"source_offset\":" << block.sourceOffset << ",\"packed_word_hex\":";
+                writeString(output, integerHexadecimal(std::uint32_t(block.packedWord >> 32)) +
+                                    integerHexadecimal(std::uint32_t(block.packedWord)));
+                output << ",\"differential_mode\":" << (block.differential ? "true" : "false")
+                       << ",\"flip_bit\":" << unsigned(block.flipped) << ",\"endpoint_domain\":";
+                writeString(output, block.definedEndpoints ? "defined" : "undefined_differential_endpoints");
+                output << ",\"table_codewords\":[" << unsigned(block.tableCodewords[0]) << ','
+                       << unsigned(block.tableCodewords[1]) << "],\"endpoint_codewords\":[";
+                for (std::size_t axis = 0; axis < 3; ++axis) {
+                    if (axis)
+                        output << ',';
+                    output << unsigned(block.endpointCodewords[axis]);
+                }
+                output << "],\"secondary_codewords\":[";
+                for (std::size_t axis = 0; axis < 3; ++axis) {
+                    if (axis)
+                        output << ',';
+                    output << unsigned(block.secondaryCodewords[axis]);
+                }
+                if (block.differential) {
+                    output << "],\"signed_deltas\":[";
+                    for (std::size_t axis = 0; axis < 3; ++axis) {
+                        if (axis)
+                            output << ',';
+                        output << int(block.signedDeltas[axis]);
+                    }
+                }
+                output << "],\"selectors\":[";
+                for (std::size_t position = 0; position < block.selectors.size(); ++position) {
+                    if (position)
+                        output << ',';
+                    output << unsigned(block.selectors[position]);
+                }
+                output << "]}";
             }
             output << "]}";
         }

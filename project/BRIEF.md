@@ -21,7 +21,7 @@ The final goal is M2: 100% of the game's code byte-exact. The project is not fin
 |---|-----------|------------|
 | M0 | Toolchain settled | Game code (`Game/`, `lib/al`) compiles, and the compiler build for game code is proven by at least 3 game functions that match byte-exact under it and fail under the alternative |
 | M1 | Pilot: 50 functions attempted | Ledger shows match rate and wall time per function |
-| M2 | Matching decompilation, complete | `progress` reports 100% of game code byte-exact. This is the headline claim |
+| M2 | Matching decompilation, complete | Every game function is byte-exact and the complete linked `code.bin` has the original EU sha256. Per-function counts alone do not finish this milestone |
 | M3 | Port runtime: one level in the browser | World 1-1 loads from the owner's own dump, plays to the goal pole, and passes differential replay (Section 7) |
 | M4 | Full game in the browser | Every world and special world completes under differential replay. Saves persist across reloads |
 | M5 | Enhancements | Free mouse camera, widescreen, 120 fps with interpolation, gamepad support, WebXR stereoscopic mode (see D7) |
