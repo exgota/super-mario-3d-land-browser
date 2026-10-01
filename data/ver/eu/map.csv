@@ -13929,7 +13929,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00335074,          ,0x0033507C,          ,O,f,_ZNK2al19ActorPoseKeeperTQSV8getScaleEv,
 0x0033507C,0x003350DC,0x003350E0,          ,U,f,,
 0x003350E0,          ,0x003350E8,          ,O,f,_ZNK2al19ActorPoseKeeperTRSV11getVelocityEv,
-0x003350E8,          ,0x003350F0,          ,M,f,_ZNK2al19ActorPoseKeeperTRSV8getScaleEv,
+0x003350E8,          ,0x003350F0,          ,O,f,_ZNK2al19ActorPoseKeeperTRSV8getScaleEv,
 0x003350F0,          ,0x003350F8,          ,M,f,_ZNK2al19ActorPoseKeeperTRSV9getRotateEv,
 0x003350F8,0x00335134,0x00335138,          ,U,f,,
 0x00335138,          ,0x00335194,          ,U,f,,
