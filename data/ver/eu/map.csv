@@ -6446,7 +6446,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0021EE00,0x0021EE1C,0x0021EE20,          ,U,f,,
 0x0021EE20,          ,0x0021EED0,          ,U,f,,
 0x0021EED0,          ,0x0021EF6C,          ,U,f,,
-0x0021EF6C,          ,0x0021EFA4,          ,M,f,_ZN4sead8ListImpl5clearEv,
+0x0021EF6C,          ,0x0021EFA4,          ,m,f,_ZN4sead8ListImpl5clearEv,
 0x0021EFA4,          ,0x0021F084,          ,U,f,,
 0x0021F084,          ,0x0021F150,          ,U,f,,
 0x0021F150,0x0021F18C,0x0021F194,          ,U,f,_ZN2nn2os6detail27ConvertLibraryToSvcPriorityEi,

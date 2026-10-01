@@ -65,3 +65,5 @@ These nine searches are abandoned scratch proposals, with zero exact bytes and n
 | 0x00260554 | _ZN4sead11QuatCalcCtrIfE18makeVectorRotationERN2nn4math4QUATERKNS3_4VEC3ES8_ | Aggregate184-byte form has a separate16-byte data section; explicit-field180-byte form exceeds172-byte target. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/00260554.md. |
 | 0x0033753C | _ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci | Eight-form cap; best complete160-byte form differs by5 register-allocation bytes. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/0033753C.md. |
 | 0x00252054 | _ZN26PlayerActionMultiConditionC1Ev | Both44-byte ordinary initialization forms differ by8 store-order bytes. | A grounded source/layout hypothesis passes the unchanged gate; packet pro_requests/00252054.md. |
+
+| 0x0021EF6C | _ZN4sead8ListImpl5clearEv | Guarded canonical 56-byte body differs in seven register bytes; 306 bounded states/612 whole-function pairs agree. | A new grounded source hypothesis reproduces all bytes; see pro_requests/0021EF6C.md. |
