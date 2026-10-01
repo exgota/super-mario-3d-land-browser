@@ -11891,7 +11891,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002F27AC,0x002F28B4,0x002F28BC,          ,U,f,,
 0x002F28BC,          ,0x002F28C0,          ,U,f,,
 0x002F28C0,0x002F28DC,0x002F28E0,          ,U,f,,
-0x002F28E0,          ,0x002F2934,          ,M,f,_ZN4sead8ListImpl8popFrontEv,
+0x002F28E0,          ,0x002F2934,          ,O,f,_ZN4sead8ListImpl8popFrontEv,
 0x002F2934,          ,0x002F294C,          ,U,f,,
 0x002F294C,0x002F2994,0x002F2998,          ,U,f,,
 0x002F2998,          ,0x002F299C,          ,U,f,,
