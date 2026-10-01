@@ -598,3 +598,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:01:53-04:00,0x0032BFA4,fn_0032BFA4,matched,2,0.9256
 2026-10-01T15:01:53-04:00,0x00243318,fn_00243318,matched,2,0.0230
 2026-10-01T15:01:54-04:00,0x0024B12C,_ZN4sead6Random6getU32Ev,matched,2,1.2787
+2026-10-01T15:01:54-04:00,0x0024B950,_ZN4sead6Random4initEj,matched,2,3.3792
