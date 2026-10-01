@@ -22,18 +22,32 @@ def map_rows(text):
 
 
 
-def check_candidates(candidates, root, report, save):
+def check_candidates(candidates, root, report, save, definitions=None):
     """Undo every candidate rank change when the complete batch fails."""
     map_path = root / 'data/ver/eu/map.csv'
     prior_map = map_path.read_bytes()
     try:
         for candidate in candidates:
-            object_path = root / 'build/eu/obj' / Path(candidate['source']).with_suffix('.o')
-            started = time.monotonic()
-            result = subprocess.run([sys.executable, 'tools/check.py', candidate['symbol'], '--object', str(object_path)], capture_output=True, text=True)
-            report['candidate_checks'].append({'candidate': candidate, 'returncode': result.returncode,
-                                               'seconds': time.monotonic() - started,
-                                               'output': result.stdout, 'error': result.stderr})
+            expected_object = root / 'build/eu/obj' / Path(candidate['source']).with_suffix('.o')
+            available = definitions[candidate['symbol']] if definitions is not None else [(True, expected_object)]
+            paths = sorted({entry[1] for entry in available})
+            strong_paths = {entry[1] for entry in available if entry[0]}
+            if not paths or expected_object not in paths or len(strong_paths) > 1:
+                report['candidate_checks'].append({'candidate': candidate, 'returncode': 1,
+                                                   'seconds': 0, 'definitions': [],
+                                                   'error': 'Missing declared or ambiguous canonical definition'})
+                save()
+                continue
+            checks = []
+            for object_path in paths:
+                started = time.monotonic()
+                result = subprocess.run([sys.executable, 'tools/check.py', candidate['symbol'], '--object', str(object_path)], capture_output=True, text=True)
+                checks.append({'object': str(object_path.relative_to(root)), 'returncode': result.returncode,
+                               'seconds': time.monotonic() - started, 'output': result.stdout, 'error': result.stderr})
+            report['candidate_checks'].append({'candidate': candidate,
+                                               'returncode': 0 if all(check['returncode'] == 0 for check in checks) else 1,
+                                               'seconds': sum(check['seconds'] for check in checks),
+                                               'definitions': checks})
             save()
         report['accepted'] = all(check['returncode'] == 0 for check in report['candidate_checks'])
     except BaseException:
@@ -110,7 +124,7 @@ def main():
     save()
     if result.returncode:
         return 1
-    definitions = {symbol: [] for symbol in prior_symbols}
+    definitions = {symbol: [] for symbol in prior_symbols | proposed_symbols}
     for object_path in sorted((root / 'build/eu/obj').rglob('*.o')):
         relative = object_path.relative_to(root / 'build/eu/obj')
         if relative.parts[0] not in ('Game', 'lib'):
@@ -146,7 +160,7 @@ def main():
         return 1
     # Only the unchanged project checker writes O. Its candidate rank changes
     # remain provisional until the entire batch succeeds; failure restores M.
-    check_candidates(candidates, root, report, save)
+    check_candidates(candidates, root, report, save, definitions)
     print('Canonical candidates:', sum(check['returncode'] == 0 for check in report['candidate_checks']), '/', len(candidates), flush=True)
     return 0 if report['accepted'] else 1
 
