@@ -9254,7 +9254,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027C140,          ,0x0027C150,          ,O,f,_ZN2al10getRailDirEPKNS_9LiveActorE,
 0x0027C150,          ,0x0027C160,          ,O,f,_ZN2al10isLoopRailEPKNS_9LiveActorE,
 0x0027C160,          ,0x0027C16C,          ,U,f,,
-0x0027C16C,          ,0x0027C178,          ,M,fa,_ZN4sead15Matrix33CalcCtrIfE4copyERN2nn4math5MTX33ERKS4_,
+0x0027C16C,          ,0x0027C178,          ,O,fa,_ZN4sead15Matrix33CalcCtrIfE4copyERN2nn4math5MTX33ERKS4_,
 0x0027C178,          ,0x0027C18C,0x0027C16C,U,fa,_ZN4sead15Matrix33CalcCtrIfE4copyERN2nn4math5MTX33ERKNS3_5MTX34E,
 0x0027C18C,          ,0x0027C198,0x0027C16C,U,fa,_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKS4_,
 0x0027C198,          ,0x0027C1B8,0x0027C16C,U,fa,_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKNS3_5MTX33ERKNS3_4VEC3E,
