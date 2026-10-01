@@ -978,6 +978,7 @@ struct TextureStorageLevel {
     std::size_t byteCount;
     std::vector<TextureStorageTexel> texels;
     std::vector<TextureStorageBlock> blocks;
+    std::vector<std::uint8_t> rgba8Pixels;
 };
 
 struct TextureImage {
@@ -998,7 +999,66 @@ struct TextureImage {
     std::uint32_t cachedPointerField = 0;
     std::string storageDecodingStatus = "image_fields_unavailable";
     std::vector<TextureStorageLevel> storageLevels;
+    std::string rgba8ReconstructionStatus = "storage_unavailable";
 };
+
+void reconstructTextureRgba8(TextureImage& texture) {
+    if (texture.format == 6) {
+        texture.rgba8ReconstructionStatus = "hilo8_semantics_unresolved";
+        return;
+    }
+    for (const TextureStorageLevel& level : texture.storageLevels)
+        for (const TextureStorageBlock& block : level.blocks)
+            if (!block.definedEndpoints) {
+                texture.rgba8ReconstructionStatus = "undefined_differential_endpoints";
+                return;
+            }
+    // Khronos ETC1 extension 1.12 defines endpoint replication and these modifiers.
+    constexpr int modifiers[8][4] = {
+        {2, 8, -2, -8}, {5, 17, -5, -17}, {9, 29, -9, -29}, {13, 42, -13, -42},
+        {18, 60, -18, -60}, {24, 80, -24, -80}, {33, 106, -33, -106}, {47, 183, -47, -183}
+    };
+    texture.rgba8ReconstructionStatus = texture.format == 3 ? "rgb565_normalized_nearest_rgba8" :
+        texture.format == 12 ? "etc1_specification_rgba8" : "etc1_specification_alpha4_rgba8";
+    for (TextureStorageLevel& level : texture.storageLevels) {
+        const std::size_t pixelCount = std::size_t(level.width) * level.height;
+        require(pixelCount <= std::numeric_limits<std::size_t>::max() / 4,
+                "CGFX reconstructed RGBA8 extent overflows its byte count");
+        level.rgba8Pixels.resize(pixelCount * 4);
+        auto store = [&](std::uint32_t x, std::uint32_t y, const std::array<std::uint8_t, 4>& components) {
+            const std::size_t offset = (std::size_t(y) * level.width + x) * 4;
+            std::copy(components.begin(), components.end(), level.rgba8Pixels.begin() + offset);
+        };
+        if (texture.format == 3) {
+            for (const TextureStorageTexel& texel : level.texels) {
+                // Nearest RGBA8 representation of UNORM5/6, not a retail GPU quantization claim.
+                const auto normalized = [](std::uint32_t value, std::uint32_t maximum) {
+                    return std::uint8_t((value * 255 + maximum / 2) / maximum);
+                };
+                store(texel.x, texel.y, {normalized(texel.channels[0], 31), normalized(texel.channels[1], 63),
+                                       normalized(texel.channels[2], 31), 255});
+            }
+            continue;
+        }
+        for (const TextureStorageBlock& block : level.blocks)
+            for (std::uint32_t row = 0; row < 4; ++row)
+                for (std::uint32_t column = 0; column < 4; ++column) {
+                    const std::size_t position = row * 4 + column;
+                    const std::size_t subblock = block.flipped ? row / 2 : column / 2;
+                    const int modifier = modifiers[block.tableCodewords[subblock]][block.selectors[position]];
+                    std::array<std::uint8_t, 4> components{};
+                    for (std::size_t axis = 0; axis < 3; ++axis) {
+                        const int codeword = subblock == 0 ? block.endpointCodewords[axis] : block.differential ?
+                            block.endpointCodewords[axis] + block.signedDeltas[axis] : block.secondaryCodewords[axis];
+                        const int expanded = block.differential ? (codeword << 3) | (codeword >> 2) :
+                                                                 (codeword << 4) | codeword;
+                        components[axis] = std::uint8_t(std::clamp(expanded + modifier, 0, 255));
+                    }
+                    components[3] = block.hasAlpha ? std::uint8_t(block.alphaNibbles[position] * 17) : 255;
+                    store(block.x + column, block.y + row, components);
+                }
+    }
+}
 
 void readTextureStorage(Bytes data, TextureImage& texture) {
     texture.storageDecodingStatus = "unsupported_image_fields";
@@ -1022,7 +1082,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
         require(height / bytesPerTexelDenominator <= remaining / bytesPerTexelNumerator / width,
                 "CGFX texture storage mip level exceeds its image payload");
         const std::size_t byteCount = std::size_t(width) * (height / bytesPerTexelDenominator) * bytesPerTexelNumerator;
-        levels.push_back({level, width, height, offset, byteCount, {}, {}});
+        levels.push_back({level, width, height, offset, byteCount, {}, {}, {}});
         offset += byteCount;
         remaining -= byteCount;
         width /= 2;
@@ -1099,6 +1159,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
         "hilo8_raw_byte_storage" : texture.format == 12 ?
         (definedEndpoints ? "etc1_raw_block_storage" : "etc1_undefined_differential_endpoints") :
         (definedEndpoints ? "etc1a4_raw_block_storage" : "etc1a4_undefined_differential_endpoints");
+    reconstructTextureRgba8(texture);
 }
 
 TextureImage readTextureImage(Bytes data, std::size_t dataEnd, std::size_t imageStart,
@@ -1777,6 +1838,8 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                    << ",\"cached_pointer_field\":" << texture.cachedPointerField;
         output << ",\"storage_decoding\":";
         writeString(output, texture.storageDecodingStatus);
+        output << ",\"rgba8_reconstruction\":";
+        writeString(output, texture.rgba8ReconstructionStatus);
         if (texture.imageFieldsDecoded && texture.format == 6)
             output << ",\"component_signedness\":\"unresolved\",\"sample_channel_mapping\":\"unresolved\"";
         output << ",\"storage_mipmaps\":[";
@@ -1856,11 +1919,17 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                 }
                 output << '}';
             }
-            output << "]}";
+            output << "],\"rgba8_pixels_hex\":";
+            writeString(output, hexadecimal(std::string(level.rgba8Pixels.begin(), level.rgba8Pixels.end())));
+            output << '}';
         }
-        output << "],\"pixel_decoding\":\"unresolved\",\"runtime_pointer_application\":\"unresolved\","
-                  "\"platform_address_translation\":\"unresolved\",\"color_expansion\":\"unresolved\","
-                  "\"display_orientation\":\"unresolved\",\"gpu_sampling\":\"unresolved\"}";
+        const bool reconstructed = !texture.storageLevels.empty() && !texture.storageLevels.front().rgba8Pixels.empty();
+        output << "],\"pixel_decoding\":";
+        writeString(output, reconstructed ? "public_format_integer_reconstruction" : "unresolved");
+        output << ",\"runtime_pointer_application\":\"unresolved\",\"platform_address_translation\":\"unresolved\","
+                  "\"color_expansion\":";
+        writeString(output, reconstructed ? "public_format_integer_reconstruction" : "unresolved");
+        output << ",\"display_orientation\":\"unresolved\",\"gpu_sampling\":\"unresolved\"}";
     }
     output << "],\"models\":[";
     for (std::size_t index = 0; index < catalog.models.size(); ++index) {
