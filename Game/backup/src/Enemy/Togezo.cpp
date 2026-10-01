@@ -28,9 +28,13 @@ NERVE_DEF( Togezo, BlowDown );
 
 } // namespace NrvTogezo
 
-static WalkerStateParam       staticd( sTogezoWalkerStateParam )( 4.0, 0.98, 0.85, 250.0, 700.0, 180.0, 70.0, 150.0 );
-static WalkerStateWanderParam staticd( sTogezoWalkerStateWanderParam )( 30, 90, 0.7, 4.0, 10.0, "Walk", "Wait" );
-static WalkerStateChaseParam  staticd( sTogezoWalkerStateChaseParam )( false, true, 1.3, 30.0, 150.0, 3.0, 20.0, "Run", "Wait" );
+static WalkerStateParam       sTogezoWalkerStateParam( 4.0, 0.98, 0.85, 250.0, 700.0, 180.0, 70.0, 150.0 );
+static WalkerStateWanderParam sTogezoWalkerStateWanderParam( 30, 90, 0.7, 4.0, 10.0, "Walk", "Wait" );
+static WalkerStateChaseParam  sTogezoWalkerStateChaseParam( false, true, 1.3, 30.0, 150.0, 3.0, 20.0, "Run", "Wait" );
+
+static const char force_section( ".constdata_sTogezoTurnAction" ) sTogezoTurnAction[] = "Turn";
+static const char force_section( ".constdata_sTogezoSearchAction" ) sTogezoSearchAction[] = "Search";
+static const char force_section( ".constdata_sTogezoAttackAction" ) sTogezoAttackAction[] = "AttackSuccess";
 
 Togezo::Togezo( const sead::SafeString& name )
     : MapObjActor( name ), mWanderState( nullptr ), mChaseState( nullptr ), mBlowDownState( nullptr )
@@ -79,7 +83,7 @@ extern "C" void fn_00258774( Togezo*, const WalkerStateParam* );
 void Togezo::exeTurn()
 {
         if ( al::isFirstStep( this ) )
-                al::startAction( this, "Turn" );
+                al::startAction( this, sTogezoTurnAction );
         fn_00258774( this, &sTogezoWalkerStateParam );
         if ( fn_00272a9c() )
         {
@@ -98,7 +102,7 @@ void Togezo::exeTurn()
 void Togezo::exeSearch()
 {
         if ( al::isFirstStep( this ) )
-                al::startAction( this, "Search" );
+                al::startAction( this, sTogezoSearchAction );
         fn_00258774( this, &sTogezoWalkerStateParam );
         fn_00262988( this, al::getFrontPtr( this ), rp::getPlayerPos(), 6.0 );
         if ( al::isActionEnd( this ) )
@@ -125,10 +129,8 @@ void Togezo::exeChase()
 void Togezo::exeAttack()
 {
         if ( al::isFirstStep( this ) )
-        {
-                al::startAction( this, "AttackSuccess" );
-                fn_00258774( this, &sTogezoWalkerStateParam );
-        }
+                al::startAction( this, sTogezoAttackAction );
+        fn_00258774( this, &sTogezoWalkerStateParam );
         if ( al::isActionEnd( this ) )
                 al::setNerve( this, &NrvTogezo::Wander );
 }

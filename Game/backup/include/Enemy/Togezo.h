@@ -27,3 +27,5 @@ public:
 public:
         Togezo( const sead::SafeString& name );
 };
+
+static_assert_( sizeof( Togezo ) == 0x6C );

@@ -11,3 +11,5 @@ public:
         {
         }
 };
+
+static_assert_( sizeof( WalkerStateParam ) == 0x20 );
