@@ -373,3 +373,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:32:46-04:00,0x00279E4C,_ZN2al24startHitReactionOnGroundEPKNS_9LiveActorE,matched,2,0.1012
 2026-10-01T11:32:46-04:00,0x00280270,_ZN2al19startHitReactionGetEPKNS_9LiveActorE,matched,2,0.1010
 2026-10-01T11:32:47-04:00,0x0018791C,_ZN2al18CameraRotatorParam4initEPKNS_9ByamlIterE,matched,2,0.0101
+2026-10-01T11:32:47-04:00,0x00260A84,_ZN2al6Camera4loadEPKNS_9ByamlIterE,matched,2,0.0128
