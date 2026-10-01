@@ -13967,7 +13967,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00335FD8,          ,0x00335FE0,          ,U,f,,
 0x00335FE0,          ,0x00335FEC,          ,O,f,fn_00335FE0,
 0x00335FEC,          ,0x00335FF8,          ,O,f,fn_00335FEC,
-0x00335FF8,0x00336024,0x00336028,          ,M,f,fn_00335FF8,
+0x00335FF8,0x00336024,0x00336028,          ,O,f,fn_00335FF8,
 0x00336028,          ,0x0033603C,          ,O,f,fn_00336028,
 0x0033603C,          ,0x00336044,          ,O,f,fn_0033603C,
 0x00336044,          ,0x0033604C,          ,O,f,fn_00336044,
