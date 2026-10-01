@@ -77,3 +77,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:00:08-04:00,0x00290FB0,_ZNK2al9ByamlIter15tryGetIterByKeyEPS0_PKc,matched,4,7.1939
 2026-10-01T07:00:08-04:00,0x0029107C,_ZNK2al9ByamlIter17tryGetIterByIndexEPS0_i,matched,4,7.1968
 2026-10-01T07:03:10-04:00,0x001BE024,_ZN2al11LayoutActor7controlEv,matched,4,0.0049
+2026-10-01T07:03:10-04:00,0x0027E610,_ZN2al11LayoutActor9initNerveEPKNS_5NerveEi,matched,4,0.0048

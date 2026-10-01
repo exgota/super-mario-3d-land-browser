@@ -9360,7 +9360,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027E288,          ,0x0027E2F8,          ,U,f,,
 0x0027E2F8,          ,0x0027E328,          ,U,f,,
 0x0027E328,0x0027E5A4,0x0027E610,          ,U,f,,
-0x0027E610,          ,0x0027E648,          ,M,f,_ZN2al11LayoutActor9initNerveEPKNS_5NerveEi,
+0x0027E610,          ,0x0027E648,          ,O,f,_ZN2al11LayoutActor9initNerveEPKNS_5NerveEi,
 0x0027E648,0x0027E68C,0x0027E694,          ,U,f,_ZN2al11LayoutActorC1EPKc,
 0x0027E694,          ,0x0027E6C8,          ,U,f,,
 0x0027E6C8,0x0027E738,0x0027E73C,          ,U,f,,
