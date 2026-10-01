@@ -28,4 +28,11 @@ int ByamlStringTableIter::findStringIndex( const char* str ) const
         return -1;
 }
 
+#ifdef NON_MATCHING
+const char* ByamlStringTableIter::getString( int index ) const
+{
+        return reinterpret_cast<const char*>( getAddressTable()[ index ] + mDataPtr );
+}
+#endif
+
 } // namespace al

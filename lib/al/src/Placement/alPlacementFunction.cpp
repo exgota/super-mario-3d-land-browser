@@ -2,6 +2,11 @@
 #include <Placement/alPlacementFunction.h>
 #include <Util/alStringUtil.h>
 
+extern "C" const char dat_003A2DE4[];
+extern "C" const char dat_003A2DEC[];
+extern "C" const char dat_003A2DF4[];
+extern "C" const char dat_003A2DAC[];
+
 namespace al
 {
 
@@ -37,7 +42,7 @@ bool tryGetObjectName( const char** out, const al::ActorInitInfo& info )
 
 bool tryGetObjectName( const char** out, const al::PlacementInfo& info )
 {
-        return info.tryGetStringByKey( out, "name" );
+        return info.tryGetStringByKey( out, dat_003A2DAC );
 }
 
 bool isObjectName( const ActorInitInfo& info, const char* objectName )
@@ -75,9 +80,9 @@ bool tryGetTrans( sead::Vector3f* out, const ActorInitInfo& info )
 bool tryGetTrans( sead::Vector3f* out, const PlacementInfo& info )
 {
         sead::Vector3f trans;
-        bool           valid = info.isValid() && info.tryGetFloatByKey( &trans.x, "pos_x" ) &&
-                     info.tryGetFloatByKey( &trans.y, "pos_y" ) &&
-                     info.tryGetFloatByKey( &trans.z, "pos_z" );
+        bool           valid = info.isValid() && info.tryGetFloatByKey( &trans.x, dat_003A2DE4 ) &&
+                     info.tryGetFloatByKey( &trans.y, dat_003A2DEC ) &&
+                     info.tryGetFloatByKey( &trans.z, dat_003A2DF4 );
         if ( !valid )
                 return valid;
 

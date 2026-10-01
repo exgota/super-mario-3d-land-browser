@@ -16,13 +16,11 @@ struct LayoutCalculationFields
 
 extern "C" void fn_00264694( void* layoutObject );
 
-#ifdef NON_MATCHING
 LayoutActor::LayoutActor( const char* name )
     : mName( name ), mNerveKeeper( nullptr ), mLayoutObject( nullptr ), mEffectKeeper( nullptr ),
       _20( nullptr ), mAudioKeeper( nullptr ), _28( nullptr ), mIsAlive( false )
 {
 }
-#endif
 
 NerveKeeper* LayoutActor::getNerveKeeper() const
 {

@@ -37,25 +37,31 @@ bool isGreaterEqualStep( const IUseNerve* p, int t )
         return p->getNerveKeeper()->getStep() >= t;
 }
 
+#pragma inline
 bool updateNerveState( IUseNerve* p )
 {
         return p->getNerveKeeper()->getStateCtrl()->updateCurrentState();
 }
 
+#pragma no_inline
+
+void initNerveState( IUseNerve* p, NerveStateBase* state, const Nerve* stateNrv, const char* name )
+{
+        state->init();
+        p->getNerveKeeper()->getStateCtrl()->registerState( state, stateNrv, name );
+}
+
 // registers
 
-#ifdef NON_MATCHING
 bool updateNerveStateAndNextNerve( IUseNerve* p, const Nerve* nerve )
 {
-        NerveStateCtrl* stateCtrl = p->getNerveKeeper()->getStateCtrl();
-        if ( stateCtrl->updateCurrentState() )
+        if ( updateNerveState( p ) )
         {
                 setNerve( p, nerve );
                 return true;
         }
         return false;
 }
-#endif
 
 } // namespace al
 

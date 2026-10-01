@@ -17,7 +17,7 @@ public:
 
 public:
         virtual NerveKeeper* getNerveKeeper() const;
-        virtual ~NerveExecutor() {};
+        virtual ~NerveExecutor() { delete mNerveKeeper; };
 
 public:
         NerveExecutor( const char* name );

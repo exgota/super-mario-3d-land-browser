@@ -98,18 +98,16 @@ ByamlIter ByamlIter::getIterByIndex( int index ) const
 
 #pragma no_inline
 
-#ifdef NON_MATCHING
 bool ByamlIter::getByamlDataByKey( ByamlData* out, const char* key ) const
 {
-        if ( isTypeHash() )
-        {
-                int keyIndex = getKeyIndex( key );
-                if ( keyIndex > -1 )
-                        return ByamlHashIter( mRootNode ).getDataByKey( out, keyIndex );
-        }
-        return false;
+        if ( !isTypeHash() )
+                return false;
+        int keyIndex = getKeyIndex( key );
+        if ( keyIndex < 0 )
+                return false;
+        ByamlHashIter iter( mRootNode );
+        return iter.getDataByKey( out, keyIndex );
 }
-#endif
 
 bool ByamlIter::tryGetIterByKey( ByamlIter* out, const char* key ) const
 {
@@ -121,6 +119,14 @@ bool ByamlIter::tryGetIterByIndex( ByamlIter* out, int index ) const
 {
         *out = getIterByIndex( index );
         return out->isValid();
+}
+
+bool ByamlIter::tryGetStringByKey( const char** out, const char* key ) const
+{
+        ByamlData data;
+        if ( getByamlDataByKey( &data, key ) )
+                return tryConvertString( out, &data );
+        return false;
 }
 
 bool ByamlIter::tryGetBoolByKey( bool* out, const char* key ) const
@@ -151,6 +157,17 @@ bool ByamlIter::tryGetFloatByKey( float* out, const char* key ) const
 }
 
 #pragma inline
+
+bool ByamlIter::tryConvertString( const char** out, const ByamlData* data ) const
+{
+        if ( data->getType() == ByamlDataType_String )
+        {
+                ByamlStringTableIter table( mData + mHeader->getStringTableOffset() );
+                *out = table.getString( data->getIntValue() );
+                return true;
+        }
+        return false;
+}
 
 bool ByamlIter::tryConvertBool( bool* out, const ByamlData* data ) const
 {

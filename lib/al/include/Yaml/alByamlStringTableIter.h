@@ -22,9 +22,7 @@ private:
         };
 
 public:
-        ByamlStringTableIter( const u8* data ) : mData( data )
-        {
-        }
+        ByamlStringTableIter( const u8* data );
 
         const u32* getAddressTable() const
         {
@@ -32,6 +30,7 @@ public:
         }
 
         int findStringIndex( const char* str ) const;
+        const char* getString( int index ) const;
 };
 
 } // namespace al
