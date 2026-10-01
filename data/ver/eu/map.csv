@@ -16598,7 +16598,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00375F00,          ,0x00375F08,          ,U,f,,
 0x00375F08,          ,0x00375F10,          ,U,f,,
 0x00375F10,          ,0x00375F28,          ,U,f,,
-0x00375F28,          ,0x00375F30,          ,M,f,_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv,
+0x00375F28,          ,0x00375F30,          ,O,f,_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv,
 0x00375F30,          ,0x00375F94,          ,U,f,,
 0x00375F94,          ,0x00375FBC,          ,U,f,,
 0x00375FBC,          ,0x00375FC8,          ,U,f,,
