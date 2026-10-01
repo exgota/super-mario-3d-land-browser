@@ -8650,7 +8650,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026E964,          ,0x0026E980,          ,O,f,_ZN2al17sendMsgPlayerKickEPNS_9HitSensorES1_,
 0x0026E980,          ,0x0026E99C,          ,U,f,,
 0x0026E99C,          ,0x0026E9B8,          ,U,f,,
-0x0026E9B8,          ,0x0026E9D4,          ,M,f,_ZN2al8sendMsg9EPNS_9HitSensorES1_,
+0x0026E9B8,          ,0x0026E9D4,          ,O,f,_ZN2al8sendMsg9EPNS_9HitSensorES1_,
 0x0026E9D4,          ,0x0026E9F0,          ,U,f,,
 0x0026E9F0,          ,0x0026EA04,          ,U,f,,
 0x0026EA04,          ,0x0026EA18,          ,U,f,,
