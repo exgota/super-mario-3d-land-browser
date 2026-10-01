@@ -4,9 +4,6 @@ import argparse
 from tools.pypstem import main as pypstem # build system
 from tools.low.glob import * # globals
 
-# TODO: Game is commented out because its a big fuckery when compiling without Stubs, inlines, sym map...
-# I guess we have to start again :D (dont want to work with duct tape)
-
 def main():
     parser = argparse.ArgumentParser(description="Build RE:Pepper")
     parser.add_argument("version", nargs="?", default=None, help="Version to use")
@@ -33,10 +30,9 @@ def main():
         args.clear_split = True
 
     if args.split:
-        cfg.split = True7
+        cfg.split = True
     else:
         cfg.flags_link.append("--tailreorder")
-        cfg.flags_link.append("--keep=*")
     if args.delete:
         cfg.keep_objects = True
     if args.debug:

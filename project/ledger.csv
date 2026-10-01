@@ -63,3 +63,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T05:58:53-04:00,0x00325B44,_ZN10CourseList5WorldC1EPKN2al9ByamlIterE,abandoned,1,66.070
 2026-10-01T05:58:53-04:00,0x00330868,_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE,abandoned,1,66.053
 2026-10-01T05:58:53-04:00,0x00331350,_ZNK2al13ByamlHashIter8findPairEi,nonmatching,8,66.303
+2026-10-01T06:11:30-04:00,0x001B8BD8,_ZN26PlayerActionMultiCondition5setupEv,matched,5,78.780
