@@ -9412,7 +9412,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027F368,          ,0x0027F394,          ,U,f,,
 0x0027F394,          ,0x0027F3B4,          ,M,f,_ZN2al8setTransEPNS_9LiveActorERKN4sead7Vector3IfEE,
 0x0027F3B4,          ,0x0027F3C4,          ,O,f,_ZN2al10getQuatPtrEPNS_9LiveActorE,
-0x0027F3C4,          ,0x0027F3D0,          ,M,f,_ZN2al11getTransPtrEPNS_9LiveActorE,
+0x0027F3C4,          ,0x0027F3D0,          ,O,f,_ZN2al11getTransPtrEPNS_9LiveActorE,
 0x0027F3D0,0x0027F434,0x0027F43C,          ,U,f,,
 0x0027F43C,          ,0x0027F488,          ,U,f,,
 0x0027F488,0x0027F4CC,0x0027F4D4,          ,U,f,,
