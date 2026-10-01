@@ -8942,7 +8942,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00276534,          ,0x0027654C,          ,U,f,,
 0x0027654C,          ,0x00276588,          ,U,f,,
 0x00276588,          ,0x00276590,          ,U,f,_ZN2rp17createCoinRotaterEv,
-0x00276590,          ,0x002765A8,          ,M,f,_ZN2al14createSceneObjEi,
+0x00276590,          ,0x002765A8,          ,O,f,_ZN2al14createSceneObjEi,
 0x002765A8,          ,0x002765D0,          ,U,f,,
 0x002765D0,          ,0x002765E8,          ,U,f,,
 0x002765E8,0x0027664C,0x00276660,          ,U,f,,
