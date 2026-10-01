@@ -34,3 +34,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:07-04:00,0x0024FE70,_ZNK2al9ByamlIter15isTypeContainerEv,matched,1,0.009
 2026-10-01T04:52:08-04:00,0x002910F8,_ZNK2al9ByamlIter7getSizeEv,matched,1,0.009
 2026-10-01T04:52:36-04:00,0x0028B518,_ZNK2al20ByamlStringTableIter15findStringIndexEPKc,matched,1,0.009
+2026-10-01T04:52:36-04:00,0x001DCD2C,_ZN2al19StageSwitchAccesser21initWithPlacementInfoENS_15StageSwitchTypeERKNS_9ByamlIterES1_,matched,1,0.009
