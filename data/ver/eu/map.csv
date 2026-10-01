@@ -9705,7 +9705,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028C084,0x0028C148,0x0028C150,          ,U,f,,
 0x0028C150,0x0028C288,0x0028C2A4,          ,U,f,,
 0x0028C2A4,0x0028C2F0,0x0028C2F8,          ,U,f,_ZN2al11loadArchiveERKN4sead14SafeStringBaseIcEE,
-0x0028C2F8,          ,0x0028C30C,          ,U,f,_ZN2al9ByamlIterC1ERKS0_,
+0x0028C2F8,          ,0x0028C30C,          ,O,f,_ZN2al9ByamlIterC1ERKS0_,
 0x0028C30C,0x0028C370,0x0028C380,          ,U,f,,
 0x0028C380,          ,0x0028C500,          ,U,f,,
 0x0028C500,0x0028C62C,0x0028C640,          ,U,f,,

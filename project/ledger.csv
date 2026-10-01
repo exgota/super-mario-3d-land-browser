@@ -27,3 +27,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:03-04:00,0x001DCD78,_ZN2al19StageSwitchAccesserC1Ev,matched,1,0.009
 2026-10-01T04:52:03-04:00,0x00250EB4,_ZNK2al19StageSwitchAccesser16isTypeKillDeadOnEv,matched,1,0.009
 2026-10-01T04:52:04-04:00,0x001DCD20,_ZN2al19StageResourceKeeperC1Ev,matched,1,0.008
+2026-10-01T04:52:05-04:00,0x0028C2F8,_ZN2al9ByamlIterC1ERKS0_,matched,1,0.010
