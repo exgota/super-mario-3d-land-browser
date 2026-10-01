@@ -777,7 +777,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0012170C,0x00121788,0x001217A4,          ,U,f,,
 0x001217A4,0x001217E4,0x001217E8,          ,U,f,,
 0x001217E8,0x0012183C,0x00121850,          ,U,f,_ZN10RailDotEnd4initERKN2al13ActorInitInfoE,
-0x00121850,0x00121878,0x0012187C,          ,M,f,_ZN10RailDotEndC1ERKN4sead14SafeStringBaseIcEE,
+0x00121850,0x00121878,0x0012187C,          ,O,f,_ZN10RailDotEndC1ERKN4sead14SafeStringBaseIcEE,
 0x0012187C,0x00121A18,0x00121A40,          ,U,f,,
 0x00121A40,0x00121A80,0x00121A88,          ,U,f,,
 0x00121A88,0x00121D80,0x00121DAC,          ,U,f,,
