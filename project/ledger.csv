@@ -45,3 +45,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:59:15-04:00,0x0025065C,_ZN2al11NerveKeeper6updateEv,matched,2,6.597
 2026-10-01T05:01:32-04:00,0x0026D698,_ZN2al10isNearZeroEff,matched,3,9.574
 2026-10-01T05:07:40-04:00,0x001EBB24,_ZN2al9HitSensor8validateEv,matched,2,15.063
+2026-10-01T05:07:40-04:00,0x001EB960,_ZN2al9HitSensor10invalidateEv,matched,2,15.073
