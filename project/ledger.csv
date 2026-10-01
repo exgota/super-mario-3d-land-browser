@@ -264,3 +264,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:05:31-04:00,0x0028CAB4,_ZNK2al9ByamlIter17getByamlDataByKeyEPNS_9ByamlDataEPKc,matched,2,0.0123
 2026-10-01T11:05:32-04:00,0x0029101C,_ZNK2al9ByamlIter17tryGetStringByKeyEPPKcS2_,matched,3,4.6169
 2026-10-01T11:05:32-04:00,0x00276B54,_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_9ByamlIterE,matched,2,3.8610
+2026-10-01T11:05:33-04:00,0x00276BF0,_ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE,matched,2,3.8613

@@ -8963,7 +8963,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00276AB0,          ,0x00276AB8,          ,U,f,,
 0x00276AB8,0x00276B48,0x00276B54,          ,U,f,,
 0x00276B54,0x00276BE4,0x00276BF0,          ,O,f,_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_9ByamlIterE,
-0x00276BF0,0x00276C04,0x00276C08,          ,M,f,_ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE,
+0x00276BF0,0x00276C04,0x00276C08,          ,O,f,_ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE,
 0x00276C08,          ,0x00276C3C,          ,M,f,_ZN2al17initActorInitInfoEPNS_13ActorInitInfoEPKNS_9ByamlIterERKS0_,
 0x00276C3C,          ,0x00276C60,          ,M,f,_ZN2al13ActorInitInfoC1Ev,
 0x00276C60,0x00276CE4,0x00276CF0,          ,O,f,_ZN2al19tryGetPlacementInfoEPNS_9ByamlIterEPKNS_8ResourceEPKc,
