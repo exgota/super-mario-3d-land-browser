@@ -5139,7 +5139,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E2BCC,0x001E2BE8,0x001E2BEC,          ,U,f,,
 0x001E2BEC,          ,0x001E2C60,          ,O,f,fn_001E2BEC,
 0x001E2C60,          ,0x001E2CE0,          ,O,f,fn_001E2C60,
-0x001E2CE0,          ,0x001E2D6C,          ,M,f,fn_001E2CE0,
+0x001E2CE0,          ,0x001E2D6C,          ,O,f,fn_001E2CE0,
 0x001E2D6C,          ,0x001E2D98,          ,U,f,,
 0x001E2D98,          ,0x001E2DA0,          ,U,f,,
 0x001E2DA0,          ,0x001E2DA4,          ,O,f,_ZN2al14NerveStateBase4initEv,
