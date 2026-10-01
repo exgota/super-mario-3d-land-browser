@@ -17,3 +17,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:51:56-04:00,0x0027DCE0,_ZN14PlayerProperty11setFrontVecERKN4sead7Vector3IfEE,matched,1,0.009
 2026-10-01T04:51:57-04:00,0x0027DCC4,_ZN14PlayerProperty8setUpVecERKN4sead7Vector3IfEE,matched,1,0.009
 2026-10-01T04:51:58-04:00,0x00262BA4,_ZN2al16isCollidedGroundEPKNS_9LiveActorE,matched,1,0.009
+2026-10-01T04:51:58-04:00,0x001C5D10,_ZN2al13KeyPoseKeeperC1Ev,matched,1,0.009
