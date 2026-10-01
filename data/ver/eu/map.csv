@@ -4197,7 +4197,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C2EC8,          ,0x001C2ED8,          ,U,f,,
 0x001C2ED8,          ,0x001C2EE8,          ,U,f,,
 0x001C2EE8,          ,0x001C2EF8,          ,U,f,,
-0x001C2EF8,          ,0x001C2F0C,          ,M,f,_ZN2al12isSensorRideEPKNS_9HitSensorE,
+0x001C2EF8,          ,0x001C2F0C,          ,O,f,_ZN2al12isSensorRideEPKNS_9HitSensorE,
 0x001C2F0C,          ,0x001C2F1C,          ,U,f,,
 0x001C2F1C,0x001C2F48,0x001C2F4C,          ,U,f,,
 0x001C2F4C,          ,0x001C2FD4,          ,U,f,,

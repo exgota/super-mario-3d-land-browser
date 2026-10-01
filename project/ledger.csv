@@ -296,3 +296,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:14:56-04:00,0x00255668,_ZN2al23getNextKeyPlacementInfoEPKNS_13KeyPoseKeeperE,matched,3,0.0114
 2026-10-01T11:14:56-04:00,0x0026935C,_ZN2al15getNextKeyTransEPKNS_13KeyPoseKeeperE,matched,3,0.0110
 2026-10-01T11:14:57-04:00,0x001CB550,_ZN2al14SceneObjHolderC1EPFPviEi,matched,2,0.0120
+2026-10-01T11:14:57-04:00,0x001C2EF8,_ZN2al12isSensorRideEPKNS_9HitSensorE,matched,2,0.2221
