@@ -7818,7 +7818,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002581A4,0x00258250,0x0025826C,          ,U,f,,
 0x0025826C,          ,0x00258290,          ,U,f,,
 0x00258290,0x002583AC,0x002583BC,          ,U,f,,
-0x002583BC,          ,0x002583C4,          ,M,f,_ZN2al13isPadTriggerAEi,
+0x002583BC,          ,0x002583C4,          ,O,f,_ZN2al13isPadTriggerAEi,
 0x002583C4,0x002583CC,0x002583D0,          ,U,f,,
 0x002583D0,0x00258474,0x0025847C,          ,U,f,,
 0x0025847C,          ,0x0025849C,          ,U,f,,
