@@ -5442,7 +5442,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EBE8C,          ,0x001EBE94,          ,U,f,,
 0x001EBE94,          ,0x001EBF20,          ,U,f,,
 0x001EBF20,          ,0x001EBF28,          ,U,f,,
-0x001EBF28,          ,0x001EBF2C,          ,M,f,_ZN2al9LiveActor4initERKNS_13ActorInitInfoE,
+0x001EBF28,          ,0x001EBF2C,          ,O,f,_ZN2al9LiveActor4initERKNS_13ActorInitInfoE,
 0x001EBF2C,          ,0x001EBF30,          ,M,f,_ZN2al9LiveActor7controlEv,
 0x001EBF30,0x001EBFAC,0x001EBFB0,          ,U,f,,
 0x001EBFB0,          ,0x001EBFF4,          ,U,f,,
