@@ -365,3 +365,7 @@ The144-byte tryGetPlacementInfo exact claim is enrolled M for local canonical ch
 ## 2026-10-01: Canonical placement-map checkpoint from dot/placement-map
 
 The normal main links/exports after source intake. tryGetPlacementInfo passes the complete144-byte canonical check and has its own credited acceptance commit. The guarded344-byte initializer passes source provenance and section-shape gates, but reports M->m because linked bytes differ. build/dot_proposals/placement-map/local_guarded_diagnostic.json freezes its source checkpoint, direct object and checker-linked AXF hashes for bounded validation. No functional claim or NonMatching ledger outcome is recorded for this initializer yet. Exact-helper ledger time covers only its0.313-second local check, excluding external preparation.
+
+## 2026-10-01: Record independent CourseList shared-data ownership
+
+Before source intake from dot/course-list, root independently reconstructed212 ordinary initializer bytes and compared them with the unchanged target. Fifteen source sections cover16 existing rows; only the28-byte Type/Normal/Miniature section at0x003A2890 spans two rows. Retail independently derives Normal as Miniature-8. project/course_list_data_evidence.md documents the complete extent and source-data hash. No map, boundary, rank or source changes are made here. Canonical emitted-data comparison and function acceptance remain pending.
