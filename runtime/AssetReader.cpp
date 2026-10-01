@@ -548,6 +548,8 @@ struct ModelVertexGroup {
 struct ModelIndexStream {
     std::uint32_t scalarType;
     std::uint32_t primitiveField;
+    std::string topology;
+    std::size_t triangleCount;
     std::vector<std::uint32_t> indices;
 };
 
@@ -821,15 +823,29 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
                 metadata(primitive, 8);
                 for (const std::size_t descriptor : pointerList(primitive + 4, input.integer(primitive))) {
                     metadata(descriptor, 0x10);
-                    ModelIndexStream stream{input.integer(descriptor), input.integer(descriptor + 4), {}};
+                    ModelIndexStream stream{input.integer(descriptor), input.integer(descriptor + 4), {}, 0, {}};
                     require(stream.scalarType == 0x1401 || stream.scalarType == 0x1403,
                             "Unsupported CGFX index scalar type");
                     const std::size_t width = stream.scalarType == 0x1401 ? 1 : 2;
                     const std::size_t size = input.integer(descriptor + 8);
                     require(size % width == 0, "CGFX index buffer has a partial scalar");
+                    const std::size_t count = size / width;
+                    // Retail 0x002B3940 maps only this byte through [4, 5, 6].
+                    // Its caller can separately request geometry primitives.
+                    const std::uint32_t mode = stream.primitiveField & 0xFF;
+                    require(mode <= 2, "Unsupported CGFX serialized primitive mode");
+                    if (mode == 0) {
+                        require(count % 3 == 0, "CGFX triangle index count is not a multiple of three");
+                        stream.topology = "triangles";
+                        stream.triangleCount = count / 3;
+                    } else {
+                        require(count == 0 || count >= 3, "CGFX strip or fan has fewer than three indices");
+                        stream.topology = mode == 1 ? "triangle_strip" : "triangle_fan";
+                        stream.triangleCount = count == 0 ? 0 : count - 2;
+                    }
                     const std::size_t buffer = imageBuffer(descriptor + 0xC, size);
-                    consume(size / width);
-                    for (std::size_t index = 0; index < size / width; ++index) {
+                    consume(count);
+                    for (std::size_t index = 0; index < count; ++index) {
                         const std::uint32_t value = input.integer(buffer + index * width, width);
                         require(vertexCount != 0 && value < vertexCount, "CGFX index exceeds its vertex count");
                         stream.indices.push_back(value);
@@ -1251,7 +1267,10 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
                     output << ',';
                 firstStream = false;
                 output << "{\"scalar_type\":" << stream.scalarType << ",\"primitive_field\":" << stream.primitiveField
-                       << ",\"topology\":\"unresolved\",\"indices\":[";
+                       << ",\"topology\":";
+                writeString(output, stream.topology);
+                output << ",\"triangle_count\":" << stream.triangleCount
+                       << ",\"caller_geometry_override\":\"unresolved\",\"indices\":[";
                 for (std::size_t index = 0; index < stream.indices.size(); ++index) {
                     if (index)
                         output << ',';
