@@ -9244,7 +9244,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027BE2C,          ,0x0027BE70,          ,U,f,,
 0x0027BE70,          ,0x0027BE80,          ,U,f,,
 0x0027BE80,          ,0x0027BEA0,          ,U,f,,
-0x0027BEA0,          ,0x0027BEC8,          ,M,f,fn_0027BEA0,
+0x0027BEA0,          ,0x0027BEC8,          ,O,f,fn_0027BEA0,
 0x0027BEC8,0x0027BF28,0x0027BF34,          ,U,f,_ZN2al9StringTmpILi32EEC1EPKcz,
 0x0027BF34,          ,0x0027C000,          ,U,f,,
 0x0027C000,0x0027C048,0x0027C04C,          ,U,f,,
