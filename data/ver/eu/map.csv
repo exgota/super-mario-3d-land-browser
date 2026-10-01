@@ -4234,7 +4234,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C4F64,0x001C5018,0x001C5060,          ,U,f,,
 0x001C5060,0x001C5098,0x001C50A4,          ,U,f,,
 0x001C50A4,0x001C50E0,0x001C50EC,          ,U,f,,
-0x001C50EC,0x001C5108,0x001C510C,          ,M,f,_ZN2al13AreaShapeCubeC2Eb,
+0x001C50EC,0x001C5108,0x001C510C,          ,O,f,_ZN2al13AreaShapeCubeC2Eb,
 0x001C510C,0x001C5120,0x001C5124,          ,U,f,,
 0x001C5124,          ,0x001C5190,          ,U,f,,
 0x001C5190,          ,0x001C519C,          ,U,f,,
