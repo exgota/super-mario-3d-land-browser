@@ -17625,7 +17625,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0039735C,0x00397390,0x00397394,          ,U,f,,
 0x00397394,0x003973C8,0x003973CC,          ,U,f,,
 0x003973CC,0x00397400,0x00397404,          ,U,f,,
-0x00397404,0x00397438,0x0039743C,          ,M,f,_ZN2al19createActorFunctionI15TransparentWallEEPNS_9LiveActorEPKc,
+0x00397404,0x00397438,0x0039743C,          ,O,f,_ZN2al19createActorFunctionI15TransparentWallEEPNS_9LiveActorEPKc,
 0x0039743C,0x00397470,0x00397474,          ,U,f,,
 0x00397474,0x003974A8,0x003974AC,          ,U,f,,
 0x003974AC,0x003974E0,0x003974E4,          ,U,f,,
