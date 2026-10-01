@@ -13737,7 +13737,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032F8DC,0x0032F9C4,0x0032F9D0,          ,U,f,,
 0x0032F9D0,          ,0x0032FA30,          ,U,f,,
 0x0032FA30,          ,0x0032FA78,          ,U,f,,
-0x0032FA78,          ,0x0032FA80,          ,M,f,_ZNK2al11LayoutActor14getNerveKeeperEv,
+0x0032FA78,          ,0x0032FA80,          ,O,f,_ZNK2al11LayoutActor14getNerveKeeperEv,
 0x0032FA80,          ,0x0032FA88,          ,M,f,_ZNK2al11LayoutActor15getEffectKeeperEv,
 0x0032FA88,          ,0x0032FA8C,          ,U,f,,
 0x0032FA8C,0x0032FAE8,0x0032FAEC,          ,U,f,,
