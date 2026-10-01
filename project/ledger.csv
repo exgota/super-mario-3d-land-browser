@@ -720,3 +720,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:55:50-04:00,0x001B4658,_ZN29PlayerActionGraphBuildOutputsC1Ev,matched,2,0.0070
 2026-10-01T17:55:50-04:00,0x00252EC4,fn_00252EC4,matched,9,0.0051
 2026-10-01T17:55:51-04:00,0x001CCA5C,_ZN2al9LayoutKit21createExecuteDirectorEi,matched,2,0.0258
+2026-10-01T18:07:02-04:00,0x0028CA30,_ZNK2al20ByamlStringTableIter9getStringEi,abandoned,4,1.2806
