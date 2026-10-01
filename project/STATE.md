@@ -35,8 +35,10 @@ M2 requires every game function byte-exact and the original EU whole linked-imag
 
 - Active large local targets: BeatBlockHolder::init156758..156964/524 in large_actor_followup; neutral fixed-point buffer processor1F9F48..1FA184/572 in large_library_followup. Both checked dot reports. Prior171334/644 and1E37D8/908 reached4 forms and have committed packets; do not treat their stopped lanes as active reservations.
 
+- Current source intake:33 roots/2000bytes at build/actor_callback_tree_checkpoint_candidates.json, including root's first-canonical getFront12 probe. All3701 frozen package hashes and current source baselines pass. Placement additions compose without replacing56 earlier bodies. New source/header preservation is pending; these33 are M proposals, not exact credit.
+
 ## Next three tasks
-1. The618-root checkpoint is pushed; independent empty-build and full-image checks preserve all618 intervals. Publish the routing/audit notes, then integrate the reviewed string class layers and fresh small candidates with complete prior-root preservation. FixedSafeString64 base at3DA280 and complete wrappers at3D9D04/3D9D18 are repaired in separate evidence commits. The minimal FixedSafeStringBase storage and empty char-wrapper source layers are now integrated; canonical preservation after this header change is pending. No branch deep-copy/length body is adopted.
+1. The618-root checkpoint is pushed; independent empty-build and full-image checks preserve all618 intervals. Routing/audit notes are pushed. The string class layers and33-source batch are committed for clean rebuild; preserve all618 prior roots before checking new proposals. FixedSafeString64 base at3DA280 and complete wrappers at3D9D04/3D9D18 are repaired in separate evidence commits. The minimal FixedSafeStringBase storage and empty char-wrapper source layers are now integrated; canonical preservation after this header change is pending. No branch deep-copy/length body is adopted.
 2. Continue bounded native geometry/vertex investigation after the committed model-root/table checkpoint. Keep constructed-input and full initialization limits explicit.
 3. Review dot source/header/data proposals in root's intake lane, then build/check locally. Keep hourly private-origin pushes current and refresh independent empty-build and full-image diagnostics after material source changes.
 

@@ -8,6 +8,18 @@
 #include <Nerve/alNerveFunction.h>
 #include <Stage/alStageSwitchKeeper.h>
 
+namespace al
+{
+
+template <>
+FunctorV0M<AppearStep*, void ( AppearStep::* )()>*
+FunctorV0M<AppearStep*, void ( AppearStep::* )()>::clone() const
+{
+        return new FunctorV0M<AppearStep*, void ( AppearStep::* )()>( *this );
+}
+
+} // namespace al
+
 namespace NrvAppearStep
 {
 

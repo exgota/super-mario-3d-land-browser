@@ -1,0 +1,64 @@
+namespace sead
+{
+
+class TreeNode
+{
+public:
+        TreeNode();
+        void detachSubTree();
+        void pushFrontChild( TreeNode* node );
+
+private:
+        void clearChildLinksRecursively_();
+        TreeNode* mParent;
+        TreeNode* mFirstChild;
+        TreeNode* mNextSibling;
+        TreeNode* mPreviousSibling;
+};
+
+TreeNode::TreeNode()
+{
+        mParent = mFirstChild = mNextSibling = mPreviousSibling = 0;
+}
+
+void TreeNode::clearChildLinksRecursively_()
+{
+        TreeNode* child = mFirstChild;
+        while ( child )
+        {
+                TreeNode* current = child;
+                child = child->mNextSibling;
+                current->clearChildLinksRecursively_();
+                current->mParent = current->mFirstChild = current->mNextSibling = current->mPreviousSibling = 0;
+        }
+}
+
+void TreeNode::detachSubTree()
+{
+        if ( mPreviousSibling )
+        {
+                mPreviousSibling->mNextSibling = mNextSibling;
+                if ( mNextSibling )
+                {
+                        mNextSibling->mPreviousSibling = mPreviousSibling;
+                        mNextSibling = 0;
+                }
+                mPreviousSibling = 0;
+                mParent = 0;
+        }
+        else
+        {
+                if ( mParent )
+                {
+                        mParent->mFirstChild = mNextSibling;
+                        mParent = 0;
+                }
+                if ( mNextSibling )
+                {
+                        mNextSibling->mPreviousSibling = mPreviousSibling;
+                        mNextSibling = 0;
+                }
+        }
+}
+
+} // namespace sead

@@ -1,6 +1,12 @@
 #include <Layout/alWipeSimple.h>
 #include <Nerve/alNerveFunction.h>
 
+extern "C" bool fn_00333bf0( const al::LayoutActor* actor );
+extern "C" float fn_00250f38( const al::LayoutActor* actor );
+extern "C" void fn_00250f5c( al::LayoutActor* actor, float rate );
+extern "C" const char dat_003aebd4[];
+extern "C" void fn_00270ccc( al::LayoutActor* actor, const sead::SafeString& name );
+
 namespace al
 {
 
@@ -27,27 +33,28 @@ void WipeSimple::appear()
 
 void WipeSimple::exeClose()
 {
-        if ( !isFirstStep( this ) && isActionEnd( this ) )
+        if ( !isFirstStep( this ) && fn_00333bf0( this ) )
                 setNerve( this, &NrvWipeSimple::Wait );
 }
 
 void WipeSimple::exeWait()
 {
         if ( isFirstStep( this ) )
-                startAction( this, "Wait" );
+                fn_00270ccc( this, dat_003aebd4 );
 }
 
-#ifdef NON_MATCHING
-
-// float math
 void WipeSimple::exeOpen()
 {
         if ( isFirstStep( this ) )
-                setActionFrameRate( this, _30 < 1 ? 1.0 : getActionFrameMax( this ) / _30 );
+        {
+                if ( _30 <= 0 )
+                        fn_00250f5c( this, 1.0f );
+                else
+                        fn_00250f5c( this, fn_00250f38( this ) / _30 );
+        }
 
-        if ( isActionEnd( this ) )
+        if ( fn_00333bf0( this ) )
                 kill();
 }
-#endif
 
 } // namespace al

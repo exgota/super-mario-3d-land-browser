@@ -8,6 +8,8 @@
 #include <Placement/alPlacementFunction.h>
 #include <Stage/alStageSwitchKeeper.h>
 
+extern "C" const char dat_003BCDFC[];
+
 namespace NrvAquariumSwimDebris
 {
 
@@ -30,5 +32,5 @@ void AquariumSwimDebris::init( const al::ActorInitInfo& info )
 void AquariumSwimDebris::exeAppear()
 {
         if ( al::isFirstStep( this ) )
-                al::startHitReaction( this, "èoåª" );
+                al::startHitReaction( this, dat_003BCDFC );
 }

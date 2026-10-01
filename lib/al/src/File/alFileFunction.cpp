@@ -4,8 +4,12 @@
 #include <System/alSystemKit.h>
 #include <Util/alStringUtil.h>
 
+extern "C" s32 fn_0028E1E4( sead::BufferedSafeString* receiver, const char* format, ... );
+
 namespace al
 {
+
+const char* getLanguageString();
 
 void loadArchive( const sead::SafeString& archive )
 {
@@ -15,12 +19,12 @@ void loadArchive( const sead::SafeString& archive )
 
 void makeLocalizedArchivePath( sead::BufferedSafeString* out, const sead::SafeString& archive )
 {
-        out->format( "LocalizedData/%s/%s", al::getLanguage(), archive.cstr() );
+        ::fn_0028E1E4( out, "LocalizedData/%s/%s", al::getLanguageString(), archive.cstr() );
 }
 
 void makeStageDataArchivePath( sead::BufferedSafeString* out, const char* stageName, int scenario, const char* type )
 {
-        out->format( "StageData/%s%s%d", stageName, type, scenario );
+        ::fn_0028E1E4( out, "StageData/%s%s%d", stageName, type, scenario );
 }
 
 } // namespace al

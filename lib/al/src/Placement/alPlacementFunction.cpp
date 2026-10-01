@@ -66,6 +66,39 @@ extern "C" void fn_001BBE0C( float* out, const al::ByamlIter* iter )
         iter->tryGetFloatByKey( &out[ 3 ], "OutMax" );
 }
 
+extern "C" const char dat_003A2E14[];
+extern "C" const char dat_003A2E1C[];
+extern "C" const char dat_003A2E24[];
+
+extern "C" bool fn_00240FA8( sead::Vector3f* out, const al::ByamlIter* iter )
+{
+        if ( !iter->isValid() )
+                return false;
+        sead::Vector3f value;
+        if ( !iter->tryGetFloatByKey( &value.x, dat_003A2E14 ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.y, dat_003A2E1C ) )
+                return false;
+        if ( !iter->tryGetFloatByKey( &value.z, dat_003A2E24 ) )
+                return false;
+        out->x = value.x;
+        out->y = value.y;
+        out->z = value.z;
+        return true;
+}
+
+extern "C" bool fn_001E7964( const al::ByamlIter* iter, const char** name, int* count )
+{
+        al::ByamlIter sound;
+        if ( !iter->tryGetIterByKey( &sound, "Sound" ) )
+                return false;
+        if ( !sound.tryGetStringByKey( name, "Name" ) )
+                return false;
+        *count = 4;
+        sound.tryGetIntByKey( count, "MaxSound" );
+        return true;
+}
+
 extern "C" int fn_00192768( const al::ActorInitInfo* info )
 {
         int value = -1;

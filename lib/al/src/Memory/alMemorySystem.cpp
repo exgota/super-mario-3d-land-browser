@@ -4,8 +4,26 @@
 #include <Util/alStringUtil.h>
 #include <Yaml/alByamlIter.h>
 
+namespace
+{
+struct SystemKitResourceView
+{
+        al::MemorySystem* memorySystem;
+        al::FileLoader* fileLoader;
+        void* resourceSystem;
+};
+}
+
+extern "C" al::Resource* fn_0024327c( void* resourceSystem, const sead::SafeString& archive );
+
 namespace al
 {
+
+Resource* findOrCreateResource( const sead::SafeString& archive )
+{
+        const SystemKitResourceView* system = reinterpret_cast<const SystemKitResourceView*>( alProjectInterface::getSystemKit() );
+        return fn_0024327c( system->resourceSystem, archive );
+}
 
 void MemorySystem::createSequenceHeap()
 {

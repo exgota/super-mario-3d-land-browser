@@ -8,6 +8,8 @@
 #include <Nerve/alNerveFunction.h>
 #include <Nerve/alNerveStateBase.h>
 
+extern "C" const char dat_003bf8f8[];
+
 namespace NrvTrickHintPanel
 {
 
@@ -60,9 +62,6 @@ extern "C" int fn_0026A9B8( u32 );
 extern "C" int fn_0026AA60( u32 );
 extern "C" int fn_002786F4();
 
-#ifdef NON_MATCHING
-
-// inline nops
 void TrickHintPanel::exeOn()
 {
         if ( !mPlayedSound )
@@ -70,12 +69,11 @@ void TrickHintPanel::exeOn()
                 al::startHitReactionStart( this );
                 mPlayedSound = true;
         }
-        al::startHitReaction( this, "ƒIƒ“" ); // "ƒIƒ“" -> On
+        al::startHitReaction( this, dat_003bf8f8 ); // "ƒIƒ“" -> On
         fn_0026A9B8( _96 );
         al::invalidateClipping( this );
         al::setNerve( this, &NrvTrickHintPanel::nrv3 );
 }
-#endif
 
 void TrickHintPanel::exenrv3()
 {
