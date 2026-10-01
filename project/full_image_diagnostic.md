@@ -33,3 +33,7 @@ All618 accepted intervals/33256 complete bytes remain equal in the isolated full
 ## Updated checkpoint8110001
 
 The isolated image preserves651/651 accepted intervals and35256 complete bytes, capturing170 canonical objects and357 source/header/configuration inputs. Output: build/eu/full_image_diagnostic/1790890160066231000. Its3096576-byte SHA is637f2c87a10a9445586f6c948b168a8951715256ba70d0b3ab92539552009e7f. Whole equality is false:2484592 bytes differ and611984 equal. Incidental equality adds no exact credit. Original linker input bytes, static-recompiled behavior and placeholder behavior claims remain zero.
+
+## Updated checkpoint215a7bb
+
+The installed split path preserves all663 accepted intervals/36640 complete bytes. It captures173 canonical objects and362 source/header/configuration inputs. Evidence directory: build/eu/full_image_diagnostic/1790892194568272000. The3096576-byte linked SHA is4e8423a0eefa3b6d18b1c791b337916f034c91614b658de2f46534333bfff109. Whole-image equality remains false:2483477 bytes differ and613099 equal. Incidental equality adds no exact credit. Every build input and canonical object remains byte-identical before this audited push. Placeholder/fill/data, startup and gameplay limitations remain unchanged.
