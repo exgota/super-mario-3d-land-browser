@@ -399,3 +399,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:48:46-04:00,0x00274EE4,_ZNK2al19StageResourceKeeper16getResourceSoundEv,matched,2,0.0443
 2026-10-01T11:48:47-04:00,0x00275048,_ZNK2al19StageResourceKeeper14getResourceMapEv,matched,2,0.0442
 2026-10-01T11:48:47-04:00,0x00275514,_ZNK2al19StageResourceKeeper17getResourceDesignEv,matched,2,0.0440
+2026-10-01T11:48:48-04:00,0x00337030,_ZNK2al7AreaObj10isInVolumeERKN4sead7Vector3IfEE,matched,2,0.0442

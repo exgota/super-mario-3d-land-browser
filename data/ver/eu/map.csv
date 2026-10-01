@@ -14046,7 +14046,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00336F70,          ,0x00336F94,          ,U,f,,
 0x00336F94,          ,0x00336FE4,          ,U,f,,
 0x00336FE4,          ,0x00337030,          ,U,f,,
-0x00337030,          ,0x00337054,          ,M,f,_ZNK2al7AreaObj10isInVolumeERKN4sead7Vector3IfEE,
+0x00337030,          ,0x00337054,          ,O,f,_ZNK2al7AreaObj10isInVolumeERKN4sead7Vector3IfEE,
 0x00337054,          ,0x0033705C,          ,M,f,_ZNK2al7AreaObj20getStageSwitchKeeperEv,
 0x0033705C,          ,0x00337064,          ,U,f,,
 0x00337064,          ,0x0033706C,          ,U,f,,
