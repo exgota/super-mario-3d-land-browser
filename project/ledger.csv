@@ -153,3 +153,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:41-04:00,0x00268E3C,_ZN2al13NerveExecutorD1Ev,matched,3,0.0049
 2026-10-01T09:44:41-04:00,0x0027E648,_ZN2al11LayoutActorC1EPKc,matched,3,0.0049
 2026-10-01T09:44:42-04:00,0x0027FE9C,_ZN2al9LiveActorC1EPKc,matched,3,0.0050
+2026-10-01T09:44:42-04:00,0x003375FC,_ZNK2al9LiveActor14getAudioKeeperEv,matched,3,0.0049
