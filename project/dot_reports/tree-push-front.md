@@ -116,3 +116,5 @@ checker-produced original-address ELF directories. The old three packet
 contexts were not recompiled. This pass began2026-10-01 at21:59UTC; the clean
 build and final checks ended22:04UTC. Times overlap the scale packet work and
 are not separate per-function labor estimates.
+
+Latest validation: [fresh-main clean build and four canonical checks](tree-push-front-current-main.md) on3de056e.
