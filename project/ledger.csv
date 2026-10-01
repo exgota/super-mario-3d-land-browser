@@ -563,3 +563,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:09:46-04:00,0x0018670C,_ZN2al18getStageSwitchNameENS_15StageSwitchTypeE,matched,2,0.0142
 2026-10-01T14:09:46-04:00,0x001BF134,fn_001BF134,matched,2,0.0158
 2026-10-01T14:09:47-04:00,0x001BF2E4,fn_001BF2E4,matched,2,0.4399
+2026-10-01T14:09:47-04:00,0x00268E80,fn_00268E80,matched,2,0.4475
