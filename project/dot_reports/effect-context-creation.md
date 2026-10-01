@@ -53,3 +53,7 @@ A pristine untouched a74ef624 worktree fails python make.py eu -ca at L6218E, un
 Source checkpoint542c8c3 on unchanged maina74ef6247dcf52073d9b05fd0e091aa7e3579563 compiled, linked and exported through normal python make.py eu. Canonical check.py output: `U -> M: The complete compiled section, including its literal pool, has a different size from the original interval.` The1216-byte diagnostic linked SHA is unchanged. The replay scripts extracted from this report reran against that fresh canonical object: all512 original/candidate/model pairs pass with the same counts and hashes. No local main/tool patch was used; only the explicitly listed local import map enrollments are needed. No exact acceptance is claimed.
 
 Fresh canonical object SHA256: `0e67a84e6d03112ce030a41b2e434396d06defa168146aa191e202032593ccbc`.
+
+## Recreation-family extension
+
+The adjacent large routine fn_002E4E18 now supplies an independently observed set copy-construction/assignment path. The private header is refined to express those operations; the creation body only receives corresponding descriptive field renames. Its complete linked output remains unchanged and all 512 creation replay pairs pass. See effect-context-recreation.md for the separate 1,564/1,572-byte proposal and 512 bounded recreation pairs. Source-level aggregate spellings remain hypotheses constrained by the observed offsets/copies, not recovered original class definitions.

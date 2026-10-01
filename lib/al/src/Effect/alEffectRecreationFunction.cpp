@@ -2,84 +2,30 @@
 #include <Effect/alEffectCreationFields.h>
 
 using namespace effect_creation_detail;
+extern "C" void fn_0024DD4C(void*);
 
-// First semantic form: preserve the shared allocation-probe counter and the
-// descending emitter traversal seen in the retail routine. No compile yet.
-extern "C" bool fn_002E54AC(Context* context, Reference* reference,
-    const sead::Matrix34f* matrix, int resourceIndex, int bankIndex,
-    unsigned char group, unsigned int selectionMask)
+// Address-only identity; original class/member spelling remains unknown.
+extern "C" void fn_002E4E18(Context* context, Set* set,
+    int bankIndex, int resourceIndex, unsigned char group)
 {
     sead::Random* random = dat_003E26DC.mInstance;
-    int emitterCount = context->mBanks[bankIndex]->mSets[resourceIndex].mEmitterCount;
-    if (context->mFreeEmitterCount < emitterCount)
-    {
-        fn_002200FC(context, "\x83\x47\x83\x7e\x83\x62\x83\x5e\x82\xaa\x8c\xcd\x8a\x89\x82\xb5\x82\xdc\x82\xb5\x82\xbd\n");
-        return false;
-    }
+    int firstUnused = set->mEmitterCount;
+    int fillCount = 8 - firstUnused;
+    for (int index = 0; index < fillCount; ++index)
+        set->mEmitterParameters[firstUnused + index] = set->mEmitterParameters[0];
 
-    int probes = 0;
-    Set* set = 0;
-    for (;;)
-    {
-        context->mSetCursor = (context->mSetCursor + 1) & context->mSetMask;
-        if (context->mSets[context->mSetCursor].mLiveEmitterCount == 0)
-        {
-            set = &context->mSets[context->mSetCursor];
-            break;
-        }
-        if (++probes >= context->mSetCapacity)
-            break;
-    }
-    reference->mSet = set;
-    if (!set)
-    {
-        fn_002200FC(context, "\x83\x47\x83\x7e\x83\x62\x83\x5e\x83\x5a\x83\x62\x83\x67\x82\xaa\x8c\xcd\x8a\x89\x82\xb5\x82\xdc\x82\xb5\x82\xbd\n");
-        return false;
-    }
-
-    sead::Matrix34CalcCtr<float>::copy(
-        reinterpret_cast<nn::math::MTX34&>(set->mMatrixFC),
-        reinterpret_cast<const nn::math::MTX34&>(*matrix));
-    sead::Matrix34CalcCtr<float>::copy(
-        reinterpret_cast<nn::math::MTX34&>(set->mMatrix12C),
-        reinterpret_cast<const nn::math::MTX34&>(*matrix));
-    set->mVector15C.x = sead::Vector3f::ones.x;
-    set->mVector15C.y = sead::Vector3f::ones.y;
-    set->mVector15C.z = sead::Vector3f::ones.z;
-    set->mVector180.x = sead::Vector3f::ones.x;
-    set->mVector180.y = sead::Vector3f::ones.y;
-    set->mVector180.z = sead::Vector3f::ones.z;
-    set->mVector170.x = sead::Vector3f::ones.x;
-    set->mVector170.y = sead::Vector3f::ones.y;
-    set->mVector178.x = 1.0f;
-    set->mVector178.y = 1.0f;
-    set->mValue1C0 = 0;
-    set->mVector168.y = 1.0f;
-    set->mVector168.x = 1.0f;
-    set->mValues18C[3] = 1.0f;
-    set->mValues18C[2] = 1.0f;
-    set->mValues18C[1] = 1.0f;
-    set->mValues18C[0] = 1.0f;
-    set->mValue1A4 = 1.0f;
-    set->mValue1A0 = 1.0f;
-    set->mValue19C = 1.0f;
-    set->mVector1A8.z = 0.0f;
-    set->mVector1A8.y = 0.0f;
-    set->mVector1A8.x = 0.0f;
-    set->mFlag1CD = 0;
-    set->mFlag1CC = 0;
-    set->mFlag1CE = 0;
+    Set saved(*set);
+    fn_0024DD4C(set);
+    *set = saved;
+    set->mLiveEmitterCount = 0;
     set->mFlag1CF = 0;
-    set->mValue1C4 = 0;
-    set->mIdentifier = context->mNextIdentifier;
-    set->mBankIndex = bankIndex;
-    set->mResourceIndex = resourceIndex;
-    reference->mIdentifier = context->mNextIdentifier;
+    int emitterCount = context->mBanks[bankIndex]->mSets[resourceIndex].mEmitterCount;
+    if (emitterCount > context->mFreeEmitterCount)
+        return;
 
     for (int index = emitterCount - 1; index >= 0; --index)
     {
-        if (!(selectionMask & (1U << index)))
-            continue;
+        int probes = 0;
         Emitter* emitter = 0;
         for (;;)
         {
@@ -101,13 +47,7 @@ extern "C" bool fn_002E54AC(Context* context, Reference* reference,
         EmitterParameters* parameters = &set->mEmitterParameters[index];
         emitter->mParameters = parameters;
         emitter->mSet = set;
-        parameters->mValue0 = 0x100;
-        parameters->mValue4 = 0x100;
-        parameters->mValue8 = 0x100;
-        parameters->mValueC = 0;
-        parameters->mValue10 = 0;
-        parameters->mValue14 = 0;
-        emitter->mIdentifier = context->mNextIdentifier;
+        emitter->mIdentifier = set->mIdentifier;
         emitter->mValue84 = 1.0f;
         if (context->mGroupHeads[group])
         {
@@ -158,8 +98,5 @@ extern "C" bool fn_002E54AC(Context* context, Reference* reference,
     }
     set->mEmitterCount = set->mLiveEmitterCount;
     ++context->mLiveSetCount;
-    ++context->mNextIdentifier;
-    return true;
 }
-
 #endif

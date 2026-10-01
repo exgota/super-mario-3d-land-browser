@@ -3,6 +3,25 @@
 #include <math/seadMatrix.h>
 #include <stddef.h>
 
+// Existing map identities, declared without reconstructing unrelated methods.
+namespace nn { namespace math { struct MTX34 { float m[3][4]; }; } }
+namespace sead
+{
+template <typename T> class Matrix34CalcCtr
+{
+public:
+    static void copy(nn::math::MTX34&, const nn::math::MTX34&);
+};
+class Random
+{
+public:
+    unsigned int getU32();
+};
+}
+
+
+extern "C" void fn_00291470(sead::Matrix34f&, const sead::Matrix34f&);
+
 // Binary-derived partial views. These descriptive names do not claim the
 // original effect library's class spelling. Opaque spans preserve observed
 // offsets; no span was chosen to influence the compiler's instruction choices.
@@ -12,6 +31,36 @@ struct Context;
 struct Set;
 struct Emitter;
 struct EmitterResource;
+
+// Copy construction and assignment are independently different retail paths.
+struct StoredMatrix : sead::Matrix34f
+{
+    StoredMatrix() {}
+    StoredMatrix(const StoredMatrix& source) { fn_00291470(*this, source); }
+    StoredMatrix& operator=(const StoredMatrix& source)
+    {
+        sead::Matrix34CalcCtr<float>::copy(
+            reinterpret_cast<nn::math::MTX34&>(*this),
+            reinterpret_cast<const nn::math::MTX34&>(source));
+        return *this;
+    }
+};
+struct StoredVector3 : sead::Vector3f
+{
+    StoredVector3& operator=(const StoredVector3& source)
+    {
+        x = source.x; y = source.y; z = source.z;
+        return *this;
+    }
+};
+struct StoredVector2 : sead::Vector2f
+{
+    StoredVector2& operator=(const StoredVector2& source)
+    {
+        x = source.x; y = source.y;
+        return *this;
+    }
+};
 
 struct RandomState
 {
@@ -40,21 +89,21 @@ struct Set
     EmitterParameters mEmitterParameters[8];              // 0x030
     int mBankIndex;                                       // 0x0f0
     int mResourceIndex;                                   // 0x0f4
-    unsigned char mOpaqueF8[4];                           // 0x0f8
-    sead::Matrix34f mMatrixFC;                             // 0x0fc
-    sead::Matrix34f mMatrix12C;                            // 0x12c
-    sead::Vector3f mVector15C;                             // 0x15c
-    sead::Vector2f mVector168;                             // 0x168
-    sead::Vector2f mVector170;                             // 0x170
-    sead::Vector2f mVector178;                             // 0x178
-    sead::Vector3f mVector180;                             // 0x180
+    unsigned int mValueF8;                           // 0x0f8
+    StoredMatrix mMatrixFC;                             // 0x0fc
+    StoredMatrix mMatrix12C;                            // 0x12c
+    StoredVector3 mVector15C;                             // 0x15c
+    StoredVector2 mVector168;                             // 0x168
+    StoredVector2 mVector170;                             // 0x170
+    StoredVector2 mVector178;                             // 0x178
+    StoredVector3 mVector180;                             // 0x180
     float mValues18C[4];                                  // 0x18c
-    sead::Vector3f mVector19C;                             // 0x19c
-    sead::Vector3f mVector1A8;                             // 0x1a8
-    unsigned char mOpaque1B4[0x0c];                        // 0x1b4
+    float mValue19C; float mValue1A0; float mValue1A4;                             // 0x19c
+    StoredVector3 mVector1A8;                             // 0x1a8
+    StoredVector3 mVector1B4;                        // 0x1b4
     unsigned int mValue1C0;                               // 0x1c0
     unsigned int mValue1C4;                               // 0x1c4
-    unsigned char mOpaque1C8[4];                          // 0x1c8
+    unsigned int mValue1C8;                          // 0x1c8
     unsigned char mFlag1CC;
     unsigned char mFlag1CD;
     unsigned char mFlag1CE;
@@ -170,22 +219,6 @@ typedef char ContextCapacityCheck[offsetof(Context, mFreeEmitterCount) == 0x868 
 typedef char ContextMatrixCheck[offsetof(Context, mTemporaryMatrix) == 0x87c ? 1 : -1];
 typedef char ContextImplementationCheck[offsetof(Context, mImplementations) == 0x8c0 ? 1 : -1];
 #endif
-}
-
-// Existing map identities, declared without reconstructing unrelated methods.
-namespace nn { namespace math { struct MTX34 { float m[3][4]; }; } }
-namespace sead
-{
-template <typename T> class Matrix34CalcCtr
-{
-public:
-    static void copy(nn::math::MTX34&, const nn::math::MTX34&);
-};
-class Random
-{
-public:
-    unsigned int getU32();
-};
 }
 
 struct EffectGlobalRandomHolder
