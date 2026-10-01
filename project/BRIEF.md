@@ -51,17 +51,18 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 2. Never edit the target binary, the version hashes, the function boundaries in `map.csv`, the differ, or the progress scripts to make something match. If a boundary in `map.csv` is genuinely wrong, fix it in a separate commit with evidence in the decision log.
 3. No inline assembly, `__asm` blocks, `.s` files, or byte arrays standing in for game functions. Only the low-level SDK and runtime code that RE-Pepper already handles in assembly is exempt.
 4. Do not change global compiler flags to rescue a single function. Per-file or per-module flags are allowed when the decision log records why.
-5. "Non-matching" is a legitimate state: functionally correct C++ that does not match byte for byte. Mark it with the project's NonMatching convention and keep it separate from matched counts in every report.
+5. A match from `tools/check.py --object` counts only when the object is the armcc output of committed C++ source in this repository, built by the project's own build step. Never check a hand-made, assembled, or edited object.
+6. "Non-matching" is a legitimate state: functionally correct C++ that does not match byte for byte. Mark it with the project's NonMatching convention and keep it separate from matched counts in every report.
 
 **Legal and data hygiene**
-6. Never use leaked Nintendo source code, leaked SDKs, or symbols that come from leaks. Clean-room means the dump, public documentation, and public community work only. If an input's provenance is unclear, leave it out and log it. Never restore the removed RE-Pepper submodules (CtrSDK, NintendoWare, sead), and never use RedPepper's `Library/` submodules, the 3dsdecomp ctrsdk or sead repositories, or anything derived from them. You may use open-ead/sead (the Switch reconstruction) as a reference for sead's API shape after checking its README for provenance. The 3DS implementation itself must come from the game binary.
-7. Never modify the original `.3ds` file. Work from copies in the project's ignored data directory.
-8. Never commit game data: `code.bin`, `exh.bin`, RomFS contents, extracted assets, textures, audio, or screenshots of gameplay. `.gitignore` must cover these before the first commit.
-9. The GitHub repo `exgota/super-mario-3d-land-browser` stays private. Never make it public, never open pull requests or issues on any upstream project, and never post anywhere. Publicity is the owner's decision alone.
+7. Never use leaked Nintendo source code, leaked SDKs, or symbols that come from leaks. Clean-room means the dump, public documentation, and public community work only. If an input's provenance is unclear, leave it out and log it. Never restore the removed RE-Pepper submodules (CtrSDK, NintendoWare, sead), and never use RedPepper's `Library/` submodules, the 3dsdecomp ctrsdk or sead repositories, or anything derived from them. You may use open-ead/sead (the Switch reconstruction) as a reference for sead's API shape after checking its README for provenance. The 3DS implementation itself must come from the game binary.
+8. Never modify the original `.3ds` file. Work from copies in the project's ignored data directory.
+9. Never commit game data: `code.bin`, `exh.bin`, RomFS contents, extracted assets, textures, audio, or screenshots of gameplay. `.gitignore` must cover these before the first commit.
+10. The GitHub repo `exgota/super-mario-3d-land-browser` stays private. Never make it public, never open pull requests or issues on any upstream project, and never post anywhere. Publicity is the owner's decision alone.
 
 **Resources**
-10. There is no spend cap and no cost tracking (D4). Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong.
-11. Run at most 3 heavy parallel jobs (compiles, agents, emulator instances) at once. The Mac mini overheats beyond that.
+11. There is no spend cap and no cost tracking (D4). Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong.
+12. Run at most 3 heavy parallel jobs (compiles, agents, emulator instances) at once. The Mac mini overheats beyond that.
 
 ## 5. Working protocol for unattended operation
 
@@ -69,7 +70,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Follow-through.** Persist until the current milestone's exit check passes. Do not stop at a plan, a proposal, or an offer to continue. Do not settle for a partial result to save time, effort, or tokens. When you have a question, first finish all the work that does not depend on the answer, write the question to `project/QUESTIONS.md`, and keep working on whatever remains. Do not add warnings, disclaimers, or approval steps for hypothetical risks.
 
-**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 3 lanes running local compiles at once (rule 11). Messages between agents must be legible to a human reader.
+**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 3 lanes running local compiles at once (rule 12). Messages between agents must be legible to a human reader.
 
 **Writing.** Daily reports and decision entries use short plain paragraphs, active voice, and the real numbers. No filler phrases and no concluding summaries.
 
@@ -85,7 +86,7 @@ You will lose context. Threads compact, sessions end, and the machine restarts. 
 **Session loop:**
 1. Read `project/STATE.md` and the newest daily report.
 2. Pick the next task from STATE. Prefer tasks that unblock other tasks.
-3. Work in small verified steps. Commit after every matched function or meaningful tooling change. Use clear commit messages. Never rewrite pushed history.
+3. Work in small verified steps. Commit after every matched function or meaningful tooling change. Push to `origin` at least once an hour. Use clear commit messages. Never rewrite pushed history.
 4. Update the ledger, STATE, and when relevant the decision log, then continue.
 
 **When to stop and wait for the owner (write the question to `project/QUESTIONS.md`, then continue on other work if any remains):**
@@ -139,7 +140,7 @@ Determinism is the test. The same inputs must produce the same game state on the
 - **D1. Repository base. DECIDED:** RE-Pepper's history in the private repo `exgota/super-mario-3d-land-browser`, credited, with the unclean libraries removed. Never contribute upstream.
 - **D2. Matching standard. DECIDED:** the final claim is 100% byte-exact (M2). Non-matching code is allowed as an intermediate state and never counts toward the headline number.
 - **D3. When the port starts. DECIDED:** both an early demo and the pure claim. After the pilot, start the runtime in parallel, use static recompilation (ARM to C) as scaffolding for code not yet decompiled, and replace it as matches land. The scoreboard always shows "% decompiled" and "% recompiled" separately. The early demo states the real split. The pure claim waits until recompiled code reaches 0%.
-- **D4. Budget. DECIDED:** no spend cap and no cost tracking. The stall rule (rule 10) replaces it.
+- **D4. Budget. DECIDED:** no spend cap and no cost tracking. The stall rule (rule 11) replaces it.
 - **D5. Attempt cap per function. DECIDED:** 8 compile-diff iterations during the pilot, then park the function in `blocked.md`. Revisit the cap in the pilot report.
 - **D6. Outer loop. DECIDED:** Codex `/goal` mode. Treat every session as one that might end unexpectedly: keep `project/STATE.md` current enough that a fresh session can resume from it alone.
 - **D7. Enhancement order. DECIDED:** gamepad, widescreen, free mouse camera, high frame rate, then WebXR stereoscopic mode last as the showpiece.
