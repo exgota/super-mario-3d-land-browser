@@ -7098,7 +7098,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00242B94,          ,0x00242BBC,          ,U,f,,
 0x00242BBC,0x00242CBC,0x00242CC4,          ,U,f,,
 0x00242CC4,          ,0x00242CCC,          ,O,f,fn_00242CC4,
-0x00242CCC,          ,0x00242D14,          ,M,f,fn_00242CCC,
+0x00242CCC,          ,0x00242D14,          ,O,f,fn_00242CCC,
 0x00242D14,          ,0x00242D20,          ,U,f,,
 0x00242D20,          ,0x00242D28,          ,U,f,,
 0x00242D28,          ,0x00242D5C,          ,U,f,,
