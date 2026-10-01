@@ -2733,7 +2733,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001814AC,          ,0x001814B4,          ,U,f,,
 0x001814B4,          ,0x00181520,          ,U,f,,
 0x00181520,          ,0x0018153C,          ,U,f,,
-0x0018153C,          ,0x00181558,          ,M,f,_ZN17PlayerActionGraph4moveEv,
+0x0018153C,          ,0x00181558,          ,O,f,_ZN17PlayerActionGraph4moveEv,
 0x00181558,          ,0x00181570,          ,U,f,,
 0x00181570,          ,0x00181584,          ,U,f,,
 0x00181584,0x0018163C,0x00181650,          ,U,f,,
