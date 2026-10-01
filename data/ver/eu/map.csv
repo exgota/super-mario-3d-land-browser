@@ -8766,7 +8766,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00270F00,0x00270F3C,0x00270F40,          ,U,f,,
 0x00270F40,0x00270F4C,0x00270F54,          ,U,f,,
 0x00270F54,          ,0x00270F94,          ,U,f,,
-0x00270F94,          ,0x00270FA8,          ,M,f,_ZN2al11isExistRailEPKNS_9LiveActorE,
+0x00270F94,          ,0x00270FA8,          ,O,f,_ZN2al11isExistRailEPKNS_9LiveActorE,
 0x00270FA8,          ,0x00270FC4,          ,U,f,,
 0x00270FC4,          ,0x00271028,          ,U,f,,
 0x00271028,          ,0x00271038,          ,U,f,,

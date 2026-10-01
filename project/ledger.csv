@@ -256,3 +256,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:02:06-04:00,0x003350E8,_ZNK2al19ActorPoseKeeperTRSV8getScaleEv,matched,2,0.0915
 2026-10-01T11:02:07-04:00,0x003350F0,_ZNK2al19ActorPoseKeeperTRSV9getRotateEv,matched,2,0.0914
 2026-10-01T11:02:07-04:00,0x003352A0,_ZNK2al20ActorPoseKeeperTFGSV10getGravityEv,matched,2,0.0924
+2026-10-01T11:02:07-04:00,0x00270F94,_ZN2al11isExistRailEPKNS_9LiveActorE,matched,2,0.0481
