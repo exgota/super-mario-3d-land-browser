@@ -7406,7 +7406,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024E668,          ,0x0024E6C8,          ,U,f,,
 0x0024E6C8,0x0024E700,0x0024E704,          ,U,f,,
 0x0024E704,          ,0x0024E734,          ,U,f,,
-0x0024E734,          ,0x0024E744,          ,M,f,_ZNK2al19StageSwitchAccesser12FUN_0024e734Ev,
+0x0024E734,          ,0x0024E744,          ,O,f,_ZNK2al19StageSwitchAccesser12FUN_0024e734Ev,
 0x0024E744,          ,0x0024E77C,          ,U,f,,
 0x0024E77C,0x0024E944,0x0024E950,          ,U,f,,
 0x0024E950,          ,0x0024E998,          ,U,f,,

@@ -522,3 +522,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:01:55-04:00,0x00272634,_ZN2al11getBaseNameEPKc,matched,2,0.0241
 2026-10-01T14:01:56-04:00,0x0027044C,_ZN2al16isEqualSubStringEPKcS1_,matched,2,0.0255
 2026-10-01T14:01:56-04:00,0x0028E3BC,_ZN2al13isEqualStringERKN4sead14SafeStringBaseIcEES4_,matched,3,0.0394
+2026-10-01T14:01:57-04:00,0x0024E734,_ZNK2al19StageSwitchAccesser12FUN_0024e734Ev,matched,2,0.0153
