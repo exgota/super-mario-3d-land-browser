@@ -641,7 +641,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0011A168,0x0011A170,0x0011A174,          ,U,f,,
 0x0011A174,0x0011A310,0x0011A384,          ,U,f,,
 0x0011A384,          ,0x0011A38C,          ,U,f,,
-0x0011A38C,0x0011A430,0x0011A43C,          ,M,f,_ZN10Fugumannen10receiveMsgEjPN2al9HitSensorES2_,
+0x0011A38C,0x0011A430,0x0011A43C,          ,O,f,_ZN10Fugumannen10receiveMsgEjPN2al9HitSensorES2_,
 0x0011A43C,0x0011A48C,0x0011A498,          ,M,f,_ZN10Fugumannen12attackSensorEPN2al9HitSensorES2_,
 0x0011A498,0x0011A580,0x0011A5B4,          ,M,f,_ZN10Fugumannen4initERKN2al13ActorInitInfoE,
 0x0011A5B4,0x0011A5EC,0x0011A5F4,          ,M,f,_ZN10FugumannenC1ERKN4sead14SafeStringBaseIcEE,
