@@ -13,10 +13,6 @@ project_name = None
 # if undefined, exh.bin cannot be reviewed
 app_name = None
 
-# Game ID from decomp.me
-# if undefined, tools/upload wont work
-decompme_id = None
-
 # Dict of versions + sha256sum
 versions = None
 
@@ -37,7 +33,6 @@ compiler = None
 #   "flags":       "-c"      # additional flags (base)
 #   "flags_asm":   "-c"      # additional flags (add for asm)
 #   "flags_cxx":   "-c"      # additional flags (add for cxx)
-#   "decompme_id": 8         # defaults to main, tools/upload unusable if nowhere
 # }
 modules = {}
 
@@ -76,9 +71,6 @@ def checkStrEntry(data, name):
             globals()[name] += str(data.get(name))
         else:
             globals()[name] = str(data.get(name))
-def checkIntEntry(data, name):
-    if name in data:
-        globals()[name] = int(data.get(name))
 def checkBolEntry(data, name):
     if name in data:
         globals()[name] = bool(data.get(name))
@@ -106,7 +98,7 @@ def readFile(path):
     if not path.exists():
         return
 
-    global project_name, app_name, decompme_id, versions, modules, extensions
+    global project_name, app_name, versions, modules, extensions
 
     try:
         with open(path, 'r') as f:
@@ -116,7 +108,6 @@ def readFile(path):
 
     checkStrEntry(data, "project_name")
     checkStrEntry(data, "app_name")
-    checkIntEntry(data, "decompme_id")
     checkDctEntry(data, "versions")
     checkStrEntry(data, "default_version")
     checkStrEntry(data, "compiler")

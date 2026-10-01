@@ -1,7 +1,6 @@
 {
   "project_name": "RE-Pepper",
   "app_name": "CtrApp",
-  "decompme_id": 8,
   "default_version": "eu",
   "versions": {
     "eu": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",

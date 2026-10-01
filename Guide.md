@@ -36,7 +36,6 @@
 │ ├── diff.py  - Display asm difference
 │ ├── listsyms.py  - List symbols
 │ ├── progress.py  - Calculate progress
-│ ├── upload.py  - Create decomp.me scratch
 │ ├── pypstem/  - Python Project System
 │ ├── low/  - Small helper files
 │ ├── splector/  - Scrapped reassembly engine
@@ -113,10 +112,6 @@ project_name:
 
 app_name\*:
  > Name of the application from the exheader. Use this if you do not have an .axf file as target.  
- > default: None
-
-decompme_id:
- > Id to pass to decompme when uploading a function  
  > default: None
 
 versions:
