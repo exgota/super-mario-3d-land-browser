@@ -9820,7 +9820,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00290FB0,          ,0x0029101C,          ,U,f,,
 0x0029101C,          ,0x0029107C,          ,U,f,,
 0x0029107C,          ,0x002910E8,          ,U,f,,
-0x002910E8,          ,0x002910F8,          ,U,f,_ZN2al9ByamlIterC1Ev,
+0x002910E8,          ,0x002910F8,          ,O,f,_ZN2al9ByamlIterC1Ev,
 0x002910F8,          ,0x00291124,          ,U,f,_ZNK2al9ByamlIter7getSizeEv,
 0x00291124,          ,0x002911D4,          ,U,f,,
 0x002911D4,          ,0x002911E8,          ,U,f,,
