@@ -1829,7 +1829,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00155114,0x00155128,0x0015512C,          ,U,f,,
 0x0015512C,0x001551A0,0x001551AC,          ,U,f,_ZN14TrickHintPanel10receiveMsgEjPN2al9HitSensorES2_,
 0x001551AC,0x001551EC,0x001551F4,          ,U,f,_ZN14TrickHintPanel4initERKN2al13ActorInitInfoE,
-0x001551F4,0x0015522C,0x00155230,          ,M,f,_ZN14TrickHintPanelC1ERKN4sead14SafeStringBaseIcEE,
+0x001551F4,0x0015522C,0x00155230,          ,O,f,_ZN14TrickHintPanelC1ERKN4sead14SafeStringBaseIcEE,
 0x00155230,          ,0x00155264,          ,U,f,,
 0x00155264,0x001552A0,0x001552A4,          ,U,f,,
 0x001552A4,          ,0x001552FC,          ,U,f,,
