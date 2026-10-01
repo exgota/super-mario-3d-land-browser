@@ -6204,7 +6204,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00216C5C,          ,0x00216C60,          ,U,f,,
 0x00216C60,          ,0x00216D88,          ,U,f,,
 0x00216D88,          ,0x00216D9C,          ,U,f,,
-0x00216D9C,0x00216E38,0x00216E3C,          ,U,f,,
+0x00216D9C,0x00216E38,0x00216E3C,          ,U,f,_ZNK2al9AreaShape12calcLocalPosEPN4sead7Vector3IfEERKS3_,
 0x00216E3C,          ,0x00216E98,          ,U,f,,
 0x00216E98,          ,0x00216EB0,          ,U,f,,
 0x00216EB0,          ,0x00216EC4,          ,U,f,,
@@ -13791,7 +13791,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00330820,          ,0x00330844,          ,U,f,,
 0x00330844,          ,0x00330854,          ,U,f,,
 0x00330854,          ,0x00330868,          ,U,f,,
-0x00330868,0x00330904,0x0033091C,          ,U,f,_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE,
+0x00330868,0x00330904,0x0033091C,          ,M,f,_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE,
 0x0033091C,0x00330CF4,0x003311D8,          ,U,f,,
 0x003311D8,0x0033122C,0x00331234,          ,U,f,,
 0x00331234,          ,0x0033123C,          ,U,f,,
@@ -28046,3 +28046,4 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003F39CC,          ,0x003F39D0,          ,U,d,,
 0x003F39D0,          ,0x003F39D4,          ,U,d,,
 0x0042FB10,          ,0x0042FC0C,          ,U,db,dat_0042FB10,.bss.Togezo.cpp
+0x004305F8,          ,0x00430604,          ,U,db,_ZN4sead7Vector3IfE4zeroE,
