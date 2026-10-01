@@ -4086,7 +4086,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BED10,          ,0x001BEDA0,          ,U,f,,
 0x001BEDA0,0x001BEDCC,0x001BEDD0,          ,U,f,,
 0x001BEDD0,0x001BEE2C,0x001BEE30,          ,U,f,,
-0x001BEE30,          ,0x001BEE64,          ,M,f,_ZN15alNerveFunction14setNerveActionEPN2al9IUseNerveEPKc,
+0x001BEE30,          ,0x001BEE64,          ,O,f,_ZN15alNerveFunction14setNerveActionEPN2al9IUseNerveEPKc,
 0x001BEE64,          ,0x001BEEA8,          ,O,f,_ZN2al11NerveKeeper8setNerveEPKNS_5NerveE,
 0x001BEEA8,          ,0x001BEEE0,          ,U,f,,
 0x001BEEE0,          ,0x001BEF90,          ,U,f,,
