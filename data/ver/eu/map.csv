@@ -9644,7 +9644,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028A3DC,          ,0x0028A4A0,          ,U,f,,
 0x0028A4A0,0x0028A5E4,0x0028A5EC,          ,U,f,,
 0x0028A5EC,0x0028A6A4,0x0028A6B4,          ,U,f,,
-0x0028A6B4,0x0028A750,0x0028A75C,          ,M,f,_ZN4sead8DateUtil11calcWeekDayERKNS_12CalendarTime4YearERKNS1_5MonthERKNS1_3DayE,
+0x0028A6B4,0x0028A750,0x0028A75C,          ,O,f,_ZN4sead8DateUtil11calcWeekDayERKNS_12CalendarTime4YearERKNS1_5MonthERKNS1_3DayE,
 0x0028A75C,          ,0x0028A7B4,          ,U,f,,
 0x0028A7B4,          ,0x0028A7B8,          ,U,f,nngxlowUnlock,
 0x0028A7B8,0x0028A7BC,0x0028A814,          ,U,f,_ZN2nn5gxlow3CTR6UnlockEv,
