@@ -185,3 +185,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T10:25:02-04:00,0x0018BA34,_ZN18alSubActorFunction12trySyncAliveEPN2al14SubActorKeeperE,matched,2,0.0502
 2026-10-01T10:25:02-04:00,0x0018BA84,_ZN18alSubActorFunction11tryCalcAnimEPN2al14SubActorKeeperE,matched,2,0.0498
 2026-10-01T10:25:03-04:00,0x0018BB4C,_ZN18alSubActorFunction18trySyncClippingEndEPN2al14SubActorKeeperE,matched,2,0.0570
+2026-10-01T10:25:04-04:00,0x0018BBC4,_ZN18alSubActorFunction20trySyncClippingStartEPN2al14SubActorKeeperE,matched,2,0.0565
