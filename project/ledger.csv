@@ -336,3 +336,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:13-04:00,0x0027B100,_ZN2al14isSensorPlayerEPKNS_9HitSensorE,matched,2,0.2214
 2026-10-01T11:15:13-04:00,0x0027B758,_ZN2al6isMsg9Ej,matched,2,0.2225
 2026-10-01T11:15:13-04:00,0x0027D548,_ZN2al9sendMsg41EPNS_9HitSensorES1_,matched,2,0.2219
+2026-10-01T11:15:14-04:00,0x0027D56C,_ZN2al18sendMsgEnemyAttackEPNS_9HitSensorES1_,matched,2,0.2215
