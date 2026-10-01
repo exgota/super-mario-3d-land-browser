@@ -7337,7 +7337,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024C724,0x0024C75C,0x0024C764,          ,U,f,,
 0x0024C764,0x0024C79C,0x0024C7A4,          ,U,f,,
 0x0024C7A4,          ,0x0024C7B4,          ,U,f,,
-0x0024C7B4,          ,0x0024C7EC,          ,M,f,fn_0024C7B4,
+0x0024C7B4,          ,0x0024C7EC,          ,O,f,fn_0024C7B4,
 0x0024C7EC,          ,0x0024C804,          ,U,f,,
 0x0024C804,          ,0x0024C814,          ,U,f,,
 0x0024C814,          ,0x0024C85C,          ,U,f,,
