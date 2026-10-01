@@ -2170,7 +2170,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001672C0,          ,0x0016742C,          ,U,f,,
 0x0016742C,          ,0x0016743C,          ,U,f,,
 0x0016743C,0x00167498,0x001674A8,          ,U,f,,
-0x001674A8,          ,0x001674AC,          ,M,f,_ZN15TransparentWall13makeActorDeadEv,
+0x001674A8,          ,0x001674AC,          ,O,f,_ZN15TransparentWall13makeActorDeadEv,
 0x001674AC,0x00167538,0x00167574,          ,U,f,_ZN15TransparentWall4initERKN2al13ActorInitInfoE,
 0x00167574,0x0016759C,0x001675A0,          ,O,f,_ZN15TransparentWallC1ERKN4sead14SafeStringBaseIcEE,
 0x001675A0,0x001675CC,0x001675DC,          ,U,f,,

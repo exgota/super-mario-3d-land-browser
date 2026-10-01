@@ -508,3 +508,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:39-04:00,0x00117710,_ZN10AppearStepC1ERKN4sead14SafeStringBaseIcEE,matched,2,0.0533
 2026-10-01T13:11:40-04:00,0x00167574,_ZN15TransparentWallC1ERKN4sead14SafeStringBaseIcEE,matched,2,0.0585
 2026-10-01T14:01:50-04:00,0x002D503C,_ZN2al3SkyC1EPKc,matched,2,0.0433
+2026-10-01T14:01:51-04:00,0x001674A8,_ZN15TransparentWall13makeActorDeadEv,matched,2,0.0487
