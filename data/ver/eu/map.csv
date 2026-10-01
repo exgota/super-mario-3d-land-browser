@@ -2863,7 +2863,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00186630,0x0018664C,0x00186650,          ,U,f,,
 0x00186650,0x00186658,0x0018665C,          ,U,f,,
 0x0018665C,0x001866E0,0x0018670C,          ,U,f,,
-0x0018670C,0x0018675C,0x00186798,          ,M,f,_ZN2al18getStageSwitchNameENS_15StageSwitchTypeE,
+0x0018670C,0x0018675C,0x00186798,          ,O,f,_ZN2al18getStageSwitchNameENS_15StageSwitchTypeE,
 0x00186798,          ,0x001867A0,          ,U,f,,
 0x001867A0,0x001869E4,0x00186A00,          ,U,f,,
 0x00186A00,0x00186C0C,0x00186C18,          ,U,f,,

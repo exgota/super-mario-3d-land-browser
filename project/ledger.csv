@@ -560,3 +560,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:09:45-04:00,0x00364238,_ZNK19NrvNoteObjGenerator28NoteObjGeneratorNrvDisappear7getNameEv,matched,2,0.0294
 2026-10-01T14:09:45-04:00,0x0032C73C,_ZNK14PlayerAnimator12getAnimFrameEv,matched,2,0.0292
 2026-10-01T14:09:45-04:00,0x0035A068,_ZNK2al13NrvBreakModel18BreakModelNrvBreak7executeEPNS_11NerveKeeperE,matched,2,0.0291
+2026-10-01T14:09:46-04:00,0x0018670C,_ZN2al18getStageSwitchNameENS_15StageSwitchTypeE,matched,2,0.0142
