@@ -679,3 +679,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:29-04:00,0x00367EC8,_ZNK21NrvAquariumSwimDebris27AquariumSwimDebrisNrvAppear7executeEPN2al11NerveKeeperE,matched,3,0.0306
 2026-10-01T17:20:30-04:00,0x0039B2FC,_ZNK2al10FunctorV0MIP10AppearStepMS1_FvvEE5cloneEv,matched,3,0.0376
 2026-10-01T17:20:30-04:00,0x0039B33C,_ZNK2al10FunctorV0MIP10AppearStepMS1_FvvEEclEv,matched,2,0.0253
+2026-10-01T17:20:30-04:00,0x001C0E78,_ZN2al12MemorySystem18createSequenceHeapEv,matched,2,0.0161
