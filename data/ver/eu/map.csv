@@ -9125,7 +9125,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279AE8,0x00279B14,0x00279B24,          ,U,f,,
 0x00279B24,0x00279B50,0x00279B64,          ,U,f,,
 0x00279B64,          ,0x00279BB4,          ,U,f,,
-0x00279BB4,0x00279BC8,0x00279BCC,          ,M,f,_ZN2al16tryGetObjectNameEPPKcRKNS_13ActorInitInfoE,
+0x00279BB4,0x00279BC8,0x00279BCC,          ,O,f,_ZN2al16tryGetObjectNameEPPKcRKNS_13ActorInitInfoE,
 0x00279BCC,          ,0x00279C0C,          ,U,f,,
 0x00279C0C,0x00279C7C,0x00279C8C,          ,U,f,,
 0x00279C8C,0x00279CE8,0x00279CF0,          ,U,f,,
