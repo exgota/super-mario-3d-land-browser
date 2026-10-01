@@ -91,3 +91,11 @@ No functional NonMatching claim or production source intake follows from these s
 | 0x0025BE14 | fn_0025BE14 | Four float-component forms miss copy/register/scheduling bytes. No NonMatching claim. Family packet project/pro_requests/002253C8.md; dot-owned. |
 
 | 0x00278C6C | fn_00278C6C | Four float-component forms miss copy/register/scheduling bytes. No NonMatching claim. Family packet project/pro_requests/002253C8.md; dot-owned. |
+
+| 0x002F2AD4 | _ZN4sead8TreeNode14pushFrontChildEPS0_ | Early stack-mask/inlining stall across64/104/144-byte contexts; original caller-stack contract unknown. Packet: pro_requests/002F2AD4.md. Requeue after other work and dot-overlap check. |
+
+| 0x0024EC80 | fn_0024EC80 | Four structures; complete172-byte best shape still differs22 bytes in scalar-copy scheduling. Packet: pro_requests/0024EC80.md. Requeue after other work and dot-overlap check. |
+
+| 0x00171334 | fn_00171334 | Four structures emit640 versus644; omitted branch/registration ordering remain, six earlier definitions preserve. Packet: pro_requests/00171334.md. Requeue after other work and dot-overlap check. |
+
+| 0x001E37D8 | _ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi | Four structures emit924/900/912/912 versus908; constructor lifetime/suffix merging and historical header uncertainty remain. Packet: pro_requests/001E37D8.md. Requeue after other work and dot-overlap check. |
