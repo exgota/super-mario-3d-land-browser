@@ -25,7 +25,7 @@ log_path = ""
 def rank_symbol(symbol, decomp_symbol):
     res, sym_size = callAsmdiff(symbol, decomp_symbol, None, True)
     if sym_size == 1:
-        return 'O'
+        return 'U'
     if res is None:
         return 'U'
     if res.returncode != 0:
@@ -36,12 +36,24 @@ def rank_symbol(symbol, decomp_symbol):
 
     rank = 'O'
     if "CURRENT (0)" in out:
-        return rank # match override
+        return exact_rank(symbol, decomp_symbol)
     if "diff_change" in out:
         rank = 'm'
     if "diff_add" in out or "diff_remove" in out:
         rank = 'm' if out.count('diff_add') == out.count('diff_remove') else 'M'
-    return rank
+    return exact_rank(symbol, decomp_symbol) if rank == 'O' else rank
+
+def exact_rank(symbol, decomp_symbol):
+    # Assembly presentation ignores some immediates and excludes literal pools.
+    # A match must also reproduce every byte in the map's unchanged interval.
+    size = symbol[MapFmt.End] - symbol[MapFmt.Start]
+    target_start = symbol[MapFmt.Start] - addr_base
+    build_start = decomp_symbol[ElfMapFmt.Address] - addr_base
+    target = getBinFile().read_bytes()[target_start:target_start + size]
+    current = getExportFile().read_bytes()[build_start:build_start + size]
+    if size > 0 and len(target) == size and target == current:
+        return 'O'
+    return 'm'
 
 def getRankName(rank: str):
     match rank:
@@ -267,4 +279,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
