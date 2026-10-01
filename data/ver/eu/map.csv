@@ -7713,7 +7713,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025551C,0x002555A8,0x002555AC,          ,U,f,,
 0x002555AC,0x00255638,0x0025563C,          ,U,f,,
 0x0025563C,          ,0x00255668,          ,U,f,,
-0x00255668,          ,0x00255678,          ,M,f,_ZN2al23getNextKeyPlacementInfoEPKNS_13KeyPoseKeeperE,
+0x00255668,          ,0x00255678,          ,O,f,_ZN2al23getNextKeyPlacementInfoEPKNS_13KeyPoseKeeperE,
 0x00255678,          ,0x00255680,          ,U,f,,
 0x00255680,0x002556C0,0x002556C4,          ,U,f,_ZdaPv,
 0x002556C4,0x002556E0,0x002556E4,          ,U,f,,
