@@ -5099,7 +5099,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E1E94,          ,0x001E1F00,          ,O,f,_ZN2al22ExecuteTableHolderDraw15tryRegisterUserEPNS_12IUseExecutorEPKc,
 0x001E1F00,          ,0x001E1F6C,          ,U,f,,
 0x001E1F6C,          ,0x001E1FD8,          ,U,f,,
-0x001E1FD8,          ,0x001E2044,          ,M,f,_ZN2al22ExecuteTableHolderDraw18tryRegisterFunctorERKNS_11FunctorBaseEPKc,
+0x001E1FD8,          ,0x001E2044,          ,O,f,_ZN2al22ExecuteTableHolderDraw18tryRegisterFunctorERKNS_11FunctorBaseEPKc,
 0x001E2044,          ,0x001E2130,          ,U,f,_ZN2al22ExecuteTableHolderDraw23createExecutorListTableEv,
 0x001E2130,          ,0x001E2188,          ,O,f,_ZN2al22ExecuteTableHolderDrawC1Ev,
 0x001E2188,          ,0x001E21D4,          ,U,f,,
