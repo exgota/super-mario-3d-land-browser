@@ -139,3 +139,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:17:28-04:00,0x00330868,_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE,matched,1,0.0056
 2026-10-01T09:44:36-04:00,0x001BEE30,_ZN15alNerveFunction14setNerveActionEPN2al9IUseNerveEPKc,matched,3,0.5245
 2026-10-01T09:44:36-04:00,0x002799EC,_ZN2al13isGreaterStepEPKNS_9IUseNerveEi,matched,3,0.5253
+2026-10-01T09:44:37-04:00,0x00279D14,_ZN2al6isStepEPNS_9IUseNerveEi,matched,3,0.5277

@@ -9130,7 +9130,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279C0C,0x00279C7C,0x00279C8C,          ,U,f,,
 0x00279C8C,0x00279CE8,0x00279CF0,          ,U,f,,
 0x00279CF0,          ,0x00279D14,          ,U,f,,
-0x00279D14,          ,0x00279D3C,          ,M,f,_ZN2al6isStepEPNS_9IUseNerveEi,
+0x00279D14,          ,0x00279D3C,          ,O,f,_ZN2al6isStepEPNS_9IUseNerveEi,
 0x00279D3C,          ,0x00279D54,          ,U,f,,
 0x00279D54,          ,0x00279D98,          ,U,f,,
 0x00279D98,0x00279E2C,0x00279E3C,          ,U,f,,
