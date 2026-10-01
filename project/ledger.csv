@@ -388,3 +388,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:32:52-04:00,0x001CDCF4,fn_001CDCF4,matched,2,3.0590
 2026-10-01T11:32:53-04:00,0x001CDCFC,fn_001CDCFC,matched,2,3.0607
 2026-10-01T11:32:53-04:00,0x001CD394,_ZN2al15NerveActionCtrlC1EPN15alNerveFunction20NerveActionCollectorE,matched,2,0.0527
+2026-10-01T11:32:53-04:00,0x00211C28,_ZN15alNerveFunction20NerveActionCollectorC1Ev,matched,2,0.0524

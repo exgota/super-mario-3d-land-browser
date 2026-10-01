@@ -6067,7 +6067,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00211B64,0x00211BBC,0x00211BC8,          ,U,f,,
 0x00211BC8,0x00211BD4,0x00211BD8,          ,U,f,,
 0x00211BD8,0x00211C20,0x00211C28,          ,U,f,_ZN2al11NerveActionC2Ev,
-0x00211C28,0x00211C44,0x00211C48,          ,M,f,_ZN15alNerveFunction20NerveActionCollectorC1Ev,
+0x00211C28,0x00211C44,0x00211C48,          ,O,f,_ZN15alNerveFunction20NerveActionCollectorC1Ev,
 0x00211C48,          ,0x00211C4C,          ,U,f,__aeabi_atexit,
 0x00211C4C,0x00211CB4,0x00211CCC,          ,U,f,,
 0x00211CCC,0x00211D48,0x00211D5C,          ,U,f,,
