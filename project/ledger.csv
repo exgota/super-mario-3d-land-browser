@@ -601,3 +601,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:01:54-04:00,0x0024B950,_ZN4sead6Random4initEj,matched,2,3.3792
 2026-10-01T15:01:55-04:00,0x0028A6B4,_ZN4sead8DateUtil11calcWeekDayERKNS_12CalendarTime4YearERKNS1_5MonthERKNS1_3DayE,matched,2,1.7528
 2026-10-01T15:01:55-04:00,0x00108088,_ZN4sead12CalendarTime4DateC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayE,matched,4,8.8656
+2026-10-01T15:01:55-04:00,0x001C21A4,fn_001C21A4,matched,4,2.2425
