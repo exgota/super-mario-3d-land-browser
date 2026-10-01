@@ -9032,7 +9032,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00277C98,0x00277CE8,0x00277CEC,          ,U,f,,
 0x00277CEC,          ,0x00277D1C,          ,U,f,,
 0x00277D1C,          ,0x00277D2C,          ,U,f,,
-0x00277D2C,          ,0x00277D3C,          ,M,f,_ZN2al20isMsgKickStoneAttackEj,
+0x00277D2C,          ,0x00277D3C,          ,O,f,_ZN2al20isMsgKickStoneAttackEj,
 0x00277D3C,          ,0x00277D64,          ,U,f,,
 0x00277D64,          ,0x00277D74,          ,M,f,_ZN2al15isMsgPlayerKickEj,
 0x00277D74,          ,0x00277D84,          ,U,f,,
