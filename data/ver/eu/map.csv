@@ -11904,7 +11904,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002F2A70,          ,0x002F2A74,          ,U,f,,
 0x002F2A74,          ,0x002F2AD4,          ,U,f,_ZN4sead8TreeNode13pushBackChildEPS0_,
 0x002F2AD4,          ,0x002F2B14,          ,U,f,_ZN4sead8TreeNode14pushFrontChildEPS0_,
-0x002F2B14,          ,0x002F2B54,          ,M,f,_ZN4sead8TreeNode27clearChildLinksRecursively_Ev,
+0x002F2B14,          ,0x002F2B54,          ,O,f,_ZN4sead8TreeNode27clearChildLinksRecursively_Ev,
 0x002F2B54,          ,0x002F2BE8,          ,U,f,,
 0x002F2BE8,          ,0x002F2C00,          ,U,f,,
 0x002F2C00,          ,0x002F2C0C,          ,U,f,,
