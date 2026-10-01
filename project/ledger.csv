@@ -163,3 +163,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T09:44:46-04:00,0x0017A3DC,_ZN2al17CameraParamVision4initEPKNS_9ByamlIterE,matched,3,0.0047
 2026-10-01T09:44:46-04:00,0x001B64FC,_ZN2al25CameraDashAngleTunerParam4initEPKNS_9ByamlIterE,matched,3,0.0047
 2026-10-01T09:44:47-04:00,0x001BFAA4,fn_001BFAA4,matched,3,0.3047
+2026-10-01T09:44:47-04:00,0x001BFAE0,fn_001BFAE0,matched,3,0.3048
