@@ -9064,7 +9064,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002786E4,          ,0x002786F4,          ,U,f,,
 0x002786F4,          ,0x00278710,          ,U,f,,
 0x00278710,          ,0x00278720,          ,U,f,,
-0x00278720,          ,0x00278730,          ,M,f,_ZN2al25isMsgPlayerBoomerangBreakEj,
+0x00278720,          ,0x00278730,          ,O,f,_ZN2al25isMsgPlayerBoomerangBreakEj,
 0x00278730,          ,0x00278740,          ,U,f,,
 0x00278740,0x002787E4,0x002787E8,          ,U,f,,
 0x002787E8,          ,0x0027889C,          ,U,f,,

@@ -329,3 +329,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:10-04:00,0x00277C88,_ZN2al19isMsgKickKouraBreakEj,matched,2,0.2230
 2026-10-01T11:15:10-04:00,0x00277D2C,_ZN2al20isMsgKickStoneAttackEj,matched,2,0.2217
 2026-10-01T11:15:10-04:00,0x00277D64,_ZN2al15isMsgPlayerKickEj,matched,2,0.2216
+2026-10-01T11:15:11-04:00,0x00278720,_ZN2al25isMsgPlayerBoomerangBreakEj,matched,2,0.2217
