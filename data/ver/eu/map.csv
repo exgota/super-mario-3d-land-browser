@@ -8564,7 +8564,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026C3D4,0x0026C538,0x0026C594,          ,U,f,,
 0x0026C594,0x0026C684,0x0026C688,          ,U,f,,
 0x0026C688,0x0026C704,0x0026C70C,          ,U,f,,
-0x0026C70C,          ,0x0026C728,          ,M,f,_ZN2rp14getCoinRotateYEv,
+0x0026C70C,          ,0x0026C728,          ,O,f,_ZN2rp14getCoinRotateYEv,
 0x0026C728,          ,0x0026C758,          ,U,f,,
 0x0026C758,          ,0x0026C780,          ,U,f,,
 0x0026C780,0x0026C8E4,0x0026C984,          ,U,f,,
