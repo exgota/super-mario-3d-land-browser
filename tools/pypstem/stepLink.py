@@ -14,8 +14,38 @@ from tools.pypstem.callProcess import do_archive, do_link
 from tools.pypstem.manSetup import setup_compiler
 from tools.low.glob import *
 from tools.low.genScatter import gen_scatter
+from tools.low.getSection import typeToSection
 from tools.low.readSymMap import MapFmt, read_sym_file
 from tools.low.buildProvenance import verify_build_output
+
+def find_scaffold_data_import(record, section_index, mapped_data):
+    """Identify a complete, unaccepted virtual table for the scaffold only."""
+    section = record["elf"].get_section(section_index)
+    if not section["sh_flags"] & 2 or section["sh_flags"] & 4:
+        return None
+    definitions = [symbol for symbol in record["symbols"]
+                   if symbol["st_shndx"] == section_index
+                   and symbol["st_info"]["type"] != "STT_SECTION"
+                   and (symbol["st_info"]["bind"] != "STB_LOCAL"
+                        or symbol["st_info"]["type"] in ("STT_OBJECT", "STT_FUNC"))]
+    if len(definitions) != 1:
+        return None
+    symbol = definitions[0]
+    rows = mapped_data.get(symbol.name, [])
+    if len(rows) != 1 or not symbol.name.startswith("_ZTV"):
+        return None
+    row = rows[0]
+    size = row[MapFmt.End] - row[MapFmt.Start]
+    section_name = row[MapFmt.SectionName] or typeToSection(row[MapFmt.Type], symbol.name)
+    if (row[MapFmt.Rank] != "U" or "c" not in row[MapFmt.Type]
+            or symbol["st_info"]["type"] != "STT_OBJECT"
+            or symbol["st_info"]["bind"] not in ("STB_GLOBAL", "STB_WEAK") or symbol["st_value"] != 0
+            or size <= 0 or symbol["st_size"] != size or section["sh_size"] != size
+            or section.name != section_name):
+        return None
+    return {"symbol": symbol.name, "section": section_name,
+            "original_start": row[MapFmt.Start], "original_end": row[MapFmt.End],
+            "size": size}
 
 def write_compact_object(record, retained, output):
     """Project compiler sections for the scaffold, never for matching checks."""
@@ -45,7 +75,14 @@ def write_compact_object(record, retained, output):
             if symbol["st_shndx"] in retained:
                 section_index = section_indices[symbol["st_shndx"]]
             else:
-                if symbol["st_info"]["type"] == "STT_SECTION":
+                discarded_section = elf.get_section(symbol["st_shndx"])
+                if not discarded_section["sh_flags"] & 4:
+                    identity = record.get("scaffold_data_imports", {}).get(symbol["st_shndx"])
+                    if identity is None or (symbol["st_info"]["type"] != "STT_SECTION"
+                                            and symbol.name != identity["symbol"]):
+                        raise ValueError("A discarded data definition has no established scaffold import: " + discarded_section.name)
+                    name = identity["symbol"]
+                elif symbol["st_info"]["type"] == "STT_SECTION":
                     functions = [item for item in symbols
                                  if item["st_shndx"] == symbol["st_shndx"]
                                  and item["st_info"]["type"] == "STT_FUNC" and item["st_value"] == 0]
@@ -138,10 +175,15 @@ def write_compact_object(record, retained, output):
 
 def project_compact_archives():
     """Keep enrolled functions and their data/helper closure in separate archives."""
+    mapped_symbols = read_sym_file()
     roots = {symbol[MapFmt.Symbol] or f"fn_{symbol[MapFmt.Start]:08X}"
-             for symbol in read_sym_file() if "f" in symbol[MapFmt.Type] and symbol[MapFmt.Rank] != "U"}
+             for symbol in mapped_symbols if "f" in symbol[MapFmt.Type] and symbol[MapFmt.Rank] != "U"}
     mapped_functions = {symbol[MapFmt.Symbol] or f"fn_{symbol[MapFmt.Start]:08X}"
-                        for symbol in read_sym_file() if "f" in symbol[MapFmt.Type]}
+                        for symbol in mapped_symbols if "f" in symbol[MapFmt.Type]}
+    mapped_data = {}
+    for symbol in mapped_symbols:
+        if "d" in symbol[MapFmt.Type] and symbol[MapFmt.Symbol]:
+            mapped_data.setdefault(symbol[MapFmt.Symbol], []).append(symbol)
     records = []
     definitions = {}
     for module_path, module in cfg.modules.items():
@@ -177,7 +219,7 @@ def project_compact_archives():
             index = len(records)
             record = {"elf": elf, "table": table, "symbols": symbols, "relocations": relocations,
                       "module": module["name"], "source": source, "path": path,
-                      "sha256": hashlib.sha256(content).hexdigest()}
+                      "sha256": hashlib.sha256(content).hexdigest(), "scaffold_data_imports": {}}
             provenance = path.with_suffix(".provenance.json")
             record["provenance_sha256"] = hashlib.sha256(provenance.read_bytes()).hexdigest() if provenance.exists() else None
             records.append(record)
@@ -205,7 +247,14 @@ def project_compact_archives():
             symbol = record["symbols"][relocation["r_info_sym"]]
             targets = [(index, symbol)] if isinstance(symbol["st_shndx"], int) else definitions.get(symbol.name, [])
             for target_index, target in targets:
-                target_section = records[target_index]["elf"].get_section(target["st_shndx"])
+                target_record = records[target_index]
+                target_section = target_record["elf"].get_section(target["st_shndx"])
+                data_import = find_scaffold_data_import(target_record, target["st_shndx"], mapped_data)
+                if data_import is not None:
+                    # The native table is not accepted data. Its existing map
+                    # identity selects an explicitly zero-filled scaffold object.
+                    target_record["scaffold_data_imports"][target["st_shndx"]] = data_import
+                    continue
                 if target_section["sh_flags"] & 4:
                     # Other mapped implementations remain ordinary imports for
                     # the existing scaffold stubs. Local/weak compiler helpers
@@ -266,7 +315,8 @@ def project_compact_archives():
         evidence = write_compact_object(record, retained[index], output)
         evidence.update({"source": str(record["source"].relative_to(getProjDir())),
                          "canonical_object": str(record["path"]), "canonical_sha256": record["sha256"],
-                         "canonical_provenance_sha256": record["provenance_sha256"]})
+                         "canonical_provenance_sha256": record["provenance_sha256"],
+                         "scaffold_data_imports": list(record["scaffold_data_imports"].values())})
         if hashlib.sha256(record["path"].read_bytes()).hexdigest() != record["sha256"]:
             raise ValueError("The canonical compiler object changed during projection.")
         provenance = record["path"].with_suffix(".provenance.json")

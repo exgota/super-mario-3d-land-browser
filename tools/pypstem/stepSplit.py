@@ -71,7 +71,11 @@ def write_stubs():
 
         for sym in read_sym_file():
             if "d" in sym[MapFmt.Type]:
-                for name in sorted(data_aliases.get(sym[MapFmt.Start], set())):
+                names = data_aliases.get(sym[MapFmt.Start], set()).copy()
+                if (sym[MapFmt.Rank] == "U" and "c" in sym[MapFmt.Type]
+                        and sym[MapFmt.Symbol].startswith("_ZTV")):
+                    names.add(sym[MapFmt.Symbol])
+                for name in sorted(names):
                     size = sym[MapFmt.End] - sym[MapFmt.Start]
                     if size <= 0:
                         raise ValueError("A scaffold data alias requires a nonempty established interval.")
