@@ -8415,7 +8415,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00268238,0x002682FC,0x00268304,          ,U,f,,
 0x00268304,0x00268474,0x002684B8,          ,U,f,,
 0x002684B8,0x002684DC,0x002684E0,          ,U,f,,
-0x002684E0,0x002684FC,0x00268500,          ,M,f,_ZN2al14NerveStateBaseC1EPKc,
+0x002684E0,0x002684FC,0x00268500,          ,O,f,_ZN2al14NerveStateBaseC1EPKc,
 0x00268500,0x00268560,0x00268564,          ,U,f,,
 0x00268564,0x0026859C,0x002685A0,          ,U,f,,
 0x002685A0,0x00268650,0x00268664,          ,U,f,,
