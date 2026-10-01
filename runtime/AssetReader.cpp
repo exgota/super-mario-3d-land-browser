@@ -963,6 +963,10 @@ struct TextureStorageBlock {
     std::array<std::uint8_t, 3> secondaryCodewords{};
     std::array<std::int8_t, 3> signedDeltas{};
     std::array<std::uint8_t, 16> selectors{};
+    bool hasAlpha = false;
+    std::size_t alphaSourceOffset = 0;
+    std::uint64_t alphaWord = 0;
+    std::array<std::uint8_t, 16> alphaNibbles{};
 };
 
 struct TextureStorageLevel {
@@ -1000,7 +1004,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
     if (texture.status != "resource_local_image_fields")
         return;
     texture.storageDecodingStatus = "unsupported_texture_format";
-    if (texture.format != 3 && texture.format != 12)
+    if (texture.format != 3 && texture.format != 12 && texture.format != 13)
         return;
     std::uint32_t width = texture.width;
     std::uint32_t height = texture.height;
@@ -1013,7 +1017,7 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
             return;
         }
         const std::size_t bytesPerTexelNumerator = texture.format == 3 ? 2 : 1;
-        const std::size_t bytesPerTexelDenominator = texture.format == 3 ? 1 : 2;
+        const std::size_t bytesPerTexelDenominator = texture.format == 12 ? 2 : 1;
         require(height / bytesPerTexelDenominator <= remaining / bytesPerTexelNumerator / width,
                 "CGFX texture storage mip level exceeds its image payload");
         const std::size_t byteCount = std::size_t(width) * (height / bytesPerTexelDenominator) * bytesPerTexelNumerator;
@@ -1027,15 +1031,22 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
     ByteReader input(data);
     bool definedEndpoints = true;
     for (TextureStorageLevel& level : levels) {
-        if (texture.format == 12) {
-            level.blocks.reserve(level.byteCount / 8);
+        if (texture.format != 3) {
+            const std::size_t bytesPerBlock = texture.format == 13 ? 16 : 8;
+            level.blocks.reserve(level.byteCount / bytesPerBlock);
             for (std::uint32_t y = 0; y < level.height; y += 4)
                 for (std::uint32_t x = 0; x < level.width; x += 4) {
                     const std::size_t tile = std::size_t(y / 8) * (level.width / 8) + x / 8;
                     const std::size_t withinTile = ((y % 8) / 4) * 2 + (x % 8) / 4;
-                    const std::size_t source = level.serializedOffset + tile * 32 + withinTile * 8;
+                    const std::size_t source = level.serializedOffset + (tile * 4 + withinTile) * bytesPerBlock +
+                                               (texture.format == 13 ? 8 : 0);
                     const std::uint64_t packed = input.integer(source) | (std::uint64_t(input.integer(source + 4)) << 32);
                     TextureStorageBlock block{x, y, source, packed, bool((packed >> 33) & 1), bool((packed >> 32) & 1)};
+                    if (texture.format == 13) {
+                        block.hasAlpha = true;
+                        block.alphaSourceOffset = source - 8;
+                        block.alphaWord = input.integer(source - 8) | (std::uint64_t(input.integer(source - 4)) << 32);
+                    }
                     block.tableCodewords = {std::uint8_t((packed >> 37) & 7), std::uint8_t((packed >> 34) & 7)};
                     for (std::size_t axis = 0; axis < 3; ++axis) {
                         const std::size_t shift = 56 - axis * 8;
@@ -1054,6 +1065,8 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
                             const std::uint32_t bit = column * 4 + row;
                             block.selectors[row * 4 + column] = std::uint8_t(((packed >> (bit + 16)) & 1) * 2 +
                                                                            ((packed >> bit) & 1));
+                            if (block.hasAlpha)
+                                block.alphaNibbles[row * 4 + column] = std::uint8_t((block.alphaWord >> (bit * 4)) & 15);
                         }
                     definedEndpoints = definedEndpoints && block.definedEndpoints;
                     level.blocks.push_back(std::move(block));
@@ -1076,8 +1089,9 @@ void readTextureStorage(Bytes data, TextureImage& texture) {
             }
     }
     texture.storageLevels = std::move(levels);
-    texture.storageDecodingStatus = texture.format == 3 ? "rgb565_integer_storage" :
-        definedEndpoints ? "etc1_raw_block_storage" : "etc1_undefined_differential_endpoints";
+    texture.storageDecodingStatus = texture.format == 3 ? "rgb565_integer_storage" : texture.format == 12 ?
+        (definedEndpoints ? "etc1_raw_block_storage" : "etc1_undefined_differential_endpoints") :
+        (definedEndpoints ? "etc1a4_raw_block_storage" : "etc1a4_undefined_differential_endpoints");
 }
 
 TextureImage readTextureImage(Bytes data, std::size_t dataEnd, std::size_t imageStart,
@@ -1813,7 +1827,20 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
                         output << ',';
                     output << unsigned(block.selectors[position]);
                 }
-                output << "]}";
+                output << ']';
+                if (block.hasAlpha) {
+                    output << ",\"alpha_source_offset\":" << block.alphaSourceOffset << ",\"alpha_word_hex\":";
+                    writeString(output, integerHexadecimal(std::uint32_t(block.alphaWord >> 32)) +
+                                        integerHexadecimal(std::uint32_t(block.alphaWord)));
+                    output << ",\"alpha_nibbles\":[";
+                    for (std::size_t position = 0; position < block.alphaNibbles.size(); ++position) {
+                        if (position)
+                            output << ',';
+                        output << unsigned(block.alphaNibbles[position]);
+                    }
+                    output << ']';
+                }
+                output << '}';
             }
             output << "]}";
         }

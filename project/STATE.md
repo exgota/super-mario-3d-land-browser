@@ -24,19 +24,21 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - Latest full shared-header recheck preserves391/391 at21576 bytes, frozen in build/stage_matrix_header_recheck_frozen.json. All19 weak Nerve::executeOnEnd definitions pass independently. Later5 canonical roots add1376 bytes.
 - Latest reaction/placement/camera/Scene/Nerve38 checkpoint passes1032 bytes; stage/area/collision/effect-interface/NerveBase13 passes396 bytes. Independent NerveStateBase table ownership repair is committed separately as d5d925f.
 - Ready queue: factory/creator7, EffectObj/audio5, LayoutKit32, AreaShape/setScale104, pose getter12, Sequence7, controller14, memory7, Byaml bool/float wrappers9, atanIdx72; updateCollider168. StageSwitchKeeper84 now passes after the general pool-inclusive closure verifier repair74be6ad and first-pass clean build. Scratch proposals count only after canonical checks.
-- Matching lanes continue collision/actor helpers, ActorInitInfo/link readers, actor-group helpers, math/layout work, effects and stage switches. Runtime inspects ETC1 storage independently. Production remains frozen during canonical checks.
+- Matching lanes continue collision/actor helpers, ActorInitInfo/link readers, actor-group helpers, math/layout work, effects and stage switches. Runtime verifies ETC1A4 raw storage; HILO8 inspection continues independently. Production remains frozen during canonical checks.
 - Guarded sensor execute records810 bounded ARM11 pairs, placement initialization76 and heap creation380 returning/30 fault pairs. These frozen NonMatching results add zero exact bytes.
 - Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Thirteen hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
 1. Accept queued source-frozen helpers after the successful clean rebuild, preserving affected earlier roots. Keep matching lanes active; every push requires a successful clean -ca link.
 2. Review the two new dot branches in root's intake lane. Keep main linking/exporting, STATE and hourly private-origin pushes current.
-3. Continue native ETC1A4 raw-storage work after ETC1 acceptance. Prepare an isolated full split-image diagnostic and measure exact image bytes/hash, clearly labeling copied U scaffolding.
+3. Continue native HILO8 storage inspection. Prepare an isolated linker-produced full-image diagnostic, with explicit unimplemented regions and whole-image comparisons. Legacy copied Game assembly cannot satisfy hard rule 3.
 
 ## Blockers and measurement limits
 - Whole U tables and named BSS have independently verified weak zero-filled compact-main imports. They do not reconstruct game behavior.
 - Unmapped source helpers require provenance-checked inline closure and must disappear fully. No guessed standalone address is allowed.
 - Legacy progress now reports391 matches,7 Non-matching and20528/3,092,336 word-similarity bytes. Strict function coverage uses complete intervals independently.
 - Ledger times include check-only rows and shared measured script windows. Related windows overlap and exclude unmeasured preparation; they are not independent person-hours. No cost tracking.
-- Runtime lacks actor overrides, complete texture/material decoding, rendering, game execution and replay. Three nested layout archives remain opaque. Other27 image formats retain explicit unsupported storage status. ETC1 raw storage passes142000 blocks/2272000 selectors across110 images/360 levels,1136000 bytes; sampled pixels and colors remain unverified.
+- Runtime lacks actor overrides, complete texture/material decoding, rendering, game execution and replay. Three nested layout archives remain opaque. The nine HILO8 images retain explicit unsupported storage status. ETC1 raw storage passes142000 blocks/2272000 selectors across110 images/360 levels,1136000 bytes; sampled pixels and colors remain unverified.
 - Stop only under current BRIEF conditions. Latest matches keep the six-hour/100-attempt stall condition clear.
+
+- ETC1A4 raw storage passes all18 images/72 levels,15424 alpha/color pairs and246784 nibbles,246784 bytes. All491 unique frozen/current/preserved paths verify, with495 hash entries. Existing native regressions pass. Packing is verified; normalization, sampled colors and rendering remain unresolved.
