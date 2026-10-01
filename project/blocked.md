@@ -99,3 +99,9 @@ No functional NonMatching claim or production source intake follows from these s
 | 0x00171334 | fn_00171334 | Four structures emit640 versus644; omitted branch/registration ordering remain, six earlier definitions preserve. Packet: pro_requests/00171334.md. Requeue after other work and dot-overlap check. |
 
 | 0x001E37D8 | _ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi | Four structures emit924/900/912/912 versus908; constructor lifetime/suffix merging and historical header uncertainty remain. Packet: pro_requests/001E37D8.md. Requeue after other work and dot-overlap check. |
+
+| 0x00274990 | _ZN2al12LiveActorKit7endInitEv | Early structural stall: kit+30 operation and reload after placement callbacks remain unresolved; both compilers emit232/236. | Independent pointee identity and live-loop alias contract. Packet: project/pro_requests/00274990.md. |
+
+| 0x00156758 | _ZN15BeatBlockHolder4initERKN2al13ActorInitInfoE | Four forms; best528/524 and140 byte differences,56-byte pool equal. No canonical or behavior credit. Group table ownership also needs evidence. | A new source/lifetime hypothesis plus independent whole table ownership before canonical intake. Packet: project/pro_requests/00156758.md. |
+
+| 0x001F9F48 | fn_001F9F48 | Four forms;592/564/564/564 versus572;512/485/486/486 differences. Fixed-point alias and overflow semantics remain unvalidated. | A new alias/lifetime structure and independent arithmetic equivalence before functional claims. Packet: project/pro_requests/001F9F48.md. |

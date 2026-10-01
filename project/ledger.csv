@@ -704,3 +704,6 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:39-04:00,0x00242CC4,fn_00242CC4,matched,2,0.0297
 2026-10-01T17:20:39-04:00,0x00242CCC,fn_00242CCC,matched,2,0.0298
 2026-10-01T17:20:39-04:00,0x00334F04,_ZNK2al19ActorPoseKeeperBase8getFrontEv,matched,1,0.0051
+2026-10-01T17:24:41-04:00,0x00274990,_ZN2al12LiveActorKit7endInitEv,abandoned,1,0.0098
+2026-10-01T17:24:41-04:00,0x00156758,_ZN15BeatBlockHolder4initERKN2al13ActorInitInfoE,abandoned,4,3.2878
+2026-10-01T17:24:41-04:00,0x001F9F48,fn_001F9F48,abandoned,4,4.3524
