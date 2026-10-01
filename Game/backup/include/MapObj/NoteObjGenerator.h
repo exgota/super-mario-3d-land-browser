@@ -18,8 +18,8 @@ private:
         int                 _74;
         bool                _78;
         float               _7C;
-        void*               _80;
-        bool                _84;
+        int                 _80;
+        u8                  _84;
 
 public:
         void exeWait();
@@ -28,5 +28,6 @@ public:
         void exeSuccess();
 
 public:
+        virtual void init( const al::ActorInitInfo& info );
         NoteObjGenerator( const sead::SafeString& name );
 };
