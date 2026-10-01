@@ -9213,7 +9213,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B2FC,          ,0x0027B310,          ,U,f,,
 0x0027B310,          ,0x0027B31C,          ,U,f,,
 0x0027B31C,          ,0x0027B330,          ,U,f,,
-0x0027B330,          ,0x0027B350,          ,M,f,_ZN2al9LayoutKitC1EPNS_10FontHolderE,
+0x0027B330,          ,0x0027B350,          ,O,f,_ZN2al9LayoutKitC1EPNS_10FontHolderE,
 0x0027B350,0x0027B360,0x0027B364,          ,U,f,,
 0x0027B364,          ,0x0027B39C,          ,O,f,_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi,
 0x0027B39C,0x0027B4CC,0x0027B4D8,          ,U,f,,
