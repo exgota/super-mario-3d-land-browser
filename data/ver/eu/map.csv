@@ -5369,7 +5369,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E9574,0x001E95C8,0x001E95D0,          ,U,f,,
 0x001E95D0,          ,0x001E95EC,          ,U,f,,
 0x001E95EC,0x001E9810,0x001E9834,          ,U,f,,
-0x001E9834,          ,0x001E9850,          ,M,f,_ZN2al4RailC1Ev,
+0x001E9834,          ,0x001E9850,          ,O,f,_ZN2al4RailC1Ev,
 0x001E9850,0x001E98D0,0x001E98DC,          ,U,f,,
 0x001E98DC,          ,0x001E999C,          ,U,f,,
 0x001E999C,          ,0x001E9A10,          ,U,f,,
