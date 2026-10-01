@@ -85,3 +85,9 @@ No functional NonMatching claim or production source intake follows from these s
 | 0x0032B89C | fn_0032B89C | Four structures miss8 preparation-order bytes. No functional claim. Packet project/pro_requests/0032B89C.md; dot-owned. |
 
 | 0x001EC128 | _ZN2al9RailRiderC1EPNS_4RailE | Four structures refuse imports or emit104/104/108 versus116 bytes. No functional claim. Packet project/pro_requests/001EC128.md; dot-owned. |
+
+| 0x002253C8 | fn_002253C8 | Four float-component forms miss copy/register/scheduling bytes. No NonMatching claim. Family packet project/pro_requests/002253C8.md; dot-owned. |
+
+| 0x0025BE14 | fn_0025BE14 | Four float-component forms miss copy/register/scheduling bytes. No NonMatching claim. Family packet project/pro_requests/002253C8.md; dot-owned. |
+
+| 0x00278C6C | fn_00278C6C | Four float-component forms miss copy/register/scheduling bytes. No NonMatching claim. Family packet project/pro_requests/002253C8.md; dot-owned. |
