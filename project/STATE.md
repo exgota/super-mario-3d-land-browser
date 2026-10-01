@@ -9,7 +9,7 @@ M0: toolchain settled. Compiler discrimination remains unresolved.
 - Original EU executable hash verified again.
 - Strict byte comparison, including literal pools, now gates `O`; a generated-output mutation confirmed rejection. The differ and target remain unchanged.
 - All 35 Game and 75 lib/al sources compile, archive, link and export in the normal build with unchanged global flags.
-- Six PlayerTrigger functions pass check.py. PlayerAnimFrameCtrl::getCurrentFrame also passes. Total: 8 exact functions, 168 / 3,092,336 code bytes.
+- Six PlayerTrigger functions pass check.py. PlayerAnimFrameCtrl::getCurrentFrame also passes. PlayerActionCondition::setup also passes. Total: 9 exact functions, 172 / 3,092,336 code bytes.
 - ARMCC 4.1/791 and 4.1/894 both reproduce those six functions. Neither has been proved to be the game compiler.
 
 ## In flight
