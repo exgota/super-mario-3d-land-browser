@@ -12624,7 +12624,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0031B3AC,0x0031B450,0x0031B45C,          ,U,f,_ZN2al9EffectObj4initERKNS_13ActorInitInfoE,
 0x0031B45C,0x0031B4EC,0x0031B4F8,          ,U,f,_ZN2al17EffectObjFunction18initActorEffectObjEPNS_9EffectObjERKNS_13ActorInitInfoEPKc,
 0x0031B4F8,0x0031B518,0x0031B520,          ,O,f,_ZN2al9EffectObj4killEv,
-0x0031B520,0x0031B560,0x0031B56C,          ,M,f,_ZN2al9EffectObj7controlEv,
+0x0031B520,0x0031B560,0x0031B56C,          ,O,f,_ZN2al9EffectObj7controlEv,
 0x0031B56C,0x0031B5A0,0x0031B5A8,          ,U,f,_ZN2al9EffectObjC1ERKN4sead14SafeStringBaseIcEE,
 0x0031B5A8,0x0031B684,0x0031B6A8,          ,U,f,,
 0x0031B6A8,0x0031B6E4,0x0031B6EC,          ,U,f,,
