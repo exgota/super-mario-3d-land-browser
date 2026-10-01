@@ -463,3 +463,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:21-04:00,0x0029329C,_ZN2al16getStationedHeapEv,matched,2,0.0513
 2026-10-01T13:11:21-04:00,0x0032F444,_ZNK2al10FunctorV0FclEv,matched,2,0.0213
 2026-10-01T13:11:22-04:00,0x001E9834,_ZN2al4RailC1Ev,matched,2,0.0158
+2026-10-01T13:11:22-04:00,0x0025873C,_ZN2al15HitSensorKeeper6updateEv,matched,2,0.0161

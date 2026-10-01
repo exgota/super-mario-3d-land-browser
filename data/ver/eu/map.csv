@@ -7829,7 +7829,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002586EC,          ,0x00258718,          ,U,f,,
 0x00258718,0x00258730,0x00258734,          ,U,f,,
 0x00258734,          ,0x0025873C,          ,U,f,_ZN16alSensorFunction19updateHitSensorsAllEPN2al9LiveActorE,
-0x0025873C,          ,0x00258774,          ,M,f,_ZN2al15HitSensorKeeper6updateEv,
+0x0025873C,          ,0x00258774,          ,O,f,_ZN2al15HitSensorKeeper6updateEv,
 0x00258774,0x002587D8,0x002587DC,          ,U,f,,
 0x002587DC,          ,0x002587E8,          ,U,f,,
 0x002587E8,          ,0x002587F4,          ,U,f,,
