@@ -723,3 +723,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T18:07:02-04:00,0x0028CA30,_ZNK2al20ByamlStringTableIter9getStringEi,abandoned,4,1.2806
 2026-10-01T18:16:50-04:00,0x0024C9EC,_ZN2al8Collider12onInvalidateEv,abandoned,4,6.8459
 2026-10-01T18:21:44-04:00,0x00314E40,_ZN8FireBall12attackSensorEPN2al9HitSensorES2_,matched,2,8.2145
+2026-10-01T18:21:45-04:00,0x00314EE4,_ZN8FireBall4initERKN2al13ActorInitInfoE,matched,2,8.2131
