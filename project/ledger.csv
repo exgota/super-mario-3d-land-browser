@@ -551,3 +551,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:03:38-04:00,0x00260554,_ZN4sead11QuatCalcCtrIfE18makeVectorRotationERN2nn4math4QUATERKNS3_4VEC3ES8_,abandoned,2,12.4889
 2026-10-01T14:03:38-04:00,0x0033753C,_ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci,abandoned,8,12.7172
 2026-10-01T14:03:38-04:00,0x00252054,_ZN26PlayerActionMultiConditionC1Ev,abandoned,2,0.0795
+2026-10-01T14:09:42-04:00,0x00277D94,_ZN2al32initCreateActorWithPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE,matched,2,0.0283

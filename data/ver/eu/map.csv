@@ -9037,7 +9037,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00277D64,          ,0x00277D74,          ,O,f,_ZN2al15isMsgPlayerKickEj,
 0x00277D74,          ,0x00277D84,          ,U,f,,
 0x00277D84,          ,0x00277D94,          ,U,f,,
-0x00277D94,          ,0x00277DA0,          ,M,f,_ZN2al32initCreateActorWithPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE,
+0x00277D94,          ,0x00277DA0,          ,O,f,_ZN2al32initCreateActorWithPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE,
 0x00277DA0,0x00277DDC,0x00277DE0,          ,U,f,_ZN2al14LiveActorGroupC1EPKci,
 0x00277DE0,0x00277DF0,0x00277E08,          ,U,f,,
 0x00277E08,0x00277E58,0x00277E5C,          ,U,f,,
