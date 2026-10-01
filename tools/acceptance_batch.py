@@ -50,16 +50,16 @@ def check_candidates(candidates, root, report, save, definitions=None):
                                                'definitions': checks})
             save()
         report['accepted'] = all(check['returncode'] == 0 for check in report['candidate_checks'])
+        if not report['accepted']:
+            map_path.write_bytes(prior_map)
+            report['candidate_ranks_restored'] = True
+        save()
     except BaseException:
         map_path.write_bytes(prior_map)
         report['candidate_ranks_restored'] = True
         report['accepted'] = False
         save()
         raise
-    if not report['accepted']:
-        map_path.write_bytes(prior_map)
-        report['candidate_ranks_restored'] = True
-    save()
 
 
 def main():
