@@ -14769,7 +14769,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0034CC30,0x0034CCB8,0x0034CCC4,          ,U,f,,
 0x0034CCC4,          ,0x0034CCCC,          ,U,f,,
 0x0034CCCC,0x0034CD4C,0x0034CD58,          ,U,f,,
-0x0034CD58,0x0034CDE4,0x0034CDE8,          ,M,f,_ZNK11NrvFireBall15FireBallNrvShot7executeEPN2al11NerveKeeperE,
+0x0034CD58,0x0034CDE4,0x0034CDE8,          ,O,f,_ZNK11NrvFireBall15FireBallNrvShot7executeEPN2al11NerveKeeperE,
 0x0034CDE8,0x0034CE14,0x0034CE18,          ,U,f,,
 0x0034CE18,0x0034CE7C,0x0034CE80,          ,U,f,,
 0x0034CE80,0x0034CECC,0x0034CED4,          ,U,f,,
