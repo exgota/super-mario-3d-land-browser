@@ -9868,7 +9868,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00292A78,0x00292AB0,0x00292AB4,          ,U,f,_ZnajRKSt9nothrow_t,
 0x00292AB4,          ,0x00292C04,          ,U,f,,
 0x00292C04,0x00292D08,0x00292D10,          ,U,f,,
-0x00292D10,          ,0x00292D20,          ,M,f,_ZN18alProjectInterface12getSystemKitEv,
+0x00292D10,          ,0x00292D20,          ,O,f,_ZN18alProjectInterface12getSystemKitEv,
 0x00292D20,0x00292DC8,0x00292DD0,          ,U,f,,
 0x00292DD0,0x00292E28,0x00292E2C,          ,U,f,,
 0x00292E2C,0x00292F00,0x00292F04,          ,U,f,_ZN4sead7ExpHeap6createEjRKNS_14SafeStringBaseIcEEPNS_4HeapENS5_13HeapDirectionEb,
