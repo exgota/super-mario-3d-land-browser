@@ -9150,7 +9150,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027A298,0x0027A470,0x0027A480,          ,U,f,,
 0x0027A480,          ,0x0027A488,          ,U,f,,
 0x0027A488,0x0027A4D0,0x0027A4D8,          ,U,f,,
-0x0027A4D8,          ,0x0027A4EC,          ,M,f,_ZN2al19isSensorEnemyAttackEPKNS_9HitSensorE,
+0x0027A4D8,          ,0x0027A4EC,          ,O,f,_ZN2al19isSensorEnemyAttackEPKNS_9HitSensorE,
 0x0027A4EC,          ,0x0027A508,          ,U,f,,
 0x0027A508,          ,0x0027A538,          ,M,f,_ZN2al13isSensorEnemyEPKNS_9HitSensorE,
 0x0027A538,          ,0x0027A590,          ,U,f,,
