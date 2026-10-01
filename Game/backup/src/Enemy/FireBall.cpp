@@ -52,17 +52,18 @@ bool FireBall::receiveMsg( u32 msg, al::HitSensor* other, al::HitSensor* me )
         return false;
 }
 
-#ifdef NON_MATCHING
+extern "C" const char dat_003C0824[8];
+extern "C" bool fn_0027063c( al::LiveActor* actor, const char* actionName );
 
-// inline nops
-void FireBall::exeShot()
+inline void FireBall::exeShot()
 {
         if ( al::isFirstStep( this ) )
-                al::tryStartAction( this, "Shot" );
+                fn_0027063c( this, dat_003C0824 );
         if ( al::isCollided( this ) )
         {
                 al::startHitReactionBreak( this );
                 kill();
+                return;
         }
         if ( al::isGreaterStep( this, 90 ) )
         {
@@ -70,5 +71,3 @@ void FireBall::exeShot()
                 kill();
         }
 }
-
-#endif
