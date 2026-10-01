@@ -12,8 +12,9 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from tools.low.updateMap import *
 from tools.low.readSymMap import *
-from tools.low.readElfMap import *
-from tools.low.callAsmdiff import *
+if not any(argument == "--object" or argument.startswith("--object=") for argument in sys.argv[1:]):
+    from tools.low.readElfMap import *
+    from tools.low.callAsmdiff import *
 from tools.low.checkExactBytes import check_exact_bytes
 from tools.pypstem._utils import getFileBuildPath
 
@@ -256,6 +257,26 @@ def check_sym(symbol_name):
     else:
         printf (f"Unchanged. ({prevrank})")
 
+def check_object(symbol_name, object_path):
+    symbols = [row for row in read_sym_file() if row[MapFmt.Symbol] == symbol_name]
+    if len(symbols) != 1 or "f" not in symbols[0][MapFmt.Type]:
+        raise ValueError("The object check requires one established function symbol.")
+    symbol = symbols[0]
+    result = check_exact_bytes(symbol_name, object_path.resolve(), getVersion(), cfg.compiler)
+    previous_rank = symbol[MapFmt.Rank]
+    if result["exact"]:
+        rank = "O"
+    elif result["reason"] == "The linked candidate differs from the unchanged original interval.":
+        rank = "m"
+    else:
+        rank = "M"
+    if previous_rank != rank:
+        updated = list(symbol)
+        updated[MapFmt.Rank] = rank
+        updateSingle(updated, csv_path)
+    echo(f"{previous_rank} -> {rank}: {result['reason']}")
+    return result["exact"]
+
 def main():
     global csv_path
     global log_path
@@ -272,6 +293,7 @@ def main():
     parser.add_argument("-w", action="store_true", help="Log changes to file (No csv update)")
     parser.add_argument("-e", action="store_true", help="Error when map has differences.")
     parser.add_argument("sym", nargs="?", help="Only check this symbol")
+    parser.add_argument("--object", type=Path, help="Check a compiled object directly, without the compact scaffold image")
     args = parser.parse_args()
 
     is_skip_mode = args.f
@@ -287,6 +309,10 @@ def main():
     #    csv_path = getMapFile().with_stem(f"{getMapFile().stem}_test")
     #    echo ("Info: TEST MODE. You need to compile without -m (only matching) to rebuild the functions map. This output will be written to data/*_test.csv")
 
+    if args.object:
+        if not args.sym:
+            parser.error("--object requires a function symbol")
+        return 0 if check_object(args.sym, args.object) else 1
     if args.sym:
         check_sym(args.sym)
     else:
@@ -296,4 +322,4 @@ def main():
         echo (f"{int(time.time() - start)}s elapsed")
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
