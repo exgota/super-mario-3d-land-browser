@@ -62,7 +62,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Resources**
 11. There is no spend cap and no cost tracking (D4). Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong.
-12. Run at most 3 heavy parallel jobs (compiles, agents, emulator instances) at once. The Mac mini overheats beyond that.
+12. Run at most 5 parallel lanes (agents, compiles, emulator instances) at once. Claude watches memory and load every 30 minutes and may lower this if the Mac strains.
 
 ## 5. Working protocol for unattended operation
 
@@ -70,7 +70,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 
 **Follow-through.** Persist until the current milestone's exit check passes. Do not stop at a plan, a proposal, or an offer to continue. Do not settle for a partial result to save time, effort, or tokens. When you have a question, first finish all the work that does not depend on the answer, write the question to `project/QUESTIONS.md`, and keep working on whatever remains. Do not add warnings, disclaimers, or approval steps for hypothetical risks.
 
-**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 3 lanes running local compiles at once (rule 12). Messages between agents must be legible to a human reader.
+**Delegation.** Parallelize with subagents when work splits cleanly, for example one function per subagent, or decompilation in one lane and runtime work in another. Keep at most 5 lanes at once (rule 12). More lanes means more functions per hour, since the work waits on the model and not on the Mac. Messages between agents must be legible to a human reader.
 
 **Writing.** Daily reports and decision entries use short plain paragraphs, active voice, and the real numbers. No filler phrases and no concluding summaries.
 
