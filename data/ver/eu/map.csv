@@ -7259,7 +7259,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00249614,          ,0x00249618,          ,U,f,,
 0x00249618,          ,0x0024962C,          ,U,f,_ZNK2al13KeyPoseKeeper17getCurrentKeyPoseEv,
 0x0024962C,          ,0x002496F8,          ,U,f,,
-0x002496F8,          ,0x0024977C,          ,M,f,_ZN2al14SensorHitGroupC1EiPKc,
+0x002496F8,          ,0x0024977C,          ,O,f,_ZN2al14SensorHitGroupC1EiPKc,
 0x0024977C,          ,0x002497A4,          ,U,f,,
 0x002497A4,          ,0x002497B0,          ,U,f,,
 0x002497B0,          ,0x002498A4,          ,U,f,,

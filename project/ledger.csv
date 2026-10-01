@@ -66,3 +66,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T06:11:30-04:00,0x001B8BD8,_ZN26PlayerActionMultiCondition5setupEv,matched,5,78.780
 2026-10-01T06:24:47-04:00,0x001CB5D4,_ZN2al14SensorHitGroup3addEPNS_9HitSensorE,matched,1,0.0065
 2026-10-01T06:24:47-04:00,0x001CB5EC,_ZN2al14SensorHitGroup6removeEPNS_9HitSensorE,matched,1,0.0048
+2026-10-01T06:24:48-04:00,0x002496F8,_ZN2al14SensorHitGroupC1EiPKc,matched,1,0.0051
