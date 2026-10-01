@@ -5428,7 +5428,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EBB10,          ,0x001EBB24,          ,U,f,,
 0x001EBB24,          ,0x001EBB70,          ,O,f,_ZN2al9HitSensor8validateEv,
 0x001EBB70,0x001EBC4C,0x001EBC50,          ,U,f,,
-0x001EBC50,          ,0x001EBC54,          ,M,f,_ZN2al9ISceneObj12initSceneObjEv,
+0x001EBC50,          ,0x001EBC54,          ,O,f,_ZN2al9ISceneObj12initSceneObjEv,
 0x001EBC54,          ,0x001EBC58,          ,U,f,,
 0x001EBC58,          ,0x001EBC60,          ,O,f,_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_,
 0x001EBC60,          ,0x001EBC64,          ,O,f,_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_,

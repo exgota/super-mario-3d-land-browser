@@ -628,3 +628,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T15:45:15-04:00,0x00280590,_ZN2al17initActorPoseTQSVEPNS_9LiveActorE,matched,2,0.0337
 2026-10-01T15:45:15-04:00,0x001891A8,_ZN2al5Scene18initSceneObjHolderEv,matched,3,0.0410
 2026-10-01T15:45:16-04:00,0x001DCBA8,_ZN2al5Scene24initAndLoadStageResourceEPKciPN4sead4HeapE,matched,3,0.0410
+2026-10-01T15:45:16-04:00,0x001EBC50,_ZN2al9ISceneObj12initSceneObjEv,matched,2,0.0407
