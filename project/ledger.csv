@@ -121,3 +121,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T08:08:13-04:00,0x001EA174,fn_001EA174,matched,7,0.0050
 2026-10-01T08:08:13-04:00,0x001EA1DC,fn_001EA1DC,matched,7,0.0049
 2026-10-01T08:08:14-04:00,0x001C5A70,fn_001C5A70,matched,19,0.0047
+2026-10-01T08:08:14-04:00,0x001CAD00,_ZN2al14NerveStateCtrl13registerStateEPNS_14NerveStateBaseEPKNS_5NerveEPKc,matched,3,0.0049
