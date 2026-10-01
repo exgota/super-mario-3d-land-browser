@@ -8956,7 +8956,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00276844,          ,0x00276858,          ,U,f,,
 0x00276858,          ,0x00276870,          ,U,f,,
 0x00276870,          ,0x00276884,          ,U,f,,
-0x00276884,          ,0x002768AC,          ,M,f,_ZN19PlayerActorInitInfoC1Ev,
+0x00276884,          ,0x002768AC,          ,O,f,_ZN19PlayerActorInitInfoC1Ev,
 0x002768AC,0x00276A7C,0x00276A98,          ,U,f,,
 0x00276A98,          ,0x00276AA0,          ,O,f,_ZN2al8isPlacedERKNS_13ActorInitInfoE,
 0x00276AA0,          ,0x00276AB0,          ,O,f,_ZNK2al9ByamlIter7isValidEv,
