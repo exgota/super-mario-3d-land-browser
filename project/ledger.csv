@@ -695,3 +695,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:35-04:00,0x00290EB0,_ZN2al24makeLocalizedArchivePathEPN4sead22BufferedSafeStringBaseIcEERKNS0_14SafeStringBaseIcEE,matched,2,0.0233
 2026-10-01T17:20:36-04:00,0x00330630,fn_00330630,matched,2,0.0177
 2026-10-01T17:20:36-04:00,0x00330678,fn_00330678,matched,3,1.2904
+2026-10-01T17:20:36-04:00,0x00330610,fn_00330610,matched,2,0.0385
