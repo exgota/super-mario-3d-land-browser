@@ -18,6 +18,7 @@ private:
 
 public:
         HitSensorDirector();
+        virtual void execute();
 };
 
 } // namespace al

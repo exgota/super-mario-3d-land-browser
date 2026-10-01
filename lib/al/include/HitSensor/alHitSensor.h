@@ -17,9 +17,7 @@ class HitSensor
 private:
         const char*      mName;
         SensorType       mSensorType;
-        u32              _8;
-        u32              _C;
-        float            _10;
+        sead::Vector3f   mPosition;
         float            mSensorRadius;
         u16              mMaxSensorCount;
         u16              mSensorCount;
@@ -46,6 +44,11 @@ public:
         u32 getType() const
         {
                 return mSensorType;
+        }
+
+        const sead::Vector3f& getPos() const
+        {
+                return mPosition;
         }
 
         float getRadius() const

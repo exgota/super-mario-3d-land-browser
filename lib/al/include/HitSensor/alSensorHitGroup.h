@@ -13,6 +13,11 @@ private:
         HitSensor** mSensors;
 
 public:
+        int getSensorCount() const
+        {
+                return mSensorCount;
+        }
+
         void add( HitSensor* sensor );
         void remove( HitSensor* sensor );
 
