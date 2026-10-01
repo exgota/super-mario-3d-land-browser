@@ -11281,7 +11281,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002D4E10,0x002D4F94,0x002D4F98,          ,U,f,,
 0x002D4F98,0x002D4FF0,0x002D4FF4,          ,U,f,,
 0x002D4FF4,          ,0x002D503C,          ,U,f,_ZN2al3Sky4initERKNS_13ActorInitInfoE,
-0x002D503C,0x002D5088,0x002D5090,          ,M,f,_ZN2al3SkyC1EPKc,
+0x002D503C,0x002D5088,0x002D5090,          ,O,f,_ZN2al3SkyC1EPKc,
 0x002D5090,          ,0x002D50CC,          ,U,f,,
 0x002D50CC,0x002D50E0,0x002D50E4,          ,U,f,,
 0x002D50E4,          ,0x002D50F4,          ,U,f,,
