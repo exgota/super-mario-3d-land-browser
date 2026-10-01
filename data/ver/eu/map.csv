@@ -8925,7 +8925,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00274AA8,0x00274CC8,0x00274D88,          ,U,f,,
 0x00274D88,0x00274E68,0x00274EB4,          ,U,f,,
 0x00274EB4,          ,0x00274EE4,          ,U,f,,
-0x00274EE4,          ,0x00274EF0,          ,M,f,_ZNK2al19StageResourceKeeper16getResourceSoundEv,
+0x00274EE4,          ,0x00274EF0,          ,O,f,_ZNK2al19StageResourceKeeper16getResourceSoundEv,
 0x00274EF0,0x0027503C,0x00275048,          ,m,f,_ZN2al16initPlacementMapEPNS_5SceneEPKNS_8ResourceERKNS_13ActorInitInfoEPKc,
 0x00275048,          ,0x00275054,          ,M,f,_ZNK2al19StageResourceKeeper14getResourceMapEv,
 0x00275054,0x00275308,0x002753E8,          ,U,f,,
