@@ -22,3 +22,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:00-04:00,0x00269790,_ZN2al7lerpVecEPN4sead7Vector3IfEERKS2_S5_f,matched,1,0.009
 2026-10-01T04:52:00-04:00,0x001C70FC,_ZN2al13LiveActorFlagC1Ev,matched,1,0.009
 2026-10-01T04:52:01-04:00,0x002711E0,_ZN2al17CameraParamVisionC1Ev,matched,1,0.009
+2026-10-01T04:52:02-04:00,0x00187970,_ZN2al18CameraRotatorParamC1Ev,matched,1,0.009

@@ -2879,7 +2879,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00187478,0x001877E4,0x0018790C,          ,U,f,,
 0x0018790C,0x00187918,0x0018791C,          ,U,f,,
 0x0018791C,0x0018795C,0x00187970,          ,U,f,_ZN2al18CameraRotatorParam4initEPKNS_9ByamlIterE,
-0x00187970,0x0018797C,0x00187980,          ,U,f,_ZN2al18CameraRotatorParamC1Ev,
+0x00187970,0x0018797C,0x00187980,          ,O,f,_ZN2al18CameraRotatorParamC1Ev,
 0x00187980,          ,0x001879E0,          ,U,f,,
 0x001879E0,          ,0x001879F8,          ,U,f,,
 0x001879F8,          ,0x00187A24,          ,U,f,,
