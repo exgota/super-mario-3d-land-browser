@@ -324,3 +324,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:07-04:00,0x0026EC24,_ZN2al9sendMsg58EPNS_9HitSensorES1_,matched,2,0.2216
 2026-10-01T11:15:08-04:00,0x00270628,_ZN2al14isSensorMapObjEPKNS_9HitSensorE,matched,2,0.2213
 2026-10-01T11:15:08-04:00,0x00272DA0,_ZN2al20isMsgGororiBigAttackEj,matched,2,0.2215
+2026-10-01T11:15:09-04:00,0x00272DB0,_ZN2al17isMsgGororiAttackEj,matched,2,0.2220

@@ -8816,7 +8816,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00272D50,          ,0x00272D78,          ,U,f,,
 0x00272D78,          ,0x00272DA0,          ,U,f,,
 0x00272DA0,          ,0x00272DB0,          ,O,f,_ZN2al20isMsgGororiBigAttackEj,
-0x00272DB0,          ,0x00272DC0,          ,M,f,_ZN2al17isMsgGororiAttackEj,
+0x00272DB0,          ,0x00272DC0,          ,O,f,_ZN2al17isMsgGororiAttackEj,
 0x00272DC0,          ,0x00272DD0,          ,O,f,_ZN2al14getVelocityPtrEPNS_9LiveActorE,
 0x00272DD0,          ,0x00272DD8,          ,U,f,,
 0x00272DD8,          ,0x00272DE8,          ,O,f,_ZN2al11getVelocityEPKNS_9LiveActorE,
