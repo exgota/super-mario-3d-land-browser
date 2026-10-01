@@ -1512,6 +1512,260 @@ ModelCatalog readCgfx(Bytes data) {
     return result;
 }
 
+// Resource-local identity from original loader 0x00167CAC and keeper 0x002B3340.
+// This interface never applies serialized runtime pointers or constructs caller state.
+struct ShaderInstanceDefinition {
+    std::size_t offset = 0;
+    std::uint32_t flags = 0;
+    std::uint32_t vertexRootCacheField = 0;
+    std::uint32_t geometryRootCacheField = 0;
+    std::int32_t vertexSelector = -1;
+    std::int32_t geometrySelector = -1;
+    std::size_t vertexExecutableOffset = 0;
+    std::size_t geometryExecutableOffset = 0;
+    std::size_t parentOffset = 0;
+    std::string status;
+};
+
+struct ShaderProgramDefinition {
+    std::string name;
+    std::size_t offset = 0;
+    std::uint32_t flags = 0;
+    std::uint32_t revision = 0;
+    std::string status;
+    std::vector<ShaderInstanceDefinition> instances;
+};
+
+struct ShaderArchiveSelectionInput {
+    std::uint32_t revision = 0;
+    std::string status;
+    std::vector<ShaderProgramDefinition> programs;
+};
+
+ShaderArchiveSelectionInput readShaderArchiveSelectionInput(Bytes data) {
+    const ModelCatalog catalog = readCgfx(data);
+    ByteReader input(data);
+    const std::size_t dataEnd = 20 + input.integer(24);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "CGFX shader selection metadata escapes DATA");
+    };
+    ShaderArchiveSelectionInput result{catalog.revision, "unsupported_shader_archive_revision", {}};
+    if (catalog.revision != 0x05000000)
+        return result;
+    result.status = "resource_local_shader_catalog";
+    for (const ResourceCategory& category : catalog.categories) {
+        if (category.index != 4)
+            continue;
+        for (const ResourceEntry& entry : category.entries) {
+            metadata(entry.offset, 0x10);
+            require(input.magic(entry.offset + 4, "SHDR"), "CGFX shader program has no SHDR signature");
+            ShaderProgramDefinition program{entry.name, entry.offset, input.integer(entry.offset),
+                                            input.integer(entry.offset + 8), "unsupported_shader_program_layout", {}};
+            if (program.flags != 0x80000002 || program.revision != 0x06000000) {
+                result.programs.push_back(std::move(program));
+                continue;
+            }
+            const std::size_t nameOffset = input.relative(entry.offset + 0xC);
+            metadata(nameOffset, 1);
+            require(input.terminatedText(nameOffset, dataEnd - nameOffset) == entry.name,
+                    "CGFX shader program name disagrees with its dictionary");
+            metadata(entry.offset, 0x48);
+            program.status = "absent_executable_binary";
+            if (!input.integer(entry.offset + 0x1C)) {
+                result.programs.push_back(std::move(program));
+                continue;
+            }
+            const std::size_t binary = input.relative(entry.offset + 0x1C);
+            metadata(binary, 8);
+            require(input.magic(binary, "DVLB"), "CGFX shader binary has no DVLB signature");
+            const std::size_t executableCount = input.integer(binary + 4);
+            require(executableCount <= (dataEnd - 20) / 4, "CGFX shader executable count exceeds DATA");
+            metadata(binary + 8, executableCount * 4);
+            program.status = "inconsistent_executable_count";
+            if (!executableCount || input.integer(entry.offset + 0x20) != executableCount) {
+                result.programs.push_back(std::move(program));
+                continue;
+            }
+            std::vector<std::size_t> executables;
+            for (std::size_t index = 0; index < executableCount; ++index) {
+                const std::uint64_t executable = std::uint64_t(binary) + input.integer(binary + 8 + index * 4);
+                require(executable <= dataEnd, "CGFX executable offset escapes DATA");
+                metadata(std::size_t(executable), 8);
+                require(input.magic(std::size_t(executable), "DVLE"), "CGFX executable has no DVLE signature");
+                executables.push_back(std::size_t(executable));
+            }
+            const std::size_t count = input.integer(entry.offset + 0x28);
+            require(count <= (dataEnd - 20) / 4, "CGFX shader instance count exceeds DATA");
+            program.status = "absent_shader_instances";
+            if (!count) {
+                require(input.integer(entry.offset + 0x2C) == 0, "Empty CGFX shader instance list has a nonnull pointer");
+                result.programs.push_back(std::move(program));
+                continue;
+            }
+            const std::size_t list = input.relative(entry.offset + 0x2C);
+            metadata(list, count * 4);
+            std::set<std::size_t> uniqueInstances;
+            for (std::size_t index = 0; index < count; ++index) {
+                const std::size_t offset = input.relative(list + index * 4);
+                metadata(offset, 4);
+                require(uniqueInstances.insert(offset).second, "Duplicate CGFX shader instance");
+                if (input.integer(offset) != 3) {
+                    ShaderInstanceDefinition instance;
+                    instance.offset = offset;
+                    instance.flags = input.integer(offset);
+                    instance.status = "unsupported_shader_instance_layout";
+                    program.instances.push_back(std::move(instance));
+                    continue;
+                }
+                metadata(offset, 0x88);
+                ShaderInstanceDefinition instance{offset, input.integer(offset), input.integer(offset + 4),
+                    input.integer(offset + 8), std::bit_cast<std::int32_t>(input.integer(offset + 0xC)),
+                    std::bit_cast<std::int32_t>(input.integer(offset + 0x10)), 0, 0,
+                    input.relative(offset + 0x84), "invalid_executable_selector"};
+                require(instance.parentOffset == entry.offset, "CGFX shader instance parent disagrees with its root");
+                if (instance.vertexSelector >= 0 && std::uint32_t(instance.vertexSelector) < executableCount &&
+                    (instance.geometrySelector < 0 || std::uint32_t(instance.geometrySelector) < executableCount)) {
+                    instance.vertexExecutableOffset = executables[std::uint32_t(instance.vertexSelector)];
+                    if (instance.geometrySelector >= 0)
+                        instance.geometryExecutableOffset = executables[std::uint32_t(instance.geometrySelector)];
+                    instance.status = "resource_local_instance_identity";
+                }
+                program.instances.push_back(std::move(instance));
+            }
+            program.status = "resource_local_program_identity";
+            result.programs.push_back(std::move(program));
+        }
+    }
+    return result;
+}
+
+struct MaterialShaderSelection {
+    std::size_t modelOffset = 0;
+    std::size_t materialOffset = 0;
+    bool optionalShaderArchivePresent = false;
+    std::string status;
+    std::int32_t referenceRelativePointerField = 0;
+    std::size_t referenceOffset = 0;
+    std::uint32_t referenceFlags = 0;
+    bool referenceNamePresent = false;
+    std::string referenceName;
+    std::int32_t cachedRelativePointerField = 0;
+    std::uint32_t instanceIndex = 0;
+    bool instanceSelected = false;
+    std::string selectedProgramName;
+    std::size_t selectedProgramOffset = 0;
+    std::size_t selectedInstanceOffset = 0;
+    std::int32_t vertexSelector = -1;
+    std::int32_t geometrySelector = -1;
+    std::size_t vertexExecutableOffset = 0;
+    std::size_t geometryExecutableOffset = 0;
+    bool sameAsNamedInitializerInstance = false;
+};
+
+// The optional archive is an explicit original loader input, never an inferred default.
+// Nonzero serialized caches are preserved and unapplied. Runtime addresses are not file offsets.
+std::vector<MaterialShaderSelection> readMaterialShaderSelections(Bytes data, const ModelCatalog& catalog,
+                                                                const ShaderArchiveSelectionInput* shaderArchive) {
+    ByteReader input(data);
+    const std::size_t dataEnd = 20 + input.integer(24);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "CGFX material shader metadata escapes DATA");
+    };
+    std::vector<MaterialShaderSelection> result;
+    for (std::size_t modelIndex = 0; modelIndex < catalog.models.size(); ++modelIndex) {
+        const ModelGeometry& model = catalog.models[modelIndex];
+        for (const ModelMaterial& material : model.materials) {
+            MaterialShaderSelection selection;
+            selection.modelOffset = model.offset;
+            selection.materialOffset = material.offset;
+            selection.optionalShaderArchivePresent = shaderArchive != nullptr;
+            selection.status = "unsupported_material_shader_layout";
+            if (catalog.revision != 0x05000000 || material.flags != 0x08000000) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            metadata(material.offset, 0x290);
+            selection.instanceIndex = input.integer(material.offset + 0x28C);
+            selection.referenceRelativePointerField = std::bit_cast<std::int32_t>(input.integer(material.offset + 0x284));
+            selection.status = "absent_material_shader_reference";
+            if (!selection.referenceRelativePointerField) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            selection.referenceOffset = input.relative(material.offset + 0x284);
+            metadata(selection.referenceOffset, 8);
+            require(input.magic(selection.referenceOffset + 4, "SHDR"), "CGFX material shader reference has no SHDR signature");
+            selection.referenceFlags = input.integer(selection.referenceOffset);
+            selection.status = "unsupported_material_shader_reference";
+            if (selection.referenceFlags != 0x80000001) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            metadata(selection.referenceOffset, 0x20);
+            selection.referenceNamePresent = input.integer(selection.referenceOffset + 0x18) != 0;
+            if (selection.referenceNamePresent) {
+                const std::size_t nameOffset = input.relative(selection.referenceOffset + 0x18);
+                metadata(nameOffset, 1);
+                selection.referenceName = input.terminatedText(nameOffset, dataEnd - nameOffset);
+            }
+            selection.cachedRelativePointerField = std::bit_cast<std::int32_t>(input.integer(selection.referenceOffset + 0x1C));
+            selection.status = "serialized_shader_cache_unapplied";
+            if (selection.cachedRelativePointerField) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            selection.status = "unavailable_optional_shader_archive";
+            if (!shaderArchive) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            selection.status = "unsupported_secondary_model_fixup";
+            if (modelIndex != 0) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            selection.status = shaderArchive->status;
+            if (shaderArchive->status != "resource_local_shader_catalog") {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            const auto program = std::find_if(shaderArchive->programs.begin(), shaderArchive->programs.end(),
+                [](const ShaderProgramDefinition& entry) { return entry.name == "FastShader"; });
+            selection.status = "missing_fast_shader_root";
+            if (program == shaderArchive->programs.end()) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            selection.status = program->status;
+            if (program->status != "resource_local_program_identity") {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            selection.selectedProgramName = program->name;
+            selection.selectedProgramOffset = program->offset;
+            selection.status = "invalid_shader_instance_index";
+            if (selection.instanceIndex >= program->instances.size()) {
+                result.push_back(std::move(selection));
+                continue;
+            }
+            const ShaderInstanceDefinition& instance = program->instances[selection.instanceIndex];
+            selection.instanceSelected = true;
+            selection.selectedInstanceOffset = instance.offset;
+            selection.vertexSelector = instance.vertexSelector;
+            selection.geometrySelector = instance.geometrySelector;
+            selection.vertexExecutableOffset = instance.vertexExecutableOffset;
+            selection.geometryExecutableOffset = instance.geometryExecutableOffset;
+            selection.sameAsNamedInitializerInstance = selection.instanceIndex == 0;
+            selection.status = instance.status == "resource_local_instance_identity" ?
+                "resource_local_optional_archive_shader_selection" : instance.status;
+            result.push_back(std::move(selection));
+        }
+    }
+    return result;
+}
+
 std::string hexadecimal(const std::string& value) {
     const char* digits = "0123456789abcdef";
     std::string result;
@@ -3029,6 +3283,41 @@ void writeScene(std::ostream& output, const SceneDefinition& scene) {
         output << '}';
     }
     output << "]}";
+}
+
+void writeMaterialShaderSelections(std::ostream& output, const std::vector<MaterialShaderSelection>& selections) {
+    output << '[';
+    for (std::size_t index = 0; index < selections.size(); ++index) {
+        if (index) output << ',';
+        const MaterialShaderSelection& selection = selections[index];
+        output << "{\"model_offset\":" << selection.modelOffset << ",\"material_offset\":" << selection.materialOffset
+               << ",\"optional_shader_archive_present\":" << (selection.optionalShaderArchivePresent ? "true" : "false")
+               << ",\"status\":";
+        writeString(output, selection.status);
+        output << ",\"reference_relative_pointer_field\":" << selection.referenceRelativePointerField
+               << ",\"reference_offset\":" << selection.referenceOffset << ",\"reference_flags\":" << selection.referenceFlags
+               << ",\"reference_name_present\":" << (selection.referenceNamePresent ? "true" : "false")
+               << ",\"reference_name_hex\":";
+        writeString(output, hexadecimal(selection.referenceName));
+        output << ",\"cached_relative_pointer_field\":" << selection.cachedRelativePointerField
+               << ",\"instance_index\":" << selection.instanceIndex
+               << ",\"instance_selected\":" << (selection.instanceSelected ? "true" : "false")
+               << ",\"runtime_shader_cache\":\"unapplied\",\"full_scene_initialization\":\"unreplayed\","
+                  "\"active_program\":\"unresolved\",\"shader_arithmetic\":\"unresolved\"";
+        if (!selection.selectedProgramName.empty()) {
+            output << ",\"selected_program_resource\":\"optional_shader_archive\",\"selected_program_name_hex\":";
+            writeString(output, hexadecimal(selection.selectedProgramName));
+            output << ",\"selected_program_offset\":" << selection.selectedProgramOffset;
+        }
+        if (selection.instanceSelected)
+            output << ",\"selected_instance_offset\":" << selection.selectedInstanceOffset
+                   << ",\"vertex_selector\":" << selection.vertexSelector << ",\"geometry_selector\":" << selection.geometrySelector
+                   << ",\"vertex_executable_offset\":" << selection.vertexExecutableOffset
+                   << ",\"geometry_executable_offset\":" << selection.geometryExecutableOffset
+                   << ",\"same_as_named_initializer_instance\":" << (selection.sameAsNamedInitializerInstance ? "true" : "false");
+        output << '}';
+    }
+    output << ']';
 }
 
 void inspectFile(std::ostream& output, const std::filesystem::path& path) {
