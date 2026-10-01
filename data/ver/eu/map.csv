@@ -9048,7 +9048,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00278398,          ,0x002783BC,          ,U,f,,
 0x002783BC,0x00278434,0x00278440,          ,U,f,,
 0x00278440,          ,0x0027845C,          ,U,f,,
-0x0027845C,0x00278464,0x0027846C,          ,M,f,_ZN2al19startHitReactionEndEPKNS_9LiveActorE,
+0x0027845C,0x00278464,0x0027846C,          ,O,f,_ZN2al19startHitReactionEndEPKNS_9LiveActorE,
 0x0027846C,0x00278474,0x00278478,          ,O,f,_ZN2al23startHitReactionBlowHitEPKNS_9LiveActorE,
 0x00278478,0x002784B8,0x002784BC,          ,U,f,,
 0x002784BC,0x00278554,0x0027855C,          ,U,f,,
