@@ -1,5 +1,6 @@
 #include <LiveActor/alActorInitInfo.h>
 #include <Placement/alPlacementFunction.h>
+#include <Scene/alSceneObjHolder.h>
 #include <Util/alStringUtil.h>
 
 extern "C" const char dat_003A2DE4[];
@@ -106,6 +107,44 @@ struct ByamlIteratorReference
 {
         const al::ByamlIter* iter;
 };
+
+struct SceneByamlMetadataStorage
+{
+        const void* virtualTable;
+        const al::ByamlIter* iter;
+        const ByamlIteratorReference* footprints;
+};
+
+extern "C" const char dat_003AE120[];
+
+static inline bool readSceneMetadataInteger( const char* key, const al::ByamlIter* iter, int* out )
+{
+        if ( iter == nullptr )
+                return false;
+        return iter->tryGetIntByKey( out, key );
+}
+
+extern "C" bool fn_00185150( int* out )
+{
+        const SceneByamlMetadataStorage* metadata = reinterpret_cast<const SceneByamlMetadataStorage*>( al::getSceneObj( 15 ) );
+        return readSceneMetadataInteger( "StageTimerRestart", metadata->iter, out );
+}
+
+extern "C" bool fn_00184FD0( int* out )
+{
+        const SceneByamlMetadataStorage* metadata = reinterpret_cast<const SceneByamlMetadataStorage*>( al::getSceneObj( 15 ) );
+        return readSceneMetadataInteger( dat_003AE120, metadata->iter, out );
+}
+
+extern "C" bool fn_0018507C()
+{
+        int value = 0;
+        if ( !al::isExistSceneObj( 15 ) )
+                return false;
+        if ( !fn_00184FD0( &value ) )
+                return false;
+        return value < 50;
+}
 
 extern "C" const char* fn_0032BD6C( const ByamlIteratorReference* metadata, int index )
 {

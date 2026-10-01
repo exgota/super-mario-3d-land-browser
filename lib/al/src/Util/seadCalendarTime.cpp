@@ -14,4 +14,16 @@ CalendarTime::Time::Time( const Hour& hour, const Minute& minute, const Second& 
 {
 }
 
+void CalendarTime::setDate( const Date& date )
+{
+        mDate = date;
+        mDate.mWeekDay = DateUtil::calcWeekDay( mDate.mYear, mDate.mMonth, mDate.mDay );
+}
+
+CalendarTime::CalendarTime( const Year& year, const Month& month, const Day& day,
+                            const Hour& hour, const Minute& minute, const Second& second )
+        : mDate( year, month, day ), mTime( hour, minute, second )
+{
+}
+
 } // namespace sead

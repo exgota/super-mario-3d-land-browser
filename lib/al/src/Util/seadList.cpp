@@ -32,4 +32,24 @@ void ListImpl::clear()
 
 #endif
 
+void ListNode::erase_()
+{
+        if ( mPrevious )
+                mPrevious->mNext = mNext;
+        if ( mNext )
+                mNext->mPrevious = mPrevious;
+        mNext = 0;
+        mPrevious = 0;
+}
+
+ListNode* ListImpl::popFront()
+{
+        if ( mSize <= 0 )
+                return 0;
+        ListNode* node = mSentinel.mNext;
+        node->erase_();
+        --mSize;
+        return node;
+}
+
 } // namespace sead

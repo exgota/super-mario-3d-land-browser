@@ -13,6 +13,7 @@ public:
         ListNode() : mPrevious( 0 ), mNext( 0 ) {}
         ListNode( ListNode* previous, ListNode* next ) : mPrevious( previous ), mNext( next ) {}
         void insertFront_( ListNode* node );
+        void erase_();
 };
 
 class ListImpl
@@ -24,6 +25,7 @@ protected:
 public:
         ListImpl() : mSentinel( &mSentinel, &mSentinel ), mSize( 0 ) {}
         void clear();
+        ListNode* popFront();
         void pushBack( ListNode* node )
         {
                 mSentinel.insertFront_( node );

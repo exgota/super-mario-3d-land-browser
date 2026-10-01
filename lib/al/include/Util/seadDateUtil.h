@@ -29,11 +29,20 @@ public:
                 Date( const Year& year, const Month& month, const Day& day );
 
         private:
+                friend class CalendarTime;
                 Year mYear;
                 Month mMonth;
                 Day mDay;
                 unsigned char mWeekDay;
         };
+
+        CalendarTime( const Year& year, const Month& month, const Day& day,
+                      const Hour& hour, const Minute& minute, const Second& second );
+        void setDate( const Date& date );
+
+private:
+        Date mDate;
+        Time mTime;
 };
 
 class DateUtil
