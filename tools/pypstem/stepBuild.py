@@ -208,6 +208,13 @@ def exec_build():
     for mod_path_name, mod_data in cfg.modules.items():
         progress_set_type(f"{mod_path_name}/")
 
+        # Data imports need the canonical objects produced by earlier modules.
+        # Refresh the appended scaffold before compiling its generated source.
+        scaffold_updated = False
+        if mod_data.get("name") == getStubsLibName():
+            from tools.pypstem.stepSplit import write_stubs
+            scaffold_updated = write_stubs()
+
         obj_new_list = set()
     
         mod_ar_name = f"lib{mod_data.get("name")}.a"
@@ -246,7 +253,7 @@ def exec_build():
         new_flags_asm_hash = getArrayHash(flags_asm)
 
         # check hashes of flags
-        force_update = False
+        force_update = scaffold_updated
         if (new_flags_cxx_hash != old_flags_cxx) or (new_flags_asm_hash != old_flags_asm):
             force_update = True # flags mismatch
         if not getCfgSymsFile().exists():
