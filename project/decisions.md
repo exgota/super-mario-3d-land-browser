@@ -609,3 +609,7 @@ Root verified frozen package hashes and minimal patches before composition. Froz
 ### Nine follow-on structural stall packets
 
 Import nine frozen self-contained packets and record only their actual distinct forms: two effect transform setters retain allocated unmapped helpers despite exact root bytes; Matrix33zero, Matrix34 basis/translation copy and transpose, Matrix22multiply, quaternion vector rotation and PlayerActionMultiCondition initialization stall before the cap; the Byaml key-name consumer reaches eight forms. Scratch outputs are not canonical accepts, size failures have no byte-distance claim, and none has functional replay evidence. No production candidate source is imported. All targets stay reserved for the dot. Timings preserve measured overlapping family windows and exclude unmeasured preparation; packets identify compiler commands, layouts, complete original code/pools and remaining gaps.
+
+### Actor callbacks and audio checkpoint
+
+Enroll ten unchanged existing actor/callback/name helpers and three ordinary audio helpers,424 complete bytes. Independent constructors/callers establish private audio receiver views and neutral address identities. Canonical build verifies the pruned ready draft. No shared header, target boundary, oracle or flag changes. Freeze all prior canonical objects before the clean build and require them unchanged to preserve514 accepted roots, then check each new root. Shared diagnostic timings overlap and exclude unmeasured preparation.
