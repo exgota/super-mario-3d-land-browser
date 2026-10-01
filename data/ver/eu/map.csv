@@ -4099,7 +4099,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BF034,0x001BF0A8,0x001BF0B4,          ,U,f,,
 0x001BF0B4,          ,0x001BF0DC,          ,U,f,,
 0x001BF0DC,          ,0x001BF134,          ,U,f,,
-0x001BF134,          ,0x001BF140,          ,M,f,fn_001BF134,
+0x001BF134,          ,0x001BF140,          ,O,f,fn_001BF134,
 0x001BF140,          ,0x001BF168,          ,U,f,,
 0x001BF168,          ,0x001BF250,          ,U,f,,
 0x001BF250,          ,0x001BF270,          ,U,f,,
