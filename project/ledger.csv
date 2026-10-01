@@ -582,3 +582,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T14:43:32-04:00,0x001D9DC0,fn_001D9DC0,matched,2,0.2336
 2026-10-01T14:43:32-04:00,0x00335FEC,fn_00335FEC,matched,2,0.2346
 2026-10-01T14:43:33-04:00,0x00336028,fn_00336028,matched,2,0.2358
+2026-10-01T14:43:33-04:00,0x0028E948,_ZN4sead8ListNode12insertFront_EPS0_,matched,2,1.4861

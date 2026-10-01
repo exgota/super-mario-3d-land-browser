@@ -9771,7 +9771,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028E758,0x0028E878,0x0028E87C,          ,U,f,,
 0x0028E87C,          ,0x0028E8F8,          ,U,f,,
 0x0028E8F8,0x0028E944,0x0028E948,          ,U,f,,
-0x0028E948,          ,0x0028E964,          ,M,f,_ZN4sead8ListNode12insertFront_EPS0_,
+0x0028E948,          ,0x0028E964,          ,O,f,_ZN4sead8ListNode12insertFront_EPS0_,
 0x0028E964,          ,0x0028E994,          ,U,f,_ZN4sead8ListNode6erase_Ev,
 0x0028E994,0x0028E9D4,0x0028E9DC,          ,U,f,,
 0x0028E9DC,          ,0x0028E9E0,          ,U,fg,abort,
