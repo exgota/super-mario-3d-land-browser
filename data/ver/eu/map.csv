@@ -9720,7 +9720,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028CB70,          ,0x0028CBD8,          ,U,f,,
 0x0028CBD8,          ,0x0028CBEC,          ,U,f,_ZN4sead14MethodTreeNode7unlock_Ev,
 0x0028CBEC,          ,0x0028CC00,          ,U,f,_ZN4sead14MethodTreeNode5lock_Ev,
-0x0028CC00,          ,0x0028CC18,          ,M,f,_ZN4sead8TreeNodeC2Ev,i._ZN4sead8TreeNodeC1Ev
+0x0028CC00,          ,0x0028CC18,          ,O,f,_ZN4sead8TreeNodeC2Ev,i._ZN4sead8TreeNodeC1Ev
 0x0028CC18,          ,0x0028CD24,          ,U,f,,
 0x0028CD24,0x0028CD74,0x0028CD78,          ,U,f,,
 0x0028CD78,          ,0x0028CDB4,          ,U,f,,
