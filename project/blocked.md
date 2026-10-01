@@ -105,3 +105,5 @@ No functional NonMatching claim or production source intake follows from these s
 | 0x00156758 | _ZN15BeatBlockHolder4initERKN2al13ActorInitInfoE | Four forms; best528/524 and140 byte differences,56-byte pool equal. No canonical or behavior credit. Group table ownership also needs evidence. | A new source/lifetime hypothesis plus independent whole table ownership before canonical intake. Packet: project/pro_requests/00156758.md. |
 
 | 0x001F9F48 | fn_001F9F48 | Four forms;592/564/564/564 versus572;512/485/486/486 differences. Fixed-point alias and overflow semantics remain unvalidated. | A new alias/lifetime structure and independent arithmetic equivalence before functional claims. Packet: project/pro_requests/001F9F48.md. |
+
+| 0x0030E678 | _ZN7BombHei7controlEv | Four forms;704-byte size and96-byte pool equal, but55 bytes differ inside148-byte quaternion block. All other556 bytes equal. No functional claim. | A new quaternion expression/evaluation-order hypothesis after other work. Packet: project/pro_requests/0030E678.md. |

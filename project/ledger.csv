@@ -707,3 +707,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:24:41-04:00,0x00274990,_ZN2al12LiveActorKit7endInitEv,abandoned,1,0.0098
 2026-10-01T17:24:41-04:00,0x00156758,_ZN15BeatBlockHolder4initERKN2al13ActorInitInfoE,abandoned,4,3.2878
 2026-10-01T17:24:41-04:00,0x001F9F48,fn_001F9F48,abandoned,4,4.3524
+2026-10-01T17:35:44-04:00,0x0030E678,_ZN7BombHei7controlEv,abandoned,4,2.9593

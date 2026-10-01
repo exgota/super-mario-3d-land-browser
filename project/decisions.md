@@ -773,3 +773,7 @@ The earlier001E37D8 packet wrote Update holder size44 without marking the hexade
 ### Executor-list preparation imports, 2026-10-01
 
 Independent retail direct branches in1E36EC..1E37D8 and1E2044..1E2130 identify preparation callees1E5A68 and1E7328. The whole existing unnamed U/f rows1E5A68..1E5AA0 and1E7328..1E7410 receive neutral address names fn_001E5A68 and fn_001E7328. Their complete original bodies and the independently accepted holder layouts are frozen under build/library_table_list_matching/. No public method name, implementation, boundary, rank or exact credit changes. These names permit ordinary C++ imports in the separately reviewed executor-list proposals.
+
+### BombHei quaternion-block stall, 2026-10-01
+
+Root verifies169 frozen artifact hashes and commits the413-line control packet. Factory/creator/constructor and independent LiveActor control slot establish the method on the existing anonymous U row; no map name or boundary is changed. Four ordinary quaternion source forms each produce704 bytes under791/894, with best55 differences isolated to148 bytes. The other556 bytes include the equal96-byte pool. Eight successful physical compiles emit no retained arithmetic helper. No canonical or functional verification occurred. The shared first-to-last diagnostic window is2.959260 minutes and excludes preparation/packaging. Do other work before requeueing with a new expression hypothesis.
