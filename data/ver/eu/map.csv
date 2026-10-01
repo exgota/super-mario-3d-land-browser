@@ -9195,7 +9195,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027AF28,0x0027AFAC,0x0027AFE4,          ,U,f,,
 0x0027AFE4,0x0027AFF0,0x0027AFF8,          ,U,f,,
 0x0027AFF8,0x0027B04C,0x0027B054,          ,U,f,,
-0x0027B054,          ,0x0027B068,          ,M,f,_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc,
+0x0027B054,          ,0x0027B068,          ,O,f,_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc,
 0x0027B068,          ,0x0027B0B8,          ,U,f,,
 0x0027B0B8,          ,0x0027B0DC,          ,U,f,,
 0x0027B0DC,0x0027B0FC,0x0027B100,          ,U,f,,
