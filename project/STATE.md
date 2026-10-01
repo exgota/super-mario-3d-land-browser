@@ -1,38 +1,40 @@
 # Project state
 
-Last updated: 2026-10-01, autonomous Phase2 and runtime session.
+Last updated: 2026-10-01, autonomous Phase 2 and runtime session.
 
 ## Final objective
 M2: 100% byte-exact matching. No pilot or review stop. Follow project/BRIEF.md.
 
 ## Current milestones
-M1 passes: all50 pilot outcomes and the report are committed. M0 passes three of three committed-source compiler discriminators. M2 remains the final goal. M3 gameplay/replay is unverified.
+M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot outcomes and the report. M2 remains the final goal. M3 gameplay/replay is unverified.
 
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
-- Normal ARMCC build compiles41 Game and85 al sources plus the clean SDK priority unit. The compact main links/exports and unchanged progress.py runs after the separate Togezo data repair and verified named BSS scaffold import. It remains a scaffold.
+- Normal ARMCC build compiles 42 Game and 85 al sources plus the clean SDK unit. The compact main links/exports; it remains a scaffold.
 - Accepted coverage: 189 functions from canonical project ARMCC objects with committed source/header provenance, covering 14220 / 2,756,024 complete function bytes (0.515961%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
-- Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 passes; paired canonical-primary evidence is build/game_compiler_check/evidence.json.
-- New accepted classes/helpers include SensorHitGroup, NerveExecutor, LayoutActor, typed Byaml child lookup, EffectKeeper and the724-byte course-selection update. Only check.py setsO.
-- The pilot has40 matched,1 NonMatching and9 abandoned fragments. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase2 continues.
-- Runtime tools verify all73,421 RomFS IVFC blocks and50 selected World1-1 files. Native C++ reader independently validates placement bits,3853 collision prisms and39 model/145 texture catalogs, with sanitizer and damaged-input checks. No level has run.
+- Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
+- Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
+- Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings, 127 materials, raw skeleton/vertex/index fields and serialized topology. No level has run.
+- Native math matches 3422 direct retail float bits in debug/O3. Shape uniform transfer and command-copy gate interfaces pass 822 native words and 548 original gate cases. Shader meaning, rendering and gameplay remain unverified.
 
 ## Lanes and acceptance queue
-- Root owns source intake, canonical acceptance, map, ledger, shared documentation and private-origin pushes. All126 accepted functions pass the full committed-source recheck after dot/shared-header intake, totaling8980 bytes. Evidence: build/dot_checkpoint_recheck_frozen.json. Canonical objects are unchanged by the scaffold import fixes.
-- Dot branches are active. All15 exact claims from four dot proposals passed locally (2424 added bytes): hit-sensor-director (constructor364 bytes plus guarded execute), fugumannen-init (5 functions676 bytes), area-cube (180 bytes), togezo-init (8 functions1204 bytes). Source/header/report intake is committed. Guarded sensor execute is rank m and passes 810 bounded ARM11 differential pairs, recorded separately as NonMatching. New execute-director, course-list, placement-map and scene-resource-heap proposals are being reviewed. Reserve blocked functions and U functions >=0x400 bytes for dot.
-- Runtime lane validates raw model attributes, skeleton fields and137 model-local mesh/material bindings. Native math now agrees on3422 direct float-bit comparisons. Resource-local mesh decoding covers39 models,137 shapes,50076 vertices and133872 indices; game rendering and replay remain unverified.
-- Nerve lane probes small ExecuteRequestKeeper helpers in scratch. The33 execution/helper candidates are now locally accepted. Ready local queues include21 actor-group helpers, Byaml closures and placement readers,12 executor helpers,3 effect routines and independently evidenced NerveStateBase data ownership. Accept in small source-frozen batches after dot.
-- Other matching lanes review dot proposals or preserve their ready evidence. Maximum8 lanes; xhigh small functions, ultra large functions/layouts. Canonical build inputs freeze across commit/build/check.
+- Root alone owns dot intake, canonical acceptance, map, ledger, shared docs, Git and origin pushes. Other matching lanes work disjoint eligible small/medium U families; runtime continues. Maximum 8 lanes.
+- All 24 exact claims from eight dot proposals pass locally, 3700 bytes total. Latest proposals add placement144, CourseList120 and ExecuteDirector1012. Heap adds zero exact bytes. All source/header/report intake is reviewed; no dot map/rank/ledger/tool changes are imported.
+- All 33 execution/helper candidates and 21 actor-group candidates pass locally. The prior full shared-header recheck passed126/126 at8980 bytes. New source-specific acceptance covers later roots; repeat the full check after the queued local executor header changes.
+- Guarded sensor execute is rank m, with810 bounded ARM11 pairs recorded separately as NonMatching. Placement initializer passes76 contract-bounded pairs; heap validation reports410 pairs, including30 fault pairs. Root still needs to review/freeze those latter reports and record bounded outcomes.
+- Ready queues: local executor8 remaining functions/564 bytes plus seven CPP/header corrections; Byaml2/228 and placement6/420; effect deletion3/316; effect lookup/deletion4/388; pose access12/184; independent NerveStateBase data repair/ctor32; updateCollider168.
+- Fresh matching lanes: actor clipping/collider helpers; ActorInitInfo/link readers; actor pose mutations; request-queue drains; effect emission; KeyPoseKeeper helpers. Preserve their minimal patches and independently evidenced identities. Do not edit production during root's source-frozen checks.
+- Active dot branches reserve blocked.md entries, unanswered packets and U functions >=0x400 bytes. Fetch every few hours. Seven hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
-1. Intake the four new dot proposals after independent source/name review, then verify their exact claims here. All15 earlier dot claims and33 local helpers are accepted. Main links.
-2. Accept local execution/helper and actor-group packages in small batches, followed by Byaml/placement and executor packages. Keep main linking/exporting and STATE current.
-3. Continue native World1-1 resource/runtime work alongside matching. Fetch dot branches every few hours and push main at least hourly.
+1. Review/accept the local executor follow-on source/header package, verify affected constructors and all189 accepted roots, preserving the six already credited dot functions without duplicate ledger rows.
+2. Accept queued Byaml/placement, effect and pose families in small source-frozen checkpoints. Review bounded placement/heap reports without broad gameplay claims. Keep main linking/exporting, STATE and private-origin pushes current.
+3. Continue native World1-1 resource/runtime work alongside matching. Next runtime slice is resource-local texture reference identity after the verified draw-transfer checkpoint.
 
 ## Blockers and measurement limits
-- Independent ABI/caller evidence repaired NerveExecutor/LayoutActor and LiveActor data ownership in separate commits. The compact scaffold imports whole unaccepted mapped virtual tables as zero-filled weak data, keeping unknown/shared data conservative. This is scaffold behavior, not reconstructed game execution.
-- Late-inlined Byaml constructors have no established standalone addresses. The accepted stage routine now uses provenance-checked source-generated helpers; no guessed helper import is allowed.
-- Legacy progress counts all map rows and matching words. Its last linked checkpoint reports10916/3,092,336 bytes of word similarity; exact coverage is measured independently.
-- Ledger times explicitly mix canonical-check-only rows and measured shared preparation windows. Windows overlap between functions and exclude earlier inspection where unmeasured. They are not isolated person-hours.
-- Runtime still lacks actor overrides, full graphics decoding/rendering, game execution and replay. Three nested layout archives remain opaque to inspection.
-- Four capped-function packets are committed under pro_requests. GPT-6 Pro relay is paused; the owner or dot can review them. Stop only under current BRIEF conditions. Latest accepted functions keep the six-hour/100-attempt stall condition clear.
+- Independently repaired virtual-table data ownership is separate from source/rank acceptance. Compact main uses verified weak zero-filled imports for whole U tables and named BSS. These placeholders do not reconstruct game behavior.
+- Unmapped source helpers require provenance-checked inline closure and must disappear fully. No guessed standalone address is allowed.
+- Legacy progress last reports168 matches,7 Non-matching and12504/3,092,336 word-similarity bytes. Strict function coverage is measured independently. Run it after the next source checkpoint.
+- Ledger times include check-only rows and shared measured script windows. Related windows overlap and exclude unmeasured preparation; they are not independent person-hours. No cost tracking.
+- Runtime lacks actor overrides, complete graphics/material decoding, rendering, game execution and replay. Three nested layout archives remain opaque.
+- Stop only under current BRIEF conditions. Latest accepted functions keep the six-hour/100-attempt stall condition clear.

@@ -1294,7 +1294,24 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
                 output << ',';
             writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(shape.positionFields[axis])));
         }
-        output << "],\"vertex_groups\":[";
+        output << ']';
+        if (shape.status == "resource_local_fields") {
+            // Retail 0x00190F58 transfers these fields to c6 in float32 mode.
+            // The shader's arithmetic use of that uniform remains unknown.
+            const std::array<std::uint32_t, 6> transferWords{
+                (1u << 31) | 6u, (1u << 31) | (4u << 20) | (15u << 16) | 0x2C0u,
+                0, std::bit_cast<std::uint32_t>(shape.positionFields[2]),
+                std::bit_cast<std::uint32_t>(shape.positionFields[1]),
+                std::bit_cast<std::uint32_t>(shape.positionFields[0])};
+            output << ",\"vertex_shader_uniform_transfer\":{\"arithmetic_role\":\"unresolved\",\"command_words\":[";
+            for (std::size_t index = 0; index < transferWords.size(); ++index) {
+                if (index)
+                    output << ',';
+                writeString(output, integerHexadecimal(transferWords[index]));
+            }
+            output << "]}";
+        }
+        output << ",\"vertex_groups\":[";
         bool firstGroup = true;
         for (const ModelVertexGroup& group : shape.vertexGroups) {
             if (!firstGroup)
@@ -1359,6 +1376,9 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
                        << ",\"topology\":";
                 writeString(output, stream.topology);
                 output << ",\"triangle_count\":" << stream.triangleCount
+                       << ",\"command_copy_gate_byte\":" << ((stream.primitiveField >> 8) & 0xFF)
+                       << ",\"prepared_command_copy_enabled\":"
+                       << (((stream.primitiveField >> 8) & 0xFF) != 0 ? "true" : "false")
                        << ",\"caller_geometry_override\":\"unresolved\",\"indices\":[";
                 for (std::size_t index = 0; index < stream.indices.size(); ++index) {
                     if (index)

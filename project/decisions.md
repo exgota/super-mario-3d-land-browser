@@ -407,3 +407,13 @@ The manifest verifies current-source hashes and unchanged import identities. Led
 All six dot director claims pass locally, adding 1012 exact bytes, with separate credited commits. Root independently resolved every canonical table relocation and compared all eleven extents, 125 capacities and 375 NUL strings against retail. Tables contain 2000 source bytes; complete string-pool placement and table pointer bytes are not claimed exact. Normal main links/exports, and unchanged progress.py reports 168 matches and 12504/3,092,336 bytes of word similarity. The strict headline is 168 functions and 12980/2,756,024 complete function bytes, measured separately.
 
 Dot source intake now uses root's lane. Other lanes resume separate eligible small/medium U families while runtime continues. Blocked entries, unanswered packets and U functions at least 0x400 bytes remain reserved for dot. Seven hard-function packets are committed. The paused Pro relay remains unchanged.
+
+## 2026-10-01: Preserve bounded draw-transfer interfaces
+
+The runtime reports the observed six-word uniform-6 packet and descriptor byte+5 command-copy gate. Original CPU block execution verifies137 packets and548 gate cases with no original-code edits; independent native reads match822 owner words plus four finite-bit fixtures and four gate fixtures. Forty-two malformed cases reject under sanitizers. Scene, topology, mesh/material,50 asset hashes and3422 debug/O3 math comparisons remain valid. Root reviewed the two-file diff and verified24 frozen source/note/driver/report hashes, three executable hashes and all preserved dump/code hashes. Evidence is data/runtime/romfs/native_draw_transfer_frozen/command_result_manifest.json.
+
+[Public PICA register documentation](https://www.3dbrew.org/wiki/GPU/Internal_Registers#GPUREG_SH_FLOATUNIFORM_INDEX) independently identifies float32 mode and reverse component transfer. The retained packet interpretation follows the unchanged retail producer; shader arithmetic, vertex transforms, material state, GPU execution, rendering and gameplay remain unresolved. Texture-reference identity is the next bounded resource-local slice.
+
+## 2026-10-01: Complete actor-group canonical acceptance
+
+All21 enrolled actor-group roots pass the project's committed-source canonical checker, adding1240 complete bytes. Each has a separate acceptance commit. Source closure consumes the independently reconstructed dead/clipped helpers with no residual helper code or invented target addresses. Strict coverage is189 functions and14220/2,756,024 bytes. Fresh small/medium matching proceeds in parallel; dot intake remains one lane.
