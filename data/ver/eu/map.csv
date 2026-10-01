@@ -3010,7 +3010,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0018B858,0x0018B964,0x0018B9B8,          ,U,f,,
 0x0018B9B8,0x0018B9DC,0x0018B9E0,          ,U,f,fn_0018B9B8,
 0x0018B9E0,          ,0x0018B9E4,          ,U,f,,
-0x0018B9E4,          ,0x0018BA34,          ,M,f,_ZN18alSubActorFunction11trySyncDeadEPN2al14SubActorKeeperE,
+0x0018B9E4,          ,0x0018BA34,          ,O,f,_ZN18alSubActorFunction11trySyncDeadEPN2al14SubActorKeeperE,
 0x0018BA34,          ,0x0018BA84,          ,M,f,_ZN18alSubActorFunction12trySyncAliveEPN2al14SubActorKeeperE,
 0x0018BA84,          ,0x0018BAE8,          ,M,f,_ZN18alSubActorFunction11tryCalcAnimEPN2al14SubActorKeeperE,
 0x0018BAE8,          ,0x0018BB4C,          ,U,f,fn_0018BAE8,
