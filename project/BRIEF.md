@@ -86,7 +86,7 @@ You will lose context. Threads compact, sessions end, and the machine restarts. 
 **Session loop:**
 1. Read `project/STATE.md` and the newest daily report.
 2. Pick the next task from STATE. Prefer tasks that unblock other tasks.
-3. Work in small verified steps. Commit after every matched function or meaningful tooling change. Push to `origin` at least once an hour. Use clear commit messages. Never rewrite pushed history.
+3. Work in small verified steps. Commit after every matched function or meaningful tooling change. Push to `origin` at least once an hour. Before each push, confirm that a clean build (`python make.py eu -ca`) links: a MacBook audit clones `origin/main` every few hours, rebuilds with no shared state, and re-checks every `O` function. Use clear commit messages. Never rewrite pushed history.
 4. Update the ledger, STATE, and when relevant the decision log, then continue.
 
 **When to stop and wait for the owner (write the question to `project/QUESTIONS.md`, then continue on other work if any remains):**
