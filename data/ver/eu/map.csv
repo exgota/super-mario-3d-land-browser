@@ -15245,7 +15245,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00357990,0x00357A1C,0x00357A24,          ,O,f,_ZNK2al15NrvFallMapParts18FallMapPartsNrvEnd7executeEPNS_11NerveKeeperE,
 0x00357A24,0x00357AC0,0x00357AD8,          ,O,f,_ZNK2al15NrvFallMapParts19FallMapPartsNrvFall7executeEPNS_11NerveKeeperE,
 0x00357AD8,0x00357B0C,0x00357B10,          ,O,f,_ZNK2al15NrvFallMapParts19FallMapPartsNrvWait7executeEPNS_11NerveKeeperE,
-0x00357B10,0x00357B6C,0x00357B74,          ,M,f,_ZNK2al15NrvFallMapParts21FallMapPartsNrvAppear7executeEPNS_11NerveKeeperE,
+0x00357B10,0x00357B6C,0x00357B74,          ,O,f,_ZNK2al15NrvFallMapParts21FallMapPartsNrvAppear7executeEPNS_11NerveKeeperE,
 0x00357B74,0x00357C68,0x00357C80,          ,U,f,_ZNK2al15NrvFallMapParts23FallMapPartsNrvFallSign7executeEPNS_11NerveKeeperE,
 0x00357C80,0x00357D58,0x00357D64,          ,U,f,,
 0x00357D64,0x00357DE0,0x00357DE8,          ,U,f,,
