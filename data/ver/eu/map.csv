@@ -4039,7 +4039,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BD030,0x001BD038,0x001BD040,          ,O,f,_ZN2al10tryGetArg0EPfRKNS_9ByamlIterE,
 0x001BD040,0x001BD048,0x001BD050,          ,M,f,_ZN2al10tryGetArg3EPbRKNS_9ByamlIterE,
 0x001BD050,0x001BD058,0x001BD060,          ,M,f,_ZN2al10tryGetArg5EPbRKNS_9ByamlIterE,
-0x001BD060,0x001BD068,0x001BD070,          ,M,f,_ZN2al10tryGetArg6EPfRKNS_9ByamlIterE,
+0x001BD060,0x001BD068,0x001BD070,          ,O,f,_ZN2al10tryGetArg6EPfRKNS_9ByamlIterE,
 0x001BD070,0x001BD078,0x001BD080,          ,M,f,_ZN2al10tryGetArg7EPbRKNS_9ByamlIterE,
 0x001BD080,0x001BD0D4,0x001BD0DC,          ,U,f,,
 0x001BD0DC,          ,0x001BD0EC,          ,U,f,,
