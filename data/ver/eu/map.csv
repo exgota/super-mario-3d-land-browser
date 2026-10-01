@@ -7391,7 +7391,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024DD94,          ,0x0024DE00,          ,U,f,,
 0x0024DE00,          ,0x0024DEF0,          ,U,f,,
 0x0024DEF0,0x0024E010,0x0024E028,          ,U,f,,
-0x0024E028,0x0024E04C,0x0024E054,          ,M,f,_ZN2al9AreaShapeC2Ev,
+0x0024E028,0x0024E04C,0x0024E054,          ,O,f,_ZN2al9AreaShapeC2Ev,
 0x0024E054,          ,0x0024E0B8,          ,U,f,,
 0x0024E0B8,0x0024E248,0x0024E38C,          ,U,f,,
 0x0024E38C,0x0024E3F0,0x0024E3F4,          ,U,f,,
