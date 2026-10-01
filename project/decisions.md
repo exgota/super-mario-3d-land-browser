@@ -665,3 +665,7 @@ Retail constructor pool0x00277DDC installs address point0x003D6444. The independ
 ### Matrix33 inverse structural stall
 
 Root verifies all39 frozen artifacts. Three source structures diverge in size/scheduling from the260-byte original; the aggregate form also retains36 bytes of constant data. No independently established helper address supports a split. Park the source-only proposal and commit its315-line packet for the dot, with zero exact or functional credit. The16.310985-minute shared window includes research and interleaved work; recorded compiler-driver time is1.532115 seconds. No source, rank, interval or tool changes follow.
+
+### Calendar Time constructor physical section identity
+
+ARMCC791 and894 independently define TimeC1(size28) and TimeC2(size0) at offsetzero in the same i.TimeC1 section. The unchanged original0x001080C4..0x001080E0 C2 row therefore selects the actual C1 section explicitly, as SystemKitC2 does. Root verifies all101 frozen artifacts and the two symbol inventories before this classification-only commit. Addresses, pool, symbol, rank and type stay unchanged; no match is credited. Evidence: build/phase_two_calendar_time_constructor/final_evidence.json and complete_linked_disassembly.txt.

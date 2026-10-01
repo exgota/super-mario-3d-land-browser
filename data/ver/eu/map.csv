@@ -281,7 +281,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00108008,0x00108044,0x00108048,          ,U,fr,_ZN2nn6camera3CTR6detail6Camera14GetSleepCameraEPNS1_12CameraSelectE,
 0x00108048,0x00108084,0x00108088,          ,U,f,_ZN2nn6camera3CTR6detail6Camera18GetActivatedCameraEPNS1_12CameraSelectE,
 0x00108088,          ,0x001080C4,          ,O,f,_ZN4sead12CalendarTime4DateC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayE,
-0x001080C4,          ,0x001080E0,          ,U,f,_ZN4sead12CalendarTime4TimeC2ERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE,
+0x001080C4,          ,0x001080E0,          ,U,f,_ZN4sead12CalendarTime4TimeC2ERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE,i._ZN4sead12CalendarTime4TimeC1ERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE
 0x001080E0,0x0010825C,0x00108278,          ,U,f,_ZN4sead17ArchiveFileDeviceC2EPNS_10ArchiveResE,
 0x00108278,          ,0x001082E0,          ,U,f,_ZN4sead4Heap15appendDisposer_EPNS_9IDisposerE,
 0x001082E0,0x0010841C,0x00108428,          ,U,f,_ZN4sead6ThreadC2ERKNS_14SafeStringBaseIcEEPNS_4HeapEiNS_12MessageQueue9BlockTypeEiii,
