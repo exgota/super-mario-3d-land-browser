@@ -70,6 +70,17 @@ int ByamlIter::getKeyIndex( const char* key ) const
         return iter.findStringIndex( key );
 }
 
+bool ByamlIter::isExistKey( const char* key ) const
+{
+        if ( !isTypeHash() )
+                return false;
+        int keyIndex = getKeyIndex( key );
+        if ( keyIndex < 0 )
+                return false;
+        ByamlHashIter iter( mRootNode );
+        return iter.findPair( keyIndex ) != nullptr;
+}
+
 ByamlIter ByamlIter::getIterByKey( const char* key ) const
 {
         ByamlData data;
@@ -119,6 +130,14 @@ bool ByamlIter::tryGetIterByIndex( ByamlIter* out, int index ) const
 {
         *out = getIterByIndex( index );
         return out->isValid();
+}
+
+bool ByamlIter::tryGetStringByIndex( const char** out, int index ) const
+{
+        ByamlData data;
+        if ( getByamlDataByIndex( &data, index ) )
+                return tryConvertString( out, &data );
+        return false;
 }
 
 bool ByamlIter::tryGetStringByKey( const char** out, const char* key ) const

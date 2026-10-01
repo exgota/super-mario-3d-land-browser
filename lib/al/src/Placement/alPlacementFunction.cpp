@@ -6,16 +6,21 @@ extern "C" const char dat_003A2DE4[];
 extern "C" const char dat_003A2DEC[];
 extern "C" const char dat_003A2DF4[];
 extern "C" const char dat_003A2DAC[];
+extern "C" const char dat_003A2DCC[];
+extern "C" const char dat_003A2E2C[];
+extern "C" const char dat_003A2E50[];
+
+extern "C" const char dat_003A2E58[];
 
 namespace al
 {
 
 bool tryGetStringArg( const char** out, const PlacementInfo& info, const char* argName )
 {
-        const char* arg = "";
+        const char* arg = dat_003A2DCC;
         if ( info.tryGetStringByKey( &arg, argName ) )
         {
-                if ( !isEqualString( "-", arg ) )
+                if ( !isEqualString( dat_003A2E2C, arg ) )
                 {
                         *out = arg;
                         return true;
@@ -100,7 +105,7 @@ bool isExistRail( const ActorInitInfo& info )
 
 bool tryGetRailIter( PlacementInfo* out, const PlacementInfo& info )
 {
-        if ( info.tryGetIterByKey( out, "Rail" ) )
+        if ( info.tryGetIterByKey( out, dat_003A2E50 ) )
                 return out->isTypeContainer();
         return false;
 }
@@ -108,7 +113,7 @@ bool tryGetRailIter( PlacementInfo* out, const PlacementInfo& info )
 bool getLinksInfoByIndex( PlacementInfo* out, const ActorInitInfo& info, int index )
 {
         ByamlIter links;
-        if ( getPlacementInfo( info ).tryGetIterByKey( &links, "GenerateChildren" ) )
+        if ( getPlacementInfo( info ).tryGetIterByKey( &links, dat_003A2E58 ) )
                 return links.tryGetIterByIndex( out, index );
         return false;
 }
