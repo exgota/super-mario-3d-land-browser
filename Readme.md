@@ -2,6 +2,8 @@
 
 A private, model-driven matching decompilation of Super Mario 3D Land (EU), with a browser port to follow. See `project/BRIEF.md`.
 
+![Decompilation progress](docs/progress.svg)
+
 This repository does not contain game data. Building it requires your own copy of the game.
 
 ## Credit
