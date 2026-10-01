@@ -1002,7 +1002,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0012C844,0x0012CA18,0x0012CA38,          ,U,f,,
 0x0012CA38,          ,0x0012CA40,          ,U,f,_ZNK14NrvGhostPlayer18GhostPlayerNrvNrv57executeEPN2al11NerveKeeperE,
 0x0012CA40,0x0012CBC4,0x0012CBE8,          ,U,f,,
-0x0012CBE8,0x0012CC88,0x0012CC8C,          ,M,f,_ZN11GhostPlayerC1ERKN4sead14SafeStringBaseIcEE,
+0x0012CBE8,0x0012CC88,0x0012CC8C,          ,O,f,_ZN11GhostPlayerC1ERKN4sead14SafeStringBaseIcEE,
 0x0012CC8C,0x0012CCA8,0x0012CCAC,          ,U,f,,
 0x0012CCAC,0x0012CCB4,0x0012CCB8,          ,U,f,,
 0x0012CCB8,0x0012CD1C,0x0012CD28,          ,U,f,,
