@@ -5377,7 +5377,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E9ADC,          ,0x001E9B30,          ,U,f,,
 0x001E9B30,0x001E9EC0,0x001EA00C,          ,U,f,,
 0x001EA00C,          ,0x001EA174,          ,U,f,,
-0x001EA174,          ,0x001EA1DC,          ,M,f,fn_001EA174,
+0x001EA174,          ,0x001EA1DC,          ,O,f,fn_001EA174,
 0x001EA1DC,          ,0x001EA220,          ,M,f,fn_001EA1DC,
 0x001EA220,          ,0x001EA31C,          ,U,f,,
 0x001EA31C,          ,0x001EA364,          ,U,f,,
