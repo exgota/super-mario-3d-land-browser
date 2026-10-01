@@ -8647,7 +8647,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026E7C0,0x0026E818,0x0026E81C,          ,U,f,__2snprintf,
 0x0026E81C,          ,0x0026E82C,          ,U,f,,
 0x0026E82C,0x0026E930,0x0026E964,          ,U,f,,
-0x0026E964,          ,0x0026E980,          ,M,f,_ZN2al17sendMsgPlayerKickEPNS_9HitSensorES1_,
+0x0026E964,          ,0x0026E980,          ,O,f,_ZN2al17sendMsgPlayerKickEPNS_9HitSensorES1_,
 0x0026E980,          ,0x0026E99C,          ,U,f,,
 0x0026E99C,          ,0x0026E9B8,          ,U,f,,
 0x0026E9B8,          ,0x0026E9D4,          ,M,f,_ZN2al8sendMsg9EPNS_9HitSensorES1_,
