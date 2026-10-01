@@ -25,3 +25,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:02-04:00,0x00187970,_ZN2al18CameraRotatorParamC1Ev,matched,1,0.009
 2026-10-01T04:52:02-04:00,0x001B657C,_ZN2al25CameraDashAngleTunerParamC1Ev,matched,1,0.009
 2026-10-01T04:52:03-04:00,0x001DCD78,_ZN2al19StageSwitchAccesserC1Ev,matched,1,0.009
+2026-10-01T04:52:03-04:00,0x00250EB4,_ZNK2al19StageSwitchAccesser16isTypeKillDeadOnEv,matched,1,0.009
