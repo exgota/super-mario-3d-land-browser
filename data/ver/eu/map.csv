@@ -12734,7 +12734,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003218B4,0x003219B8,0x00321A60,          ,U,f,,
 0x00321A60,0x00321AA4,0x00321AB4,          ,U,f,_ZN9PeachRope4initERKN2al13ActorInitInfoE,
 0x00321AB4,          ,0x00321ACC,          ,O,f,_ZN9PeachRope4killEv,
-0x00321ACC,0x00321AF4,0x00321AF8,          ,M,f,_ZN9PeachRopeC1ERKN4sead14SafeStringBaseIcEE,
+0x00321ACC,0x00321AF4,0x00321AF8,          ,O,f,_ZN9PeachRopeC1ERKN4sead14SafeStringBaseIcEE,
 0x00321AF8,0x00321BDC,0x00321BEC,          ,U,f,,
 0x00321BEC,0x00321C0C,0x00321C18,          ,U,f,,
 0x00321C18,0x00321C90,0x00321CA0,          ,U,f,,
