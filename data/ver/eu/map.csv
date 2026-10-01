@@ -7489,7 +7489,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002504F4,0x00250554,0x00250558,          ,U,f,,
 0x00250558,0x00250560,0x00250564,          ,U,f,,
 0x00250564,0x00250604,0x00250610,          ,U,f,,
-0x00250610,          ,0x0025065C,          ,M,f,_ZN2al11NerveKeeperC1EPNS_9IUseNerveEPKNS_5NerveEi,
+0x00250610,          ,0x0025065C,          ,O,f,_ZN2al11NerveKeeperC1EPNS_9IUseNerveEPKNS_5NerveEi,
 0x0025065C,          ,0x002506FC,          ,O,f,_ZN2al11NerveKeeper6updateEv,
 0x002506FC,          ,0x00250774,          ,U,f,,
 0x00250774,0x002507C0,0x002507CC,          ,U,f,,
