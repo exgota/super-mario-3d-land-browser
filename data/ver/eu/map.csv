@@ -4431,7 +4431,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CCDB0,          ,0x001CCDE8,          ,O,f,_ZN2al15HitSensorKeeper10invalidateEv,
 0x001CCDE8,          ,0x001CCE70,          ,O,f,_ZN2al15HitSensorKeeper12attackSensorEv,
 0x001CCE70,          ,0x001CCEAC,          ,U,f,,
-0x001CCEAC,          ,0x001CCEE4,          ,M,f,_ZN2al15HitSensorKeeper8validateEv,
+0x001CCEAC,          ,0x001CCEE4,          ,O,f,_ZN2al15HitSensorKeeper8validateEv,
 0x001CCEE4,          ,0x001CCF68,          ,U,f,,
 0x001CCF68,0x001CCFB8,0x001CCFBC,          ,U,f,,
 0x001CCFBC,          ,0x001CD01C,          ,U,f,,
