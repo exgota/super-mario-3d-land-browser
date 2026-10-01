@@ -9206,7 +9206,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027B1A8,          ,0x0027B1C0,          ,U,f,,
 0x0027B1C0,          ,0x0027B274,          ,U,f,,
 0x0027B274,          ,0x0027B278,          ,U,f,,
-0x0027B278,          ,0x0027B28C,          ,M,f,_ZN2al13NerveExecutor11updateNerveEv,
+0x0027B278,          ,0x0027B28C,          ,O,f,_ZN2al13NerveExecutor11updateNerveEv,
 0x0027B28C,          ,0x0027B2A0,          ,U,f,,
 0x0027B2A0,          ,0x0027B2A8,          ,U,f,,
 0x0027B2A8,0x0027B2F8,0x0027B2FC,          ,U,f,,
