@@ -669,3 +669,7 @@ Root verifies all39 frozen artifacts. Three source structures diverge in size/sc
 ### Calendar Time constructor physical section identity
 
 ARMCC791 and894 independently define TimeC1(size28) and TimeC2(size0) at offsetzero in the same i.TimeC1 section. The unchanged original0x001080C4..0x001080E0 C2 row therefore selects the actual C1 section explicitly, as SystemKitC2 does. Root verifies all101 frozen artifacts and the two symbol inventories before this classification-only commit. Addresses, pool, symbol, rank and type stay unchanged; no match is credited. Evidence: build/phase_two_calendar_time_constructor/final_evidence.json and complete_linked_disassembly.txt.
+
+### Native model root and owner-local joint rotation data
+
+Root reviews the two-file checkpoint and verifies all1132 hash entries/1128 paths. The explicit scene executable mode fingerprints the entire original EU executable before reading its4096-byte rotation table; no table bytes enter committed source. Independent original constructors and the calcAnim/fall-through adapter chain establish root matrix/scale/flag updates, with constructed actor/controller/cache/camera inputs stated. Actual fresh cache flags7E1 replace the earlier controlledFE1 state, and the corrected22432-word palette regression passes. New1276 cases compare171028 words in each debug/O3 build; all16 scene palettes agree. Unsupported domains stay explicit. Source remains native runtime only, with zero matching or gameplay credit.

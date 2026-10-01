@@ -19,7 +19,7 @@ M2 requires every game function byte-exact and the original EU whole linked-imag
 - RomFS verifies73421 IVFC blocks and50 selected World1-1 files. Native reader validates298 placements,3853 collision prisms,39 models,137 mesh bindings,127 materials and217 texture references. No level has run.
 - Native math matches3422 direct retail bits per debug/optimized build. All145 images/488levels/1851264 serialized bytes pass bounded raw intake. RGBA8 decoding covers136 images/443levels/2556608pixels/10226432bytes with independent formulations; HILO8 sampled meaning remains unresolved.
 - Committed controlled CPU palette checkpoint agrees with404 original cases/509joints/22432words per build. Root verifies635hashes/631paths. Eleven scene instances construct its bounded palette; five preserve rotation-table blockers. Root inputs/model adapter/final vertex use remain explicit limitations.
-- Runtime lane now holds a new two-file constructor/root/table checkpoint for review. It found fresh cache flags7E1 rather than historical controlledFE1, traced the original actor/pose/model chain, and uses an explicit fingerprinted executable input for rotation data. These new results are not yet committed or credited. Complete game initialization, rendering and replay remain open.
+- Committed model-root/table checkpoint verifies1132 hash entries/1128 paths and1276 cases:112288 constructor/root plus58740 palette words in each debug/O3 build. Actual original calcAnim chain executes90 catalog cases/141 joints and16 placements/21 joints. All16 scene palettes pass with fingerprinted EU table input; five retain blockers without it. Fresh flags7E1 correct the historical controlledFE1 state. Complete initialization, vertex use, rendering and replay remain open.
 
 ## Lanes and routing
 - Root alone owns acceptance, map, ledger, shared docs, Git and private-origin pushes. Seven disjoint matching/layout/runtime lanes continue. Maximum8 lanes. Every push needs successful clean linking.
@@ -31,7 +31,7 @@ M2 requires every game function byte-exact and the original EU whole linked-imag
 
 ## Next three tasks
 1. Continue frozen local source intake and canonical checking, preserving affected prior definitions. Review TimeC2 physical section separately. Keep matching lanes on smaller fresh roots under current4-attempt rule.
-2. Review and commit the held runtime root/table checkpoint after frozen hashes and original/native evidence. Keep controlled-input and full initialization limits explicit.
+2. Continue bounded native geometry/vertex investigation after the committed model-root/table checkpoint. Keep constructed-input and full initialization limits explicit.
 3. Review dot source/header/data proposals in root's intake lane, then build/check locally. Keep hourly private-origin pushes current and refresh independent empty-build and full-image diagnostics after material source changes.
 
 ## Blockers and measurement policy

@@ -47,6 +47,60 @@ void require(bool condition, const std::string& description) {
         throw FormatError(description);
 }
 
+// SHA-256 message schedule and compression from FIPS 180-4, sections 5 and 6.2.
+// This verifies the complete owner executable before reading its data table.
+std::string sha256(Bytes input) {
+    constexpr std::array<std::uint32_t, 64> constants{
+        0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5, 0x3956C25B, 0x59F111F1, 0x923F82A4, 0xAB1C5ED5,
+        0xD807AA98, 0x12835B01, 0x243185BE, 0x550C7DC3, 0x72BE5D74, 0x80DEB1FE, 0x9BDC06A7, 0xC19BF174,
+        0xE49B69C1, 0xEFBE4786, 0x0FC19DC6, 0x240CA1CC, 0x2DE92C6F, 0x4A7484AA, 0x5CB0A9DC, 0x76F988DA,
+        0x983E5152, 0xA831C66D, 0xB00327C8, 0xBF597FC7, 0xC6E00BF3, 0xD5A79147, 0x06CA6351, 0x14292967,
+        0x27B70A85, 0x2E1B2138, 0x4D2C6DFC, 0x53380D13, 0x650A7354, 0x766A0ABB, 0x81C2C92E, 0x92722C85,
+        0xA2BFE8A1, 0xA81A664B, 0xC24B8B70, 0xC76C51A3, 0xD192E819, 0xD6990624, 0xF40E3585, 0x106AA070,
+        0x19A4C116, 0x1E376C08, 0x2748774C, 0x34B0BCB5, 0x391C0CB3, 0x4ED8AA4A, 0x5B9CCA4F, 0x682E6FF3,
+        0x748F82EE, 0x78A5636F, 0x84C87814, 0x8CC70208, 0x90BEFFFA, 0xA4506CEB, 0xBEF9A3F7, 0xC67178F2};
+    std::array<std::uint32_t, 8> state{
+        0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A, 0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19};
+    require(input.size() <= MaximumAssetSize, "SHA-256 input exceeds its size limit");
+    const std::size_t paddedSize = ((input.size() + 9 + 63) / 64) * 64;
+    const std::uint64_t bitLength = std::uint64_t(input.size()) * 8;
+    auto paddedByte = [&](std::size_t index) -> std::uint8_t {
+        if (index < input.size()) return input[index];
+        if (index == input.size()) return 0x80;
+        if (index >= paddedSize - 8)
+            return std::uint8_t(bitLength >> ((paddedSize - 1 - index) * 8));
+        return 0;
+    };
+    for (std::size_t block = 0; block < paddedSize; block += 64) {
+        std::array<std::uint32_t, 64> schedule{};
+        for (std::size_t index = 0; index < 16; ++index)
+            for (std::size_t byte = 0; byte < 4; ++byte)
+                schedule[index] = (schedule[index] << 8) | paddedByte(block + index * 4 + byte);
+        for (std::size_t index = 16; index < 64; ++index) {
+            const std::uint32_t first = schedule[index - 15], second = schedule[index - 2];
+            const std::uint32_t sigmaZero = std::rotr(first, 7) ^ std::rotr(first, 18) ^ (first >> 3);
+            const std::uint32_t sigmaOne = std::rotr(second, 17) ^ std::rotr(second, 19) ^ (second >> 10);
+            schedule[index] = schedule[index - 16] + sigmaZero + schedule[index - 7] + sigmaOne;
+        }
+        auto working = state;
+        for (std::size_t index = 0; index < 64; ++index) {
+            const auto [a, b, c, d, e, f, g, h] = working;
+            const std::uint32_t sigmaOne = std::rotr(e, 6) ^ std::rotr(e, 11) ^ std::rotr(e, 25);
+            const std::uint32_t choose = (e & f) ^ (~e & g);
+            const std::uint32_t temporaryOne = h + sigmaOne + choose + constants[index] + schedule[index];
+            const std::uint32_t sigmaZero = std::rotr(a, 2) ^ std::rotr(a, 13) ^ std::rotr(a, 22);
+            const std::uint32_t majority = (a & b) ^ (a & c) ^ (b & c);
+            working = {temporaryOne + sigmaZero + majority, a, b, c, d + temporaryOne, e, f, g};
+        }
+        for (std::size_t index = 0; index < state.size(); ++index)
+            state[index] += working[index];
+    }
+    std::ostringstream output;
+    output << std::hex << std::setfill('0');
+    for (std::uint32_t word : state) output << std::setw(8) << word;
+    return output.str();
+}
+
 std::size_t align(std::size_t value, std::size_t boundary) {
     return (value + boundary - 1) / boundary * boundary;
 }
@@ -634,6 +688,10 @@ struct ModelGeometry {
     std::string materialMappingStatus;
     std::vector<ModelMaterial> materials;
     std::vector<ModelMesh> meshes;
+    std::array<float, 3> initializationScale{1, 1, 1};
+    std::array<float, 3> initializationRotation{};
+    std::array<float, 3> initializationTranslation{};
+    std::array<float, 12> initializationMatrix84{};
 };
 
 // The owner's revision uses OpenGL scalar enums in the documented CGFX records.
@@ -684,6 +742,14 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
         return result;
     }
     metadata(entry.offset, 0xE0);
+    // Base model constructor 0x00231660 consumes these serialized fields.
+    for (std::size_t axis = 0; axis < 3; ++axis) {
+        result.initializationScale[axis] = input.floating(entry.offset + 0x30 + axis * 4);
+        result.initializationRotation[axis] = input.floating(entry.offset + 0x3C + axis * 4);
+        result.initializationTranslation[axis] = input.floating(entry.offset + 0x48 + axis * 4);
+    }
+    for (std::size_t component = 0; component < 12; ++component)
+        result.initializationMatrix84[component] = input.floating(entry.offset + 0x84 + component * 4);
     if (result.flags & 0x80) {
         metadata(entry.offset, 0xE4);
         const std::size_t skeleton = input.relative(entry.offset + 0xE0);
@@ -1596,6 +1662,27 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
     writeString(output, hexadecimal(model.name));
     output << ",\"offset\":" << model.offset << ",\"flags\":" << model.flags << ",\"status\":";
     writeString(output, model.status);
+    if (model.status == "resource_local_fields") {
+        output << ",\"model_initialization_fields\":{";
+        for (std::size_t field = 0; field < 3; ++field) {
+            if (field) output << ',';
+            output << (field == 0 ? "\"scale_bits\":[" : field == 1 ? "\"rotation_radian_bits\":["
+                                                                              : "\"translation_bits\":[");
+            const auto& values = field == 0 ? model.initializationScale
+                                           : field == 1 ? model.initializationRotation : model.initializationTranslation;
+            for (std::size_t axis = 0; axis < 3; ++axis) {
+                if (axis) output << ',';
+                writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(values[axis])));
+            }
+            output << ']';
+        }
+        output << ",\"matrix_84_bits\":[";
+        for (std::size_t index = 0; index < 12; ++index) {
+            if (index) output << ',';
+            writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(model.initializationMatrix84[index])));
+        }
+        output << "]}";
+    }
     output << ",\"coordinate_space\":\"resource_local\",\"shape_transform\":\"unresolved\","
               "\"bone_transforms\":\"unresolved\",\"material_mapping\":";
     writeString(output, model.materialMappingStatus);
@@ -2103,6 +2190,104 @@ struct CpuTransformRecord {
     std::uint32_t flags = 0xFE1;
 };
 
+using JointRotationTable = std::array<std::array<float, 4>, 256>;
+
+JointRotationTable readJointRotationTable(Bytes executable) {
+    require(executable.size() == 3096576 && sha256(executable) ==
+            "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+            "Joint rotation table requires the verified original EU executable");
+    ByteReader input(executable);
+    JointRotationTable result{};
+    // Original constructor/intake literals reference this owner-local data.
+    constexpr std::size_t TableOffset = 0x003A48F4 - 0x00100000;
+    for (std::size_t index = 0; index < result.size(); ++index)
+        for (std::size_t field = 0; field < 4; ++field)
+            result[index][field] = input.floating(TableOffset + index * 16 + field * 4);
+    return result;
+}
+
+bool boundedJointRotation(float angle) {
+    const float scaled = angle * binary32Constant(0x4222F983);
+    // Limit this reconstruction to at most fifteen original period subtractions.
+    return std::isfinite(scaled) && std::abs(scaled) < 1048576.0f;
+}
+
+std::pair<float, float> jointRotationSineCosine(float angle, const JointRotationTable& table) {
+    require(boundedJointRotation(angle), "Joint angle exceeds the bounded table-reduction domain");
+    const float scaled = angle * binary32Constant(0x4222F983);
+    float magnitude = std::abs(scaled);
+    while (magnitude >= 65536.0f)
+        magnitude -= 65536.0f;
+    const std::uint32_t integer = std::uint32_t(magnitude) & 0xFFFF;
+    const float fraction = magnitude - float(integer);
+    const auto& entry = table[integer & 0xFF];
+    float sine = entry[0] + fraction * entry[2];
+    const float cosine = entry[1] + fraction * entry[3];
+    if (scaled < 0)
+        sine = -sine;
+    return {sine, cosine};
+}
+
+// Shared table arithmetic in model constructor 0x00231660 and joint intake
+// 0x002A567C. Products, additions and subtractions round independently.
+Matrix34 jointRotationMatrix(const std::array<float, 3>& rotation,
+                             const std::array<float, 3>& translation,
+                             const JointRotationTable& table) {
+    const auto [sineX, cosineX] = jointRotationSineCosine(rotation[0], table);
+    const auto [sineY, cosineY] = jointRotationSineCosine(rotation[1], table);
+    const auto [sineZ, cosineZ] = jointRotationSineCosine(rotation[2], table);
+    const float cosineXSineZ = cosineX * sineZ;
+    const float sineXCosineZ = sineX * cosineZ;
+    const float cosineXCosineZ = cosineX * cosineZ;
+    const float sineXSineZ = sineX * sineZ;
+    return {{{cosineZ * cosineY, sineXCosineZ * sineY - cosineXSineZ,
+              sineXSineZ + cosineXCosineZ * sineY, translation[0]},
+             {sineZ * cosineY, cosineXCosineZ + sineXSineZ * sineY,
+              cosineXSineZ * sineY - sineXCosineZ, translation[1]},
+             {-sineY, sineX * cosineY, cosineX * cosineY, translation[2]}}};
+}
+
+struct CpuModelRoot {
+    CpuTransformRecord local;
+    CpuTransformRecord composed;
+    Matrix34 matrix8c{};
+};
+
+CpuModelRoot initializeCpuModelRoot(const ModelGeometry& model, const JointRotationTable& table) {
+    CpuModelRoot result;
+    result.local = {jointRotationMatrix(model.initializationRotation, model.initializationTranslation, table),
+                    model.initializationScale, 0x801};
+    result.composed.flags = 0x801;
+    for (std::size_t row = 0; row < 3; ++row)
+        for (std::size_t column = 0; column < 4; ++column)
+            result.matrix8c[row][column] = model.initializationMatrix84[row * 4 + column];
+    return result;
+}
+
+// LiveActor adapter 0x00129074 falls through into 0x00129080. It copies the
+// pose matrix into both records and recomputes only composed scale flags.
+void updateCpuModelRoot(CpuModelRoot& root, const Matrix34& poseMatrix,
+                        const std::array<float, 3>& scale) {
+    root.local.matrix = root.composed.matrix = poseMatrix;
+    root.local.scale = root.composed.scale = scale;
+    root.local.flags |= 0x800;
+    root.composed.flags |= 0x800;
+    if (!(root.composed.flags & 8)) {
+        root.composed.flags &= ~0x600u;
+        if (scale[0] == scale[1] && scale[0] == scale[2]) {
+            root.composed.flags |= 0x400;
+            if (std::bit_cast<std::uint32_t>(scale[0]) == 0x3F800000)
+                root.composed.flags |= 0x200;
+        }
+    }
+    if (!(root.composed.flags & 0x200)) {
+        root.matrix8c = poseMatrix;
+        for (std::size_t row = 0; row < 3; ++row)
+            for (std::size_t column = 0; column < 3; ++column)
+                root.matrix8c[row][column] *= scale[column];
+    }
+}
+
 struct CpuJointPalette {
     std::string status = "not_requested";
     std::vector<CpuTransformRecord> localRecords;
@@ -2110,6 +2295,12 @@ struct CpuJointPalette {
     std::vector<Matrix34> primaryMatrices;
     std::vector<Matrix34> secondaryMatrices;
     std::vector<bool> secondaryPresent;
+    std::string rootInputOwnership = "controlled_records";
+    std::string modelInitializationAdapter = "unreplayed";
+    CpuTransformRecord rootLocal{};
+    CpuTransformRecord rootComposed{};
+    bool rootRecordsPresent = false;
+    bool rotationTablePresent = false;
 };
 
 // CPU affine product at 0x00281CF8. Each VMLA rounds its product first.
@@ -2174,6 +2365,9 @@ CpuTransformRecord composeModeZeroJoint(const CpuTransformRecord& local,
                                        const CpuTransformRecord& parentLocal,
                                        const CpuTransformRecord& parentComposed) {
     CpuTransformRecord result;
+    // Fresh composed cache records copy the identity initialized by
+    // 0x002A2E08..0x002A2E38 with flags 0x7E1, without the dirty bit 0x800.
+    result.flags = 0x7E1;
     result.matrix = parentLocal.flags & 0x200 ? parentComposed.matrix
                                             : scaleMatrixColumns(parentComposed.matrix, parentLocal.scale);
     if (!(local.flags & 0x60)) {
@@ -2215,8 +2409,13 @@ CpuTransformRecord composeModeZeroJoint(const CpuTransformRecord& local,
 }
 
 CpuJointPalette buildCpuJointPalette(const ModelSkeleton& skeleton, const CpuTransformRecord& rootLocal,
-                                    const CpuTransformRecord& rootComposed) {
+                                    const CpuTransformRecord& rootComposed,
+                                    const JointRotationTable* rotationTable = nullptr) {
     CpuJointPalette result;
+    result.rootLocal = rootLocal;
+    result.rootComposed = rootComposed;
+    result.rootRecordsPresent = true;
+    result.rotationTablePresent = rotationTable != nullptr;
     if (skeleton.status == "not_present") {
         result.status = "not_present";
         return result;
@@ -2248,9 +2447,15 @@ CpuJointPalette buildCpuJointPalette(const ModelSkeleton& skeleton, const CpuTra
         if (joint.billboardField & 0xFF)
             return unsupported("unsupported_billboard_update");
         for (float angle : joint.rotation)
-            if (angle != 0)
+            if (!rotationTable && angle != 0)
                 return unsupported("unsupported_joint_rotation_table");
-        const CpuTransformRecord local = zeroRotationJointRecord(joint);
+        CpuTransformRecord local = zeroRotationJointRecord(joint);
+        if (rotationTable) {
+            for (float angle : joint.rotation)
+                if (!boundedJointRotation(angle))
+                    return unsupported("unsupported_joint_rotation_domain");
+            local.matrix = jointRotationMatrix(joint.rotation, joint.translation, *rotationTable);
+        }
         if (!finiteTransformRecord(local))
             return unsupported("unsupported_nonfinite_joint");
         const CpuTransformRecord& parentLocal = joint.parentIdentifier == -1
@@ -2283,33 +2488,18 @@ CpuJointPalette buildCpuJointPalette(const ModelSkeleton& skeleton, const CpuTra
     return result;
 }
 
-// These root records are asset-derived controlled inputs. The model initialization
-// adapter that populates owner+0x4C and owner+0xBC has not been replayed.
-CpuTransformRecord controlledPlacementRoot(const Placement& placement) {
+// The original call chain establishes this root update. Actor allocation, complete
+// model initialization and game-owned services remain constructed-input limits.
+CpuModelRoot placementModelRoot(const Placement& placement, const ModelGeometry& model,
+                               const JointRotationTable* rotationTable) {
     Placement unscaled = placement;
     unscaled.scale = {1, 1, 1};
-    CpuTransformRecord result{placementMatrix(unscaled), placement.scale, 0x801};
-    if (result.scale[0] == result.scale[1] && result.scale[0] == result.scale[2]) {
-        result.flags |= 0x400;
-        if (result.scale[0] == 1)
-            result.flags |= 0x200;
-    }
-    const Matrix34 identity{{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}}};
-    bool identityRotation = true;
-    bool zeroTranslation = true;
-    for (std::size_t row = 0; row < 3; ++row) {
-        zeroTranslation &= result.matrix[row][3] == 0;
-        for (std::size_t column = 0; column < 3; ++column)
-            identityRotation &= result.matrix[row][column] == identity[row][column];
-    }
-    if (identityRotation)
-        result.flags |= 0x80;
-    if (zeroTranslation)
-        result.flags |= 0x100;
-    if (identityRotation && zeroTranslation)
-        result.flags |= 0x40;
-    if ((result.flags & 0x240) == 0x240)
-        result.flags |= 0x20;
+    CpuModelRoot result;
+    if (rotationTable)
+        result = initializeCpuModelRoot(model, *rotationTable);
+    else
+        result.local.flags = result.composed.flags = 0x801;
+    updateCpuModelRoot(result, placementMatrix(unscaled), placement.scale);
     return result;
 }
 
@@ -2329,9 +2519,29 @@ void writeMatrixBits(std::ostream& output, const Matrix34& matrix) {
 void writeCpuJointPalette(std::ostream& output, const CpuJointPalette& palette) {
     output << "{\"status\":";
     writeString(output, palette.status);
-    output << ",\"root_input_ownership\":\"controlled_records\",\"model_initialization_adapter\":\"unreplayed\","
-              "\"callbacks\":\"empty\",\"animation\":\"not_applied\","
-              "\"billboard_update\":\"not_applied\",\"final_vertex_use\":\"unresolved\",\"joints\":[";
+    output << ",\"root_input_ownership\":";
+    writeString(output, palette.rootInputOwnership);
+    output << ",\"model_initialization_adapter\":";
+    writeString(output, palette.modelInitializationAdapter);
+    output << ",\"joint_rotation_table\":";
+    writeString(output, palette.rotationTablePresent ? "verified_owner_executable" : "not_supplied");
+    output << ",\"callbacks\":\"empty\",\"animation\":\"not_applied\","
+              "\"billboard_update\":\"not_applied\",\"final_vertex_use\":\"unresolved\"";
+    if (palette.rootRecordsPresent) {
+        for (std::size_t index = 0; index < 2; ++index) {
+            const auto& root = index ? palette.rootComposed : palette.rootLocal;
+            output << (index ? ",\"root_composed\":{" : ",\"root_local\":{")
+                   << "\"flags\":" << root.flags << ",\"scale_bits\":[";
+            for (std::size_t axis = 0; axis < 3; ++axis) {
+                if (axis) output << ',';
+                writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(root.scale[axis])));
+            }
+            output << "],\"matrix_bits\":";
+            writeMatrixBits(output, root.matrix);
+            output << '}';
+        }
+    }
+    output << ",\"joints\":[";
     for (std::size_t index = 0; index < palette.localRecords.size(); ++index) {
         if (index)
             output << ',';
@@ -2399,7 +2609,8 @@ std::string numberedName(const std::string& name, std::int32_t number) {
 
 SceneDefinition readScene(const std::filesystem::path& factoryPath,
                           const std::filesystem::path& stagePath,
-                          const std::vector<std::filesystem::path>& resourcePaths) {
+                          const std::vector<std::filesystem::path>& resourcePaths,
+                          const JointRotationTable* rotationTable = nullptr) {
     AssetArchive factoryArchive(factoryPath), stageArchive(stagePath);
     const Value factoryRoot = factoryArchive.table("CreatorClassNameTable");
     std::map<std::string, std::string> actorClasses;
@@ -2478,8 +2689,20 @@ SceneDefinition readScene(const std::filesystem::path& factoryPath,
                     const auto selected = std::find_if(catalog.models.begin(), catalog.models.end(),
                         [&](const ModelGeometry& geometry) { return geometry.name == modelName; });
                     if (selected != catalog.models.end()) {
-                        const CpuTransformRecord root = controlledPlacementRoot(placement);
-                        instance.cpuJointPalette = buildCpuJointPalette(selected->skeleton, root, root);
+                        bool supportedModelRotation = true;
+                        if (rotationTable)
+                            for (float angle : selected->initializationRotation)
+                                supportedModelRotation &= boundedJointRotation(angle);
+                        if (supportedModelRotation) {
+                            const CpuModelRoot root = placementModelRoot(placement, *selected, rotationTable);
+                            instance.cpuJointPalette = buildCpuJointPalette(selected->skeleton, root.local,
+                                                                           root.composed, rotationTable);
+                        } else {
+                            instance.cpuJointPalette.status = "unsupported_model_rotation_domain";
+                            instance.cpuJointPalette.rotationTablePresent = true;
+                        }
+                        instance.cpuJointPalette.rootInputOwnership = "constructed_actor_pose_model_inputs";
+                        instance.cpuJointPalette.modelInitializationAdapter = "bounded_original_animation_call_chain";
                     }
                 }
             }
@@ -2652,19 +2875,27 @@ int main(int argumentCount, char** arguments) {
     if (argumentCount < 2) {
         std::cerr << "Usage: asset_reader <verified local archive or asset>...\n"
                   << "       asset_reader --scene <factory archive> <stage archive> <resource archives>...\n"
+                  << "       asset_reader --scene-with-executable <EU code.bin> <factory archive> <stage archive> <resource archives>...\n"
                   << "Write the JSON report only to ignored data/build storage.\n";
         return 2;
     }
     try {
         std::ostringstream report;
-        if (std::string(arguments[1]) == "--scene") {
-            runtime::require(argumentCount >= 4, "Scene mode requires factory and stage archives");
+        const std::string mode = arguments[1];
+        if (mode == "--scene" || mode == "--scene-with-executable") {
+            const bool withExecutable = mode == "--scene-with-executable";
+            const int firstArchive = withExecutable ? 3 : 2;
+            runtime::require(argumentCount >= firstArchive + 2, "Scene mode requires factory and stage archives");
+            runtime::JointRotationTable table{};
+            if (withExecutable)
+                table = runtime::readJointRotationTable(runtime::readFile(arguments[2]));
             std::vector<std::filesystem::path> resources;
-            for (int number = 4; number < argumentCount; ++number)
+            for (int number = firstArchive + 2; number < argumentCount; ++number)
                 resources.emplace_back(arguments[number]);
             report << std::setprecision(std::numeric_limits<double>::max_digits10)
                    << "{\"schema_version\":1,\"string_storage\":\"raw_encoded_bytes\",\"scene\":";
-            runtime::writeScene(report, runtime::readScene(arguments[2], arguments[3], resources));
+            runtime::writeScene(report, runtime::readScene(arguments[firstArchive], arguments[firstArchive + 1],
+                                                         resources, withExecutable ? &table : nullptr));
             report << "}\n";
             std::cout << report.str();
             return 0;
