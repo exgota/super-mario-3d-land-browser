@@ -4820,7 +4820,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D98F4,0x001D9BDC,0x001D9C38,          ,U,f,,
 0x001D9C38,0x001D9C70,0x001D9C7C,          ,U,f,,
 0x001D9C7C,0x001D9D14,0x001D9D1C,          ,U,f,,
-0x001D9D1C,0x001D9D40,0x001D9D44,          ,M,f,fn_001D9D1C,
+0x001D9D1C,0x001D9D40,0x001D9D44,          ,O,f,fn_001D9D1C,
 0x001D9D44,0x001D9D6C,0x001D9D74,          ,U,f,,
 0x001D9D74,          ,0x001D9D7C,          ,O,f,fn_001D9D74,
 0x001D9D7C,          ,0x001D9DC0,          ,O,f,fn_001D9D7C,
