@@ -653,3 +653,7 @@ Audio dispatch preserves six anonymous virtual slots solely by their observed of
 ### Identify quaternion unit BSS from independent initialization
 
 Quatf::unit occupies0x00430500..0x00430510. Retail initializer0x00381350 independently writes float(0,0,0,1); KeyPose C1 and0x00136A88 copy all four values, and existing getQuat returns that address. Lower double producer ends at0x00430500 and upper vector producer begins0x00430510. The change adds only one named U db row, with no function changes or data credit. BSS is not file-backed; startup execution remains unverified. All ten frozen artifacts verify. Independent complete disassembly, producer/consumer/neighbor identities and target fingerprint are in build/phase_two_key_pose_product_data_ownership/proposal.md. This separate hard-rule2 commit adds zero credit.
+
+### Identify complete ProductSequence virtual table
+
+ProductSequence C1 installs address point0x003CB108; its native table is56 bytes. Next constructor0x0016428C installs address point0x003CB140, bounding the anonymous successor header at0x003CB138. The repair names whole table0x003CB100..0x003CB138, clips the preceding anonymous row and keeps the next header anonymous. All68 affected bytes remain contiguous and all ranks stayU. No existing slot/function identity changes or exact credit follow. All ten frozen artifacts verify. Independent complete disassembly, producer/consumer/neighbor identities and target fingerprint are in build/phase_two_key_pose_product_data_ownership/proposal.md. This separate hard-rule2 commit adds zero credit.
