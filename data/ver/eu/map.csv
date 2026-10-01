@@ -4426,7 +4426,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CCA1C,          ,0x001CCA5C,          ,O,f,_ZN2al15ExecuteDirector23createExecutorListTableEv,
 0x001CCA5C,          ,0x001CCA94,          ,U,f,_ZN2al9LayoutKit21createExecuteDirectorEi,
 0x001CCA94,0x001CCC3C,0x001CCD40,          ,O,f,_ZN2al15ExecuteDirector4initEv,
-0x001CCD40,          ,0x001CCD60,          ,M,f,_ZN2al15ExecuteDirectorC1Ei,
+0x001CCD40,          ,0x001CCD60,          ,O,f,_ZN2al15ExecuteDirectorC1Ei,
 0x001CCD60,          ,0x001CCDB0,          ,U,f,,
 0x001CCDB0,          ,0x001CCDE8,          ,U,f,_ZN2al15HitSensorKeeper10invalidateEv,
 0x001CCDE8,          ,0x001CCE70,          ,U,f,_ZN2al15HitSensorKeeper12attackSensorEv,
