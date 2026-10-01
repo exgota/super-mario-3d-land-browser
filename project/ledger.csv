@@ -230,3 +230,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:01:54-04:00,0x00274318,_ZN2al7setQuatEPNS_9LiveActorERKN4sead4QuatIfEE,matched,2,0.0466
 2026-10-01T11:01:55-04:00,0x00278660,_ZN2al12calcFrontDirEPN4sead7Vector3IfEEPKNS_9LiveActorE,matched,2,0.0473
 2026-10-01T11:01:55-04:00,0x0027A000,_ZN2al15setVelocityZeroEPNS_9LiveActorE,matched,2,0.0469
+2026-10-01T11:01:56-04:00,0x0027A1D8,_ZN2al11setVelocityEPNS_9LiveActorERKN4sead7Vector3IfEE,matched,2,0.0464
