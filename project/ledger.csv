@@ -225,3 +225,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:01:52-04:00,0x0028028C,_ZN2al8getTransEPKNS_9LiveActorE,matched,2,0.0641
 2026-10-01T11:01:53-04:00,0x00266248,_ZN2al8copyPoseEPNS_9LiveActorEPKS0_,matched,2,0.0466
 2026-10-01T11:01:53-04:00,0x0026E778,_ZN2al8setScaleEPNS_9LiveActorERKN4sead7Vector3IfEE,matched,3,0.0630
+2026-10-01T11:01:54-04:00,0x0027011C,_ZN2al13updatePoseMtxEPNS_9LiveActorEPKN4sead8Matrix34IfEE,matched,2,0.0471

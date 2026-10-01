@@ -8723,7 +8723,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00270044,0x002700D8,0x002700E0,          ,U,f,,
 0x002700E0,          ,0x002700F8,          ,U,f,,
 0x002700F8,          ,0x0027011C,          ,U,f,,
-0x0027011C,          ,0x0027012C,          ,M,f,_ZN2al13updatePoseMtxEPNS_9LiveActorEPKN4sead8Matrix34IfEE,
+0x0027011C,          ,0x0027012C,          ,O,f,_ZN2al13updatePoseMtxEPNS_9LiveActorEPKN4sead8Matrix34IfEE,
 0x0027012C,          ,0x00270158,          ,U,f,,
 0x00270158,          ,0x002701FC,          ,U,f,,
 0x002701FC,0x0027023C,0x00270258,          ,U,f,,
