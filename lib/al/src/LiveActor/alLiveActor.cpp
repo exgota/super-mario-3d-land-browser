@@ -1,3 +1,4 @@
+#include <Collision/alCollider.h>
 #include <LiveActor/alActorInitInfo.h>
 #include <LiveActor/alActorExecuteInfo.h>
 #include <LiveActor/alLiveActor.h>
@@ -46,7 +47,6 @@ extern "C" void fn_00250F7C( al::LiveActor* actor );
 extern "C" void fn_0025F890( al::LiveActor* actor );
 
 extern "C" void fn_001DC038( al::LiveActor* actor );
-extern "C" void fn_0024C9EC( al::Collider* collider );
 extern "C" void fn_001C96B8( al::LiveActor* actor );
 
 extern "C" void fn_00129360( al::ModelKeeper* keeper );
@@ -192,7 +192,7 @@ void LiveActor::makeActorDead()
                 mHitSensorKeeper->invalidateBySystem();
         fn_001DC038( this );
         if ( mCollider )
-                fn_0024C9EC( mCollider );
+                mCollider->onInvalidate();
         if ( mCollisionParts )
                 fn_001C96B8( this );
         if ( mModelKeeper )
