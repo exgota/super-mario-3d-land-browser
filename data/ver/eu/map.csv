@@ -5423,7 +5423,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EB9D0,          ,0x001EB9EC,          ,U,f,,
 0x001EB9EC,          ,0x001EB9FC,          ,U,f,,
 0x001EB9FC,          ,0x001EBA48,          ,O,f,_ZN2al9HitSensor16validateBySystemEv,
-0x001EBA48,          ,0x001EBA8C,          ,M,f,_ZN2al9HitSensor18invalidateBySystemEv,
+0x001EBA48,          ,0x001EBA8C,          ,O,f,_ZN2al9HitSensor18invalidateBySystemEv,
 0x001EBA8C,          ,0x001EBB10,          ,U,f,,
 0x001EBB10,          ,0x001EBB24,          ,U,f,,
 0x001EBB24,          ,0x001EBB70,          ,O,f,_ZN2al9HitSensor8validateEv,
