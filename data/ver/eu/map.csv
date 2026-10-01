@@ -3758,7 +3758,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001A9554,          ,0x001A9560,          ,U,f,,
 0x001A9560,0x001A9570,0x001A9574,          ,U,f,,
 0x001A9574,0x001AB32C,0x001B4658,          ,U,f,,
-0x001B4658,          ,0x001B4680,          ,M,f,_ZN29PlayerActionGraphBuildOutputsC1Ev,
+0x001B4658,          ,0x001B4680,          ,O,f,_ZN29PlayerActionGraphBuildOutputsC1Ev,
 0x001B4680,          ,0x001B46A0,          ,U,f,,
 0x001B46A0,0x001B46AC,0x001B46B0,          ,U,f,,
 0x001B46B0,          ,0x001B4708,          ,U,f,,
