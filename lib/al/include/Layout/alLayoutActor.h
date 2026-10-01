@@ -15,10 +15,10 @@ class LayoutActor : public IUseNerve, public IUseAudioKeeper, public IUseEffectK
 protected:
         sead::SafeString mName;
         NerveKeeper*     mNerveKeeper;
-        AudioKeeper*     mAudioKeeper;
+        void*            mLayoutObject;
         EffectKeeper*    mEffectKeeper;
         void*            _20;
-        void*            _24;
+        AudioKeeper*     mAudioKeeper;
         void*            _28;
         bool             mIsAlive;
 
@@ -40,6 +40,8 @@ public:
 public:
         LayoutActor( const char* name );
 };
+
+static_assert( sizeof( LayoutActor ) == 0x30, "" );
 
 void initLayoutActor( LayoutActor* layoutActor, const LayoutInitInfo& info, const char* archiveName, const char* = nullptr );
 

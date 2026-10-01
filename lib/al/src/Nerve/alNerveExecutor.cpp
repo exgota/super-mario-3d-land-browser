@@ -3,9 +3,11 @@
 namespace al
 {
 
+#ifdef NON_MATCHING
 NerveExecutor::NerveExecutor( const char* name ) : mNerveKeeper( nullptr )
 {
 }
+#endif
 
 NerveKeeper* NerveExecutor::getNerveKeeper() const
 {
