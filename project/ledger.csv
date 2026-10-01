@@ -475,3 +475,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:26-04:00,0x00270EEC,_ZN2al10tryGetArg4EPfRKNS_13ActorInitInfoE,matched,2,0.4091
 2026-10-01T13:11:26-04:00,0x0026ACC8,_ZN2al10tryGetArg5EPfRKNS_13ActorInitInfoE,matched,2,0.4083
 2026-10-01T13:11:27-04:00,0x00270ED8,_ZN2al10tryGetArg6EPfRKNS_13ActorInitInfoE,matched,2,0.4080
+2026-10-01T13:11:27-04:00,0x00277B58,_ZN2al10tryGetArg7EPfRKNS_13ActorInitInfoE,matched,2,0.4081

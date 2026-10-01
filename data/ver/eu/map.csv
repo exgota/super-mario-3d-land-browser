@@ -9020,7 +9020,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00277B04,          ,0x00277B24,          ,U,f,,
 0x00277B24,          ,0x00277B38,          ,U,f,,
 0x00277B38,          ,0x00277B58,          ,U,f,,
-0x00277B58,0x00277B64,0x00277B6C,          ,M,f,_ZN2al10tryGetArg7EPfRKNS_13ActorInitInfoE,
+0x00277B58,0x00277B64,0x00277B6C,          ,O,f,_ZN2al10tryGetArg7EPfRKNS_13ActorInitInfoE,
 0x00277B6C,0x00277B78,0x00277B80,          ,M,f,_ZN2al10tryGetArg6EPbRKNS_13ActorInitInfoE,
 0x00277B80,0x00277B8C,0x00277B94,          ,M,f,_ZN2al10tryGetArg5EPbRKNS_13ActorInitInfoE,
 0x00277B94,          ,0x00277BAC,          ,U,f,,
