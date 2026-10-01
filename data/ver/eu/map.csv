@@ -4822,7 +4822,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D9C7C,0x001D9D14,0x001D9D1C,          ,U,f,,
 0x001D9D1C,0x001D9D40,0x001D9D44,          ,U,f,,
 0x001D9D44,0x001D9D6C,0x001D9D74,          ,U,f,,
-0x001D9D74,          ,0x001D9D7C,          ,M,f,fn_001D9D74,
+0x001D9D74,          ,0x001D9D7C,          ,O,f,fn_001D9D74,
 0x001D9D7C,          ,0x001D9DC0,          ,O,f,fn_001D9D7C,
 0x001D9DC0,          ,0x001D9DF8,          ,O,f,fn_001D9DC0,
 0x001D9DF8,          ,0x001D9EB8,          ,U,f,,
