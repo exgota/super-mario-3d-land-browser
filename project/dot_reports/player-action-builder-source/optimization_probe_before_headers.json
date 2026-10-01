@@ -1,0 +1,6 @@
+{
+  "size": 44880,
+  "section_sha256": "36e3290c0414f83db237f05b4722f652c2ae07f7dd6aa31e8eb6a1d13c537d65",
+  "object_sha256": "b19051bb43c6ccd6d8516010d2539d383e8ad166eba1b7bfbd28ac2dfc85e1c4",
+  "note": "Noncanonical uncommitted pragma O0 before includes; extra unresolved abstract condition vtable; no checker call or match claim."
+}

@@ -1,0 +1,153 @@
+symbol,observed_address,kind,source_evidence
+_ZN16PlayerActionNode6appendEP21PlayerActionConditionPS_,0x00251E28,A,existing constructor/append/getter call target
+_ZN16PlayerActionNodeC1EP12PlayerAction,0x0025213C,A,existing constructor/append/getter call target
+_ZN17PlayerActionGraphC1Ev,0x00181558,A,existing constructor/append/getter call target
+_ZN24PlayerActionAnyCondition6appendEP21PlayerActionCondition,0x00251F74,A,existing constructor/append/getter call target
+_ZN24PlayerActionAnyConditionC1Ev,0x00251FC0,A,existing constructor/append/getter call target
+_ZN24PlayerActionNotConditionC1EP21PlayerActionCondition,0x00252080,A,existing constructor/append/getter call target
+_ZN26PlayerActionMultiCondition6appendEP21PlayerActionCondition,0x00252008,A,existing constructor/append/getter call target
+_ZN26PlayerActionMultiConditionC1Ev,0x00252054,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00171A78C1EPvS0_S0_S0_S0_,0x00171A78,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00171CDCC1EPv,0x00171CDC,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00171D64C1EPvS0_,0x00171D64,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00173B5CC1EPvS0_S0_S0_S0_S0_,0x00173B5C,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00173F0CC1EPv,0x00173F0C,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00174840C1EPv,0x00174840,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001749C8C1EPv,0x001749C8,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00174C18C1EPvS0_,0x00174C18,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00175344C1EPvS0_,0x00175344,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0018128CC1EPvS0_,0x0018128C,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00181420C1EPvS0_S0_,0x00181420,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001818FCC1EPvS0_,0x001818FC,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0018A390C1EPvS0_S0_S0_S0_S0_,0x0018A390,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0018EBA4C1EPvS0_S0_S0_S0_,0x0018EBA4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0018F0F4C1EPvS0_,0x0018F0F4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00196300C1EPvS0_,0x00196300,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001963DCC1EPvS0_S0_,0x001963DC,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00196838C1EPvS0_,0x00196838,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00196EB4C1EPv,0x00196EB4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001972ECC1EPvS0_,0x001972EC,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001974C0C1EPvS0_,0x001974C0,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00197B90C1EPv,0x00197B90,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00197C64C1EPvS0_S0_,0x00197C64,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00197EF0C1EPvS0_S0_S0_S0_,0x00197EF0,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0019D950C1EPvS0_S0_S0_S0_S0_S0_S0_,0x0019D950,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0019DC48C1EPvS0_S0_S0_S0_,0x0019DC48,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0019DD70C1EPvS0_S0_,0x0019DD70,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0019E5D4C1EPvS0_S0_,0x0019E5D4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0019EFB4C1EPvS0_S0_S0_S0_S0_,0x0019EFB4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_0019F5A4C1EPvS0_S0_S0_,0x0019F5A4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001A46C8C1EPvS0_S0_S0_S0_S0_S0_S0_,0x001A46C8,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001A4948C1EPv,0x001A4948,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001A725CC1EPv,0x001A725C,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001A73B4C1EPv,0x001A73B4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001A79BCC1EPvS0_S0_S0_S0_,0x001A79BC,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001A7FD4C1EPvS0_S0_,0x001A7FD4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001B7200C1EPvS0_S0_S0_S0_S0_S0_S0_S0_,0x001B7200,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001B79ACC1EPvS0_S0_S0_,0x001B79AC,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001B8B38C1EPvS0_S0_,0x001B8B38,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001B9048C1EPvS0_S0_,0x001B9048,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001BA530C1EPvS0_S0_S0_S0_,0x001BA530,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_001BAE88C1EPvS0_S0_S0_S0_S0_,0x001BAE88,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00252094C1EPvS0_S0_S0_S0_S0_,0x00252094,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_002520D4C1EPvS0_S0_S0_S0_S0_S0_,0x002520D4,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_00252124C1EPvS0_,0x00252124,A,existing constructor/append/getter call target
+_ZN26PlayerGraphAction_002D232CC1EPvS0_S0_S0_S0_S0_S0_,0x002D232C,A,existing constructor/append/getter call target
+_ZN28PlayerActionConditionAnimEndC1EP18IUsePlayerAnimatorPKci,0x00251EA0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001A9560C1EPv,0x001A9560,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B7290C1EPv,0x001B7290,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B99C4C1EPv,0x001B99C4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9DB8C1EPv,0x001B9DB8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9EC8C1EPv,0x001B9EC8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9F38C1EPv,0x001B9F38,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9F64C1EPvS0_,0x001B9F64,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9F9CC1EPv,0x001B9F9C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9FC8C1EPvS0_,0x001B9FC8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001B9FE0C1EPvi,0x001B9FE0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001BABA4C1EPv,0x001BABA4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001BAC1CC1EPvf,0x001BAC1C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001BAC48C1EPv,0x001BAC48,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001BAD04C1EPvS0_,0x001BAD04,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_001BAD78C1EPvS0_,0x001BAD78,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251EBCC1EPvS0_S0_S0_,0x00251EBC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251EE4C1EPvS0_S0_,0x00251EE4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251EFCC1EPvS0_,0x00251EFC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251F14C1EPviS0_,0x00251F14,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251F2CC1EPv,0x00251F2C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251F40C1EPv,0x00251F40,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251F54C1EiPv,0x00251F54,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_00251FECC1EPvRKi,0x00251FEC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D1E14C1EPv,0x002D1E14,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D1F20C1EPvS0_,0x002D1F20,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D1F84C1EPv,0x002D1F84,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2054C1EPvS0_,0x002D2054,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D26E8C1EPvi,0x002D26E8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D27ACC1EPvS0_,0x002D27AC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D27D4C1EPv,0x002D27D4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D27F8C1EPv,0x002D27F8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D281CC1EPv,0x002D281C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2888C1EPvS0_,0x002D2888,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2A20C1EPvS0_,0x002D2A20,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2A84C1EPvS0_S0_,0x002D2A84,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2AC0C1EPv,0x002D2AC0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2B14C1EPvS0_,0x002D2B14,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2BDCC1EPvS0_,0x002D2BDC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2C08C1EPv,0x002D2C08,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2C2CC1EPv,0x002D2C2C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2C50C1EPv,0x002D2C50,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2CC8C1EPvS0_S0_,0x002D2CC8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D2D34C1EPvS0_S0_,0x002D2D34,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D301CC1EPvS0_S0_S0_S0_,0x002D301C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D30E4C1EPvS0_S0_,0x002D30E4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3150C1EPv,0x002D3150,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D34C8C1EPvS0_S0_,0x002D34C8,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D358CC1EPvS0_,0x002D358C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D35C0C1EPv,0x002D35C0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D365CC1EPv,0x002D365C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D36B4C1EPvS0_,0x002D36B4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D36E0C1EPv,0x002D36E0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3734C1EPvS0_,0x002D3734,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D375CC1EPv,0x002D375C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3798C1EPv,0x002D3798,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D37BCC1EPv,0x002D37BC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3B24C1EPvS0_S0_,0x002D3B24,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3B94C1EPv,0x002D3B94,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3BD0C1EPv,0x002D3BD0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3C40C1EPvS0_S0_,0x002D3C40,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3C68C1EPv,0x002D3C68,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3CA0C1EPv,0x002D3CA0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3CC4C1EPv,0x002D3CC4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3D4CC1EPv,0x002D3D4C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3F74C1EPvS0_S0_,0x002D3F74,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D3FACC1EPv,0x002D3FAC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D40E4C1EPvS0_S0_,0x002D40E4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D50CCC1EPvS0_,0x002D50CC,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D50F4C1EPv,0x002D50F4,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D5220C1EPvS0_S0_S0_,0x002D5220,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D564CC1EPvS0_,0x002D564C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D59E0C1EPvS0_S0_,0x002D59E0,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D5A0CC1EPv,0x002D5A0C,A,existing constructor/append/getter call target
+_ZN29PlayerGraphCondition_002D5AC0C1EPvS0_,0x002D5AC0,A,existing constructor/append/getter call target
+_ZTV28PlayerGraphProvider_003CBAD4,0x003CBACC,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003CCC68,0x003CCC60,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003CD31C,0x003CD314,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003CE240,0x003CE238,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003CE884,0x003CE87C,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D0344,0x003D033C,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D0718,0x003D0710,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D0BA0,0x003D0B98,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D119C,0x003D1194,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D11C4,0x003D11BC,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D14CC,0x003D14C4,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D1924,0x003D191C,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV28PlayerGraphProvider_003D1B64,0x003D1B5C,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV29PlayerGraphCondition_003D1300,0x003D12F8,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV29PlayerGraphCondition_003D1348,0x003D1340,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV29PlayerGraphCondition_003D1754,0x003D174C,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV29PlayerGraphCondition_003D1984,0x003D197C,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV29PlayerGraphCondition_003D1A2C,0x003D1A24,D,inlined vtable address point minus 8; separate ownership review required
+_ZTV29PlayerGraphCondition_003D1C0C,0x003D1C04,D,inlined vtable address point minus 8; separate ownership review required
+_ZnajRKSt9nothrow_t,0x00292A78,A,existing constructor/append/getter call target
+_ZnwjRKSt9nothrow_t,0x002932B0,A,existing constructor/append/getter call target
+fn_0026E1DC,0x0026E1DC,A,existing constructor/append/getter call target
+fn_00308FC8,0x00308FC8,A,existing constructor/append/getter call target

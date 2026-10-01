@@ -1,0 +1,10 @@
+{
+  "restored_object_sha256": "5faee4994931fc9f54f130109f29f23da6acbc29e42512a6aff624f70d896436",
+  "configured_root_size": 28856,
+  "original_root_size": 45284,
+  "clean_build": "TMP=/tmp python make.py eu -ca; exit 0; linked/exported",
+  "same_object_as_435_case_run": true,
+  "full_root_forms": 3,
+  "forms": "One configured form and two noncanonical optimization probes; configured restoration is byte-identical to form 1.",
+  "no_optimization_override_in_source": true
+}

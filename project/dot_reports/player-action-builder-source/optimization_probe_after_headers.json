@@ -1,0 +1,7 @@
+{
+  "size": 45472,
+  "section_sha256": "b014f14c90460416127aad7174007c20aff36ece1568d369dfb0d8d39e315141",
+  "object_sha256": "05f64702fe912e99999757a579d6cdc78cf9992bdcd0e9715a719912957678aa",
+  "stack_frame": 2240,
+  "limitation": "Noncanonical uncommitted pragma O0 after includes. Isolated link rejects VFE metadata with L6647E. No checker call, replay result, or match claim."
+}

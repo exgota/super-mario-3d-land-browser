@@ -10,6 +10,7 @@ class PlayerTrigger;
 
 class Player
 {
+        friend class PlayerActionGraphBuildOutputs;
 private:
         PlayerProperty*       mPlayerProperty;
         void*                 _4;

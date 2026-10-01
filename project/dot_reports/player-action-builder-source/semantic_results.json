@@ -1,0 +1,9 @@
+{
+  "cases": 435,
+  "outcomes": {
+    "return": 425,
+    "fault": 10
+  },
+  "seconds": 109.049,
+  "scope": "The complete root only, with original external constructor/append behavior stubbed identically. Caller-saved clobber, nonzero heap fill, null player component variants and every root-local allocation failure ordinal. No gameplay or full-callee equivalence claim."
+}

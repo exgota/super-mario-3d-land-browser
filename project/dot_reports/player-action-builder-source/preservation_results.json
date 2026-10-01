@@ -1,0 +1,30 @@
+[
+  {
+    "symbol": "_ZN11PlayerActor11getPropertyEv",
+    "object": "build/eu/obj/Game/backup/src/Player/PlayerActor.o",
+    "exit": 0,
+    "stdout": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n",
+    "stderr": ""
+  },
+  {
+    "symbol": "_ZN17PlayerActionGraph4moveEv",
+    "object": "build/eu/obj/Game/backup/src/Player/PlayerActionGraph.o",
+    "exit": 0,
+    "stdout": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n",
+    "stderr": ""
+  },
+  {
+    "symbol": "_ZN17PlayerActionGraphC1Ev",
+    "object": "build/eu/obj/Game/backup/src/Player/PlayerActionGraph.o",
+    "exit": 0,
+    "stdout": "\u001b[38;5;221mU -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n",
+    "stderr": ""
+  },
+  {
+    "symbol": "_ZN29PlayerActionGraphBuildOutputsC1Ev",
+    "object": "build/eu/obj/Game/backup/src/Player/PlayerActionGraphBuildOutputs.o",
+    "exit": 0,
+    "stdout": "\u001b[38;5;221mM -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n",
+    "stderr": ""
+  }
+]
