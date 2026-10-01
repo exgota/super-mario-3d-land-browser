@@ -33,7 +33,8 @@ void TreeNode::clearChildLinksRecursively_()
         }
 }
 
-void TreeNode::detachSubTree()
+// Preserve the out-of-line call observed in pushFrontChild.
+__attribute__((noinline)) void TreeNode::detachSubTree()
 {
         if ( mPreviousSibling )
         {
@@ -58,6 +59,23 @@ void TreeNode::detachSubTree()
                         mNextSibling->mPreviousSibling = mPreviousSibling;
                         mNextSibling = 0;
                 }
+        }
+}
+
+void TreeNode::pushFrontChild( TreeNode* node )
+{
+        node->detachSubTree();
+        if ( !mFirstChild )
+        {
+                mFirstChild = node;
+                node->mParent = this;
+        }
+        else
+        {
+                node->mNextSibling = mFirstChild;
+                mFirstChild->mPreviousSibling = node;
+                mFirstChild = node;
+                node->mParent = this;
         }
 }
 
