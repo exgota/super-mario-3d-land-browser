@@ -26,12 +26,22 @@ private:
                 float vFloat;
         } mValue;
 
-        ByamlDataType mType;
+        u8 mType;
 
 public:
         ByamlDataType getType() const
         {
-                return mType;
+                return static_cast<ByamlDataType>( mType );
+        }
+
+        void setType( ByamlDataType type )
+        {
+                mType = static_cast<u8>( type );
+        }
+
+        void setIntValue( int value )
+        {
+                mValue.vInt = value;
         }
 
         int getIntValue() const

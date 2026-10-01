@@ -8,6 +8,10 @@
 namespace al
 {
 
+ByamlIter::ByamlIter( const u8* data, const u8* rootNode ) : mData( data ), mRootNode( rootNode )
+{
+}
+
 ByamlIter::ByamlIter() : mData( nullptr ), mRootNode( nullptr )
 {
 }
@@ -66,6 +70,32 @@ int ByamlIter::getKeyIndex( const char* key ) const
         return iter.findStringIndex( key );
 }
 
+ByamlIter ByamlIter::getIterByKey( const char* key ) const
+{
+        ByamlData data;
+        if ( getByamlDataByKey( &data, key ) )
+        {
+                if ( data.getType() == ByamlDataType_Array || data.getType() == ByamlDataType_Hash )
+                        return ByamlIter( mData, mData + data.getIntValue() );
+                if ( data.getType() == ByamlDataType_Null )
+                        return ByamlIter( mData, nullptr );
+        }
+        return ByamlIter();
+}
+
+ByamlIter ByamlIter::getIterByIndex( int index ) const
+{
+        ByamlData data;
+        if ( getByamlDataByIndex( &data, index ) )
+        {
+                if ( data.getType() == ByamlDataType_Array || data.getType() == ByamlDataType_Hash )
+                        return ByamlIter( mData, mData + data.getIntValue() );
+                if ( data.getType() == ByamlDataType_Null )
+                        return ByamlIter( mData, nullptr );
+        }
+        return ByamlIter();
+}
+
 #pragma no_inline
 
 #ifdef NON_MATCHING
@@ -80,6 +110,18 @@ bool ByamlIter::getByamlDataByKey( ByamlData* out, const char* key ) const
         return false;
 }
 #endif
+
+bool ByamlIter::tryGetIterByKey( ByamlIter* out, const char* key ) const
+{
+        *out = getIterByKey( key );
+        return out->isValid();
+}
+
+bool ByamlIter::tryGetIterByIndex( ByamlIter* out, int index ) const
+{
+        *out = getIterByIndex( index );
+        return out->isValid();
+}
 
 bool ByamlIter::tryGetBoolByKey( bool* out, const char* key ) const
 {
