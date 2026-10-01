@@ -8837,7 +8837,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00273154,0x0027323C,0x00273244,          ,U,f,,
 0x00273244,0x002732F4,0x002732FC,          ,U,f,,
 0x002732FC,          ,0x00273318,          ,U,f,,
-0x00273318,          ,0x00273328,          ,M,f,_ZN2al21isMsgPlayerFloorTouchEj,
+0x00273318,          ,0x00273328,          ,O,f,_ZN2al21isMsgPlayerFloorTouchEj,
 0x00273328,          ,0x00273348,          ,U,f,,
 0x00273348,0x00273454,0x00273458,          ,U,f,,
 0x00273458,0x00273484,0x00273488,          ,U,f,,
