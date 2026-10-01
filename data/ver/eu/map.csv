@@ -5144,7 +5144,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E2D98,          ,0x001E2DA0,          ,U,f,,
 0x001E2DA0,          ,0x001E2DA4,          ,O,f,_ZN2al14NerveStateBase4initEv,
 0x001E2DA4,          ,0x001E2DB0,          ,O,f,_ZN2al14NerveStateBase4killEv,
-0x001E2DB0,          ,0x001E2DBC,          ,M,f,_ZN2al14NerveStateBase6appearEv,
+0x001E2DB0,          ,0x001E2DBC,          ,O,f,_ZN2al14NerveStateBase6appearEv,
 0x001E2DBC,          ,0x001E2DF0,          ,M,f,_ZN2al14NerveStateBase6updateEv,
 0x001E2DF0,          ,0x001E2DF4,          ,M,f,_ZN2al14NerveStateBase7controlEv,
 0x001E2DF4,0x001E2F6C,0x001E2F84,          ,U,f,,
