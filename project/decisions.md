@@ -769,3 +769,7 @@ Ledger windows are0.009832 minutes for the Kit paired driver,3.287849 minutes fo
 ### Executor packet size notation, 2026-10-01
 
 The earlier001E37D8 packet wrote Update holder size44 without marking the hexadecimal unit. Seventeen cleared words establish68 bytes (0x44), and its C++ declaration was already correct. Only the explanatory sentence is corrected. The original frozen build packet/history remain unchanged; no layout, code, rank or acceptance changes.
+
+### Executor-list preparation imports, 2026-10-01
+
+Independent retail direct branches in1E36EC..1E37D8 and1E2044..1E2130 identify preparation callees1E5A68 and1E7328. The whole existing unnamed U/f rows1E5A68..1E5AA0 and1E7328..1E7410 receive neutral address names fn_001E5A68 and fn_001E7328. Their complete original bodies and the independently accepted holder layouts are frozen under build/library_table_list_matching/. No public method name, implementation, boundary, rank or exact credit changes. These names permit ordinary C++ imports in the separately reviewed executor-list proposals.
