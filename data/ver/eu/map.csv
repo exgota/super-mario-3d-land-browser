@@ -13751,7 +13751,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032FBE0,0x0032FCB8,0x0032FCC0,          ,U,f,,
 0x0032FCC0,          ,0x0032FCEC,          ,U,f,,
 0x0032FCEC,          ,0x0032FD54,          ,U,f,,
-0x0032FD54,          ,0x0032FD68,          ,M,f,_ZNK2al11NerveKeeper15getCurrentNerveEv,
+0x0032FD54,          ,0x0032FD68,          ,O,f,_ZNK2al11NerveKeeper15getCurrentNerveEv,
 0x0032FD68,0x0032FFB8,0x0032FFE0,          ,U,f,,
 0x0032FFE0,          ,0x00330020,          ,U,f,,
 0x00330020,          ,0x00330040,          ,U,f,,
