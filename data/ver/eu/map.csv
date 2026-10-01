@@ -8372,7 +8372,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026718C,          ,0x002671D4,          ,U,f,,
 0x002671D4,0x00267228,0x00267230,          ,U,f,,
 0x00267230,          ,0x00267234,          ,U,f,,
-0x00267234,          ,0x00267244,          ,M,f,_ZN2al17getSceneObjHolderEv,
+0x00267234,          ,0x00267244,          ,O,f,_ZN2al17getSceneObjHolderEv,
 0x00267244,          ,0x00267254,          ,U,f,,
 0x00267254,0x002672F4,0x00267300,          ,U,f,_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_13ActorInitInfoE,
 0x00267300,          ,0x00267310,          ,U,f,,
