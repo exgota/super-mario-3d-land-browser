@@ -89,3 +89,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T07:03:14-04:00,0x001BFC10,_ZN2al12EffectKeeper23deleteAndClearEffectAllEv,matched,5,5.6150
 2026-10-01T07:03:14-04:00,0x002553B4,_ZN2al12EffectKeeper6updateEv,matched,5,5.6149
 2026-10-01T07:14:20-04:00,0x001BFBB8,_ZN2al12EffectKeeper13setActionNameEPKc,matched,3,5.5585
+2026-10-01T07:14:20-04:00,0x001BFC60,_ZN2al12EffectKeeper15deleteEffectAllEv,matched,3,5.5584
