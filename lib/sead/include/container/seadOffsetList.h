@@ -32,16 +32,21 @@ public:
         class iterator
         {
         private:
-                ListNode* mNode;
+                T* mElement;
                 s32 mOffset;
         public:
-                iterator( ListNode* node, s32 offset ) : mNode( node ), mOffset( offset ) {}
+                iterator( ListNode* node, s32 offset ) : mElement( reinterpret_cast<T*>( reinterpret_cast<u8*>( node ) - offset ) ), mOffset( offset ) {}
                 T& operator*() const
                 {
-                        return reinterpret_cast<OffsetListNode<T>*>( reinterpret_cast<u8*>( mNode ) - mOffset )->mValue;
+                        return *mElement;
                 }
-                iterator& operator++() { mNode = mNode->mNext; return *this; }
-                bool operator!=( const iterator& other ) const { return mNode != other.mNode; }
+                iterator& operator++()
+                {
+                        ListNode* node = reinterpret_cast<ListNode*>( reinterpret_cast<u8*>( mElement ) + mOffset );
+                        mElement = reinterpret_cast<T*>( reinterpret_cast<u8*>( node->mNext ) - mOffset );
+                        return *this;
+                }
+                bool operator!=( const iterator& other ) const { return mElement != other.mElement; }
         };
         iterator begin() { return iterator( mSentinel.mNext, mOffset ); }
         iterator end() { return iterator( &mSentinel, mOffset ); }

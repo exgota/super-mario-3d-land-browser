@@ -19,7 +19,7 @@ M0: settle the game compiler. One of three required discriminating functions is 
 ## In flight
 - Wanwan source-only reconstruction at 0x0030D024 is ready for root integration. Its two compiler builds differ naturally but neither passes the target check.
 - Compact main-link repair, sead_headers agent. The FireBar, controller and thread-shutdown probes compile identically under both builds.
-- New hard rule 5 is enforced and all 52 prior O rows pass. Copied objects, uncommitted source and an incorrect recorded object hash reject without changing ranks. The compiler proof also requires its primary result from the verified project object. Pilot initial checks cover 50 / 50 functions.
+- New hard rule 5 is enforced and all 52 prior O rows pass. Copied objects, uncommitted source and an incorrect recorded object hash reject without changing ranks. The compiler proof also requires its primary result from the verified project object. Pilot initial checks cover 50 / 50 functions. Nine unsupported large fragments are parked with ledger/blocked evidence; ByamlHashIter remains NonMatching after eight iterations. Setup matches diagnostically and awaits the normal build check.
 
 ## Next tasks
 1. Prove two more natural C++ functions under 791 and against894, without changing global flags or importing game instructions.

@@ -19,13 +19,14 @@ bool PlayerActionMultiCondition::check()
 }
 #endif
 
-#ifdef NON_MATCHING
-// really very incorrect
 void PlayerActionMultiCondition::setup()
 {
-        for ( sead::OffsetList<PlayerActionCondition*>::iterator cur = mConditions.begin();
-                cur != mConditions.end();
-                ++cur )
-                ( *cur )->setup();
+        sead::OffsetList<PlayerActionCondition*>::iterator cur = mConditions.begin();
+        goto iterationCondition;
+iterationBody:
+        ( *cur )->setup();
+        ++cur;
+iterationCondition:
+        if ( cur != mConditions.end() )
+                goto iterationBody;
 }
-#endif
