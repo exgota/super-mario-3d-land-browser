@@ -14,3 +14,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:16:12-04:00,0x001781EC,_ZN16alSensorFunction20findSensorTypeByNameEPKc,matched,86,20
 2026-10-01T04:21:13-04:00,0x00140E94,fn_00140e94,matched,3,5
 2026-10-01T04:22:47-04:00,0x00148C7C,fn_00148c7c,matched,3,5
+2026-10-01T04:51:56-04:00,0x0027DCE0,_ZN14PlayerProperty11setFrontVecERKN4sead7Vector3IfEE,matched,1,0.009

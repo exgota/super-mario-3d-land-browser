@@ -12,14 +12,14 @@ M0: settle the game compiler. One of three required discriminating functions is 
 - EU executable hash confirmed. The original .3ds and target bytes remain untouched.
 - Clean sead API headers and declaration-only SDK entry points enable all 37 Game and 75 lib/al sources in the normal build.
 - check.py accepts O only after isolating source-generated object bytes, linking their relocations at original map addresses and comparing complete function intervals including literal pools. Unknown addresses, wrong sizes and changed bytes are rejected.
-- Exact mapped coverage: 13 functions,440 / 2,756,024 function bytes, including literal pools. Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Exact mapped coverage: 14 functions, 460 / 2,756,024 function bytes, including literal pools. Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup matches791 and fails 894. Final paired evidence lives under build/compiler_probe. The other leaf/lookup matches reproduce both compiler builds and do not settle M0.
 - The refreshed pilot manifest is project/pilot_functions.csv: 20 small, 20 medium and 10 large or branch-heavy functions. Every selected row is currently unmatched.
 
 ## In flight
 - Wanwan initialization at 0x0030D024, compiler_candidates agent. Its two compiler builds differ naturally; strict matching remains in progress.
 - FireBar constructor at 0x00310588, sead_headers agent. The previous parameter-controller probe compiled identically under both builds.
-- Root starts the fixed pilot sample while both other lanes continue M0. Per-function strict checks establish each accepted match independently of the unsettled compiler milestone.
+- Root runs the fixed pilot sample. Initial strict checks completed: 1 / 50. Both other lanes continue M0.
 
 ## Next tasks
 1. Prove two more natural C++ functions under 791 and against894, without changing global flags or importing game instructions.
