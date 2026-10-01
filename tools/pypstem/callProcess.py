@@ -6,11 +6,11 @@ import sys
 from tools.low.glob import getProjDir, getCompilerPath, getCompilersDir, fail_ex, fail, echo
 
 def _call(exe, arg_list, silent=False, capture=False):
-    from tools.low.glob import isLinux
+    from tools.low.glob import needsWibo
     path = _get_bin(exe)
 
     idx = 0;
-    if isLinux():
+    if needsWibo():
         # Create cmd.exe in root directory, workaround for armcc
         open(getProjDir() / "cmd.exe", 'a').close()
         # prepend wibo in command for wibo wrapper

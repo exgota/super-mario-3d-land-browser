@@ -27,6 +27,10 @@ def setCompilerVer(ver):
 
 def isLinux():
     return "linux" in sys.platform
+def isMacOS():
+    return sys.platform == "darwin"
+def needsWibo(): # armcc is a Windows binary; wibo runs it on Linux and macOS
+    return isLinux() or isMacOS()
 def isSixFour():
     import platform
     return platform.machine().endswith('64')

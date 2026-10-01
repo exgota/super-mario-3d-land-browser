@@ -1,0 +1,2 @@
+timestamp,address,symbol,outcome,attempts,estimated_tokens,estimated_cost_usd,minutes
+2026-10-01T03:30:00-04:00,0x0010766C,_ZN2nn2os6detail27ConvertSvcToLibraryPriorityEi,matched,3,,,5

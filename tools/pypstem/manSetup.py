@@ -45,16 +45,20 @@ def download(name_file, path, name_show, is_zip):
         fail (f"Download for {name_show} failed: {e}")
 
 def check_wibo():
-    if not isLinux():
+    if not needsWibo():
         return
 
     out = getCompilersDir() / "wibo"
     if out.exists():
         return
 
-    wibo_name = "wibo_64" if isSixFour() else "wibo"
-
-    download(wibo_name, out, "wibo", False)
+    if isMacOS(): # upstream wibo ships a macOS build that runs under Rosetta 2
+        echo ("Downloading wibo ...")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(requests.get("https://github.com/decompals/wibo/releases/download/1.2.0/wibo-macos").content)
+    else:
+        wibo_name = "wibo_64" if isSixFour() else "wibo"
+        download(wibo_name, out, "wibo", False)
 
     os.chmod(out, 0o755)
 

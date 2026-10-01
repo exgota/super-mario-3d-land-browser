@@ -22,6 +22,20 @@ compile_commands.json
 
 tools/user/*
 tools/asm-differ/*
-lib/CtrSDK/*
-lib/NintendoWare/*
-lib/sead/*
+
+# Python environment
+.venv/
+
+# Game data from the owner's dump. Never commit any of it.
+*.3ds
+*.cia
+*.cxi
+*.cci
+*.app
+romfs/
+exefs/
+extracted/
+
+# Crash dumps
+core
+core.*

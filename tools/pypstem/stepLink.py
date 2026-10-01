@@ -38,6 +38,8 @@ def exec_link():
             my_name = str(mod_data.get("name"))
             if my_name == getStubsLibName():
                 continue
+            if not (getBuildLibPath() / f"lib{my_name}.a").exists(): # header-only module
+                continue
             flags.append(f"--library={my_name}")
 
     if cfg.split:
