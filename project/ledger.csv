@@ -449,3 +449,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:15-04:00,0x0025ECE8,_ZN2al23isPadTriggerLeftStickUpEi,matched,2,0.0698
 2026-10-01T13:11:16-04:00,0x00263848,_ZN2al17isPadTriggerRightEi,matched,2,0.0699
 2026-10-01T13:11:16-04:00,0x00263850,_ZN2al26isPadTriggerLeftStickRightEi,matched,2,0.0692
+2026-10-01T13:11:16-04:00,0x00263858,_ZN2al16isPadTriggerLeftEi,matched,2,0.0690

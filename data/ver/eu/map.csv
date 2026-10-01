@@ -8237,7 +8237,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00263828,          ,0x00263848,          ,U,f,,
 0x00263848,          ,0x00263850,          ,O,f,_ZN2al17isPadTriggerRightEi,
 0x00263850,          ,0x00263858,          ,O,f,_ZN2al26isPadTriggerLeftStickRightEi,
-0x00263858,          ,0x00263860,          ,M,f,_ZN2al16isPadTriggerLeftEi,
+0x00263858,          ,0x00263860,          ,O,f,_ZN2al16isPadTriggerLeftEi,
 0x00263860,          ,0x00263868,          ,M,f,_ZN2al25isPadTriggerLeftStickLeftEi,
 0x00263868,          ,0x002638B0,          ,U,f,,
 0x002638B0,          ,0x002638B8,          ,M,f,_ZN2al13isPadTriggerBEi,
