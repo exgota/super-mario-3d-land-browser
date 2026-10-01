@@ -9142,7 +9142,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279FA0,          ,0x0027A000,          ,U,f,,
 0x0027A000,0x0027A030,0x0027A034,          ,O,f,_ZN2al15setVelocityZeroEPNS_9LiveActorE,
 0x0027A034,0x0027A158,0x0027A15C,          ,U,f,,
-0x0027A15C,          ,0x0027A1A0,          ,M,f,_ZN2al14onDrawClippingEPNS_9LiveActorE,
+0x0027A15C,          ,0x0027A1A0,          ,O,f,_ZN2al14onDrawClippingEPNS_9LiveActorE,
 0x0027A1A0,0x0027A1D4,0x0027A1D8,          ,U,f,,
 0x0027A1D8,          ,0x0027A1FC,          ,O,f,_ZN2al11setVelocityEPNS_9LiveActorERKN4sead7Vector3IfEE,
 0x0027A1FC,          ,0x0027A218,          ,U,f,,
