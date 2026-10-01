@@ -931,7 +931,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0012A4EC,0x0012A5F4,0x0012A640,          ,U,f,,
 0x0012A640,0x0012A69C,0x0012A6AC,          ,U,f,,
 0x0012A6AC,          ,0x0012A6B0,          ,O,f,_ZN2al6Camera2v7Ev,
-0x0012A6B0,          ,0x0012A6B4,          ,M,f,_ZN2al6Camera2v2Ev,
+0x0012A6B0,          ,0x0012A6B4,          ,O,f,_ZN2al6Camera2v2Ev,
 0x0012A6B4,          ,0x0012A6B8,          ,M,f,_ZN2al6Camera2v4Ev,
 0x0012A6B8,          ,0x0012A6BC,          ,M,f,_ZN2al6Camera2v5Ev,
 0x0012A6BC,          ,0x0012A6C0,          ,M,f,_ZN2al6Camera2v3Ev,
