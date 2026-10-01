@@ -47,3 +47,16 @@ extern "C" void fn_001EA1DC( void* effectSet )
                 fn_0023EF90( fields->mEntries[ index ], true );
         fields->mIsActive = false;
 }
+
+extern "C" bool fn_001E9ADC( void* effectSet )
+{
+        EffectSetFields* fields = static_cast<EffectSetFields*>( effectSet );
+        bool deleted = false;
+        for ( int index = 0; index < fields->mEntryCount; ++index )
+        {
+                if ( fn_0023EF90( fields->mEntries[ index ], false ) )
+                        deleted = true;
+        }
+        fields->mIsActive = false;
+        return deleted;
+}

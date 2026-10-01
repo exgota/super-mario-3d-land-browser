@@ -10,7 +10,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
-- Normal ARMCC build compiles 42 Game and 85 al sources plus the clean SDK unit. The compact main links/exports; it remains a scaffold.
+- Normal ARMCC build compiles 42 Game and 88 al sources plus the clean SDK unit. The compact main links/exports; it remains a scaffold.
 - Accepted coverage: 332 functions from canonical project ARMCC objects with committed source/header provenance, covering 19324 / 2,756,024 complete function bytes (0.701155%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
 - Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
@@ -22,12 +22,12 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - All 24 exact claims from eight dot proposals pass locally, 3700 bytes total. Latest proposals add placement144, CourseList120 and ExecuteDirector1012. Heap adds zero exact bytes. All source/header/report intake is reviewed; no dot map/rank/ledger/tool changes are imported.
 - All33 execution/helper candidates,21 actor-group candidates and eight executor follow-ons pass locally. The latest full shared-header recheck passes197/197 at14784 bytes; frozen evidence is build/executor_header_recheck_frozen.json.
 - Guarded sensor execute is rank m with810 bounded ARM11 pairs. Placement initialization agrees on76 contract-bounded pairs. Heap creation agrees on380 returning pairs and30 fault pairs. All three bounded NonMatching reports and ledger outcomes are frozen separately from exact coverage.
-- Ready queues: Byaml2/228, placement6/420, initialization/link6/404 and typed readers2/228; actor state7/264; effect deletion3/316, lookup4/388 and emission1/120; request drains3/316; KeyPose5/136; independent NerveStateBase data repair/ctor32; updateCollider168.
+- Ready queues: effect deletion3/316, lookup4/388 and emission1/120 are enrolled for checking; fresh actor-placement4/188, HitReaction11/176 and camera2/232; independent NerveStateBase data repair/ctor32; updateCollider168.
 - Fresh matching lanes: actor clipping/collider helpers; ActorInitInfo/link readers; actor pose mutations; request-queue drains; effect emission; KeyPoseKeeper helpers. Preserve their minimal patches and independently evidenced identities. Do not edit production during root's source-frozen checks.
 - Active dot branches reserve blocked.md entries, unanswered packets and U functions >=0x400 bytes. Fetch every few hours. Seven hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
-1. Build/check the composed Byaml/placement16-family checkpoint and recheck affected existing accepted source roots. Keep other lanes matching fresh eligible small/medium functions.
+1. Build/check the eight effect helper candidates and recheck their affected accepted source roots. Continue intake of fresh actor-placement, hit-reaction, camera and nerve queues.
 2. Accept queued Byaml/placement, effect and pose families in small source-frozen checkpoints. Keep main linking/exporting, STATE and private-origin pushes current.
 3. Continue native World1-1 resource/runtime work alongside matching. Texture identity is committed. Continue bounded texture payload/header decoding with explicit unsupported layouts.
 
