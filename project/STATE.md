@@ -11,7 +11,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 ## Verified
 - Original dump and EU executable hashes remain unchanged. No game data is committed.
 - Clean python make.py eu -ca compiles42 Game/99 al sources and links/exports after scaffold ordering and unaccepted-table repairs. Main remains an explicit scaffold. Every push requires successful clean linking.
-- Accepted coverage: 527 functions from canonical project ARMCC objects with committed source/header provenance, covering 27384 / 2,756,024 complete function bytes (0.993605%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
+- Accepted coverage: 528 functions from canonical project ARMCC objects with committed source/header provenance, covering 27448 / 2,756,024 complete function bytes (0.995927%). Legacy progress.py's byte percentage is word similarity, not exact coverage.
 - Sensor-name lookup, fn_001C5A88 and Game fn_001BB19C pass791 and fail894. M0 evidence: build/game_compiler_check/evidence.json.
 - Pilot: 40 matched, 1 NonMatching, 9 abandoned. See pilot_report.md, pilot_results.csv and pilot_iterations.csv. Phase 2 continues.
 - Runtime verifies 73,421 RomFS IVFC blocks and 50 selected World1-1 files. Native reader validates 298 placements, 3853 collision prisms, 39 models, 137 mesh/material bindings,127 materials and217 direct texture references. No level has run.
@@ -50,3 +50,5 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - Native RGBA8 reconstruction passes136 images/443 complete levels/2556608 pixels/10226432 bytes against two independent formulations and traversals. Root verifies613 hash entries over609 unique paths. HILO8 remains raw. RGB565 nearest-normalized output is an explicit representation policy with12968 pixels differing from bit replication by at mostone/component. GPU sampling, orientation, rendering and gameplay remain unverified.
 
 - Installed full-image split verifies527/527 O intervals/27384 complete bytes. Actual3096576-byte image SHA b6df708858b6d793cac96d7a29e3a71c60aa9f20918cdad9c18107c4942f199f differs in2491041 bytes. Incidental zero/padding equality adds no credit; M2 remains open. See full_image_diagnostic.md.
+
+- Fresh separate f224734 checkout clean-builds and its repaired full linked-map audit preserves527/527 O roots. The prior run lost only SystemKitC2 from scatter section aliasing, now explicitly repaired. All root O canonical intervals also remain equal in the isolated full-image link.
