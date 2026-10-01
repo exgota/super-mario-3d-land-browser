@@ -703,3 +703,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T17:20:38-04:00,0x00222978,_ZN4sead8TreeNode13detachSubTreeEv,matched,3,9.0817
 2026-10-01T17:20:39-04:00,0x00242CC4,fn_00242CC4,matched,2,0.0297
 2026-10-01T17:20:39-04:00,0x00242CCC,fn_00242CCC,matched,2,0.0298
+2026-10-01T17:20:39-04:00,0x00334F04,_ZNK2al19ActorPoseKeeperBase8getFrontEv,matched,1,0.0051
