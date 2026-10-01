@@ -7,6 +7,15 @@ namespace al
 
 class EffectKeeper
 {
+private:
+        // These methods establish the count, array and update flag offsets.
+        // Other members and the complete object size remain unrecovered.
+        unsigned char mOpaquePrefix[ 4 ];
+        int           mEffectSetCount;
+        void**        mEffectSets;
+        unsigned char mOpaqueMember0C[ 4 ];
+        bool          mIsUpdateActive;
+
 public:
         void update();
         void deleteAndClearEffectAll();
