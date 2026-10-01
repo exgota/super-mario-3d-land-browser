@@ -11,8 +11,10 @@ class LayoutInitInfo;
 
 class ProductStateTitle : public al::HostStateBase<ProductSequence>
 {
-private:
+public:
         int                     _10;
+
+private:
         ProductStageStartParam* mStartParam;
         void*                   _18;
         void*                   _1C;

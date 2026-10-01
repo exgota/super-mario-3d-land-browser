@@ -38,30 +38,35 @@ void ProductSequence::init()
 #endif
 
 extern "C" bool fn_0025ba7c( const char* );
+extern "C" const char dat_003a8e64[];
+extern "C" const NrvProductSequence::ProductSequenceNrvTitle dat_003ef538;
+extern "C" const NrvProductSequence::ProductSequenceNrvOpening dat_003ef53c;
+extern "C" const NrvProductSequence::ProductSequenceNrvCourseSelect dat_003ef540;
+extern "C" const NrvProductSequence::ProductSequenceNrvUnk1 dat_003ef55c;
 
 void ProductSequence::exeTitle()
 {
         if ( al::updateNerveState( this ) )
         {
-                if ( fn_0025ba7c( "オープニング実行" ) )
-                        al::setNerve( this, &NrvProductSequence::CourseSelect );
+                if ( fn_0025ba7c( dat_003a8e64 ) )
+                        al::setNerve( this, &dat_003ef540 );
                 else
-                        al::setNerve( this, &NrvProductSequence::Opening );
+                        al::setNerve( this, &dat_003ef53c );
         }
 }
 
 void ProductSequence::exeOpening()
 {
         if ( al::updateNerveState( this ) )
-                al::setNerve( this, &NrvProductSequence::CourseSelect );
+                al::setNerve( this, &dat_003ef540 );
 }
 
 void ProductSequence::exeKinopioHouse()
 {
         if ( al::updateNerveState( this ) )
         {
-                mStateCourseSelect->set_10( 4 );
-                al::setNerve( this, &NrvProductSequence::CourseSelect );
+                mStateCourseSelect->_10 = 4;
+                al::setNerve( this, &dat_003ef540 );
         }
 }
 
@@ -72,8 +77,8 @@ void ProductSequence::exeEnding()
         if ( al::updateNerveState( this ) )
         {
                 if ( fn_0025ddd0() )
-                        al::setNerve( this, &NrvProductSequence::Unk1 );
+                        al::setNerve( this, &dat_003ef55c );
                 else
-                        al::setNerve( this, &NrvProductSequence::Title );
+                        al::setNerve( this, &dat_003ef538 );
         }
 }

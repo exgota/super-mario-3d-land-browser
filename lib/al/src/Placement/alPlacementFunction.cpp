@@ -28,6 +28,14 @@ extern "C" int fn_00257D58( const al::ActorInitInfo* info )
         return -1;
 }
 
+extern "C" bool fn_00243318( al::ByamlIter* out, const al::ByamlIter* iter, int index )
+{
+        al::ByamlIter children;
+        if ( iter->tryGetIterByKey( &children, "AreaChildren" ) )
+                return children.tryGetIterByIndex( out, index );
+        return false;
+}
+
 extern "C" bool fn_00213474( bool* out, const al::ByamlIter* iter )
 {
         return al::tryGetArg( out, *iter, "Arg4" );
@@ -39,6 +47,79 @@ extern "C" int fn_001D79F4( const al::ByamlIter* iter )
         if ( iter->tryGetIterByKey( &children, "AreaChildren" ) )
                 return children.getSize();
         return 0;
+}
+
+struct ByamlIteratorReference
+{
+        const al::ByamlIter* iter;
+};
+
+extern "C" const char* fn_0032BD6C( const ByamlIteratorReference* metadata, int index )
+{
+        al::ByamlIter footprints;
+        metadata->iter->tryGetIterByKey( &footprints, "FootPrint" );
+        al::ByamlIter entry;
+        const char* value;
+        if ( !footprints.tryGetIterByIndex( &entry, index ) )
+                return nullptr;
+        if ( entry.tryGetStringByKey( &value, "AnimName" ) )
+                return value;
+        return nullptr;
+}
+
+extern "C" const char* fn_0032BDEC( const ByamlIteratorReference* metadata, int index )
+{
+        al::ByamlIter footprints;
+        metadata->iter->tryGetIterByKey( &footprints, "FootPrint" );
+        al::ByamlIter entry;
+        const char* value;
+        if ( !footprints.tryGetIterByIndex( &entry, index ) )
+                return nullptr;
+        if ( entry.tryGetStringByKey( &value, "AnimType" ) )
+                return value;
+        return nullptr;
+}
+
+extern "C" const char* fn_0032BE6C( const ByamlIteratorReference* metadata, int index )
+{
+        al::ByamlIter footprints;
+        metadata->iter->tryGetIterByKey( &footprints, "FootPrint" );
+        al::ByamlIter entry;
+        const char* value;
+        if ( footprints.tryGetIterByIndex( &entry, index ) && entry.tryGetStringByKey( &value, "Material" ) )
+                return value;
+        return nullptr;
+}
+
+extern "C" int fn_0032BEF4( const ByamlIteratorReference* metadata )
+{
+        if ( metadata->iter == nullptr )
+                return 0;
+        al::ByamlIter footprints;
+        if ( metadata->iter->tryGetIterByKey( &footprints, "FootPrint" ) )
+                return footprints.getSize();
+        return 0;
+}
+
+extern "C" bool fn_0032BF44( const ByamlIteratorReference* metadata )
+{
+        if ( metadata->iter == nullptr )
+                return false;
+        al::ByamlIter footprints;
+        if ( metadata->iter->tryGetIterByKey( &footprints, "FootPrint" ) )
+                return footprints.getSize() > 0;
+        return false;
+}
+
+extern "C" const char* fn_0032BFA4( const ByamlIteratorReference* metadata, int index )
+{
+        al::ByamlIter footprints;
+        metadata->iter->tryGetIterByKey( &footprints, "FootPrint" );
+        al::ByamlIter entry;
+        const char* value;
+        if ( footprints.tryGetIterByIndex( &entry, index ) && entry.tryGetStringByKey( &value, "Model" ) )
+                return value;
+        return nullptr;
 }
 
 namespace al
