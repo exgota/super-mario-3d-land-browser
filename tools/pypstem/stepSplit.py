@@ -3,9 +3,13 @@ import os
 import shutil
 import io
 import re
+import hashlib
+
+from elftools.elf.elffile import ELFFile
 
 from tools.low.glob import *
 
+from tools.low.buildProvenance import verify_build_output
 from tools.low.readSymMap import *
 from tools.low.getSection import typeToSection
 from tools.pypstem._utils import *
@@ -52,6 +56,75 @@ def find_scaffold_aliases(prefix):
                     aliases.setdefault(int(address, 16), set()).add(name)
     return aliases
 
+def select_scaffold_bss_rows(rows, undefined_names):
+    """Select complete named BSS intervals, never shared or unknown data."""
+    named_rows = {}
+    for row in rows:
+        if row[MapFmt.Symbol]:
+            named_rows.setdefault(row[MapFmt.Symbol], []).append(row)
+    selected = {}
+    for name in undefined_names:
+        candidates = named_rows.get(name, [])
+        if len(candidates) != 1 or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", name):
+            continue
+        row = candidates[0]
+        if (row[MapFmt.Rank] == "U" and row[MapFmt.Type] == "db"
+                and not row[MapFmt.SectionName] and isinstance(row[MapFmt.End], int)
+                and row[MapFmt.End] > row[MapFmt.Start]):
+            selected[name] = row
+    return selected
+
+def find_scaffold_bss_imports():
+    """Read actual undefined data references from canonical C++ objects."""
+    rows = read_sym_file()
+    candidates = select_scaffold_bss_rows(rows, {row[MapFmt.Symbol] for row in rows})
+    imports = {}
+    for module_path, module in cfg.modules.items():
+        root = getProjDir() / module_path
+        if not root.is_relative_to(getProjDir() / "Game") and not root.is_relative_to(getProjDir() / "lib"):
+            continue
+        source_root = getModSrc(module_path, module)
+        selected_sources = module.get("source_files")
+        if selected_sources is not None:
+            selected_sources = {source_root / source for source in selected_sources}
+        for source in sorted(source_root.rglob("*")):
+            if (not source.is_file() or source.suffix not in (".cpp", ".cc", ".cxx")
+                    or source.suffix.lstrip(".") not in module.get("extensions", cfg.extensions)
+                    or selected_sources is not None and source not in selected_sources):
+                continue
+            object_path = getFileBuildPath(source)
+            if not object_path.is_file():
+                continue
+            content = object_path.read_bytes()
+            with io.BytesIO(content) as stream:
+                elf = ELFFile(stream)
+                if (elf.elfclass != 32 or not elf.little_endian
+                        or elf["e_machine"] != "EM_ARM" or elf["e_type"] != "ET_REL"):
+                    continue
+                table = elf.get_section_by_name(".symtab")
+                if table is None:
+                    continue
+                names = {symbol.name for symbol in table.iter_symbols()
+                         if symbol.name in candidates and symbol["st_shndx"] == "SHN_UNDEF"
+                         and symbol["st_info"]["bind"] in ("STB_GLOBAL", "STB_WEAK")
+                         and symbol["st_info"]["type"] in ("STT_NOTYPE", "STT_OBJECT")
+                         and symbol["st_value"] == 0
+                         and symbol["st_size"] in (0, candidates[symbol.name][MapFmt.End]
+                                                   - candidates[symbol.name][MapFmt.Start])}
+            if not names:
+                continue
+            try:
+                provenance = verify_build_output(object_path)
+            except (OSError, ValueError, KeyError):
+                # Missing or stale output cannot authorize a data placeholder.
+                # The project's next compilation may supply canonical evidence.
+                continue
+            if provenance["object_sha256"] != hashlib.sha256(content).hexdigest():
+                continue
+            for name in names:
+                imports.setdefault(name, []).append({"object": str(object_path), "provenance": provenance})
+    return imports
+
 def write_stubs():
     # add stubs module
     cfg.modules[str(getSplitPath().relative_to(getProjDir()))] = {"name": getStubsLibName(), "extensions": set(["c"]), "source_dir": "."}
@@ -59,6 +132,7 @@ def write_stubs():
     getSplitPath().mkdir(parents=True, exist_ok=True)
     aliases = find_scaffold_aliases("fn")
     data_aliases = find_scaffold_aliases("dat")
+    bss_imports = find_scaffold_bss_imports()
 
     # write stubs.c
     with io.StringIO() as f:
@@ -74,6 +148,8 @@ def write_stubs():
                 names = data_aliases.get(sym[MapFmt.Start], set()).copy()
                 if (sym[MapFmt.Rank] == "U" and "c" in sym[MapFmt.Type]
                         and sym[MapFmt.Symbol].startswith("_ZTV")):
+                    names.add(sym[MapFmt.Symbol])
+                if sym[MapFmt.Symbol] in bss_imports:
                     names.add(sym[MapFmt.Symbol])
                 for name in sorted(names):
                     size = sym[MapFmt.End] - sym[MapFmt.Start]
