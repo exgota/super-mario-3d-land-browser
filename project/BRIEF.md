@@ -18,7 +18,7 @@ Each milestone has a mechanical exit check. Never report a milestone as reached 
 | # | Milestone | Exit check |
 |---|-----------|------------|
 | M0 | Toolchain settled | Game code (`Game/`, `lib/al`) compiles, and the compiler build for game code is proven by at least 3 game functions that match byte-exact under it and fail under the alternative |
-| M1 | Pilot: 50 functions attempted | Ledger shows match rate, cost per matched function, and wall time per function |
+| M1 | Pilot: 50 functions attempted | Ledger shows match rate and wall time per function |
 | M2 | Matching decompilation, complete | `progress` reports 100% of game code byte-exact. This is the headline claim |
 | M3 | Port runtime: one level in the browser | World 1-1 loads from the owner's own dump, plays to the goal pole, and passes differential replay (Section 7) |
 | M4 | Full game in the browser | Every world and special world completes under differential replay. Saves persist across reloads |
@@ -58,7 +58,7 @@ These rules hold for the whole project. If a rule blocks progress, log the block
 9. The GitHub repo `exgota/super-mario-3d-land-browser` stays private. Never make it public, never open pull requests or issues on any upstream project, and never post anywhere. Publicity is the owner's decision alone.
 
 **Resources**
-10. There is no spend cap (D4). Track estimated spend in the ledger anyway. Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong, and spending more will not fix it.
+10. There is no spend cap and no cost tracking (D4). Stop and write to `QUESTIONS.md` only on a stall: no new matched or non-matching function in the last 6 hours of work, or the last 100 function attempts. A stall means the approach is wrong.
 11. Run at most 3 heavy parallel jobs (compiles, agents, emulator instances) at once. The Mac mini overheats beyond that.
 
 ## 5. Working protocol for unattended operation
@@ -75,7 +75,7 @@ You will lose context. Threads compact, sessions end, and the machine restarts. 
 
 **Files you keep in the repo, under `project/`:**
 - `project/STATE.md`: read this first in every session. Current milestone, what is in flight, the next 3 tasks, known blockers. Keep it under 150 lines.
-- `project/ledger.csv`: one row per function attempt. Columns: timestamp, function address, symbol, outcome (matched / nonmatching / abandoned), attempts, estimated tokens, estimated cost, minutes.
+- `project/ledger.csv`: one row per function attempt. Columns: timestamp, function address, symbol, outcome (matched / nonmatching / abandoned), attempts, minutes.
 - `project/decisions.md`: append only. Every judgement call that a reviewer might question, with the evidence behind it.
 - `project/blocked.md`: functions or tasks you gave up on, with the reason and what would unblock them.
 - `project/daily/<YYYY-MM-DD>.md`: a short report of what changed, the numbers, and anything the owner should know. Write one at the end of every working day.
@@ -89,7 +89,6 @@ You will lose context. Threads compact, sessions end, and the machine restarts. 
 **When to stop and wait for the owner (write the question to `project/QUESTIONS.md`, then continue on other work if any remains):**
 - Any action outside this repo and the scratch directories.
 - Any hard rule that seems to need an exception.
-- The spend cap is reached.
 - The same blocker has stopped every remaining task.
 
 **Honesty in reports.** Report what the tools measured, not what you expect. If a number went down, say so and say why. If you are unsure whether something works, say it is unverified.
@@ -106,7 +105,7 @@ Remaining:
 ### Phase 1: pilot (exit M1)
 1. Choose 50 unmatched game functions: 20 small leaf functions, 20 medium functions, and 10 large or branch-heavy ones.
 2. Per function, iterate: read the assembly, write C++, compile, diff, revise. Cap attempts at the limit in D5.
-3. Write `project/pilot_report.md`: match rate per size class, cost per matched function, minutes per function, the failure modes you saw, and a projected cost and duration for all 18,055 functions.
+3. Write `project/pilot_report.md`: match rate per size class, minutes per function, the failure modes you saw, and a projected duration for all 18,055 functions.
 4. **Stop after the pilot and wait for the owner's review.** This is the one mandatory checkpoint.
 
 ### Phase 2: matching at scale (exit M2)
@@ -138,7 +137,7 @@ Determinism is the test. The same inputs must produce the same game state on the
 - **D1. Repository base. DECIDED:** RE-Pepper's history in the private repo `exgota/super-mario-3d-land-browser`, credited, with the unclean libraries removed. Never contribute upstream.
 - **D2. Matching standard. DECIDED:** the final claim is 100% byte-exact (M2). Non-matching code is allowed as an intermediate state and never counts toward the headline number.
 - **D3. When the port starts. DECIDED:** both an early demo and the pure claim. After the pilot, start the runtime in parallel, use static recompilation (ARM to C) as scaffolding for code not yet decompiled, and replace it as matches land. The scoreboard always shows "% decompiled" and "% recompiled" separately. The early demo states the real split. The pure claim waits until recompiled code reaches 0%.
-- **D4. Budget. DECIDED:** no spend cap. The stall rule (rule 10) replaces it.
+- **D4. Budget. DECIDED:** no spend cap and no cost tracking. The stall rule (rule 10) replaces it.
 - **D5. Attempt cap per function. DECIDED:** 8 compile-diff iterations during the pilot, then park the function in `blocked.md`. Revisit the cap in the pilot report.
 - **D6. Outer loop. DECIDED:** Codex `/goal` mode. Treat every session as one that might end unexpectedly: keep `project/STATE.md` current enough that a fresh session can resume from it alone.
 - **D7. Enhancement order. DECIDED:** gamepad, widescreen, free mouse camera, high frame rate, then WebXR stereoscopic mode last as the showpiece.
