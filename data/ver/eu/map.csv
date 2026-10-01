@@ -4457,7 +4457,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CD5F8,          ,0x001CD614,          ,U,f,,
 0x001CD614,0x001CD648,0x001CD64C,          ,U,f,,
 0x001CD64C,0x001CD694,0x001CD698,          ,U,f,,
-0x001CD698,          ,0x001CD6AC,          ,M,f,_ZN2al15getSequenceHeapEv,
+0x001CD698,          ,0x001CD6AC,          ,O,f,_ZN2al15getSequenceHeapEv,
 0x001CD6AC,          ,0x001CD6C4,          ,U,f,,
 0x001CD6C4,          ,0x001CD794,          ,U,f,,
 0x001CD794,0x001CD7E0,0x001CD7E4,          ,U,f,,
