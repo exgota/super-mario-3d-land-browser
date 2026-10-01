@@ -326,3 +326,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:08-04:00,0x00272DA0,_ZN2al20isMsgGororiBigAttackEj,matched,2,0.2215
 2026-10-01T11:15:09-04:00,0x00272DB0,_ZN2al17isMsgGororiAttackEj,matched,2,0.2220
 2026-10-01T11:15:09-04:00,0x00273318,_ZN2al21isMsgPlayerFloorTouchEj,matched,2,0.2227
+2026-10-01T11:15:10-04:00,0x00277C88,_ZN2al19isMsgKickKouraBreakEj,matched,2,0.2230

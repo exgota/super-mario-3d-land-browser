@@ -9028,7 +9028,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00277BC4,          ,0x00277BE0,          ,U,f,,
 0x00277BE0,0x00277C54,0x00277C6C,          ,U,f,,
 0x00277C6C,          ,0x00277C88,          ,U,f,,
-0x00277C88,          ,0x00277C98,          ,M,f,_ZN2al19isMsgKickKouraBreakEj,
+0x00277C88,          ,0x00277C98,          ,O,f,_ZN2al19isMsgKickKouraBreakEj,
 0x00277C98,0x00277CE8,0x00277CEC,          ,U,f,,
 0x00277CEC,          ,0x00277D1C,          ,U,f,,
 0x00277D1C,          ,0x00277D2C,          ,U,f,,
