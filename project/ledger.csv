@@ -262,3 +262,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:02:09-04:00,0x0033760C,_ZN2al17isRailReachedGoalEPKNS_9LiveActorE,matched,2,0.0486
 2026-10-01T11:02:09-04:00,0x0032F618,_ZNK2al10RailKeeper11isExistRailEv,matched,2,0.0489
 2026-10-01T11:05:31-04:00,0x0028CAB4,_ZNK2al9ByamlIter17getByamlDataByKeyEPNS_9ByamlDataEPKc,matched,2,0.0123
+2026-10-01T11:05:32-04:00,0x0029101C,_ZNK2al9ByamlIter17tryGetStringByKeyEPPKcS2_,matched,3,4.6169
