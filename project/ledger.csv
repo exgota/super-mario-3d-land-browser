@@ -299,3 +299,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:14:57-04:00,0x001C2EF8,_ZN2al12isSensorRideEPKNS_9HitSensorE,matched,2,0.2221
 2026-10-01T11:14:58-04:00,0x001CBEE4,_ZN2al14isSensorSimpleEPKNS_9HitSensorE,matched,2,0.2219
 2026-10-01T11:14:58-04:00,0x001D2D10,_ZN2al9sendMsg55EPNS_9HitSensorES1_,matched,2,0.2235
+2026-10-01T11:14:59-04:00,0x001E13A0,_ZN2al7isMsg49Ej,matched,2,0.2214
