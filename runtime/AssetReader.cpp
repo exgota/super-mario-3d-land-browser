@@ -588,6 +588,21 @@ struct ModelSkeleton {
     std::vector<ModelJoint> joints;
 };
 
+struct ModelMaterial {
+    std::string name;
+    std::size_t offset;
+    std::uint32_t flags;
+};
+
+struct ModelMesh {
+    std::string name;
+    std::size_t offset;
+    std::uint32_t flags;
+    std::uint32_t shapeIndex;
+    std::uint32_t materialIndex;
+    std::size_t parentOffset;
+};
+
 struct ModelGeometry {
     std::string name;
     std::size_t offset;
@@ -595,6 +610,9 @@ struct ModelGeometry {
     std::string status;
     std::vector<ModelShape> shapes;
     ModelSkeleton skeleton;
+    std::string materialMappingStatus;
+    std::vector<ModelMaterial> materials;
+    std::vector<ModelMesh> meshes;
 };
 
 // The owner's revision uses OpenGL scalar enums in the documented CGFX records.
@@ -639,7 +657,7 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
     metadata(entry.offset, 8);
     require(input.magic(entry.offset + 4, "CMDL"), "CGFX model has no CMDL signature");
     ModelGeometry result{entry.name, entry.offset, input.integer(entry.offset), "resource_local_fields", {},
-                         {0, 0, "not_present", {}}};
+                         {0, 0, "not_present", {}}, "unresolved", {}, {}};
     if (revision != 0x05000000) {
         result.status = "unsupported_model_revision";
         return result;
@@ -857,6 +875,53 @@ ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t ima
         }
         result.shapes.push_back(std::move(record));
     }
+    const std::size_t materialCount = input.integer(entry.offset + 0xBC);
+    require(materialCount <= (dataEnd - 20) / 16, "CGFX material count exceeds DATA");
+    if (materialCount) {
+        const std::size_t dictionary = input.relative(entry.offset + 0xC0);
+        metadata(dictionary, 28 + materialCount * 16);
+        require(input.magic(dictionary, "DICT") && input.integer(dictionary + 8) == materialCount &&
+                input.integer(dictionary + 4) >= 28 + materialCount * 16 &&
+                input.integer(dictionary + 4) <= dataEnd - dictionary,
+                "Invalid CGFX material dictionary");
+        std::set<std::string> names;
+        std::set<std::size_t> offsets;
+        consume(materialCount);
+        for (std::size_t index = 0; index < materialCount; ++index) {
+            const std::size_t node = dictionary + 28 + index * 16;
+            const std::size_t nameOffset = input.relative(node + 8);
+            metadata(nameOffset, 1);
+            const std::string name = input.terminatedText(nameOffset, dataEnd - nameOffset);
+            const std::size_t material = input.relative(node + 12);
+            metadata(material, 0x10);
+            require(input.magic(material + 4, "MTOB"), "CGFX material has no MTOB signature");
+            const std::size_t materialName = input.relative(material + 0xC);
+            metadata(materialName, 1);
+            require(!name.empty() && input.terminatedText(materialName, dataEnd - materialName) == name &&
+                    names.insert(name).second && offsets.insert(material).second,
+                    "Invalid or duplicate CGFX material name or record");
+            result.materials.push_back({name, material, input.integer(material)});
+        }
+    } else {
+        require(input.integer(entry.offset + 0xC0) == 0, "Empty CGFX material dictionary has a nonnull pointer");
+    }
+    std::set<std::size_t> meshOffsets;
+    for (const std::size_t mesh : pointerList(entry.offset + 0xB8, input.integer(entry.offset + 0xB4))) {
+        metadata(mesh, 0x24);
+        require(input.magic(mesh + 4, "SOBJ"), "CGFX mesh has no SOBJ signature");
+        require(input.integer(mesh) == 0x01000000, "Unsupported CGFX mesh identity layout");
+        require(meshOffsets.insert(mesh).second, "Duplicate CGFX mesh record");
+        const std::size_t nameOffset = input.relative(mesh + 0xC);
+        metadata(nameOffset, 1);
+        ModelMesh record{input.terminatedText(nameOffset, dataEnd - nameOffset), mesh, input.integer(mesh),
+                         input.integer(mesh + 0x18), input.integer(mesh + 0x1C), input.relative(mesh + 0x20)};
+        // Retail 0x0033549C uses these two indices in the model's own lists.
+        require(record.shapeIndex < result.shapes.size(), "CGFX mesh shape index exceeds its model");
+        require(record.materialIndex < result.materials.size(), "CGFX mesh material index exceeds its model");
+        require(record.parentOffset == entry.offset, "CGFX mesh parent disagrees with its model");
+        result.meshes.push_back(std::move(record));
+    }
+    result.materialMappingStatus = "model_local_indices";
     return result;
 }
 
@@ -1152,8 +1217,32 @@ void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
     output << ",\"offset\":" << model.offset << ",\"flags\":" << model.flags << ",\"status\":";
     writeString(output, model.status);
     output << ",\"coordinate_space\":\"resource_local\",\"shape_transform\":\"unresolved\","
-              "\"bone_transforms\":\"unresolved\",\"material_mapping\":\"unresolved\",\"skeleton\":{\"offset\":"
-           << model.skeleton.offset << ",\"flags\":" << model.skeleton.flags << ",\"status\":";
+              "\"bone_transforms\":\"unresolved\",\"material_mapping\":";
+    writeString(output, model.materialMappingStatus);
+    output << ",\"runtime_mesh_replacement\":\"unresolved\",\"material_state\":\"unresolved\",\"materials\":[";
+    bool firstMaterial = true;
+    for (const ModelMaterial& material : model.materials) {
+        if (!firstMaterial)
+            output << ',';
+        firstMaterial = false;
+        output << "{\"name_hex\":";
+        writeString(output, hexadecimal(material.name));
+        output << ",\"offset\":" << material.offset << ",\"flags\":" << material.flags << '}';
+    }
+    output << "],\"meshes\":[";
+    bool firstMesh = true;
+    for (const ModelMesh& mesh : model.meshes) {
+        if (!firstMesh)
+            output << ',';
+        firstMesh = false;
+        output << "{\"name_hex\":";
+        writeString(output, hexadecimal(mesh.name));
+        output << ",\"offset\":" << mesh.offset << ",\"flags\":" << mesh.flags
+               << ",\"shape_index\":" << mesh.shapeIndex << ",\"material_index\":" << mesh.materialIndex
+               << ",\"parent_offset\":" << mesh.parentOffset
+               << ",\"visibility\":\"unresolved\",\"animation\":\"unresolved\"}";
+    }
+    output << "],\"skeleton\":{\"offset\":" << model.skeleton.offset << ",\"flags\":" << model.skeleton.flags << ",\"status\":";
     writeString(output, model.skeleton.status);
     output << ",\"transform_application\":\"unresolved\",\"joints\":[";
     bool firstJoint = true;
