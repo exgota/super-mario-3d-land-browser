@@ -1,7 +1,6 @@
 #pragma once
 
 #include <HitSensor/alHitSensor.h>
-#include <container/seadPtrArray.h>
 
 namespace al
 {
@@ -9,14 +8,16 @@ namespace al
 class SensorHitGroup
 {
 private:
-        sead::PtrArray<HitSensor> mSensors;
+        s32         mCapacity;
+        s32         mSensorCount;
+        HitSensor** mSensors;
 
 public:
         void add( HitSensor* sensor );
         void remove( HitSensor* sensor );
 
 public:
-        SensorHitGroup( int, const char* name /* unused */ );
+        SensorHitGroup( int capacity, const char* name );
 };
 
 } // namespace al
