@@ -8659,7 +8659,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026EA54,          ,0x0026EA60,          ,U,f,,
 0x0026EA60,          ,0x0026EA74,          ,O,f,_ZNK13PlayerTrigger4isOnENS_14ESensorTriggerE,
 0x0026EA74,          ,0x0026EA90,          ,U,f,,
-0x0026EA90,          ,0x0026EAAC,          ,M,f,_ZN2al29sendMsgPlayerInvincibleAttackEPNS_9HitSensorES1_,
+0x0026EA90,          ,0x0026EAAC,          ,O,f,_ZN2al29sendMsgPlayerInvincibleAttackEPNS_9HitSensorES1_,
 0x0026EAAC,          ,0x0026EAD8,          ,U,f,,
 0x0026EAD8,          ,0x0026EAEC,          ,U,f,,
 0x0026EAEC,0x0026EBD4,0x0026EBE8,          ,U,f,,
