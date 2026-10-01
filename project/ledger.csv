@@ -429,3 +429,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:07-04:00,0x0031B4F8,_ZN2al9EffectObj4killEv,matched,2,0.4605
 2026-10-01T13:11:07-04:00,0x00375B38,_ZNK2al9EffectObj10getBaseMtxEv,matched,2,0.4621
 2026-10-01T13:11:08-04:00,0x0031B520,_ZN2al9EffectObj7controlEv,matched,2,0.0330
+2026-10-01T13:11:08-04:00,0x00262810,fn_00262810,matched,2,0.0337
