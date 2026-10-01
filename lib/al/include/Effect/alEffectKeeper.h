@@ -13,12 +13,15 @@ private:
         unsigned char mOpaquePrefix[ 4 ];
         int           mEffectSetCount;
         void**        mEffectSets;
-        unsigned char mOpaqueMember0C[ 4 ];
+        const char*   mActionName;
         bool          mIsUpdateActive;
+        signed char   mActionChangeMode;
 
 public:
         void update();
         void deleteAndClearEffectAll();
+        void deleteEffectAll();
+        void setActionName( const char* actionName );
 };
 
 class IUseEffectKeeper
