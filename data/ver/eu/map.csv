@@ -8757,7 +8757,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00270CA4,0x00270CC8,0x00270CCC,          ,U,f,,
 0x00270CCC,0x00270DA8,0x00270DB0,          ,U,f,,
 0x00270DB0,0x00270E2C,0x00270E44,          ,U,f,,
-0x00270E44,          ,0x00270E68,          ,M,f,_ZN2al9setRotateEPNS_9LiveActorERKN4sead7Vector3IfEE,
+0x00270E44,          ,0x00270E68,          ,O,f,_ZN2al9setRotateEPNS_9LiveActorERKN4sead7Vector3IfEE,
 0x00270E68,          ,0x00270E74,          ,U,f,,
 0x00270E74,          ,0x00270E9C,          ,U,f,,
 0x00270E9C,0x00270ED4,0x00270ED8,          ,U,f,,
