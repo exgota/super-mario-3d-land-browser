@@ -9715,7 +9715,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0028CA18,0x0028CA2C,0x0028CA30,          ,U,f,glGetError,
 0x0028CA30,          ,0x0028CA48,          ,U,f,_ZNK2al20ByamlStringTableIter9getStringEi,
 0x0028CA48,          ,0x0028CAB4,          ,U,f,_ZNK2al9ByamlIter19getByamlDataByIndexEPNS_9ByamlDataEi,
-0x0028CAB4,          ,0x0028CB38,          ,M,f,_ZNK2al9ByamlIter17getByamlDataByKeyEPNS_9ByamlDataEPKc,
+0x0028CAB4,          ,0x0028CB38,          ,O,f,_ZNK2al9ByamlIter17getByamlDataByKeyEPNS_9ByamlDataEPKc,
 0x0028CB38,0x0028CB6C,0x0028CB70,          ,U,f,,
 0x0028CB70,          ,0x0028CBD8,          ,U,f,,
 0x0028CBD8,          ,0x0028CBEC,          ,U,f,_ZN4sead14MethodTreeNode7unlock_Ev,
