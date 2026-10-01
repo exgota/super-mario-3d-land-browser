@@ -7,7 +7,9 @@ PlayerActionMultiCondition::PlayerActionMultiCondition()
 
 void PlayerActionMultiCondition::append( PlayerActionCondition* condition )
 {
-        mConditions.pushBack( *new sead::OffsetListNode<PlayerActionCondition*>( condition ) );
+        sead::OffsetList<PlayerActionCondition*>& conditions = mConditions;
+        sead::OffsetListNode<PlayerActionCondition*>* node = new sead::OffsetListNode<PlayerActionCondition*>( condition );
+        conditions.pushBack( *node );
 }
 
 #ifdef NON_MATCHING

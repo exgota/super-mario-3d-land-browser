@@ -7564,7 +7564,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00251F74,          ,0x00251FC0,          ,U,f,,
 0x00251FC0,0x00251FE8,0x00251FEC,          ,U,f,,
 0x00251FEC,0x00252004,0x00252008,          ,U,f,,
-0x00252008,          ,0x00252054,          ,M,f,_ZN26PlayerActionMultiCondition6appendEP21PlayerActionCondition,
+0x00252008,          ,0x00252054,          ,O,f,_ZN26PlayerActionMultiCondition6appendEP21PlayerActionCondition,
 0x00252054,0x0025207C,0x00252080,          ,U,f,_ZN26PlayerActionMultiConditionC1Ev,
 0x00252080,0x00252090,0x00252094,          ,U,f,,
 0x00252094,0x002520D0,0x002520D4,          ,U,f,,
