@@ -14063,7 +14063,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00337474,          ,0x00337488,          ,U,f,,
 0x00337488,0x0033751C,0x00337520,          ,U,f,,
 0x00337520,          ,0x0033753C,          ,U,f,,
-0x0033753C,          ,0x003375DC,          ,M,f,_ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci,
+0x0033753C,          ,0x003375DC,          ,O,f,_ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci,
 0x003375DC,          ,0x003375F4,          ,O,f,_ZNK2al9LiveActor10getBaseMtxEv,
 0x003375F4,          ,0x003375FC,          ,O,f,_ZNK2al9LiveActor14getNerveKeeperEv,
 0x003375FC,          ,0x00337604,          ,O,f,_ZNK2al9LiveActor14getAudioKeeperEv,
