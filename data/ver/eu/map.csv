@@ -8298,7 +8298,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026504C,0x002650F0,0x002650F8,          ,U,f,,
 0x002650F8,0x00265124,0x00265128,          ,U,f,,
 0x00265128,          ,0x00265178,          ,U,f,,
-0x00265178,0x002651CC,0x002651D4,          ,M,f,_ZN2al15tryGetStringArgEPPKcRKNS_13ActorInitInfoES1_,
+0x00265178,0x002651CC,0x002651D4,          ,O,f,_ZN2al15tryGetStringArgEPPKcRKNS_13ActorInitInfoES1_,
 0x002651D4,          ,0x00265328,          ,U,f,,
 0x00265328,0x002653DC,0x002653E0,          ,U,f,,
 0x002653E0,0x00265440,0x00265450,          ,U,f,,
