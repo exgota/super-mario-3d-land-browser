@@ -1,5 +1,7 @@
 # Partial shader validator reconstruction
 
+**Integration qualification:** shared graphics C-symbol declarations differ between the state and shader branches. Do not claim combined integration until they are reconciled and regression checked. See [the exact conflict, common layout evidence, and proposed declaration contract](graphics-shared-declarations.md).
+
 Target: `__shv_partialValidateShaderValidator`, EU interval 0x00377FD0..0x0037B818 (14,408 bytes), based on main 5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c. This source is NonMatching; it adds zero exact-byte credit. Compiler configuration is the existing CtrSDK ARMCC 4.0/902 configuration. No map boundary, rank, tool, compiler flag, ledger or state-file change is proposed.
 
 The entry takes a dirty-state pointer and a category mask, returns void, and loads the current control pointer from 0x003E3154. The 16-byte global at 0x003E2E40 contains the current validator pointer at +8 and geometry-mode cache at +12. Validator+0 points to the current shader and +4 caches the shader whose attribute layout was emitted. The direct retail caller is 0x0024CFAC, inside mapped interval 0x0024CEF0..0x0024D0AC. At 0x0024CEFC..0x0024CF00 it loads the same control pointer into r4, then passes r0=r4 at 0x0024CFA4; the real dirty-state argument therefore aliases global control. The caller masks requested categories against control+8 before this call and clears the selected dirty bits and force bits after return. Command cursor and limit are the existing four-byte globals at 0x003E2E30 and 0x003E2E34.
