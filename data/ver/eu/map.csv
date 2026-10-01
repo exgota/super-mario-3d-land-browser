@@ -9407,7 +9407,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027F244,          ,0x0027F2C0,          ,U,f,_ZN2al11startActionEPNS_9LiveActorEPKc,
 0x0027F2C0,          ,0x0027F2D4,          ,U,f,,
 0x0027F2D4,0x0027F320,0x0027F330,          ,U,f,,
-0x0027F330,          ,0x0027F340,          ,M,f,_ZN2al15isMsgUpperPunchEj,
+0x0027F330,          ,0x0027F340,          ,O,f,_ZN2al15isMsgUpperPunchEj,
 0x0027F340,          ,0x0027F368,          ,O,f,_ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi,
 0x0027F368,          ,0x0027F394,          ,U,f,,
 0x0027F394,          ,0x0027F3B4,          ,O,f,_ZN2al8setTransEPNS_9LiveActorERKN4sead7Vector3IfEE,

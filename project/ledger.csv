@@ -345,3 +345,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:16-04:00,0x0027DC40,_ZN2al27isMsgPlayerInvincibleAttackEj,matched,2,0.2214
 2026-10-01T11:15:17-04:00,0x0027DC50,_ZN2al26isMsgPlayerInvincibleTouchEj,matched,2,0.2217
 2026-10-01T11:15:17-04:00,0x0027F1B8,_ZN2al24isMsgPlayerRollingAttackEj,matched,2,0.2221
+2026-10-01T11:15:18-04:00,0x0027F330,_ZN2al15isMsgUpperPunchEj,matched,2,0.2223
