@@ -9316,7 +9316,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027D548,          ,0x0027D564,          ,U,f,_ZN2al9sendMsg41EPNS_9HitSensorES1_,
 0x0027D564,          ,0x0027D56C,          ,U,f,,
 0x0027D56C,          ,0x0027D588,          ,U,f,_ZN2al18sendMsgEnemyAttackEPNS_9HitSensorES1_,
-0x0027D588,          ,0x0027D598,          ,M,f,_ZN2al10getGravityEPKNS_9LiveActorE,
+0x0027D588,          ,0x0027D598,          ,O,f,_ZN2al10getGravityEPKNS_9LiveActorE,
 0x0027D598,          ,0x0027D5C4,          ,U,f,,
 0x0027D5C4,0x0027D614,0x0027D61C,          ,U,f,,
 0x0027D61C,          ,0x0027D644,          ,O,f,_ZN2al10isLessStepEPKNS_9IUseNerveEi,
