@@ -9083,7 +9083,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00278BD4,0x00278BF0,0x00278BF4,          ,U,f,,
 0x00278BF4,          ,0x00278C1C,          ,U,f,,
 0x00278C1C,          ,0x00278C30,          ,U,f,,
-0x00278C30,          ,0x00278C6C,          ,M,f,_ZNK2al9ByamlIter16tryGetFloatByKeyEPfPKc,
+0x00278C30,          ,0x00278C6C,          ,O,f,_ZNK2al9ByamlIter16tryGetFloatByKeyEPfPKc,
 0x00278C6C,0x00278D00,0x00278D0C,          ,U,f,,
 0x00278D0C,0x00278E1C,0x00278E74,          ,U,f,,
 0x00278E74,0x00278F10,0x00278F18,          ,U,f,,
