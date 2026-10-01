@@ -14064,7 +14064,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00337488,0x0033751C,0x00337520,          ,U,f,,
 0x00337520,          ,0x0033753C,          ,U,f,,
 0x0033753C,          ,0x003375DC,          ,U,f,,
-0x003375DC,          ,0x003375F4,          ,M,f,_ZNK2al9LiveActor10getBaseMtxEv,
+0x003375DC,          ,0x003375F4,          ,O,f,_ZNK2al9LiveActor10getBaseMtxEv,
 0x003375F4,          ,0x003375FC,          ,O,f,_ZNK2al9LiveActor14getNerveKeeperEv,
 0x003375FC,          ,0x00337604,          ,U,f,,
 0x00337604,          ,0x0033760C,          ,O,f,_ZNK2al9LiveActor15getEffectKeeperEv,

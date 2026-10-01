@@ -115,3 +115,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T08:08:10-04:00,0x00375F28,_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv,matched,3,0.0681
 2026-10-01T08:08:11-04:00,0x00376A44,_ZThn8_NK2al9LiveActor14getAudioKeeperEv,matched,3,0.0680
 2026-10-01T08:08:11-04:00,0x0025AA34,_ZN2al9LiveActor8calcAnimEv,matched,3,0.0213
+2026-10-01T08:08:12-04:00,0x003375DC,_ZNK2al9LiveActor10getBaseMtxEv,matched,3,0.0216
