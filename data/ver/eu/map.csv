@@ -17673,7 +17673,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00397DBC,0x00397DF0,0x00397DF4,          ,U,f,,
 0x00397DF4,0x00397E28,0x00397E2C,          ,U,f,,
 0x00397E2C,0x00397E60,0x00397E64,          ,U,f,,
-0x00397E64,          ,0x00397E8C,          ,M,ft,_ZN2al19createActorFunctionINS_3SkyEEEPNS_9LiveActorEPKc,
+0x00397E64,          ,0x00397E8C,          ,O,ft,_ZN2al19createActorFunctionINS_3SkyEEEPNS_9LiveActorEPKc,
 0x00397E8C,0x00397EC0,0x00397EC4,          ,U,f,,
 0x00397EC4,          ,0x00397EEC,          ,U,f,,
 0x00397EEC,0x00397F20,0x00397F24,          ,U,f,,
