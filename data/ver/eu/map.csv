@@ -9861,7 +9861,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00292244,          ,0x00292268,          ,U,f,_ZN2nn2os18ThreadLocalStorage13ClearAllSlotsEv,
 0x00292268,          ,0x002922E0,          ,U,f,,
 0x002922E0,          ,0x00292308,          ,U,f,,
-0x00292308,          ,0x00292340,          ,U,f,_ZN2al13isEqualStringEPKcS1_,
+0x00292308,          ,0x00292340,          ,O,f,_ZN2al13isEqualStringEPKcS1_,
 0x00292340,          ,0x00292354,          ,U,f,,
 0x00292354,          ,0x002926DC,          ,U,fa,nnnstdMemCpy,
 0x002926DC,          ,0x00292A78,          ,U,fa,nnnstdMemMove,
