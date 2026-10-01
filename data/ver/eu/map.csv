@@ -23926,7 +23926,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003DA24C,          ,0x003DA260,          ,U,dc,,
 0x003DA260,          ,0x003DA274,          ,U,dc,,
 0x003DA274,          ,0x003DA280,          ,U,dc,,
-0x003DA280,          ,0x003DA294,          ,U,dc,_ZTVN4sead15FixedSafeStringILi64EEE,
+0x003DA280,          ,0x003DA294,          ,U,dc,_ZTVN4sead19FixedSafeStringBaseIcLi64EEE,
 0x003DA294,          ,0x003DA29C,          ,U,dc,,
 0x003DA29C,          ,0x003DA2B0,          ,U,dc,,
 0x003DA2B0,          ,0x003DA2C4,          ,U,dc,,
