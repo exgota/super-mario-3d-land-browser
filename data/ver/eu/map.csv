@@ -13791,7 +13791,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00330820,          ,0x00330844,          ,U,f,,
 0x00330844,          ,0x00330854,          ,U,f,,
 0x00330854,          ,0x00330868,          ,U,f,,
-0x00330868,0x00330904,0x0033091C,          ,M,f,_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE,
+0x00330868,0x00330904,0x0033091C,          ,O,f,_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE,
 0x0033091C,0x00330CF4,0x003311D8,          ,U,f,,
 0x003311D8,0x0033122C,0x00331234,          ,U,f,,
 0x00331234,          ,0x0033123C,          ,U,f,,
