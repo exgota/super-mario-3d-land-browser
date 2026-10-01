@@ -1,3 +1,5 @@
+#include <Effect/alEffectSetAction.h>
+
 namespace
 {
 // Only the fields used by these dispatch helpers are represented.
@@ -12,7 +14,6 @@ struct EffectKeeperFields
 };
 }
 extern "C" void fn_001EA00C( void* effectSet, bool value );
-extern "C" void fn_001E9B30( void* effectSet, const char* actionName, int mode );
 extern "C" void fn_001BFAA4( void* effectKeeper )
 {
         EffectKeeperFields* fields = static_cast<EffectKeeperFields*>( effectKeeper );
