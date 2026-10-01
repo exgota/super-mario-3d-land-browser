@@ -7706,7 +7706,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002552D8,          ,0x00255318,          ,U,f,,
 0x00255318,          ,0x00255364,          ,U,f,,
 0x00255364,          ,0x002553B4,          ,U,f,,
-0x002553B4,          ,0x00255408,          ,M,f,_ZN2al12EffectKeeper6updateEv,
+0x002553B4,          ,0x00255408,          ,O,f,_ZN2al12EffectKeeper6updateEv,
 0x00255408,          ,0x00255424,          ,U,f,,
 0x00255424,          ,0x00255518,          ,U,f,,
 0x00255518,          ,0x0025551C,          ,U,f,,
