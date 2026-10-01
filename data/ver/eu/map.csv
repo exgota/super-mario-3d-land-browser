@@ -5415,7 +5415,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EB7A0,0x001EB7B0,0x001EB7BC,          ,O,f,_ZN8JMapInfoC1Ev,
 0x001EB7BC,0x001EB918,0x001EB920,          ,U,f,,
 0x001EB920,          ,0x001EB930,          ,U,f,,
-0x001EB930,          ,0x001EB94C,          ,M,f,_ZN2al9AreaShape8setScaleERKN4sead7Vector3IfEE,
+0x001EB930,          ,0x001EB94C,          ,O,f,_ZN2al9AreaShape8setScaleERKN4sead7Vector3IfEE,
 0x001EB94C,          ,0x001EB960,          ,U,f,,
 0x001EB960,          ,0x001EB9A4,          ,O,f,_ZN2al9HitSensor10invalidateEv,
 0x001EB9A4,          ,0x001EB9C0,          ,U,f,,
