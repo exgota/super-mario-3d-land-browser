@@ -8152,7 +8152,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00261DE4,0x00261FBC,0x00261FFC,          ,U,f,,
 0x00261FFC,0x00262098,0x002620A8,          ,U,f,,
 0x002620A8,0x002620B0,0x002620B4,          ,U,f,,
-0x002620B4,          ,0x002620C4,          ,M,f,_ZN2al21isMsgKickKouraReflectEj,
+0x002620B4,          ,0x002620C4,          ,O,f,_ZN2al21isMsgKickKouraReflectEj,
 0x002620C4,0x0026231C,0x00262328,          ,U,f,,
 0x00262328,          ,0x0026233C,          ,U,f,,
 0x0026233C,0x00262394,0x002623A0,          ,U,f,,
