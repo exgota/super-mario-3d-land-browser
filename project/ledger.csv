@@ -216,3 +216,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:01:48-04:00,0x00272DC0,_ZN2al14getVelocityPtrEPNS_9LiveActorE,matched,2,0.0648
 2026-10-01T11:01:49-04:00,0x00272DD8,_ZN2al11getVelocityEPKNS_9LiveActorE,matched,2,0.0650
 2026-10-01T11:01:49-04:00,0x0027C04C,_ZN2al11getFrontPtrEPNS_9LiveActorE,matched,2,0.0645
+2026-10-01T11:01:50-04:00,0x0027D520,_ZN2al8getFrontEPKNS_9LiveActorE,matched,2,0.0642

@@ -9310,7 +9310,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027D354,          ,0x0027D370,          ,U,f,,
 0x0027D370,0x0027D4C0,0x0027D4D8,          ,U,f,,
 0x0027D4D8,0x0027D51C,0x0027D520,          ,U,f,,
-0x0027D520,          ,0x0027D530,          ,M,f,_ZN2al8getFrontEPKNS_9LiveActorE,
+0x0027D520,          ,0x0027D530,          ,O,f,_ZN2al8getFrontEPKNS_9LiveActorE,
 0x0027D530,          ,0x0027D540,          ,U,f,,
 0x0027D540,          ,0x0027D548,          ,U,f,,
 0x0027D548,          ,0x0027D564,          ,U,f,_ZN2al9sendMsg41EPNS_9HitSensorES1_,
