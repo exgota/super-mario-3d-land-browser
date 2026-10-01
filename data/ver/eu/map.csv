@@ -14978,7 +14978,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00351090,0x0035109C,0x003510A0,          ,U,f,,
 0x003510A0,0x003510AC,0x003510B0,          ,U,f,,
 0x003510B0,0x00351130,0x0035113C,          ,U,f,_ZNK13NrvFugumannen18FugumannenNrvMove27executeEPN2al11NerveKeeperE,
-0x0035113C,          ,0x00351178,          ,M,f,_ZNK13NrvFugumannen21FugumannenNrvBlowDown7executeEPN2al11NerveKeeperE,
+0x0035113C,          ,0x00351178,          ,O,f,_ZNK13NrvFugumannen21FugumannenNrvBlowDown7executeEPN2al11NerveKeeperE,
 0x00351178,0x00351204,0x00351210,          ,U,f,_ZNK13NrvFugumannen17FugumannenNrvMove7executeEPN2al11NerveKeeperE,
 0x00351210,          ,0x00351230,          ,U,f,,
 0x00351230,          ,0x00351234,          ,U,f,,
