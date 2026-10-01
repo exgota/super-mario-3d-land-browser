@@ -12629,7 +12629,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0031B5A8,0x0031B684,0x0031B6A8,          ,U,f,,
 0x0031B6A8,0x0031B6E4,0x0031B6EC,          ,U,f,,
 0x0031B6EC,0x0031B740,0x0031B754,          ,U,f,_ZN9FlowerPot4initERKN2al13ActorInitInfoE,
-0x0031B754,0x0031B77C,0x0031B780,          ,M,f,_ZN9FlowerPotC1ERKN4sead14SafeStringBaseIcEE,
+0x0031B754,0x0031B77C,0x0031B780,          ,O,f,_ZN9FlowerPotC1ERKN4sead14SafeStringBaseIcEE,
 0x0031B780,          ,0x0031B7FC,          ,U,f,,
 0x0031B7FC,0x0031B870,0x0031B878,          ,U,f,,
 0x0031B878,0x0031BA6C,0x0031BA84,          ,U,f,,
