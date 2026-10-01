@@ -5264,7 +5264,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E63B4,          ,0x001E6410,          ,U,f,,
 0x001E6410,0x001E65E4,0x001E65EC,          ,U,f,,
 0x001E65EC,          ,0x001E6690,          ,U,f,,
-0x001E6690,          ,0x001E66AC,          ,M,f,_ZN2al28sendMsgPlayerBoomerangAttackEPNS_9HitSensorES1_,
+0x001E6690,          ,0x001E66AC,          ,O,f,_ZN2al28sendMsgPlayerBoomerangAttackEPNS_9HitSensorES1_,
 0x001E66AC,0x001E6768,0x001E6780,          ,U,f,,
 0x001E6780,0x001E6798,0x001E679C,          ,U,f,,
 0x001E679C,          ,0x001E67AC,          ,U,f,,
