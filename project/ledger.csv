@@ -36,3 +36,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T04:52:36-04:00,0x0028B518,_ZNK2al20ByamlStringTableIter15findStringIndexEPKc,matched,1,0.009
 2026-10-01T04:52:36-04:00,0x001DCD2C,_ZN2al19StageSwitchAccesser21initWithPlacementInfoENS_15StageSwitchTypeERKNS_9ByamlIterES1_,matched,1,0.009
 2026-10-01T04:52:38-04:00,0x001CB508,_ZN2al14SceneObjHolder6createEi,matched,1,0.009
+2026-10-01T04:52:39-04:00,0x001CB4B8,_ZN2al14SceneObjHolder26initAfterPlacementSceneObjERKNS_13ActorInitInfoE,matched,1,0.009

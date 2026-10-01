@@ -4374,7 +4374,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CB28C,0x001CB458,0x001CB48C,          ,U,f,,
 0x001CB48C,          ,0x001CB4AC,          ,U,f,_ZN2al11setSceneObjEPNS_9ISceneObjEi,
 0x001CB4AC,          ,0x001CB4B8,          ,U,f,_ZN2al14SceneObjHolder6setObjEPNS_9ISceneObjEi,
-0x001CB4B8,          ,0x001CB508,          ,U,f,_ZN2al14SceneObjHolder26initAfterPlacementSceneObjERKNS_13ActorInitInfoE,
+0x001CB4B8,          ,0x001CB508,          ,O,f,_ZN2al14SceneObjHolder26initAfterPlacementSceneObjERKNS_13ActorInitInfoE,
 0x001CB508,          ,0x001CB550,          ,O,f,_ZN2al14SceneObjHolder6createEi,
 0x001CB550,          ,0x001CB5D4,          ,U,f,_ZN2al14SceneObjHolderC1EPFPviEi,
 0x001CB5D4,          ,0x001CB5EC,          ,U,f,,
