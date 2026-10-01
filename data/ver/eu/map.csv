@@ -7446,7 +7446,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024F294,          ,0x0024F2C4,          ,U,f,,
 0x0024F2C4,          ,0x0024F2E8,          ,U,f,,
 0x0024F2E8,0x0024F32C,0x0024F344,          ,U,f,,
-0x0024F344,0x0024F464,0x0024F484,          ,U,f,_ZN2al12MemorySystem23createSceneResourceHeapEPKc,
+0x0024F344,0x0024F464,0x0024F484,          ,M,f,_ZN2al12MemorySystem23createSceneResourceHeapEPKc,
 0x0024F484,          ,0x0024F4A8,          ,U,f,,
 0x0024F4A8,0x0024F5E4,0x0024F614,          ,U,f,,
 0x0024F614,          ,0x0024F630,          ,U,f,,

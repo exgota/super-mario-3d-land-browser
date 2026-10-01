@@ -12,38 +12,46 @@ void MemorySystem::createSequenceHeap()
         mSequenceHeap = sead::ExpHeap::create( 0, "SequenceHeap", nullptr, sead::ExpHeap::cHeapDirection_Forward, false );
 }
 
-extern "C" void fn_002911e8( sead::FrameHeap** out, u32 heapSize, const char* name, u8,
-        int ); // creates FrameHeap(?)
+// Retail helper: create the frame heap and clear bit 2 of its flags at +0x6c.
+extern "C" void fn_002911e8( sead::FrameHeap** out, u32 heapSize, const char* name,
+        sead::Heap* parent, bool enableLock, sead::Heap::HeapDirection direction );
+
+extern "C" const char dat_003A2230[]; // ObjectData/GameSystemDataTable
+extern "C" const char dat_003A2220[]; // HeapSizeDefine
+extern "C" const char dat_003A2250[]; // Stage
+extern "C" const char dat_003A2258[]; // SceneResource
+extern "C" const char dat_003A2268[]; // SceneHeapResource
 
 #ifdef NON_MATCHING
-// WIP
-void MemorySystem::createSceneResourceHeap( const char* stageName )
+static inline u32 calcSceneResourceHeapSize( u32 defaultSize, const char* stageName )
 {
-        int heapSize;
-        if ( stageName )
+        if ( !stageName )
+                return defaultSize;
+        al::Resource* gameSystemDataTable =
+                al::findOrCreateResource( dat_003A2230 );
+        const u8*     tableData = gameSystemDataTable->getByml( dat_003A2220 );
+        al::ByamlIter table( tableData );
+        for ( int i = 0; i < table.getSize(); i++ )
         {
-                al::Resource* gameSystemDataTable =
-                        al::findOrCreateResource( "ObjectData/GameSystemDataTable" );
-                const u8*     tableData = gameSystemDataTable->getByml( "HeapSizeDefine" );
-                al::ByamlIter table( tableData );
-                for ( int i = 0; i < table.getSize(); i++ )
+                al::ByamlIter entry;
+                table.tryGetIterByIndex( &entry, i );
+                const char* stage = nullptr;
+                entry.tryGetStringByKey( &stage, dat_003A2250 );
+                if ( al::isEqualString( stage, stageName ) )
                 {
-                        al::ByamlIter entry;
-                        table.tryGetIterByIndex( &entry, i );
-                        const char* stage = nullptr;
-                        entry.tryGetStringByKey( &stage, "Stage" );
-                        if ( al::isEqualString( stage, stageName ) )
-                        {
-                                float resourceMb = 0;
-                                entry.tryGetFloatByKey( &resourceMb, "SceneResource" );
-                                heapSize = resourceMb * 1024 * 1024;
-                                break;
-                        }
+                        float resourceMb = 0;
+                        entry.tryGetFloatByKey( &resourceMb, dat_003A2258 );
+                        return resourceMb * 1024 * 1024;
                 }
         }
-        else
-                heapSize = 8 * 1024 * 1024; // 8 MB
-        fn_002911e8( &mSceneResourceHeap, heapSize, "SceneHeapResource", 0, 1 );
+        return defaultSize;
+}
+
+void MemorySystem::createSceneResourceHeap( const char* stageName )
+{
+        u32 heapSize = calcSceneResourceHeapSize( 8 * 1024 * 1024, stageName );
+        fn_002911e8( &mSceneResourceHeap, heapSize, dat_003A2268, nullptr, true,
+                sead::Heap::cHeapDirection_Forward );
 }
 #endif
 
