@@ -7849,7 +7849,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002592E0,          ,0x002592F4,          ,U,f,,
 0x002592F4,          ,0x002592F8,          ,U,f,,
 0x002592F8,0x00259320,0x00259328,          ,U,f,,
-0x00259328,          ,0x00259368,          ,M,f,_ZN2al14LiveActorGroup7killAllEv,
+0x00259328,          ,0x00259368,          ,O,f,_ZN2al14LiveActorGroup7killAllEv,
 0x00259368,0x002593E4,0x00259408,          ,U,f,_ZN16WalkerStateChaseC1EPN2al9LiveActorEPN4sead7Vector3IfEEPK16WalkerStateParamPK21WalkerStateChaseParamb,
 0x00259408,0x00259744,0x00259758,          ,U,f,,
 0x00259758,          ,0x002597E8,          ,U,f,,
