@@ -4036,7 +4036,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BCF94,          ,0x001BCFB8,          ,U,f,,
 0x001BCFB8,          ,0x001BD000,          ,U,f,,
 0x001BD000,0x001BD028,0x001BD030,          ,U,f,,
-0x001BD030,0x001BD038,0x001BD040,          ,M,f,_ZN2al10tryGetArg0EPfRKNS_9ByamlIterE,
+0x001BD030,0x001BD038,0x001BD040,          ,O,f,_ZN2al10tryGetArg0EPfRKNS_9ByamlIterE,
 0x001BD040,0x001BD048,0x001BD050,          ,M,f,_ZN2al10tryGetArg3EPbRKNS_9ByamlIterE,
 0x001BD050,0x001BD058,0x001BD060,          ,M,f,_ZN2al10tryGetArg5EPbRKNS_9ByamlIterE,
 0x001BD060,0x001BD068,0x001BD070,          ,M,f,_ZN2al10tryGetArg6EPfRKNS_9ByamlIterE,
