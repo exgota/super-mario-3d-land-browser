@@ -4888,7 +4888,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001DB778,          ,0x001DB780,          ,O,f,_ZN2al19ActorPoseKeeperTFSV14getVelocityPtrEv,
 0x001DB780,0x001DB7C4,0x001DB7C8,          ,U,f,,
 0x001DB7C8,0x001DB810,0x001DB820,          ,U,f,_ZN2al19ActorPoseKeeperTFSVC1Ev,
-0x001DB820,          ,0x001DB828,          ,M,f,_ZN2al19ActorPoseKeeperTQSV10getQuatPtrEv,
+0x001DB820,          ,0x001DB828,          ,O,f,_ZN2al19ActorPoseKeeperTQSV10getQuatPtrEv,
 0x001DB828,          ,0x001DB830,          ,M,f,_ZN2al19ActorPoseKeeperTQSV11getScalePtrEv,
 0x001DB830,          ,0x001DB860,          ,U,f,,
 0x001DB860,          ,0x001DB868,          ,M,f,_ZN2al19ActorPoseKeeperTQSV14getVelocityPtrEv,
