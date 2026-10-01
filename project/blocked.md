@@ -32,3 +32,20 @@ Translation reaches eight structural forms. Quaternion stalls after seven distin
 | 0x00267254 | al::tryGetTrans(Vector3f*, const ActorInitInfo&) | Complete172-byte output differs in9 register-assignment bytes after8 structures. | New independently grounded source/codegen hypothesis; pro_requests/00267254.md. |
 | 0x00270778 | sead::Matrix34CalcCtr<float>::makeQ | Best complete204-byte ordinary output differs by131 bytes; structural search stalls after7 forms. | Grounded float scheduling/ABI hypothesis; pro_requests/00270778.md. |
 | 0x001E9B30 | fn_001E9B30 from dot/effect-action-update | Three required whole string virtual tables have no established current map starts; branch reports1244 bytes but unresolved closure and differing code. | Independent whole-table identities/boundaries, then canonical build/check; pro_requests/001E9B30.md. |
+
+## Capped integer argument reader family
+
+Ten existing intervals share an eight-form code-generation miss. Their5.032019-minute search window overlaps; it is not ten independent labor measurements. No source is enrolled and no NonMatching claim is made.
+
+| Address | Function | First blocker | Unblocks when |
+|---|---|---|---|
+| 0x002794F8 | _ZN2al10tryGetArg0EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x0027D1DC | _ZN2al10tryGetArg1EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x0027D180 | _ZN2al10tryGetArg2EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x0027AFF8 | _ZN2al10tryGetArg3EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x002693D8 | _ZN2al10tryGetArg4EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x002671D4 | _ZN2al10tryGetArg5EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x00266148 | _ZN2al10tryGetArg6EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x002730F8 | _ZN2al10tryGetArg7EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x001BD080 | _ZN2al10tryGetArg8EPiRKNS_13ActorInitInfoE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |
+| 0x002670D8 | _ZN2al10tryGetArg2EPiRKNS_9ByamlIterE | Eight forms: full92 bytes differ by38; shorter88-byte form still differs. | Grounded helper/inline lowering hypothesis; pro_requests/002794F8.md. |

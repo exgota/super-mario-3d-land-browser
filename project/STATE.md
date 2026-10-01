@@ -26,7 +26,7 @@ M0 passes three committed-source compiler discriminators. M1 passes all 50 pilot
 - Ready queue: factory/creator7, EffectObj/audio5, LayoutKit32, AreaShape/setScale104, pose getter12, Sequence7, controller14, memory7, Byaml bool/float wrappers9, atanIdx72; updateCollider168. StageSwitchKeeper84 now passes after the general pool-inclusive closure verifier repair74be6ad and first-pass clean build. Scratch proposals count only after canonical checks.
 - Matching lanes continue collision/actor helpers, ActorInitInfo/link readers, actor-group helpers, math/layout work, effects and stage switches. Runtime verifies ETC1A4 raw storage; HILO8 inspection continues independently. Production remains frozen during canonical checks.
 - Guarded sensor execute records810 bounded ARM11 pairs, placement initialization76 and heap creation380 returning/30 fault pairs. These frozen NonMatching results add zero exact bytes.
-- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Thirteen hard-function packets are committed; Pro relay is paused.
+- Active dot branches reserve blocked.md, unanswered packets and U functions>=0x400 bytes. Fetch every few hours. Fourteen hard-function packets are committed; Pro relay is paused.
 
 ## Next three tasks
 1. Accept queued source-frozen helpers after the successful clean rebuild, preserving affected earlier roots. Keep matching lanes active; every push requires a successful clean -ca link.
