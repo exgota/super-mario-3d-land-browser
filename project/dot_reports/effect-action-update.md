@@ -267,3 +267,7 @@ header remains `8379a909a1c4eedc53ebc8f7b20217c630b9e0efb398814430cb0cadec3f45de
 The self-contained unanswered packet is `project/pro_requests/001E9B30.md`.
 Source and headers are frozen. The next useful step is main-lane data ownership
 review; further code generation work must not bypass the unresolved vtables.
+
+## Expanded header regression validation
+
+The published SafeString header was independently applied alone to a fresh main21b861d6 worktree and committed as97a92e5; all159 accepted functions remained exact. It was then tested with the clean native vector/matrix declarations on main8ca3fc0f, where all197 accepted functions remained exact before and after the full header/proposal batch. These checks strengthen shared-header compatibility but do not change the action-update target's genuine vtable-identity blocker or its zero exact contribution.
