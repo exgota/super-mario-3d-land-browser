@@ -525,9 +525,216 @@ struct ResourceCategory {
     std::vector<ResourceEntry> entries;
 };
 
+struct ModelAttribute {
+    std::uint32_t semantic;
+    std::uint32_t scalarType;
+    std::uint32_t componentCount;
+    std::uint32_t byteOffset;
+    float multiplier;
+    std::vector<std::uint32_t> rawComponents;
+    std::vector<float> scaledComponents;
+};
+
+struct ModelVertexGroup {
+    std::uint32_t flags;
+    std::uint32_t semantic;
+    std::string status;
+    std::uint32_t stride;
+    std::size_t vertexCount;
+    std::vector<ModelAttribute> attributes;
+};
+
+struct ModelIndexStream {
+    std::uint32_t scalarType;
+    std::uint32_t primitiveField;
+    std::vector<std::uint32_t> indices;
+};
+
+struct ModelFaceGroup {
+    std::uint32_t skinningField;
+    std::vector<std::uint32_t> boneReferences;
+    std::vector<ModelIndexStream> streams;
+};
+
+struct ModelShape {
+    std::size_t offset;
+    std::uint32_t flags;
+    std::string status;
+    std::array<float, 3> positionFields;
+    std::vector<ModelVertexGroup> vertexGroups;
+    std::vector<ModelFaceGroup> faceGroups;
+};
+
+struct ModelGeometry {
+    std::string name;
+    std::size_t offset;
+    std::uint32_t flags;
+    std::string status;
+    std::vector<ModelShape> shapes;
+};
+
+// The owner's revision uses OpenGL scalar enums in the documented CGFX records.
+// These records retain resource-local data. Bone, shape and draw semantics stay open.
+ModelGeometry readModelGeometry(Bytes data, std::size_t dataEnd, std::size_t imageStart,
+                                std::uint32_t revision, const ResourceEntry& entry) {
+    ByteReader input(data);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "CGFX model metadata escapes DATA");
+    };
+    std::size_t remainingComponents = data.size();
+    auto consume = [&](std::size_t count) {
+        require(count <= remainingComponents, "CGFX model exceeds its decoded component limit");
+        remainingComponents -= count;
+    };
+    auto pointerList = [&](std::size_t field, std::size_t count) {
+        metadata(field, 4);
+        std::vector<std::size_t> result;
+        if (!count) {
+            require(input.integer(field) == 0, "Empty CGFX model list has a nonnull pointer");
+            return result;
+        }
+        require(count <= (dataEnd - 20) / 4, "CGFX model list count exceeds DATA");
+        const std::size_t list = input.relative(field);
+        metadata(list, count * 4);
+        consume(count);
+        for (std::size_t index = 0; index < count; ++index) {
+            const std::size_t object = input.relative(list + index * 4);
+            metadata(object, 4);
+            result.push_back(object);
+        }
+        return result;
+    };
+    auto imageBuffer = [&](std::size_t field, std::size_t size) {
+        require(size != 0 && imageStart != 0, "CGFX model has an empty image buffer");
+        const std::size_t offset = input.relative(field);
+        require(offset >= imageStart && offset <= data.size() && size <= data.size() - offset,
+                "CGFX model buffer escapes IMAG");
+        return offset;
+    };
+    metadata(entry.offset, 8);
+    require(input.magic(entry.offset + 4, "CMDL"), "CGFX model has no CMDL signature");
+    ModelGeometry result{entry.name, entry.offset, input.integer(entry.offset), "resource_local_fields", {}};
+    if (revision != 0x05000000) {
+        result.status = "unsupported_model_revision";
+        return result;
+    }
+    metadata(entry.offset, 0xE0);
+    for (const std::size_t shape : pointerList(entry.offset + 0xC8, input.integer(entry.offset + 0xC4))) {
+        metadata(shape, 8);
+        require(input.magic(shape + 4, "SOBJ"), "CGFX shape has no SOBJ signature");
+        ModelShape record{shape, input.integer(shape), "resource_local_fields", {}, {}, {}};
+        if (record.flags != 0x10000001) {
+            record.status = "unsupported_shape_layout";
+            result.shapes.push_back(std::move(record));
+            continue;
+        }
+        metadata(shape, 0x40);
+        for (std::size_t axis = 0; axis < 3; ++axis)
+            record.positionFields[axis] = input.floating(shape + 0x20 + axis * 4);
+        std::size_t vertexCount = 0;
+        for (const std::size_t group : pointerList(shape + 0x3C, input.integer(shape + 0x38))) {
+            metadata(group, 8);
+            ModelVertexGroup vertices{input.integer(group), input.integer(group + 4),
+                                      "unresolved_vertex_group_layout", 0, 0, {}};
+            if (vertices.flags != 0x40000002) {
+                record.vertexGroups.push_back(std::move(vertices));
+                continue;
+            }
+            require(vertexCount == 0, "CGFX shape has multiple interleaved vertex groups");
+            metadata(group, 0x30);
+            const std::size_t size = input.integer(group + 0x14);
+            vertices.stride = input.integer(group + 0x24);
+            require(vertices.stride != 0 && size % vertices.stride == 0,
+                    "Invalid CGFX vertex stride or buffer size");
+            const std::size_t buffer = imageBuffer(group + 0x18, size);
+            vertices.vertexCount = vertexCount = size / vertices.stride;
+            vertices.status = "decoded_interleaved_attributes";
+            std::set<std::uint32_t> semantics;
+            for (const std::size_t declaration : pointerList(group + 0x2C, input.integer(group + 0x28))) {
+                metadata(declaration, 0x34);
+                require(input.integer(declaration) == 0x40000001, "Unsupported CGFX component declaration");
+                ModelAttribute attribute{input.integer(declaration + 4), input.integer(declaration + 0x24),
+                                         input.integer(declaration + 0x28), input.integer(declaration + 0x30),
+                                         input.floating(declaration + 0x2C), {}, {}};
+                require(semantics.insert(attribute.semantic).second, "Duplicate CGFX vertex semantic");
+                std::size_t width;
+                switch (attribute.scalarType) {
+                    case 0x1400: case 0x1401: width = 1; break;
+                    case 0x1402: case 0x1403: width = 2; break;
+                    case 0x1406: width = 4; break;
+                    default: throw FormatError("Unsupported CGFX component scalar type");
+                }
+                require(attribute.componentCount >= 1 && attribute.componentCount <= 4 &&
+                        attribute.byteOffset <= vertices.stride &&
+                        attribute.componentCount * width <= vertices.stride - attribute.byteOffset,
+                        "CGFX component exceeds its vertex stride");
+                consume(vertexCount * attribute.componentCount);
+                for (std::size_t vertex = 0; vertex < vertexCount; ++vertex)
+                    for (std::size_t component = 0; component < attribute.componentCount; ++component) {
+                        const std::size_t offset = buffer + vertex * vertices.stride + attribute.byteOffset + component * width;
+                        const std::uint32_t raw = input.integer(offset, width);
+                        float value;
+                        switch (attribute.scalarType) {
+                            case 0x1400: value = std::bit_cast<std::int8_t>(std::uint8_t(raw)); break;
+                            case 0x1402: value = std::bit_cast<std::int16_t>(std::uint16_t(raw)); break;
+                            case 0x1406: value = input.floating(offset); break;
+                            default: value = float(raw); break;
+                        }
+                        value *= attribute.multiplier;
+                        require(std::isfinite(value), "Nonfinite scaled CGFX vertex component");
+                        attribute.rawComponents.push_back(raw);
+                        attribute.scaledComponents.push_back(value);
+                    }
+                vertices.attributes.push_back(std::move(attribute));
+            }
+            record.vertexGroups.push_back(std::move(vertices));
+        }
+        for (const std::size_t face : pointerList(shape + 0x30, input.integer(shape + 0x2C))) {
+            metadata(face, 0x14);
+            ModelFaceGroup faces{input.integer(face + 8), {}, {}};
+            const std::size_t boneCount = input.integer(face);
+            if (boneCount) {
+                require(boneCount <= (dataEnd - 20) / 4, "CGFX bone reference count exceeds DATA");
+                const std::size_t bones = input.relative(face + 4);
+                metadata(bones, boneCount * 4);
+                consume(boneCount);
+                for (std::size_t index = 0; index < boneCount; ++index)
+                    faces.boneReferences.push_back(input.integer(bones + index * 4));
+            } else {
+                require(input.integer(face + 4) == 0, "Empty CGFX bone list has a nonnull pointer");
+            }
+            for (const std::size_t primitive : pointerList(face + 0x10, input.integer(face + 0xC))) {
+                metadata(primitive, 8);
+                for (const std::size_t descriptor : pointerList(primitive + 4, input.integer(primitive))) {
+                    metadata(descriptor, 0x10);
+                    ModelIndexStream stream{input.integer(descriptor), input.integer(descriptor + 4), {}};
+                    require(stream.scalarType == 0x1401 || stream.scalarType == 0x1403,
+                            "Unsupported CGFX index scalar type");
+                    const std::size_t width = stream.scalarType == 0x1401 ? 1 : 2;
+                    const std::size_t size = input.integer(descriptor + 8);
+                    require(size % width == 0, "CGFX index buffer has a partial scalar");
+                    const std::size_t buffer = imageBuffer(descriptor + 0xC, size);
+                    consume(size / width);
+                    for (std::size_t index = 0; index < size / width; ++index) {
+                        const std::uint32_t value = input.integer(buffer + index * width, width);
+                        require(vertexCount != 0 && value < vertexCount, "CGFX index exceeds its vertex count");
+                        stream.indices.push_back(value);
+                    }
+                    faces.streams.push_back(std::move(stream));
+                }
+            }
+            record.faceGroups.push_back(std::move(faces));
+        }
+        result.shapes.push_back(std::move(record));
+    }
+    return result;
+}
+
 struct ModelCatalog {
     std::uint32_t revision;
     std::vector<ResourceCategory> categories;
+    std::vector<ModelGeometry> models;
 };
 
 ModelCatalog readCgfx(Bytes data) {
@@ -539,6 +746,7 @@ ModelCatalog readCgfx(Bytes data) {
     require(sectionCount >= 1 && sectionCount <= 2, "Unsupported CGFX section count");
     std::size_t section = 20;
     std::size_t dataSize = 0;
+    std::size_t imageStart = 0;
     for (std::size_t number = 0; number < sectionCount; ++number) {
         require(input.magic(section, number == 0 ? "DATA" : "IMAG"), "Unexpected CGFX section");
         const std::size_t size = input.integer(section + 4);
@@ -546,11 +754,13 @@ ModelCatalog readCgfx(Bytes data) {
         input.check(section, size);
         if (number == 0)
             dataSize = size;
+        else
+            imageStart = section + 8;
         section += size;
     }
     require(section == data.size(), "CGFX sections do not cover their file");
     require(dataSize >= 8 + 16 * 8, "CGFX DATA catalog is truncated");
-    ModelCatalog result{input.integer(8), {}};
+    ModelCatalog result{input.integer(8), {}, {}};
     for (std::uint32_t number = 0; number < 16; ++number) {
         const std::size_t slot = 20 + 8 + number * 8;
         const std::size_t count = input.integer(slot);
@@ -577,6 +787,9 @@ ModelCatalog readCgfx(Bytes data) {
             const std::string name = input.terminatedText(symbol, 20 + dataSize - symbol);
             require(!name.empty() && uniqueNames.insert(name).second, "Empty or duplicate CGFX resource name");
             category.entries.push_back({name, object});
+            if (number == 0)
+                result.models.push_back(readModelGeometry(data, 20 + dataSize, imageStart,
+                                                          result.revision, category.entries.back()));
         }
         result.categories.push_back(std::move(category));
     }
@@ -804,6 +1017,98 @@ void writeCollision(std::ostream& output, const CollisionMesh& mesh) {
     output << "]}";
 }
 
+void writeModelGeometry(std::ostream& output, const ModelGeometry& model) {
+    output << "{\"name_hex\":";
+    writeString(output, hexadecimal(model.name));
+    output << ",\"offset\":" << model.offset << ",\"flags\":" << model.flags << ",\"status\":";
+    writeString(output, model.status);
+    output << ",\"coordinate_space\":\"resource_local\",\"shape_transform\":\"unresolved\","
+              "\"bone_transforms\":\"unresolved\",\"material_mapping\":\"unresolved\",\"shapes\":[";
+    bool firstShape = true;
+    for (const ModelShape& shape : model.shapes) {
+        if (!firstShape)
+            output << ',';
+        firstShape = false;
+        output << "{\"offset\":" << shape.offset << ",\"flags\":" << shape.flags << ",\"status\":";
+        writeString(output, shape.status);
+        if (shape.status != "resource_local_fields") {
+            output << '}';
+            continue;
+        }
+        output << ",\"position_fields_bits\":[";
+        for (std::size_t axis = 0; axis < 3; ++axis) {
+            if (axis)
+                output << ',';
+            writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(shape.positionFields[axis])));
+        }
+        output << "],\"vertex_groups\":[";
+        bool firstGroup = true;
+        for (const ModelVertexGroup& group : shape.vertexGroups) {
+            if (!firstGroup)
+                output << ',';
+            firstGroup = false;
+            output << "{\"flags\":" << group.flags << ",\"semantic_field\":" << group.semantic << ",\"status\":";
+            writeString(output, group.status);
+            output << ",\"stride\":" << group.stride << ",\"vertex_count\":" << group.vertexCount << ",\"attributes\":[";
+            bool firstAttribute = true;
+            for (const ModelAttribute& attribute : group.attributes) {
+                if (!firstAttribute)
+                    output << ',';
+                firstAttribute = false;
+                output << "{\"semantic\":" << attribute.semantic << ",\"scalar_type\":" << attribute.scalarType
+                       << ",\"component_count\":" << attribute.componentCount << ",\"byte_offset\":" << attribute.byteOffset
+                       << ",\"multiplier_bits\":";
+                writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(attribute.multiplier)));
+                output << ",\"raw_components\":[";
+                for (std::size_t index = 0; index < attribute.rawComponents.size(); ++index) {
+                    if (index)
+                        output << ',';
+                    output << attribute.rawComponents[index];
+                }
+                output << "],\"scaled_component_bits\":[";
+                for (std::size_t index = 0; index < attribute.scaledComponents.size(); ++index) {
+                    if (index)
+                        output << ',';
+                    writeString(output, integerHexadecimal(std::bit_cast<std::uint32_t>(attribute.scaledComponents[index])));
+                }
+                output << "]}";
+            }
+            output << "]}";
+        }
+        output << "],\"face_groups\":[";
+        bool firstFace = true;
+        for (const ModelFaceGroup& group : shape.faceGroups) {
+            if (!firstFace)
+                output << ',';
+            firstFace = false;
+            output << "{\"skinning_field\":" << group.skinningField << ",\"bone_references\":[";
+            for (std::size_t index = 0; index < group.boneReferences.size(); ++index) {
+                if (index)
+                    output << ',';
+                output << group.boneReferences[index];
+            }
+            output << "],\"index_streams\":[";
+            bool firstStream = true;
+            for (const ModelIndexStream& stream : group.streams) {
+                if (!firstStream)
+                    output << ',';
+                firstStream = false;
+                output << "{\"scalar_type\":" << stream.scalarType << ",\"primitive_field\":" << stream.primitiveField
+                       << ",\"topology\":\"unresolved\",\"indices\":[";
+                for (std::size_t index = 0; index < stream.indices.size(); ++index) {
+                    if (index)
+                        output << ',';
+                    output << stream.indices[index];
+                }
+                output << "]}";
+            }
+            output << "]}";
+        }
+        output << "]}";
+    }
+    output << "]}";
+}
+
 void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
     output << "{\"revision\":" << catalog.revision << ",\"categories\":[";
     bool first = true;
@@ -822,6 +1127,12 @@ void writeCatalog(std::ostream& output, const ModelCatalog& catalog) {
             output << ",\"offset\":" << entry.offset << '}';
         }
         output << "]}";
+    }
+    output << "],\"models\":[";
+    for (std::size_t index = 0; index < catalog.models.size(); ++index) {
+        if (index)
+            output << ',';
+        writeModelGeometry(output, catalog.models[index]);
     }
     output << "]}";
 }
