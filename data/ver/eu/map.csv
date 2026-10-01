@@ -4971,7 +4971,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001DD8C0,0x001DD8EC,0x001DD8F8,          ,U,f,_ZN2al20ActorPoseKeeperTFGSVC1Ev,
 0x001DD8F8,          ,0x001DD958,          ,U,f,,
 0x001DD958,          ,0x001DD98C,          ,U,f,,
-0x001DD98C,          ,0x001DD9E8,          ,M,f,fn_001DD98C,
+0x001DD98C,          ,0x001DD9E8,          ,O,f,fn_001DD98C,
 0x001DD9E8,          ,0x001DDA58,          ,O,f,fn_001DD9E8,
 0x001DDA58,          ,0x001DDAC8,          ,O,f,fn_001DDA58,
 0x001DDAC8,0x001DDB40,0x001DDB44,          ,U,f,_ZN2al20ExecuteRequestKeeperC1Ej,
