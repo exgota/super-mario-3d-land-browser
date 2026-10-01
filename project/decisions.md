@@ -92,3 +92,9 @@ A direct read of the retail17-entry table showed KickKoura as its third entry, a
 `python tools/checkGameCompiler.py` compiles the manifest's source under791 and894 with the unchanged project flags, records commands and source/header hashes, and invokes strict original-address byte checking. It accepts an alternative failure as compiler evidence only for a successfully compiled body with a different complete section size or different linked bytes. Missing addresses or linker/tool failures are not proof. Changed source/header files invalidate the check. With the one established sensor function, it correctly reports1 /3 discriminators and exits nonzero: M0 is not proved yet.
 
 The current brief removes the pilot review stop and the extra ledger fields. STATE now points through the pilot directly into scaling. Historical decision entries remain append-only.
+
+## 2026-10-01: Fix the pilot sample before its first attempt
+
+The refreshed manifest contains 20 small functions, 20 medium functions and 10 large or branch-heavy functions. Previously matched hash and frame-accessor entries were replaced with the unmatched collision predicate and KeyPoseKeeper constructor. The sample draws only from already available clean game source, so its results cannot be treated as an unbiased forecast of all unnamed functions. No selected rank is O at selection time.
+
+Two lanes continue the required M0 compiler investigation while the root performs independent pilot matching under the configured791 build. This is dependency scheduling: each accepted code interval still requires the strict target comparison, and M0 remains explicitly incomplete until three discriminators pass. Three late ledger rows still contained removed fields after the brief update; they now retain only timestamp, address, symbol, outcome, attempts and minutes.
