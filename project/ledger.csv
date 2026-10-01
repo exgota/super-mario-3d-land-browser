@@ -427,3 +427,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T16:43:14.311199+00:00,0x002670D8,_ZN2al10tryGetArg2EPiRKNS_9ByamlIterE,abandoned,8,5.032019
 2026-10-01T13:11:06-04:00,0x0031B378,_ZN2al9EffectObj17makeActorAppearedEv,matched,2,0.0196
 2026-10-01T13:11:07-04:00,0x0031B4F8,_ZN2al9EffectObj4killEv,matched,2,0.4605
+2026-10-01T13:11:07-04:00,0x00375B38,_ZNK2al9EffectObj10getBaseMtxEv,matched,2,0.4621
