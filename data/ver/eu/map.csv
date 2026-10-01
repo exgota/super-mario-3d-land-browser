@@ -8639,7 +8639,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026E5D4,          ,0x0026E64C,          ,U,f,,
 0x0026E64C,          ,0x0026E674,          ,U,f,,
 0x0026E674,0x0026E730,0x0026E734,          ,U,f,,
-0x0026E734,          ,0x0026E744,          ,M,f,_ZN2al9getRotateEPKNS_9LiveActorE,
+0x0026E734,          ,0x0026E744,          ,O,f,_ZN2al9getRotateEPKNS_9LiveActorE,
 0x0026E744,          ,0x0026E754,          ,M,f,_ZN2al12getRotatePtrEPNS_9LiveActorE,
 0x0026E754,          ,0x0026E778,          ,U,f,,
 0x0026E778,          ,0x0026E7AC,          ,M,f,_ZN2al8setScaleEPNS_9LiveActorERKN4sead7Vector3IfEE,
