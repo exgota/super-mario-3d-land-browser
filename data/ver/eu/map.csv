@@ -9135,7 +9135,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00279D54,          ,0x00279D98,          ,U,f,,
 0x00279D98,0x00279E2C,0x00279E3C,          ,U,f,,
 0x00279E3C,0x00279E44,0x00279E4C,          ,O,f,_ZN2al21startHitReactionDeathEPKNS_9LiveActorE,
-0x00279E4C,0x00279E54,0x00279E5C,          ,M,f,_ZN2al24startHitReactionOnGroundEPKNS_9LiveActorE,
+0x00279E4C,0x00279E54,0x00279E5C,          ,O,f,_ZN2al24startHitReactionOnGroundEPKNS_9LiveActorE,
 0x00279E5C,          ,0x00279E8C,          ,U,f,,
 0x00279E8C,          ,0x00279ED4,          ,U,f,,
 0x00279ED4,0x00279F9C,0x00279FA0,          ,U,f,,
