@@ -7606,7 +7606,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00252D34,          ,0x00252DB4,          ,U,f,,
 0x00252DB4,0x00252DF4,0x00252E00,          ,U,f,,
 0x00252E00,0x00252EAC,0x00252EC4,          ,U,f,,
-0x00252EC4,0x00252F20,0x00252F24,          ,M,f,fn_00252EC4,
+0x00252EC4,0x00252F20,0x00252F24,          ,O,f,fn_00252EC4,
 0x00252F24,          ,0x00252F40,          ,U,f,,
 0x00252F40,          ,0x00252F50,          ,U,f,,
 0x00252F50,0x00252FB0,0x00252FB4,          ,U,f,,

@@ -75,7 +75,6 @@ No functional NonMatching claim or production source intake follows from these s
 |---|---|---|---|
 | 0x001CD794 | fn_001CD794 | Seven valid structures plus one failed compile consume eight steps; 80-byte best differs five bytes. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
 | 0x00218B18 | fn_00218B18 | Companion 80-byte identifier predicate differs five bytes after the same capped shared search. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
-| 0x00252EC4 | fn_00252EC4 | Direct identifier reader has 92 generated versus 96 target bytes and 37 differences. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
 | 0x0024AD94 | fn_0024AD94 | Two ordinary 32-byte source forms stall at two zero-register differences; return ABI remains unresolved. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/0024AD94.md. |
 | 0x00268EB0 | _ZNK2al12ActorFactory10getCreatorEPKc | Six source structures stall at nine setup-register bytes in 264; helper closure grows to 280. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/00268EB0.md. |
 
