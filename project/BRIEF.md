@@ -15,6 +15,8 @@ The project exists to show what a frontier model can do with little supervision 
 
 Each milestone has a mechanical exit check. Never report a milestone as reached unless its check passes.
 
+The final goal is M2: 100% of the game's code byte-exact. The project is not finished until M2 passes, even after the port milestones are done. Port work (M3 to M5) runs alongside matching and never replaces it.
+
 | # | Milestone | Exit check |
 |---|-----------|------------|
 | M0 | Toolchain settled | Game code (`Game/`, `lib/al`) compiles, and the compiler build for game code is proven by at least 3 game functions that match byte-exact under it and fail under the alternative |
@@ -106,7 +108,7 @@ Remaining:
 1. Choose 50 unmatched game functions: 20 small leaf functions, 20 medium functions, and 10 large or branch-heavy ones.
 2. Per function, iterate: read the assembly, write C++, compile, diff, revise. Cap attempts at the limit in D5.
 3. Write `project/pilot_report.md`: match rate per size class, minutes per function, the failure modes you saw, and a projected duration for all 18,055 functions.
-4. **Stop after the pilot and wait for the owner's review.** This is the one mandatory checkpoint.
+4. Commit the report and continue straight into Phase 2. Do not stop for review. Claude reviews the report and the run from outside.
 
 ### Phase 2: matching at scale (exit M2)
 - Order the work so that matches compound. Do shared library code and small helpers first, then classes whose layout and vtables are recovered, then large gameplay actors.
@@ -141,4 +143,4 @@ Determinism is the test. The same inputs must produce the same game state on the
 - **D5. Attempt cap per function. DECIDED:** 8 compile-diff iterations during the pilot, then park the function in `blocked.md`. Revisit the cap in the pilot report.
 - **D6. Outer loop. DECIDED:** Codex `/goal` mode. Treat every session as one that might end unexpectedly: keep `project/STATE.md` current enough that a fresh session can resume from it alone.
 - **D7. Enhancement order. DECIDED:** gamepad, widescreen, free mouse camera, high frame rate, then WebXR stereoscopic mode last as the showpiece.
-- **D8. Owner review cadence after the pilot. DECIDED:** none required. The owner reads daily reports when they choose, and the model stops only on the conditions in Section 5.
+- **D8. Review cadence. DECIDED:** no stop for review at any point. Claude reviews the transcript, commits and reports every 30 minutes and may steer through queued messages or edits to this brief. The model stops only on the conditions in Section 5.
