@@ -491,3 +491,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T13:11:32-04:00,0x001BD050,_ZN2al10tryGetArg5EPbRKNS_9ByamlIterE,matched,2,0.1568
 2026-10-01T13:11:33-04:00,0x001BD070,_ZN2al10tryGetArg7EPbRKNS_9ByamlIterE,matched,2,0.1570
 2026-10-01T13:11:33-04:00,0x0026902C,_ZN2al12ActorFactoryC1Ev,matched,2,0.0201
+2026-10-01T13:11:34-04:00,0x00276810,_ZN2al5Scene16initActorFactoryEv,matched,2,0.0183

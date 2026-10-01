@@ -8951,7 +8951,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00276770,          ,0x00276774,          ,U,f,,
 0x00276774,          ,0x002767A0,          ,U,f,,
 0x002767A0,          ,0x00276810,          ,U,f,,
-0x00276810,          ,0x00276830,          ,M,f,_ZN2al5Scene16initActorFactoryEv,
+0x00276810,          ,0x00276830,          ,O,f,_ZN2al5Scene16initActorFactoryEv,
 0x00276830,0x00276840,0x00276844,          ,U,f,,
 0x00276844,          ,0x00276858,          ,U,f,,
 0x00276858,          ,0x00276870,          ,U,f,,
