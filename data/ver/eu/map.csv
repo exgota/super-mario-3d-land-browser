@@ -4861,7 +4861,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001DB12C,0x001DB190,0x001DB1A4,          ,U,f,,
 0x001DB1A4,          ,0x001DB220,          ,U,f,,
 0x001DB220,          ,0x001DB294,          ,U,f,,
-0x001DB294,          ,0x001DB2A4,          ,M,f,_ZN2al18getCurrentKeyTransEPKNS_13KeyPoseKeeperE,
+0x001DB294,          ,0x001DB2A4,          ,O,f,_ZN2al18getCurrentKeyTransEPKNS_13KeyPoseKeeperE,
 0x001DB2A4,0x001DB2AC,0x001DB2B0,          ,U,f,,
 0x001DB2B0,          ,0x001DB2B8,          ,U,f,,
 0x001DB2B8,0x001DB33C,0x001DB340,          ,U,f,,
