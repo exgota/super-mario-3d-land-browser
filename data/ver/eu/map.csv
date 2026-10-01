@@ -3052,7 +3052,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0018D0B4,0x0018D2F4,0x0018D328,          ,U,f,,
 0x0018D328,0x0018D354,0x0018D35C,          ,U,f,,
 0x0018D35C,0x0018D398,0x0018D3A0,          ,U,f,,
-0x0018D3A0,0x0018D3FC,0x0018D400,          ,M,f,_ZN19GhostPlayerRecorder6createEi,
+0x0018D3A0,0x0018D3FC,0x0018D400,          ,O,f,_ZN19GhostPlayerRecorder6createEi,
 0x0018D400,          ,0x0018D404,          ,U,f,_ZN19GhostPlayerRecorder5FrameC1Ev,
 0x0018D404,0x0018D440,0x0018D460,          ,U,f,,
 0x0018D460,0x0018D5D0,0x0018D5F4,          ,U,f,,
