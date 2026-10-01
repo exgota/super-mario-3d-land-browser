@@ -384,3 +384,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:32:50-04:00,0x0027497C,_ZN2al5Scene6appearEv,matched,2,0.0302
 2026-10-01T11:32:51-04:00,0x0013E224,_ZN2al5Scene4killEv,matched,2,0.0314
 2026-10-01T11:32:51-04:00,0x0013E230,_ZN2al5Scene7controlEv,matched,2,0.0301
+2026-10-01T11:32:51-04:00,0x00274A7C,_ZN2al5Scene7endInitERKNS_13ActorInitInfoE,matched,2,0.0310
