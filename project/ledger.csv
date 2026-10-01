@@ -347,3 +347,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T11:15:17-04:00,0x0027F1B8,_ZN2al24isMsgPlayerRollingAttackEj,matched,2,0.2221
 2026-10-01T11:15:18-04:00,0x0027F330,_ZN2al15isMsgUpperPunchEj,matched,2,0.2223
 2026-10-01T11:19:55-04:00,0x0023EF90,fn_0023EF90,matched,4,19.7291
+2026-10-01T11:19:55-04:00,0x0024DD4C,fn_0024DD4C,matched,6,14.8145

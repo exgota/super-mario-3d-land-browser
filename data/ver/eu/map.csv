@@ -7387,7 +7387,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024DC08,0x0024DCEC,0x0024DCF4,          ,U,f,,
 0x0024DCF4,          ,0x0024DD24,          ,U,f,,
 0x0024DD24,          ,0x0024DD4C,          ,U,f,,
-0x0024DD4C,          ,0x0024DD94,          ,M,f,fn_0024DD4C,
+0x0024DD4C,          ,0x0024DD94,          ,O,f,fn_0024DD4C,
 0x0024DD94,          ,0x0024DE00,          ,U,f,,
 0x0024DE00,          ,0x0024DEF0,          ,U,f,,
 0x0024DEF0,0x0024E010,0x0024E028,          ,U,f,,
