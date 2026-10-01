@@ -4350,7 +4350,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CA998,          ,0x001CAAB0,          ,U,f,fn_001CA998,
 0x001CAAB0,          ,0x001CAB14,          ,U,f,,
 0x001CAB14,          ,0x001CAB2C,          ,O,f,_ZN2al14LiveActorGroup13registerActorEPNS_9LiveActorE,
-0x001CAB2C,          ,0x001CAB6C,          ,M,f,_ZN2al14LiveActorGroup16makeActorDeadAllEv,
+0x001CAB2C,          ,0x001CAB6C,          ,O,f,_ZN2al14LiveActorGroup16makeActorDeadAllEv,
 0x001CAB6C,          ,0x001CAB74,          ,U,f,,
 0x001CAB74,0x001CAB8C,0x001CAB90,          ,U,f,,
 0x001CAB90,          ,0x001CABC8,          ,U,f,,
