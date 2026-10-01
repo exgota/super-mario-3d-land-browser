@@ -195,6 +195,13 @@ def exec_build():
         mod_path = getModSrc(mod_path_name, mod_data)
         module_paths[mod_path_name] = mod_path
 
+        source_files = mod_data.get("source_files")
+        if source_files is not None:
+            source_files = {mod_path / source_file for source_file in source_files}
+            missing_files = sorted(str(file) for file in source_files if not file.is_file())
+            if missing_files:
+                fail_ex("Configured source files are missing.", "\n".join(missing_files))
+
         mod_extensions = cfg.extensions
         if "extensions" in mod_data:
             mod_extensions = mod_data.get("extensions")
@@ -202,6 +209,8 @@ def exec_build():
         module_files[mod_path_name] = set()
         for file in mod_path.rglob("*"):
             if not file.is_file():
+                continue
+            if source_files is not None and file not in source_files:
                 continue
             ext_name = file.suffix.lstrip(".")
         
@@ -247,7 +256,9 @@ def exec_build():
             old_flags_asm = flags_old.get(f"{mod_path_name}_s")
 
         # gen flag hashes
-        new_flags_cxx_hash = getArrayHash(flags_cxx)
+        source_files = mod_data.get("source_files")
+        source_selection = [] if source_files is None else ["source_files"] + sorted(source_files)
+        new_flags_cxx_hash = getArrayHash(flags_cxx + source_selection)
         new_flags_asm_hash = getArrayHash(flags_asm)
 
         # check hashes of flags
@@ -258,6 +269,8 @@ def exec_build():
             force_update = True
         if not mod_ar_file.exists():
             force_update = True
+        if force_update and mod_ar_file.exists():
+            mod_ar_file.unlink()
 
         # iterate files
         for file in sorted(module_files[mod_path_name]):

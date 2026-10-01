@@ -28,6 +28,11 @@ def gen_comcom():
                 continue
 
             for file in src_path.rglob("*"):
+                if not file.is_file() or file.suffix.lstrip(".") not in cfg.extensions:
+                    continue
+                source_files = src_data.get("source_files")
+                if source_files is not None and str(file.relative_to(src_path)) not in source_files:
+                    continue
                 output = path.relpath(getFileBuildPath(file), getBuildObjPath())
 
                 f.write("\n{\n")

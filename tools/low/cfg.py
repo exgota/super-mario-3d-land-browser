@@ -30,6 +30,7 @@ compiler = None
 #   "source_dir":  "src"     # defaults fo "src"
 #   "include_dir": "include" # defaults to "include"
 #   "compiler":    "4.1/791" # defaults to fallback compiler, error if nowhere
+#   "source_files": ["Math/alHashUtil.cpp"] # optional, relative to source_dir
 #   "flags":       "-c"      # additional flags (base)
 #   "flags_asm":   "-c"      # additional flags (add for asm)
 #   "flags_cxx":   "-c"      # additional flags (add for cxx)
@@ -170,4 +171,3 @@ def read(verDir, dataDir):
     readFile(dataDir / "config.user.json")
 
     assertCfg()
-
