@@ -454,10 +454,13 @@ def reset_worktree(worktree, commit):
     shutil.rmtree(worktree / ".factory", ignore_errors=True)
 
 
-def changed_tracked_files(worktree, base):
-    """Files changed since the job's base commit, other than the map and the factory directory."""
+def changed_tracked_files(worktree, base, class_files=()):
+    """Files changed since the job's base commit that the job may not change. Factory jobs may change only the map and
+    the factory directory; class-mode jobs only the map and their class file and header."""
     output = subprocess.run(["git", "-C", str(worktree), "diff", "--name-only", base],
                             capture_output=True, text=True, check=True).stdout
+    if class_files:
+        return [path for path in output.splitlines() if path and path != str(MAP) and path not in class_files]
     allowed = (str(MAP), str(FACTORY_SOURCE_DIRECTORY) + "/")
     return [path for path in output.splitlines() if path and not (path == allowed[0] or path.startswith(allowed[1]))]
 
@@ -468,9 +471,9 @@ def new_source_files(worktree, base):
     return sorted({p for p in tracked + untracked if p.endswith((".cpp", ".h")) and (worktree / p).exists()})
 
 
-def commit_attempt(worktree):
+def commit_attempt(worktree, class_files=()):
     """The checker only credits committed source, so each attempt is a throwaway commit in the worker worktree."""
-    git(worktree, "add", "-A", "--", str(FACTORY_SOURCE_DIRECTORY), str(MAP))
+    git(worktree, "add", "-A", "--", str(FACTORY_SOURCE_DIRECTORY), str(MAP), *class_files)
     git(worktree, "-c", "user.name=factory", "-c", "user.email=factory@localhost",
         "commit", "-q", "--allow-empty", "--no-verify", "-m", "factory attempt")
 
@@ -576,6 +579,35 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
         name = default_name(row)
         names.append(name)
     listing, _ = disassemble(code, first, symbols)
+    if job["kind"] == "class":
+        info = json.loads(job["note"].split("|")[0])
+        address, name = addresses[0], names[0]
+        row = rows_by_start[address]
+        listing, _ = disassemble(code, row, symbols)
+        parts = [f"# Job {job['id']}: class mode, {info['class']}", "",
+                 f"Write `{name}` at 0x{address:08X} ({row['end'] - row['start']} bytes) as a member function in `{info['file']}`."
+                 f" The class declaration is in `{info['header']}`. Edit only those two files; nothing goes to the Factory directory.",
+                 "", "It belongs to the translation unit of " + info["class"] + ": a method of that class, or of a nerve or helper class",
+                 "that file defines. Give it a descriptive name grounded in what it does and in the facts file; declare it in the header",
+                 "if it is a member there. Use the existing fields and types; add named fields to the struct when you need them.",
+                 "No raw offset casts, no duplicated extern declarations, no inline assembly.", "",
+                 "After a build, read the member's mangled symbol from `arm-none-eabi-nm` on the class file's object under build/eu/obj/,",
+                 f'and write .factory/symbols.json as {{"0x{address:08X}": "<mangled symbol>"}}. The attempt command checks that symbol.', "",
+                 "```", listing, "```", ""]
+        if (job.get("note") or "").count("|pro:"):
+            answer = pathlib.Path(job["note"].split("|pro:")[1])
+            if answer.exists():
+                parts += ["GPT-6 Pro, which cannot compile, proposed the forms below after earlier workers failed.", "", answer.read_text()]
+        parts += [f"Check with `. ./development_environment.sh && python {HOME / 'factory.py'} attempt` ({settings['attempts']} runs)."]
+        factory_directory = worktree / ".factory"
+        (factory_directory / "facts").mkdir(parents=True, exist_ok=True)
+        write_facts_skeleton(factory_directory / "facts" / f"{address:08X}.md", row, name, readable, rows_by_start, code, vtable_slots or {})
+        (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
+        (factory_directory / "job.json").write_text(json.dumps({
+            "id": job["id"], "addresses": addresses, "symbols": names, "file": info["file"],
+            "class_files": [info["header"], info["file"]], "attempt_limit": settings["attempts"],
+            "base": git(worktree, "rev-parse", "HEAD")}))
+        return addresses, names
     if job["kind"] == "facts":
         sources = sorted({p.relative_to(worktree).as_posix() for p in (worktree / FACTORY_SOURCE_DIRECTORY).glob("*.cpp")
                           if any(f"{n}(" in p.read_text(errors="ignore") for n in names)})
@@ -733,7 +765,7 @@ def command_attempt(arguments):
         sys.exit(3)
     if not arguments.final:
         counter.write_text(str(used + 1))
-    changed = changed_tracked_files(worktree, job["base"])
+    changed = changed_tracked_files(worktree, job["base"], job.get("class_files", ()))
     if changed:
         print("You changed existing files, which is not allowed. Restore them with git checkout:", *changed, sep="\n  ")
         sys.exit(2)
@@ -750,9 +782,19 @@ def command_attempt(arguments):
 
 
 def attempt_in(worktree, job, final=False, commit=False):
+    symbols = list(job["symbols"])
+    chosen = worktree / ".factory" / "symbols.json"
+    if job.get("class_files") and chosen.exists():
+        # Class mode: the worker names the member function; the check looks for the symbol it reports.
+        try:
+            names = {int(k, 16): v for k, v in json.loads(chosen.read_text()).items()}
+            symbols = [names.get(a, s) for a, s in zip(job["addresses"], symbols)]
+        except (ValueError, AttributeError):
+            pass
+    job = dict(job, symbols=symbols)
     set_map_rows(worktree, {a: ("M", s) for a, s in zip(job["addresses"], job["symbols"])})
     if commit:
-        commit_attempt(worktree)
+        commit_attempt(worktree, job.get("class_files", ()))
     status, output = tool(worktree, "make.py", "eu")
     if status != 0:
         tail = "\n".join(output.splitlines()[-60:])
@@ -923,6 +965,7 @@ class Supervisor:
         self.expected_target = target_commit()
         self.last_pushed = remote_target()
         self.batch_failures = {}
+        self.class_proposal = None
         self.last_push_time = None
         self.consecutive_misses = 0
         self.backoff = {}
@@ -961,6 +1004,15 @@ class Supervisor:
     # leasing -------------------------------------------------------------
     def lease(self, slot):
         spec = self.slot_specs[slot]
+        if spec.get("class_mode"):
+            with DATABASE_LOCK:
+                job = self.database.execute("SELECT * FROM jobs WHERE status='open' AND kind='class' ORDER BY priority DESC, id LIMIT 1").fetchone()
+                if job:
+                    self.database.execute("UPDATE jobs SET status='leased', leased_by=?, leased_at=?, attempts=attempts+1 WHERE id=?",
+                                          (slot, time.time(), job["id"]))
+                    self.database.commit()
+                    return dict(job)
+            return None
         live_rows = {}
         try:
             for row in load_rows(REPOSITORY / MAP):
@@ -968,19 +1020,24 @@ class Supervisor:
         except Exception:
             pass
         with DATABASE_LOCK:
+            # Tier 1 work goes by size range in the slot's order, largest first within a range when the slot says so;
+            # escalated work (tier 2 and up) goes by priority at any size.
+            plan = []
             for tier in spec["tiers"]:
-                query, parameters = "SELECT * FROM jobs WHERE status='open' AND tier=?", [tier]
+                if tier == 1 and spec.get("ranges"):
+                    plan += [(tier, low, high) for low, high in spec["ranges"]]
+                else:
+                    plan.append((tier, None, None))
+            for tier, low, high in plan:
+                query, parameters = "SELECT * FROM jobs WHERE status='open' AND tier=? AND kind IN ('group', 'single')", [tier]
                 if spec.get("kinds"):
                     query += " AND kind IN (%s)" % ",".join("?" * len(spec["kinds"]))
                     parameters += list(spec["kinds"])
-                if spec.get("buckets"):
-                    query += " AND (" + " OR ".join("(body_bytes >= ? AND body_bytes < ?)" for _ in spec["buckets"]) + ")"
-                    parameters += [bound for bucket in spec["buckets"] for bound in bucket]
-                if spec.get("leave_small_singles"):
-                    # Those tier 1 jobs belong to the Luna slot; they reach Sol only after Luna misses (tier 2).
-                    query += " AND NOT (tier = 1 AND kind = 'single' AND body_bytes < ?)"
-                    parameters.append(spec["leave_small_singles"])
-                candidates = self.database.execute(query + " ORDER BY priority DESC LIMIT 50", parameters).fetchall()
+                if low is not None:
+                    query += " AND body_bytes >= ? AND body_bytes < ?"
+                    parameters += [low, high]
+                order = " ORDER BY body_bytes DESC, priority DESC" if spec.get("largest_first") and low is not None else " ORDER BY priority DESC"
+                candidates = self.database.execute(query + order + " LIMIT 50", parameters).fetchall()
                 for job in candidates:
                     addresses = [int(a, 16) for a in job["addresses"].split(",")]
                     still_open = [a for a in addresses if live_rows.get(a, "U") == "U"
@@ -1044,9 +1101,13 @@ class Supervisor:
                 self.active.pop(slot, None)
             if self.backoff.get(slot):
                 time.sleep(self.backoff[slot])
+            # One class-mode job at a time on the class file: the next starts only once this proposal is decided.
+            while spec.get("class_mode") and self.class_proposal and self.class_proposal.exists() and not self.halted:
+                time.sleep(20)
 
     def run_job(self, slot, worktree, job, spec):
-        settings = spec.get("settings") or TIERS[job["tier"]]
+        class_mode = job["kind"] == "class"
+        settings = spec.get("settings") or (TRIAL_SETTINGS["luna-medium"] if class_mode and job["tier"] == 0 else TIERS[job["tier"]])
         trial = spec.get("trial")
         head = target_commit()
         reset_worktree(worktree, head)
@@ -1060,7 +1121,7 @@ class Supervisor:
         run_id = execute(self.database,
                          "INSERT INTO runs (job_id, slot, tier, model, effort, started, outcome, note) VALUES (?,?,?,?,?,?,'running',?)",
                          (job["id"], slot, 0 if trial else job["tier"], settings["model"], settings["effort"], started,
-                          f"trial {trial}" if trial else "")).lastrowid
+                          f"trial {trial}" if trial else ("class" if class_mode else ""))).lastrowid
         prompt = WORKER_GUIDE.format(factory=HOME / "factory.py", attempts=settings["attempts"]) + \
             "\n\nStart by reading .factory/job.md."
         log_path = LOGS / "runs" / f"run_{run_id}.jsonl"
@@ -1086,8 +1147,10 @@ class Supervisor:
             outcome = "error"
         # The checker, not the worker, decides.
         job_data = json.loads((worktree / ".factory/job.json").read_text())
-        bad_edits = changed_tracked_files(worktree, job_data["base"])
-        files = new_source_files(worktree, job_data["base"])
+        class_files = job_data.get("class_files", [])
+        bad_edits = changed_tracked_files(worktree, job_data["base"], class_files)
+        files = ([f for f in class_files if git(worktree, "diff", "--name-only", job_data["base"], "--", f)] if class_files
+                 else new_source_files(worktree, job_data["base"]))
         matched = []
         self.stage_facts(worktree, job, settings, outcome)
         if job["kind"] == "facts":
@@ -1097,11 +1160,12 @@ class Supervisor:
                     ("open" if provider_errors else "done", time.time(), job["id"]))
             log_event(self.database, "run", f"{slot} facts job {job['id']} {settings['model']} {settings['effort']}: {len(addresses)} functions, {outcome}")
             return
+        results = {}
         if not bad_edits and files:
             results = attempt_in(worktree, job_data, final=True, commit=True)
             matched = [a for a, r in results.items() if r["rank"] == "O"]
         matched_bytes = sum(self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for a in matched)
-        note = f"edited existing files: {bad_edits}" if bad_edits else (f"trial {trial}" if trial else "")
+        note = f"edited existing files: {bad_edits}" if bad_edits else (f"trial {trial}" if trial else ("class" if class_mode else ""))
         if provider_errors and not trial:
             note = (note + "; " if note else "") + "provider error: " + provider_errors[-1][:160]
         execute(self.database,
@@ -1118,12 +1182,12 @@ class Supervisor:
         elif trial or retry:
             execute(self.database, "UPDATE jobs SET status='open', addresses=?, leased_by=NULL WHERE id=?",
                     (remaining_text, job["id"]))
-        elif (job["note"] or "").startswith("pro:"):
-            execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=?, note='pro tried' WHERE id=?",
-                    (remaining_text, time.time(), job["id"]))
-        elif TIERS[job["tier"]]["next"]:
+        elif "pro:" in (job["note"] or ""):
+            execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=?, note=? WHERE id=?",
+                    (remaining_text, time.time(), (job["note"].split("|")[0] + "|pro tried") if class_mode else "pro tried", job["id"]))
+        elif ({0: 2, 1: 2}.get(job["tier"]) if class_mode else TIERS[job["tier"]]["next"]):
             execute(self.database, "UPDATE jobs SET status='open', tier=?, addresses=?, leased_by=NULL WHERE id=?",
-                    (TIERS[job["tier"]]["next"], remaining_text, job["id"]))
+                    ({0: 2, 1: 2}.get(job["tier"]) if class_mode else TIERS[job["tier"]]["next"], remaining_text, job["id"]))
         else:
             execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=? WHERE id=?",
                     (remaining_text, time.time(), job["id"]))
@@ -1142,10 +1206,13 @@ class Supervisor:
                 shutil.copy2(worktree / relative, destination)
             attempts_file = worktree / ".factory/attempts"
             attempts_used = int(attempts_file.read_text()) if attempts_file.exists() else 1
+            chosen = {a: (results.get(a) or {}).get("symbol") or n for a, n in zip(addresses, names)}
             (proposal / "matched.json").write_text(json.dumps(
                 {"job": proposal_job, "run": run_id, "tier": job["tier"], "model": settings["model"],
                  "attempts": attempts_used, "minutes": (time.time() - started) / 60,
-                 "addresses": matched, "symbols": {a: n for a, n in zip(addresses, names)}}))
+                 "addresses": matched, "symbols": chosen, "class_files": class_files, "base": job_data["base"]}))
+            if class_mode:
+                self.class_proposal = proposal
             self.integration_queue.put(proposal)
         self.backoff[slot] = (PROVIDER_RETRY_SECONDS[min(len(PROVIDER_RETRY_SECONDS) - 1, PROVIDER_RETRY_SECONDS.index(self.backoff[slot]) + 1)]
                               if self.backoff.get(slot) else PROVIDER_RETRY_SECONDS[0]) if retry else 0
@@ -1198,8 +1265,9 @@ class Supervisor:
                                             (f"{match[1]}%",)).fetchone()
             if job:
                 tier = BAND_TIER if job["body_bytes"] >= BAND_BYTES[0] else 2
+                note = (job["note"].split("|")[0] + f"|pro:{kept}") if job["kind"] == "class" else f"pro:{kept}"
                 execute(self.database, "UPDATE jobs SET status='open', tier=?, priority=9000000, note=? WHERE id=?",
-                        (tier, f"pro:{kept}", job["id"]))
+                        (tier, note, job["id"]))
                 log_event(self.database, "pro", f"job {job['id']} reopened with Pro's answer {answer.name}")
 
     def scan_lanes_for_policy_flags(self):
@@ -1250,8 +1318,19 @@ class Supervisor:
                 self.land_quiet_submissions()
                 self.land_facts()
                 continue
+            class_proposals = [p for p in batch if (p / "matched.json").exists()
+                               and json.loads((p / "matched.json").read_text()).get("class_files")]
+            batch = [p for p in batch if p not in class_proposals]
+            for proposal in class_proposals:
+                try:
+                    self.integrate_class(proposal)
+                except Exception as error:
+                    log_event(self.database, "error", f"class integration of {proposal.name} failed: {error}")
+                    self.restore_integration()
+                    self.retire(proposal, "rejected")
             try:
-                self.integrate_batch(batch)
+                if batch:
+                    self.integrate_batch(batch)
             except Exception as error:
                 log_event(self.database, "error", f"integration of a batch of {len(batch)} failed: {error}")
                 self.restore_integration()
@@ -1429,6 +1508,99 @@ class Supervisor:
                     return
             for path in staged:
                 path.unlink(missing_ok=True)
+
+    def integrate_class(self, proposal):
+        """Land one class-mode proposal: the worker's class file and header replace main's, but only if main's copies
+        are still the ones the job started from. A header change gets the full check; otherwise the claim and every
+        exact function the class file already defines must check O."""
+        with self.integration_lock:
+            if self.target_moved_externally():
+                return
+            metadata = json.loads((proposal / "matched.json").read_text())
+            addresses = [int(a) for a in metadata["addresses"]]
+            symbols = {int(k): v for k, v in metadata["symbols"].items()}
+            class_files, job_base = metadata["class_files"], metadata["base"]
+            self.restore_integration()
+            base = git(INTEGRATION, "rev-parse", "HEAD")
+            reject = None
+            stale = [f for f in class_files if git(INTEGRATION, "rev-parse", f"{base}:{f}", check=False)
+                     != git(INTEGRATION, "rev-parse", f"{job_base}:{f}", check=False)]
+            current = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
+            if stale:
+                reject = f"{stale} changed on main since the job started"
+            elif any(current[a]["rank"] == "O" for a in addresses):
+                reject = "already exact on main"
+            if not reject:
+                for relative in class_files:
+                    if (proposal / relative).exists():
+                        shutil.copy2(proposal / relative, INTEGRATION / relative)
+                set_map_rows(INTEGRATION, {a: ("M", symbols[a]) for a in addresses})
+                git(INTEGRATION, "add", "--", str(MAP), *class_files)
+                git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate class-mode {proposal.name}, not verified")
+                candidate = git(INTEGRATION, "rev-parse", "HEAD")
+                headers = [f for f in class_files if f.endswith((".h", ".hpp")) and git(INTEGRATION, "diff", "--name-only", base, candidate, "--", f)]
+                started = time.time()
+                if headers:
+                    built, output, lost, gained = self.full_check(INTEGRATION)
+                    missing = [symbols[a] for a in addresses if symbols[a] not in gained]
+                    if not built:
+                        reject = "build fails: " + output[-300:]
+                    elif lost or missing:
+                        reject = f"header change: lost {lost[:10]}, not exact {missing[:10]}"
+                else:
+                    status, output = tool(INTEGRATION, "make.py", "eu", timeout=1800)
+                    if status != 0:
+                        reject = "build fails: " + output[-300:]
+                    else:
+                        source = next(f for f in class_files if f.endswith(".cpp"))
+                        obj = INTEGRATION / "build/eu/obj" / pathlib.Path(source).with_suffix(".o")
+                        listing = subprocess.run(["/opt/homebrew/bin/arm-none-eabi-nm", "--defined-only", str(obj)], capture_output=True, text=True).stdout
+                        defined = {parts[2] for parts in (line.split() for line in listing.splitlines()) if len(parts) == 3 and parts[1] in "Tt"}
+                        others = [r for r in current.values() if r["rank"] == "O" and (r["symbol"] or default_name(r)) in defined]
+                        to_check = [(a, symbols[a]) for a in addresses] + [(r["start"], r["symbol"] or default_name(r)) for r in others]
+                        failing = []
+                        for address, symbol in to_check:
+                            tool(INTEGRATION, "tools/check.py", symbol, timeout=300)
+                            if parse_row(read_map_lines(INTEGRATION / MAP)[0][read_map_lines(INTEGRATION / MAP)[1][address]])["rank"] != "O":
+                                failing.append(symbol)
+                        if failing:
+                            reject = f"not exact after the change: {failing[:10]}"
+            if reject:
+                log_event(self.database, "reject", f"{proposal.name}: class mode: {reject}")
+                execute(self.database, "UPDATE jobs SET status=?, leased_by=NULL WHERE id=?",
+                        ("open" if reject.endswith("since the job started") else "failed", metadata["job"]))
+                self.restore_integration()
+                self.retire(proposal, "rejected")
+                return
+            sizes = {a: current[a]["end"] - current[a]["start"] for a in addresses}
+            stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
+            with open(INTEGRATION / "project/ledger.csv", "a") as stream:
+                for address in addresses:
+                    stream.write(f"{stamp},0x{address:08X},{symbols[address]},matched,{metadata.get('attempts', 1)},{metadata.get('minutes', 0):.4f}\n")
+            git(INTEGRATION, "reset", "-q", "--soft", base)
+            set_map_rows(INTEGRATION, {a: ("O", symbols[a]) for a in addresses})
+            git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv", *class_files)
+            git(INTEGRATION, "commit", "-q", "-m",
+                f"Match {len(addresses)} function{'s' if len(addresses) > 1 else ''} in {class_files[-1]} (class mode, {metadata['model']})\n\n"
+                + "".join(f"- 0x{a:08X} {symbols[a]} ({sizes[a]} bytes)\n" for a in addresses)
+                + f"\nVerified by tools/check.py ({'full check' if headers else 'the claim and every exact function in the class file'}) on a candidate commit before main moved.\n\n"
+                "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+            final = git(INTEGRATION, "rev-parse", "HEAD")
+            if not build_inputs_equal(candidate, final):
+                self.halted = f"class mode {proposal.name}: final build inputs differ from the checked candidate"
+                log_event(self.database, "alert", self.halted)
+                self.restore_integration()
+                return
+            if not self.move(final, base, f"factory: class mode {proposal.name}"):
+                self.restore_integration()
+                return
+            execute(self.database, "UPDATE jobs SET status='matched', matched=? WHERE id=?",
+                    (",".join("%08X" % a for a in addresses), metadata["job"]))
+            for address in addresses:
+                self.rows_by_start[address]["rank"] = "O"
+            log_event(self.database, "class_match", f"{len(addresses)} functions, {sum(sizes.values())} bytes, first 0x{addresses[0]:08X}"
+                      f" in {class_files[-1]} ({int(time.time() - started)} s)")
+            self.retire(proposal, None)
 
     # submissions from root/ and dot/ branches --------------------------------
     def pending_submissions(self):
@@ -1919,7 +2091,8 @@ def write_status(supervisor=None):
     tiers = []
     grouped = collections.defaultdict(list)
     for run in runs:
-        label = run["note"][len("trial "):] if (run["note"] or "").startswith("trial ") else f"tier {run['tier']}"
+        note = run["note"] or ""
+        label = note[len("trial "):] if note.startswith("trial ") else (f"class mode tier {run['tier']}" if note.startswith("class") else f"tier {run['tier']}")
         grouped[(label, run["model"], run["effort"])].append(run)
     for (label, model, effort), items in sorted(grouped.items()):
         matched_bytes = sum(r["matched_bytes"] for r in items)
@@ -1997,7 +2170,7 @@ def source_quality(database, now):
         except (OSError, ValueError):
             quality[key] = {}
     with DATABASE_LOCK:
-        events = database.execute("SELECT kind, text FROM events WHERE kind IN ('match', 'submission') AND time > ?", (now - 86400,)).fetchall()
+        events = database.execute("SELECT kind, text FROM events WHERE kind IN ('match', 'class_match', 'submission') AND time > ?", (now - 86400,)).fetchall()
     factory_bytes = class_bytes = 0
     for event in events:
         found = re.search(r"(\d+) bytes", event["text"])
@@ -2005,7 +2178,7 @@ def source_quality(database, now):
             continue
         if event["kind"] == "match":
             factory_bytes += int(found[1])
-        elif ": accepted" in event["text"]:
+        elif event["kind"] == "class_match" or ": accepted" in event["text"]:
             class_bytes += int(found[1])
     files, literals = quality["files"], quality["literals"]
     return {"class_file_share": files.get("class_file_share"), "factory_bytes": files.get("factory_bytes"),
@@ -2089,22 +2262,47 @@ def command_extend(arguments):
 
 
 def production_slot_specs(count, luna_single_bytes, group_only):
-    """s1 is reserved for the 256-511 byte band; then Sol on the small queue, one Sol slot that prefers tier 2,
-    one Luna slot for small singles, and further Sol slots. The swap guard pauses the highest-numbered slots first."""
+    """s1 is reserved for the 256-511 byte band; s2 runs class mode; s3 is Luna; then Sol slots (s4 prefers tier 2). Luna alone takes
+    every tier 1 job under 32 bytes; Sol takes 64 to 255 bytes, largest first, then 32 to 63 (owner, 2026-10-02).
+    The swap guard pauses the highest-numbered slots first."""
     kinds = ["group"] if group_only else None
-    roles = ["band", "tier1", "tier2", "luna" if luna_single_bytes and not group_only else "tier1"]
-    roles += ["tier1"] * max(0, count - len(roles))
+    small = luna_single_bytes or 32
+    roles = ["band", "class", "luna", "tier2", "tier1"] + ["tier1"] * max(0, count - 5)
     specs = {}
     for index, role in enumerate(roles[:count]):
         if role == "band":
             spec = {"tiers": [BAND_TIER], "kinds": kinds}
+        elif role == "class":
+            spec = {"tiers": [], "class_mode": True}
         elif role == "luna":
-            spec = {"tiers": [1], "kinds": ["single"], "buckets": [(0, luna_single_bytes)],
+            spec = {"tiers": [1], "kinds": kinds, "ranges": [(0, small)],
                     "settings": TRIAL_SETTINGS["luna-medium"], "fallback_kinds": ["facts"]}
         else:
-            spec = {"tiers": [2, 1] if role == "tier2" else [1, 2], "kinds": kinds, "leave_small_singles": luna_single_bytes}
+            spec = {"tiers": [2, 1] if role == "tier2" else [1, 2], "kinds": kinds,
+                    "ranges": [(64, 256), (small, 64)], "largest_first": True}
         specs[f"s{index + 1}"] = dict(spec, index=index, role=role)
     return specs
+
+
+def command_class_jobs(arguments):
+    """Queue class-mode jobs: every unmatched function up to 511 bytes in a class's translation unit, one per job."""
+    database = connect()
+    rows = target_rows()
+    queued = {a for (addresses,) in database.execute("SELECT addresses FROM jobs WHERE kind='class'") for a in addresses.split(",")}
+    note = json.dumps({"class": arguments.name, "header": arguments.header, "file": arguments.file})
+    created = 0
+    for row in rows:
+        size = row["end"] - row["start"]
+        if not ("f" in row["type"] and arguments.start <= row["start"] < arguments.end and row["rank"] != "O" and size <= 511):
+            continue
+        if "%08X" % row["start"] in queued:
+            continue
+        tier = 0 if size < 32 else (1 if size < 256 else BAND_TIER)
+        database.execute("INSERT INTO jobs (kind, addresses, body_bytes, total_bytes, tier, priority, status, sibling, note)"
+                         " VALUES ('class', ?, ?, ?, ?, ?, 'open', '', ?)", ("%08X" % row["start"], size, size, tier, -row["start"], note))
+        created += 1
+    database.commit()
+    print(f"{created} class-mode jobs for {arguments.name} ({arguments.file})")
 
 
 def command_submit(arguments):
@@ -2157,6 +2355,12 @@ def main():
     trial.add_argument("--slots-per-label", type=int, default=2)
     trial.add_argument("--seed", type=int, default=20261002)
     commands.add_parser("trial-report")
+    class_jobs = commands.add_parser("class-jobs")
+    class_jobs.add_argument("--name", required=True)
+    class_jobs.add_argument("--header", required=True)
+    class_jobs.add_argument("--file", required=True)
+    class_jobs.add_argument("--start", type=lambda v: int(v, 0), required=True)
+    class_jobs.add_argument("--end", type=lambda v: int(v, 0), required=True)
     submit = commands.add_parser("submit")
     submit.add_argument("--branch", required=True)
     submit.add_argument("--commit", default="")
@@ -2188,6 +2392,8 @@ def main():
         command_trial(arguments)
     elif arguments.command == "trial-report":
         print(trial_report())
+    elif arguments.command == "class-jobs":
+        command_class_jobs(arguments)
     elif arguments.command == "submit":
         command_submit(arguments)
     elif arguments.command == "status":
