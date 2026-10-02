@@ -1619,7 +1619,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0014A828,          ,0x0014A85C,          ,U,f,,
 0x0014A85C,          ,0x0014A860,          ,O,f,fn_0014A85C,
 0x0014A860,          ,0x0014A878,          ,O,f,fn_0014A860,
-0x0014A878,0x0014A970,0x0014A978,          ,U,f,,
+0x0014A878,0x0014A970,0x0014A978,          ,O,f,fn_0014A878,
 0x0014A978,0x0014AA10,0x0014AA14,          ,U,f,,
 0x0014AA14,          ,0x0014AA38,          ,U,f,,
 0x0014AA38,          ,0x0014AA40,          ,O,f,fn_0014AA38,
