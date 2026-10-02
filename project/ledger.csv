@@ -788,3 +788,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T02:06:36.245006+00:00,0x0026D0E4,_ZN19alLiveActorFunction14calcAnimDirectEPN2al9LiveActorE,matched,2,14.143916
 2026-10-02T02:06:36.245006+00:00,0x0027FBE0,_ZN2al16startNerveActionEPNS_9LiveActorEPKc,matched,2,14.143916
 2026-10-02T02:06:36.245006+00:00,0x00245178,_ZN4sead12PtrArrayImpl8heapSortEPFiPKvS2_E,matched,4,13.574625
+2026-10-02T02:06:36.245006+00:00,0x00251D60,_ZN4sead12PtrArrayImpl4sortEPFiPKvS2_E,matched,3,13.574625
