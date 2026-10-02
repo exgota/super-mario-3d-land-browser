@@ -1089,3 +1089,9 @@ Root verifies34713supplier/67peer paths and reads the full unchanged transport p
 ## 2026-10-02: Submit separate whole-gate map transaction
 
 The reviewed driver captures entiremap before cleanbuild/inventory/checks and restores it after worker cleanup on any rejection/exception/interruption/failure; the existing candidate transaction staysnested. This closes the prior-driver failure behavior that left legitimate priorO-to-mrank changes in the failedmap. Restoring ranks proves bookkeeping only, never preservation of failedsource; root mustreturn/fix/revert failedproposals beforepush. NegativeCLI/workerfixtures agree on4real mismatches andwholemaprestoration; finalpositive/control versions and historicalcleanup limit stayexplicit. Current clean fullpreservation gate remainsrequired.
+
+## 2026-10-02: Common Executor acceptance and guarded checker adoption
+
+Unchanged complete sourcea0fc3fe passes both targets1E7518/164 and2415DC/156, after a cleanlink and every767prior root/all787actual definitions. Gate331.952707seconds; cleanbuild94.032278seconds. Coverage769roots/51480complete bytes. The capped20-byte base is absent from submitted CPP and adds no credit. Guarded serialized checker transport9179198 and separate transactional rollbackae06272 are adopted after34,713supplier paths and67independent-review paths verified, positive/negative/drift/provenance/cleanup controls and this fresh root gate. The controlled final fixture measured284.683500CLI versus254.079452worker seconds,30.604048saved. Root gate runs under different load; no new comparative performance claim.
+
+Observed2026-10-02T06:03:57.055478+00:00:14256accepted complete bytes/7.008349hours=2034.145bytes/hour; carried5988/new8268, new attribution1179.736. Per-lane windows overlap and are not summed as labor.
