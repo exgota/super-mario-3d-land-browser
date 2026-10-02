@@ -1,0 +1,36 @@
+diff --git a/lib/al/src/Util/seadTreeNode.cpp b/lib/al/src/Util/seadTreeNode.cpp
+index b71f351..4489e49 100644
+--- a/lib/al/src/Util/seadTreeNode.cpp
++++ b/lib/al/src/Util/seadTreeNode.cpp
+@@ -33,7 +33,8 @@ void TreeNode::clearChildLinksRecursively_()
+         }
+ }
+ 
+-void TreeNode::detachSubTree()
++// Preserve the out-of-line call observed in pushFrontChild.
++__attribute__((noinline)) void TreeNode::detachSubTree()
+ {
+         if ( mPreviousSibling )
+         {
+@@ -61,4 +62,21 @@ void TreeNode::detachSubTree()
+         }
+ }
+ 
++void TreeNode::pushFrontChild( TreeNode* node )
++{
++        node->detachSubTree();
++        if ( !mFirstChild )
++        {
++                mFirstChild = node;
++                node->mParent = this;
++        }
++        else
++        {
++                node->mNextSibling = mFirstChild;
++                mFirstChild->mPreviousSibling = node;
++                mFirstChild = node;
++                node->mParent = this;
++        }
++}
++
+ } // namespace sead

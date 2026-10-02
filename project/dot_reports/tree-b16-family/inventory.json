@@ -1,0 +1,6182 @@
+{
+  "prior_definitions": {
+    "_ZN2al9SystemKitC2Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/System/alSystemKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9SystemKitC1Ev",
+        "value": 0,
+        "size": 0
+      }
+    ],
+    "_ZN2nn2os6detail27ConvertSvcToLibraryPriorityEi": [
+      {
+        "object": "build/eu/obj/lib/CtrSDK/sources/os_Priority.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2nn2os6detail27ConvertSvcToLibraryPriorityEi",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN4sead12CalendarTime4DateC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadCalendarTime.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead12CalendarTime4DateC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN4sead12CalendarTime4TimeC2ERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadCalendarTime.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead12CalendarTime4TimeC1ERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE",
+        "value": 0,
+        "size": 0
+      }
+    ],
+    "_ZN10AppearStep11startAppearEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10AppearStep11startAppearEv",
+        "value": 0,
+        "size": 88
+      }
+    ],
+    "_ZN10AppearStep14startDisappearEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10AppearStep14startDisappearEv",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN10AppearStepC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10AppearStepC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN10Fugumannen10receiveMsgEjPN2al9HitSensorES2_": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Fugumannen.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10Fugumannen10receiveMsgEjPN2al9HitSensorES2_",
+        "value": 0,
+        "size": 176
+      }
+    ],
+    "_ZN10Fugumannen12attackSensorEPN2al9HitSensorES2_": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Fugumannen.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10Fugumannen12attackSensorEPN2al9HitSensorES2_",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "_ZN10Fugumannen4initERKN2al13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Fugumannen.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10Fugumannen4initERKN2al13ActorInitInfoE",
+        "value": 0,
+        "size": 284
+      }
+    ],
+    "_ZN10FugumannenC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Fugumannen.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10FugumannenC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN10GameSystemC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/System/GameSystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10GameSystemC1Ev",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "_ZN10RailDotEndC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/RailDotEnd.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10RailDotEndC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al6Camera2v7Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera2v7Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al6Camera2v2Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera2v2Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al6Camera2v4Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera2v4Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al6Camera2v5Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera2v5Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al6Camera2v3Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera2v3Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al6Camera4calcEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera4calcEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al6Camera2v1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera2v1Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN11GhostPlayerC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/GhostPlayer.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN11GhostPlayerC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 160
+      }
+    ],
+    "_ZN2al5Scene4killEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene4killEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al5Scene7controlEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene7controlEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "fn_00140e94": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Util/PhotoScenarioLookup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00140e94",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN13PlayerTrigger18clearSensorTriggerEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerTrigger.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN13PlayerTrigger18clearSensorTriggerEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN13PlayerTrigger21clearCollisionTriggerEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerTrigger.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN13PlayerTrigger21clearCollisionTriggerEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "fn_00148c7c": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Util/PlacementCategoryLookup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00148c7c",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN14TrickHintPanelC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TrickHintPanel.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN14TrickHintPanelC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "fn_00159fec": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Layout/CourseSelectMap.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00159fec",
+        "value": 0,
+        "size": 724
+      }
+    ],
+    "_ZN15TransparentWall13makeActorDeadEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TransparentWall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN15TransparentWall13makeActorDeadEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN15TransparentWall4initERKN2al13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TransparentWall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN15TransparentWall4initERKN2al13ActorInitInfoE",
+        "value": 0,
+        "size": 200
+      }
+    ],
+    "_ZN15TransparentWallC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TransparentWall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN15TransparentWallC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN10CourseListC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/System/CourseList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10CourseListC1Ev",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "fn_0016BCE0": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Stage/StageProgress.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0016BCE0",
+        "value": 0,
+        "size": 252
+      }
+    ],
+    "_ZN16NoteObjGeneratorC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObjGenerator.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN16NoteObjGeneratorC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "_ZN16alSensorFunction20findSensorTypeByNameEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN16alSensorFunction20findSensorTypeByNameEPKc",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al17CameraParamVision4initEPKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCameraParamVision.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17CameraParamVision4initEPKNS_9ByamlIterE",
+        "value": 0,
+        "size": 244
+      }
+    ],
+    "_ZN17PlayerActionGraph4moveEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionGraph.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN17PlayerActionGraph4moveEv",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN17PlayerActionGraphC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionGraph.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN17PlayerActionGraphC1Ev",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "fn_00184FD0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00184FD0",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "fn_0018507C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0018507C",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "fn_00185150": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00185150",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al18getStageSwitchNameENS_15StageSwitchTypeE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchType.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18getStageSwitchNameENS_15StageSwitchTypeE",
+        "value": 0,
+        "size": 140
+      }
+    ],
+    "_ZN2al18CameraRotatorParam4initEPKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCameraRotatorParam.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18CameraRotatorParam4initEPKNS_9ByamlIterE",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN2al18CameraRotatorParamC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCameraRotatorParam.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18CameraRotatorParamC1Ev",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al16initLiveActorKitEPNS_12LiveActorKitE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16initLiveActorKitEPNS_12LiveActorKitE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al5Scene18initSceneObjHolderEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene18initSceneObjHolderEv",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN18alSubActorFunction11trySyncDeadEPN2al14SubActorKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSubActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN18alSubActorFunction11trySyncDeadEPN2al14SubActorKeeperE",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN18alSubActorFunction12trySyncAliveEPN2al14SubActorKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSubActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN18alSubActorFunction12trySyncAliveEPN2al14SubActorKeeperE",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN18alSubActorFunction11tryCalcAnimEPN2al14SubActorKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSubActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN18alSubActorFunction11tryCalcAnimEPN2al14SubActorKeeperE",
+        "value": 0,
+        "size": 100
+      }
+    ],
+    "_ZN18alSubActorFunction18trySyncClippingEndEPN2al14SubActorKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSubActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN18alSubActorFunction18trySyncClippingEndEPN2al14SubActorKeeperE",
+        "value": 0,
+        "size": 120
+      }
+    ],
+    "_ZN18alSubActorFunction20trySyncClippingStartEPN2al14SubActorKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSubActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN18alSubActorFunction20trySyncClippingStartEPN2al14SubActorKeeperE",
+        "value": 0,
+        "size": 120
+      }
+    ],
+    "_ZN19GhostPlayerRecorder6createEi": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/GhostPlayerRecorder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN19GhostPlayerRecorder6createEi",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "_ZN19GhostPlayerRecorder5FrameC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/GhostPlayerRecorder.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZN19GhostPlayerRecorder5FrameC1Ev",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN19GhostPlayerRecorderC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/GhostPlayerRecorder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN19GhostPlayerRecorderC1Ev",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "fn_00192768": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00192768",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN20BlockDragonGenerator11startAppearEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/BlockDragonGenerator.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN20BlockDragonGenerator11startAppearEv",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN21PlayerActionCondition5setupEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionCondition.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN21PlayerActionCondition5setupEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN29PlayerActionGraphBuildOutputsC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionGraphBuildOutputs.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN29PlayerActionGraphBuildOutputsC1Ev",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al25CameraDashAngleTunerParam4initEPKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCameraDashAngleTunerParam.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25CameraDashAngleTunerParam4initEPKNS_9ByamlIterE",
+        "value": 0,
+        "size": 128
+      }
+    ],
+    "_ZN2al25CameraDashAngleTunerParamC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCameraDashAngleTunerParam.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25CameraDashAngleTunerParamC1Ev",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN26PlayerActionMultiCondition5setupEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionMultiCondition.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN26PlayerActionMultiCondition5setupEv",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN28PlayerActionConditionAnimEnd5checkEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionConditionAnimEnd.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN28PlayerActionConditionAnimEnd5checkEv",
+        "value": 0,
+        "size": 232
+      }
+    ],
+    "fn_001BB19C": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerFlagFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BB19C",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al10BreakModel6appearEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alBreakModel.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10BreakModel6appearEv",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "fn_001BBE0C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BBE0C",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "_ZN2al10tryGetArg0EPfRKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg0EPfRKNS_9ByamlIterE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10tryGetArg3EPbRKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg3EPbRKNS_9ByamlIterE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10tryGetArg5EPbRKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg5EPbRKNS_9ByamlIterE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10tryGetArg6EPfRKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg6EPfRKNS_9ByamlIterE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10tryGetArg7EPbRKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg7EPbRKNS_9ByamlIterE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al11LayoutActor7controlEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11LayoutActor7controlEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al11LayoutActor8calcAnimEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11LayoutActor8calcAnimEv",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN15alNerveFunction14setNerveActionEPN2al9IUseNerveEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN15alNerveFunction14setNerveActionEPN2al9IUseNerveEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al11NerveKeeper8setNerveEPKNS_5NerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11NerveKeeper8setNerveEPKNS_5NerveE",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "fn_001BF134": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF134",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "fn_001BF2E4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF2E4",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "fn_001BF848": [
+      {
+        "object": "build/eu/obj/lib/al/src/Container/alPointerArrayFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF848",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "fn_001BF86C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Container/alPointerArrayFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF86C",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_001BF87C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Container/alPointerArrayFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF87C",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "fn_001BF8A0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Container/alPointerArrayFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF8A0",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "fn_001BF98C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperEmissionFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BF98C",
+        "value": 0,
+        "size": 120
+      }
+    ],
+    "fn_001BFA04": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperInterfaceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BFA04",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "fn_001BFA24": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BFA24",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "fn_001BFAA4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BFAA4",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "fn_001BFAE0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BFAE0",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "fn_001BFB30": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BFB30",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "_ZN2al12EffectKeeper13setActionNameEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12EffectKeeper13setActionNameEPKc",
+        "value": 0,
+        "size": 88
+      }
+    ],
+    "_ZN2al12EffectKeeper23deleteAndClearEffectAllEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12EffectKeeper23deleteAndClearEffectAllEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "fn_001BFC48": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperInterfaceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001BFC48",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al12EffectKeeper15deleteEffectAllEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12EffectKeeper15deleteEffectAllEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al12LiveActorKitC1Ei": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12LiveActorKitC1Ei",
+        "value": 0,
+        "size": 136
+      }
+    ],
+    "_ZN2al12MemorySystem18createSequenceHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12MemorySystem18createSequenceHeapEv",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN2al12MemorySystem19freeAllSequenceHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12MemorySystem19freeAllSequenceHeapEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_001C21A4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioControlEntryFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001C21A4",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al12calcHashCodeEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/alHashUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12calcHashCodeEPKc",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN2al12isSensorRideEPKNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12isSensorRideEPKNS_9HitSensorE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al13AreaShapeCubeC2Eb": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaShapeCube.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13AreaShapeCubeC2Eb",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_001C5A70": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectFlagFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001C5A70",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "fn_001C5A88": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectHandleFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001C5A88",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN2al13KeyPoseKeeperC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13KeyPoseKeeperC1Ev",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al13LiveActorFlagC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFlag.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13LiveActorFlagC1Ev",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZN2al14LiveActorGroup13registerActorEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorGroup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14LiveActorGroup13registerActorEPNS_9LiveActorE",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al14LiveActorGroup16makeActorDeadAllEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorGroup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14LiveActorGroup16makeActorDeadAllEv",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al14NerveStateCtrl10startStateEPKNS_5NerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateCtrl10startStateEPKNS_5NerveE",
+        "value": 0,
+        "size": 100
+      }
+    ],
+    "_ZN2al14NerveStateCtrl18tryEndCurrentStateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateCtrl18tryEndCurrentStateEv",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al16updateNerveStateEPNS_9IUseNerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16updateNerveStateEPNS_9IUseNerveE",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al14NerveStateCtrl18updateCurrentStateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateCtrl18updateCurrentStateEv",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al14initNerveStateEPNS_9IUseNerveEPNS_14NerveStateBaseEPKNS_5NerveEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14initNerveStateEPNS_9IUseNerveEPNS_14NerveStateBaseEPKNS_5NerveEPKc",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al14NerveStateCtrl13registerStateEPNS_14NerveStateBaseEPKNS_5NerveEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateCtrl13registerStateEPNS_14NerveStateBaseEPKNS_5NerveEPKc",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN2al14NerveStateCtrlC1Ei": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateCtrlC1Ei",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "_ZN2al11setSceneObjEPNS_9ISceneObjEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11setSceneObjEPNS_9ISceneObjEi",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al14SceneObjHolder6setObjEPNS_9ISceneObjEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SceneObjHolder6setObjEPNS_9ISceneObjEi",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al14SceneObjHolder26initAfterPlacementSceneObjERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SceneObjHolder26initAfterPlacementSceneObjERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al14SceneObjHolder6createEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SceneObjHolder6createEi",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al14SceneObjHolderC1EPFPviEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SceneObjHolderC1EPFPviEi",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZN2al14SensorHitGroup3addEPNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alSensorHitGroup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SensorHitGroup3addEPNS_9HitSensorE",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al14SensorHitGroup6removeEPNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alSensorHitGroup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SensorHitGroup6removeEPNS_9HitSensorE",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "fn_001CBE10": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001CBE10",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al14isSensorSimpleEPKNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14isSensorSimpleEPKNS_9HitSensorE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al14tryGetRailIterEPNS_9ByamlIterERKS0_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14tryGetRailIterEPNS_9ByamlIterERKS0_",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZN2al20registerExecutorUserEPNS_12IUseExecutorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al20registerExecutorUserEPNS_12IUseExecutorEPKc",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al15ExecuteDirector12registerUserEPNS_12IUseExecutorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15ExecuteDirector12registerUserEPNS_12IUseExecutorEPKc",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al23registerExecutorFunctorEPKcRKNS_11FunctorBaseE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23registerExecutorFunctorEPKcRKNS_11FunctorBaseE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al15ExecuteDirector15registerFunctorERKNS_11FunctorBaseEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15ExecuteDirector15registerFunctorERKNS_11FunctorBaseEPKc",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al27registerExecutorFunctorDrawEPKcRKNS_11FunctorBaseE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al27registerExecutorFunctorDrawEPKcRKNS_11FunctorBaseE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al15ExecuteDirector19registerFunctorDrawERKNS_11FunctorBaseEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15ExecuteDirector19registerFunctorDrawERKNS_11FunctorBaseEPKc",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al15ExecuteDirector23createExecutorListTableEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15ExecuteDirector23createExecutorListTableEv",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al9LayoutKit21createExecuteDirectorEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LayoutKit21createExecuteDirectorEi",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al15ExecuteDirector4initEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15ExecuteDirector4initEv",
+        "value": 0,
+        "size": 684
+      }
+    ],
+    "_ZN2al15ExecuteDirectorC1Ei": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15ExecuteDirectorC1Ei",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al15HitSensorKeeper10invalidateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15HitSensorKeeper10invalidateEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al15HitSensorKeeper12attackSensorEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15HitSensorKeeper12attackSensorEv",
+        "value": 0,
+        "size": 136
+      }
+    ],
+    "_ZN2al15HitSensorKeeper8validateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15HitSensorKeeper8validateEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al15NerveActionCtrlC1EPN15alNerveFunction20NerveActionCollectorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveActionCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15NerveActionCtrlC1EPN15alNerveFunction20NerveActionCollectorE",
+        "value": 0,
+        "size": 152
+      }
+    ],
+    "_ZN2al15getSequenceHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15getSequenceHeapEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "fn_001CDCF4": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorExecuteInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001CDCF4",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_001CDCFC": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorExecuteInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001CDCFC",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al16KCollisionServer20initKCollisionServerEPvPKv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Collision/alKCollisionServer.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16KCollisionServer20initKCollisionServerEPvPKv",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "_ZN2al16KCollisionServerC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Collision/alKCollisionServer.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16KCollisionServerC1Ev",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al17HitSensorDirectorC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorDirector.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17HitSensorDirectorC1Ev",
+        "value": 0,
+        "size": 364
+      }
+    ],
+    "fn_001D2A84": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D2A84",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "fn_001D2AC8": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D2AC8",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "fn_001D2B0C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D2B0C",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al9sendMsg55EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg55EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_001D6580": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioActionStateFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D6580",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al17StageSwitchKeeperC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17StageSwitchKeeperC1Ev",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "fn_001D79F4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D79F4",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al17isPadTriggerTouchEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17isPadTriggerTouchEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_001D9D1C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioStateFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D9D1C",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "fn_001D9D74": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioKeeperControlFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D9D74",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_001D9D7C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioControlEntryFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D9D7C",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "fn_001D9DC0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioControlFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D9DC0",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "fn_001D9EC0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceListFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001D9EC0",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al18getCurrentKeyTransEPKNS_13KeyPoseKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPoseFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18getCurrentKeyTransEPKNS_13KeyPoseKeeperE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al18isPadTriggerSelectEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18isPadTriggerSelectEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperBase10getQuatPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperBase10getQuatPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperBase11getFrontPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperBase11getFrontPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperBase12getRotatePtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperBase12getRotatePtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTFSV11getFrontPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTFSV11getFrontPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTFSV11getScalePtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTFSV11getScalePtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTFSV14getVelocityPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTFSV14getVelocityPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTQSV10getQuatPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTQSV10getQuatPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTQSV11getScalePtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTQSV11getScalePtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTQSV14getVelocityPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTQSV14getVelocityPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTRSV11getScalePtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTRSV11getScalePtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTRSV12getRotatePtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTRSV12getRotatePtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al19ActorPoseKeeperTRSV14getVelocityPtrEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19ActorPoseKeeperTRSV14getVelocityPtrEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al5Scene24initAndLoadStageResourceEPKciPN4sead4HeapE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene24initAndLoadStageResourceEPKciPN4sead4HeapE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al19StageResourceKeeperC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageResourceKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19StageResourceKeeperC1Ev",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al19StageSwitchAccesser21initWithPlacementInfoENS_15StageSwitchTypeERKNS_9ByamlIterES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchAccesser.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19StageSwitchAccesser21initWithPlacementInfoENS_15StageSwitchTypeERKNS_9ByamlIterES1_",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al19StageSwitchAccesserC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchAccesser.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19StageSwitchAccesserC1Ev",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_001DD98C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteRequestKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001DD98C",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "fn_001DD9E8": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteRequestKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001DD9E8",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "fn_001DDA58": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteRequestKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001DDA58",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "_ZN2al7isMsg49Ej": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7isMsg49Ej",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al7isMsg52Ej": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7isMsg52Ej",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al7isMsg51Ej": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7isMsg51Ej",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al22ExecuteTableHolderDraw15tryRegisterUserEPNS_12IUseExecutorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolderDraw.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22ExecuteTableHolderDraw15tryRegisterUserEPNS_12IUseExecutorEPKc",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZN2al22ExecuteTableHolderDraw18tryRegisterFunctorERKNS_11FunctorBaseEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolderDraw.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22ExecuteTableHolderDraw18tryRegisterFunctorERKNS_11FunctorBaseEPKc",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZN2al22ExecuteTableHolderDraw23createExecutorListTableEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecutorTableListFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22ExecuteTableHolderDraw23createExecutorListTableEv",
+        "value": 0,
+        "size": 236
+      }
+    ],
+    "_ZN2al22ExecuteTableHolderDrawC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolderDraw.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22ExecuteTableHolderDrawC1Ev",
+        "value": 0,
+        "size": 88
+      }
+    ],
+    "_ZN2al22sendMsgKickStoneAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22sendMsgKickStoneAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_001E2BEC": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecutorActorList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E2BEC",
+        "value": 0,
+        "size": 116
+      }
+    ],
+    "fn_001E2C60": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecutorActorList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E2C60",
+        "value": 0,
+        "size": 128
+      }
+    ],
+    "fn_001E2CE0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecutorActorList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E2CE0",
+        "value": 0,
+        "size": 140
+      }
+    ],
+    "_ZN2al14NerveStateBase4initEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateBase.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateBase4initEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al14NerveStateBase4killEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateBase.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateBase4killEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al14NerveStateBase6appearEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateBase.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateBase6appearEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al14NerveStateBase6updateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateBase.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateBase6updateEv",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al14NerveStateBase7controlEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateBase.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateBase7controlEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al9sendMsg49EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg49EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al23sendMsgKickKouraReflectEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23sendMsgKickKouraReflectEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al23sendMsgPlayerTailAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23sendMsgPlayerTailAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9sendMsg52EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg52EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9sendMsg51EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg51EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al24ExecuteTableHolderUpdate15tryRegisterUserEPNS_12IUseExecutorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolderUpdate.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24ExecuteTableHolderUpdate15tryRegisterUserEPNS_12IUseExecutorEPKc",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZN2al24ExecuteTableHolderUpdate18tryRegisterFunctorERKNS_11FunctorBaseEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolderUpdate.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24ExecuteTableHolderUpdate18tryRegisterFunctorERKNS_11FunctorBaseEPKc",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZN2al24ExecuteTableHolderUpdate23createExecutorListTableEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecutorTableListFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24ExecuteTableHolderUpdate23createExecutorListTableEv",
+        "value": 0,
+        "size": 236
+      }
+    ],
+    "_ZN2al24ExecuteTableHolderUpdateC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolderUpdate.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24ExecuteTableHolderUpdateC1Ev",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al7isMsg14Ej": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7isMsg14Ej",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_001E4B3C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E4B3C",
+        "value": 0,
+        "size": 152
+      }
+    ],
+    "fn_001E4BD4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E4BD4",
+        "value": 0,
+        "size": 152
+      }
+    ],
+    "_ZN2al26isCreatedSceneResourceHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al26isCreatedSceneResourceHeapEv",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al28sendMsgPlayerBoomerangAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al28sendMsgPlayerBoomerangAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9sendMsg34EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg34EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al29sendMsgPlayerBoomerangReflectEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al29sendMsgPlayerBoomerangReflectEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_001E7964": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E7964",
+        "value": 0,
+        "size": 140
+      }
+    ],
+    "_ZN2al4RailC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRail.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al4RailC1Ev",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_001E9ADC": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectSetFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001E9ADC",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "fn_001EA174": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectSetFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001EA174",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "fn_001EA1DC": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectSetFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001EA1DC",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "fn_001EA49C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Area/alAreaFlagFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001EA49C",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "fn_001EA4C8": [
+      {
+        "object": "build/eu/obj/lib/al/src/Area/alAreaFlagFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_001EA4C8",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al7KeyPose4initERKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPose.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7KeyPose4initERKNS_9ByamlIterE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al7KeyPoseC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPose.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7KeyPoseC1Ev",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN8JMapInfo6attachEPKv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alJMapInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN8JMapInfo6attachEPKv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN8JMapInfoC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alJMapInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN8JMapInfoC1Ev",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9AreaShape8setScaleERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaShape.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9AreaShape8setScaleERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9HitSensor10invalidateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alHitSensor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9HitSensor10invalidateEv",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al9HitSensor16validateBySystemEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alHitSensor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9HitSensor16validateBySystemEv",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al9HitSensor18invalidateBySystemEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alHitSensor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9HitSensor18invalidateBySystemEv",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al9HitSensor8validateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alHitSensor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9HitSensor8validateEv",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al9ISceneObj12initSceneObjEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/CoinRotater.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZN2al9ISceneObj12initSceneObjEv",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alSwitchAreaDirector.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZN2al9ISceneObj12initSceneObjEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al9LiveActor18initAfterPlacementEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor18initAfterPlacementEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al9LiveActor4initERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor4initERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al9LiveActor7controlEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor7controlEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al9RailRider15moveToRailStartEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailRider.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9RailRider15moveToRailStartEv",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN15alNerveFunction20NerveActionCollectorC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveActionCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN15alNerveFunction20NerveActionCollectorC1Ev",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_00213474": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00213474",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al21sendMsgKickKouraBreakEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21sendMsgKickKouraBreakEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al19sendMsgGororiAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19sendMsgGororiAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al22sendMsgGororiBigAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22sendMsgGororiBigAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN4sead8Matrix34IfE6makeSTERKNS_7Vector3IfEES5_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/alMathUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8Matrix34IfE6makeSTERKNS_7Vector3IfEES5_",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN4sead8TreeNode13detachSubTreeEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8TreeNode13detachSubTreeEv",
+        "value": 0,
+        "size": 100
+      }
+    ],
+    "_ZN4sead14MathCalcCommonIfE8atanIdx_Ef": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/seadMathAngle.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead14MathCalcCommonIfE8atanIdx_Ef",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al13isPadTriggerYEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isPadTriggerYEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al13isPadTriggerXEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isPadTriggerXEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_0023EF90": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectDeletionFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0023EF90",
+        "value": 0,
+        "size": 156
+      }
+    ],
+    "fn_0023F550": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0023F550",
+        "value": 0,
+        "size": 152
+      }
+    ],
+    "fn_0023F93C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioHandleStateFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0023F93C",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_00240FA8": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00240FA8",
+        "value": 0,
+        "size": 144
+      }
+    ],
+    "_ZN2al9RailRider17moveToNearestRailERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailRider.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9RailRider17moveToNearestRailERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "fn_00242CC4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteOrderFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00242CC4",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00242CCC": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteOrderFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00242CCC",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al20findOrCreateResourceERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al20findOrCreateResourceERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_00243318": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00243318",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "_ZN2al18initActorPoseTFGSVEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18initActorPoseTFGSVEPNS_9LiveActorE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_002494A0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_002494A0",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "_ZNK2al13KeyPoseKeeper17getCurrentKeyPoseEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al13KeyPoseKeeper17getCurrentKeyPoseEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al14SensorHitGroupC1EiPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/HitSensor/alSensorHitGroup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14SensorHitGroupC1EiPKc",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZN2al9tryGetArgEPiRKNS_9ByamlIterEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementArgumentFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9tryGetArgEPiRKNS_9ByamlIterEPKc",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al15HitSensorKeeper18invalidateBySystemEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15HitSensorKeeper18invalidateBySystemEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZNK2al13KeyPoseKeeper14getNextKeyPoseEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al13KeyPoseKeeper14getNextKeyPoseEv",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN4sead6Random6getU32Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadRandom.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead6Random6getU32Ev",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al15HitSensorKeeper16validateBySystemEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15HitSensorKeeper16validateBySystemEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN21alActorSystemFunction21addToExecutorMovementEPN2al9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Execute/alExecuteTableHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN21alActorSystemFunction21addToExecutorMovementEPN2al9LiveActorE",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN4sead6Random4initEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadRandom.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead6Random4initEj",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "fn_0024BB7C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024BB7C",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "fn_0024BBA0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024BBA0",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "fn_0024BBC4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024BBC4",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "fn_0024C664": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024C664",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "fn_0024C6A4": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024C6A4",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "fn_0024C6E4": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024C6E4",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "fn_0024C724": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024C724",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "fn_0024C764": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024C764",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "fn_0024C7B4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024C7B4",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZNK2al9ByamlIter11isTypeArrayEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter11isTypeArrayEv",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "fn_0024DD4C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectObjectDeletionFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024DD4C",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al9AreaShapeC2Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaShape.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9AreaShapeC2Ev",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN19alPlacementFunction17getClippingViewIdERKN2al9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN19alPlacementFunction17getClippingViewIdERKN2al9ByamlIterE",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZNK2al19StageSwitchAccesser12FUN_0024e734Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchAccesser.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19StageSwitchAccesser12FUN_0024e734Ev",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_0024EC80": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0024EC80",
+        "value": 0,
+        "size": 160
+      }
+    ],
+    "_ZN2al12getHitSensorEPKNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12getHitSensorEPKNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al15HitSensorKeeper9getSensorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al15HitSensorKeeper9getSensorEPKc",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "_ZNK2al9ByamlIter15isTypeContainerEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter15isTypeContainerEv",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al11NerveKeeperC1EPNS_9IUseNerveEPKNS_5NerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11NerveKeeperC1EPNS_9IUseNerveEPKNS_5NerveEi",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al11NerveKeeper6updateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11NerveKeeper6updateEv",
+        "value": 0,
+        "size": 160
+      }
+    ],
+    "_ZN2al9tryGetArgEPfRKNS_9ByamlIterEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementArgumentFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9tryGetArgEPfRKNS_9ByamlIterEPKc",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "_ZN2al9tryGetArgEPbRKNS_9ByamlIterEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementArgumentFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9tryGetArgEPbRKNS_9ByamlIterEPKc",
+        "value": 0,
+        "size": 100
+      }
+    ],
+    "_ZNK2al19StageSwitchAccesser16isTypeKillDeadOnEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchAccesser.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19StageSwitchAccesser16isTypeKillDeadOnEv",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al17StageSwitchKeeper22getStageSwitchAccesserEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageSwitchKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17StageSwitchKeeper22getStageSwitchAccesserEi",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al19getCourseSelectHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19getCourseSelectHeapEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN28PlayerActionConditionAnimEndC1EP18IUsePlayerAnimatorPKci": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionConditionAnimEnd.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN28PlayerActionConditionAnimEndC1EP18IUsePlayerAnimatorPKci",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN26PlayerActionMultiCondition6appendEP21PlayerActionCondition": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActionMultiCondition.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN26PlayerActionMultiCondition6appendEP21PlayerActionCondition",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "fn_00252EC4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementArgumentFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00252EC4",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "fn_00253420": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00253420",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al15tryGetStringArgEPPKcRKNS_9ByamlIterES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15tryGetStringArgEPPKcRKNS_9ByamlIterES1_",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al12EffectKeeper6updateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12EffectKeeper6updateEv",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN2al23getNextKeyPlacementInfoEPKNS_13KeyPoseKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPoseFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23getNextKeyPlacementInfoEPKNS_13KeyPoseKeeperE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al22startHitReactionAppearEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22startHitReactionAppearEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_00257D58": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00257D58",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al20getSceneResourceHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al20getSceneResourceHeapEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al24makeStageDataArchivePathEPN4sead22BufferedSafeStringBaseIcEEPKciS5_": [
+      {
+        "object": "build/eu/obj/lib/al/src/File/alFileFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24makeStageDataArchivePathEPN4sead22BufferedSafeStringBaseIcEEPKciS5_",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN2al13isPadTriggerAEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isPadTriggerAEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al15HitSensorKeeper6updateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15HitSensorKeeper6updateEv",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al14LiveActorGroup7killAllEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorGroup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14LiveActorGroup7killAllEv",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al3Sky8calcAnimEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alSky.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al3Sky8calcAnimEv",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9LiveActor8calcAnimEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor8calcAnimEv",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "fn_0025AB3C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0025AB3C",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "fn_0025AC28": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0025AC28",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN10CourseList6Course17isCourseTypeStageENS0_10CourseTypeE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/System/CourseListCourse.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN10CourseList6Course17isCourseTypeStageENS0_10CourseTypeE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al27sendMsgPlayerBoomerangBreakEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al27sendMsgPlayerBoomerangBreakEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al25isPadTriggerLeftStickDownEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25isPadTriggerLeftStickDownEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al23isPadTriggerLeftStickUpEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23isPadTriggerLeftStickUpEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al6Camera4loadEPKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCamera.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6Camera4loadEPKNS_9ByamlIterE",
+        "value": 0,
+        "size": 148
+      }
+    ],
+    "_ZN2al21isMsgKickKouraReflectEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21isMsgKickKouraReflectEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_00262810": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioKeeperInterfaceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00262810",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al16isCollidedGroundEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16isCollidedGroundEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al27sendMsgPlayerFireBallAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al27sendMsgPlayerFireBallAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al17isPadTriggerRightEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17isPadTriggerRightEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al26isPadTriggerLeftStickRightEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al26isPadTriggerLeftStickRightEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al16isPadTriggerLeftEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16isPadTriggerLeftEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al25isPadTriggerLeftStickLeftEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25isPadTriggerLeftStickLeftEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al13isPadTriggerBEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isPadTriggerBEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al7isAliveEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7isAliveEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2rp13getCourseListEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/System/CourseList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2rp13getCourseListEv",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al15tryGetStringArgEPPKcRKNS_13ActorInitInfoES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15tryGetStringArgEPPKcRKNS_13ActorInitInfoES1_",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN2al8copyPoseEPNS_9LiveActorEPKS0_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8copyPoseEPNS_9LiveActorEPKS0_",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al17initActorPoseTRSVEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17initActorPoseTRSVEPNS_9LiveActorE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN4sead12PtrArrayImpl5eraseEii": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadPtrArrayImpl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead12PtrArrayImpl5eraseEii",
+        "value": 0,
+        "size": 88
+      }
+    ],
+    "_ZN2al12isObjectNameERKNS_9ByamlIterEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12isObjectNameERKNS_9ByamlIterEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19getLinksInfoByIndexEPNS_9ByamlIterERKNS_13ActorInitInfoEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19getLinksInfoByIndexEPNS_9ByamlIterERKNS_13ActorInitInfoEi",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al17getSceneObjHolderEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17getSceneObjHolderEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al25startHitReactionDisappearEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25startHitReactionDisappearEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al19startHitReactionHitEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19startHitReactionHitEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "fn_00267C1C": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00267C1C",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al14NerveStateBaseC1EPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStateBase.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14NerveStateBaseC1EPKc",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al13NerveExecutorD1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveExecutor.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZN2al13NerveExecutorD1Ev",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "fn_00268E80": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioKeeperFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00268E80",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZN2al12ActorFactoryC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12ActorFactoryC1Ev",
+        "value": 0,
+        "size": 192
+      }
+    ],
+    "_ZN2al15getNextKeyTransEPKNS_13KeyPoseKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/KeyPose/alKeyPoseFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15getNextKeyTransEPKNS_13KeyPoseKeeperE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al7lerpVecEPN4sead7Vector3IfEERKS2_S5_f": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/alVectorUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7lerpVecEPN4sead7Vector3IfEERKS2_S5_f",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al12getNerveStepEPKNS_9IUseNerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStepFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12getNerveStepEPKNS_9IUseNerveE",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al13ActorInitInfo14initViewIdHostEPKNS_9ByamlIterERKS0_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorInitInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13ActorInitInfo14initViewIdHostEPKNS_9ByamlIterERKS0_",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al10tryGetArg5EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg5EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2rp14getCoinRotateYEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/CoinRotater.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2rp14getCoinRotateYEv",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al21startHitReactionStartEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21startHitReactionStartEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al16validateClippingEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16validateClippingEPNS_9LiveActorE",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZN2al10isNearZeroEff": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/alMathUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10isNearZeroEff",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al9LiveActor8movementEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor8movementEv",
+        "value": 0,
+        "size": 504
+      }
+    ],
+    "_ZN2al9getRotateEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9getRotateEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al12getRotatePtrEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12getRotatePtrEPNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al8setScaleEPNS_9LiveActorERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8setScaleEPNS_9LiveActorERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN13PlayerTrigger3setENS_17ECollisionTriggerE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerTrigger.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN13PlayerTrigger3setENS_17ECollisionTriggerE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al17sendMsgPlayerKickEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17sendMsgPlayerKickEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al8sendMsg9EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8sendMsg9EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZNK13PlayerTrigger4isOnENS_17ECollisionTriggerE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerTrigger.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK13PlayerTrigger4isOnENS_17ECollisionTriggerE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZNK13PlayerTrigger4isOnENS_14ESensorTriggerE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerTrigger.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK13PlayerTrigger4isOnENS_14ESensorTriggerE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al29sendMsgPlayerInvincibleAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al29sendMsgPlayerInvincibleAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN13PlayerTrigger3setENS_14ESensorTriggerE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerTrigger.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN13PlayerTrigger3setENS_14ESensorTriggerE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al9sendMsg58EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg58EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al10tryGetArg2EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg2EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al13updatePoseMtxEPNS_9LiveActorEPKN4sead8Matrix34IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13updatePoseMtxEPNS_9LiveActorEPKN4sead8Matrix34IfEE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al16isPadTriggerDownEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16isPadTriggerDownEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al14isPadTriggerUpEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Controller/alControllerUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14isPadTriggerUpEi",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al16isEqualSubStringEPKcS1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alStringUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16isEqualSubStringEPKcS1_",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al14isSensorMapObjEPKNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14isSensorMapObjEPKNS_9HitSensorE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg1EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg1EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al17initActorPoseTFSVEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17initActorPoseTFSVEPNS_9LiveActorE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al9setRotateEPNS_9LiveActorERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9setRotateEPNS_9LiveActorERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al10tryGetArg6EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg6EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg4EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg4EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg1EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg1EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al11isExistRailEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11isExistRailEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al17CameraParamVisionC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Camera/alCameraParamVision.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17CameraParamVisionC1Ev",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZNK2al9ByamlIter10isExistKeyEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter10isExistKeyEPKc",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZN2al11getBaseNameEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alStringUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11getBaseNameEPKc",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al20isMsgGororiBigAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al20isMsgGororiBigAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al17isMsgGororiAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17isMsgGororiAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al14getVelocityPtrEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14getVelocityPtrEPNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al11getVelocityEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11getVelocityEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al21isMsgPlayerFloorTouchEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21isMsgPlayerFloorTouchEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10tryGetArg3EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg3EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al7setQuatEPNS_9LiveActorERKN4sead4QuatIfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7setQuatEPNS_9LiveActorERKN4sead4QuatIfEE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al5Scene6appearEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene6appearEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al5Scene7endInitERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene7endInitERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZNK2al19StageResourceKeeper16getResourceSoundEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageResourceKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19StageResourceKeeper16getResourceSoundEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZNK2al19StageResourceKeeper14getResourceMapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageResourceKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19StageResourceKeeper14getResourceMapEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZNK2al19StageResourceKeeper17getResourceDesignEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Stage/alStageResourceKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19StageResourceKeeper17getResourceDesignEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al14createSceneObjEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14createSceneObjEi",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al5Scene16initActorFactoryEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alScene.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al5Scene16initActorFactoryEv",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN19PlayerActorInitInfoC1Ev": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActorInitInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN19PlayerActorInitInfoC1Ev",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al8isPlacedERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8isPlacedERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al9ByamlIter7isValidEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter7isValidEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11tryGetTransEPN4sead7Vector3IfEERKNS_9ByamlIterE",
+        "value": 0,
+        "size": 144
+      }
+    ],
+    "_ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16tryGetObjectNameEPPKcRKNS_9ByamlIterE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al17initActorInitInfoEPNS_13ActorInitInfoEPKNS_9ByamlIterERKS0_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorInitInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17initActorInitInfoEPNS_13ActorInitInfoEPKNS_9ByamlIterERKS0_",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al13ActorInitInfoC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorInitInfo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13ActorInitInfoC1Ev",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al19tryGetPlacementInfoEPNS_9ByamlIterEPKNS_8ResourceEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19tryGetPlacementInfoEPNS_9ByamlIterEPKNS_8ResourceEPKc",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZN2al15getLiveActorKitEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15getLiveActorKitEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al11getSceneObjEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11getSceneObjEi",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al10tryGetArg8EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg8EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg7EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg7EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg6EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg6EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg5EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg5EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al19isMsgKickKouraBreakEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19isMsgKickKouraBreakEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al20isMsgKickStoneAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al20isMsgKickStoneAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al15isMsgPlayerKickEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15isMsgPlayerKickEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al32initCreateActorWithPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorInitUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al32initCreateActorWithPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "fn_00277EC4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alItemTypeLookup.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00277EC4",
+        "value": 0,
+        "size": 1116
+      }
+    ],
+    "_ZN2al19startHitReactionEndEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19startHitReactionEndEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al23startHitReactionBlowHitEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23startHitReactionBlowHitEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al12calcFrontDirEPN4sead7Vector3IfEEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12calcFrontDirEPN4sead7Vector3IfEEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al25isMsgPlayerBoomerangBreakEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25isMsgPlayerBoomerangBreakEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZNK2al9ByamlIter16tryGetFloatByKeyEPfPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter16tryGetFloatByKeyEPfPKc",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al10tryGetArg0EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg0EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg4EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg4EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al10tryGetArg2EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg2EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al9LiveActor12startClippedEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor12startClippedEv",
+        "value": 0,
+        "size": 228
+      }
+    ],
+    "fn_002796C0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperInterfaceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_002796C0",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al9LiveActor10endClippedEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor10endClippedEv",
+        "value": 0,
+        "size": 312
+      }
+    ],
+    "_ZN2al13isGreaterStepEPKNS_9IUseNerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isGreaterStepEPKNS_9IUseNerveEi",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al16tryGetObjectNameEPPKcRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16tryGetObjectNameEPPKcRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al6isStepEPNS_9IUseNerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6isStepEPNS_9IUseNerveEi",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "fn_00279D3C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioControlInterfaceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00279D3C",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al21startHitReactionDeathEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21startHitReactionDeathEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al24startHitReactionOnGroundEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24startHitReactionOnGroundEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al15setVelocityZeroEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15setVelocityZeroEPNS_9LiveActorE",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al14onDrawClippingEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14onDrawClippingEPNS_9LiveActorE",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al11setVelocityEPNS_9LiveActorERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11setVelocityEPNS_9LiveActorERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al19isSensorEnemyAttackEPKNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19isSensorEnemyAttackEPKNS_9HitSensorE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al13isSensorEnemyEPKNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isSensorEnemyEPKNS_9HitSensorE",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZN2al26isMsgPlayerBoomerangAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al26isMsgPlayerBoomerangAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN4sead12PtrArrayImpl9setBufferEiPv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadPtrArrayImpl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead12PtrArrayImpl9setBufferEiPv",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al23getLinksActorObjectNameERKNS_13ActorInitInfoEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al23getLinksActorObjectNameERKNS_13ActorInitInfoEi",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "_ZN2al16calcLinkChildNumERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16calcLinkChildNumERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al9onCollideEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9onCollideEPNS_9LiveActorE",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al10tryGetArg7EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg7EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al14isSensorPlayerEPKNS_9HitSensorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al14isSensorPlayerEPKNS_9HitSensorE",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al13NerveExecutorC1EPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveExecutor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13NerveExecutorC1EPKc",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al13NerveExecutor11updateNerveEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveExecutor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13NerveExecutor11updateNerveEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al9LayoutKitC1EPNS_10FontHolderE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LayoutKitC1EPNS_10FontHolderE",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveExecutor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al10offCollideEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10offCollideEPNS_9LiveActorE",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al11isExistRailERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11isExistRailERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al6isMsg9Ej": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al6isMsg9Ej",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_0027BEA0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectKeeperInterfaceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0027BEA0",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al11getFrontPtrEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11getFrontPtrEPNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10getRailDirEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10getRailDirEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10isLoopRailEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10isLoopRailEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN4sead15Matrix33CalcCtrIfE4copyERN2nn4math5MTX33ERKS4_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/seadMatrixCopy.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead15Matrix33CalcCtrIfE4copyERN2nn4math5MTX33ERKS4_",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKS4_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/seadMatrixConversion.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKS4_",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKNS3_5MTX44E": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/seadMatrixConversion.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKNS3_5MTX44E",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN4sead15Matrix33CalcCtrIfE11transposeToERN2nn4math5MTX33ERKS4_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/seadMatrixCopy.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead15Matrix33CalcCtrIfE11transposeToERN2nn4math5MTX33ERKS4_",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN2al9calcUpDirEPN4sead7Vector3IfEEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9calcUpDirEPN4sead7Vector3IfEEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al11calcSideDirEPN4sead7Vector3IfEEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11calcSideDirEPN4sead7Vector3IfEEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al10tryGetArg0EPfRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg0EPfRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al9LiveActor13makeActorDeadEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor13makeActorDeadEv",
+        "value": 0,
+        "size": 260
+      }
+    ],
+    "_ZN2al8getFrontEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8getFrontEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al9sendMsg41EPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9sendMsg41EPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al18sendMsgEnemyAttackEPNS_9HitSensorES1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18sendMsgEnemyAttackEPNS_9HitSensorES1_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al10getGravityEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10getGravityEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10isLessStepEPKNS_9IUseNerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveStepFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10isLessStepEPKNS_9IUseNerveEi",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al25startHitReactionPressDownEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25startHitReactionPressDownEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al25isMsgPlayerFireBallAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al25isMsgPlayerFireBallAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al21isMsgPlayerTailAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21isMsgPlayerTailAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al27isMsgPlayerBoomerangReflectEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al27isMsgPlayerBoomerangReflectEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al22isMsgPlayerStatueTouchEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al22isMsgPlayerStatueTouchEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al12isSensorNameEPNS_9HitSensorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alHitSensorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12isSensorNameEPNS_9HitSensorEPKc",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al27isMsgPlayerInvincibleAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al27isMsgPlayerInvincibleAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al26isMsgPlayerInvincibleTouchEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al26isMsgPlayerInvincibleTouchEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN14PlayerProperty8setUpVecERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerProperty.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN14PlayerProperty8setUpVecERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN14PlayerProperty11setFrontVecERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerProperty.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN14PlayerProperty11setFrontVecERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN11PlayerActor11getPropertyEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN11PlayerActor11getPropertyEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZNK2al9ByamlIter14tryGetIntByKeyEPiPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter14tryGetIntByKeyEPiPKc",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al11LayoutActor9initNerveEPKNS_5NerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11LayoutActor9initNerveEPKNS_5NerveEi",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN2al11LayoutActorC1EPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11LayoutActorC1EPKc",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al10WipeSimple6appearEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alWipeSimple.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10WipeSimple6appearEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al11LayoutActor6appearEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11LayoutActor6appearEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al11LayoutActor4killEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11LayoutActor4killEv",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN2al8getScaleEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8getScaleEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al9LiveActor17makeActorAppearedEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor17makeActorAppearedEv",
+        "value": 0,
+        "size": 364
+      }
+    ],
+    "_ZN2al9LiveActor4killEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor4killEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al21startHitReactionBreakEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al21startHitReactionBreakEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al10tryGetArg3EPbRKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10tryGetArg3EPbRKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al7getQuatEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7getQuatEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al30initCreateActorNoPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorInitUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al30initCreateActorNoPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al12isObjectNameERKNS_13ActorInitInfoEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al12isObjectNameERKNS_13ActorInitInfoEPKc",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN2al10BreakModelC1EPNS_9LiveActorEPKcS4_PKN4sead8Matrix34IfEES4_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alBreakModel.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10BreakModelC1EPNS_9LiveActorEPKcS4_PKN4sead8Matrix34IfEES4_",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN2al24isMsgPlayerRollingAttackEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24isMsgPlayerRollingAttackEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al15isMsgUpperPunchEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alSensorMsg.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15isMsgUpperPunchEj",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al8setTransEPNS_9LiveActorERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8setTransEPNS_9LiveActorERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al10getQuatPtrEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al10getQuatPtrEPNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al11getTransPtrEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11getTransPtrEPNS_9LiveActorE",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al11isFirstStepEPKNS_9IUseNerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11isFirstStepEPKNS_9IUseNerveE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al9LiveActorC1EPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActorC1EPKc",
+        "value": 0,
+        "size": 152
+      }
+    ],
+    "_ZN2al9LiveActor6appearEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9LiveActor6appearEv",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al19startHitReactionGetEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorActionKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al19startHitReactionGetEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al8getTransEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8getTransEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZN2al11MapObjActorC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/MapObj/alMapObjActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al11MapObjActorC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZN2al17initActorPoseTQSVEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17initActorPoseTQSVEPNS_9LiveActorE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZN2al18invalidateClippingEPNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al18invalidateClippingEPNS_9LiveActorE",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN2al7isNerveEPKNS_9IUseNerveEPKNS_5NerveE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al7isNerveEPKNS_9IUseNerveEPKNS_5NerveE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN4sead8DateUtil11calcWeekDayERKNS_12CalendarTime4YearERKNS1_5MonthERKNS1_3DayE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadDateUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8DateUtil11calcWeekDayERKNS_12CalendarTime4YearERKNS1_5MonthERKNS1_3DayE",
+        "value": 0,
+        "size": 156
+      }
+    ],
+    "_ZNK2al20ByamlStringTableIter15findStringIndexEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlStringTableIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al20ByamlStringTableIter15findStringIndexEPKc",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZN4sead8DateUtil10isLeapYearEj": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadDateUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8DateUtil10isLeapYearEj",
+        "value": 0,
+        "size": 68
+      }
+    ],
+    "_ZN2al9ByamlIterC1ERKS0_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9ByamlIterC1ERKS0_",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZNK2al9ByamlIter17getByamlDataByKeyEPNS_9ByamlDataEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter17getByamlDataByKeyEPNS_9ByamlDataEPKc",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZN4sead8TreeNodeC2Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8TreeNodeC1Ev",
+        "value": 0,
+        "size": 0
+      }
+    ],
+    "_ZN2al13isEqualStringERKN4sead14SafeStringBaseIcEES4_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alStringUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isEqualStringERKN4sead14SafeStringBaseIcEES4_",
+        "value": 0,
+        "size": 112
+      }
+    ],
+    "_ZN4sead8ListNode12insertFront_EPS0_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8ListNode12insertFront_EPS0_",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN4sead8ListNode6erase_Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8ListNode6erase_Ev",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZN2al9ByamlIterC1EPKh": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9ByamlIterC1EPKh",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZN2al24makeLocalizedArchivePathEPN4sead22BufferedSafeStringBaseIcEERKNS0_14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/File/alFileFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al24makeLocalizedArchivePathEPN4sead22BufferedSafeStringBaseIcEERKNS0_14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZNK2al9ByamlIter19tryGetStringByIndexEPPKci": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter19tryGetStringByIndexEPPKci",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "_ZNK2al9ByamlIter15tryGetBoolByKeyEPbPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter15tryGetBoolByKeyEPbPKc",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZNK2al9ByamlIter15tryGetIterByKeyEPS0_PKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter15tryGetIterByKeyEPS0_PKc",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZNK2al9ByamlIter17tryGetStringByKeyEPPKcS2_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter17tryGetStringByKeyEPPKcS2_",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "_ZNK2al9ByamlIter17tryGetIterByIndexEPS0_i": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter17tryGetIterByIndexEPS0_i",
+        "value": 0,
+        "size": 108
+      }
+    ],
+    "_ZN2al9ByamlIterC1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9ByamlIterC1Ev",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZNK2al9ByamlIter7getSizeEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter7getSizeEv",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZN2al13isEqualStringEPKcS1_": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/alStringUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al13isEqualStringEPKcS1_",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZN18alProjectInterface12getSystemKitEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/System/alSystemKit.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN18alProjectInterface12getSystemKitEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZN2al16getStationedHeapEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Memory/alMemorySystem.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al16getStationedHeapEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZN2al3SkyC1EPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alSky.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al3SkyC1EPKc",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN4sead10StereoUtil18getProjectionParamEPfS1_S1_S1_S1_S1_RKNS_8Matrix44IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Math/seadStereoUtil.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead10StereoUtil18getProjectionParamEPfS1_S1_S1_S1_S1_RKNS_8Matrix44IfEE",
+        "value": 0,
+        "size": 176
+      }
+    ],
+    "_ZN4sead12CalendarTime7setDateERKNS0_4DateE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadCalendarTime.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead12CalendarTime7setDateERKNS0_4DateE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN4sead12CalendarTimeC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadCalendarTime.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead12CalendarTimeC1ERKNS0_4YearERKNS0_5MonthERKNS0_3DayERKNS0_4HourERKNS0_6MinuteERKNS0_6SecondE",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "fn_002E3BF8": [
+      {
+        "object": "build/eu/obj/lib/al/src/Effect/alEffectObjectDeletionFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_002E3BF8",
+        "value": 0,
+        "size": 88
+      }
+    ],
+    "_ZN4sead8ListImpl8popFrontEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadList.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8ListImpl8popFrontEv",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN4sead8TreeNode27clearChildLinksRecursively_Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN4sead8TreeNode27clearChildLinksRecursively_Ev",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZN6Togezo4initERKN2al13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN6Togezo4initERKN2al13ActorInitInfoE",
+        "value": 0,
+        "size": 456
+      }
+    ],
+    "_ZN6TogezoC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN6TogezoC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZN7NoteObj18initAfterPlacementEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN7NoteObj18initAfterPlacementEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN8FireBall10receiveMsgEjPN2al9HitSensorES2_": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/FireBall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN8FireBall10receiveMsgEjPN2al9HitSensorES2_",
+        "value": 0,
+        "size": 116
+      }
+    ],
+    "_ZN8FireBall12attackSensorEPN2al9HitSensorES2_": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/FireBall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN8FireBall12attackSensorEPN2al9HitSensorES2_",
+        "value": 0,
+        "size": 164
+      }
+    ],
+    "_ZN8FireBall4initERKN2al13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/FireBall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN8FireBall4initERKN2al13ActorInitInfoE",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "_ZN8FireBallC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/FireBall.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN8FireBallC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al8Sequence4initEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8Sequence4initEv",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZN2al8Sequence4unk3Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8Sequence4unk3Ev",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al8Sequence4unk1Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8Sequence4unk1Ev",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al8Sequence4unk2Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8Sequence4unk2Ev",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "_ZN2al9EffectObj17makeActorAppearedEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alEffectObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9EffectObj17makeActorAppearedEv",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al9EffectObj4killEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alEffectObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9EffectObj4killEv",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al9EffectObj7controlEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alEffectObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al9EffectObj7controlEv",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZN9FlowerPotC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/FlowerPot.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN9FlowerPotC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN9PeachRope4initERKN2al13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/PeachRope.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN9PeachRope4initERKN2al13ActorInitInfoE",
+        "value": 0,
+        "size": 84
+      }
+    ],
+    "_ZN9PeachRope4killEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/PeachRope.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN9PeachRope4killEv",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN9PeachRopeC1ERKN4sead14SafeStringBaseIcEE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/PeachRope.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN9PeachRopeC1ERKN4sead14SafeStringBaseIcEE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "fn_0032BD6C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0032BD6C",
+        "value": 0,
+        "size": 128
+      }
+    ],
+    "fn_0032BDEC": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0032BDEC",
+        "value": 0,
+        "size": 128
+      }
+    ],
+    "fn_0032BE6C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0032BE6C",
+        "value": 0,
+        "size": 136
+      }
+    ],
+    "fn_0032BEF4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0032BEF4",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "fn_0032BF44": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0032BF44",
+        "value": 0,
+        "size": 96
+      }
+    ],
+    "fn_0032BFA4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Placement/alPlacementFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0032BFA4",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZNK14PlayerAnimator12getAnimFrameEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerAnimator.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK14PlayerAnimator12getAnimFrameEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK19PlayerAnimFrameCtrl15getCurrentFrameEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/PlayerAnimFrameCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK19PlayerAnimFrameCtrl15getCurrentFrameEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al10FunctorV0FclEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorKit.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al10FunctorV0FclEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al10RailKeeper11isExistRailEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al10RailKeeper11isExistRailEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZNK2al11LayoutActor14getNerveKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al11LayoutActor14getNerveKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al11LayoutActor15getEffectKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al11LayoutActor15getEffectKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al11NerveKeeper15getCurrentNerveEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al11NerveKeeper15getCurrentNerveEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "fn_00330610": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceFlagFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330610",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00330618": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceStateFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330618",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00330620": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceFieldFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330620",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00330628": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceFieldFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330628",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00330630": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceInterfaceQueryFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330630",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "fn_00330640": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourcePredicateFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330640",
+        "value": 0,
+        "size": 28
+      }
+    ],
+    "fn_00330664": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceStateFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330664",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "fn_00330678": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceStatusFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00330678",
+        "value": 0,
+        "size": 124
+      }
+    ],
+    "fn_003306F4": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioSourceFieldFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_003306F4",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaShapeCube.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al13AreaShapeCube10isInVolumeERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 180
+      }
+    ],
+    "_ZNK2al13ByamlHashIter14getPairByIndexEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlHashIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al13ByamlHashIter14getPairByIndexEi",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK2al13NerveExecutor14getNerveKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveExecutor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al13NerveExecutor14getNerveKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00331704": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioInterfaceHandleFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00331704",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al15isExistSceneObjEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al15isExistSceneObjEi",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZNK2al14SceneObjHolder7isExistEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al14SceneObjHolder7isExistEi",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZNK2al14SceneObjHolder6getObjEi": [
+      {
+        "object": "build/eu/obj/lib/al/src/Scene/alSceneObjHolder.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al14SceneObjHolder6getObjEi",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZNK2al15NerveActionCtrl9findNerveEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveActionCtrl.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al15NerveActionCtrl9findNerveEPKc",
+        "value": 0,
+        "size": 104
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperBase7getQuatEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperBase7getQuatEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperBase8getFrontEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperBase8getFrontEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperBase9getRotateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperBase9getRotateEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTFSV11getVelocityEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTFSV11getVelocityEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTFSV8getFrontEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTFSV8getFrontEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTFSV8getScaleEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTFSV8getScaleEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTQSV11getVelocityEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTQSV11getVelocityEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTQSV7getQuatEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTQSV7getQuatEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTQSV8getScaleEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTQSV8getScaleEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTRSV11getVelocityEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTRSV11getVelocityEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTRSV8getScaleEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTRSV8getScaleEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al19ActorPoseKeeperTRSV9getRotateEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al19ActorPoseKeeperTRSV9getRotateEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al20ActorPoseKeeperTFGSV10getGravityEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alActorPoseKeeper.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al20ActorPoseKeeperTFGSV10getGravityEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00335FE0": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioResourceEntryFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00335FE0",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "fn_00335FEC": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioResourceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00335FEC",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "fn_00335FF8": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioResourceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00335FF8",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "fn_00336028": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioResourceFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00336028",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "fn_0033603C": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioParameterFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_0033603C",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "fn_00336044": [
+      {
+        "object": "build/eu/obj/lib/al/src/Audio/alAudioParameterFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i.fn_00336044",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/FireBall.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Fugumannen.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/WalkerStateChase.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObjGenerator.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TrickHintPanel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/AquariumSwimDebris.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/FlowerPot.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/RailDot.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/RailDotEnd.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Player/GhostPlayer.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Sequence/ProductSequence.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/Game/backup/src/Sequence/ProductStateTitle.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alWipeSimple.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/lib/al/src/MapObj/alFallMapParts.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/lib/al/src/Nerve/alNerveActionCtrl.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alBreakModel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      },
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailMoveMovement.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al5Nerve12executeOnEndEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZNK2al7AreaObj10isInVolumeERKN4sead7Vector3IfEE": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al7AreaObj10isInVolumeERKN4sead7Vector3IfEE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZNK2al7AreaObj20getStageSwitchKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/AreaObj/alAreaObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al7AreaObj20getStageSwitchKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci": [
+      {
+        "object": "build/eu/obj/lib/al/src/Yaml/alByamlIter.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9ByamlIter22getByamlDataAndKeyNameEPNS_9ByamlDataEPPKci",
+        "value": 0,
+        "size": 160
+      }
+    ],
+    "_ZNK2al9LiveActor10getBaseMtxEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9LiveActor10getBaseMtxEv",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZNK2al9LiveActor14getNerveKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9LiveActor14getNerveKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al9LiveActor14getAudioKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9LiveActor14getAudioKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al9LiveActor15getEffectKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9LiveActor15getEffectKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al17isRailReachedGoalEPKNS_9LiveActorE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailFunction.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al17isRailReachedGoalEPKNS_9LiveActorE",
+        "value": 0,
+        "size": 12
+      }
+    ],
+    "_ZNK2al9RailRider13isReachedGoalEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Rail/alRailRider.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9RailRider13isReachedGoalEv",
+        "value": 0,
+        "size": 128
+      }
+    ],
+    "_ZNK9NrvTogezo17TogezoNrvBlowDown7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK9NrvTogezo17TogezoNrvBlowDown7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK9NrvTogezo15TogezoNrvSearch7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK9NrvTogezo15TogezoNrvSearch7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 188
+      }
+    ],
+    "_ZNK9NrvTogezo14TogezoNrvChase7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK9NrvTogezo14TogezoNrvChase7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK9NrvTogezo15TogezoNrvWander7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK9NrvTogezo15TogezoNrvWander7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 80
+      }
+    ],
+    "_ZNK9NrvTogezo13TogezoNrvTurn7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK9NrvTogezo13TogezoNrvTurn7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 180
+      }
+    ],
+    "_ZNK9NrvTogezo15TogezoNrvAttack7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Togezo.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK9NrvTogezo15TogezoNrvAttack7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "_ZNK10NrvRailDot14RailDotNrvWait7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/RailDot.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK10NrvRailDot14RailDotNrvWait7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZNK11NrvFireBall15FireBallNrvShot7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/FireBall.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK11NrvFireBall15FireBallNrvShot7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 140
+      }
+    ],
+    "_ZNK13NrvAppearStep17AppearStepNrvWait7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK13NrvAppearStep17AppearStepNrvWait7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZNK13NrvAppearStep16AppearStepNrvEnd7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK13NrvAppearStep16AppearStepNrvEnd7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZNK13NrvFugumannen21FugumannenNrvBlowDown7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Enemy/Fugumannen.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK13NrvFugumannen21FugumannenNrvBlowDown7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK13NrvRailDotEnd17RailDotEndNrvWait7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/RailDotEnd.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK13NrvRailDotEnd17RailDotEndNrvWait7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZNK2al15NrvFallMapParts18FallMapPartsNrvEnd7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/MapObj/alFallMapParts.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al15NrvFallMapParts18FallMapPartsNrvEnd7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 140
+      }
+    ],
+    "_ZNK2al15NrvFallMapParts19FallMapPartsNrvFall7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/MapObj/alFallMapParts.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al15NrvFallMapParts19FallMapPartsNrvFall7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 180
+      }
+    ],
+    "_ZNK2al15NrvFallMapParts19FallMapPartsNrvWait7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/MapObj/alFallMapParts.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al15NrvFallMapParts19FallMapPartsNrvWait7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZNK2al15NrvFallMapParts21FallMapPartsNrvAppear7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/MapObj/alFallMapParts.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al15NrvFallMapParts21FallMapPartsNrvAppear7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 92
+      }
+    ],
+    "_ZNK2al13NrvBreakModel17BreakModelNrvWait7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alBreakModel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al13NrvBreakModel17BreakModelNrvWait7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZNK2al13NrvBreakModel18BreakModelNrvBreak7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alBreakModel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al13NrvBreakModel18BreakModelNrvBreak7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 48
+      }
+    ],
+    "_ZNK2al13NrvWipeSimple17WipeSimpleNrvOpen7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alWipeSimple.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al13NrvWipeSimple17WipeSimpleNrvOpen7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 132
+      }
+    ],
+    "_ZNK2al13NrvWipeSimple18WipeSimpleNrvClose7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alWipeSimple.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al13NrvWipeSimple18WipeSimpleNrvClose7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK2al13NrvWipeSimple17WipeSimpleNrvWait7executeEPNS_11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alWipeSimple.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK2al13NrvWipeSimple17WipeSimpleNrvWait7executeEPNS_11NerveKeeperE",
+        "value": 0,
+        "size": 64
+      }
+    ],
+    "_ZNK17NrvTrickHintPanel21TrickHintPanelNrvWait7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TrickHintPanel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK17NrvTrickHintPanel21TrickHintPanelNrvWait7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 4
+      }
+    ],
+    "_ZNK17NrvTrickHintPanel19TrickHintPanelNrvOn7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TrickHintPanel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK17NrvTrickHintPanel19TrickHintPanelNrvOn7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 88
+      }
+    ],
+    "_ZNK17NrvTrickHintPanel21TrickHintPanelNrvnrv37executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TrickHintPanel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK17NrvTrickHintPanel21TrickHintPanelNrvnrv37executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK17NrvTrickHintPanel20TrickHintPanelNrvOff7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/TrickHintPanel.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK17NrvTrickHintPanel20TrickHintPanelNrvOff7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZNK18NrvProductSequence23ProductSequenceNrvTitle7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Sequence/ProductSequence.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK18NrvProductSequence23ProductSequenceNrvTitle7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 76
+      }
+    ],
+    "_ZNK18NrvProductSequence24ProductSequenceNrvEnding7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Sequence/ProductSequence.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK18NrvProductSequence24ProductSequenceNrvEnding7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 72
+      }
+    ],
+    "_ZNK18NrvProductSequence25ProductSequenceNrvOpening7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Sequence/ProductSequence.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK18NrvProductSequence25ProductSequenceNrvOpening7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZNK18NrvProductSequence30ProductSequenceNrvKinopioHouse7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Sequence/ProductSequence.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK18NrvProductSequence30ProductSequenceNrvKinopioHouse7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 56
+      }
+    ],
+    "_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvMove7getNameEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObjGenerator.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvMove7getNameEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvWait7getNameEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObjGenerator.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK19NrvNoteObjGenerator23NoteObjGeneratorNrvWait7getNameEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7getNameEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObjGenerator.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7getNameEv",
+        "value": 0,
+        "size": 16
+      }
+    ],
+    "_ZNK19NrvNoteObjGenerator28NoteObjGeneratorNrvDisappear7getNameEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/NoteObjGenerator.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK19NrvNoteObjGenerator28NoteObjGeneratorNrvDisappear7getNameEv",
+        "value": 0,
+        "size": 20
+      }
+    ],
+    "_ZNK21NrvAquariumSwimDebris27AquariumSwimDebrisNrvAppear7executeEPN2al11NerveKeeperE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/Npc/AquariumSwimDebris.o",
+        "bind": "STB_WEAK",
+        "section": "i._ZNK21NrvAquariumSwimDebris27AquariumSwimDebrisNrvAppear7executeEPN2al11NerveKeeperE",
+        "value": 0,
+        "size": 44
+      }
+    ],
+    "_ZNK2al8Sequence12isDisposableEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al8Sequence12isDisposableEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZN2al8Sequence4unk5Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8Sequence4unk5Ev",
+        "value": 0,
+        "size": 24
+      }
+    ],
+    "_ZN2al8Sequence4unk4Ev": [
+      {
+        "object": "build/eu/obj/lib/al/src/Sequence/alSequence.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZN2al8Sequence4unk4Ev",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZNK2al9EffectObj10getBaseMtxEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Npc/alEffectObj.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al9EffectObj10getBaseMtxEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn12_N2al9LiveActor21initStageSwitchKeeperEv",
+        "value": 0,
+        "size": 32
+      }
+    ],
+    "_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZThn4_NK2al11LayoutActor14getAudioKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn4_NK2al11LayoutActor14getAudioKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZThn4_NK2al9LiveActor15getEffectKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn4_NK2al9LiveActor15getEffectKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZThn8_NK2al11LayoutActor15getEffectKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/Layout/alLayoutActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn8_NK2al11LayoutActor15getEffectKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZThn8_NK2al9LiveActor14getAudioKeeperEv": [
+      {
+        "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn8_NK2al9LiveActor14getAudioKeeperEv",
+        "value": 0,
+        "size": 8
+      }
+    ],
+    "_ZThn96_N11CoinRotater26initAfterPlacementSceneObjERKN2al13ActorInitInfoE": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/CoinRotater.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZThn96_N11CoinRotater26initAfterPlacementSceneObjERKN2al13ActorInitInfoE",
+        "value": 0,
+        "size": 36
+      }
+    ],
+    "_ZN2al19createActorFunctionI10AppearStepEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI10AppearStepEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionI10FugumannenEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI10FugumannenEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionI11GhostPlayerEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI11GhostPlayerEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionINS_12FallMapPartsEEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionINS_12FallMapPartsEEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionI14TrickHintPanelEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI14TrickHintPanelEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionI15TransparentWallEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI15TransparentWallEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionI16NoteObjGeneratorEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI16NoteObjGeneratorEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionINS_3SkyEEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionINS_3SkyEEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al19createActorFunctionI6TogezoEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI6TogezoEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 52
+      }
+    ],
+    "_ZN2al19createActorFunctionI7NoteObjEEPNS_9LiveActorEPKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alActorFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al19createActorFunctionI7NoteObjEEPNS_9LiveActorEPKc",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZN2al21createAreaObjFunctionINS_7AreaObjEEEPS1_PKc": [
+      {
+        "object": "build/eu/obj/lib/al/src/Factory/alAreaObjFactory.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZN2al21createAreaObjFunctionINS_7AreaObjEEEPS1_PKc",
+        "value": 0,
+        "size": 40
+      }
+    ],
+    "_ZNK2al10FunctorV0MIP10AppearStepMS1_FvvEE5cloneEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_GLOBAL",
+        "section": "i._ZNK2al10FunctorV0MIP10AppearStepMS1_FvvEE5cloneEv",
+        "value": 0,
+        "size": 60
+      }
+    ],
+    "_ZNK2al10FunctorV0MIP10AppearStepMS1_FvvEEclEv": [
+      {
+        "object": "build/eu/obj/Game/backup/src/MapObj/AppearStep.o",
+        "bind": "STB_WEAK",
+        "section": "t._ZNK2al10FunctorV0MIP10AppearStepMS1_FvvEEclEv",
+        "value": 0,
+        "size": 40
+      }
+    ]
+  },
+  "family_symbols": [
+    {
+      "symbol": "_ZN4sead8TreeNode13detachSubTreeEv",
+      "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+      "bind": "STB_GLOBAL",
+      "section": "i._ZN4sead8TreeNode13detachSubTreeEv",
+      "value": 0,
+      "size": 100
+    },
+    {
+      "symbol": "_ZN4sead8TreeNode14pushFrontChildEPS0_",
+      "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+      "bind": "STB_GLOBAL",
+      "section": "i._ZN4sead8TreeNode14pushFrontChildEPS0_",
+      "value": 0,
+      "size": 64
+    },
+    {
+      "symbol": "_ZN4sead8TreeNode27clearChildLinksRecursively_Ev",
+      "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+      "bind": "STB_GLOBAL",
+      "section": "i._ZN4sead8TreeNode27clearChildLinksRecursively_Ev",
+      "value": 0,
+      "size": 64
+    },
+    {
+      "symbol": "_ZN4sead8TreeNodeC1Ev",
+      "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+      "bind": "STB_GLOBAL",
+      "section": "i._ZN4sead8TreeNodeC1Ev",
+      "value": 0,
+      "size": 24
+    },
+    {
+      "symbol": "_ZN4sead8TreeNodeC2Ev",
+      "object": "build/eu/obj/lib/al/src/Util/seadTreeNode.o",
+      "bind": "STB_GLOBAL",
+      "section": "i._ZN4sead8TreeNodeC1Ev",
+      "value": 0,
+      "size": 0
+    }
+  ]
+}
