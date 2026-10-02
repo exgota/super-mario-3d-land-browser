@@ -2820,3 +2820,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T11:24:55-04:00,0x003033C0,fn_003033C0,matched,1,0.1563
 2026-10-02T11:24:55-04:00,0x00303C90,fn_00303C90,matched,1,0.1563
 2026-10-02T11:24:55-04:00,0x003058A4,fn_003058A4,matched,1,0.1563
+2026-10-02T11:54:18-04:00,0x003029B4,_ZN6Bubble18isWithinValueLimitEi,matched,3,4.3341

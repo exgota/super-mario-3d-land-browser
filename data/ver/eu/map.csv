@@ -12189,7 +12189,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00302914,          ,0x0030294C,          ,U,f,,
 0x0030294C,0x003029A0,0x003029A4,          ,U,f,,
 0x003029A4,          ,0x003029B4,          ,U,f,,
-0x003029B4,0x003029C8,0x003029CC,          ,U,f,_ZN6Bubble18isWithinValueLimitEi,
+0x003029B4,0x003029C8,0x003029CC,          ,O,f,_ZN6Bubble18isWithinValueLimitEi,
 0x003029CC,          ,0x003029DC,          ,O,f,_ZN6Bubble12isBelowLimitEi,
 0x003029DC,          ,0x00302A18,          ,U,f,,
 0x00302A18,          ,0x00302A3C,          ,U,f,,
