@@ -6311,7 +6311,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0021A6BC,          ,0x0021A714,          ,U,f,,
 0x0021A714,          ,0x0021A750,          ,U,f,,
 0x0021A750,          ,0x0021A78C,          ,U,f,,
-0x0021A78C,          ,0x0021A794,          ,U,f,,
+0x0021A78C,          ,0x0021A794,          ,O,f,fn_0021A78C,
 0x0021A794,          ,0x0021A8B4,          ,U,f,,
 0x0021A8B4,0x0021A994,0x0021A99C,          ,U,f,,
 0x0021A99C,          ,0x0021A9B0,          ,U,f,,
