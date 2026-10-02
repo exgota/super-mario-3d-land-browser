@@ -1948,6 +1948,220 @@ CpuVertexUniformConstruction readCpuVertexUniformConstruction(
     return constructed;
 }
 
+struct CpuVertexAttributeAssignment {
+    std::size_t sourceOffset = 0;
+    std::uint32_t semantic = 0;
+    std::uint8_t shaderInputRegister = 0;
+    std::uint32_t logicalAttributeNumber = 0;
+    bool inlineValue = false;
+};
+
+struct CpuInlineAttributeDescriptor {
+    bool resourceBindingPresent = false;
+    std::size_t sourceOffset = 0;
+    std::size_t sourceVectorOffset = 0;
+    std::uint32_t semantic = 0;
+    std::uint8_t shaderInputRegister = 0;
+    std::uint32_t logicalAttributeNumber = 0;
+    std::uint32_t componentCount = 0;
+    std::uint8_t componentFieldByte = 0;
+    std::array<std::uint32_t, 4> sourceWords{};
+    std::array<std::uint32_t, 4> encodedWords{};
+    std::array<std::uint32_t, 6> commandWords{};
+};
+
+struct CpuMissingFixedAttribute {
+    std::uint32_t logicalAttributeNumber = 0;
+    std::uint8_t shaderInputRegister = 0;
+    std::string status = "unavailable_caller_fixed_attribute_value";
+};
+
+struct CpuInlineAttributeConstruction {
+    std::string status;
+    bool shaderSelectionPresent = false;
+    std::size_t meshOffset = 0;
+    std::size_t shapeOffset = 0;
+    std::size_t shaderInstanceOffset = 0;
+    std::size_t vertexExecutableOffset = 0;
+    std::uint16_t vertexInputMask = 0;
+    std::uint32_t vertexInputCount = 0;
+    std::uint16_t fixedAttributeMask = 0;
+    std::uint64_t attributePermutation = 0;
+    std::vector<CpuVertexAttributeAssignment> assignments;
+    std::vector<CpuInlineAttributeDescriptor> inlineAttributes;
+    std::vector<CpuMissingFixedAttribute> missingFixedAttributes;
+    std::vector<std::uint32_t> commandWords;
+};
+
+// Retail 0x003932C0 truncates words; its overflow branch discards sign.
+// This CPU encoding does not interpret a GPU value or execute shader arithmetic.
+std::uint32_t encodeCpuInlineFloat24Word(std::uint32_t word) {
+    const std::uint32_t magnitude = word & 0x7FFFFFFF;
+    const std::uint32_t sign = (word >> 31) << 23;
+    if (!magnitude)
+        return sign;
+    const int exponent = int((word >> 23) & 255) - 64;
+    if (exponent < 0)
+        return sign;
+    if (exponent > 127)
+        return 0x7F0000;
+    return sign | (std::uint32_t(exponent) << 16) | ((word & 0x7FFFFF) >> 7);
+}
+
+CpuInlineAttributeDescriptor constructCpuInlineAttributePacket(
+        std::uint32_t logicalAttributeNumber, std::span<const std::uint32_t> sourceWords) {
+    require(logicalAttributeNumber < 12, "Inline attribute number exceeds its supported domain");
+    require(!sourceWords.empty() && sourceWords.size() <= 4, "Inline component count is unsupported");
+    CpuInlineAttributeDescriptor result;
+    result.logicalAttributeNumber = logicalAttributeNumber;
+    result.componentCount = std::uint32_t(sourceWords.size());
+    for (std::size_t component = 0; component < sourceWords.size(); ++component) {
+        result.sourceWords[component] = sourceWords[component];
+        result.encodedWords[component] = encodeCpuInlineFloat24Word(sourceWords[component]);
+    }
+    const auto [x, y, z, w] = result.encodedWords;
+    result.commandWords = {logicalAttributeNumber, 0x803F0232, (w << 8) | (z >> 16),
+                           (z << 16) | (y >> 8), (y << 24) | x, 0};
+    return result;
+}
+
+// The observed input producer assigns nonconstant sources, inline sources, then
+// missing logical attributes. Missing attributes have no value or upload here.
+CpuInlineAttributeConstruction readCpuInlineAttributeConstruction(
+        Bytes modelData, const ModelGeometry& model, std::size_t meshIndex,
+        Bytes shaderData, const MaterialShaderSelection* selection) {
+    CpuInlineAttributeConstruction result;
+    result.shaderSelectionPresent = selection != nullptr;
+    const CpuVertexUniformConstruction uniform =
+        readCpuVertexUniformConstruction(modelData, model, meshIndex, shaderData, selection);
+    result.status = uniform.status;
+    if (uniform.status != "resource_local_vertex_uniform_construction")
+        return result;
+    result.status = "unavailable_optional_shader_archive";
+    if (!selection->optionalShaderArchivePresent)
+        return result;
+    const ModelMesh& mesh = model.meshes[meshIndex];
+    const ModelMaterial& material = model.materials[mesh.materialIndex];
+    ByteReader input(modelData), shader(shaderData);
+    const std::size_t dataEnd = 20 + input.integer(24);
+    const std::size_t shaderEnd = 20 + shader.integer(24);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "Inline attribute metadata escapes DATA");
+    };
+    metadata(material.offset, 0x290);
+    require(input.integer(material.offset + 0x28C) == selection->instanceIndex &&
+            input.relative(material.offset + 0x284) == selection->referenceOffset,
+            "Inline material selection disagrees with its serialized input");
+    metadata(selection->referenceOffset, 0x20);
+    require(input.integer(selection->referenceOffset) == selection->referenceFlags,
+            "Inline shader reference flags disagree with their selection");
+    result.status = "serialized_shader_cache_unapplied";
+    if (input.integer(selection->referenceOffset + 0x1C) || selection->cachedRelativePointerField)
+        return result;
+    const std::size_t modelDictionary = input.relative(32);
+    metadata(modelDictionary, 44);
+    require(input.integer(28) == input.integer(modelDictionary + 8) && input.integer(28) != 0,
+            "Inline model dictionary disagrees with its input");
+    result.status = "unsupported_secondary_model_fixup";
+    if (input.relative(modelDictionary + 40) != model.offset)
+        return result;
+    const ShaderArchiveSelectionInput shaderCatalog = readShaderArchiveSelectionInput(shaderData);
+    const auto program = std::find_if(shaderCatalog.programs.begin(), shaderCatalog.programs.end(),
+        [&](const auto& value) { return value.offset == selection->selectedProgramOffset; });
+    result.status = "unsupported_shader_program_selection";
+    if (program == shaderCatalog.programs.end() || program->status != "resource_local_program_identity" ||
+        program->name != "FastShader")
+        return result;
+    require(selection->instanceIndex < program->instances.size(), "Inline shader instance index exceeds its root");
+    const ShaderInstanceDefinition& instance = program->instances[selection->instanceIndex];
+    require(instance.offset == selection->selectedInstanceOffset &&
+            instance.vertexExecutableOffset == selection->vertexExecutableOffset &&
+            instance.vertexSelector == selection->vertexSelector && instance.geometrySelector == selection->geometrySelector,
+            "Inline executable selection disagrees with its instance");
+    const std::size_t executable = instance.vertexExecutableOffset;
+    require(executable >= 20 && executable <= shaderEnd && 0x12 <= shaderEnd - executable,
+            "Inline vertex input mask escapes DATA");
+    const std::uint16_t inputMask = std::uint16_t(shader.byte(executable + 0x10)) |
+                                    std::uint16_t(shader.byte(executable + 0x11)) << 8;
+    const std::uint32_t inputCount = std::popcount(inputMask);
+    result.status = "unsupported_vertex_input_count";
+    if (!inputCount || inputCount > 12 || uniform.coefficients.size() > inputCount)
+        return result;
+    std::array<std::uint8_t, 12> semanticMap{};
+    std::uint16_t mapSeen = 0;
+    for (std::size_t semantic = 0; semantic < semanticMap.size(); ++semantic) {
+        const std::uint8_t value = shader.byte(instance.offset + 0x4C + semantic);
+        result.status = "unsupported_shader_semantic_map";
+        if (value >= 12 || (mapSeen & (1u << value)))
+            return result;
+        mapSeen |= std::uint16_t(1u << value);
+        semanticMap[semantic] = value;
+    }
+    CpuInlineAttributeConstruction constructed;
+    constructed.status = "resource_local_inline_attribute_construction";
+    constructed.shaderSelectionPresent = true;
+    constructed.meshOffset = mesh.offset;
+    constructed.shapeOffset = uniform.shapeOffset;
+    constructed.shaderInstanceOffset = instance.offset;
+    constructed.vertexExecutableOffset = executable;
+    constructed.vertexInputMask = inputMask;
+    constructed.vertexInputCount = inputCount;
+    std::uint16_t seen = 0;
+    std::uint32_t number = 0;
+    for (const bool constant : {false, true}) {
+        for (const VertexUniformCoefficient& coefficient : uniform.coefficients) {
+            if (coefficient.constant != constant)
+                continue;
+            const std::uint8_t selected = semanticMap[coefficient.semantic];
+            result.status = "unsupported_duplicate_vertex_input_binding";
+            if (seen & (1u << selected))
+                return result;
+            seen |= std::uint16_t(1u << selected);
+            constructed.attributePermutation |= std::uint64_t(selected) << (number * 4);
+            constructed.assignments.push_back({coefficient.sourceOffset, coefficient.semantic, selected, number, constant});
+            if (constant) {
+                metadata(coefficient.sourceOffset, 0x20);
+                const std::size_t count = input.integer(coefficient.sourceOffset + 0x18);
+                require(count >= 1 && count <= 4, "Inline source component count is unsupported");
+                const std::size_t vector = input.relative(coefficient.sourceOffset + 0x1C);
+                metadata(vector, count * 4);
+                std::array<std::uint32_t, 4> words{};
+                for (std::size_t component = 0; component < count; ++component)
+                    words[component] = input.integer(vector + component * 4);
+                CpuInlineAttributeDescriptor descriptor = constructCpuInlineAttributePacket(number,
+                    std::span<const std::uint32_t>(words.data(), count));
+                descriptor.resourceBindingPresent = true;
+                descriptor.sourceOffset = coefficient.sourceOffset;
+                descriptor.sourceVectorOffset = vector;
+                descriptor.semantic = coefficient.semantic;
+                descriptor.shaderInputRegister = selected;
+                descriptor.componentFieldByte = coefficient.componentCount;
+                constructed.fixedAttributeMask |= std::uint16_t(1u << number);
+                constructed.commandWords.insert(constructed.commandWords.end(),
+                    descriptor.commandWords.begin(), descriptor.commandWords.end());
+                constructed.inlineAttributes.push_back(std::move(descriptor));
+            }
+            ++number;
+        }
+    }
+    while (number < inputCount) {
+        int candidate = semanticMap[inputCount - 1];
+        while (candidate >= 0 && (seen & (1u << candidate)))
+            --candidate;
+        result.status = "unsupported_missing_fixed_mapping";
+        if (candidate < 0)
+            return result;
+        seen |= std::uint16_t(1u << candidate);
+        constructed.attributePermutation |= std::uint64_t(candidate) << (number * 4);
+        constructed.fixedAttributeMask |= std::uint16_t(1u << number);
+        constructed.missingFixedAttributes.push_back({number, std::uint8_t(candidate),
+                                                      "unavailable_caller_fixed_attribute_value"});
+        ++number;
+    }
+    return constructed;
+}
+
 std::string hexadecimal(const std::string& value) {
     const char* digits = "0123456789abcdef";
     std::string result;
