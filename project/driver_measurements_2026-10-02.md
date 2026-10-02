@@ -25,3 +25,11 @@ The interval starts at 2026-10-02T16:34:00-04:00 and ends at the observation abo
 Canonical exact intervals increased from 112,756 to 113,400 complete bytes: 644 net accepted bytes, or 1,193.12 bytes/hour. There are 22 newly exact functions, 0 lost exact functions and 0 changed exact boundaries. Both totals use function rows whose rank is O and their complete end-minus-start interval.
 
 This interval includes integration time. It does not attribute account-wide credits to the factory, and it does not imply a sustained future acceptance rate.
+
+## Closed interval after weekly reset
+
+The owner reported the weekly reset. The account tool confirmed 0% weekly usage and ordinary usage available at 17:14:57 ET. Its new weekly window end minus the window duration implies a reset at 17:13:08 ET. That boundary is derived from provider metadata, not a directly observed billing event.
+
+The closed measurement is 2026-10-02T16:34:00-04:00 through 2026-10-02T17:13:08-04:00, 0.652222 hours. The last first-parent main checkpoint before that inferred reset is `24365a4f6d2023497f1d2bba26bc4a85c19b784d`. Exact intervals grew from 112,756 to 113,812 bytes, a net 1,056 bytes in 29 newly exact functions, with zero lost exact functions and zero changed exact boundaries. The acceptance rate within this interval is 1,619.08 bytes/hour. Later matches are excluded from this closed interval.
+
+This measures acceptance timing; work and token charges may cross the interval boundaries, and the credit balance covers the entire account. It does not establish factory-only credit cost. The original 17:06:23 draft cohort was reproduced exactly from the saved packets and database finish times: 30 with draft, 574 without, 13 unknown. The immutable local snapshot is `logs/driver_measurements_20261002_170623.json`. The standard-library measurement script accepts `--observed-at` to reproduce the same cutoff.
