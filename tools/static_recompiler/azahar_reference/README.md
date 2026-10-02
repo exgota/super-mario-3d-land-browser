@@ -45,3 +45,7 @@ Two corrected same-input first-swap captures match each other exactly. Their raw
 ## Natural software presentation
 
 The optional `azahar_render_capture.patch` continues to a selected natural presentation after the first top-screen submission. [RENDERING.md](../RENDERING.md) provides native/stock record, replay, exact pixel comparison and ignored preview commands. Presentation 60 displays the title logo and passes two native replays against stock, including every event/tick, command payload and screen byte. The first presentation is black and is retained as plumbing evidence only. Browser/WebGPU presentation and gameplay remain unverified.
+
+## Deterministic nonzero input
+
+The optional `azahar_input_capture.patch` records a bounded held-state script through the existing HID/movie calls and observes delivered HID ring entries. Playback uses the original movie only. [INPUT.md](../INPUT.md) describes the typed-movie/input/pixel comparator and a same-state neutral control. Repeated native and stock replays match all1802 delivered polls and the visible Welcome-to-StreetPass response. Browser devices and World1-1 input remain unverified.

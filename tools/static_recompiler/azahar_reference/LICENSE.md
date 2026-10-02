@@ -2,7 +2,7 @@
 
 SPDX-License-Identifier: GPL-2.0-or-later
 
-`azahar_capture.patch`, `azahar_deterministic_io.patch`, `azahar_static_execution.patch` and `azahar_render_capture.patch` modify the public Azahar emulator source at commit `662d412123305a9f4be94dd3dc73ddf91a18c55e`. The upstream files identify their authors as the Citra Emulator Project and Azahar Emulator Project, with copyright notices retained in the patch context and pinned checkout. Upstream declares GPL version 2 or any later version in those source headers and provides [its license text](https://github.com/azahar-emu/azahar/blob/662d412123305a9f4be94dd3dc73ddf91a18c55e/license.txt).
+`azahar_capture.patch`, `azahar_deterministic_io.patch`, `azahar_static_execution.patch`, `azahar_render_capture.patch` and `azahar_input_capture.patch` modify the public Azahar emulator source at commit `662d412123305a9f4be94dd3dc73ddf91a18c55e`. The upstream files identify their authors as the Citra Emulator Project and Azahar Emulator Project, with copyright notices retained in the patch context and pinned checkout. Upstream declares GPL version 2 or any later version in those source headers and provides [its license text](https://github.com/azahar-emu/azahar/blob/662d412123305a9f4be94dd3dc73ddf91a18c55e/license.txt).
 
 The project-authored instrumentation, static platform adapter and isolated deterministic file-delay correction in these patches are supplied under the same GPL-2.0-or-later terms. Obtain the complete applicable text from [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html), or a later version chosen under that grant. Retain upstream notices and provide the applicable license with a distributed source derivative.
 
