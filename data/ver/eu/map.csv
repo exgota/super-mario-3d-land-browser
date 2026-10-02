@@ -7149,7 +7149,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00243CF4,          ,0x00243D4C,          ,U,f,,
 0x00243D4C,          ,0x00243D8C,          ,U,f,,
 0x00243D8C,          ,0x00243E00,          ,U,f,_ZN2al19ClippingActorHolder16validateClippingEPNS_9LiveActorE,
-0x00243E00,          ,0x00243E18,          ,U,f,,
+0x00243E00,          ,0x00243E18,          ,O,f,fn_00243E00,
 0x00243E18,0x00243E60,0x00243E68,          ,U,f,,
 0x00243E68,          ,0x00243E74,          ,U,f,,
 0x00243E74,          ,0x00243E88,          ,U,f,,
