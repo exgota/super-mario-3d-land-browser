@@ -103,24 +103,25 @@ CourseList::World::World( const al::ByamlIter* world )
 }
 
 
-CourseList::List::List( const al::ByamlIter& courseListIter ) : mWorlds( nullptr ), mNumWorlds( 0 )
+inline CourseList::List::List( const al::ByamlIter& courseListIter )
+    : mWorlds( nullptr ), mNumWorlds( 0 )
 {
         al::ByamlIter worlds;
-        if ( courseListIter.tryGetIterByKey( &worlds, s_worlds ) )
+        if ( !courseListIter.tryGetIterByKey( &worlds, s_worlds ) )
+                return;
+
+        mNumWorlds = worlds.getSize();
+        if ( !mNumWorlds )
+                return;
+
+        mWorlds = new World*[ mNumWorlds ];
+        for ( int i = 0; i < mNumWorlds; i++ )
         {
-                mNumWorlds = worlds.getSize();
-                if ( mNumWorlds )
-                {
-                        mWorlds = new World*[ mNumWorlds ];
-                        for ( int i = 0; i < mNumWorlds; i++ )
-                        {
-                                al::ByamlIter curWorld;
-                                if ( worlds.tryGetIterByIndex( &curWorld, i ) )
-                                        mWorlds[ i ] = new World( &curWorld );
-                                else
-                                        mWorlds[ i ] = nullptr;
-                        }
-                }
+                al::ByamlIter curWorld;
+                if ( worlds.tryGetIterByIndex( &curWorld, i ) )
+                        mWorlds[ i ] = new World( &curWorld );
+                else
+                        mWorlds[ i ] = nullptr;
         }
 }
 
@@ -135,18 +136,31 @@ CourseList::CourseList() : mCourseList( 0 )
 void CourseList::init( const al::Resource* gameSystemDataTable )
 {
         mCourseList = new List( al::ByamlIter( gameSystemDataTable->getByml( s_courseList.name ) ) );
-        mNumStages  = 0;
+        mNumStages = 0;
 
-        for ( int i = 0; i < mCourseList->mNumWorlds; i++ )
+        int i = 0;
+        goto testWorld;
+
+nextWorld:
         {
                 World* world = mCourseList->mWorlds[ i ];
-                for ( int j = 0; j < world->mNumCourses; j++ )
+                int j = 0;
+                if ( world->mNumCourses > 0 )
                 {
-                        Course* course = world->mCourses[ j ];
-                        if ( Course::isCourseTypeStage( Course::CourseType( course->mCourseType ) ) )
-                                mNumStages++;
+                        do
+                        {
+                                Course* course = world->mCourses[ j ];
+                                if ( Course::isCourseTypeStage( Course::CourseType( course->mCourseType ) ) )
+                                        mNumStages++;
+                                ++j;
+                        } while ( world->mNumCourses > j );
                 }
         }
+        ++i;
+
+testWorld:
+        if ( mCourseList->mNumWorlds > i )
+                goto nextWorld;
 }
 #endif
 
