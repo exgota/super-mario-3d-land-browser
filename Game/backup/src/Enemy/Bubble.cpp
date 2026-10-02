@@ -15,6 +15,13 @@ struct BubbleBlowDownNerve : al::Nerve
 extern "C" const BubbleBlowDownNerve dat_003F1F00;
 extern "C" bool fn_00218B90( al::HitSensor* other, al::HitSensor* me );
 
+bool Bubble::isWithinValueLimit( int value )
+{
+        if ( value > 9998 )
+                return false;
+        return true;
+}
+
 Bubble::Bubble( const sead::SafeString& name )
     : MapObjActor( name ), _60( 0 ), _64( 30 ), _68( nullptr ), _6C( 500.0f ), _70( 2.4f ),
       _74( sead::Vector3f::zero ), _80( sead::Quatf::unit ), _90( nullptr )

@@ -17,6 +17,7 @@ private:
         EnemyStateBlowDown* _90;
 
 public:
+        static bool isWithinValueLimit( int value );
         virtual void init( const al::ActorInitInfo& info );
         void clearInitialState();
         virtual void attackSensor( al::HitSensor* me, al::HitSensor* other );
