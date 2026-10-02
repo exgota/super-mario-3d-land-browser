@@ -1,7 +1,6 @@
 Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00100000,          ,0x00100024,          ,U,fag,__ctr_start,
 0x00100024,0x00100040,0x00100048,          ,U,fa,nninitRegion,
-0x00100048,          ,0x00100050,          ,U,fa,_printf_percent,.ARM.Collect$$_printf_percent$$00000000
 0x00100048,          ,0x00100050,          ,U,fai,_printf_n,.ARM.Collect$$_printf_percent$$00000001
 0x00100050,          ,0x00100058,          ,U,fa,_printf_p,.ARM.Collect$$_printf_percent$$00000002
 0x00100058,          ,0x00100060,          ,U,fa,_printf_f,.ARM.Collect$$_printf_percent$$00000003
@@ -23513,7 +23512,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003D66E8,          ,0x003D66F4,          ,U,dc,,
 0x003D66F4,          ,0x003D6700,          ,U,dc,,
 0x003D6700,          ,0x003D670C,          ,U,dc,,
-0x003D670C,          ,0x003D6724,          ,U,dc,,
+0x003D670C,          ,0x003D6724,          ,U,dc,dat_003D670C,
 0x003D6724,          ,0x003D67BC,          ,U,dc,,
 0x003D67BC,          ,0x003D67D0,          ,U,dc,,
 0x003D67D0,          ,0x003D67E0,          ,U,dc,,
@@ -23613,7 +23612,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003D75A0,          ,0x003D75B8,          ,U,dc,,
 0x003D75B8,          ,0x003D75C8,          ,U,dc,,
 0x003D75C8,          ,0x003D75E0,          ,U,dc,,
-0x003D75E0,          ,0x003D75FC,          ,U,dc,,
+0x003D75E0,          ,0x003D75FC,          ,U,dc,dat_003D75E0,
 0x003D75FC,          ,0x003D760C,          ,U,dc,,
 0x003D760C,          ,0x003D7620,          ,U,dc,,
 0x003D7620,          ,0x003D7638,          ,U,dc,dat_003D7620,
@@ -23629,7 +23628,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003D76F8,          ,0x003D7704,          ,U,dc,,
 0x003D7704,          ,0x003D771C,          ,U,dc,,
 0x003D771C,          ,0x003D7744,          ,U,dc,,
-0x003D7744,          ,0x003D7760,          ,U,dc,,
+0x003D7744,          ,0x003D7760,          ,U,dc,dat_003D7744,
 0x003D7760,          ,0x003D7778,          ,U,dc,dat_003D7760,
 0x003D7778,          ,0x003D7798,          ,U,dc,,
 0x003D7798,          ,0x003D77AC,          ,U,dc,,
