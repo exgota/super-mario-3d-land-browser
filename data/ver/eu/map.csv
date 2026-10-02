@@ -6510,7 +6510,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00222AEC,          ,0x00222AF4,          ,U,f,,
 0x00222AF4,          ,0x00222B28,          ,U,f,,
 0x00222B28,          ,0x00222C44,          ,U,f,,
-0x00222C44,          ,0x00222CE4,          ,U,f,,
+0x00222C44,          ,0x00222CE4,          ,O,f,fn_00222C44,
 0x00222CE4,          ,0x00222D20,          ,U,f,,
 0x00222D20,          ,0x00222D7C,          ,U,f,,
 0x00222D7C,0x00222DBC,0x00222DC4,          ,O,f,_ZN4sead14MathCalcCommonIfE8atanIdx_Ef,
