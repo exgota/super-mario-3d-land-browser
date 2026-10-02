@@ -15,8 +15,8 @@ the template. AppearStep's two functions already use the template and remain
 unchanged. The row 0x003D5EBC..0x003D5F4C is an actor vtable: constructor
 0x002627B0 installs it after calling LiveActor's constructor, and its entries
 include LiveActor's init, placement, appear and other actor virtual methods.
-It is not another FunctorV0M instance. The supplied 164-function count includes
-functions outside the 144 virtual functions of these 72 instances.
+It is not another FunctorV0M instance. This inventory covers the 144 virtual
+functions of these 72 instances.
 
 The scan considers every function's map-declared literal-pool range and filters
 references to the callable tables. Clone self-references are excluded when
@@ -93,16 +93,16 @@ callback. AppearStep is already complete, rather than blocked.
 | 0x003D5A4C | 0x00117A34 | Host T has no grounded map/header name; callback 0x00117BB4 has no real map/header method name. |
 | 0x003D5A5C | 0x0011E908 | Host T has no grounded map/header name; callback 0x0011E9E0 has no real map/header method name. |
 | 0x003D5A6C | 0x0011EAB8 | Host T has no grounded map/header name; callback 0x0011EC10 has no real map/header method name. |
-| 0x003D5A7C | 0x00120514 | Host T has no grounded map/header name; callbacks 0x0012088C, 0x001208E4 has no real map/header method name. |
+| 0x003D5A7C | 0x00120514 | Host T has no grounded map/header name; callbacks 0x0012088C, 0x001208E4 have no real map/header method name. |
 | 0x003D5A8C | 0x00122144 | Host T has no grounded map/header name; callback 0x00122454 has no real map/header method name. |
 | 0x003D5AAC | 0x001248FC | Host T has no grounded map/header name; callback 0x00124C54 has no real map/header method name. |
-| 0x003D5ABC | 0x00183924, 0x00183AB8 | Host T is unnamed; both builders bind the title-scene constructor 0x001267B4. No TitleScene declaration or named method grounds T. Callback is virtual init(). |
-| 0x003D5ACC | 0x00128914 | Host T has no grounded map/header name; callbacks 0x00128CE4, 0x00128D7C has no real map/header method name. |
+| 0x003D5ABC | 0x00183924, 0x00183AB8 | Host T is unnamed; both builders bind the title-scene constructor 0x001267B4. No corresponding class declaration or named map method grounds T. Callback is virtual init(). |
+| 0x003D5ACC | 0x00128914 | Host T has no grounded map/header name; callbacks 0x00128CE4, 0x00128D7C have no real map/header method name. |
 | 0x003D5ADC | 0x0012B018 | Host T has no grounded map/header name; callback 0x0012B3B4 has no real map/header method name. |
 | 0x003D5AEC | 0x0012BBE4 | Host T is unnamed; callback is virtual appear() at slot 0x0C, but no map/header identifies this actor class. |
-| 0x003D5AFC | 0x0012D370 | Host T has no grounded map/header name; callbacks 0x0012D22C, 0x0012D2D8 has no real map/header method name. |
+| 0x003D5AFC | 0x0012D370 | Host T has no grounded map/header name; callbacks 0x0012D22C, 0x0012D2D8 have no real map/header method name. |
 | 0x003D5B0C | 0x0012D790 | Host T and direct callback 0x0012D6D8 are unnamed; the additional virtual appear() callback does not identify T. |
-| 0x003D5B1C | 0x0012FB7C | Host T has no grounded map/header name; callbacks 0x0012FE28, 0x0012FE34 has no real map/header method name. |
+| 0x003D5B1C | 0x0012FB7C | Host T has no grounded map/header name; callbacks 0x0012FE28, 0x0012FE34 have no real map/header method name. |
 | 0x003D5B2C | 0x00136368 | Host T has no grounded map/header name; callback 0x00136208 has no real map/header method name. |
 | 0x003D5B3C | 0x0013C500 | Host T and direct callback 0x0013C408 are unnamed; the additional virtual appear() callback does not identify T. |
 | 0x003D5B4C | 0x0013C704 | Host T has no grounded map/header name; callback 0x0013C878 has no real map/header method name. |
@@ -118,41 +118,83 @@ callback. AppearStep is already complete, rather than blocked.
 | 0x003D5BEC | 0x00154F68 | Host T has no grounded map/header name; callback 0x00154DB8 has no real map/header method name. |
 | 0x003D5BFC | 0x0015B2F0 | Host T has no grounded map/header name; callback 0x0015B3CC has no real map/header method name. |
 | 0x003D5C0C | 0x0015C388 | Host T is unnamed; virtual appear()/kill() callbacks do not identify this actor class. |
-| 0x003D5C1C | 0x0015D324 | Host T has no grounded map/header name; callbacks 0x0015D6E8, 0x0015D6FC has no real map/header method name. |
+| 0x003D5C1C | 0x0015D324 | Host T has no grounded map/header name; callbacks 0x0015D6E8, 0x0015D6FC have no real map/header method name. |
 | 0x003D5C2C | 0x0015E34C | Host T has no grounded map/header name; callback 0x0015E4C0 has no real map/header method name. |
 | 0x003D5C3C | 0x00372394 | Host T is unnamed; builder binds constructor 0x001605F0 (photo-album scene), with no corresponding class declaration or map name. Callback is virtual init(). |
-| 0x003D5C4C | 0x00163320 | Host T has no grounded map/header name; callback 0x00163290 has no real map/header method name. |
-| 0x003D5C5C | 0x00169B08 | Host T has no grounded map/header name; callbacks 0x00169D58, 0x00169DC4 has no real map/header method name. |
+| 0x003D5C4C | 0x00163320 | ProductSequence is grounded by named constructor 0x00163B88 installing the builder's host table 0x003CB108, but callback 0x00163290 has no real map/header method name. |
+| 0x003D5C5C | 0x00169B08 | Host T has no grounded map/header name; callbacks 0x00169D58, 0x00169DC4 have no real map/header method name. |
 | 0x003D5C6C | 0x0016C0BC | Host T has no grounded map/header name; callback 0x0016C2D8 has no real map/header method name. |
 | 0x003D5C7C | 0x0016FA54 | Host T has no grounded map/header name; callback 0x0016FC30 has no real map/header method name. |
-| 0x003D5C8C | 0x00176480 | Host T has no grounded map/header name; callbacks 0x001766A0, 0x001766D4 has no real map/header method name. |
+| 0x003D5C8C | 0x00176480 | Host T has no grounded map/header name; callbacks 0x001766A0, 0x001766D4 have no real map/header method name. |
 | 0x003D5C9C | 0x00178868 | Host T has no grounded map/header name; callback 0x001786A4 has no real map/header method name. |
 | 0x003D5CAC | 0x0017AFE4 | Host T has no grounded map/header name; callback 0x0017B268 has no real map/header method name. |
 | 0x003D5CCC | 0x001B5DBC, 0x001B6088 | Host T is unnamed; builders bind constructor 0x0017F86C (Toad-house scene), with no corresponding class declaration or map name. Callback is virtual init(). |
-| 0x003D5CDC | 0x0017FA24 | Host T has no grounded map/header name; callbacks 0x0017FB2C, 0x0017FB70 has no real map/header method name. |
+| 0x003D5CDC | 0x0017FA24 | Host T has no grounded map/header name; callbacks 0x0017FB2C, 0x0017FB70 have no real map/header method name. |
 | 0x003D5CEC | 0x00180FA0 | Host T has no grounded map/header name; callback 0x0018101C has no real map/header method name. |
-| 0x003D5CFC | 0x00184424 | Host T has no grounded map/header name; callbacks 0x001843F4, 0x001846A0 has no real map/header method name. |
+| 0x003D5CFC | 0x00184424 | Host T has no grounded map/header name; callbacks 0x001843F4, 0x001846A0 have no real map/header method name. |
 | 0x003D5D0C | 0x001855C0 | Host T has no grounded map/header name; callback 0x00185B40 has no real map/header method name. |
-| 0x003D5D1C | 0x0018D0B4 | Host T has no grounded map/header name; callbacks 0x0018D084, 0x0018D328 has no real map/header method name. |
-| 0x003D5D2C | 0x0018D404 | Host T has no grounded map/header name; callback 0x0018D640 has no real map/header method name. |
+| 0x003D5D1C | 0x0018D0B4 | Host T has no grounded map/header name; callbacks 0x0018D084, 0x0018D328 have no real map/header method name. |
+| 0x003D5D2C | 0x0018D404 | GhostPlayerRecorder is grounded by named constructor 0x0018D828 installing table 0x003CE760, whose initSceneObj slot is this builder. Callback 0x0018D640 has no real map/header method name. |
 | 0x003D5D3C | 0x0018D96C | Host T has no grounded map/header name; callback 0x0018DA74 has no real map/header method name. |
 | 0x003D5D4C | 0x001903A0 | Host T has no grounded map/header name; callback 0x00190334 has no real map/header method name. |
-| 0x003D5D5C | 0x001907E4 | Host T has no grounded map/header name; callbacks 0x0019077C, 0x001909A8, 0x001909D0 has no real map/header method name. |
-| 0x003D5D7C | 0x00193570 | Host T has no grounded map/header name; callbacks 0x00193A30, 0x00193A3C has no real map/header method name. |
-| 0x003D5D8C | 0x00199824 | Host T has no grounded map/header name; callbacks 0x0019992C, 0x00199A30 has no real map/header method name. |
-| 0x003D5D9C | 0x0019B674 | Host T has no grounded map/header name; callbacks 0x0019B8F8, 0x0019B984 has no real map/header method name. |
-| 0x003D5DAC | 0x001A1474 | Host T has no grounded map/header name; callbacks 0x001A13AC, 0x001A1420 has no real map/header method name. |
+| 0x003D5D5C | 0x001907E4 | Host T has no grounded map/header name; callbacks 0x0019077C, 0x001909A8, 0x001909D0 have no real map/header method name. |
+| 0x003D5D7C | 0x00193570 | Host T has no grounded map/header name; callbacks 0x00193A30, 0x00193A3C have no real map/header method name. |
+| 0x003D5D8C | 0x00199824 | Host T has no grounded map/header name; callbacks 0x0019992C, 0x00199A30 have no real map/header method name. |
+| 0x003D5D9C | 0x0019B674 | Host T has no grounded map/header name; callbacks 0x0019B8F8, 0x0019B984 have no real map/header method name. |
+| 0x003D5DAC | 0x001A1474 | Host T has no grounded map/header name; callbacks 0x001A13AC, 0x001A1420 have no real map/header method name. |
 | 0x003D5DBC | 0x002D6078 | Host T has no grounded map/header name; callback 0x002D606C has no real map/header method name. |
 | 0x003D5DCC | 0x002D6388 | Host T has no grounded map/header name; callback 0x002D62F8 has no real map/header method name. |
-| 0x003D5DDC | 0x002F87D8 | Host T has no grounded map/header name; callbacks 0x002F87B4, 0x002F87D4 has no real map/header method name. |
-| 0x003D5DEC | 0x00304138 | Host T has no grounded map/header name; callbacks 0x003040F8, 0x00304334 has no real map/header method name. |
+| 0x003D5DDC | 0x002F87D8 | Host T has no grounded map/header name; callbacks 0x002F87B4, 0x002F87D4 have no real map/header method name. |
+| 0x003D5DEC | 0x00304138 | Host T has no grounded map/header name; callbacks 0x003040F8, 0x00304334 have no real map/header method name. |
 | 0x003D5DFC | 0x0030C0EC | Host T has no grounded map/header name; callback 0x0030C1F4 has no real map/header method name. |
 | 0x003D5E0C | 0x003129A0 | Host T has no grounded map/header name; callback 0x00312AF8 has no real map/header method name. |
 | 0x003D5E1C | 0x003153FC | Garigari is grounded by the existing specialization and host table, but callback 0x00315598 is only fn_00315598 and Garigari.h declares no real name for it. |
 | 0x003D5E2C | 0x003166A0 | Host T has no grounded map/header name; callback 0x00316704 has no real map/header method name. |
 | 0x003D5E4C | 0x00320420 | Host T has no grounded map/header name; callback 0x0032081C has no real map/header method name. |
-| 0x003D5E5C | 0x00322978 | Host T has no grounded map/header name; callbacks 0x00321FFC, 0x00322144 has no real map/header method name. |
+| 0x003D5E5C | 0x00322978 | Host T has no grounded map/header name; callbacks 0x00321FFC, 0x00322144 have no real map/header method name. |
 | 0x003D5E6C | 0x0032387C | Host T has no grounded map/header name; callback 0x00323814 has no real map/header method name. |
 | 0x003D5E7C | 0x00323C78 | Host T has no grounded map/header name; callback 0x00323DB8 has no real map/header method name. |
 | 0x003D5E8C | 0x001027D0 | al::SaveDataDirector is grounded by its named constructor, but callback 0x001D1730 is unnamed and alSaveDataDirector.h declares no callback name. |
 | 0x003D5E9C | 0x0027E0A4 | al::AreaObj is grounded by its named init method, but callbacks 0x001EA49C / 0x001EA4C8 are raw fn_ names and alAreaObj.h declares no real names for them. |
+
+## Integrator intake limit
+
+The installed integrator's `rank_column_changes` compares the union of old and
+new row starts and treats a missing row as rank None. It therefore flags 15
+starts in these five data partitions: five removed U rows and ten added U rows.
+No row present in both maps changes rank, and all added/removed rows are data
+at U. The resulting intake rejection would be "lanes never set ranks; the
+branch changes rank cells in map.csv". This is a row-partition handling issue,
+not a function-rank change. The operator must resolve that intake limit before
+the integrator can accept these independently evidenced data partitions.
+This branch does not change the integrator or its rank guard.
+
+## Verification
+
+On 2026-10-02, after sourcing development_environment.sh, the normal
+`python make.py eu` build passed with the repository's unchanged compiler
+configuration (ARMCC 4.1/791 for Game and al). `python tools/check.py <symbol>`
+printed "Still matching" for each of the ten new function symbols above.
+`python tools/check.py -q -w` completed in 1019 seconds. Its .changes file
+contained three changes, all on previously non-exact rows: CalendarTime's
+constructor M to U, sPhotoScenarioNames U to m, and sPlacementCategoryEntries
+U to m. There were zero O-to-other changes; all 2,193 baseline O functions,
+83,268 complete bytes, were preserved.
+
+The committed map was restored after checking. A column audit confirms every
+function's original Start, Pool, End, Section, Rank, Type and SectionName;
+only the ten listed function Symbol fields differ. The five table partitions
+remain U. All ten moved raw definitions and their unused vtable externs are
+absent from Factory. The five generated vtable sections are each 16 bytes and
+every clone relocates against its own mangled vtable symbol with addend 8.
+This moves five instances / ten already-exact functions / 520 complete bytes;
+it adds no new exact credit. Sixty-six instances remain blocked as listed above,
+and AppearStep was already fully on the template.
+
+The checked source hashes (SHA-256) are:
+
+| Source | Hash |
+| --- | --- |
+| Game/backup/src/Enemy/BlockDragonGenerator.cpp | 2b1c813573d3056fa872651659603aa01884c9c21e58f0baef20b4354215be6f |
+| Game/backup/src/Functor/FunctorV0M.cpp | 39f04d4755763a456d58c2c50407b7afb2c39eea0534cedd11c012afcc2795e6 |
+| lib/al/src/LiveActor/alLiveActor.cpp | 2470905721271ae6503e2a3dabe334e877ebbe190bd84da63738426792241345 |
