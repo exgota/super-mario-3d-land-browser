@@ -10,6 +10,8 @@ import struct
 import subprocess
 import sys
 
+from rewrite_floating_point import rewrite as rewrite_floating_point
+
 ROOT = Path(__file__).resolve().parents[2]
 AZAHAR_REVISION = "662d412123305a9f4be94dd3dc73ddf91a18c55e"
 
@@ -54,7 +56,7 @@ def main():
         copied = output / Path(relative).name
         if digest(copied) != expected:
             raise RuntimeError(f"generated source seal failed: {copied}")
-    for name in ("NativeTiming.h", "NativeTiming.c"):
+    for name in ("NativeTiming.h", "NativeTiming.c", "NativeFloatingPoint.h", "NativeFloatingPoint.c"):
         shutil.copy2(ROOT / "runtime/port" / name, output / name)
     # Compile the pinned stock cost function as a generation-time helper. It never executes
     # guest instructions and does not decode at runtime in the port.
@@ -95,7 +97,7 @@ int main() { std::uint32_t pair[2]; while (std::cin.read(reinterpret_cast<char*>
             expression = f"NativeConditionalTicks(ctx, {condition}, {ticks}ull)"
             supervisor = (thumb and operation & 0xFF00 == 0xDF00) or (not thumb and operation & 0x0F000000 == 0x0F000000)
             if supervisor:
-                expression = f"NATIVE_SUPERVISOR_TICKS({expression})"
+                expression = f"NativeConditionalTicks(ctx, {condition}, NATIVE_SUPERVISOR_TICKS({ticks}ull))"
             blocks += 1
             return f"BUDGET(0x{match[1]}u, {match[2]}, {expression});" + match[3]
         text = path.read_text().replace('#include "recomp.h"', '#include "NativeTiming.h"', 1)
@@ -103,6 +105,7 @@ int main() { std::uint32_t pair[2]; while (std::cin.read(reinterpret_cast<char*>
         if re.search(r"BUDGET\(0x[0-9A-F]+u, \d+\);", text):
             raise RuntimeError("uninstrumented block remains")
         path.write_text(text)
+    floating_point_operations = rewrite_floating_point(output)
     # The only registered source replacement uses four original instructions for >=32 and
     # eight otherwise, each one cycle in the pinned stock model. This is port timing metadata.
     replacement = output / "replacement.cpp"
@@ -118,7 +121,7 @@ int main() { std::uint32_t pair[2]; while (std::cin.read(reinterpret_cast<char*>
     objects = []
     for index, path in enumerate(sorted(output.glob("*.c"))):
         object_file = path.with_suffix(".o")
-        run(["clang", "-O1", "-ffp-contract=off", "-fno-math-errno", "-fPIC", "-fvisibility=hidden",
+        run(["clang", "-O1", "-ffp-contract=off", "-fno-math-errno", "-frounding-math", "-fno-fast-math", "-fPIC", "-fvisibility=hidden",
              "-I", output, "-c", path, "-o", object_file], output / f"compile_{index:03}.log")
         objects.append(object_file)
         print(f"compiled timed source {index + 1}", flush=True)
@@ -130,8 +133,10 @@ int main() { std::uint32_t pair[2]; while (std::cin.read(reinterpret_cast<char*>
     run(["clang", "-shared", *objects, "-lm", "-o", library], output / "link.log")
     manifest.update({"azahar_timing_revision": AZAHAR_REVISION, "timing_blocks": blocks,
                      "library": str(library), "library_sha256": digest(library),
-                     "sources": {str(path.relative_to(ROOT)): digest(path) for path in sorted(output.glob("*.c"))},
-                     "timing_callback": "native_block_timing_callback", "runtime_verified": False,
+                     "sources": {str(path.relative_to(ROOT)): digest(path) for path in sorted(output.iterdir()) if path.suffix in (".c", ".h", ".cpp")},
+                     "timing_callback": "native_block_timing_callback",
+                     "floating_point_operations_rewritten": floating_point_operations,
+                     "runtime_verified": False,
                      "gpu_frame_verified": False})
     (output / "build_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     shutil.copy2(source / "function_map.csv", output / "function_map.csv")
