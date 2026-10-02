@@ -5,7 +5,7 @@ A work queue of small unmatched functions, stateless model workers in their own 
 worktrees, and a deterministic integrator. Only tools/check.py decides what matches.
 
 Commands (run with the repository's virtual environment python):
-  init                 build the job queue from the factory branch map
+  init                 build the job queue from the target branch map
   run [--slots T:N,..] supervise workers, integrate matches, sync with main, write STATUS.md
   status               rewrite and print STATUS.md
   attempt              (inside a worker worktree) build and check the current job
@@ -50,6 +50,10 @@ TEXT_BASE = 0x100000
 MAX_FUNCTION_BYTES = 256
 GROUP_CHUNK = 25
 SYNC_INTERVAL_SECONDS = 45 * 60
+# Verified matches land on TARGET_BRANCH. Its ref only moves, in one compare-and-swap step, to a commit
+# whose every new function tools/check.py already reported O on CANDIDATE_BRANCH, a scratch branch.
+TARGET_BRANCH = "factory"
+CANDIDATE_BRANCH = "integration-candidate"
 EASTERN = datetime.timezone(datetime.timedelta(hours=-4))
 
 TIERS = {
@@ -283,7 +287,7 @@ def command_init(arguments):
         return
     execute(database, "DELETE FROM jobs")
     code = read_code()
-    rows = load_rows(INTEGRATION / MAP)
+    rows = target_rows()
     excluded = excluded_addresses()
     small = [r for r in rows if r["type"] == "f" and r["end"] - r["start"] < MAX_FUNCTION_BYTES]
     groups = collections.defaultdict(list)
@@ -328,6 +332,23 @@ def git(worktree, *arguments, check=True):
     return result.stdout.strip()
 
 
+def target_commit():
+    return git(INTEGRATION, "rev-parse", f"refs/heads/{TARGET_BRANCH}")
+
+
+def target_rows():
+    """Map rows at the target branch tip, never the candidate worktree in the middle of a verification."""
+    text = git(INTEGRATION, "show", f"refs/heads/{TARGET_BRANCH}:{MAP}")
+    return [parse_row(line) for line in text.splitlines()[1:] if line.strip()]
+
+
+def move_target(new, expected, reason):
+    """Move the target ref from expected to new in one step. Fails, moving nothing, if it no longer points at expected."""
+    result = subprocess.run(["git", "-C", str(INTEGRATION), "update-ref", "-m", reason,
+                             f"refs/heads/{TARGET_BRANCH}", new, expected], capture_output=True, text=True)
+    return result.returncode == 0
+
+
 def tool(worktree, *arguments, timeout=900):
     environment = dict(os.environ)
     environment["DEVKITARM"] = "/opt/homebrew"
@@ -345,7 +366,7 @@ def prepare_worktree(worktree):
         GIT_DIRECTORIES.mkdir(exist_ok=True)
         subprocess.run(["git", "clone", "-q", "--shared", "--no-checkout", "--separate-git-dir",
                         str(GIT_DIRECTORIES / worktree.name), str(REPOSITORY), str(worktree)], check=True)
-        git(worktree, "fetch", "-q", "origin", "factory")
+        git(worktree, "fetch", "-q", "origin", TARGET_BRANCH)
         git(worktree, "checkout", "-q", "--detach", "FETCH_HEAD")
     exclude = GIT_DIRECTORIES / worktree.name / "info/exclude"
     if ".factory" not in exclude.read_text():
@@ -364,7 +385,7 @@ def prepare_worktree(worktree):
 
 
 def reset_worktree(worktree, commit):
-    git(worktree, "fetch", "-q", "origin", "factory")
+    git(worktree, "fetch", "-q", "origin", TARGET_BRANCH)
     git(worktree, "checkout", "-q", "--detach", "-f", commit)
     git(worktree, "clean", "-fdq", "--", "Game", "lib")
     shutil.rmtree(worktree / ".factory", ignore_errors=True)
@@ -606,7 +627,7 @@ class Supervisor:
         self.reload_symbols()
 
     def reload_symbols(self):
-        rows = load_rows(INTEGRATION / MAP)
+        rows = target_rows()
         self.rows_by_start = {r["start"]: r for r in rows}
         self.symbols = Symbols(rows)
         self.readable = demangle([r["symbol"] for r in rows if r["symbol"]])
@@ -664,7 +685,7 @@ class Supervisor:
 
     def run_job(self, slot, worktree, job):
         settings = TIERS[job["tier"]]
-        head = git(INTEGRATION, "rev-parse", "HEAD")
+        head = target_commit()
         reset_worktree(worktree, head)
         addresses, names = build_packet(job, worktree, self.rows_by_start, self.symbols, self.code, self.readable)
         set_map_rows(worktree, {a: ("M", s) for a, s in zip(addresses, names)})
@@ -768,7 +789,8 @@ class Supervisor:
                 self.restore_integration()
 
     def restore_integration(self):
-        git(INTEGRATION, "checkout", "-q", "-f", "factory")
+        """Put the scratch candidate branch back on the target tip, discarding any unverified work."""
+        git(INTEGRATION, "checkout", "-q", "-f", "-B", CANDIDATE_BRANCH, f"refs/heads/{TARGET_BRANCH}")
         git(INTEGRATION, "clean", "-fdq", "--", str(FACTORY_SOURCE_DIRECTORY))
 
     def integrate(self, proposal):
@@ -776,6 +798,8 @@ class Supervisor:
             metadata = json.loads((proposal / "matched.json").read_text())
             addresses = [int(a) for a in metadata["addresses"]]
             symbols = {int(k): v for k, v in metadata["symbols"].items()}
+            self.restore_integration()
+            base = git(INTEGRATION, "rev-parse", "HEAD")
             live = {r["start"]: r["rank"] for r in load_rows(REPOSITORY / MAP)}
             current = {r["start"]: r["rank"] for r in load_rows(INTEGRATION / MAP)}
             collisions = [a for a in addresses if live.get(a, "U") != "U" or current.get(a, "U") != "U"]
@@ -788,16 +812,27 @@ class Supervisor:
                     relative = path.relative_to(proposal)
                     destination = INTEGRATION / relative
                     if destination.exists():
-                        raise RuntimeError(f"{relative} already exists in the factory branch")
+                        raise RuntimeError(f"{relative} already exists on {TARGET_BRANCH}")
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(path, destination)
                     copied.append(str(relative))
             set_map_rows(INTEGRATION, {a: ("M", symbols[a]) for a in addresses})
+            # The checker only credits committed source, so the candidate is committed on the scratch branch first.
+            git(INTEGRATION, "add", "--", str(MAP), *copied)
+            git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate {proposal.name}, not verified")
+            job = {"addresses": addresses, "symbols": [symbols[a] for a in addresses]}
+            results = attempt_in(INTEGRATION, job, final=True)
+            failed = [a for a, r in results.items() if r["rank"] != "O"]
+            if failed:
+                log_event(self.database, "reject", f"{proposal.name}: not exact on a candidate of {TARGET_BRANCH}:"
+                          f" {['%08X' % a for a in failed]}")
+                self.restore_integration()
+                return
             sizes = {a: self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for a in addresses}
             lines = [f"- 0x{a:08X} {symbols[a]} ({sizes[a]} bytes)" for a in addresses]
             message = (f"Match {len(addresses)} function{'s' if len(addresses) > 1 else ''} at 0x{addresses[0]:08X}"
                        f" via factory ({metadata['model']})\n\n" + "\n".join(lines) +
-                       "\n\nVerified by tools/check.py in the factory branch.\n\n"
+                       "\n\nVerified by tools/check.py on a candidate commit before the branch moved.\n\n"
                        "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
             ledger = INTEGRATION / "project/ledger.csv"
             stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
@@ -805,18 +840,16 @@ class Supervisor:
             with open(ledger, "a") as stream:
                 for address in addresses:
                     stream.write(f"{stamp},0x{address:08X},{symbols[address]},matched,{metadata.get('attempts', 1)},{share:.4f}\n")
-            git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv", *copied)
+            # One final commit on the base: the same checked source, the map as the checker left it, and the ledger.
+            git(INTEGRATION, "reset", "-q", "--soft", base)
+            git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
             git(INTEGRATION, "commit", "-q", "-m", message)
-            job = {"addresses": addresses, "symbols": [symbols[a] for a in addresses]}
-            results = attempt_in(INTEGRATION, job, final=True)
-            failed = [a for a, r in results.items() if r["rank"] != "O"]
-            if failed:
-                log_event(self.database, "reject", f"{proposal.name}: not exact in the factory branch: {['%08X' % a for a in failed]}")
-                git(INTEGRATION, "reset", "-q", "--hard", "HEAD~1")
+            final = git(INTEGRATION, "rev-parse", "HEAD")
+            if not move_target(final, base, f"factory: integrate {proposal.name}"):
+                log_event(self.database, "alert", f"{proposal.name}: {TARGET_BRANCH} moved during verification; requeued")
                 self.restore_integration()
+                self.integration_queue.put(proposal)
                 return
-            git(INTEGRATION, "add", "--", str(MAP))
-            git(INTEGRATION, "commit", "-q", "--amend", "--no-edit")
             execute(self.database, "UPDATE jobs SET status='matched', matched=? WHERE id=?",
                     (",".join("%08X" % a for a in addresses), metadata["job"]))
             for address in addresses:
@@ -825,20 +858,25 @@ class Supervisor:
             shutil.rmtree(proposal, ignore_errors=True)
 
     def sync(self):
-        """Merge the owner's main into the factory branch, verify every match, push."""
+        """Merge the owner's main into the target branch on the candidate, verify every match, move the target, push."""
         with self.integration_lock:
             self.last_sync = time.time()
-            before = {r["start"] for r in load_rows(INTEGRATION / MAP) if r["rank"] == "O"}
-            result = subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--no-edit", "-q", "main"],
-                                    capture_output=True, text=True)
-            if result.returncode != 0:
-                subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--abort"], capture_output=True)
-                log_event(self.database, "alert", f"merge of main failed: {result.stdout.strip()[-300:]} {result.stderr.strip()[-300:]}")
-                return
+            self.restore_integration()
+            base = git(INTEGRATION, "rev-parse", "HEAD")
+            if TARGET_BRANCH != "main":
+                result = subprocess.run(["git", "-C", str(INTEGRATION), "merge", "-q", "-m",
+                                         f"Merge branch 'main' into {TARGET_BRANCH}", "main"],
+                                        capture_output=True, text=True)
+                if result.returncode != 0:
+                    subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--abort"], capture_output=True)
+                    log_event(self.database, "alert", f"merge of main failed: {result.stdout.strip()[-300:]} {result.stderr.strip()[-300:]}")
+                    self.restore_integration()
+                    return
             status, output = tool(INTEGRATION, "make.py", "eu")
             if status != 0:
-                self.halted = "factory branch does not build after merging main"
+                self.halted = f"{TARGET_BRANCH} does not build after merging main"
                 log_event(self.database, "alert", self.halted + ": " + output[-400:])
+                self.restore_integration()
                 return
             changes_file = INTEGRATION / "data/ver/eu/.changes"
             changes_file.unlink(missing_ok=True)
@@ -857,9 +895,15 @@ class Supervisor:
                 if own:
                     self.halted = f"regressions after sync that main does not have: {own[:10]}"
                     log_event(self.database, "alert", self.halted)
+                    self.restore_integration()
                     return
+            merged = git(INTEGRATION, "rev-parse", "HEAD")
+            if merged != base and not move_target(merged, base, "factory: merge main after a full check"):
+                log_event(self.database, "alert", f"{TARGET_BRANCH} moved during sync; nothing merged")
+                self.restore_integration()
+                return
             self.reload_symbols()
-            push = subprocess.run(["git", "-C", str(INTEGRATION), "push", "-q", "origin", "factory"],
+            push = subprocess.run(["git", "-C", str(INTEGRATION), "push", "-q", "origin", TARGET_BRANCH],
                                   capture_output=True, text=True)
             after = sum(1 for r in self.rows_by_start.values() if r["rank"] == "O")
             log_event(self.database, "sync", f"merged main; {after} functions exact, no regressions;"
@@ -922,12 +966,12 @@ def write_status(supervisor=None):
         recent_runs = database.execute("SELECT * FROM runs WHERE finished > ?", (now - 3600,)).fetchall()
         events = database.execute("SELECT * FROM events ORDER BY time DESC LIMIT 12").fetchall()
         alerts = database.execute("SELECT * FROM events WHERE kind IN ('alert','error') ORDER BY time DESC LIMIT 5").fetchall()
-    rows = load_rows(INTEGRATION / MAP)
+    rows = target_rows()
     functions = [r for r in rows if "f" in r["type"]]
     total = sum(r["end"] - r["start"] for r in functions)
     exact = [r for r in functions if r["rank"] == "O"]
     exact_bytes = sum(r["end"] - r["start"] for r in exact)
-    factory_commits = git(INTEGRATION, "log", "--oneline", "main..factory", "--grep=via factory", check=False).splitlines()
+    factory_commits = git(INTEGRATION, "log", "--oneline", f"main..{TARGET_BRANCH}", "--grep=via factory", check=False).splitlines()
     clock = lambda t: datetime.datetime.fromtimestamp(t, EASTERN).strftime("%H:%M")
     lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", ""]
     state = "stopped"
@@ -935,7 +979,7 @@ def write_status(supervisor=None):
         state = "halted: " + supervisor.halted if supervisor.halted else ("stopping" if supervisor.stopping else "running")
     lines += [f"State: **{state}**. Last sync with main: "
               f"{clock(supervisor.last_sync) if supervisor and supervisor.last_sync else 'not yet'}.", ""]
-    lines += [f"Whole project on the factory branch: **{exact_bytes / total * 100:.2f}%** of code bytes"
+    lines += [f"Whole project on {TARGET_BRANCH}: **{exact_bytes / total * 100:.2f}%** of code bytes"
               f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact.",
               f"Factory commits not yet in main: {len(factory_commits)}.", ""]
     by_status = {r[0]: (r[1], r[2]) for r in jobs}
