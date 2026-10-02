@@ -1181,3 +1181,15 @@ in [functor-v0m-cleanup.md](functor-v0m-cleanup.md). AppearStep already uses the
 template; Garigari's remaining clone stays raw because its callback has no real
 map/header name. Build/check outcomes will be recorded after canonical checks;
 this naming evidence itself claims no new accepted bytes.
+## 2026-10-02: BSS rows for raw-address cleanup
+
+Add unnamed rank-U `db` rows `[0x0042F534, 0x0042F554)` and
+`[0x0042FA14, 0x0042FA34)`, each 0x20 bytes, in a separate boundary
+evidence commit before changing `group_00350028.cpp`. The EU initializers
+and constructor each write eight four-byte floats through the respective
+base: the last word begins at offset 0x1C. Independent initialization of
+the next objects at 0x0042F554 and 0x0042FA34 corroborates both endpoints.
+Both intervals lie in BSS and overlap no existing map row. Leave Symbol
+and SectionName empty so the referenced dat_ aliases use their default
+BSS sections; leave every existing row and rank unchanged. Full address
+traces and oracle identity are in [raw_address_bss_evidence.md](raw_address_bss_evidence.md).
