@@ -1235,3 +1235,23 @@ provide no guest ARMCC class-layout evidence. Linked coverage and selected
 execution are recorded separately. The platform, browser frame, World 1-1 and
 complete rank-O source registry remain open. Final hashes, reproduction and
 scope are in project/webassembly_translation_evidence.md.
+
+## Names for frog's exact claims (2026-10-02 14:00)
+
+The integrator rejected three exact claims from frog (dot/root-12de18, dot/root-187ab8, dot/root-305644) because their
+symbols name map rows that were unnamed on main. This commit names those rows and two callee rows, with no boundary,
+extent or rank change. The evidence for each is in the branch's own report under project/dot_reports/ and was read
+from the retail executable only:
+
+- 0x0012DE18 KoopaPillar::init: the init slot of primary vtable 0x003C6398; constructor 0x0012E234 builds a
+  MapObjActor; the object-name comparisons and the break-model label name the KoopaPillar family.
+- 0x0016E7A0 KoopaPillarBreakModel constructor and 0x0026FCB8 al::PillarBaseModel constructor: the callees
+  KoopaPillar::init constructs, per the same report.
+- 0x00305644 Gorori::init: the init slot of vtable 0x003D2A44; constructor 0x0026AB84 sets the 0xF8 layout.
+- 0x00187AB8 CounterCollectCoin::collect: the constructor names the archive "CounterCollectCoinD"; the method name is
+  descriptive, as frog's report says, not a recovered symbol.
+- 0x003B7AB0 .constdata.CounterCollectCoin.cpp: the 20-byte constant data row that source's constant data links to.
+
+Not named: 0x0028CB38, which frog's KoopaPillar source calls al::StringTmp<128>'s constructor. Main's
+lib/al/src/Npc/alEffectObj.cpp already calls that row as fn_0028CB38, so renaming it would break that object;
+KoopaPillar's source must call fn_0028CB38 instead.
