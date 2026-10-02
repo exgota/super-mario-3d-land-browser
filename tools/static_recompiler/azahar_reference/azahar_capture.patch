@@ -1,0 +1,600 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8446f53..1dddcd0 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -305,14 +305,16 @@ function(check_submodules_present)
+         endif()
+     endforeach()
+ endfunction()
+-if (EXISTS "${PROJECT_SOURCE_DIR}/.git/objects")
++if (EXISTS "${PROJECT_SOURCE_DIR}/.git/objects" AND NOT ROOT_PORT_CAPTURE_MINIMAL_DEPENDENCIES)
+     # only check submodules when source is obtained via Git
+     check_submodules_present()
+ endif()
+ 
++if(ENABLE_QT)
+ configure_file(${PROJECT_SOURCE_DIR}/dist/compatibility_list/compatibility_list.qrc
+                ${PROJECT_BINARY_DIR}/dist/compatibility_list/compatibility_list.qrc
+                COPYONLY)
++endif()
+ if (EXISTS ${PROJECT_SOURCE_DIR}/dist/compatibility_list/compatibility_list.json)
+     file(COPY "${PROJECT_SOURCE_DIR}/dist/compatibility_list/compatibility_list.json"
+         DESTINATION "${PROJECT_BINARY_DIR}/dist/compatibility_list/")
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 329af28..6e439af 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -227,3 +227,6 @@ endif()
+ if (ENABLE_WEB_SERVICE)
+     add_subdirectory(web_service)
+ endif()
++
++# Root-owned ignored first-frame reference harness.
++add_subdirectory(root_port_capture)
+diff --git a/src/core/core.cpp b/src/core/core.cpp
+index bd148e4..a51ba37 100644
+--- a/src/core/core.cpp
++++ b/src/core/core.cpp
+@@ -27,6 +27,7 @@
+ #include "core/cheats/cheats.h"
+ #include "core/core.h"
+ #include "core/core_timing.h"
++#include "root_port_capture/cpu_backend_factory.h"
+ #include "core/dumping/backend.h"
+ #include "core/file_sys/ncch_container.h"
+ #include "core/frontend/image_interface.h"
+@@ -547,7 +548,12 @@ System::ResultStatus System::Init(Frontend::EmuWindow& emu_window,
+ 
+     exclusive_monitor = MakeExclusiveMonitor(*memory, num_cores);
+     cpu_cores.reserve(num_cores);
+-    if (Settings::values.use_cpu_jit) {
++    if (RootPortCapture::HasCpuBackendFactory()) {
++        for (u32 i = 0; i < num_cores; ++i) {
++            cpu_cores.push_back(RootPortCapture::CreateCpuBackend(*this, *memory, i,
++                                                                  timing->GetTimer(i)));
++        }
++    } else if (Settings::values.use_cpu_jit) {
+ #if CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+         for (u32 i = 0; i < num_cores; ++i) {
+             cpu_cores.push_back(std::make_shared<ARM_Dynarmic>(
+diff --git a/src/video_core/gpu.cpp b/src/video_core/gpu.cpp
+index 40f29fe..0d607b4 100644
+--- a/src/video_core/gpu.cpp
++++ b/src/video_core/gpu.cpp
+@@ -3,10 +3,12 @@
+ // Refer to the license.txt file included.
+ 
+ #include "common/archives.h"
++#include <cstring>
+ #include "common/hacks/hack_manager.h"
+ #include "common/microprofile.h"
+ #include "core/core.h"
+ #include "core/core_timing.h"
++#include "root_port_capture/gpu_command_capture.h"
+ #include "core/hle/service/gsp/gsp_gpu.h"
+ #include "core/hle/service/plgldr/plgldr.h"
+ #include "core/loader/loader.h"
+@@ -143,6 +145,7 @@ void GPU::ClearAll(bool flush) {
+ }
+ 
+ void GPU::Execute(const Service::GSP::Command& command) {
++    RootPortCapture::RecordGspCommand(command, impl->system.CoreTiming().GetTicks());
+     using Service::GSP::CommandId;
+     auto& regs = impl->pica.regs;
+ 
+@@ -257,6 +260,9 @@ void GPU::Execute(const Service::GSP::Command& command) {
+ }
+ 
+ void GPU::SetBufferSwap(u32 screen_id, const Service::GSP::FrameBufferInfo& info) {
++    if (RootPortCapture::RecordBufferSwap(screen_id, info, impl->system.CoreTiming().GetTicks())) {
++        impl->system.PrepareReschedule();
++    }
+     const PAddr phys_address_left = VirtualToPhysicalAddress(info.address_left);
+     const PAddr phys_address_right = VirtualToPhysicalAddress(info.address_right);
+ 
+@@ -287,6 +293,10 @@ void GPU::SetBufferSwap(u32 screen_id, const Service::GSP::FrameBufferInfo& info
+ }
+ 
+ void GPU::SetColorFill(const Pica::ColorFill& fill) {
++    static_assert(sizeof(fill) == sizeof(u32));
++    u32 raw_fill{};
++    std::memcpy(&raw_fill, &fill, sizeof(raw_fill));
++    RootPortCapture::RecordColorFill(raw_fill, impl->system.CoreTiming().GetTicks());
+     impl->pica.regs_lcd.color_fill_top = fill;
+     impl->pica.regs_lcd.color_fill_bottom = fill;
+ }
+@@ -314,6 +324,7 @@ u32 GPU::ReadReg(VAddr addr) {
+ }
+ 
+ void GPU::WriteReg(VAddr addr, u32 data) {
++    RootPortCapture::RecordHardwareRegisterWrite(addr, data, impl->system.CoreTiming().GetTicks());
+     switch (addr & 0xFFFFF000) {
+     case VADDR_LCD: {
+         const u32 offset = addr - VADDR_LCD;
+@@ -486,6 +497,7 @@ void GPU::MemoryTransfer() {
+ }
+ 
+ void GPU::VBlankCallback(std::uintptr_t user_data, s64 cycles_late) {
++    RootPortCapture::RecordVBlank(impl->system.CoreTiming().GetTicks());
+     // Signal to GSP that GPU interrupt has occurred
+     impl->signal_interrupt(Service::GSP::InterruptId::PDC0, 0);
+     impl->signal_interrupt(Service::GSP::InterruptId::PDC1, 0);
+diff --git a/src/video_core/pica/pica_core.cpp b/src/video_core/pica/pica_core.cpp
+index 910ebc2..037a381 100644
+--- a/src/video_core/pica/pica_core.cpp
++++ b/src/video_core/pica/pica_core.cpp
+@@ -9,6 +9,7 @@
+ #include "common/settings.h"
+ #include "core/core.h"
+ #include "core/memory.h"
++#include "root_port_capture/gpu_command_capture.h"
+ #include "video_core/debug_utils/debug_utils.h"
+ #include "video_core/pica/pica_core.h"
+ #include "video_core/pica/vertex_loader.h"
+@@ -255,6 +256,8 @@ static constexpr std::array<u32, 16> ExpandBitsToBytes = {
+  * that would make debugging more complicated.
+  */
+ void PicaCore::ProcessCmdList(PAddr list, u32 size, bool ignore_list) [[hot]] {
++    RootPortCapture::RecordPicaCommandList(list, memory.GetPhysicalPointer(list), size, false,
++                                          ignore_list, Core::System::GetInstance().CoreTiming().GetTicks());
+     if (ignore_list) {
+         signal_interrupt(Service::GSP::InterruptId::P3D, delay_generator.CalculateAndResetDelay());
+         return;
+@@ -618,6 +621,8 @@ void PicaCore::HandleSpecialReg(u32 id, u32 value, bool& stop_requested) {
+         const PAddr addr = regs.internal.pipeline.command_buffer.GetPhysicalAddress(index);
+         const u32 size = regs.internal.pipeline.command_buffer.GetSize(index);
+         const u8* head = memory.GetPhysicalPointer(addr);
++        RootPortCapture::RecordPicaCommandList(addr, head, size, true, false,
++                                              Core::System::GetInstance().CoreTiming().GetTicks());
+         cmd_list.Reset(addr, head, size);
+         break;
+     }
+diff --git a/src/root_port_capture/CMakeLists.txt b/src/root_port_capture/CMakeLists.txt
+new file mode 100644
+index 0000000..f623777
+--- /dev/null
++++ b/src/root_port_capture/CMakeLists.txt
+@@ -0,0 +1,13 @@
++add_executable(azahar_gpu_capture headless_capture.cpp)
++target_link_libraries(azahar_gpu_capture PRIVATE citra_core video_core fmt Boost::boost)
++target_sources(citra_core PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/gpu_command_capture.cpp
++                                  ${CMAKE_CURRENT_SOURCE_DIR}/cpu_backend_factory.cpp)
++
++add_library(root_port_headless_capture STATIC headless_capture.cpp)
++target_compile_definitions(root_port_headless_capture PRIVATE ROOT_PORT_CAPTURE_NO_MAIN)
++target_link_libraries(root_port_headless_capture PUBLIC citra_core video_core fmt Boost::boost)
++
++if(APPLE)
++    target_link_libraries(citra_core PUBLIC "-framework Foundation" "-framework CoreFoundation"
++                                            "-framework CoreGraphics" "-framework AppKit")
++endif()
+diff --git a/src/root_port_capture/cpu_backend_factory.cpp b/src/root_port_capture/cpu_backend_factory.cpp
+new file mode 100644
+index 0000000..4a5f591
+--- /dev/null
++++ b/src/root_port_capture/cpu_backend_factory.cpp
+@@ -0,0 +1,28 @@
++#include "root_port_capture/cpu_backend_factory.h"
++
++#include <stdexcept>
++#include <utility>
++
++namespace RootPortCapture {
++namespace {
++CpuBackendFactory backend_factory;
++}
++
++void RegisterCpuBackendFactory(CpuBackendFactory factory) {
++    backend_factory = std::move(factory);
++}
++
++bool HasCpuBackendFactory() {
++    return static_cast<bool>(backend_factory);
++}
++
++std::shared_ptr<Core::ARM_Interface> CreateCpuBackend(
++    Core::System& system, Memory::MemorySystem& memory, u32 core_id,
++    std::shared_ptr<Core::Timing::Timer> timer) {
++    auto backend = backend_factory(system, memory, core_id, std::move(timer));
++    if (!backend) {
++        throw std::runtime_error("Registered CPU backend factory returned no backend");
++    }
++    return backend;
++}
++}
+diff --git a/src/root_port_capture/cpu_backend_factory.h b/src/root_port_capture/cpu_backend_factory.h
+new file mode 100644
+index 0000000..41cabea
+--- /dev/null
++++ b/src/root_port_capture/cpu_backend_factory.h
+@@ -0,0 +1,24 @@
++#pragma once
++
++#include <functional>
++#include <memory>
++#include "common/common_types.h"
++#include "core/core_timing.h"
++
++namespace Core {
++class System;
++class ARM_Interface;
++}
++namespace Memory {
++class MemorySystem;
++}
++
++namespace RootPortCapture {
++using CpuBackendFactory = std::function<std::shared_ptr<Core::ARM_Interface>(
++    Core::System&, Memory::MemorySystem&, u32, std::shared_ptr<Core::Timing::Timer>)>;
++void RegisterCpuBackendFactory(CpuBackendFactory factory);
++bool HasCpuBackendFactory();
++std::shared_ptr<Core::ARM_Interface> CreateCpuBackend(
++    Core::System& system, Memory::MemorySystem& memory, u32 core_id,
++    std::shared_ptr<Core::Timing::Timer> timer);
++}
+diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_capture/gpu_command_capture.cpp
+new file mode 100644
+index 0000000..05780cf
+--- /dev/null
++++ b/src/root_port_capture/gpu_command_capture.cpp
+@@ -0,0 +1,153 @@
++#include "root_port_capture/gpu_command_capture.h"
++
++#include <array>
++#include <cstring>
++#include <fstream>
++#include <iomanip>
++#include <sstream>
++#include <stdexcept>
++#include "core/hle/service/gsp/gsp_command.h"
++#include "core/hle/service/gsp/gsp_gpu.h"
++
++namespace RootPortCapture {
++namespace {
++std::filesystem::path output_directory;
++std::ofstream event_stream;
++u64 event_sequence{};
++u64 gsp_command_count{};
++u64 pica_list_count{};
++u64 vblank_count{};
++u64 total_payload_bytes{};
++bool complete{};
++constexpr u64 maximum_payload_bytes = 128 * 1024 * 1024;
++
++void BeginEvent(const char* kind, u64 ticks) {
++    event_stream << "{\"sequence\":" << event_sequence++ << ",\"kind\":\"" << kind
++                 << "\",\"ticks\":" << ticks << ",\"frame\":0";
++}
++
++void EndEvent() {
++    event_stream << "}\n";
++    event_stream.flush();
++    if (!event_stream) {
++        throw std::runtime_error("Cannot write GPU capture event stream");
++    }
++}
++}
++
++void Initialize(const std::filesystem::path& directory) {
++    output_directory = directory;
++    std::filesystem::create_directories(output_directory);
++    event_stream.open(output_directory / "gpu_events.jsonl", std::ios::out | std::ios::trunc);
++    if (!event_stream) {
++        throw std::runtime_error("Cannot open GPU capture event stream");
++    }
++    event_sequence = gsp_command_count = pica_list_count = vblank_count = total_payload_bytes = 0;
++    complete = false;
++}
++
++void RecordGspCommand(const Service::GSP::Command& command, u64 ticks) {
++    if (complete || !event_stream.is_open()) {
++        return;
++    }
++    std::array<u32, sizeof(command) / sizeof(u32)> words{};
++    std::memcpy(words.data(), &command, sizeof(command));
++    BeginEvent("gsp_command", ticks);
++    event_stream << ",\"command_index\":" << gsp_command_count++ << ",\"command_id\":"
++                 << static_cast<u32>(command.id.Value()) << ",\"words\":[";
++    for (std::size_t index = 0; index < words.size(); ++index) {
++        event_stream << (index ? "," : "") << words[index];
++    }
++    event_stream << "]";
++    EndEvent();
++}
++
++void RecordPicaCommandList(PAddr address, const u8* bytes, u32 size, bool chained,
++                           bool ignored, u64 ticks) {
++    if (complete || !event_stream.is_open()) {
++        return;
++    }
++    if (bytes == nullptr || size % sizeof(u32) != 0 ||
++        total_payload_bytes + size > maximum_payload_bytes) {
++        throw std::runtime_error("Invalid or oversized PICA command capture");
++    }
++    std::ostringstream filename;
++    filename << "pica_command_list_" << std::setw(6) << std::setfill('0') << pica_list_count
++             << ".bin";
++    std::ofstream payload(output_directory / filename.str(), std::ios::binary);
++    payload.write(reinterpret_cast<const char*>(bytes), size);
++    payload.close();
++    if (!payload) {
++        throw std::runtime_error("Cannot write PICA command capture");
++    }
++    total_payload_bytes += size;
++    BeginEvent("pica_command_list", ticks);
++    event_stream << ",\"list_index\":" << pica_list_count++ << ",\"physical_address\":"
++                 << address << ",\"size\":" << size << ",\"chained\":"
++                 << (chained ? "true" : "false") << ",\"ignored\":"
++                 << (ignored ? "true" : "false") << ",\"payload\":\"" << filename.str()
++                 << "\",\"gsp_command_index\":" << (gsp_command_count ? gsp_command_count - 1 : 0);
++    EndEvent();
++}
++
++bool RecordBufferSwap(u32 screen_id, const Service::GSP::FrameBufferInfo& info, u64 ticks) {
++    if (complete || !event_stream.is_open()) {
++        return false;
++    }
++    std::array<u32, sizeof(info) / sizeof(u32)> words{};
++    std::memcpy(words.data(), &info, sizeof(info));
++    BeginEvent("buffer_swap", ticks);
++    event_stream << ",\"screen_id\":" << screen_id << ",\"words\":[";
++    for (std::size_t index = 0; index < words.size(); ++index) {
++        event_stream << (index ? "," : "") << words[index];
++    }
++    event_stream << "]";
++    EndEvent();
++    if (screen_id == 0) {
++        complete = true;
++        return true;
++    }
++    return false;
++}
++
++void RecordVBlank(u64 ticks) {
++    if (complete || !event_stream.is_open()) {
++        return;
++    }
++    BeginEvent("vblank", ticks);
++    event_stream << ",\"vblank_index\":" << vblank_count++;
++    EndEvent();
++}
++
++bool IsComplete() {
++    return complete;
++}
++
++void RecordHardwareRegisterWrite(VAddr address, u32 value, u64 ticks) {
++    if (complete || !event_stream.is_open()) {
++        return;
++    }
++    BeginEvent("hardware_register_write", ticks);
++    event_stream << ",\"address\":" << address << ",\"value\":" << value;
++    EndEvent();
++}
++
++void RecordColorFill(u32 value, u64 ticks) {
++    if (complete || !event_stream.is_open()) {
++        return;
++    }
++    BeginEvent("color_fill", ticks);
++    event_stream << ",\"value\":" << value;
++    EndEvent();
++}
++
++void Finish(const std::string& outcome, u64 ticks) {
++    BeginEvent("capture_outcome", ticks);
++    event_stream << ",\"outcome\":\"" << outcome << "\",\"complete\":"
++                 << (complete ? "true" : "false") << ",\"gsp_commands\":" << gsp_command_count
++                 << ",\"pica_lists\":" << pica_list_count << ",\"payload_bytes\":"
++                 << total_payload_bytes << ",\"vblanks\":" << vblank_count;
++    EndEvent();
++    event_stream.close();
++}
++}
+diff --git a/src/root_port_capture/gpu_command_capture.h b/src/root_port_capture/gpu_command_capture.h
+new file mode 100644
+index 0000000..67b96fa
+--- /dev/null
++++ b/src/root_port_capture/gpu_command_capture.h
+@@ -0,0 +1,23 @@
++#pragma once
++
++#include <filesystem>
++#include <string>
++#include "common/common_types.h"
++
++namespace Service::GSP {
++struct Command;
++struct FrameBufferInfo;
++}
++
++namespace RootPortCapture {
++void Initialize(const std::filesystem::path& directory);
++void RecordGspCommand(const Service::GSP::Command& command, u64 ticks);
++void RecordPicaCommandList(PAddr address, const u8* bytes, u32 size, bool chained,
++                           bool ignored, u64 ticks);
++bool RecordBufferSwap(u32 screen_id, const Service::GSP::FrameBufferInfo& info, u64 ticks);
++void RecordVBlank(u64 ticks);
++void RecordHardwareRegisterWrite(VAddr address, u32 value, u64 ticks);
++void RecordColorFill(u32 value, u64 ticks);
++bool IsComplete();
++void Finish(const std::string& outcome, u64 ticks);
++}
+diff --git a/src/root_port_capture/headless_capture.cpp b/src/root_port_capture/headless_capture.cpp
+new file mode 100644
+index 0000000..c8eb6b8
+--- /dev/null
++++ b/src/root_port_capture/headless_capture.cpp
+@@ -0,0 +1,161 @@
++#include <chrono>
++#include <filesystem>
++#include <fstream>
++#include <iostream>
++#include <stdexcept>
++#include "audio_core/audio_types.h"
++#include "common/detached_tasks.h"
++#include "common/file_util.h"
++#include "common/logging/backend.h"
++#include "common/logging/filter.h"
++#include "common/settings.h"
++#include "core/core.h"
++#include "core/core_timing.h"
++#include "core/frontend/emu_window.h"
++#include "core/loader/loader.h"
++#include "core/hle/service/service.h"
++#include "root_port_capture/gpu_command_capture.h"
++#include "root_port_capture/headless_capture.h"
++#include "root_port_capture/cpu_backend_factory.h"
++
++namespace {
++class HeadlessCaptureWindow final : public Frontend::EmuWindow {
++public:
++    HeadlessCaptureWindow() = default;
++    ~HeadlessCaptureWindow() override = default;
++    void PollEvents() override {}
++};
++}
++
++int RootPortCapture::RunHeadlessCapture(int argument_count, char** arguments) {
++    if (argument_count < 3 || argument_count > 5) {
++        std::cerr << "usage: azahar_gpu_capture <owned-dump-copy> <absent-output-directory> "
++                     "[input-movie.ctm] [initial-user-directory]\n";
++        return 2;
++    }
++    const auto dump_path = std::filesystem::absolute(arguments[1]);
++    const auto output_path = std::filesystem::absolute(arguments[2]);
++    if (!std::filesystem::is_regular_file(dump_path) || std::filesystem::exists(output_path)) {
++        std::cerr << "dump must exist and output directory must be absent\n";
++        return 2;
++    }
++    std::filesystem::create_directories(output_path);
++    if (argument_count == 5) {
++        const auto initial_user_path = std::filesystem::absolute(arguments[4]);
++        if (!std::filesystem::is_directory(initial_user_path)) {
++            std::cerr << "initial user directory must exist\n";
++            return 2;
++        }
++        std::filesystem::copy(initial_user_path, output_path / "user",
++                              std::filesystem::copy_options::recursive);
++    }
++    FileUtil::SetUserPath(output_path.string() + "/user/");
++    Common::Log::Initialize("reference_capture.log");
++    Common::Log::Filter log_filter;
++    log_filter.ParseFilterString("*:Info");
++    Common::Log::SetGlobalFilter(log_filter);
++    Common::Log::Start();
++    Common::DetachedTasks detached_tasks;
++    Settings::values.use_cpu_jit = true;
++    Settings::values.use_fastinterp = false;
++    Settings::values.deterministic_async_operations = true;
++    Settings::values.async_fs_operations = false;
++    Settings::values.graphics_api = Settings::GraphicsAPI::Software;
++    Settings::values.use_disk_shader_cache = false;
++    Settings::values.disable_right_eye_render = false;
++    Settings::values.frame_limit = 0;
++    Settings::values.audio_emulation = Settings::AudioEmulation::HLE;
++    Settings::values.output_type = AudioCore::SinkType::Null;
++    Settings::values.enable_audio_stretching = false;
++    Settings::values.is_new_3ds = false;
++    Settings::values.plugin_loader_enabled = false;
++    Settings::values.allow_plugin_loader = false;
++    Settings::values.enable_required_online_lle_modules = false;
++    for (const auto& service_module : Service::service_module_map) {
++        Settings::values.lle_modules.emplace(service_module.name, false);
++    }
++    Settings::values.init_clock = Settings::InitClock::FixedTime;
++    Settings::values.init_time = 946684800;
++    auto& system = Core::System::GetInstance();
++    auto& movie = system.Movie();
++    if (argument_count >= 4) {
++        movie.PrepareForPlayback(std::filesystem::absolute(arguments[3]).string());
++    } else {
++        movie.PrepareForRecording();
++    }
++    std::ofstream configuration(output_path / "capture_configuration.json");
++    configuration << "{\"source_commit\":\"662d412123305a9f4be94dd3dc73ddf91a18c55e\","
++                     "\"backend\":\"" << (HasCpuBackendFactory() ? "static recompiler" : "stock Dynarmic")
++                  << "\",\"renderer\":\"software\","
++                     "\"console\":\"old 3DS\",\"audio_sink\":\"null\","
++                     "\"deterministic_async_operations\":true,\"async_fs_operations\":false,"
++                     "\"deterministic_file_read_delay_correction\":true,"
++                     "\"frame_boundary\":\"first top-screen GPU::SetBufferSwap from process load\","
++                     "\"init_time\":" << movie.GetOverrideInitTime()
++                  << ",\"base_ticks\":" << movie.GetOverrideBaseTicks() << "}\n";
++    configuration.close();
++    HeadlessCaptureWindow window;
++    RootPortCapture::Initialize(output_path);
++    Core::System::ResultStatus load_status;
++    try {
++        load_status = system.Load(window, dump_path.string());
++    } catch (const std::exception& exception) {
++        RootPortCapture::Finish("load_exception", 0);
++        std::cerr << "load exception: " << exception.what() << "\n";
++        return 1;
++    }
++    if (load_status != Core::System::ResultStatus::Success) {
++        RootPortCapture::Finish("load_failed", 0);
++        std::cerr << "load failed: " << static_cast<int>(load_status) << "\n";
++        return 1;
++    }
++    std::filesystem::copy(output_path / "user", output_path / "initial_user_state",
++                          std::filesystem::copy_options::recursive);
++    u64 program_id{};
++    system.GetAppLoader().ReadProgramId(program_id);
++    std::ofstream program_manifest(output_path / "program_identity.json");
++    program_manifest << "{\"program_id\":" << program_id << "}\n";
++    program_manifest.close();
++    if (argument_count >= 4) {
++        const auto movie_path = std::filesystem::absolute(arguments[3]).string();
++        if (movie.ValidateMovie(movie_path) != Core::Movie::ValidationResult::OK) {
++            RootPortCapture::Finish("invalid_movie", system.CoreTiming().GetTicks());
++            system.Shutdown();
++            return 1;
++        }
++        movie.SetReadOnly(true);
++        movie.StartPlayback(movie_path);
++    } else {
++        movie.StartRecording((output_path / "input_movie.ctm").string(), "SM3DL root reference");
++    }
++    const auto deadline = std::chrono::steady_clock::now() + std::chrono::seconds(120);
++    std::string outcome = "wall_time_limit";
++    try {
++        while (!RootPortCapture::IsComplete() && std::chrono::steady_clock::now() < deadline) {
++            const auto status = system.RunLoop(true);
++            if (status != Core::System::ResultStatus::Success) {
++                outcome = "run_failed";
++                break;
++            }
++        }
++        if (RootPortCapture::IsComplete()) {
++            outcome = "first_top_screen_swap";
++        }
++    } catch (const std::exception& exception) {
++        std::cerr << exception.what() << "\n";
++        outcome = "exception";
++    }
++    const bool complete = RootPortCapture::IsComplete();
++    RootPortCapture::Finish(outcome, system.CoreTiming().GetTicks());
++    movie.Shutdown();
++    system.Shutdown();
++    detached_tasks.WaitForAllTasks();
++    std::cout << outcome << "\n";
++    return complete ? 0 : 1;
++}
++
++#ifndef ROOT_PORT_CAPTURE_NO_MAIN
++int main(int argument_count, char** arguments) {
++    return RootPortCapture::RunHeadlessCapture(argument_count, arguments);
++}
++#endif
+diff --git a/src/root_port_capture/headless_capture.h b/src/root_port_capture/headless_capture.h
+new file mode 100644
+index 0000000..f8bcd37
+--- /dev/null
++++ b/src/root_port_capture/headless_capture.h
+@@ -0,0 +1,5 @@
++#pragma once
++
++namespace RootPortCapture {
++int RunHeadlessCapture(int argument_count, char** arguments);
++}
