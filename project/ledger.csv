@@ -774,3 +774,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T01:03:05.652705+00:00,0x0016A11C,_ZN2al10CourseList4initEv,abandoned,3,19.188702
 2026-10-02T01:03:05.652705+00:00,0x001E37D8,_ZN2al24ExecuteDirectorListUpdate4initERKNS_13ActorInitInfoE,abandoned,3,15.740368
 2026-10-02T01:03:05.652705+00:00,0x0030E678,_ZN7BombHei7controlEv,abandoned,3,6.727678
+2026-10-02T01:03:05.652705+00:00,0x0024F344,_ZN2al12MemorySystem23createSceneResourceHeapEPKc,abandoned,3,10.025745
