@@ -53,8 +53,8 @@ StaticArmBackend::~StaticArmBackend() {
 void StaticArmBackend::Run() {
     if (break_flag) return;
     reschedule = false;
-    // The instruction budget bounds native stack work. ChargeBlock uses oracle cycle costs
-    // and forces a stop at the next block boundary after the timer slice expires.
+    // Every generated instruction is resumable. Stock instruction costs advance the
+    // platform timer, and its downcount stops dispatch at the next instruction.
     context.budget = 1000000;
     while (!reschedule && timer->GetDowncount() > 0) {
         auto code = FindCode(context.r[15] | context.thumb);
