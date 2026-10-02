@@ -1,26 +1,42 @@
 # Root lane state
 
-The owner resumed this lane for class layouts and the port runtime on 2026-10-02. Only the integrator moves main, ranks, and ledger under BRIEF rule 13. Work on root branches; never edit the factory source directory or adjacent factory. No subagents until the operator explicitly ends the model trial, then at most one.
+## Owner priority, 2026-10-02
 
-## Submissions
+Browser demo first, then 100% byte exact. After the current model draw-order branch, root works only on the port runtime. Class layouts belong to the Pro relay. Root runs at most one subagent. Only the integrator moves main, ranks, or ledger. Never edit the adjacent factory or Game/backup/src/Factory.
 
-- CalendarTime: `root-calendar-constructor-placement-a671ac00c`. Clean build, constructor M -> O, five sibling matches; committed rank remains M. Integrator verdict pending. A local merge preview finds a conflict between appended decision notes, so prepare a follow-up branch after rejection without rewriting the pushed history.
-- Heap base: `root-heap-layout-e6d8485e8`. Rejected at 04:21:53 ET by the integrator final receipt commit for zero claims. Operator blocker is in QUESTIONS; leave its code/source unchanged and resubmit after that path is repaired. Reconstructs the observed 0x70-byte base with opaque lock storage. Clean build, 16 ARMCC ABI assertions, and eight existing exact callers pass. No new matching claim. Integrator verdict pending.
+## Current submission
 
-## Ownership and current task
+`root/runtime-model-draw-order` owns runtime/AssetReader.cpp, runtime/ModelDrawSchedule.cpp, and project/runtime_model_draw_order_evidence.md. The complete source and public command pass fresh original, sanitized debug, and optimized checks. Source hashes after rebase to main are unchanged: AssetReader 7ef892c0e9141785fe8841711fcaeb51066f37937088a252e6aeea0def8b96e3; ModelDrawSchedule 53bae75f4f07f64087667c65a604814be8e77525c433977dfe75c3c6e903d975. Submit with no claims. Acceptance remains pending.
 
-Current branch `root/runtime-model-draw-order` starts from integrator main. Root owns `runtime/AssetReader.cpp`, a standalone `runtime/ModelDrawSchedule.cpp` command, and a model draw-order evidence note for this source family. The historical compiler_candidates lane is paused; the owner assigned runtime work to this fresh root. Its frozen complete proposal is retained under build/runtime/native_model_draw_schedule_proposal. Baseline source SHA-256 is 0d30436f8efc83a619cd78d2eef533f41c64caa2ba1f2c39c8e3de85e2892ab0. Do not compose fragments. Verify the complete proposal and original/native evidence before adopting it.
+39 models / 137 meshes, all prior native interfaces, 235 public-command comparisons and six refusals per build pass. All 8,678 historical seals verify before and after. This establishes resource-local ordering, not an active frame, rendering, or gameplay. No matching byte credit follows.
 
-The Heap Pro question `.integrator/pro_queue/layout/sead_heap_base.md` is queued. Answers are proposals. No source dependent on unproved lock identity or direction signedness is claimed.
+## Other submissions
+
+CalendarTime `root-calendar-constructor-placement-a671ac00c` initially rejected on an appended decision-note conflict. Retry `root-calendar-constructor-placement-a671ac00c-retry` rejected at 04:28:49 ET on an empty candidate-rank commit. Local clean build and six checks pass; committed rank remains M.
+
+Heap `root-heap-layout-e6d8485e8` rejected at 04:21:53 ET on an empty acceptance receipt. Its full check passed according to the operator. Root independently checked a clean build, 16 ARMCC ABI assertions and eight existing exact callers. No acceptance is claimed yet.
+
+The operator reports both integrator bugs fixed and both submissions queued again. Read .integrator/results for the new verdicts. Do not send duplicate layout or calendar follow-ups while these are queued.
+
+`root-integrator-commit-receipts-bfbb5a379` submits the repository copy's two empty-receipt fixes. It predates the operator's repair notice and may be redundant. No adjacent factory changes were made. Await its verdict without further tooling work.
+
+## Port milestones
+
+1. Native static recompilation reaches the first frame's GPU command stream and matches Azahar.
+2. Rendering.
+3. Input.
+4. Audio.
+5. World 1-1, with Section 7 differential replay.
+6. Browser build.
+
+Keep .integrator/port_status.json current. Recompiled bytes count only function bytes translated and linked natively. Mark a milestone done only with evidence someone can rerun. The matching ARMCC build remains the source of truth. Dispatch by original address so exact decompiled functions on main can replace translated functions. Port implementation stays outside Game and lib. Original and generated game payloads stay ignored.
 
 ## Next three tasks
 
-1. Commit and freshly replay the complete model draw-order candidate against original instructions and all prior native interfaces. Submit only if debug/sanitized and optimized results pass.
-2. Read every Calendar/Heap verdict. Repair merge conflicts on follow-up branches, preserve all main notes and ranks, and resubmit small families.
-3. Reconstruct one al actor layout needed by active matching or extend the port's differential-replay boundary. Check dot overlap before selecting functions.
+1. Push and submit the finished model draw-order branch, then open a root port branch from main.
+2. Implement and verify the native static translator and address-keyed replacement boundary. Ask the Pro relay any required layout question in .integrator/pro_queue/layout.
+3. Capture Azahar's first top-screen frame GPU submissions with a pinned tool and compare the native port at the same boundary. Read every submission verdict while independent port work continues.
 
-M2 and M3 remain unfinished. No level has run. Static resource order is not active scene scheduling, GPU/shader execution, rendering, or gameplay. No exact game-byte credit follows from native runtime functions. Original executable and dump stay unchanged and local. Keep evidence under ignored build/data, and delete only this lane's disposable scratch when no longer needed.
+The one active helper investigates Azahar capture hooks under build/root_port_reference. No emulator or heavy Azahar build has run. Initial review found unused CiTrace recorder methods, so its UI alone does not establish first-frame command parity.
 
-## Runtime candidate verified
-
-The committed complete source and public command pass fresh original/sanitized/optimized checks, 39 models/137 meshes, all prior native interfaces, and 235 public-command comparisons plus six refusals per build. All 8,678 historical seals verify before/after. No assets, ranks, ledger or matching source changes. The first Calendar rejection is recorded; the follow-up worktree clean-builds and is being rechecked after connecting the existing ignored differ checkout. Heap was rejected by the zero-claim acceptance-receipt bug; no header rejection or acceptance is claimed. Calendar retry from the operator is pending; inspect its verdict before sending a duplicate follow-up.
+No level has run. M3 and all six port milestones remain unfinished. Keep evidence under ignored build/data. Delete only root's disposable scratch when no longer needed.
