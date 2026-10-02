@@ -64,7 +64,7 @@ python tools/static_recompiler/compare_gpu_capture.py \
 
 The library extension is .so on Linux. The observed build and run are macOS arm64; Linux has not been tested. Preserve failed captures. The comparator's success requires untouched event bytes including ticks, all payload bytes, completed boundaries and no movie errors. Its metadata comparison is diagnostic only and cannot turn a mismatch into success.
 
-The boundary is the complete startup prefix through the first top-screen SetBufferSwap. It does not prove a visibly presented game frame. Native execution prints its guest instruction count and zero interpreter/JIT fallbacks when the CPU is destroyed.
+The default boundary is the complete startup prefix through the first top-screen SetBufferSwap. The optional [natural software presentation observer](RENDERING.md) verifies a later visible title-logo frame against stock without changing that default. Native execution prints its guest instruction count and zero interpreter/JIT fallbacks when the CPU is destroyed.
 
 For bounded debugging, set ROOT_PORT_MEMORY_TRACE_PATH to an absent ignored JSONL file and ROOT_PORT_MEMORY_TRACE_VALUES to comma-separated uint32 values before executing. Both are required together. Matching 32-bit writes record the responsible guest instruction, integer/VFP registers and FPSCR without changing the guest memory operation. Leave tracing disabled for ordinary parity runs.
 
