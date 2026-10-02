@@ -123,3 +123,15 @@ Init372 and receive160 reach four unsuccessful meaningful forms each. No bodies 
 | 0x00303130 | Bubble::receiveMsg | Best164bytes/51differences versus160target. | New grounded structure after other work and overlap check; packet00303130. |
 
 | 0x0024B168 | ExecuteTableHolderDraw::init | Four new paired1028-byte forms differ111/42/7/27; best7 register bytes, pool92 exact. | New grounded pass after other work; packet0024B168. |
+
+## Archive callbacks capped after four forms, 2026-10-02
+
+All five are unaccepted scratch searches; final ready source omits their definitions. No functional NonMatching claim follows. Historical attempts, full pool/extent diffs and physical driver failure remain in each packet. Shared30.274227minute rows overlap.
+
+| Address | Function | Blocker | Unblocks when |
+| --- | --- | --- | --- |
+| 0x002DF0E8 | fn_002DF0E8 | Four unsuccessful forms, whole52bytes remain nonexact. | New grounded pass after other work; packet002DF0E8. |
+| 0x002DF1FC | fn_002DF1FC | Four unsuccessful forms, whole72bytes remain nonexact. | New grounded pass after other work; packet002DF1FC. |
+| 0x002DF244 | fn_002DF244 | Four unsuccessful forms, whole84bytes remain nonexact. | New grounded pass after other work; packet002DF244. |
+| 0x002DF354 | fn_002DF354 | Four unsuccessful forms, whole144bytes remain nonexact. | New grounded pass after other work; packet002DF354. |
+| 0x002DF3E4 | fn_002DF3E4 | Four unsuccessful forms, whole92bytes remain nonexact. | New grounded pass after other work; packet002DF3E4. |
