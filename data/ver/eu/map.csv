@@ -3368,7 +3368,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0019A1AC,0x0019A328,0x0019A344,          ,U,f,,
 0x0019A344,          ,0x0019A34C,          ,O,f,fn_0019A344,
 0x0019A34C,0x0019A57C,0x0019A58C,          ,U,f,,
-0x0019A58C,0x0019A620,0x0019A680,          ,U,f,,
+0x0019A58C,0x0019A620,0x0019A680,          ,O,f,fn_0019A58C,
 0x0019A680,0x0019A6D0,0x0019A6E8,          ,U,f,,
 0x0019A6E8,          ,0x0019A758,          ,U,f,,
 0x0019A758,0x0019A794,0x0019A798,          ,U,f,,
