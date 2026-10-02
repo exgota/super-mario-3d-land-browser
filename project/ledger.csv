@@ -781,3 +781,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T01:16:07.062208+00:00,0x002D9B9C,_ZN4sead10ReadStream7readS16ERs,matched,2,10.891864
 2026-10-02T01:16:07.062208+00:00,0x002DA3DC,_ZN4sead11WriteStream8writeU16Et,matched,2,10.891864
 2026-10-02T01:16:07.062208+00:00,0x002DA834,_ZN4sead12RamStreamSrc4readEPvj,matched,2,10.891864
+2026-10-02T01:16:07.062208+00:00,0x002DA880,_ZN4sead12RamStreamSrc4skipEi,matched,2,10.891864
