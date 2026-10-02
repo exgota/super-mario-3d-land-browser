@@ -8,14 +8,15 @@
 namespace rp
 {
 
-#pragma no_inline
-#ifdef NON_MATCHING
+extern "C" PlayerActor* fn_00189164();
 
-// linker shenanigans
+#pragma no_inline
 PlayerActor* getPlayerActor()
 {
-        return Application::instance()->getPlayerActor();
+        return fn_00189164();
 }
+
+#ifdef NON_MATCHING
 
 const sead::Vector3f& getPlayerPos()
 {
