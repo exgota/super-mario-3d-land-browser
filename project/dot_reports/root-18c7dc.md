@@ -1,7 +1,7 @@
 # Result timer countdown: exact local proposal
 
 Base: `eeaca9ad7a606674b428b29630da497031ff913d`.
-Source revision: `0b6c0976bc834e2966303c763096b33944334e07`.
+Source revision: `f16e36bd6f1e71347fd5f8e9b87486b4e7f969e4`.
 Branch: `dot/root-18c7dc`.
 Root: `fn_0018C7DC`, interval `[0x0018C7DC, 0x0018C9E0)`, 516 bytes.
 Preflight found the row unnamed/U, with no source definition or overlapping proposal.
@@ -34,6 +34,10 @@ the second separated the tick increment from its test and put the completion
 sound in its conditional scope. That form matched. No padding, register,
 volatile, assembly, compiler-flag or tool changes were used.
 
+A later declaration-only ABI reconciliation changed `fn_0027109C` from `void`
+to `void*`. The normal build and the same committed-source targeted checker were
+rerun successfully at the source revision above; the 516-byte root remains exact.
+
 The first compact builds failed on the existing lowercase `fn_00270ccc` import
 after unnecessarily naming that scratch map row uppercase. Restoring all six
 callee rows to their original unnamed state fixed linking without source changes.
@@ -53,8 +57,13 @@ string object. The local callback uses the observed virtual slot +4. The local
 layout exposes pointers at +10/+14/+18 and integers at +1C/+24/+2C; unknown
 fields only account for observed offsets. No shared header was changed.
 
+The exact `CounterCollectCoin::collect` root at 00187AB8 grounds the shared sound
+import's `void*` return: it stores that handle and passes it to `fn_00278B98`.
+This declaration now agrees with that call-site evidence; the timer discards
+the returned handle. Its argument types and all call sites are unchanged.
+
 Compiler object SHA-256:
-`b08fd2cd74b48c9af546251943aeeba33f9073cac6f627b74809fda5579ac7b1`.
+`08efe0c3bd86ab67b15029fcda4430b8f93c9b64c024f3b441ee9939a749de97`.
 The owner executable hash was verified as
 `e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64`.
 

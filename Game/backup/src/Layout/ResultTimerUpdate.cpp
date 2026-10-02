@@ -22,7 +22,7 @@ struct ResultTimer {
 
 extern "C" void fn_00260984(al::LayoutActor*, const char*, unsigned int);
 extern "C" bool fn_00138B68();
-extern "C" void fn_0027109C(al::IUseAudioKeeper*, const sead::SafeString&);
+extern "C" void* fn_0027109C(al::IUseAudioKeeper*, const sead::SafeString&);
 extern "C" int fn_00326DEC();
 extern "C" void fn_00270DB0(al::LayoutActor*, const char*, int);
 extern "C" void fn_00270CCC(al::LayoutActor*, const sead::SafeString&);
