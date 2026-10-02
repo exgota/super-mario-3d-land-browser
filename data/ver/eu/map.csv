@@ -6527,7 +6527,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00223888,0x00223944,0x00223948,          ,U,f,,
 0x00223948,          ,0x00223990,          ,U,f,,
 0x00223990,0x00223A14,0x00223A18,          ,U,f,,
-0x00223A18,          ,0x00223A20,          ,U,f,,
+0x00223A18,          ,0x00223A20,          ,O,f,fn_00223A18,
 0x00223A20,          ,0x00223A90,          ,U,f,_ZN4sead14MethodTreeNode9detachAllEv,
 0x00223A90,          ,0x00223AA8,          ,U,f,,
 0x00223AA8,          ,0x00223B48,          ,O,f,_ZN4sead14MethodTreeNode13pushBackChildEPS0_,
