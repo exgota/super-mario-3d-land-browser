@@ -735,3 +735,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x001010F0,_ZN2al9SystemKit20createSaveDataSystemEji,matched,4,6.686064
 2026-10-02T00:11:52.904631+00:00,0x001BCA74,_ZN2al10RailKeeperC1ERKNS_9ByamlIterE,matched,2,7.438813
 2026-10-02T00:11:52.904631+00:00,0x001DD494,_ZN2al19tryCreateRailKeeperERKNS_9ByamlIterE,matched,2,7.438813
+2026-10-02T00:11:52.904631+00:00,0x00350870,_ZNK13NrvAppearStep19AppearStepNrvAppear7executeEPN2al11NerveKeeperE,matched,3,4.573842
