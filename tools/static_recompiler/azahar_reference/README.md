@@ -61,3 +61,7 @@ The optional `azahar_replay_duration.patch` makes the host watchdog configurable
 ## Default frontend applet interfaces
 
 `azahar_default_applets.patch` registers the pinned upstream default Mii selector and keyboard for the headless frontend. [DEFAULT_APPLETS.md](DEFAULT_APPLETS.md) explains the configured reference choices, original-movie comparison and bounded file-selection evidence. Semantic level state and browser applet interfaces remain unverified.
+
+## Longer command-data captures
+
+The optional `azahar_replay_payload_limits.patch` keeps the default128MiB PICA command-copy limit and adds a bounded opt-in byte extent. [REPLAY_PAYLOAD_LIMITS.md](REPLAY_PAYLOAD_LIMITS.md) documents it. Both builds, parser/boundary controls and unchanged native/stock menu output pass. A larger recording allowance supplies no gameplay acceptance.
