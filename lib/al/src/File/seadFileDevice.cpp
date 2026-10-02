@@ -143,3 +143,83 @@ bool FileDevice::tryWrite(unsigned int* writeSize, FileHandle* handle, const uns
 }
 
 } // namespace sead
+
+// Private ABI views for the archive-device callback family. Only observed
+// storage and call slots are modeled; no complete class or table is defined.
+namespace sead { namespace fileDeviceImplementation {
+struct ArchiveResourceView;
+struct StringView;
+struct FileInformation { unsigned int index; unsigned int size; };
+struct FileState { unsigned char* data; FileInformation information; unsigned int cursor; };
+struct StringDispatch {
+    void (*unknown00)();
+    void (*unknown04)();
+    void (*assureTermination)(const StringView*);
+};
+struct StringView { const StringDispatch* dispatch; const char* string; };
+struct ArchiveResourceDispatch {
+    void (*unknown00)();
+    void (*unknown04)();
+    void (*unknown08)();
+    void (*unknown0C)();
+    void (*unknown10)();
+    void (*unknown14)();
+    unsigned char* (*openFile)(ArchiveResourceView*, const StringView*, FileInformation*);
+    void (*unknown1C)();
+    void (*unknown20)();
+    void (*unknown24)();
+    int (*openDirectory)(ArchiveResourceView*, void*, const StringView*);
+    int (*closeDirectory)(ArchiveResourceView*, void*);
+    unsigned int (*readDirectory)(ArchiveResourceView*, void*, DirectoryEntry*, unsigned int);
+};
+struct ArchiveResourceView { const ArchiveResourceDispatch* dispatch; };
+struct ArchiveDeviceView { unsigned char unknown00[80]; ArchiveResourceView* archive; };
+struct FileHandleView {
+    unsigned char unknown00[20];
+    FileState state;
+    FileState* getState() { return &state; }
+};
+struct DirectoryHandleView {
+    unsigned char unknown00[20];
+    unsigned char state[1];
+    void* getState() { return state; }
+};
+} }
+using namespace sead::fileDeviceImplementation;
+
+// A private ordinary accessor. It must disappear from every callback at link.
+__attribute__((weak)) void* getHandleBuffer(ArchiveDeviceView*, void* handle) {
+    return static_cast<unsigned char*>(handle) + 20;
+}
+
+extern "C" bool fn_002DF11C(ArchiveDeviceView* device, unsigned int* size, const StringView* path) {
+    if (!device->archive)
+        return false;
+    path->dispatch->assureTermination(path);
+    if (!path->string)
+        return false;
+    FileInformation information = {0, 0};
+    unsigned char* data = device->archive->dispatch->openFile(device->archive, path, &information);
+    if (!data)
+        return false;
+    *size = information.size;
+    return true;
+}
+extern "C" bool fn_002DF198(ArchiveDeviceView* device, bool* exists, const StringView* path) {
+    if (!device->archive)
+        return false;
+    path->dispatch->assureTermination(path);
+    if (!path->string)
+        return false;
+    unsigned char* data = device->archive->dispatch->openFile(device->archive, path, 0);
+    *exists = data != 0;
+    return true;
+}
+extern "C" int fn_002DF298(ArchiveDeviceView* device, DirectoryHandleView* handle) {
+    ArchiveResourceView* archive = device->archive;
+    if (!archive)
+        return 0;
+    return archive->dispatch->closeDirectory(archive, getHandleBuffer(device, handle));
+}
+extern "C" bool fn_002DF440(ArchiveDeviceView*, FileHandleView*) { return true; }
+extern "C" bool fn_002DF448(ArchiveDeviceView*, unsigned int*, FileHandleView*, const unsigned char*, unsigned int) { return false; }
