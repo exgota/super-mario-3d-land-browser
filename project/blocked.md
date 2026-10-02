@@ -112,3 +112,12 @@ Four source forms remain8 bytes different over88 complete bytes under791/894. Pr
 - NoteObj::init00312664,212bytes: four unsuccessful source forms, best216bytes/76differences. The original guarded body remains unchanged; no functionalNonMatching claim. Packet project/pro_requests/00312664.md retains independent class/caller evidence, complete pool and both compiler results. Shared family window overlaps the four accepted siblings. Other work precedes a coordinated requeue.
 
 - ControllerBase getStickHold_002DCCC4/480 and updateDerivativeParams_002DCFB4/456: four forms each, best equal-extent linked differences78 and227 under791. Getter also78 under894; derivative894460bytes fails456-byte extent. No source adoption or functional NonMatching claim. Packets project/pro_requests/002DCCC4.md and002DCFB4.md plus project/evidence/controller_base_capped_d5ed939.md preserve all measured forms and independent adjusted-caller/layout evidence. Shared23.256-minute wall window includes12.413minutes of post-probe evidence work, without summed overlapping ledger time. Other work precedes requeue.
+
+## Bubble capped source pass, 2026-10-02
+
+Init372 and receive160 reach four unsuccessful meaningful forms each. No bodies are adopted; no fifth form ran. Historical declaration failures and original input correction are retained in the packets.
+
+| Address | Function | Blocker | Unblocks when |
+| --- | --- | --- | --- |
+| 0x0030324C | Bubble::init | Best372bytes/3differences; corrected -50.0f and3F1EF0 inputs are uncompiled. | New recorded pass after other work and overlap check; packet0030324C. |
+| 0x00303130 | Bubble::receiveMsg | Best164bytes/51differences versus160target. | New grounded structure after other work and overlap check; packet00303130. |

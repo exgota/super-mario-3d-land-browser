@@ -805,3 +805,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T02:20:52.514546+00:00,0x002DCFB4,_ZN4sead14ControllerBase23updateDerivativeParams_Ejb,abandoned,4,23.256035
 2026-10-02T02:39:50.003034+00:00,0x001E37D8,_ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi,matched,4,21.738228
 2026-10-02T02:39:50.003034+00:00,0x0016A11C,_ZN10CourseList4initEPKN2al8ResourceE,matched,2,13.052063
+2026-10-02T02:55:38.617662+00:00,0x00303130,_ZN6Bubble10receiveMsgEjPN2al9HitSensorES2_,abandoned,4,31.64191868263297
+2026-10-02T02:55:38.617662+00:00,0x0030324C,_ZN6Bubble4initERKN2al13ActorInitInfoE,abandoned,4,31.64191868263297
