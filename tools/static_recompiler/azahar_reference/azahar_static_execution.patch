@@ -1,0 +1,18 @@
+diff --git a/src/root_port_capture/CMakeLists.txt b/src/root_port_capture/CMakeLists.txt
+--- a/src/root_port_capture/CMakeLists.txt
++++ b/src/root_port_capture/CMakeLists.txt
+@@ -11,3 +11,14 @@
+     target_link_libraries(citra_core PUBLIC "-framework Foundation" "-framework CoreFoundation"
+                                             "-framework CoreGraphics" "-framework AppKit")
+ endif()
++
++# Optional strict static ARM backend. Paths point to the clean port checkout and
++# ignored generated headers; neither guest source nor payload enters this tree.
++if(ROOT_PORT_SOURCE_DIRECTORY AND ROOT_PORT_TRANSLATED_DIRECTORY)
++    add_executable(azahar_static_execution
++        ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/StaticArmBackend.cpp
++        ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/AzaharStaticExecution.cpp)
++    target_include_directories(azahar_static_execution PRIVATE
++        ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port ${ROOT_PORT_TRANSLATED_DIRECTORY})
++    target_link_libraries(azahar_static_execution PRIVATE root_port_headless_capture ${CMAKE_DL_LIBS})
++endif()
