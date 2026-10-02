@@ -102,6 +102,13 @@ SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/")
 ORACLE_PATHS = ("tools/check.py", "tools/diff.py", "tools/progress.py", "tools/low/", "tools/asm-differ")
 
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
+# A provider error (model at capacity, rate limits, dropped streams) is retried at the same tier after a back-off;
+# it never counts as a miss. A usage-policy flag halts everything (owner, 2026-10-02).
+PROVIDER_RETRY_SECONDS = (60, 120, 300, 600, 900)
+POLICY_FLAG = re.compile(r"usage polic|content polic|flagged (as|for)|violat\w* (our|the|openai)\W.{0,60}polic|safety (system|polic)", re.I)
+POLICY_FLAG_IN_REPLY = re.compile(r"(flagged|violat\w*).{0,80}usage polic|usage polic.{0,80}(flagged|violat)", re.I)
+LANES_FILE = HOME / "logs" / "lanes.json"
+CODEX_SESSIONS = pathlib.Path.home() / ".codex" / "sessions"
 
 
 # ---------------------------------------------------------------- map handling
@@ -739,6 +746,46 @@ def build_inputs_equal(first, second):
                for path in BUILD_INPUTS)
 
 
+def read_run_log(log_path):
+    """Token usage, provider errors and usage-policy flags from a worker's codex exec log. A run that dies before
+    turn.completed still reports usage through its session file's token counts, which this reads, then deletes."""
+    usage = {"input_tokens": 0, "cached_input_tokens": 0, "output_tokens": 0}
+    errors, flags, thread = [], [], None
+    for line in open(log_path, errors="ignore"):
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        kind = event.get("type")
+        if kind == "thread.started":
+            thread = event.get("thread_id")
+        elif kind == "turn.completed":
+            for key in usage:
+                usage[key] += event.get("usage", {}).get(key, 0)
+        elif kind == "error":
+            errors.append(str(event.get("message", "")))
+        elif kind == "turn.failed":
+            errors.append(str((event.get("error") or {}).get("message", "")))
+        elif kind == "item.completed" and (event.get("item") or {}).get("type") == "agent_message":
+            if POLICY_FLAG_IN_REPLY.search(str(event["item"].get("text", ""))):
+                flags.append(str(event["item"]["text"]))
+    flags += [message for message in errors if POLICY_FLAG.search(message)]
+    errors = [message for message in errors if not POLICY_FLAG.search(message)]
+    if thread:
+        for session in (CODEX_HOME / "sessions").glob(f"*/*/*/rollout-*-{thread}.jsonl"):
+            last = None
+            for line in open(session, errors="ignore"):
+                if '"token_count"' in line:
+                    try:
+                        last = (json.loads(line).get("payload", {}).get("info") or {}).get("total_token_usage") or last
+                    except ValueError:
+                        pass
+            if last and last.get("input_tokens", 0) + last.get("output_tokens", 0) > usage["input_tokens"] + usage["output_tokens"]:
+                usage = {key: last.get(key, 0) for key in usage}
+            session.unlink(missing_ok=True)
+    return usage, errors, flags
+
+
 class Supervisor:
     """slot_specs: {name: {"index": n, "tiers": [..], "kinds": [..] or None, "buckets": [(low, high)] or None,
     "settings": TIERS override or None, "trial": label or None, "trial_queue": queue.Queue or None}}."""
@@ -758,6 +805,8 @@ class Supervisor:
         self.last_pushed = remote_target()
         self.last_checked = None
         self.consecutive_misses = 0
+        self.backoff = {}
+        self.lane_offsets = {}
         self.maximum_slots = len(slot_specs)
         self.allowed_slots = min(self.maximum_slots, starting_slots or self.maximum_slots)
         self.swap_samples = []
@@ -865,6 +914,8 @@ class Supervisor:
                 time.sleep(30)
             finally:
                 self.active.pop(slot, None)
+            if self.backoff.get(slot):
+                time.sleep(self.backoff[slot])
 
     def run_job(self, slot, worktree, job, spec):
         settings = spec.get("settings") or TIERS[job["tier"]]
@@ -886,7 +937,7 @@ class Supervisor:
         log_path = LOGS / "runs" / f"run_{run_id}.jsonl"
         log_path.parent.mkdir(parents=True, exist_ok=True)
         environment = dict(os.environ, CODEX_HOME=str(CODEX_HOME))
-        command = ["codex", "exec", "--json", "--ephemeral", "--skip-git-repo-check", "-C", str(worktree),
+        command = ["codex", "exec", "--json", "--skip-git-repo-check", "-C", str(worktree),
                    "-s", "workspace-write", "--add-dir", str(GIT_DIRECTORIES / worktree.name), "-m", settings["model"],
                    "-c", f"model_reasoning_effort=\"{settings['effort']}\"", prompt]
         with open(log_path, "w") as log_stream:
@@ -899,15 +950,11 @@ class Supervisor:
                 os.killpg(process.pid, signal.SIGTERM)
                 process.wait()
                 outcome = "timeout"
-        usage = {"input_tokens": 0, "cached_input_tokens": 0, "output_tokens": 0}
-        for line in open(log_path, errors="ignore"):
-            if '"turn.completed"' in line:
-                try:
-                    turn = json.loads(line).get("usage", {})
-                    for key in usage:
-                        usage[key] += turn.get(key, 0)
-                except ValueError:
-                    pass
+        usage, provider_errors, policy_flags = read_run_log(log_path)
+        if policy_flags:
+            self.halt_all(f"usage policy flag in run {run_id} ({slot}, job {job['id']}): {policy_flags[0][:200]}")
+        if provider_errors:
+            outcome = "error"
         # The checker, not the worker, decides.
         job_data = json.loads((worktree / ".factory/job.json").read_text())
         bad_edits = changed_tracked_files(worktree, job_data["base"])
@@ -918,6 +965,8 @@ class Supervisor:
             matched = [a for a, r in results.items() if r["rank"] == "O"]
         matched_bytes = sum(self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for a in matched)
         note = f"edited existing files: {bad_edits}" if bad_edits else (f"trial {trial}" if trial else "")
+        if provider_errors and not trial:
+            note = (note + "; " if note else "") + "provider error: " + provider_errors[-1][:160]
         execute(self.database,
                 "UPDATE runs SET finished=?, outcome=?, input_tokens=?, cached_tokens=?, output_tokens=?,"
                 " matched_count=?, matched_bytes=?, note=? WHERE id=?",
@@ -926,9 +975,10 @@ class Supervisor:
         remaining = [a for a in addresses if a not in matched]
         remaining_text = ",".join("%08X" % a for a in remaining)
         proposal_job = job["id"]
+        retry = bool(provider_errors) and not policy_flags
         if not remaining:
             execute(self.database, "UPDATE jobs SET status='proposed', finished_at=? WHERE id=?", (time.time(), job["id"]))
-        elif trial:
+        elif trial or retry:
             execute(self.database, "UPDATE jobs SET status='open', addresses=?, leased_by=NULL WHERE id=?",
                     (remaining_text, job["id"]))
         elif (job["note"] or "").startswith("pro:"):
@@ -960,14 +1010,17 @@ class Supervisor:
                  "attempts": attempts_used, "minutes": (time.time() - started) / 60,
                  "addresses": matched, "symbols": {a: n for a, n in zip(addresses, names)}}))
             self.integration_queue.put(proposal)
-        if not trial:
+        self.backoff[slot] = (PROVIDER_RETRY_SECONDS[min(len(PROVIDER_RETRY_SECONDS) - 1, PROVIDER_RETRY_SECONDS.index(self.backoff[slot]) + 1)]
+                              if self.backoff.get(slot) else PROVIDER_RETRY_SECONDS[0]) if retry else 0
+        if not trial and not retry:
             self.consecutive_misses = 0 if matched else self.consecutive_misses + 1
             if self.consecutive_misses >= NO_MATCH_HALT_RUNS and not self.halted:
                 self.halted = f"{NO_MATCH_HALT_RUNS} jobs in a row matched nothing"
                 log_event(self.database, "alert", "factory halted: " + self.halted)
         log_event(self.database, "run", f"{slot} job {job['id']} {settings['model']} {settings['effort']}"
                   f"{' trial ' + trial if trial else ''}: {len(matched)}/{len(addresses)} matched,"
-                  f" {usage['input_tokens'] - usage['cached_input_tokens']} uncached + {usage['output_tokens']} out, {outcome}")
+                  f" {usage['input_tokens'] - usage['cached_input_tokens']} uncached + {usage['output_tokens']} out, {outcome}"
+                  + (f"; retrying at the same tier in {self.backoff[slot]} s: {provider_errors[-1][:120]}" if retry else ""))
 
     def queue_for_pro(self, worktree, job, remaining):
         """A job that failed the top tier becomes a self-contained GPT-6 Pro packet, named so a reverse sort is largest first."""
@@ -1002,6 +1055,41 @@ class Supervisor:
                 execute(self.database, "UPDATE jobs SET status='open', tier=?, priority=9000000, note=? WHERE id=?",
                         (tier, f"pro:{kept}", job["id"]))
                 log_event(self.database, "pro", f"job {job['id']} reopened with Pro's answer {answer.name}")
+
+    def scan_lanes_for_policy_flags(self):
+        """Read new events in the root's and the relay's Codex session files; a usage-policy flag halts everything."""
+        try:
+            lanes = json.loads(LANES_FILE.read_text())
+        except (OSError, ValueError):
+            return
+        for lane in ("root", "pro_relay"):
+            task = lanes.get(lane)
+            if not task:
+                continue
+            path = self.lane_offsets.get(task, (None, 0))[0]
+            if path is None:
+                found = sorted(CODEX_SESSIONS.glob(f"*/*/*/rollout-*-{task}.jsonl"))
+                if not found:
+                    continue
+                path = found[-1]
+            offset = self.lane_offsets.get(task, (path, 0))[1]
+            with open(path, "rb") as stream:
+                stream.seek(offset)
+                data = stream.read()
+            complete = data[:data.rfind(b"\n") + 1]
+            self.lane_offsets[task] = (path, offset + len(complete))
+            for line in complete.decode(errors="ignore").splitlines():
+                if "polic" not in line.lower() and "flagged" not in line.lower():
+                    continue
+                try:
+                    payload = json.loads(line).get("payload", {})
+                except ValueError:
+                    continue
+                kind, message = payload.get("type"), str(payload.get("message", ""))
+                if (kind in ("error", "stream_error") and POLICY_FLAG.search(message)) or \
+                        (kind == "agent_message" and POLICY_FLAG_IN_REPLY.search(message)):
+                    self.halt_all(f"usage policy flag in the {lane} thread {task[:8]}: {message[:200]}")
+                    return
 
     # integration ---------------------------------------------------------
     def integrator_loop(self):
@@ -1106,11 +1194,14 @@ class Supervisor:
     def process_submissions(self):
         if not SUBMISSIONS.exists():
             return
-        for path in sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime):
+        pending = sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime)
+        changes_build = {path: self.submission_changes_build(path) for path in pending}
+        # Submissions that leave build inputs alone land in seconds, so they go first.
+        for path in sorted(pending, key=lambda p: changes_build[p]):
             if self.halted:
                 return
             # A submission's full check must start from a fully checked main, so its regressions are its own.
-            if self.submission_changes_build(path) and self.main_unchecked():
+            if changes_build[path] and self.main_unchecked():
                 self.sync()
                 if self.halted:
                     return
@@ -1264,6 +1355,8 @@ class Supervisor:
         for claim in matched:
             if addresses[claim] in self.rows_by_start:
                 self.rows_by_start[addresses[claim]]["rank"] = "O"
+        # The full check ran on these build inputs; only the claims' ranks changed, and the check set them.
+        self.last_checked = final
         return {"outcome": "accepted", "main": final, "matched": matched, "matched_bytes": matched_bytes}
 
     # periodic full check and push -------------------------------------------
@@ -1373,6 +1466,7 @@ class Supervisor:
                         self.integration_lock.release()
                 self.adjust_slots()
                 self.take_pro_answers()
+                self.scan_lanes_for_policy_flags()
             if STOP_FILE.exists() and not self.stopping:
                 self.stopping = True
                 log_event(self.database, "stop", "stop requested; finishing current jobs")
@@ -1498,6 +1592,9 @@ def write_status(supervisor=None):
                       "runs_matched": sum(1 for r in items if r["matched_count"]),
                       "functions": sum(r["matched_count"] for r in items), "bytes": matched_bytes,
                       "tokens_per_byte": round(uncached_and_output / matched_bytes) if matched_bytes else None,
+                      "failed_runs": sum(1 for r in items if r["outcome"] in ("error", "timeout")),
+                      "failed_spend_tokens": sum(r["input_tokens"] - r["cached_tokens"] + r["output_tokens"]
+                                                 for r in items if r["outcome"] in ("error", "timeout")),
                       "minutes_per_run": round(sum(r["finished"] - r["started"] for r in items) / 60 / len(items), 1)})
     slots = []
     if supervisor:
@@ -1532,11 +1629,12 @@ def write_status(supervisor=None):
              "Queue: " + ", ".join(f"{q['status']} {q['jobs']} jobs / {q['functions']} functions" for q in status["queue"]), "",
              f"Accepted bytes: {bytes_last(1):,} last hour, {bytes_last(6):,} last 6 hours.", "",
              "## Efficiency", "",
-             "| Label | Model | Runs | Runs matched | Functions | Bytes | Tokens per byte (uncached + output) | Minutes per run |",
-             "|---|---|---|---|---|---|---|---|"]
+             "| Label | Model | Runs | Runs matched | Functions | Bytes | Tokens per byte (uncached + output) | Failed spend (error or timeout) | Minutes per run |",
+             "|---|---|---|---|---|---|---|---|---|"]
     for tier in tiers:
         lines.append(f"| {tier['label']} | {tier['model']} {tier['effort']} | {tier['runs']} | {tier['runs_matched']} |"
-                     f" {tier['functions']} | {tier['bytes']:,} | {tier['tokens_per_byte'] or 'n/a'} | {tier['minutes_per_run']} |")
+                     f" {tier['functions']} | {tier['bytes']:,} | {tier['tokens_per_byte'] or 'n/a'} |"
+                     f" {tier['failed_spend_tokens']:,} in {tier['failed_runs']} runs | {tier['minutes_per_run']} |")
     if slots:
         lines += ["", "## Slots", ""] + [
             f"- {s['slot']}: " + (f"job {s['job']}, {s['functions']} function(s), {s['bytes']} bytes each, {s['model']} {s['effort']},"
