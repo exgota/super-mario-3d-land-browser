@@ -6251,7 +6251,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00217D00,0x00217E5C,0x00217E70,          ,U,f,,
 0x00217E70,          ,0x00217EC4,          ,U,f,,
 0x00217EC4,          ,0x00217F10,          ,U,f,,
-0x00217F10,          ,0x00217F18,          ,U,f,,
+0x00217F10,          ,0x00217F18,          ,O,f,fn_00217F10,
 0x00217F18,          ,0x00217F60,          ,U,f,,
 0x00217F60,          ,0x00217F68,          ,U,f,,
 0x00217F68,0x00218034,0x0021805C,          ,U,f,,
