@@ -13253,7 +13253,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032A5BC,0x0032A5C8,0x0032A5CC,          ,U,f,,
 0x0032A5CC,0x0032A5D8,0x0032A5DC,          ,U,f,,
 0x0032A5DC,0x0032A5E8,0x0032A5EC,          ,U,f,,
-0x0032A5EC,0x0032A5F8,0x0032A5FC,          ,U,f,,
+0x0032A5EC,0x0032A5F8,0x0032A5FC,          ,O,f,fn_0032A5EC,
 0x0032A5FC,0x0032A608,0x0032A60C,          ,U,f,,
 0x0032A60C,0x0032A618,0x0032A61C,          ,U,f,,
 0x0032A61C,0x0032A628,0x0032A62C,          ,U,f,,
