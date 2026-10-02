@@ -57,3 +57,7 @@ The optional `azahar_audio_capture.patch` records original stereo PCM and emulat
 ## Bounded longer replays
 
 The optional `azahar_replay_duration.patch` makes the host watchdog configurable, retaining its 120-second default and existing emulated timing. [REPLAY_DURATION.md](REPLAY_DURATION.md) describes the bounded option, refusal behavior and evidence. Longer World 1-1 replay still requires original movies and every Section 7 state observation.
+
+## Default frontend applet interfaces
+
+`azahar_default_applets.patch` registers the pinned upstream default Mii selector and keyboard for the headless frontend. [DEFAULT_APPLETS.md](DEFAULT_APPLETS.md) explains the configured reference choices, original-movie comparison and bounded file-selection evidence. Semantic level state and browser applet interfaces remain unverified.
