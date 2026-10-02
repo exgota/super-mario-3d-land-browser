@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/workspace/scratch/73cdb2c524af/mario-shader-initializer/data/compilers/wibo",
+    "/workspace/scratch/73cdb2c524af/mario-shader-initializer/data/compilers/4.0/902/bin/armlink.exe",
+    "--cpu=MPCore",
+    "--fpu=VFPv2",
+    "--arm_only",
+    "--no_exceptions",
+    "--no_debug",
+    "--no_scanlib",
+    "--mangled",
+    "--symbols",
+    "--map",
+    "--ro_base=0x600000",
+    "--entry=__shv_initializeShaderValidator",
+    "--keep=__shv_initializeShaderValidator",
+    "--output=/workspace/scratch/73cdb2c524af/mario-shader-initializer/build/shader-initializer/diagnostic.axf",
+    "--list=/workspace/scratch/73cdb2c524af/mario-shader-initializer/build/shader-initializer/diagnostic.map",
+    "/workspace/scratch/73cdb2c524af/mario-shader-initializer/build/eu/obj/lib/CtrSDK/sources/shv_InitializeValidator.o",
+    "/workspace/scratch/73cdb2c524af/mario-shader-initializer/build/shader-initializer/diagnostic.sym"
+  ],
+  "output": "",
+  "exit": 0,
+  "qualification": "Explicit address binding for missing dat_00420F4C metadata. Not canonical linkage."
+}

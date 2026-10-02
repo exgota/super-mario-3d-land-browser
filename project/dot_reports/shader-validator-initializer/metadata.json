@@ -1,0 +1,73 @@
+{
+  "producer": "_shm_initializeShaderManager 001064E4..00106B74",
+  "lookup_source_start": "003A421C",
+  "lookup_source_sentinel": "003A4804",
+  "lookup_source_end": "003A480C",
+  "lookup_entries": 189,
+  "unique_indices": 189,
+  "minimum_index": 0,
+  "maximum_index": 188,
+  "lookup_range": [
+    "00420F4C",
+    "00421240"
+  ],
+  "mask_ranges": [
+    [
+      "00421240",
+      "00421258"
+    ],
+    [
+      "00421258",
+      "00421270"
+    ],
+    [
+      "00421270",
+      "00421288"
+    ]
+  ],
+  "list_lengths": [
+    23,
+    5,
+    5,
+    156
+  ],
+  "dynamic_initializations": [
+    {
+      "initial_fill": 0,
+      "writes": 396,
+      "unique_written_bytes": 828,
+      "minimum_write": "0x420f4c",
+      "maximum_write_exclusive": "0x421288",
+      "guard_preserved": true,
+      "expected_output_sha256": "6b6f7f6179d3505726d2de7e3a7168f7d451f44b9095c13b21115f5495827c76"
+    },
+    {
+      "initial_fill": 90,
+      "writes": 396,
+      "unique_written_bytes": 828,
+      "minimum_write": "0x420f4c",
+      "maximum_write_exclusive": "0x421288",
+      "guard_preserved": true,
+      "expected_output_sha256": "6b6f7f6179d3505726d2de7e3a7168f7d451f44b9095c13b21115f5495827c76"
+    },
+    {
+      "initial_fill": 166,
+      "writes": 396,
+      "unique_written_bytes": 828,
+      "minimum_write": "0x420f4c",
+      "maximum_write_exclusive": "0x421288",
+      "guard_preserved": true,
+      "expected_output_sha256": "6b6f7f6179d3505726d2de7e3a7168f7d451f44b9095c13b21115f5495827c76"
+    },
+    {
+      "initial_fill": 255,
+      "writes": 396,
+      "unique_written_bytes": 828,
+      "minimum_write": "0x420f4c",
+      "maximum_write_exclusive": "0x421288",
+      "guard_preserved": true,
+      "expected_output_sha256": "6b6f7f6179d3505726d2de7e3a7168f7d451f44b9095c13b21115f5495827c76"
+    }
+  ],
+  "qualification": "Observed producer and independent consumers establish exact accessed ranges. Original source-level object names and ownership remain unknown; current canonical map has no row. Main-owned separate metadata review only."
+}

@@ -1,0 +1,88 @@
+{
+  "base": "754f99a30a337756df5aa01c28b4ed6a977fecd5",
+  "final_source_commit": "10e5dd1b4e2bd9829f1d4804a45b02575370bb22",
+  "started_utc": "2026-10-02T03:33:29Z",
+  "evidence_sealed_utc": "2026-10-02T03:52:44.927912+00:00",
+  "source_forms": 2,
+  "original_complete_bytes": 2276,
+  "final_compiled_section_bytes": 2364,
+  "canonical_exact_functions": 0,
+  "canonical_exact_bytes": 0,
+  "final_clean_build_exit": 0,
+  "final_check": {
+    "command": [
+      ".venv/bin/python",
+      "tools/check.py",
+      "__shv_initializeShaderValidator",
+      "--object",
+      "build/eu/obj/lib/CtrSDK/sources/shv_InitializeValidator.o"
+    ],
+    "exit": 1,
+    "output": "Source closure rejected: An unresolved source helper is referenced by a non-branch relocation.\n"
+  },
+  "source_and_toolchain_sha256": {
+    "lib/CtrSDK/sources/shv_InitializeValidator.cpp": "0391a6ba4721ef8a897bb49404cc2c27690f0e3570627fb946e65203ecd15d56",
+    "lib/CtrSDK/include/retail/shv_InitializeValidator.h": "4f12fea91667b766a15040aac3fe5109f0f1e8c06cf2c330dc2f0b7ca287e9e8",
+    "lib/CtrSDK/include/retail/GraphicsGlobals.h": "48a02c17d8de9be153d4c21a4bc1a7cdbf1afcd28cd844add35c1e5303031ca5",
+    "tools/check.py": "e177e0abe130e645e75c5f0dc24abb19dbe83310de55f1f099ec8fc385e07317",
+    "tools/low/checkExactBytes.py": "aef81a3a21c49bb17b8a19f139d02607899257e04dbe461ece2992cc726fc2e2",
+    "tools/low/buildProvenance.py": "343d1a0954aba9a4805e71420be9a99d91185db4c8b329d1363d11efcee53529",
+    "tools/pypstem/stepBuild.py": "b7be5977a0a1afc339eb4c9087b447cdc25b1c42daa3fe23af4b765008b0aac0",
+    "tools/pypstem/stepLink.py": "2d5abfefb6d8150d1ea4309353442375b80f7acbd6a66a848e6a9c5e5285c877",
+    "make.py": "1d5ba9628e78a4aaa23d6bbbea40131101a46ee41ca43e3df124eaa97d55241a",
+    "data/config.json": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+    "data/ver/eu/map.csv": "b70e4f37358ebc14aa0c0d522c83172901f23998510a9a2a4e1a36d6cd811881",
+    "data/ver/eu/code.bin": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+    "data/ver/eu/exh.bin": "94e61359c80498495dd77bb2df16f0def6fca94fca736dc8c3c929279b44d2c8",
+    "data/compilers/wibo": "aee836280b3d7c80c2031410219c907c9824c11be6b128d0744655de0f22280b",
+    "data/compilers/4.0/902/bin/armcc.exe": "e6aca4ebc280a54065406bcc3a0ae3d9f4d0ac5a4032c3a193adb836c72e70fe",
+    "data/compilers/4.0/902/bin/armlink.exe": "f511d2d087fe0cad6f604ff774b4d75476a7d4949c100ea082eac03a368e967d"
+  },
+  "object_sha256": "a12bf405a71fafb38014c6344332c85416b39d304c59a1153f71fd99cbf224c3",
+  "object_provenance_sha256": "887f047e26765fa55f391c3f88efaf9566f04545237afc933fbdaffd11684f25",
+  "diagnostic_elf_sha256": "78d5f7336502c856dcf49c239901760c70d864bbb8a8020102db2cc36613005b",
+  "checks": {
+    "form1-check.log": "Source closure rejected: An unresolved source helper is referenced by a non-branch relocation.\n",
+    "form2-check.log": "Source closure rejected: An unresolved source helper is referenced by a non-branch relocation.\n",
+    "final-check.log": "Source closure rejected: An unresolved source helper is referenced by a non-branch relocation.\n"
+  },
+  "build_log_sha256": {
+    "form1-build.log": "62f10ce118cd3507740d133f8d2d0b70519f51dc2d89678d2db6621bee38529c",
+    "form2-build.log": "4285beb954960b954ea364b1aeb3abff419086cc9d766a279854a34428cea8df",
+    "final-clean-build.log": "62f10ce118cd3507740d133f8d2d0b70519f51dc2d89678d2db6621bee38529c"
+  },
+  "attempts": [
+    {
+      "form": 1,
+      "commit": "7c0c3cfdb07d7e7b89d67a7ec7166bd8b393adca",
+      "commit_time": "2026-10-01T23:38:04-04:00",
+      "compiled_section_bytes": 2368,
+      "checker": "closure rejected"
+    },
+    {
+      "form": 2,
+      "commit": "10e5dd1b4e2bd9829f1d4804a45b02575370bb22",
+      "commit_time": "2026-10-01T23:42:19-04:00",
+      "compiled_section_bytes": 2364,
+      "checker": "closure rejected"
+    }
+  ],
+  "harness_history": [
+    "Diagnostic linker setup first needed filtering ARMCC Lib$$Request metadata symbols; no source change.",
+    "Combined-header compile setup initially duplicated wibo and omitted RVCT40INC; corrected environment then compiled successfully.",
+    "First preservation script was interrupted while treating large generated C scaffold object as a canonical C++ object; corrected to enumerate all178 canonical C++ objects and cache symbol tables. No project tooling or source changes."
+  ],
+  "replay_counts_final_only": {
+    "fixture_sequences": 430,
+    "paired_root_invocations": 850,
+    "root_executions": 1700,
+    "returning_pairs": 840,
+    "fault_pairs": 10,
+    "warmups_excluded": true,
+    "form1_excluded": true
+  },
+  "compiler_manifest_sha256": "ac2b4f03be70084ec9dc4a42d87ded7df75ce08e2eaf09df46edbc26ac399925",
+  "compiler_manifest_files": 623,
+  "elapsed_wall_minutes": 19.2654652,
+  "accepted_complete_bytes_per_hour": 0
+}
