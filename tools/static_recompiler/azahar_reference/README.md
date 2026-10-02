@@ -61,3 +61,7 @@ The optional `azahar_replay_duration.patch` makes the host watchdog configurable
 ## Default frontend applet interfaces
 
 `azahar_default_applets.patch` registers the pinned upstream default Mii selector and keyboard for the headless frontend. [DEFAULT_APPLETS.md](DEFAULT_APPLETS.md) explains the configured reference choices, original-movie comparison and bounded file-selection evidence. Semantic level state and browser applet interfaces remain unverified.
+
+## Passive RAM observation
+
+`azahar_state_observation.patch` adds optional bounded RAM reads at existing natural software presentations. [STATE_OBSERVATION.md](STATE_OBSERVATION.md) documents the plan, unavailable-state rules and raw replay comparer. Synthetic memory controls and stock/native platform preservation pass; game field meanings and completed-update alignment remain unverified.
