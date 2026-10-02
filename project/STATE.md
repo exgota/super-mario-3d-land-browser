@@ -15,3 +15,7 @@ A first run displayed 560 samples but its separate audit failed on a sample-expo
 Eight independent corruption/identity/extent/outcome controls refuse. Default title60, wrong-size rejection and stop/retry pass on the new module. Live A plus frame output displays 559 samples, records 15 held polls and release, and its newly recorded full 2272-poll movie matches fresh stock for every observed input/audio/GPU/tick/PICA/framebuffer/RGBA byte. All 75 builder and 22 per-server inputs remain unchanged.
 
 Next tasks: submit this finished no-claim frame-output family and report the integrator verdict; continue browser circle-pad delivery after reading the public API proposal; then synchronized sound and World 1-1 runtime work. Pro keeps every guest layout. No required owner question is pending. Continuous synchronized sound, physical/mobile performance, saves, complete rank-O adapters and World 1-1 semantic state/entry/goal remain open. Milestone 6 stays in progress, milestone 5 remains open, recompiled_bytes 2437712. Only the integrator moves main/ranks/ledger. This port family adds zero matching bytes and zero matching-byte throughput.
+
+## Driver packet delivery observation
+
+The driver owns this documentation-only update to project/packet_reference_deployment.md from the current integrator main. Record the first naturally applicable production actor-reference packet and its independent original-table and committed-facts checks. No production, source, map, rank or ledger change is included.
