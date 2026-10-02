@@ -2,7 +2,7 @@
 
 Base: `eeaca9ad7a606674b428b29630da497031ff913d` (fresh main confirmed 2026-10-02 16:26 UTC).
 Branch: `dot/root-12de18`.
-Verified source head: `c3971716`.
+Verified source head: `9dfad45a` (compatibility correction).
 Target: `KoopaPillar::init`, `[0x0012DE18, 0x0012E01C)`, 516 bytes including its pool.
 Base rank: U. Local canonical result: O. The committed map remains unchanged.
 No overlapping dot source or report was found before starting.
@@ -34,10 +34,9 @@ No tools, flags, configuration, boundaries, ranks, ledger, or STATE changes are 
 - `0x0012DE18`: `_ZN11KoopaPillar4initERKN2al13ActorInitInfoE`
 - `0x0016E7A0`: `_ZN21KoopaPillarBreakModelC1EPN2al9LiveActorEPKcS4_`
 - `0x0026FCB8`: `_ZN2al15PillarBaseModelC1EPNS_9LiveActorERKNS_13ActorInitInfoEPKcPKN4sead8Matrix34IfEE`
-- `0x0028CB38`: `_ZN2al9StringTmpILi128EEC1EPKcz`
 
-The latter three identify already mapped callees; this report makes no matching claim for them.
-The preexisting `fn_0028CB38` alias is used elsewhere, so main should preserve those callers when adopting its constructor identity.
+The latter two identify already mapped callees; this report makes no matching claim for them.
+`0x0028CB38` retains its existing `fn_0028CB38` identity and requires no map or shared-header change.
 The nerve uses the existing four-byte data row `0x003F2934` through its default name `dat_003F2934`.
 Other unknown callees retain their existing automatic `fn_` names.
 
@@ -51,9 +50,9 @@ The base-model constructor at `0x0026FCB8` installs the `0x003D6124` LiveActor i
 Independent caller `0x00314214` supplies a named host joint matrix as its fifth argument, establishing a pointer ABI.
 The break-model constructor at `0x0016E7A0` installs vtable `0x003CBE94` and stores host/model-name pointers at 0x60/0x64.
 The two helper class names are descriptive reconstructions; their external constructors remain declarations.
-The temporary formatted model name uses the repository's StringTmp<128> interface.
+The formatted model name uses the same 140-byte buffer ABI and extern-C function signature as the existing alEffectObj caller.
 
-Three meaningful source forms were checked:
+The original reconstruction checked three meaningful source forms:
 
 1. Initial draft: 512 bytes; checker reported `M -> M: The complete compiled section, including its literal pool, has a different size from the original interval.`
 2. Correct pointer ABI and switch without fallback: 520 bytes; the same canonical size-mismatch result.
@@ -61,3 +60,10 @@ Three meaningful source forms were checked:
 
 An initial abstract-nerve declaration error was corrected before the first compiled candidate.
 No padding, register constraints, volatile changes, assembly, replay, or emulation were used.
+
+## Existing-name compatibility correction
+
+Current main `45de738f` was inspected on 2026-10-02 before this correction. Its relevant headers are unchanged from the base, and alEffectObj already calls `fn_0028CB38` with a vtable/string-pointer/capacity/128-character buffer.
+KoopaPillar now calls that existing symbol with the same buffer ABI and reads the constructed SafeString through its existing `cstr()` method. The Japanese source label remains Shift-JIS.
+One correction source form was built and checked; the exact result above covers the complete 516-byte interval. The final object imports `fn_0028CB38` directly and contains no StringTmp symbol.
+The map was restored in full; only this source and report changed after the original proposal.

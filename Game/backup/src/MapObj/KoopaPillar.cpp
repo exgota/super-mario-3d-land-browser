@@ -6,6 +6,29 @@
 #include <Placement/alPlacementFunction.h>
 #include <Util/alStringUtil.h>
 
+namespace
+{
+// Same formatted-string buffer ABI used by alEffectObj's fn_0028CB38 call.
+struct KoopaPillarModelNameBuffer
+{
+        void* mVirtualTable;
+        char* mStringTop;
+        int mBufferSize;
+        char mBuffer[ 128 ];
+
+        const char* cstr() const
+        {
+                return reinterpret_cast<const sead::SafeString*>( this )->cstr();
+        }
+};
+
+static_assert( sizeof( KoopaPillarModelNameBuffer ) == 0x8C,
+        "Formatted model name buffer ABI" );
+}
+
+extern "C" const sead::SafeString& fn_0028CB38(
+        KoopaPillarModelNameBuffer& buffer, const char* format, ... );
+
 namespace al
 {
 bool tryGetArg1( bool* out, const ActorInitInfo& info );
@@ -62,7 +85,8 @@ void KoopaPillar::init( const al::ActorInitInfo& info )
                 mBaseModel->makeActorDead();
         }
 
-        al::StringTmp<128> modelName( "%sBreak", objectName );
+        KoopaPillarModelNameBuffer modelName;
+        fn_0028CB38( modelName, "%sBreak", objectName );
         mBreakModel = new KoopaPillarBreakModel( this,
                 "クッパ壊れ柱壊れモデル", modelName.cstr() );
         mBreakModel->init( info );
