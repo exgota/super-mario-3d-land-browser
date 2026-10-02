@@ -6206,7 +6206,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00216D9C,0x00216E38,0x00216E3C,          ,U,f,_ZNK2al9AreaShape12calcLocalPosEPN4sead7Vector3IfEERKS3_,
 0x00216E3C,          ,0x00216E98,          ,U,f,,
 0x00216E98,          ,0x00216EB0,          ,U,f,,
-0x00216EB0,          ,0x00216EC4,          ,U,f,,
+0x00216EB0,          ,0x00216EC4,          ,O,f,fn_00216EB0,
 0x00216EC4,          ,0x00216ED8,          ,U,f,,
 0x00216ED8,          ,0x00216EDC,          ,U,f,,
 0x00216EDC,          ,0x00216EE4,          ,U,f,,
