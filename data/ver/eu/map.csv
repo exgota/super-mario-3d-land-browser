@@ -12182,7 +12182,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0030272C,          ,0x00302754,          ,U,f,,
 0x00302754,0x003027DC,0x003027E8,          ,U,f,,
 0x003027E8,0x00302838,0x00302840,          ,U,f,,
-0x00302840,          ,0x00302848,          ,U,f,,
+0x00302840,          ,0x00302848,          ,O,f,_ZN6Bubble17clearInitialStateEv,
 0x00302848,          ,0x00302854,          ,O,f,fn_00302848,
 0x00302854,          ,0x003028D8,          ,U,f,,
 0x003028D8,0x00302910,0x00302914,          ,U,f,,

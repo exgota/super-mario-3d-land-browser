@@ -2310,3 +2310,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T07:25:36-04:00,0x001A871C,fn_001A871C,matched,1,0.3014
 2026-10-02T07:25:36-04:00,0x001B7FD8,fn_001B7FD8,matched,1,0.3014
 2026-10-02T07:25:36-04:00,0x00376848,fn_00376848,matched,1,0.3014
+2026-10-02T07:43:18-04:00,0x00302840,_ZN6Bubble17clearInitialStateEv,matched,3,3.9183

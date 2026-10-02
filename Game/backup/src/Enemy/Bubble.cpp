@@ -5,6 +5,8 @@
 #include <Nerve/alNerveFunction.h>
 #include <Nerve/alNerve.h>
 
+extern "C" void __rt_memclr( void*, unsigned int );
+
 struct BubbleBlowDownNerve : al::Nerve
 {
         virtual void execute( al::NerveKeeper* keeper ) const;
@@ -17,6 +19,11 @@ Bubble::Bubble( const sead::SafeString& name )
     : MapObjActor( name ), _60( 0 ), _64( 30 ), _68( nullptr ), _6C( 500.0f ), _70( 2.4f ),
       _74( sead::Vector3f::zero ), _80( sead::Quatf::unit ), _90( nullptr )
 {
+}
+
+void Bubble::clearInitialState()
+{
+        __rt_memclr( this, 0x12 );
 }
 
 void Bubble::attackSensor( al::HitSensor* me, al::HitSensor* other )
@@ -33,4 +40,3 @@ void Bubble::attackSensor( al::HitSensor* me, al::HitSensor* other )
         else
                 al::sendMsg50( other, me );
 }
-
