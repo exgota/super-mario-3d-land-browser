@@ -3328,3 +3328,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T17:51:00-04:00,0x0027A5CC,_ZN2rp12getPlayerPosEv,matched,1,0
 2026-10-02T17:51:00-04:00,0x00398A74,_ZN2al19createActorFunctionINS_9EffectObjEEEPNS_9LiveActorEPKc,matched,1,0
 2026-10-02T17:51:00-04:00,0x0018B54C,_ZN2al18SwitchAreaDirectorC2Ev,matched,1,0
+2026-10-02T17:53:57-04:00,0x0025B82C,fn_0025B82C,matched,2,2.3147
+2026-10-02T17:53:57-04:00,0x0025BB1C,fn_0025BB1C,matched,2,2.3147
