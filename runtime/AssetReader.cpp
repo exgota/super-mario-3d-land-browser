@@ -1513,6 +1513,206 @@ ModelCatalog readCgfx(Bytes data) {
     return result;
 }
 
+// The cached-model initializer 0x001E0570 sorts every resource mesh before
+// 0x0033549C selects its material/shape and checks visibility. This descriptor
+// preserves that initial resource schedule, without supplying active scene state.
+struct CpuModelDrawScheduleInput {
+    std::optional<bool> unmodifiedResourceMaterial;
+    std::optional<bool> serializedMeshListActive;
+};
+
+struct CpuModelMeshDrawEntry {
+    std::size_t meshIndex;
+    std::size_t meshOffset;
+    std::size_t materialOffset;
+    std::size_t shapeOffset;
+    std::uint32_t materialOrderWord;
+    std::uint8_t materialOrderByte;
+    std::uint8_t meshOrderByte;
+    std::uint8_t meshVisibilityByte;
+    std::int16_t signedNodeIndex;
+    std::string materialName;
+    std::string foldedMaterialName;
+    std::string visibilityStatus = "unavailable_node_visibility_state";
+    std::optional<bool> serializedVisible;
+};
+
+struct CpuModelDrawSchedule {
+    std::string status = "unavailable_model_draw_path_identity";
+    std::string visibilityStatus = "unavailable_model_draw_path_identity";
+    std::vector<CpuModelMeshDrawEntry> entries;
+    std::vector<std::size_t> orderedMeshIndices;
+    // This stays unavailable if any node-dependent decision is unresolved.
+    std::optional<std::vector<std::size_t>> serializedVisibleMeshIndices;
+};
+
+CpuModelDrawSchedule readCpuModelDrawSchedule(Bytes data, const ModelCatalog& catalog,
+                                              std::size_t modelIndex, const CpuModelDrawScheduleInput* caller) {
+    CpuModelDrawSchedule result;
+    require(modelIndex < catalog.models.size(), "Model draw schedule index exceeds its catalog");
+    const auto& model = catalog.models[modelIndex];
+    result.status = "unsupported_model_draw_schedule_layout";
+    if (catalog.revision != 0x05000000 || model.status != "resource_local_fields")
+        return result;
+    ByteReader input(data);
+    require(input.magic(0, "CGFX") && input.byte(4) == 0xFF && input.byte(5) == 0xFE &&
+            input.integer(6, 2) == 20 && input.integer(8) == catalog.revision &&
+            input.integer(12) == data.size() && input.magic(20, "DATA"),
+            "Model draw schedule header disagrees with its input");
+    const std::size_t dataEnd = 20 + input.integer(24);
+    const std::size_t sectionCount = input.integer(16);
+    require(dataEnd >= 20 + 8 + 16 * 8 && dataEnd <= data.size() &&
+            (sectionCount == 1 || sectionCount == 2), "Model draw schedule DATA extent is invalid");
+    if (sectionCount == 1) {
+        require(dataEnd == data.size(), "Model draw schedule sections do not cover their input");
+    } else {
+        require(data.size() - dataEnd >= 8 && input.magic(dataEnd, "IMAG") &&
+                input.integer(dataEnd + 4) == data.size() - dataEnd,
+                "Model draw schedule IMAG extent is invalid");
+    }
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "Model draw schedule metadata escapes DATA");
+    };
+    auto namedRecord = [&](std::size_t field, const std::string& expected) {
+        const std::size_t offset = input.relative(field);
+        metadata(offset, 1);
+        require(input.terminatedText(offset, dataEnd - offset) == expected,
+                "Model draw schedule encoded name disagrees with its catalog");
+    };
+    require(catalog.models.size() <= (dataEnd - 28) / 16,
+            "Model draw schedule model count exceeds DATA");
+    const std::size_t modelDictionary = input.relative(32);
+    metadata(modelDictionary, 28 + catalog.models.size() * 16);
+    require(input.magic(modelDictionary, "DICT") && input.integer(28) == catalog.models.size() &&
+            input.integer(modelDictionary + 8) == catalog.models.size() &&
+            input.integer(modelDictionary + 4) >= 28 + catalog.models.size() * 16 &&
+            input.integer(modelDictionary + 4) <= dataEnd - modelDictionary &&
+            input.relative(modelDictionary + 40 + modelIndex * 16) == model.offset,
+            "Model draw schedule model dictionary identity differs");
+    namedRecord(modelDictionary + 36 + modelIndex * 16, model.name);
+    metadata(model.offset, 0xCC);
+    require(input.magic(model.offset + 4, "CMDL") && input.integer(model.offset) == model.flags &&
+            input.integer(model.offset + 0xB4) == model.meshes.size() &&
+            input.integer(model.offset + 0xBC) == model.materials.size() &&
+            input.integer(model.offset + 0xC4) == model.shapes.size(),
+            "Model draw schedule model disagrees with its catalog");
+    namedRecord(model.offset + 12, model.name);
+    require(model.materials.size() <= (dataEnd - 28) / 16 && model.meshes.size() <= (dataEnd - 20) / 4 &&
+            model.shapes.size() <= (dataEnd - 20) / 4, "Model draw schedule list count exceeds DATA");
+    std::size_t materialDictionary = 0, meshList = 0, shapeList = 0;
+    if (!model.materials.empty()) {
+        materialDictionary = input.relative(model.offset + 0xC0);
+        metadata(materialDictionary, 28 + model.materials.size() * 16);
+        require(input.magic(materialDictionary, "DICT") &&
+                input.integer(materialDictionary + 8) == model.materials.size() &&
+                input.integer(materialDictionary + 4) >= 28 + model.materials.size() * 16 &&
+                input.integer(materialDictionary + 4) <= dataEnd - materialDictionary,
+                "Model draw schedule material dictionary is invalid");
+    } else {
+        require(input.integer(model.offset + 0xC0) == 0, "Empty model draw material dictionary is nonnull");
+    }
+    if (!model.meshes.empty()) {
+        meshList = input.relative(model.offset + 0xB8);
+        metadata(meshList, model.meshes.size() * 4);
+    } else {
+        require(input.integer(model.offset + 0xB8) == 0, "Empty model draw mesh list is nonnull");
+    }
+    if (!model.shapes.empty()) {
+        shapeList = input.relative(model.offset + 0xC8);
+        metadata(shapeList, model.shapes.size() * 4);
+    } else {
+        require(input.integer(model.offset + 0xC8) == 0, "Empty model draw shape list is nonnull");
+    }
+    std::set<std::size_t> materialOffsets, meshOffsets;
+    std::set<std::string> materialNames;
+    for (std::size_t index = 0; index < model.materials.size(); ++index) {
+        const auto& material = model.materials[index];
+        metadata(material.offset, 0x24);
+        require(input.relative(materialDictionary + 40 + index * 16) == material.offset &&
+                input.magic(material.offset + 4, "MTOB") && input.integer(material.offset) == material.flags &&
+                !material.name.empty() && materialOffsets.insert(material.offset).second &&
+                materialNames.insert(material.name).second, "Model draw schedule material identity differs");
+        namedRecord(materialDictionary + 36 + index * 16, material.name);
+        namedRecord(material.offset + 12, material.name);
+    }
+    for (std::size_t index = 0; index < model.meshes.size(); ++index) {
+        const auto& mesh = model.meshes[index];
+        metadata(mesh.offset, 0x30);
+        require(input.relative(meshList + index * 4) == mesh.offset && mesh.flags == 0x01000000 &&
+                input.integer(mesh.offset) == mesh.flags && input.magic(mesh.offset + 4, "SOBJ") &&
+                input.relative(mesh.offset + 0x20) == model.offset && mesh.parentOffset == model.offset &&
+                input.integer(mesh.offset + 0x18) == mesh.shapeIndex && mesh.shapeIndex < model.shapes.size() &&
+                input.integer(mesh.offset + 0x1C) == mesh.materialIndex && mesh.materialIndex < model.materials.size() &&
+                input.integer(mesh.offset + 0x2C) == mesh.drawFlagsField && meshOffsets.insert(mesh.offset).second,
+                "Model draw schedule mesh identity differs");
+        namedRecord(mesh.offset + 12, mesh.name);
+        const auto& material = model.materials[mesh.materialIndex];
+        const auto& shape = model.shapes[mesh.shapeIndex];
+        metadata(shape.offset, 8);
+        require(input.relative(shapeList + mesh.shapeIndex * 4) == shape.offset &&
+                input.integer(shape.offset) == shape.flags && input.magic(shape.offset + 4, "SOBJ"),
+                "Model draw schedule shape identity differs");
+        const std::uint32_t orderWord = input.integer(material.offset + 0x20);
+        const auto nodeIndex = std::bit_cast<std::int16_t>(std::uint16_t(input.integer(mesh.offset + 0x26, 2)));
+        CpuModelMeshDrawEntry entry{index, mesh.offset, material.offset, shape.offset, orderWord,
+            std::uint8_t(orderWord & 255), input.byte(mesh.offset + 0x25), input.byte(mesh.offset + 0x24),
+            nodeIndex, material.name, material.name, "unavailable_node_visibility_state", std::nullopt};
+        // Original C-locale startup and all 256 original tolower inputs establish
+        // unsigned byte comparison and ASCII uppercase folding, independent of host locale.
+        for (char& character : entry.foldedMaterialName) {
+            const auto byte = static_cast<unsigned char>(character);
+            if (byte >= 'A' && byte <= 'Z') character = static_cast<char>(byte + ('a' - 'A'));
+        }
+        result.entries.push_back(std::move(entry));
+    }
+    result.status = "unavailable_model_draw_path_identity";
+    if (!caller || !caller->unmodifiedResourceMaterial || !caller->serializedMeshListActive)
+        return result;
+    result.status = "unavailable_runtime_material_draw_override";
+    if (!*caller->unmodifiedResourceMaterial)
+        return result;
+    result.status = "unavailable_runtime_mesh_draw_replacement";
+    if (!*caller->serializedMeshListActive)
+        return result;
+    for (std::size_t index = 0; index < result.entries.size(); ++index)
+        result.orderedMeshIndices.push_back(index);
+    auto follows = [&](std::size_t left, std::size_t right) {
+        const auto& first = result.entries[left];
+        const auto& second = result.entries[right];
+        if (first.materialOrderByte != second.materialOrderByte)
+            return first.materialOrderByte > second.materialOrderByte;
+        if (first.meshOrderByte != second.meshOrderByte)
+            return first.meshOrderByte > second.meshOrderByte;
+        return std::lexicographical_compare(second.foldedMaterialName.begin(), second.foldedMaterialName.end(),
+            first.foldedMaterialName.begin(), first.foldedMaterialName.end(),
+            [](char firstByte, char secondByte) {
+                return static_cast<unsigned char>(firstByte) < static_cast<unsigned char>(secondByte);
+            });
+    };
+    // The original nested pair-exchange loop can reorder equal keys indirectly.
+    for (std::size_t left = 0; left < result.orderedMeshIndices.size(); ++left)
+        for (std::size_t right = left + 1; right < result.orderedMeshIndices.size(); ++right)
+            if (follows(result.orderedMeshIndices[left], result.orderedMeshIndices[right]))
+                std::swap(result.orderedMeshIndices[left], result.orderedMeshIndices[right]);
+    std::vector<std::size_t> visible;
+    bool complete = true;
+    for (const std::size_t index : result.orderedMeshIndices) {
+        auto& entry = result.entries[index];
+        if (entry.signedNodeIndex >= 0) {
+            complete = false;
+            continue;
+        }
+        entry.visibilityStatus = "resource_local_negative_node_mesh_visibility";
+        entry.serializedVisible = entry.meshVisibilityByte != 0;
+        if (*entry.serializedVisible) visible.push_back(index);
+    }
+    result.status = "resource_local_initial_mesh_draw_order";
+    result.visibilityStatus = complete ? "resource_local_serialized_mesh_visibility" : "unavailable_node_visibility_state";
+    if (complete) result.serializedVisibleMeshIndices = std::move(visible);
+    return result;
+}
+
 // Resource-local identity from original loader 0x00167CAC and keeper 0x002B3340.
 // This interface never applies serialized runtime pointers or constructs caller state.
 struct ShaderInstanceDefinition {
