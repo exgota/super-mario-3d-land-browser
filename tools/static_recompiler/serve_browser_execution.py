@@ -36,6 +36,8 @@ def main():
     parser.add_argument("--dump-sha256", required=True)
     parser.add_argument("--dump-bytes", type=int, required=True)
     parser.add_argument("--first-swap", action="store_true")
+    parser.add_argument("--observe-input", action="store_true", help="capture movie-delivered HID observations")
+    parser.add_argument("--observe-audio", action="store_true", help="capture HLE PCM and movie-delivered HID observations")
     parser.add_argument("--presentation-limit", type=int, default=60)
     parser.add_argument("--wall-time-seconds", type=int, default=180)
     parser.add_argument("--port", type=int, default=8765)
@@ -47,6 +49,8 @@ def main():
         raise ValueError("Invalid approved dump identity")
     if not 1 <= args.presentation_limit <= 3600 or not 1 <= args.wall_time_seconds <= 3600:
         raise ValueError("Invalid finite capture bound")
+    if args.first_swap and (args.observe_input or args.observe_audio):
+        raise ValueError("Input/audio observation needs a software-presentation boundary")
     manifest = json.loads((module / "build_manifest.json").read_text())
     if manifest.get("passed") is not True:
         raise ValueError("Browser module did not link successfully")
@@ -87,7 +91,9 @@ def main():
                                 "initial_user_files": user_files, "initial_user_directories": user_directories},
                      "options": {"presentation_limit": None if args.first_swap else args.presentation_limit,
                                  "wall_time_seconds": args.wall_time_seconds,
-                                 "pica_payload_limit_bytes": 256 * 1024 * 1024}}
+                                 "pica_payload_limit_bytes": 256 * 1024 * 1024,
+                                 "input_capture": args.observe_input or args.observe_audio,
+                                 "audio_capture": args.observe_audio}}
     protected = {str(path): digest(path) for path in {*assets.values(), *sidecars.values(),
                                                    module / "build_manifest.json"}}
     output.mkdir(parents=True)

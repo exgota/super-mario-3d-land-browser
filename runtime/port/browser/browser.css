@@ -49,6 +49,10 @@ button:disabled { cursor: default; background: #d5d9d1; color: #5d6459; }
 #capture-status { font-size: 13px; margin: 0; color: var(--secondary); }
 #capture-error { font-size: 13px; color: var(--failure); margin: 8px 0 0; overflow-wrap: anywhere; }
 .preview-note { font-size: 12px; color: var(--secondary); margin: 22px 0 0; max-width: 42ch; }
+.recorded-sound { margin-top: 10px; }
+#play-recorded-sound { color: var(--control); background: transparent; border: 1px solid var(--control); }
+#play-recorded-sound:hover { background: #e8eae2; }
+#sound-status { margin: 8px 0 0; font-size: 12px; color: var(--secondary); }
 .preview.has-frame { animation: frame-arrival 240ms cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes frame-arrival { from { filter: brightness(.92); } to { filter: brightness(1); } }
 @media (max-width: 820px) {
