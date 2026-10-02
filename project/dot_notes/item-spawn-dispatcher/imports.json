@@ -1,0 +1,158 @@
+[
+  {
+    "symbol": "_ZN2al10getGravityEPKNS_9LiveActorE",
+    "address": 2610568,
+    "kind": "A",
+    "end": 2610584
+  },
+  {
+    "symbol": "_ZN2al11getSceneObjEi",
+    "address": 2586048,
+    "kind": "A",
+    "end": 2586072
+  },
+  {
+    "symbol": "_ZN2al8getTransEPKNS_9LiveActorE",
+    "address": 2622092,
+    "kind": "A",
+    "end": 2622104
+  },
+  {
+    "symbol": "_ZN2al8setTransEPNS_9LiveActorERKN4sead7Vector3IfEE",
+    "address": 2618260,
+    "kind": "A",
+    "end": 2618292
+  },
+  {
+    "symbol": "fn_00225E70",
+    "address": 2252400,
+    "kind": "A",
+    "end": 2252648
+  },
+  {
+    "symbol": "fn_00225F68",
+    "address": 2252648,
+    "kind": "A",
+    "end": 2252896
+  },
+  {
+    "symbol": "fn_00226060",
+    "address": 2252896,
+    "kind": "A",
+    "end": 2253144
+  },
+  {
+    "symbol": "fn_00226158",
+    "address": 2253144,
+    "kind": "A",
+    "end": 2253388
+  },
+  {
+    "symbol": "fn_0022624C",
+    "address": 2253388,
+    "kind": "A",
+    "end": 2253636
+  },
+  {
+    "symbol": "fn_00226344",
+    "address": 2253636,
+    "kind": "A",
+    "end": 2253884
+  },
+  {
+    "symbol": "fn_0022643C",
+    "address": 2253884,
+    "kind": "A",
+    "end": 2254132
+  },
+  {
+    "symbol": "fn_00226534",
+    "address": 2254132,
+    "kind": "A",
+    "end": 2254380
+  },
+  {
+    "symbol": "fn_0022662C",
+    "address": 2254380,
+    "kind": "A",
+    "end": 2254628
+  },
+  {
+    "symbol": "fn_00226724",
+    "address": 2254628,
+    "kind": "A",
+    "end": 2254876
+  },
+  {
+    "symbol": "fn_0022681C",
+    "address": 2254876,
+    "kind": "A",
+    "end": 2255120
+  },
+  {
+    "symbol": "fn_00226910",
+    "address": 2255120,
+    "kind": "A",
+    "end": 2255364
+  },
+  {
+    "symbol": "fn_00226A04",
+    "address": 2255364,
+    "kind": "A",
+    "end": 2255628
+  },
+  {
+    "symbol": "fn_00227490",
+    "address": 2258064,
+    "kind": "A",
+    "end": 2258312
+  },
+  {
+    "symbol": "fn_00227588",
+    "address": 2258312,
+    "kind": "A",
+    "end": 2258556
+  },
+  {
+    "symbol": "fn_0022767C",
+    "address": 2258556,
+    "kind": "A",
+    "end": 2258648
+  },
+  {
+    "symbol": "fn_002276D8",
+    "address": 2258648,
+    "kind": "A",
+    "end": 2258896
+  },
+  {
+    "symbol": "fn_00227CF0",
+    "address": 2260208,
+    "kind": "A",
+    "end": 2260636
+  },
+  {
+    "symbol": "fn_00271028",
+    "address": 2560040,
+    "kind": "A",
+    "end": 2560056
+  },
+  {
+    "symbol": "fn_002783BC",
+    "address": 2589628,
+    "kind": "A",
+    "end": 2589760
+  },
+  {
+    "symbol": "fn_0027C05C",
+    "address": 2605148,
+    "kind": "A",
+    "end": 2605256
+  },
+  {
+    "symbol": "fn_0027F2C0",
+    "address": 2618048,
+    "kind": "A",
+    "end": 2618068
+  }
+]

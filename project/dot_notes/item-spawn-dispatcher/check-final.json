@@ -1,0 +1,8 @@
+{
+  "commit": "a76a8e762ebbb751dac23e484ebf1e82a25bf69f",
+  "seconds": 0.7306163311004639,
+  "returncode": 1,
+  "output": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n",
+  "map_before_sha256": "94ac5673e907db521bf6b4b606d02be64ee7bae8a8fd2f08328b0c30d85b3db9",
+  "map_after_sha256": "94ac5673e907db521bf6b4b606d02be64ee7bae8a8fd2f08328b0c30d85b3db9"
+}

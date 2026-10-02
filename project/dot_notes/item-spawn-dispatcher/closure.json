@@ -1,0 +1,222 @@
+{
+  "root": "fn_002CDEA4",
+  "original": [
+    2940580,
+    2942720
+  ],
+  "original_size": 2140,
+  "emitted_size": 1936,
+  "emitted_section_sha256": "54ee471879f8d5440ebab32d94e53492dd08d08c5fef97c0d6d847152c17250a",
+  "mapping_symbols": [
+    [
+      "$a",
+      0
+    ],
+    [
+      "$d",
+      32
+    ],
+    [
+      "$a",
+      152
+    ],
+    [
+      "$d",
+      988
+    ],
+    [
+      "$a",
+      1012
+    ]
+  ],
+  "defined_functions": [
+    [
+      "__switch$$",
+      28,
+      0
+    ],
+    [
+      "fn_002CDEA4",
+      0,
+      1936
+    ]
+  ],
+  "external_data_imports": [],
+  "imports": [
+    {
+      "symbol": "_ZN2al10getGravityEPKNS_9LiveActorE",
+      "address": 2610568,
+      "kind": "A",
+      "end": 2610584
+    },
+    {
+      "symbol": "_ZN2al11getSceneObjEi",
+      "address": 2586048,
+      "kind": "A",
+      "end": 2586072
+    },
+    {
+      "symbol": "_ZN2al8getTransEPKNS_9LiveActorE",
+      "address": 2622092,
+      "kind": "A",
+      "end": 2622104
+    },
+    {
+      "symbol": "_ZN2al8setTransEPNS_9LiveActorERKN4sead7Vector3IfEE",
+      "address": 2618260,
+      "kind": "A",
+      "end": 2618292
+    },
+    {
+      "symbol": "fn_00225E70",
+      "address": 2252400,
+      "kind": "A",
+      "end": 2252648
+    },
+    {
+      "symbol": "fn_00225F68",
+      "address": 2252648,
+      "kind": "A",
+      "end": 2252896
+    },
+    {
+      "symbol": "fn_00226060",
+      "address": 2252896,
+      "kind": "A",
+      "end": 2253144
+    },
+    {
+      "symbol": "fn_00226158",
+      "address": 2253144,
+      "kind": "A",
+      "end": 2253388
+    },
+    {
+      "symbol": "fn_0022624C",
+      "address": 2253388,
+      "kind": "A",
+      "end": 2253636
+    },
+    {
+      "symbol": "fn_00226344",
+      "address": 2253636,
+      "kind": "A",
+      "end": 2253884
+    },
+    {
+      "symbol": "fn_0022643C",
+      "address": 2253884,
+      "kind": "A",
+      "end": 2254132
+    },
+    {
+      "symbol": "fn_00226534",
+      "address": 2254132,
+      "kind": "A",
+      "end": 2254380
+    },
+    {
+      "symbol": "fn_0022662C",
+      "address": 2254380,
+      "kind": "A",
+      "end": 2254628
+    },
+    {
+      "symbol": "fn_00226724",
+      "address": 2254628,
+      "kind": "A",
+      "end": 2254876
+    },
+    {
+      "symbol": "fn_0022681C",
+      "address": 2254876,
+      "kind": "A",
+      "end": 2255120
+    },
+    {
+      "symbol": "fn_00226910",
+      "address": 2255120,
+      "kind": "A",
+      "end": 2255364
+    },
+    {
+      "symbol": "fn_00226A04",
+      "address": 2255364,
+      "kind": "A",
+      "end": 2255628
+    },
+    {
+      "symbol": "fn_00227490",
+      "address": 2258064,
+      "kind": "A",
+      "end": 2258312
+    },
+    {
+      "symbol": "fn_00227588",
+      "address": 2258312,
+      "kind": "A",
+      "end": 2258556
+    },
+    {
+      "symbol": "fn_0022767C",
+      "address": 2258556,
+      "kind": "A",
+      "end": 2258648
+    },
+    {
+      "symbol": "fn_002276D8",
+      "address": 2258648,
+      "kind": "A",
+      "end": 2258896
+    },
+    {
+      "symbol": "fn_00227CF0",
+      "address": 2260208,
+      "kind": "A",
+      "end": 2260636
+    },
+    {
+      "symbol": "fn_00271028",
+      "address": 2560040,
+      "kind": "A",
+      "end": 2560056
+    },
+    {
+      "symbol": "fn_002783BC",
+      "address": 2589628,
+      "kind": "A",
+      "end": 2589760
+    },
+    {
+      "symbol": "fn_0027C05C",
+      "address": 2605148,
+      "kind": "A",
+      "end": 2605256
+    },
+    {
+      "symbol": "fn_0027F2C0",
+      "address": 2618048,
+      "kind": "A",
+      "end": 2618068
+    }
+  ],
+  "source_inputs": {
+    "lib/sead/include/math/seadMatrix.h": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+    "lib/al/include/Effect/alEffectKeeper.h": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+    "lib/al/include/Nerve/alNerveKeeper.h": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+    "lib/CtrSDK/include/nn/types.h": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+    "lib/al/include/Stage/alStageSwitchKeeper.h": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+    "Game/backup/include/MapObj/ItemHolder.h": "14eee7da5665fc99f71f2bf9b05c72206d0bb15b5891380b36ead7b4d0fe657b",
+    "Game/backup/src/MapObj/ItemSpawnDispatcher2CDEA4.cpp": "8efd9327183a233d2a764a649f3f0e361cca9508d6e95c2a86f16406eaf68829",
+    "lib/al/include/Scene/alISceneObj.h": "31b797683621be67385e24f74d4708867edc94db2e749a791c2c77baf3bb7a41",
+    "lib/al/include/LiveActor/alActorPoseKeeper.h": "b7ae48418c39def43ff701ca81857fd7279759d11f289fbde42ea9fc53c982af",
+    "Game/project_globals.h": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+    "lib/al/include/LiveActor/alLiveActorFlag.h": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+    "lib/al/include/Audio/alAudioKeeper.h": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+    "lib/al/include/LiveActor/alLiveActor.h": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+    "lib/al/include/Scene/alSceneObjHolder.h": "561a2d5412707a9ca2895aa0c0868b36a029b805a2535a9ba51891f8aedd3a01",
+    "lib/sead/include/math/seadVector.h": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+    "data/config.json": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+    "lib/sead/include/math/seadQuat.h": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be"
+  }
+}

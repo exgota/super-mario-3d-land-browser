@@ -1,0 +1,9 @@
+{
+  "equal": true,
+  "size": 1936,
+  "section_sha256": "54ee471879f8d5440ebab32d94e53492dd08d08c5fef97c0d6d847152c17250a",
+  "files": [
+    "build/item-spawn-dispatcher/form2-unguarded.o",
+    "build/eu/obj/Game/backup/src/MapObj/ItemSpawnDispatcher2CDEA4.o"
+  ]
+}

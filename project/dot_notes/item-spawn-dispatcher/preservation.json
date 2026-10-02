@@ -1,0 +1,1670 @@
+{
+  "base": "86104d96a7f570383bbfefc5fffad998e134496c",
+  "baseline_report_sha256": "a692f9a29d92c3f8021b62a2254b06fb44776f34cfa2f51849364bde66dee374",
+  "basis": "pristine baseline canonical 767 roots / 787 definitions plus current exhaustive object/input equivalence; not a fresh checker pass",
+  "prior_objects": 179,
+  "current_cpp_objects": 180,
+  "inputs": {
+    "lib/al/include/Nerve/alNerveFunction.h": "cc7b91a20cf27d2f1f9fb86e0472cb90ebee5609ea7d15fb623b43c2ee1cd267",
+    "lib/al/include/MapObj/alMapObjActor.h": "2034a69366356207c8975bfcb8b2f2ef385d1d614fabfceb24e7b4810800b2e3",
+    "lib/al/include/Nerve/alNerveExecutor.h": "7b0b79c632956a3697160a53f5102c6634238473b2313212919d2937a0100d5f",
+    "lib/al/include/Stage/alStageSwitchKeeper.h": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+    "lib/al/include/Nerve/alNerveStateBase.h": "115f8687977cdb0d075d335f02b8c958ec85682418e84e15df5d2ecd392ae953",
+    "lib/al/include/Audio/alAudioKeeper.h": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+    "Game/backup/src/Enemy/BlockDragonGenerator.cpp": "e9df9c903a8e8c0e0cb2876b59a79b1614f8ee0b640b16a45ee4c0f74c737721",
+    "lib/al/include/LiveActor/alLiveActor.h": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+    "lib/sead/include/math/seadVector.h": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+    "data/config.json": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+    "lib/sead/include/prim/seadSafeString.h": "e1a13277a1e5c3278d9811cd92e7d737caca4d7ae1bc9b604b99a45e3bbd1da7",
+    "lib/al/include/Effect/alEffectKeeper.h": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+    "lib/CtrSDK/include/nn/types.h": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+    "lib/sead/include/math/seadQuat.h": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+    "lib/sead/include/math/seadMatrix.h": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+    "lib/al/include/Nerve/alNerve.h": "131fc15b422681d47eccb569de9e24f3990b7ad6721d9fafa30be6c791a27ec0",
+    "lib/al/include/Nerve/alNerveKeeper.h": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+    "Game/project_globals.h": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+    "Game/backup/include/Enemy/BlockDragonGenerator.h": "45612d99acc8d51a41568aa6a993b831a810f20ce7eff27e42f7498923fc1f5b",
+    "lib/al/include/LiveActor/alLiveActorFlag.h": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+    "lib/al/include/LiveActor/alSensorMsg.h": "f2a557f0bac77850ba1d23da1941fa1a458983fa20abacdf1d4f6d863d671892",
+    "lib/al/include/LiveActor/alHitSensorFunction.h": "e50328b39d81b7daf03e1c22742f9d06ee73a6cbe11b6b49578064972d541723",
+    "Game/backup/src/Enemy/Bubble.cpp": "20159a74c4fec2e9258bc19d7864396409f8bdde859d3fbf46bf16826a17758b",
+    "Game/backup/include/Enemy/Bubble.h": "c930766da9ebd67ee82a229d8027fbb601e58cfa3b01bdde15d6f499c1542ea2",
+    "lib/al/include/Collision/alCollisionUtil.h": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+    "lib/al/include/Placement/alPlacementInfo.h": "654fc0b4e0df90e6320615cd2de35a785e455270a2449b9b649bca92103c73af",
+    "Game/backup/src/Enemy/FireBall.cpp": "a9041ef217e9ad23b06a8a87b95c224ec55bdfc0ef67e9aa9c6b355850ff447b",
+    "lib/al/include/LiveActor/alActorActionKeeper.h": "4deeada74186225f74d1ccbcaa29ee983be20a713ebcebcaa051000864a1508e",
+    "lib/al/include/LiveActor/alLiveActorFunction.h": "d572d752bebc4c5f37571bd1f7a96a8f3e2f5dc7d27721abee641fbd78518233",
+    "lib/al/include/Yaml/alByamlIter.h": "3ceeca89571abeb56431268928af2c13cf412debf7bc751a0b46ffeeabf6a4c4",
+    "lib/al/include/LiveActor/alActorInitUtil.h": "689ae3d58eb6c6801fcdf0c37866b0c05a28cc42abb36a08b498187821701c2f",
+    "Game/backup/include/Enemy/FireBall.h": "76e7495d5d3a1d19b0b5bb92cf5ff27602cad4a5e1d9f84a51d57e5a14dace12",
+    "Game/backup/include/Enemy/Fugumannen.h": "de6203a8062d061b30959bf6fcb198774ffa9413b0de3c227fe26cab94116d1f",
+    "Game/backup/include/Enemy/EnemyStateBlowDown.h": "1d5f96a4459f2f12be538a1e69f42c9bc7d3e5cde90e32f65c19cdad42c56e5e",
+    "lib/al/include/Rail/alRailFunction.h": "0e0764d003ec197ed319fecbdeef2dc59635064e0e0928e5a8179702394a6535",
+    "lib/al/include/Placement/alPlacementFunction.h": "a75dd1efbebb8554cb9cc105758857ef4aa5237ffab131e60deb4d72bcf0e586",
+    "Game/backup/src/Enemy/Fugumannen.cpp": "7811a9b887e53b8e114961f87fa2529c8fcdf9681b107658a9d4e64f00dff15d",
+    "lib/al/include/Nerve/alActorStateBase.h": "4c1e9741c95a4a40fdae00d33a972638ae00c7209a3dd7e6b317647de6995ee7",
+    "Game/backup/src/Enemy/Togezo.cpp": "f567b2921c4bcfc69e7790d250a7de21dd772e57d011f461454a7ac537f15dcf",
+    "Game/backup/include/Player/PlayerFunction.h": "44c8a1fa811de71dc70dcc1b1231185c1a6bd8b331833b66cc3be33e26182616",
+    "Game/backup/include/Enemy/WalkerStateWanderParam.h": "80f1a7de9d7356e3c0e031887f9272cbdc652012fd60b6f28894781047de7e9a",
+    "Game/backup/include/Enemy/WalkerStateWander.h": "5de6f5061c0b9bf79757c85de5f0cce8ab0275d8453c0400ed9936b423538606",
+    "Game/backup/include/Enemy/WalkerStateParam.h": "d71ae6df12fd9cb76b3a39ea578dd40eeb0d75f3ca2717e3f190a58aab898b2a",
+    "Game/backup/include/Enemy/WalkerStateChaseParam.h": "45e846360f83482e1c40aa4eecaebf52ed6ca97eba576e0a8a244f1ab1f87cfd",
+    "Game/backup/include/Enemy/Togezo.h": "50877e3f270163c5d99d5b6236de33030f63c3a17dfb29cae6f15bef3c1fb8ab",
+    "Game/backup/include/Enemy/WalkerStateChase.h": "77dffd7df67b3c707154cdbf84a0e427d9bd1664624717e876b764f7ceb5bb5f",
+    "lib/al/include/LiveActor/alActorPoseKeeper.h": "b7ae48418c39def43ff701ca81857fd7279759d11f289fbde42ea9fc53c982af",
+    "Game/backup/src/Enemy/WalkerStateChase.cpp": "b5b800ad0a86e94fe8d757a66853750fdb76a4c8755b817434a9859da8b3725e",
+    "Game/backup/src/Layout/CourseSelectMap.cpp": "5d8cf9270d4eba9fdd8611fbbed0b4db9fbf8a2470d50b7bd3b58aa068c3939b",
+    "lib/al/include/Util/alStringUtil.h": "771f227839db432fa33bed9f8490dca04388ffae402987ece80b6d0c109240ad",
+    "lib/al/include/Layout/alLayoutActor.h": "81cc5b06fd3c48cb8c32f96b107fc241ff7ce123c13c49e544a72078bcfc5be1",
+    "Game/backup/include/Layout/CourseSelectMap.h": "d429ef304dc97d6728e66d35d94a8890240bebd264c6f450bbf1128070064a1b",
+    "lib/al/include/Functor/alFunctorV0M.h": "0755b49dc38c2da496ccfbcdec77c08fbf5da40fb96534478fced67fff67e639",
+    "Game/backup/include/MapObj/AppearStep.h": "a8d8a62f76fc2521eb772ab3dde614e202192f675d026c5e7557806eeafb067a",
+    "Game/backup/src/MapObj/AppearStep.cpp": "1a11067152893db55542fd91462cc8df09facadec6a37135a4a786bb3121581f",
+    "lib/al/include/Functor/alFunctorBase.h": "148e911b94f9e70f2dca871827f4215f761bdeb2a8b8bb00852d6554fe848fed",
+    "lib/al/include/Scene/alISceneObj.h": "31b797683621be67385e24f74d4708867edc94db2e749a791c2c77baf3bb7a41",
+    "Game/backup/include/Scene/SceneObjFactory.h": "5603a43f3f0b4106b71aa506632f8d9be0045d78de8f812f1d01bb8dc2166dad",
+    "Game/backup/src/MapObj/CoinRotater.cpp": "d45772f71b645b69da2a9ec71a7e80ac340ec83d3bf8e43c96388af19ec95153",
+    "Game/backup/include/MapObj/CoinRotater.h": "fd069daacfa27f6bbc82d2e6cada22e85d5ea6429be615d0f0a8619703f1139a",
+    "lib/al/include/Scene/alSceneObjHolder.h": "561a2d5412707a9ca2895aa0c0868b36a029b805a2535a9ba51891f8aedd3a01",
+    "Game/backup/include/MapObj/Garigari.h": "4bda7a7fcc0edb73bba8141163b1548b6bd5f9af8fc49cd6bd7fb3191ea2afc4",
+    "Game/backup/src/MapObj/Garigari.cpp": "0e29883915cf60c19875c694e228113ced6eb3e85aea8e819610c288132ead14",
+    "Game/backup/include/MapObj/NoteObjGenerator.h": "5a17023db653e9f8a007706d681bc350970df5fde94df64b5ef1d3c9e5da2dd1",
+    "Game/backup/src/MapObj/NoteObj.cpp": "6db80468a498b063d0e695f2ea11fe44be017b5320c258845dea438547be2799",
+    "Game/backup/include/MapObj/NoteObj.h": "5503d53e9d25a3d234ac4b425da3078e98bac6a31d8fad28b62d9eac51762b6d",
+    "lib/al/include/Nerve/alNerveActionCtrl.h": "04742c3b612755e2757870fcfbd7cabfdaab439234a44fbfb68618db9485f875",
+    "Game/backup/src/MapObj/NoteObjGenerator.cpp": "4444edf33f7e1119aedde293ed061c767fd2e8cd2d010c02eb8b8d1e8857ba1f",
+    "Game/backup/src/MapObj/TransparentWall.cpp": "1b5ef45491883ba345834bc11d6642a8f72f230549e40ccb4b2c834e3933ad01",
+    "Game/backup/include/MapObj/TransparentWall.h": "e976de66e940aec9ab799273d4ed5fb04291abb779cfe7ccff8d784a4dea3d38",
+    "Game/backup/include/MapObj/TrickHintPanel.h": "d577cd76e18661cd7067ab832609cff48f5d95d87e97e0e5eb9dffde988a5fc0",
+    "Game/backup/src/MapObj/TrickHintPanel.cpp": "d6edb690c17030cc57c153d4cc2acc509e0bb5647a2bb38f88aae873afedfc8c",
+    "Game/backup/src/Npc/AquariumSwimDebris.cpp": "1dc37a6c417ff58af734c449915fb41689af1ec04db8ce9558fc37a99b27adc2",
+    "Game/backup/include/MapObj/AquariumSwimDebris.h": "513dcd3aabebb83d2a184c6b65a2f4dc64d00000be0a119d4e36b61ac8df5fcf",
+    "Game/backup/include/MapObj/FlowerPot.h": "f137717bd259b144e4a332cc646450943c6094cd29e94fb071489e1cfd15af1b",
+    "Game/backup/src/Npc/FlowerPot.cpp": "d81665e80e361718c5ce4a7cceba2f35804fbef15c9b5a4d6d17517a475297f6",
+    "Game/backup/src/Npc/PeachRope.cpp": "8b32931ab917888a9b3d48279c8a6c82075a1a73b441fcb64f1b9e55f4667ec9",
+    "Game/backup/include/MapObj/PeachRope.h": "59bcae018eb44cf0a9a2338a7f0a1ae422730f828ddbf12c0a1cbace64d2c6d5",
+    "Game/backup/include/MapObj/RailDot.h": "c46b6980c69a5766ae825429fe916fcc6ac20453b559d11926d5004ea3f156ce",
+    "Game/backup/src/Npc/RailDot.cpp": "e26a5ff2c50d4e3191548d048b679ecb767e861a6560a0d6fff47685bf3047cb",
+    "Game/backup/src/Npc/RailDotEnd.cpp": "3bb3eaab9dea29cf11654724c4c2ac7e4001ddb869c578bf9c2e11a22261dc41",
+    "Game/backup/include/MapObj/RailDotEnd.h": "584a6ff9b8ceb3981d640227579bbcf741f322ec771e5968cd57acbdbff78cf9",
+    "Game/backup/include/Util/SensorMsg.h": "db2cbec45c0af4e8e5e863a37a8059c2d9aa1c9da6553f3f729fbdd226adb73c",
+    "Game/backup/include/Player/GhostPlayerRecorder.h": "73eadad586f57f5edd0007eebcf7335555a53334815104b69fd2d6a30f9eae6d",
+    "Game/backup/src/Player/GhostPlayer.cpp": "cfbe6459351dc787d2aaa4fc11d8f83a99cf5ab38951e8cf1586826985007df7",
+    "Game/backup/include/Player/GhostPlayer.h": "ede44f23adca000aeec1f05861e6e56f38bb61db0fae71a78a0d9bb47bad3195",
+    "Game/backup/src/Player/GhostPlayerRecorder.cpp": "06ed22e6a70893a089d12d488660b7f38e0b73cc91df3e66755b3d7360500760",
+    "Game/backup/src/Player/PlayerActionCondition.cpp": "29d0474d4907164dd4071d4fc3c2e9365595c34d65dba14d62cb68b8b52754b0",
+    "Game/backup/include/Player/PlayerActionCondition.h": "9a5e092e31de04580965a7474db27cf5e650d677adfc65986b2c4c91ca878a50",
+    "Game/backup/include/Player/PlayerActionConditionAnimEnd.h": "fe75f7345c9ef8e0a7e5069dd1b2ec2e7aea5017267e1c0d824d20676018b9e6",
+    "Game/backup/src/Player/PlayerActionConditionAnimEnd.cpp": "0b62d212ddf1696b5b9bad7f5c44ed52e6c7df43ff8f909b7e867a0c86d51c0c",
+    "Game/backup/include/Player/PlayerAnimator.h": "be87af4c2e2fd6c6a6534c9c0634ba2f25c7a97412018fad5e224ba8b39d57f5",
+    "lib/sead/include/container/seadOffsetList.h": "e19263f7a30ae4f48e9626ca82ac651eb21d4b1302e1f867bc4e84d719bbcb78",
+    "lib/sead/include/container/seadListImpl.h": "84883f9628d178fae551a77c9efb36cd94c20663246f6935bf7eaa4de7fa23a1",
+    "Game/backup/include/Player/PlayerActionMultiCondition.h": "9b0d1b076550c3392401c660c68678f0f23da73404aafd0f3d9d6f751c14a893",
+    "Game/backup/include/Player/PlayerActionGraph.h": "fbe5b9dccf2335b6c4eceb473af2a15831fde21c7578e2a1bb2fad2162fc74b4",
+    "lib/sead/include/prim/seadRuntimeTypeInfo.h": "57674477a7b07d5f982969a6824f9b739873956b493cd5b1d9d2fb7313bde5d1",
+    "Game/backup/include/Player/PlayerActionNode.h": "49bd3b77a84b301becb699f326d30f9a44bbad0550f45537cf8d4d2e85fa743b",
+    "Game/backup/include/Player/PlayerAction.h": "b1d399524fc9dc83dfa364ada75d58207d6afa6e0d85b836072826a54b221204",
+    "Game/backup/src/Player/PlayerActionGraph.cpp": "62e5e6546df94022ddbb3c5478f053f9fb4ac4933fee2ce06392574ec434243b",
+    "Game/backup/src/Player/PlayerActionGraphBuildOutputs.cpp": "92287c5dd401406058900f92bc2e3d4decc71a2dd5280bba89b4359aed2c2b7d",
+    "Game/backup/include/Player/PlayerActionGraphBuildOutputs.h": "5bb9bb3cfff38033c796897fcb78baeaae1e0fa7f9323883890012e09c894582",
+    "Game/backup/src/Player/PlayerActionMultiCondition.cpp": "2090e792c1335e924d263b3d1c58376dc1f4ad564e88ef91c5b467c1ee387184",
+    "Game/backup/include/Player/Player.h": "174402dbc2bc9ce05d4ab4ac4078acfc6bc57e67354fa9b81d2e6bb454e88257",
+    "Game/backup/include/Player/PlayerProperty.h": "ca37c48fd1852837de5a242f0b3948d21c2b7b62f951ffdfdca8fae16f09c8a2",
+    "Game/backup/include/Player/PlayerActor.h": "b7a19a01f09cb6e9692cd2a2773d00c795054ee0a1636d849434df30289342e8",
+    "Game/backup/src/Player/PlayerActor.cpp": "3f7b62d3cea0670f0199e1f52a31936e6ad4bed130704a73a00a94cab57996e7",
+    "Game/backup/src/Player/PlayerActorInitInfo.cpp": "226a05d6693a15be5be99b550f4785c3b78a5be94bfdd540ef40a0445fce46cf",
+    "Game/backup/include/Player/PlayerActorInitInfo.h": "7ec348b5f89f6d1ea5c2464d81a5d0018efce2d70a375c4f192df8363b81d02e",
+    "Game/backup/include/Player/PlayerInitFunc.h": "6813e21742ee6d54b36d564f8db006b16af97d159d2d21bc6baede01ba5cf835",
+    "Game/backup/include/Player/PlayerAnimFrameCtrl.h": "fd3e099b7ebdadd2743a1e530b41cf4ad3d98645406e83ced7ebe54badb7d980",
+    "Game/backup/src/Player/PlayerAnimFrameCtrl.cpp": "44b84f10445b164091c1eda5b693223926d51f1ce78c6aa7863f1153f846af86",
+    "Game/backup/src/Player/PlayerAnimator.cpp": "39091c04d1d68c7de6ee4ac7f7349540b684990a111cbc96319241b02c2c9f93",
+    "Game/backup/src/Player/PlayerFlagFunction.cpp": "dfda6f23ac35597c3bffffbb5dd23069f94d6b55bd225402e03ab663ec10a32a",
+    "lib/sead/include/heap/seadDisposer.h": "98a2209619a0ea238bf9d253f0532053bbbc32cb0f17c1e6cc7376e697d384d0",
+    "Game/backup/src/Player/PlayerFunction.cpp": "7d375d0729b56fa9748f3d02d4e795169dfe1a567fa288aceef162ae8d74438b",
+    "lib/al/include/System/Application.h": "f70d0bbf05702665afd91bd0b768098a1509f04b4bd937ef3d6ca491145faeb6",
+    "lib/sead/include/heap/seadHeap.h": "8aa7bfc83bd48ee72016f904bc404a26c8b745efb97056a659049a8a1d8a2204",
+    "Game/backup/src/Player/PlayerProperty.cpp": "2840fda1976fb989add3a9c083f1b63d786a8d198682ff7450de802dcc2bcf0d",
+    "Game/backup/include/Player/PlayerTrigger.h": "40c2829e6444626d5f2fa2b20c00d18109e1f4afc1891456eb3632c7c874b3a8",
+    "Game/backup/src/Player/PlayerTrigger.cpp": "9dd1427bc1c677de8d2c89af9056b0c0942585d70aec844bc1db97bc1a0fe344",
+    "Game/backup/src/Scene/SceneObjFactory.cpp": "79ee6a6e19e10db6420c0d882121480fb6ddfa48b40eb461ebf36b621011ef4b",
+    "lib/al/include/Nerve/alHostStateBase.h": "56688fe1eaf506a930d00338bf7cbbc514f6ff7326cb51202ec26cc78a6a2eb9",
+    "Game/backup/include/Sequence/ProductStateStage.h": "4b17871c2a00bab22708cdb24e06849871c2c51cba1d685ab3034a796c154347",
+    "lib/al/include/Sequence/alSequence.h": "3fd0f8365be1cf52ee9036ecf2168d0f53c78b3e16128cad4ef731f0823c5862",
+    "Game/backup/src/Sequence/ProductSequence.cpp": "07d82c65ed86010b0001a9597307782cbb331a6ddb086d997381954cfb1f8358",
+    "Game/backup/include/Sequence/ProductStateCourseSelect.h": "a02130937023f3ddfc5b416830de63495cf51ec2ba5298919b55dd4c4f637f32",
+    "Game/backup/include/Sequence/ProductSequence.h": "90daf65f284c42536a46bfb37ecb5ae41b17439116487821a281b3ff6a84dd56",
+    "Game/backup/src/Sequence/ProductStateStage.cpp": "d899bebc6f561457ab813443fc384208a75568f7041c33703fe0467d5ffd6fae",
+    "Game/backup/include/Sequence/ProductStageStartParam.h": "d84bc9df686243654b54563b712f72e34b369aa78f6faa9dd78986901945791f",
+    "Game/backup/include/Sequence/ProductStateTitle.h": "b08561af464f64e8105865af3574bcb1c4a620cefb32a89e653769e898b1e18c",
+    "Game/backup/src/Sequence/ProductStateTitle.cpp": "e80e0af06426e436af5c1b412d146efc9786d7d64c46cb4541aecf3f491b362b",
+    "Game/backup/include/Layout/WindowConfirmSingle.h": "16ffc71abd6073d610ef9b1d9ecd73898c3576f781823887314e487c66476e0c",
+    "Game/backup/include/Layout/WindowConfirmButton.h": "61e38b452fb82102b2c238cdeb7b8fd5a53f083113bceb88b38aa8e197cdaf81",
+    "Game/backup/src/Stage/StageProgress.cpp": "814aa04d68923d5eee26502c85e58b19b99c4402ddc4a3490fa2f6270163fcb6",
+    "Game/backup/include/Stage/StageProgressAccessors.h": "5b77389a0786b920e4282ab7d874df851f55778db55cda8ed7b44d2d4e27fbd0",
+    "Game/backup/src/Stage/StageProgressAccessors.cpp": "d399921817ddbd26535fb2e3bdfd6c7e2322067e7538c89dfd9c1713d69895fd",
+    "Game/backup/src/System/Application.cpp": "cf20f7ba469382b22fd5958f826437bfdb44a3addf833aa7578edb99afb67ae7",
+    "Game/backup/include/System/GameSystem.h": "7f1042f75764f035764fb0f145c2109e592f7f6f9ca2b4371785473243c13c12",
+    "Game/backup/src/System/CourseList.cpp": "7dce8815207a9e8b7b1214c2c6995ae5cdaec00ae2749259eb58ea5b5152465a",
+    "Game/backup/include/System/CourseList.h": "57cc60910de32098b88364e84c7ca54824d043d4aea4984bf42f266e45d67642",
+    "Game/backup/include/System/RootTask.h": "783ed16a48ccc69bd0dca6c92fa0f7c64645d194a7189bb223f1b6bbac4e0ebe",
+    "lib/al/include/Resource/alResource.h": "9f2cdc2bf50ed82994fe19cc50e22f960d94a4154ce985ac83ade910d9f372db",
+    "Game/backup/src/System/CourseListCourse.cpp": "fdbd40aed6e474f098167648f61d34e16c8e3c834ff9ff21b80eb9ea03005b89",
+    "lib/al/include/System/ApplicationFunction.h": "9fbee0b513658a3a8e5b8d4889138e6661ef672919fe424751584f0144bc30cc",
+    "Game/backup/src/System/GameSystem.cpp": "24924ec5af1b4e404e8aaa2139c4e30dfd112c2e4fabc6e26ba932e93a9a79f0",
+    "lib/sead/include/heap/seadHeapMgr.h": "d3b42b46dfb0cd80ce12f1fb390a2f32ba72936479ec16d4306b4ed402daec0c",
+    "lib/CtrSDK/include/nn/cfg/CTR/cfg_Api.h": "8edd36b460a30c7898cbe4e3e2253180632422849a0b99982eab7b82d8c066bf",
+    "lib/CtrSDK/include/nn/fs/CTR/MPCore/detail/fs_UserFileSystem.h": "a889489dc1cbb40fdd4201c90f0d7233beaee0a0d7f5d8012a62863dd5230859",
+    "lib/CtrSDK/include/nn/ndm/ndm_Api.h": "91d25b884a2849b2560574fc6b62b3ce913acd0525593f287c47b2a12184b500",
+    "Game/backup/src/Util/PhotoScenarioLookup.cpp": "b107dc45fc711ef37dacd4307fda355246af0c8b0115ee223d88048423bda4fe",
+    "Game/backup/src/Util/PlacementCategoryLookup.cpp": "6e828c0b55c36793e7a0c379f61732959070188529a0e32d3bf28e74d2209b16",
+    "lib/CtrSDK/sources/os_Priority.cpp": "a67047fd2d666c9155874f54023837cee5d2a5ba026f0402761d898d9365e569",
+    "lib/al/src/Area/alAreaFlagFunction.cpp": "e1a60c5a97d8d3f806a6a38af759089dc9fe1e3e6f4fdad7c830c3c17e8b1a0c",
+    "lib/al/include/AreaObj/alAreaShape.h": "1b93de282db39232cb2105f65a1ee6060ab8ba10ded3a57d52dd68e57ed31bc0",
+    "lib/al/src/AreaObj/alAreaObj.cpp": "59bb0150295774c388becc30411a4f22c39a0db60b33dd25e2368f2358b667ba",
+    "lib/al/include/AreaObj/alAreaObj.h": "a599a6d47901ea7f9d3ef1cf8cb72d8d51328d8f0cc8f27fb18ed1f7fad31841",
+    "lib/al/src/AreaObj/alAreaShape.cpp": "f0077a1a6446523fdd7a20085cd6e78a54dcd2740f66eaed4444e946942534df",
+    "lib/al/src/AreaObj/alAreaShapeCube.cpp": "42b47209d18acbb437814405ba45e9cca42ccbf32a3f5506ace0693f9730a2c1",
+    "lib/al/include/AreaObj/alAreaShapeCube.h": "e14479ec9ab97b5704f2edb8f5ee6238ca587aa1195c44a9a9a9f0237565d92d",
+    "lib/al/include/AreaObj/alSwitchOnAreaGroup.h": "13130483da1af65a098856fae02ba2e6b251d04c3de7d9cd496d34acacee6a0f",
+    "lib/al/src/AreaObj/alSwitchAreaDirector.cpp": "e4a0ea396135d8c48e064e14c460f9e3d8e8901ad82e13569b8e15d049c1c9eb",
+    "lib/al/include/AreaObj/alSwitchKeepOnAreaGroup.h": "08bdaf7a8e9f9f7111df1b0b4170a3c314109127d95600b22439e976c9dbd7b1",
+    "lib/al/include/AreaObj/alSwitchAreaDirector.h": "41261d3b84c73a4513803e541daed599a886f71f00117f8252a055e064611a1b",
+    "lib/al/src/Audio/alAudioActionStateFunction.cpp": "0dcb686cba3442f1ef365bf0b6945819325cf8e2e20675350101c0ab6eb0e7c0",
+    "lib/al/src/Audio/alAudioControlEntryFunction.cpp": "2c5b4639f5687c7e1ac5f43c1b3c67b414ae9aaf6a04471ae6eee7bcbbce491b",
+    "lib/al/src/Audio/alAudioControlFunction.cpp": "5f5a441428a20a6d8c9bdb431909bab6933acd53961f4c317d210b3190ff964c",
+    "lib/al/src/Audio/alAudioControlInterfaceFunction.cpp": "4685379cedf53f7a1435eb2d5b130c9a915ac23f769c01a9b68d8dd41720feed",
+    "lib/al/src/Audio/alAudioHandleStateFunction.cpp": "90246f33566734103a9c34301b1248f8049e2f5759f9ea15b7ea22ea9c34891a",
+    "lib/al/src/Audio/alAudioInterfaceHandleFunction.cpp": "f12f471a91d3085a929405d8ea93b48c0746d9b5ccc88d37830f1186fc97d646",
+    "lib/al/src/Audio/alAudioKeeperControlFunction.cpp": "f58656e19caef2ae5fb029df5cd254bf7e428014f1eb49043538f470c4112766",
+    "lib/al/src/Audio/alAudioKeeperFunction.cpp": "b2f084133e862a224b9867b15e5a7642a8bc6673005ae5994dae43d2ef2d3d2c",
+    "lib/al/src/Audio/alAudioKeeperInterfaceFunction.cpp": "66fe0bcfd8022e470fea9edda1130dfd7a04e30d6470302c0c4ad6a4a4188716",
+    "lib/al/src/Audio/alAudioParameterFunction.cpp": "fa9479b35450097dec1ff05acff82d16f31166b5383a1e24bdd7ecbee1806abd",
+    "lib/al/src/Audio/alAudioResourceEntryFunction.cpp": "4c5d2cc4b50d6c1bf4a05fb7ae22c8203cff4a05a8361cd2fe096128072851e3",
+    "lib/al/src/Audio/alAudioResourceFunction.cpp": "dcbdd83d232c0864208c269642d3f926bd50efcd9156ff948dfd8a7ffa6dc377",
+    "lib/al/src/Audio/alAudioSourceFieldFunction.cpp": "4c7f616438a8ff3305c89a68c0dd5f774a723280deb6ff0c3ff17dc2636f18fa",
+    "lib/al/src/Audio/alAudioSourceFlagFunction.cpp": "221d4c0410f7418bfdabb98baf46c5e6e6507bee363a3163a4b6a689aefb52c6",
+    "lib/al/src/Audio/alAudioSourceInterfaceQueryFunction.cpp": "de6395416e59ed37449d656eee7b401716325dcb3fd4491d2424f45eee4b03fe",
+    "lib/al/src/Audio/alAudioSourceListFunction.cpp": "2364dcf6c503df6364b0b46255e4646914c95678c5b8b445159b3e0596b14cce",
+    "lib/al/src/Audio/alAudioSourcePredicateFunction.cpp": "fb1ebfc853fc060bebeba1a017ffd5568a54685525462868bc2bf18fee0563dc",
+    "lib/al/src/Audio/alAudioSourceStateFunction.cpp": "cbfad10d1fa0a806edca32af86c8bd505eae5ebed3217f0842e85643a207faff",
+    "lib/al/src/Audio/alAudioSourceStatusFunction.cpp": "60718b624a3e76c7fbd6b6d8d6bc2f1fbaf71564c89e289074947a8a56585be6",
+    "lib/al/src/Audio/alAudioStateFunction.cpp": "2ed6da9e6c0bcd6e8bb32c1fce929df412f1d9f723439cac137c03a4cfaa7fbe",
+    "lib/al/src/Camera/alCamera.cpp": "b44f141df52183dbce3431be9446674aa06a19867dc77fd0219d1978069d39fb",
+    "lib/al/include/Camera/alCamera.h": "5b0b4edcced39f5eee15c4971d1869e555e03b248508f4b321b5100bc6ef8ba9",
+    "lib/al/include/Camera/alCameraRotatorParam.h": "52473a857c6932f21d95c044c72aff654cb736838563d5aefcc5f958333a32e7",
+    "lib/al/include/Camera/alCameraParamVision.h": "2b6e803d610b4c2aa222e26f338cc3df728bf729addec82eda83c4ab0681c4bd",
+    "lib/al/include/Camera/alCameraDashAngleTunerParam.h": "3e4e96121ce7a1c0be6d5964760eb466dbac6b5ea8c129cb00b23c0358903632",
+    "lib/al/src/Camera/alCameraDashAngleTunerParam.cpp": "40e61486f1ae34bd23888874d03f80e20d7c562d505f8abc04641acef90b9903",
+    "lib/al/src/Camera/alCameraParamVision.cpp": "9a09421aa398c1fef192d753a7b013c4e41656a82fd10dd28bf052e1c0f47199",
+    "lib/al/src/Camera/alCameraRotatorParam.cpp": "8ae7347bdfe9929aa55ad49785743aa40fd35c287092363ecc0b39d32639a68b",
+    "lib/al/include/Collision/alCollider.h": "e27c39d1a354b904fde1257f0a70816a1b8e878802f8e51c1f898dc7a44e9f9f",
+    "lib/al/src/Collision/alCollisionUtil.cpp": "67452aa63eddc5f693dae9b2b5ddbf328d8db1117a81c276fb851769ace0c28a",
+    "lib/al/include/Collision/alKCollisionServer.h": "be8e513b4bd39c6616453de5f8e55079004a80d972e83e0d1fe0328a98d23f5d",
+    "lib/al/include/Util/alJMapInfo.h": "e803b69f74397331006ad5d7eeb2cacf99dd9f83f61b52558706fe4949674789",
+    "lib/al/src/Collision/alKCollisionServer.cpp": "0c7b2569e7cf10f49c40fa02b4bca20854bc77ee02e5fcbda7c750dff69b0834",
+    "lib/al/src/Container/alPointerArrayFunction.cpp": "4c29d21d1cfc4fa816899ae2bdea79c83beeb480e310e31afcdce2c2b0513365",
+    "lib/sead/include/controller/seadControllerMgr.h": "7de871024e0aff16f33d516ea9da9fc82d036f00df4cdd1824dc4cec0d512d0f",
+    "lib/al/src/Controller/alControllerUtil.cpp": "83700823bcc17641172cdca8c58c543d632ccb62a7807ec3f6e5970596c80285",
+    "lib/al/include/Controller/alControllerUtil.h": "cabb1fa9aa5d9595b48adf8c240d5d715e60195a257d1673f73c1ed61fcc66bf",
+    "lib/al/src/Effect/alEffectDeletionFunction.cpp": "8dd2736b781b4f53205659416c748b39851d5d79a56c6e449a3408229ea2d125",
+    "lib/al/src/Effect/alEffectFlagFunction.cpp": "63a65cb772923f6729b58105a0568f0d65e5ada9d2c7ae0bb6822b1207d296d9",
+    "lib/al/src/Effect/alEffectHandleFunction.cpp": "c8635e91630827ca08173d90c50bef4def010bb5dd4fc096fd985fb2429e6645",
+    "lib/al/src/Effect/alEffectKeeper.cpp": "8354a86cdd67c266360447c15738345d863b3f92b6b074f6a21fe98cfa311dbc",
+    "lib/al/src/Effect/alEffectKeeperEmissionFunction.cpp": "ddf782772dee8355be95ac1afae5f14a76ed2c7cf641807c1f5e4d7236bfd189",
+    "lib/al/src/Effect/alEffectKeeperFunction.cpp": "63c85bf3dcfb3ae30e343777eb5de2c8618260ca883b1138ae65ab8347b65495",
+    "lib/al/src/Effect/alEffectKeeperInterfaceFunction.cpp": "21b9ba6176cc2e33d6cdbdd6541237adb775b60bdaf083cbf8f941ea55d7930e",
+    "lib/al/src/Effect/alEffectObjectDeletionFunction.cpp": "919cc5f4aa09704a36f7e1db5271ddda6df33bf2fa3c73be97e63b0f924172b0",
+    "lib/al/src/Effect/alEffectSetFunction.cpp": "07f0e5e2a0aba4102ac71e6818735669498d056d10d6382b2ca3a9412dbfeb9b",
+    "lib/al/include/Execute/alExecuteRequestKeeper.h": "52bdab31fc2c55ee2639b8bc0f69ccf60cd004e25cf8b6bf1b184998a2c13d62",
+    "lib/al/include/Execute/alExecuteTableHolderUpdate.h": "f4899ca0e5e976c961e1bc94644e7acb26ce52db8992ad6c5a00ba3dbfc8abde",
+    "lib/al/src/Execute/alExecuteDirector.cpp": "c4e590f66fd12cb33747e9e738559cc5dfd496263466f3c3955c797aa75090ba",
+    "lib/al/include/Execute/alExecuteDirector.h": "9ad974aec48501d135b4766b9c519d98b0782367bb4a39c0102d0ebfa4f84848",
+    "lib/al/include/Execute/alExecuteTableHolderDraw.h": "38528da78b90033d1834f5c62dbea76d7966baaf02fc661240e1a1b65c846835",
+    "lib/al/include/Execute/alExecuteOrder.h": "b2f4a7562cbb3870bb40832f141d98705a3649eb8411ceb4072a343201020d75",
+    "lib/al/src/Execute/alExecuteOrderFunction.cpp": "c88e4b76a8ffe4cf4941e8c1d367fb76c101fcc36bdae47b47d42fc11de18f24",
+    "lib/al/src/Execute/alExecuteRequestKeeperFunction.cpp": "520ec605019cc86c7bc47c1ffbfee61d8db44144e09ef1416c5508510cbd08e2",
+    "lib/al/include/Execute/alExecuteTableHolder.h": "c372ee57ac4eec0b75e212eaf8b2897cf890c3aedd5fc1627bd0c07db435d7d1",
+    "lib/al/include/LiveActor/alLiveActorKit.h": "4ab8281c6b5b83640150ca850fd9d6f922b741ab9092c524bdc9dda2e6ccb74c",
+    "lib/al/src/Execute/alExecuteTableHolder.cpp": "46288b5f303de1a7ab90239fdfe6876dcf1bdc42b669db5979f306e800dace0f",
+    "lib/al/include/LiveActor/alActorExecuteInfo.h": "2d0f34fd737f83553f844f0dcc9c5e267b76744052d9ba1de358eef8ea70354c",
+    "lib/al/src/Execute/alExecuteTableHolderDraw.cpp": "e0bcc9e72b2bae9c4c149d5eb411e8285e79b5a9b6dd56bcfe9d6ab313f6f500",
+    "lib/al/include/Execute/alExecutorRegistrationList.h": "daf8417981b0676c9905304ddf5baba066d968ca42c4551b2fead59962426c81",
+    "lib/al/src/Execute/alExecuteTableHolderUpdate.cpp": "3f361ee90c6831b6cfa1564e3f17f6d9f3a87e52f51eb47812b67b82d2b57c25",
+    "lib/al/src/Execute/alExecuteTableHolderUpdateInit.cpp": "26247eeed950d1436f031abfa395ba75d7b1418424ce9caf0e02539368ebd1cd",
+    "lib/al/src/Execute/alExecutorActorList.cpp": "4e87a1608499de7399aac9d4b33183ed9b3da8caf42adeed958baee08bae0ff6",
+    "lib/al/src/Execute/alExecutorTableListFunction.cpp": "08613fd0135d7cacfd04647529d9212bcceac3289d56b4bc1f031c885366d7d0",
+    "lib/al/include/Npc/alEffectObj.h": "4fb6ef8c9c5e4123b7ec0d03abde4f76270ca3086ea22ac5b2ea75965b3ca1cb",
+    "lib/al/include/Npc/alSky.h": "ce316ab99b71ee9c49e9fe4ae0037568e420fdbfdc2f1d5249794a341db465c7",
+    "lib/al/include/Factory/alActorFactory.h": "ccde3437189b8926138d6d91349a5466a75bf5df82f2e7dc01e1e418fd9828b0",
+    "lib/al/include/Factory/alFactory.h": "bfa6821597a7dcb002bd711960dab91ae1041c7139a1ddaa732d40bd7866beab",
+    "lib/al/include/MapObj/alFallMapParts.h": "de98dd38d31c7b4a77c7fc84e9ee7b9b30cfdb2cd8b3698db7fa5bf7b9f70214",
+    "lib/al/src/Factory/alActorFactory.cpp": "b8168216f9a1e1888f2efa8cdce76e774f595e05a96e6358c5d2c36afdf3a0a1",
+    "lib/al/src/Factory/alAreaObjFactory.cpp": "df254ae3cc0a45dbfd6b3c8e62b222fe08247e100a8cc940eb0b7e27d43a915f",
+    "lib/al/include/Factory/alAreaObjFactory.h": "8ff4dcb149f0b0284e99a2214ece0bbc09cffc7ac44bf2f4ee1f9e5b92a08342",
+    "lib/al/src/File/alFileFunction.cpp": "d2003fd18e861c9a6db6b445cbb928d15e10a9861141d0b9d5b8458f3efb93c7",
+    "lib/al/include/File/alFileFunction.h": "dbcf99b495a2e662d892239322432ccb3c6d6ae02cde41b736fb9ee651f9e040",
+    "lib/al/include/Message/alMessageFunction.h": "3796a8edadd47afb1f96e0992160124e0345fb33822ab0d1c35d1ab509f20524",
+    "lib/al/include/System/alSystemKit.h": "19f9029b3df9d5bbe6ef014ba0ed469003c4010afef145e998da1255878f5a4a",
+    "lib/al/include/File/alFileLoader.h": "e69e61c28e9bba2b198ca556909ce91172b1e2a2bf57b118204bf81e00de4fd9",
+    "lib/al/src/File/seadFileDevice.cpp": "33fb0ce7cf4d33e7a6f6aaae8a4d98366c1303bf7323cdbba834c513cd023b2f",
+    "lib/al/src/HitSensor/alHitSensor.cpp": "7b3384ff5b17e73bfe9e963ef8506a91c529ed33ace60550832c85669cdad937",
+    "lib/al/include/HitSensor/alSensorHitGroup.h": "9e1f4252e911d8aed6e0508c6edeb0ca0bcaad3cd00419ecde291a9243eef70f",
+    "lib/al/include/HitSensor/alSensorType.h": "6d314743059ec2edff82cbeddfc8a5095b5816a5f7c75355fb95974339cbea30",
+    "lib/al/include/HitSensor/alHitSensor.h": "6e6f511cd27862fbff798abf3240d70bb71f6aaaf19fdc8de0041a2426060f8f",
+    "lib/al/src/HitSensor/alSensorHitGroup.cpp": "93e07fa4f6f0b4ae57af8db8065081987c0bd29af5bcaba6e6d26c5b363ef41f",
+    "Game/backup/include/MapObj/ItemHolder.h": "14eee7da5665fc99f71f2bf9b05c72206d0bb15b5891380b36ead7b4d0fe657b",
+    "lib/al/include/Item/ItemHolder275828.h": "359ecde541a4056493fe1bfcebbabbc10f577313fe8a5b61db90125ba6790a58",
+    "lib/al/src/ItemHolder275828.cpp": "5daf27f0b8c00287a8ad413213bbcdbfe912c6cc5986b3f40f44c41be67a4d2c",
+    "lib/al/include/KeyPose/alKeyPose.h": "a216990d7e70f7e3d51b26b682f61ecd895ffef0292789d5693985945d475ae7",
+    "lib/al/src/KeyPose/alKeyPose.cpp": "ee741b06c0b74ad66726e8d0523c63bd2944b9da6cabf4e8153b3ed726739e71",
+    "lib/al/src/KeyPose/alKeyPoseFunction.cpp": "6b62c905bfc996da894bd8522617d7cc90289f02a1f5ea42e0538a98254a46e2",
+    "lib/al/include/KeyPose/alKeyPoseKeeper.h": "b4b50c69d44f8d83ee73c5973d476da66d1d0054ffbfcea935b96964170dc408",
+    "lib/al/include/LiveActor/alActorInitInfo.h": "85f4e76719327e5ae1e33b69f06c0fee443613f397bd04bb232467450be9dac9",
+    "lib/al/src/KeyPose/alKeyPoseKeeper.cpp": "73d2cc06ca3674cfdb560b64d89edfcee294f11bb55325d3739070a8bee49f59",
+    "lib/al/src/Layout/alLayoutActor.cpp": "8c097153adf48c4dc6fd0727d3e0adccfdb1603f19faf33db63811dbdd5ecd25",
+    "lib/al/src/Layout/alLayoutKit.cpp": "6d839ab784e2c42f7984c029d02679adecad2fa266de59847db5264ed0d7d505",
+    "lib/al/include/Layout/alLayoutKit.h": "6e9ae4483e9621af05f1a83beb58b8c13caddebcd04724de1d04ce4e6e03b717",
+    "lib/al/include/Layout/alWipeSimple.h": "e26bfb75d3a5d5591791c293975d6da7739b0d26396a36ef8c689049902b2a24",
+    "lib/al/src/Layout/alWipeSimple.cpp": "fffc0fa9799b30b78769dddb70d6117a697b552e9a6af06703761bc7ba8dc167",
+    "lib/al/src/LiveActor/alActorActionKeeper.cpp": "d9bad7fb1c4a49f3aa4887abd80f6e01b7d94b5a333b0c152fa244c74ca72be0",
+    "lib/al/src/LiveActor/alActorExecuteInfo.cpp": "ca652cbc8d1e71a804987e9837f12a8e55c6f42cdd262fc3f185b294b2e73228",
+    "lib/al/src/LiveActor/alActorExecutionHooks.cpp": "d72fd6fe1b73222b50c9ca2e2d22a94d77ee9deb62e6b1431664d2c21e8d62d1",
+    "lib/al/src/LiveActor/alActorInitInfo.cpp": "42dc1ca452d1276b95881c4bbec4ab8ec2b7a4b76d7906c7f30faccc43ae5b75",
+    "lib/al/src/LiveActor/alActorInitUtil.cpp": "fff6af2ac898a7a2167544fec72de55480c7f1008edd1ab2e1d775783af8b72c",
+    "lib/al/src/LiveActor/alActorPoseKeeper.cpp": "c3ae15fb5beb71fc8752ebbd594246d1ceaa13ed58365a6df035a5d45775b59c",
+    "lib/al/src/LiveActor/alHitSensorDirector.cpp": "324038a4994ab5d858ea95b5af30dfda2cbb4da2996f90d365359ba7100bf288",
+    "lib/al/include/LiveActor/alHitSensorDirector.h": "ab521a71b3e8bb351d4db9a20a7aac221111e317ba0490bd4ead88cc693b1c54",
+    "lib/al/src/LiveActor/alHitSensorFunction.cpp": "c5529052c094be081cab54bea2befe579e84294a7ff5995ed89fbfc72228b0b5",
+    "lib/sead/include/container/seadPtrArray.h": "2c3f93c561da6f13edefd2a44ec318d035885cbeb62bf3c1e8f4bc204f7ab632",
+    "lib/al/include/LiveActor/alHitSensorKeeper.h": "8cbea99a91ae271a286093ab3a0bdde0c72d5a280b1ff40213b614578cf48e58",
+    "lib/al/src/LiveActor/alHitSensorKeeper.cpp": "f68e04b8642387152d10418a1593b9db1d43b126aa55eb369708bd444f48582b",
+    "lib/al/include/Rail/alRailKeeper.h": "b4d841aaf278d6d8b44b8e2a65cede6635d5c4bc0c2e78197edace976258135e",
+    "lib/al/include/LiveActor/alLiveActorGroup.h": "84d0a4c05650bb8209efac90c3164dc59be7de344cb1869a99751fffaaa223d1",
+    "lib/al/src/LiveActor/alLiveActor.cpp": "2cc35623b9312a462ae13a9b744f6488f09dbab9e5521fa5cda0524a8a4aaa5a",
+    "lib/al/include/Model/alModelKeeper.h": "ae11c07ff61d6c372da372e055650504a2a9c8ba88849cf599197bbc1cf96dbe",
+    "lib/al/include/LiveActor/alSubActorFunction.h": "49446ccaa10de75db185c3b6aff0af89cee5805d04dd919cb22e31903d1c7a33",
+    "lib/al/src/LiveActor/alLiveActorFlag.cpp": "1a43a99430ab982c6b910df804c566ad4b542c0583668f91221cf2ba4f199203",
+    "lib/al/src/LiveActor/alLiveActorFunction.cpp": "b88f280d69669a8f026f8f9a7230b4136363cf167c72db5594326d364f8eefff",
+    "lib/al/include/Clipping/alClippingDirector.h": "1931de3ecde3427f9d87c8a08397c6ff367c6017cce095dc8e4621fbeda62b84",
+    "lib/al/include/Math/alMtxUtil.h": "b516b0a06e3fb840c9d073a1ffaad246d31260af708b37d4640bdb5bf4f3d1fc",
+    "lib/al/include/Model/alAnimPlayerSimple.h": "bfdb89b64b3ca8bbb268918e387997adf1233b0ec3e20bf82dde38dac523c07a",
+    "lib/al/include/LiveActor/alActorPoseFunction.h": "54306d9e34290505c3e54b792740cf5c10ae982e576c7b1d778c1042c0ef4c64",
+    "lib/al/include/LiveActor/alSensorFunction.h": "d34a2c03ddb04a87ae743498f0d3ea0e851c8a6089a3ffe8a442e1c7f565a337",
+    "lib/al/include/Model/alModelCtr.h": "f56f567125bf6d454f2e38eed0758321f8670fa4d1810ef8ab5ce43dbbd5cfab",
+    "lib/al/include/Clipping/alClippingActorHolder.h": "4c1d53cd2eba2918545dd98a6f883062c4eec5f778d12ff2141485eb30f0c8bf",
+    "lib/al/src/LiveActor/alLiveActorGroup.cpp": "befbfeb4e21ecd8c06a819415a16279c6928212d95b709da301fdd6e68528df8",
+    "lib/al/include/Collision/alCollisionDirector.h": "539c9eba6f23c2a83f0dfe818339666d435144df575d919105c0b71057a35bef",
+    "lib/al/include/Fog/alFogDirector.h": "dd3e9b5c94752d9b2313a77480c484e75c38a5a12b8f26d57bb7609d39cdd2fe",
+    "lib/al/src/LiveActor/alLiveActorKit.cpp": "be6ae8aac5e49cb94cebace615b9af8643962e2c0fd31412a5151a499bf87bc3",
+    "lib/al/include/Effect/alEffectSystem.h": "c522c866af2866c40f75369eca5e48c262285f941fee98b119af9f056a5ee9a8",
+    "lib/al/include/Functor/alFunctorV0F.h": "58289d52b90c7ff7c6872f60a4143bdcce8ac4453b94f1da95d6dad618054682",
+    "lib/al/src/LiveActor/alSensorFunction.cpp": "4d04539c0bb5104426a00285f91eb005907ac9964eec5de4afc08d4fe42a5568",
+    "lib/al/src/LiveActor/alSensorMsg.cpp": "5ed131408b78116ab55ab7ed7c0320abe19b5ef68de442de393539bdf3093d5a",
+    "lib/al/include/LiveActor/alSubActorKeeper.h": "b52139ea8a832c575a2ca7cd5e2592263c7bf336b34dde911fdd8e7a0e8ad1fe",
+    "lib/al/src/LiveActor/alSubActorFunction.cpp": "80d7c7802182313f7598d142d47f3dad6b074a495c7daf1a1f827ae1df9a4f48",
+    "lib/al/src/MapObj/alFallMapParts.cpp": "7e382874db190a3149cae3fe369d14e8ff008153f0ba3d20662a1ae19b9d4577",
+    "lib/al/src/MapObj/alMapObjActor.cpp": "87424e4226fe5241a85b247a3c92d48012f6fa5c9825147f8514eb84759ed0d7",
+    "lib/al/src/Math/alHashUtil.cpp": "7a9867cca0686a45bd65f08312240efa3f60f8a9967c18b48d286a725300cc0e",
+    "lib/al/include/Math/alHashUtil.h": "3f61bc6c2ef71bb4a4f962d98787ab10c374d3848addf67a03ed8d90e588ff08",
+    "lib/al/src/Math/alMathUtil.cpp": "05794f5a5d2b97367726dfa5621c80efccc479b6caf0c3baeba074f880d141fb",
+    "lib/al/include/Math/alMathUtil.h": "75fee13aa91883d2526665e4fe0985b695150ae95108a2744c574ca049418961",
+    "lib/al/include/Math/alVectorUtil.h": "85c329a883954124a4cc37ff504ab5efcf416b09155982ed01ac95fd23e9a9fb",
+    "lib/al/src/Math/alVectorUtil.cpp": "8857173e40f4b00d53ed9325c8c864e2980d1d983fac53916baddedd1f7aa1e8",
+    "lib/al/src/Math/seadMathAngle.cpp": "28fa62d1c67d0a535785ca64b9546514bff7b6026d620055abb002be3272d67c",
+    "lib/al/src/Math/seadMatrixConversion.cpp": "9026b2c94752b7102726b00262022491649a0ed8359c0e71b0b8f336b86ff6a6",
+    "lib/al/src/Math/seadMatrixCopy.cpp": "774ce29a89d6dfdc0970f1622d49990ec6075eed70da7b083dcc54a8c71d8e8b",
+    "lib/al/src/Math/seadStereoUtil.cpp": "b43c9354048188214d4446109e6c09c4b8e0c2ab17f43a894600be278d4da0dd",
+    "lib/al/include/Memory/alMemorySystem.h": "264302282bf54ea39451a8c0c0a7a5896d9b7f6475302cae7f9df345e96f0d40",
+    "lib/sead/include/heap/seadExpHeap.h": "f6cc3a1e5548cc18bfe3b3065a6939f0c9b06f135ce3b932b9d46cd5ac21d2e8",
+    "lib/al/src/Memory/alMemorySystem.cpp": "f0a2403ee32b7564255eea215ef7b97884d6d2c5fe76a80cbd3fadec7bec387e",
+    "lib/sead/include/heap/seadFrameHeap.h": "fe54cd11242a2160a3a41f73533410ddc975b4a0cbd7b4f10d08f946d0ca131e",
+    "lib/al/src/Nerve/alNerveActionCtrl.cpp": "bf7447a5175fbeeef046cab16b3d8a2336fc5138e32c55d73b546c939fbb079f",
+    "lib/al/src/Nerve/alNerveExecutor.cpp": "292ac054b540ec82bace6d00f525f2f4db25b00d009f1ae198d85029c8d58710",
+    "lib/al/src/Nerve/alNerveFunction.cpp": "c6720f0195461413907f17d2fb403bb5acc9160648e93894320cfdda1a110542",
+    "lib/al/include/Nerve/alNerveStateCtrl.h": "99d940a4facac17778534a270a7f16900ec1fcd0b6eda6637d002dba31e2429a",
+    "lib/al/src/Nerve/alNerveKeeper.cpp": "3059fa1dc52e3b6a382ebf65d611d03d199c10bae4112db595db7c7cd0d8e13d",
+    "lib/al/src/Nerve/alNerveStateBase.cpp": "80182d3127744729108619015146b416f28c3decc7f0444441f4a6cd4c6c3c30",
+    "lib/al/src/Nerve/alNerveStateCtrl.cpp": "028420ae18fb5c50eb1587ae6f2d20c13dba59f38f2056617305aff32629f505",
+    "lib/al/src/Nerve/alNerveStepFunction.cpp": "435943584b2a559791a75ea69ed7d47f331c7834b1d70c26d12281d0ab59b026",
+    "lib/al/src/Npc/alBreakModel.cpp": "609a3f087c1865b4275fdccb289bc7499663a9eb63e9b2b4879b6d911d601e93",
+    "lib/al/include/Npc/alBreakModel.h": "1b0a7ddfebe9165b18ac4f18f99e3379c20f1559cadcb87e9279bfa86438cbdf",
+    "lib/al/include/Se/alSeFunction.h": "fd5f1ccceeac488f2537b4ee265b8af7a7411695943ae8a57f3dd1c367b7ba64",
+    "lib/al/src/Npc/alEffectObj.cpp": "e82fbb614b01cc2a8392ba7ef6a2300047748b9441aab722f1ae7a4bc8beb575",
+    "lib/al/src/Npc/alSky.cpp": "b52de11b35368c1cb55de043669e8b34952500dfdd5b155741474aefe7ed1f68",
+    "lib/al/src/Placement/alPlacementArgumentFunction.cpp": "665882b723d3c5dbbcb2e7fcf03e0189e7b073d3c936b0ea4f99d15764fe586f",
+    "lib/al/src/Placement/alPlacementFunction.cpp": "0ff7003bbadf1d7695103e96a739999945f0066a52efef310dbe31e62081f675",
+    "lib/al/include/Rail/alRail.h": "e6ed6859d4c67b4d814325f321ab9d6c167ad7bb74c009db7e526ca7337f63a5",
+    "lib/al/src/Rail/alRail.cpp": "666768e5a7f7dd1c54970a4fe612d336c72109a9c55e4ed12b925e584b86778b",
+    "lib/al/include/Rail/alRailRider.h": "d98db7f5f9a661be05b57f3a774c77f8dc50da007e0c0656a6530e7b94efa102",
+    "lib/al/src/Rail/alRailFunction.cpp": "9aa2a9c332c22e02adb46bcd557ef224f14b2d91de7af270dda1eefc2a143800",
+    "lib/al/src/Rail/alRailKeeper.cpp": "8572376c26ac66a475161b2df7fa2b7a750ecf538ad2a5312bc8f08dcb95a8c0",
+    "lib/al/include/Rail/alRailMoveMovement.h": "01a2ebbfc3b80889b91d4312535accabc3abb95e17ac4c8d9cd6cf42d9c722d3",
+    "lib/al/src/Rail/alRailMoveMovement.cpp": "a51634251229c54012b8eb4d79b02b8a689a9ba7afbd138db54516e016816b81",
+    "lib/al/src/Rail/alRailRider.cpp": "df31ea77c6aa75b321e25d70cec45f92038c27cf657e1a21f91bf8a932af6150",
+    "lib/al/src/Scene/alScene.cpp": "b65ef161dcf8f515f41f08c55df1861ed4d649429b02eeff9194d654bac6a959",
+    "lib/al/include/Scene/alScene.h": "e06da0e04e1349985c439e80a4331fc5ca3687e4bad1f5991e24c5a9e0f78e35",
+    "lib/al/include/Stage/alStageResourceKeeper.h": "8e7b936ad38c30c69e8631f141e800059e13423345b9966de610ff3d7333a0b8",
+    "lib/al/src/Scene/alSceneFunction.cpp": "fd5e23ceb5b24deac34b8249a499e901c3e18ffb8977d2bc0a7fd4a39bbddee7",
+    "lib/al/include/Scene/alSceneFunction.h": "7c7f091ce9533855eb4084f9e995581a02bda93698bf59936a001476a9771bf8",
+    "lib/al/src/Scene/alSceneObjHolder.cpp": "999ad0df20e923b02197d81dfe76b99fff79efdcc894dd1c4bd02c26ed075be8",
+    "lib/al/src/Sequence/alSequence.cpp": "5bb16d7ef3b8f588d74b4000f7b7436e3ce1d910864f7e17b64787b38aec5860",
+    "lib/al/src/Stage/alStageResourceKeeper.cpp": "9f9894860c9ccb4306671f1b584a50df28c79e04c29e01e86056f58b9989a363",
+    "lib/al/src/Stage/alStageSwitchAccesser.cpp": "88158e4fa7115c6be40343e289bef201d41404d59b7213e1da24e9f7c2ab37e8",
+    "lib/al/include/Stage/alStageSwitchType.h": "4495a6a174ed8dbd82fb86f1d04fcee6e5b12ea399d994f85ea571549df7d33a",
+    "lib/al/include/Stage/alStageSwitchAccesser.h": "2892e10118e2493a2c5ec26341bd769338c93665c8c058b9c47338e032b7011e",
+    "lib/al/src/Stage/alStageSwitchKeeper.cpp": "3e7afa79b23da313e2a94b313280bde4b7e3cd92bd4967ee5afdde77e20a8d0d",
+    "lib/al/src/Stage/alStageSwitchType.cpp": "52402fe1c915d52e5de541790576345f280cbece2f4dab318334b6bdd9255133",
+    "lib/al/src/Stage/alStageSwitchTypeCount.cpp": "d019e1d81ee8898ee939d20db273343aca90884ca9738b2f0e8e42613b72d912",
+    "lib/al/src/System/alSystemKit.cpp": "e1ef1035b76a9c45db17b8c2761c34ac158559903c59207eabb1de9a61f83ffa",
+    "lib/al/include/Save/alSaveDataDirector.h": "be655a26fef8d1f23d18022afcfda6257ce440036c8adec008060745c622f61e",
+    "lib/al/src/Util/alItemTypeLookup.cpp": "0430d41ceefa8631cb5ad97d31bf939e1b33a2b8c1f23c4817e27644b2a4bf37",
+    "lib/al/src/Util/alJMapInfo.cpp": "77abe5de279f05b939f33d8d5b3187da7c61ecca422dce25ccf5f5a9fe95d681",
+    "lib/al/src/Util/alStringUtil.cpp": "6dd1a1eb32196c179e024dc572f975392e43fd6325ff911acd0a93f62a530ca4",
+    "lib/al/include/Util/seadDateUtil.h": "21f7e62cb0a655fc5bd2fa69e6381db90e6301b09abc59c3b4c6fd004fb56b2b",
+    "lib/al/src/Util/seadCalendarTime.cpp": "265d908447edf093f98b88d441c9098593374b4aca0825948cb84497eb4a478e",
+    "lib/al/src/Util/seadDateUtil.cpp": "c992c770be8d2539f774dc9b2a7c8528063d52446ea1dc47df5c05942e28aabb",
+    "lib/al/src/Util/seadList.cpp": "b76d5bd49adf8c195b5f4012b47a909810aab3beed6ed5ff362d467dbb8f777d",
+    "lib/al/src/Util/seadPtrArrayImpl.cpp": "ac3681735b577b4e71043f7ec4360d27f9f5ce86ceb83ec9f8fac643d0e4ccdf",
+    "lib/al/src/Util/seadRandom.cpp": "5322dfe6b218ad5e09e5961abcaa1e931459ce33e12133494e93d9de070c0657",
+    "lib/al/src/Util/seadStreamScalar.cpp": "09d226b7567ff54e0b565d48aa60e076aa9e1304376b3b14eda46d4f3420e056",
+    "lib/al/src/Util/seadTreeNode.cpp": "2c3f4d48ad6f72933dde4e6b472bb733095aa8ce345af04f24588991bf7acdef",
+    "lib/al/include/Yaml/alByamlData.h": "3ef431c7a54350bbfc9e01c22ea779b4a394214fbc3bede338b3cab10d3c4ca1",
+    "lib/al/src/Yaml/alByamlHashIter.cpp": "fad3fe0fc3e6fc23cd2d879efa1e9f5938449e180915e7a00e96847c7acae23d",
+    "lib/al/include/Yaml/alByamlHashIter.h": "895eb2598237911c13b6a962de895545ae38845ebf0f7a33c023cd41de9e04c3",
+    "lib/al/include/Yaml/alByamlHeader.h": "7d0af621639b4d70355c5355b52dcd3b14681701062bd5cd2aaefbcef172b95b",
+    "lib/al/include/Yaml/alByamlContainerHeader.h": "befbc814ba6564811d7003f6f1affe7ba222588611e68d48b295ea461b53204b",
+    "lib/al/src/Yaml/alByamlIter.cpp": "86c96d8d0d1dada7b9a7227695e738e98202f3644b3c97ad915cb06f483fa7de",
+    "lib/al/include/Yaml/alByamlStringTableIter.h": "801b05e2dc41f7e4f8cc48059d8caf19a1591e57c3ae92d2308b643588a4527a",
+    "lib/al/src/Yaml/alByamlIteratorConstructors.cpp": "8809735b32c7deffa93041eaa081ff983318f72d1366bc567cfe5c968df642c3",
+    "lib/al/src/Yaml/alByamlStringTableIter.cpp": "ba5cee2db169501269a2a9a0a54984b76d7bcd710ffe216b82c4ac8952543a91"
+  },
+  "objects": [
+    {
+      "object": "Game/backup/src/Enemy/BlockDragonGenerator.o",
+      "current_sha256": "eac65016242b67644d8383414279964422808d572bc052c65f1c30c4418c68ac",
+      "baseline_sha256": "53cdae589ffd5d2ab00deed71b5ef613775f7c42123fda5a871b2ea63ad7d768",
+      "normalized_elf_sha256": "5bbad6fd0cfc586265b180101df1ebe650ea36f95aa9254f3d01ee9f8554dbf1",
+      "provenance_sha256": "3a007360197257a9e6b2195d981bc4e1c7fb9bf2eef9a56da9f52dd6ef56a3fd"
+    },
+    {
+      "object": "Game/backup/src/Enemy/Bubble.o",
+      "current_sha256": "8fcae526f9c538c756724af7c7e9775200e1d8c9c16de140aebed05328b4b152",
+      "baseline_sha256": "8702a8e1d91e3cc7fde375bbb837c179194db7e93f899d9417b3dad473949b4b",
+      "normalized_elf_sha256": "ad874a9fd27ea6f8d466bef39e72614c65e815f9855fd889b14cb05951d7ee85",
+      "provenance_sha256": "45490b01f45dad98c7413f1e33852319cd0f873b24473c9bb38f4410c2e557b0"
+    },
+    {
+      "object": "Game/backup/src/Enemy/FireBall.o",
+      "current_sha256": "c9b3dc7f75ebb2d9e9f57e11967367b425b154037decda0cf70e1ccbbe095340",
+      "baseline_sha256": "c926e64e52c3283a2da1082cb774cbc457e2cbc4e172dd1ecb1ecb7e9c8b614d",
+      "normalized_elf_sha256": "27d29fa9ab7497b62f1d47681d574000dca2eab96b951c015e07ae5c87b3bb55",
+      "provenance_sha256": "3febdcf61c866ff72099983bca9cc89d1c4d0d7aa652bc46dde101a8578a4693"
+    },
+    {
+      "object": "Game/backup/src/Enemy/Fugumannen.o",
+      "current_sha256": "6af7d53ab7b2a33da43d53aa5eafe8417cf3a974dbceacb0fdcbc85a2be80f9a",
+      "baseline_sha256": "355c43aa7eba0c2c257d7136bbf7501796dfc28a95da8154708561c4d6be422a",
+      "normalized_elf_sha256": "94f7fefe8761fbb34f3f5693bb3031b00ef0df1aaac5e3cf4fdc888238afd052",
+      "provenance_sha256": "954f799532ed445f4452635964b4f3eec5186265c6b33b5b6d5298baea32eb6d"
+    },
+    {
+      "object": "Game/backup/src/Enemy/Togezo.o",
+      "current_sha256": "96b2b37b49c9f06fdfe9f87c0eaf8196892b9a54a8b457c9ad0efc03a02201d5",
+      "baseline_sha256": "57572f94ef6759e0db343770ed9cd49d8d4fb3a3e0f8a4ce572d1c6bda993218",
+      "normalized_elf_sha256": "640db5872ad7566e18658eb1b007d0771f3f834597b5a162bce6fd186c9dada3",
+      "provenance_sha256": "15387fddb3b985279b0ac355c7c0d9d7561c942be48196e715c9831f2f3a1638"
+    },
+    {
+      "object": "Game/backup/src/Enemy/WalkerStateChase.o",
+      "current_sha256": "ff9e807465536cf065a832cf846c560eb86d7cf223854dd8df72f1720027ed08",
+      "baseline_sha256": "ce9f6399c3f75496f63cb2dada97d936b8692e2e1492c8add0f2d161f3fc4297",
+      "normalized_elf_sha256": "c78916fb07e82f3b50c1f3ef83ab2007bc45396aaf439a68b0b3b548e8fd32db",
+      "provenance_sha256": "55d6762e89368fca188a992e9dad02ec80d9ce66f18112b6c84a103d6d5fcea3"
+    },
+    {
+      "object": "Game/backup/src/Layout/CourseSelectMap.o",
+      "current_sha256": "32ca57b29e782d762fc2406aefcb0fdd6b9fc48aba96d7ea6c1f640e9a221df6",
+      "baseline_sha256": "6f7df08283781f5fe09899836074272eec1483cad894b09949ea117cb9a875ca",
+      "normalized_elf_sha256": "488514c01bca1ca2db56233f919c0a64e91c15e6b827a9084559d06a221c009f",
+      "provenance_sha256": "f641abc80d3cea5afd50573f02a17bad3b8d031f6c01b2051d8a39d8f10a989f"
+    },
+    {
+      "object": "Game/backup/src/MapObj/AppearStep.o",
+      "current_sha256": "4345ca5c18a07534f720ed0a2daa0fdee5e200670c4e3a8e81c3510859d2f665",
+      "baseline_sha256": "4fca62eaf13abf8d5f5caf58616402643fe52956af017bc8556e7e262328b1b2",
+      "normalized_elf_sha256": "550e29a5d4e71b32364a032929a2bb057e07d8b1fcbd88718dd26451964e3aaf",
+      "provenance_sha256": "103a54d51a39f8915e9d591ec5373b2ac71ed5c43c5b29e86fc9e6233dadb3a3"
+    },
+    {
+      "object": "Game/backup/src/MapObj/CoinRotater.o",
+      "current_sha256": "0696b92b0fd6fc3bdeab29f350d10167147de5e44dadcb555450dfd4408ae260",
+      "baseline_sha256": "ccebe10c3e68974027b80a918c8a50f37e2fc0edd4dec6ecad9b1f71679b7949",
+      "normalized_elf_sha256": "8da1efd3ea553259759f0ac7f80d22e44eee69d8ec26f61a9cd558845e036300",
+      "provenance_sha256": "9b7811bfc61d1c2620f9306a423a54129ee65aac30610e043142e87acaa1393f"
+    },
+    {
+      "object": "Game/backup/src/MapObj/Garigari.o",
+      "current_sha256": "cca46791e8c6af25227c002e68ef735f438fa8209ce9354e45a9d96867c06151",
+      "baseline_sha256": "659fd0f03355bb129f1c1c6ec925619f4f2ae5e9051cc09733cc0d9c8a53499f",
+      "normalized_elf_sha256": "da4230a80d811b576881633c08f37a8d352daeab380773cf6b057a0225144a7e",
+      "provenance_sha256": "bedfc03d6531a6143942dd9befe43429808acc43262e098d25274cb3fb098220"
+    },
+    {
+      "object": "Game/backup/src/MapObj/NoteObj.o",
+      "current_sha256": "2373e65e4cb1e18a7801b69bb8e0f4b4831d2c045ff5ee02d8a6f39b7db4a4af",
+      "baseline_sha256": "253d043cbecab9bb3a71687c4321ec44fa18cb52bd746f6654c0f1e426697643",
+      "normalized_elf_sha256": "925628c580a7c98c835ae412429049ea9366d9cb0ce23071dfde406bea908a6c",
+      "provenance_sha256": "71aa4c259a081974ad60c1797188b3f5c8d99f024cb4347b4d50b9c77e850b32"
+    },
+    {
+      "object": "Game/backup/src/MapObj/NoteObjGenerator.o",
+      "current_sha256": "2a301d310da575983c0e22718b1282b2cb5def4ad754e54e38285a1fa121f464",
+      "baseline_sha256": "e24302e7eb3af8c2c8ec8fe2797d88db248b3b87475e9f355e1aeb8c4aa88c7b",
+      "normalized_elf_sha256": "9128366d7bb14b3749fa5cf3005ee1e60c1487d86071cbd3fbc004c5260f00ae",
+      "provenance_sha256": "9e1df7e3405222109dba342fe6306a6a7df7202b879b1eef531908178c83203c"
+    },
+    {
+      "object": "Game/backup/src/MapObj/TransparentWall.o",
+      "current_sha256": "364128d894b386c1e8fadf624419fded3dd1c049e16a42e06d004aa40918726e",
+      "baseline_sha256": "0ededd99ad348299836d482b945b15ea2f9e4679bad1ac9510c5d4b210b55757",
+      "normalized_elf_sha256": "219838944e61f39868a67885c620886fe01556cfe18bbd1c571f3e5b4475e12d",
+      "provenance_sha256": "fc79522c1b8f6c4ea5cf55922742dde752e0322b74fa5af9ebc76d12d8757a1e"
+    },
+    {
+      "object": "Game/backup/src/MapObj/TrickHintPanel.o",
+      "current_sha256": "c9e92c17941bee3269e93baeae2a437d6ff1acbff944b2ca25447ad22c610ede",
+      "baseline_sha256": "414add56fdcad9f419b3d0596a4e7b7003f0066bac2f8e3aa942e0461c459315",
+      "normalized_elf_sha256": "e681c1a3562c64d181dc9f30879df384f4723587caebe7f3568f6a494ba6e03e",
+      "provenance_sha256": "e6e0e4f75d74da7baaabfc92f85b43ba7165ddd54dbbf52e2a530fd96016b48c"
+    },
+    {
+      "object": "Game/backup/src/Npc/AquariumSwimDebris.o",
+      "current_sha256": "8d1c47174bb3952138084db9697cf83d7e3958afbd36f804ff8740f57837cf21",
+      "baseline_sha256": "bf5ddf2168720488458cb4e595c248f1f7f5d4df350e3469cdfef25bca638e67",
+      "normalized_elf_sha256": "fbbebaafc7d73fe1a41f70c1547fce0361f6206573c435064f62f4334fefab48",
+      "provenance_sha256": "c4addbd7ca07d3cb02e7685be1b30d0b42b28e5e721d2958c1e333cff84e0861"
+    },
+    {
+      "object": "Game/backup/src/Npc/FlowerPot.o",
+      "current_sha256": "f1980540e6dfb37e30fd7de77b0f875b1d3accea9287bc7e77b4662d0a761c8e",
+      "baseline_sha256": "ad41b48747c64bc6e06ba97549fea0f497f0ff74f8d8611cfc1498a55dfa4825",
+      "normalized_elf_sha256": "6810a958c2e2e3258aba970470e033d302709c12afaa45ab5d2b5f9d1338c66a",
+      "provenance_sha256": "13f0c9618d1c7f613f8365d984f7c39e5e9e7a8f43470cd58d55d548b83ddbe2"
+    },
+    {
+      "object": "Game/backup/src/Npc/PeachRope.o",
+      "current_sha256": "63de3d31760e83df99af387b9e42065e190362a1d5289da10e34bb6dd6ab5c2f",
+      "baseline_sha256": "b5363828bec6eeecb8c339374377ee64140f6c61639057a9b75be5ee1d892d4d",
+      "normalized_elf_sha256": "2108211e7a0c604b7596eaf6fe0a65e99afa27e2022558120105c62f9aee5010",
+      "provenance_sha256": "f5941cb09549041ff7cb7685b3a7c68590adb28763c40dd94752340ced9fbe1e"
+    },
+    {
+      "object": "Game/backup/src/Npc/RailDot.o",
+      "current_sha256": "72023b37d86e31b991151861ce05f57212d7a1ee6b2534946fde6755a245af9e",
+      "baseline_sha256": "46efbf0b87c5129da1582da83ce8e5a1ae780f757a2b89fc31dbffdac23ef626",
+      "normalized_elf_sha256": "d870b40090b0b357a6108dd542e890b3cca82b36d7bb53de33072ea6af734516",
+      "provenance_sha256": "d5cac619ab75611c8a77b8a71b34f18c3c79bf59b6a7333d57e11e8c398385f0"
+    },
+    {
+      "object": "Game/backup/src/Npc/RailDotEnd.o",
+      "current_sha256": "bcc6e1423547550ce796a28d8f12deed5cf50008cfbd2933e036727d95569bcf",
+      "baseline_sha256": "133c203cd729fa32bdafc6f2c5fb801c6e732c2855f4bbd5461a8e32cc72dd6a",
+      "normalized_elf_sha256": "85798ecc114b779adbc8cf40b752bace983bf32a14ee88e8d82e46df7d4a182d",
+      "provenance_sha256": "b362876b383b427a9f7a63e369ff16fe706b13dab6bef22304fd374d0bf10fa6"
+    },
+    {
+      "object": "Game/backup/src/Player/GhostPlayer.o",
+      "current_sha256": "c484b251082d5939325653f2a5276928e98ac2dabf1ab50bce0458f8ba0fa189",
+      "baseline_sha256": "7601e0cefa4b239cc8411131cb85c24a4e4d5f132f51c5131e108d7c6d7691d9",
+      "normalized_elf_sha256": "9198cda6f6a2c31780c02f27c545c067b4064213cdcc24aef43086e3a074b1d6",
+      "provenance_sha256": "dc50a57cf4945ecd8c1588c922a2eaf41226c981457a8dfeee9c79b97428660c"
+    },
+    {
+      "object": "Game/backup/src/Player/GhostPlayerRecorder.o",
+      "current_sha256": "2ad73816ea16b68c1c6f05dbd9217898aec5258e2eec2810770c5f947d6fb5b2",
+      "baseline_sha256": "801dc4658695fec93f4689aea001f30bf0bd426600b0457ac9a63df8fbee8e19",
+      "normalized_elf_sha256": "00dafa75ea295874170abfd969edf95bcb2252c7264a5a9d7e668beea99bf106",
+      "provenance_sha256": "d7517ca4471f30308b618be937922cb1e5f0a75d68be3588f3fd90aaab690a91"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActionCondition.o",
+      "current_sha256": "9fa8bf82a30b49b19ab964df4fc01e7159e6761c09b4a09ec4cdfd759d8bfe25",
+      "baseline_sha256": "6a1b8aae4e66aabb0278e3cb2a53b2ec222a46285c4a17a29b71fb3e4f6d1d1e",
+      "normalized_elf_sha256": "23ea2c7c0471fff0f0e2bd954d49c9c6106a04ea5b709a30b2babf6b4db1292c",
+      "provenance_sha256": "5c60f063c8ee4f46ae333e43d1de9e4cf07d64064ece8119ae3ab376197352c0"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActionConditionAnimEnd.o",
+      "current_sha256": "ac011870da8e86137e9579b6dd852e8b7b7f6d8714f31f846b4452ec359b5a39",
+      "baseline_sha256": "786d3c17eac51c79111fe0ff9a4cdcc6474402646d78a52357aec230fc585617",
+      "normalized_elf_sha256": "a9f9b759d0c77f63e107bb0b1936a539c1e3705393b1a640e8801b381c4b0a6e",
+      "provenance_sha256": "d619892f2fb3cc21f0fee7332d4dd58eacaf9675ef4621f6f07cb7739275f2f1"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActionGraph.o",
+      "current_sha256": "145ed57f520e547a6e9f4682debd3552b69a251b27536235cfd0df1dfbc34e0b",
+      "baseline_sha256": "d17fae5f459e936405fdcedffea02862aed52d28234f85937032eba49e45ee2c",
+      "normalized_elf_sha256": "9bd744703d0c4d31a4a05a8829bab28a4ea60966f09176454f60f0336441bf55",
+      "provenance_sha256": "91f8e3632d06ed18770b92948aadb92e5314a6645f98500f5611f15a23d220c9"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActionGraphBuildOutputs.o",
+      "current_sha256": "6cfb2fe1057fa84cf25c14685b06a25edf9df8a06b96e85d05e65cfe43f563e9",
+      "baseline_sha256": "f1b3e11d749430eedf7b52195f1f246ab8c51105c2a7173c3060375f7c0546f2",
+      "normalized_elf_sha256": "fe21f032068ca61f365e5b66f141092ffacfc12b590eb452c4acc554dc47a756",
+      "provenance_sha256": "5b9c3072cb0b49448ffc90c860ea2023e57c5cf4f3a1aaba174b1b810bb53fc1"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActionMultiCondition.o",
+      "current_sha256": "f520887970a4fd08b095b60f6a23cc95291508ff2219d5f82572ce64422f9da9",
+      "baseline_sha256": "47c3b0fab1ca4d149b73954120b32fcd88cea4a73b06e822b957e74c51acb1cf",
+      "normalized_elf_sha256": "64ddf722e3befbf4db45f9bba562b74a48fdfec841757820f35ea5dff905ad2b",
+      "provenance_sha256": "758e50f1ff9e62093f694cc2fbe69ab6797df1d4e25fc526259e036582814ac2"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActor.o",
+      "current_sha256": "b2e1b755f3703474727e953e6b01c91eec3bedb70b8c0a2c11c8505cc9832d75",
+      "baseline_sha256": "3a36262f8baf17899a2dac6b494072494ccbceb638e99eed2fb14ab8f760fad2",
+      "normalized_elf_sha256": "67e97a189768ecc779c73b590546a6af990e0d0c9804984c8ae9fe7db2940ea9",
+      "provenance_sha256": "83c3a196a10eb9c1647f4f15120d7fac0c28db0386b518e293bff06dc18731c9"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerActorInitInfo.o",
+      "current_sha256": "4eb78ad1c1ca5d29c737af617b73cfc5e42b2ca66265026db91d1f9cf50963cf",
+      "baseline_sha256": "4888d30c9cda19b391511799fa299cd137bbe2c834673f4d8da1d95653dcca3a",
+      "normalized_elf_sha256": "b1d4c8be84a62890dcfcc9a330e49a1500171b2fcd595626fdfad5be79bb72f0",
+      "provenance_sha256": "62b4e4255b2bbb2a66d235c80bc69e69c0027157a2dc89c78095f080d23853da"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerAnimFrameCtrl.o",
+      "current_sha256": "37a752ea3e008534ce4d56cc4260431cb5fc42bd5b1d69f540cf19249275cf60",
+      "baseline_sha256": "0ef9f0dfc45d16c930d7ecb9996ac4eb91fc340b5ad56debe3c068cc638735f7",
+      "normalized_elf_sha256": "a3235c98a2e0d8b455d0ee6ef4a01a6b6aeab15f674bfda15c072a36272dfaa1",
+      "provenance_sha256": "3752d56cbed0a333cd79a6e553fb631b1c0d75fd3581524f01816b8ed4216597"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerAnimator.o",
+      "current_sha256": "a72bc4f351b91baa1cf8c551ba8a802b93ab5bdfa1023d42ddd31108255f5ca4",
+      "baseline_sha256": "3c5f2df9efb618a62d8b23403b6214e7fbbc8e7ce7f345a5bba1ebef96bd9e57",
+      "normalized_elf_sha256": "20217c7e6fad33314a2be2ceccc55e4253df9f9083983ed39c7133865bbcf77b",
+      "provenance_sha256": "bdc00acb5aaaedcb00586507cd305a2b9a0a287f1976af9ebf89a6516d904b89"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerFlagFunction.o",
+      "current_sha256": "64151f48d223eb35eccd594a779d3eb52d026d975700813f92d4f25726537bc2",
+      "baseline_sha256": "5b17baad65a1bcda2325381296f2b6dc369d963c3a637277dfb55ce880fe83ac",
+      "normalized_elf_sha256": "308c3a88b3d1ba7b1806f00cfc9a9d88dcde1cd420bed581639b5470db158dd3",
+      "provenance_sha256": "e7fbbe2db000c80937941305174514f202162d5c8002c33c6fe85baf7332e8e8"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerFunction.o",
+      "current_sha256": "274bc19ccf1fbbedcc646116fa8e2932a6837081f353e4b7715253cd2b11d3d4",
+      "baseline_sha256": "017ae44782de6a91624c2e2798281494d8d63ea12a06f439efc155f1fcd0f96f",
+      "normalized_elf_sha256": "597362d4018652e494aa4b761fdc72643f3107529afc4da6184d09fa0dfaf755",
+      "provenance_sha256": "22a8c617445d68943478c791ea66b9654f96e4b18000eaf13bc39783231bf430"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerProperty.o",
+      "current_sha256": "08d474986297191d7954f0a9320c13fbde5d155017087192dd8a1dc1dfdb9e34",
+      "baseline_sha256": "f5a8664d92d419f0d5f8c899bb658373643360bfb7ed7b61c33dfb69181b64e6",
+      "normalized_elf_sha256": "85442cdc0064626ff6f8fc1b74a10579243e2de78fa0473f59403c50a7f99e08",
+      "provenance_sha256": "560343ea99412ae29cd2af6dfcd221e2d05fb35c6201447f96d805c156e34996"
+    },
+    {
+      "object": "Game/backup/src/Player/PlayerTrigger.o",
+      "current_sha256": "d54d4b15bbc08e306375f476aa7066135d1397b5825224a0473667c05e1e38b9",
+      "baseline_sha256": "e3f5470dcbbc9cc4b6807c0a5054529a7b29db844956808a57f36e7d1f27b8bb",
+      "normalized_elf_sha256": "dee2a56be62573046e93eac37607c6520464e0d3511b079b4ea3c6a5d86ddb76",
+      "provenance_sha256": "2d06b82062bf2928082f8037276738db83366e1776c71eb705ca50405aae08a5"
+    },
+    {
+      "object": "Game/backup/src/Scene/SceneObjFactory.o",
+      "current_sha256": "4e393c5c6222833b445729f066f4235cfbc0d0bfb794c5c28c5f43557845bb22",
+      "baseline_sha256": "d5e49763b6aaeab29a2dfbe41e65c9e8065398fe7e89b97ff1ceb1ab967ceba6",
+      "normalized_elf_sha256": "a12972275b98aec37c1356a0679b20530fd25b8ef658874b32ed65fa726c53b5",
+      "provenance_sha256": "6d93232492e1e9b0d3ae502e3221ffd85d5f7d869944fe8a17ce5c78d83b7d9b"
+    },
+    {
+      "object": "Game/backup/src/Sequence/ProductSequence.o",
+      "current_sha256": "0640a25dfac4ad6366c9ab723cba05b4ff733c642eb6898d03fe421b10cc2fe7",
+      "baseline_sha256": "42c300eecdf78f9863b71d981f51cc9e343e29c86c3a78ea07bb6be3a3af37b3",
+      "normalized_elf_sha256": "44bfd3e90b622a533c039f25bc360d6c15ff35acee04e3970511288419067ccc",
+      "provenance_sha256": "c7eee2271964f18a921696fc23124f2c30936dfe2a1f26f115f482483075d347"
+    },
+    {
+      "object": "Game/backup/src/Sequence/ProductStateStage.o",
+      "current_sha256": "32b1ea05e4781581bc1846c80db8b7d940a39548b53fe7357386e54f2504fecd",
+      "baseline_sha256": "ee3d2a6919f74fd50e2644b20dfb4ed34e9d86dfb3cdd464a59955bd59076c1b",
+      "normalized_elf_sha256": "958e9a087e4f638839f9b4165ce21da27ca1d65e2484fe96998f7f21aae7c1a1",
+      "provenance_sha256": "a2a30b154edafe5fea24a5d6b4d4d9c7948c62ab92ba9e666313fb91dd019ed6"
+    },
+    {
+      "object": "Game/backup/src/Sequence/ProductStateTitle.o",
+      "current_sha256": "3e63e41b0096fdb810d3afdb32aeadc7e4e01dbe2272e6fafac83df9065d1156",
+      "baseline_sha256": "b5eb41903e2b1e176b1419dccaa774f7234b70a7bca85dad63ae3d92e2640c72",
+      "normalized_elf_sha256": "96be7d98970592b331a1cd64df22226c8365f1c9f70e169d354bdeb1c9d84176",
+      "provenance_sha256": "8ed193c937cbf36201d0f511124425ef44e99bfa04488737439f6dfc060993ad"
+    },
+    {
+      "object": "Game/backup/src/Stage/StageProgress.o",
+      "current_sha256": "b99eb4bb0c33f67461e15cd7de6d21793c8586546fa6bb91d20c09853583705b",
+      "baseline_sha256": "ab5c67983d62b7ce8c2d51b58d0bc3c110394247c851f4f747145d6f62be4845",
+      "normalized_elf_sha256": "8230b88af3df157e28e8ed1972d5306992e9cefc143a838d8c05d8b281fd6793",
+      "provenance_sha256": "35bc25337deefbf6420806ceb42e15b32fd0137efc8f3fbed79f4fea830a2f5d"
+    },
+    {
+      "object": "Game/backup/src/Stage/StageProgressAccessors.o",
+      "current_sha256": "ade2b40935bbef5476ce282e8893f694023d408de7b5fcc8898a033d2a62e9c5",
+      "baseline_sha256": "578f68311f5fb41fc1929f5d140e59156e8de8aaf221e25ba784885814785e0a",
+      "normalized_elf_sha256": "ea5bad8aaa1aa9fd41ae720f71e72c4e1f7602ebb633df1687e463dd44ec6b33",
+      "provenance_sha256": "0948246c0d44b972fbd8964c3f37b39677f615a7dcad09f54c75483ec3666b53"
+    },
+    {
+      "object": "Game/backup/src/System/Application.o",
+      "current_sha256": "18e487ce1cfb3a2597c7c35f616e90f176ab17b961080ff9ce9394e30a3ec5bb",
+      "baseline_sha256": "b44d52ed11f3799c9f66f81f0f740b4deaf631506ddbb889d03ced75a9de1577",
+      "normalized_elf_sha256": "c865c82a93eb2ce3c3e7d0ff85a93772d425da83c05779bd671d1b0b94cd3586",
+      "provenance_sha256": "fae7665bf8e8a7498719561a4c3c1e54a3b45b0f079c607e374b649635e1fcd0"
+    },
+    {
+      "object": "Game/backup/src/System/CourseList.o",
+      "current_sha256": "ad3bb10dfbcf9979c82d00606fd39e129f0b851eb2c513655c9d36f3ecf5bc6c",
+      "baseline_sha256": "5b771d9be3350ca6afd2f5f8185ae39be689a1a6ebfcfb89f3c08211ecb8da7a",
+      "normalized_elf_sha256": "f52848830170d5915bff1a59f69c5c2b00b5046c27c9aa7989ca7c9bce7cea4c",
+      "provenance_sha256": "22086d9c66240ba7108898cfd5302d14ab6829f301b29a61772ad911a1c3e7f9"
+    },
+    {
+      "object": "Game/backup/src/System/CourseListCourse.o",
+      "current_sha256": "d2b8e08b97328a902a416a16a3dac32c2beea2ecdfff4cbebe04af3faf8e27cd",
+      "baseline_sha256": "413888c7c1587dcddbb9dae29ae0ec296950e61cb34524d19054ed4233b2bccb",
+      "normalized_elf_sha256": "217fb20cceaa7ca3989f4cf20dee5ff3920ac11812c5a071e701b100aac5fdeb",
+      "provenance_sha256": "2cc7aa473be6ddcd678c9e63da55c85b38af2a7aaa16183ed1deefd60de3231d"
+    },
+    {
+      "object": "Game/backup/src/System/GameSystem.o",
+      "current_sha256": "8823305b8b767e2e9c3d0a4b283161b521df1b0e0d790e9bbcafe56f330ef6a9",
+      "baseline_sha256": "c76f4b7e59af465b7ba19b479a725decf2552e146acd2bd2121ce93c878cf561",
+      "normalized_elf_sha256": "7fcfd634758bcb4e03945afdd78ebc3a2681e8badf24cc04dc672f0ae840a057",
+      "provenance_sha256": "86c8a049ad00ddd59e1700daceebf056408a9419242670e3eb00af55272b1aeb"
+    },
+    {
+      "object": "Game/backup/src/Util/PhotoScenarioLookup.o",
+      "current_sha256": "14a3527c13dbcccc98325343f8c1608ee0c1d13f819acdca962bc45074b76632",
+      "baseline_sha256": "b1610b829273318e5d47c7b4a8a17e8c6532b23b2e2b8c94f588d0b93c1c671a",
+      "normalized_elf_sha256": "067ac1e8dac3742af7126aabd08d9fa69c92617f313c3c87506d6161e587bd39",
+      "provenance_sha256": "2c85ee5c096259b5e7ab4f4857e089ba20c7e016f4f2ee440cefbb5c98031a34"
+    },
+    {
+      "object": "Game/backup/src/Util/PlacementCategoryLookup.o",
+      "current_sha256": "950513a7e232259ce4669532894e8a7b69d121600f3166ed79361c8071aac8b9",
+      "baseline_sha256": "714e68408deab500e4776cf5f5564a6da8d1b0bb2081218e3cf7e7bcd6d0beb0",
+      "normalized_elf_sha256": "f866de77e0804cebaf0f1ae29d8f7c1eb32e99f95579825fa4d8626631bae0d8",
+      "provenance_sha256": "22c28e2b3374af8eb73bbcfd9ea0601ba998d41b038ac94cfbd9ad002ae49d2c"
+    },
+    {
+      "object": "lib/CtrSDK/sources/os_Priority.o",
+      "current_sha256": "475b86214dd2e4cfab031ce3131481e90c0677d04a1ba5eaf353b30c6c5f282b",
+      "baseline_sha256": "ac9190e96097565a681a06e8587b62f71ef191e6ed09c665cd2400c9ad893db6",
+      "normalized_elf_sha256": "965d02aa9fcbd062519b0261aea079f49fdc92212c10e73fa70b42706cb4c1df",
+      "provenance_sha256": "68f0ac4e58b3235469d66e265588f23039ee29ce90a15c6219e173c2aa00303e"
+    },
+    {
+      "object": "lib/al/src/Area/alAreaFlagFunction.o",
+      "current_sha256": "f0f9fd47131fcdab323cbe98dbfcd1e3a991e6cbbd49947d93419c60b6e885f3",
+      "baseline_sha256": "e6bee1627da9fb7c82bda949ac3c0e84dcae561857d41ce0bf6a0ffde7a9aa0a",
+      "normalized_elf_sha256": "92e758a7f579ad445da85eba5cdd5716f75db3bac332c79c2c130aedeaa407e3",
+      "provenance_sha256": "6436e7a760a5610cfe205fb767203fa9cfdfba506643b50b0313c03f62612381"
+    },
+    {
+      "object": "lib/al/src/AreaObj/alAreaObj.o",
+      "current_sha256": "ace996fdec18d3b5b84af4f5ccdd1570a93e46ccb1bd7ff83b5742b0d0d8ba3b",
+      "baseline_sha256": "e7a6a3405544d944da47ad71669d6a8f1fb17baf6d94ac8556f7b177338af996",
+      "normalized_elf_sha256": "a592136e838315210cd47d905e420e02f6c342d2c33332eb38aebeae6f744826",
+      "provenance_sha256": "84f0be6e70c407f2891e4fa7c3e3ad1c9f8c6e1d8dcdbe533c8d0dfa7e548244"
+    },
+    {
+      "object": "lib/al/src/AreaObj/alAreaShape.o",
+      "current_sha256": "51e9910bfb441ed664dd3380cbe86dcbc3cca3482f670f36160b7f88ed98f23b",
+      "baseline_sha256": "6b5e759f612aec0325266a29c6d2425fe8df717f099d60943460a2533cefb5e5",
+      "normalized_elf_sha256": "f4eb475d711558641f6c3edf292e250234b9f84ec69619bd2a6c9a94ba0d7d5f",
+      "provenance_sha256": "abace1c88fc0cd374c7a3fe27e8d10efff82bdb67a5a04cc017ca7e17b42dfdd"
+    },
+    {
+      "object": "lib/al/src/AreaObj/alAreaShapeCube.o",
+      "current_sha256": "b4085e40c394df1da0d409c8ac979cc09ad261fbb97e85bab57f2ca086eea951",
+      "baseline_sha256": "60098e34b17baf37cb4bb7770a31154254e6cc33a02b7db9b8ce7de165100280",
+      "normalized_elf_sha256": "5641a73593f686cf4d58626ab3ff550b66471d38e3495fd74bce7baecd86c8be",
+      "provenance_sha256": "b57a0bea33b3d95fe5c0afa197010eddcded3a4203fcca98ceda8ccad290844f"
+    },
+    {
+      "object": "lib/al/src/AreaObj/alSwitchAreaDirector.o",
+      "current_sha256": "739c885352cfb8cf339eb6c5209005c829314d3f3b226a2b9b7b66d58e6676bd",
+      "baseline_sha256": "c1c44ba5aac9fd128940d4ba16795b08dd5a6630a36c5e3fe0a6aeeedaf6a6fd",
+      "normalized_elf_sha256": "bfbce1113f0a1905da1459b09de2444689431cc08c42c09c1d27dc96ea31f59d",
+      "provenance_sha256": "cbbb4bb706243e8fbd53482773370e6a9db17baf1b97ccb0e07bbf66e55fbfa7"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioActionStateFunction.o",
+      "current_sha256": "646a0df31e83d9056cf0632fe0f7bf1cbd09879ea5dae5e28555e3f4e1a80654",
+      "baseline_sha256": "b3bebf9b27d936b7fbcfe276ecca3200decf1651cb9d5f881b3fb019ed45f969",
+      "normalized_elf_sha256": "32e5820f715d5d5c2bd79a788f00aad2b076c5dfac9a531738265c90b226504a",
+      "provenance_sha256": "a5a76898e4fe4b2ba0347438d8b971f5ba00883ccaa159f88770b2199506cd43"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioControlEntryFunction.o",
+      "current_sha256": "74c49c34e6d6d3e1a7ae19996023225b51aa1b2ff71abee87dcfd4bd69e3edbe",
+      "baseline_sha256": "4687b62f3bb1360d45c919c8e05a188cbfd1cff6162ca86ef08ff66e0e21786a",
+      "normalized_elf_sha256": "21641d185964ae54ce5da61df52b5e03428e40e2e8fdf6b88e071b2be83efbda",
+      "provenance_sha256": "6f85c6c2f00c4f6f05964423a44aecf9faf0ded83694e7c9dd1ea36a32dc9a3d"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioControlFunction.o",
+      "current_sha256": "ba54ce091ca2e232da2b909559c00b996f648f7332e7d15f5319fd1d50b891f1",
+      "baseline_sha256": "68c20c7c025d7317875758d2d8322bc498dc6787946302e587012684038ae2ff",
+      "normalized_elf_sha256": "982ddc42f7d7552cdb17927fb8430427e5cd66e02acf26744f54e9862d1f206c",
+      "provenance_sha256": "f3619c8bc6f2276767d065f0688d0edc022f51757b7969fee2639b20530cf079"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioControlInterfaceFunction.o",
+      "current_sha256": "2b0d0b486c9219c0e72ec3831a33974d158b37ca684ca31054adbffb1d917633",
+      "baseline_sha256": "6bf252778f402b90f60f22f2b86c1475a64d34ac349ee5ff32fbbcd17193ddeb",
+      "normalized_elf_sha256": "02eea10546d07c41d38308b934fa74c8af7541130625d40a3f8780a5ae3ff042",
+      "provenance_sha256": "cab5166d674c2decc297d5766019806535f01e94dc6540355baf22ee6aa175cc"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioHandleStateFunction.o",
+      "current_sha256": "a3367c20db46814ca1e0af2c281be1d031c0a33fd2dade58b693aa70d7f4bd8d",
+      "baseline_sha256": "2882a871d57d4316e1320f556aa85326e40c66f7ca6411548925ad4f791df7d7",
+      "normalized_elf_sha256": "ec1b435ea3a5b5cb8c908fb2b74d1e9f6420b9a50d5d738b27efd4d537974725",
+      "provenance_sha256": "1ea122bb1df1d6f3e9b409984161d99426ffad5697d56e580aedd6ccf3a5c5e5"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioInterfaceHandleFunction.o",
+      "current_sha256": "e850368e7bce7c1411d36382dc8e85b93b2364305cd23e11be0c431c6e623b6d",
+      "baseline_sha256": "24a6a27eaef12ab0998eaf15bc0627281ea1e00efa7832e22ff5b1544c32f12a",
+      "normalized_elf_sha256": "d43e2bca441766d101321caffe58d1ab5f07f6bc9ca8b1c6dabc58d4056fe387",
+      "provenance_sha256": "dcb5c9d6a25537f070f5db7f65009ccc5a95a9451cb1f4ba0a86a3e4c9a128ae"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioKeeperControlFunction.o",
+      "current_sha256": "520325b7d2147ea7e270124577e7df7d766029a8c462ef5995038ea6ee84424e",
+      "baseline_sha256": "60f790889116fde83da8c62677626364ef0095cbca54174baf9c94aba46c7303",
+      "normalized_elf_sha256": "8f4dfa4f364d429561a8a5ca2511bac2dff74b57b48c60d31ebbc9740ed3cd22",
+      "provenance_sha256": "01e77b23f4f58ec070042c5c846f741750eedffb4500ec0884f9581ecbe3fc84"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioKeeperFunction.o",
+      "current_sha256": "627cd6d7a30553a00255d0d5bcaac9700dcbb1c1d7f15d884db7923a96229039",
+      "baseline_sha256": "0eebb197a3b44ad4047742605a6835b52e0f6bb44c56e503f590cde1995ec1a4",
+      "normalized_elf_sha256": "bf8d756ebdc2c3089288880705aba01cae6790478895eac3b2a884f45959be54",
+      "provenance_sha256": "e4e1ebd951fe73ce5c1398c77c354c5194f4852c5123799e723df5216b6f58b2"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioKeeperInterfaceFunction.o",
+      "current_sha256": "820738f8c7b2f849b3c411e70cbba066e9c02c9d5a21a19937ddb945fc080f49",
+      "baseline_sha256": "c01ab0d3bcf949f71b663486f6c471aa6cb5e11f85c77bd8715bb3078c740131",
+      "normalized_elf_sha256": "5be8ad8e1f5d749e9ec4c4529e33e6bf8e597cb9a14ecebead96902b65718ff4",
+      "provenance_sha256": "5d04dc6a6a7799166b7c925fa28593e26c2f76d5b0f85828d8db2fc07b184caf"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioParameterFunction.o",
+      "current_sha256": "c52d0ee29d9d2e7b4a69962cdfe9c2a66abacfdf7590b4545ac3309739187471",
+      "baseline_sha256": "6f15828a096c95ad91c000469f341bd575ff97bae0c799fb461c1483544fb1c5",
+      "normalized_elf_sha256": "d8ec16a11d197aada67e841a574c92c6459300bbc0f6fcc0fc738bdc2374edf2",
+      "provenance_sha256": "df5432f02468af1d79a6c64afbad5c103af89780a2c9ce9011ba34c5926e6337"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioResourceEntryFunction.o",
+      "current_sha256": "18c610d36b1899c926891385de95241bff2035dcc3d87cf930c6dc417b9bdbdb",
+      "baseline_sha256": "7dbc11e86f4bc89d9f92cd5a3b770fc81eed076513a81fc29fc7ddcc5381ceee",
+      "normalized_elf_sha256": "d8541f0d6ebb0a855bc3120bd2dd13c16a5ba18c943a88c5c30320c923941849",
+      "provenance_sha256": "27dd337017852fc7377ef4f6953737f5ea6c34b598ff1308432213585c1d0223"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioResourceFunction.o",
+      "current_sha256": "e1ee7bb05a040de89e6c3c308b3f420f81f329afb722b58e2f59d8d878469e7e",
+      "baseline_sha256": "ee5d4bb15ced44ce51f6aeb664f88cd141da71fb3746793b55f419481f4b1c6b",
+      "normalized_elf_sha256": "78551b14bbb315a49c2fceaa6fdbcc16441de0dd2f46bfa80fcaf9adc2d5cc93",
+      "provenance_sha256": "c63d3b2d3bd3909d7b65e41ccd34a6adde4edc9298f81baf2ce5a0006a414d27"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourceFieldFunction.o",
+      "current_sha256": "80c3dfb4a1344e1a659be838e3de5f32f460495a8f776065066b2e52fd11580e",
+      "baseline_sha256": "1ef708a86ef539abeb5d036de0c806db8fdf8c63fc62842702dc7627f40047bb",
+      "normalized_elf_sha256": "3b7d3072bbc3472c4a4fc028d9c87ee6cf162b8980982e85a291dc3725a66568",
+      "provenance_sha256": "e0665496ed392d35cbd8638e0d9f00418b8b91ac04cd8a622e3538eace6ca705"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourceFlagFunction.o",
+      "current_sha256": "10f3542b303567fc841a22246148debeb7244c967973c348194148229809fbd4",
+      "baseline_sha256": "8fc07f54b4eebb2eabb0a2e2d85df7d6a4dc8376733ff53e37b0f1724e6f4f60",
+      "normalized_elf_sha256": "753019b1506c15a7ceb03f5abc6c3c464c5e8718e1fbdb46a981f384ad895832",
+      "provenance_sha256": "ba4c5686b48f418250463724709d74b2718c7c4b37e7a727aefbb3ce939cba93"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourceInterfaceQueryFunction.o",
+      "current_sha256": "1e96d5f3260105b33b2abcc97395616eddfa0f5249869a962713a561531e3051",
+      "baseline_sha256": "041781c684a9a3c75cd75922fd5497f0a60ff9d8d9289130e37c0a2261fa31b4",
+      "normalized_elf_sha256": "dcd030e6c4a16a184245be3b5ccd27047378d3e588dbe8b1c07681e7bef6e910",
+      "provenance_sha256": "8ca707974bc8503d5b1c65cd732b3c1170884af194ecb5adc1c794372c00e5c0"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourceListFunction.o",
+      "current_sha256": "c7ae3ac73bfdd86456fed12ac37d24eb7a141ec0419c24b62553503c1eaffdc3",
+      "baseline_sha256": "f13fda5536b92ec6f3b974a8b7e045fc1056291c2a65ff4207ad7db6e7bd7ee8",
+      "normalized_elf_sha256": "f37a3ddaa40558d98c2268e12461f0853b415380016c473733301170badb11bf",
+      "provenance_sha256": "f1e8ef9e46e382dcaa591bd1f16035f56d92ec4c3e0e70b705d4f6d50ac29320"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourcePredicateFunction.o",
+      "current_sha256": "be8e796e9c98482bcf0fdaecaad5b736e613aa2cda83853bea542a576863ec48",
+      "baseline_sha256": "db0e89ba29c72d9d691af687641ceddd0f36d0b35160a7b76a9c30d159deb24f",
+      "normalized_elf_sha256": "5d3c5ab7ed03384187c93262a535fe24ce7d6b6378757c9482dca55ed2e52600",
+      "provenance_sha256": "077e1e5aadab09cc2ac2c89bcd88f12bf9f780abb1a750560408fe4256ab073b"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourceStateFunction.o",
+      "current_sha256": "14b402a307d6fd6365650fcf96ac4a49f513754132c6ee20753d6ee336e2d5b5",
+      "baseline_sha256": "582135af68f90927e67755fb173a800c1c98b58c056400e4d18eb39633daddc0",
+      "normalized_elf_sha256": "430b1458aeb8426e8d1be13e749759aa948f91029e6680b22d485b100ec1a765",
+      "provenance_sha256": "725f857abacb3f9d57fbc7d8a2efe6b4e6ac9464386f12c6624637e04d3e6fb7"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioSourceStatusFunction.o",
+      "current_sha256": "b0bb110de5f06712cb2177c0ae56a87095ec8ac795a7389e9b3b81421c10aeb5",
+      "baseline_sha256": "439593039e947eefcafa6b8b9036ebc4379e84ae3a1a095b4b17a22cb869d9c6",
+      "normalized_elf_sha256": "43cddcd9fc97e899d22c21fdf9dc97ff10e47a48e30def4897c16887c3b5aff7",
+      "provenance_sha256": "bbac8b994d50da7f1eed7ce8b8a72b1a7ebef4c3211f7264fcf12139e86806a0"
+    },
+    {
+      "object": "lib/al/src/Audio/alAudioStateFunction.o",
+      "current_sha256": "a789dc926f1de384e4712a49d985a415b037184eed3e33d38173b98883fd0341",
+      "baseline_sha256": "9a90a9724f695b646b7a393c83cb4cdce16f59666203bfb439d71d66f2cb11bd",
+      "normalized_elf_sha256": "8f6357c6ec2223a480659645a034d5a8043d74dfecbe27a95ba392f1009c155e",
+      "provenance_sha256": "db287037783be7b6c162a1d68a329b1f7965fc0943588a0ccaa069fe470337ce"
+    },
+    {
+      "object": "lib/al/src/Camera/alCamera.o",
+      "current_sha256": "a21c6f36b5c825f5d9f48d961fa6601e481c7fb6f6741069ab6b479d415ab2dd",
+      "baseline_sha256": "6bb4ce652fc6f8c53df0127adfc0b6b26c219ba179872d114ebbe352a2f58a98",
+      "normalized_elf_sha256": "2edc6d87339ba705ec47d930106f3ffeea284cc321d4e9350e94f7b50f7ea253",
+      "provenance_sha256": "67668199ad5e9efac54c7bb6bf8376a2935d286db121f208d1a295c74217a28e"
+    },
+    {
+      "object": "lib/al/src/Camera/alCameraDashAngleTunerParam.o",
+      "current_sha256": "f3ac7580ce519da67db930f48b4924d4b7ecc3cbc5b5d0b3d817b84eb4215dfc",
+      "baseline_sha256": "9bba6e2a2ec2fd5a4bf0e7706432464f99c3afa122fd43d0567f9fbd70a421ac",
+      "normalized_elf_sha256": "9b56863f221d30192d5759b0d00eed5fc018f63cff7debec06ca686e3b683ac8",
+      "provenance_sha256": "a1fcf079893f1ed6b852e40798779c3fbf646320cf8a0d31d7f0d95cc48f4e77"
+    },
+    {
+      "object": "lib/al/src/Camera/alCameraParamVision.o",
+      "current_sha256": "f01fddf6ff029e3d472515f005db48c79176103c0202118d1c5f3b774830d6cf",
+      "baseline_sha256": "f713f86d78dc4a07623b8ac858dd35100e37ed4c1ead796a385674f56a4fe5bb",
+      "normalized_elf_sha256": "beaae8bea52da13fbcab0734a669a537939786fabe6a84bfaf2e5aa1e90b8773",
+      "provenance_sha256": "6b4694d7f5f8a1601079a7d53f6a1bc4b4078c7135c27be5686e5682137b9fc9"
+    },
+    {
+      "object": "lib/al/src/Camera/alCameraRotatorParam.o",
+      "current_sha256": "442086c5dd1fee903cde1a39a81b159e94741163bb581fe9cfc516687ae8fbe8",
+      "baseline_sha256": "58e761c79ab86a584e099c9a2d023dfb6af46c64c99dd469ffd05b56c6683ee0",
+      "normalized_elf_sha256": "b35dc89055216c76330fa7368eac2e205791d82fb9d9fd2d064233acbbe9e176",
+      "provenance_sha256": "c1bf7bb1e6ca546f884de72d5cdf1348ea1698b8600829a354ccd44c57c8919e"
+    },
+    {
+      "object": "lib/al/src/Collision/alCollisionUtil.o",
+      "current_sha256": "a0bdc850311b2899fc4744860f267b79c7ab60e3bb9042d09fc74bf479c28f46",
+      "baseline_sha256": "a29e78c725f83167e2226bc581ae800aca548f9c69ff7ba0d2686e0b77933951",
+      "normalized_elf_sha256": "f01e7e582f76410ddcb90c43d0227a5ebdf8b11ac8ad638fb577461a0ad9c1f0",
+      "provenance_sha256": "c6a58624fca3147056352f77dfa173897ba06a69ac3810ba2a5a9f5424aa8347"
+    },
+    {
+      "object": "lib/al/src/Collision/alKCollisionServer.o",
+      "current_sha256": "9d9a024636b6390cf704775043ddefd4aa43feff117b9c0d875ce4e89e04f0ff",
+      "baseline_sha256": "c62cd68bbbe43fce3d4eb1da0e4dd1df32e8cf582e229bdb545ccb930044c04a",
+      "normalized_elf_sha256": "e5334cf5cfa97c90416f0698db07eb0493c828e9fba0ab97dd3e23f2c801a705",
+      "provenance_sha256": "6200bbaf9d1358db1a8648e623e8cade3bba038ee00cdf0a821a46103b86c4b8"
+    },
+    {
+      "object": "lib/al/src/Container/alPointerArrayFunction.o",
+      "current_sha256": "0c252287e024c198735f1056bb6dcd2ddbe8489132e3fcafbdf0b9b07057b6ae",
+      "baseline_sha256": "9e76e1e4edb0a1af238f9f95ffc10089abf0755c6e850b6e5d30f1e3f3a72119",
+      "normalized_elf_sha256": "37d69a100dc9c8e4fe15f9095cfe09675f20d35801543fb6c6a648c2dcf8008c",
+      "provenance_sha256": "7a537e65ea798a0cfa32c0e1e78d21dbb1b426bbde626a5d08d233ed735ea6b4"
+    },
+    {
+      "object": "lib/al/src/Controller/alControllerUtil.o",
+      "current_sha256": "1834a6bd3523bd2d0ea6db0bbc3f711aa0ff3c891ec68bbb2b9dafbed80646fa",
+      "baseline_sha256": "87419bae5c9bca541212e63f9e240103cbdc6e77540e9dc5b0049a409b464e5d",
+      "normalized_elf_sha256": "1fa7e4392b8cf3b54968fb6ac14997b10ccd2ca8c2f579dbd3f13b05d39f64fa",
+      "provenance_sha256": "aa2244267e506bfaa7de72db3a2672734266590554130ec36082ff0c7529d4ce"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectDeletionFunction.o",
+      "current_sha256": "5c88796583c3f94d5d987738acf61d69ad76d8e818b0a3d9cf337487b5d1cc10",
+      "baseline_sha256": "cf3889bf665582c7e82cdf09b517a0dba1d78c490ea11ff4e3547bf82328e024",
+      "normalized_elf_sha256": "9671fd47afd5322e213f816cdacbe62a3ec13c952ee0a73c5d3ac765f159c5e6",
+      "provenance_sha256": "93cafe0d5ce259eaf6b926b882d0178fa5f373ee86bd9ec989a269420571eb49"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectFlagFunction.o",
+      "current_sha256": "02bf8dfb2c8e4298c06a6a3644fa7577bdf74de3b667b1bb128c18e185152871",
+      "baseline_sha256": "f4468063df8c3c87dc022e904f5ab36d58b14a9e6e96353e8da620163989279e",
+      "normalized_elf_sha256": "a9fac6f4d81e2fea2e3ea5c1d37b59a004177dd01284641625b86cb11e9d5988",
+      "provenance_sha256": "9768667bee333bddfdc0312d5a8f0ab1bba5f337eeb379d557086445ae20048e"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectHandleFunction.o",
+      "current_sha256": "c899f6876d90c49884aed473fb5687de59960cf717545cc1865bc3195ed39e8e",
+      "baseline_sha256": "d3982c76f170f128a0e4478386539e4044778b53171096b39fcd4c268827d1a1",
+      "normalized_elf_sha256": "a1fa9e11a9d419ce0cb413a6fddc9a8dc288672225035742d258bcdfeed6ab63",
+      "provenance_sha256": "d704728675498eae4d46128d6009112cc2513de35c19a52554280bb0fa0e2382"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectKeeper.o",
+      "current_sha256": "b22e08f2cde5d0392911a7128d1ae752ce10a25f6a4a9e634d242fb5f1a1f310",
+      "baseline_sha256": "af6680c69d1451c2e67f317e49aa5723139ddb4ad449c2acfb9a87641c35eeb9",
+      "normalized_elf_sha256": "837e0b4dcc1091425bd3f7278e00a1ffdaefda9234f44b8f5c4910ab96365c63",
+      "provenance_sha256": "387319f6c45fcb0b4051ff1bbd2d06eba78eeffeaafb1dd5f9bcb798794a22e5"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectKeeperEmissionFunction.o",
+      "current_sha256": "b7cd82371a2b55a1da7308a5ef8ad2604a39e3e2fc29fb8a43d7ff7f7ec58c37",
+      "baseline_sha256": "3fc857b180f88d22b5a7361b84a69bc45c8aedb4a7c94196813179a8e306dbf4",
+      "normalized_elf_sha256": "7bac1ee3fdeab2a61b457008e740acec92218f0b347d20b38feb59a6b31721bc",
+      "provenance_sha256": "9fe63bda8f32f0853bb95110c045aca6e0395993a938f478d83352b3b3c30c4b"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectKeeperFunction.o",
+      "current_sha256": "ff3efab7cffc043c9be828a0edf71af17c9a2d8ec9c3f581d96369b5aeaef75a",
+      "baseline_sha256": "ba523474030e2ed458c703d605b594c825b6df537f0de1a9fe3eb4fe18a07718",
+      "normalized_elf_sha256": "1c242c1b730d61a4502091b8dcc8e56a74822f340379eaabe98f0875f41f86a2",
+      "provenance_sha256": "919646b6db3050b9f7ab7b1c536ac60d883b5eacfb0d990bd925d15df8d8eb06"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectKeeperInterfaceFunction.o",
+      "current_sha256": "fb5d3700443ea3c44db076185cdeef4ca14bc66a0988f56ebe62e903e0e9548c",
+      "baseline_sha256": "2f9129659015a912701dd126f44c6236aa87e7e1e3848ce0bf13f7d0976dea4e",
+      "normalized_elf_sha256": "44de3b7b3d6b7e9ea4692023303396c091753399d1c9dfb4ae9f34c88ed4fa2a",
+      "provenance_sha256": "42d333f28343bcf9504845f32261b8039cc38ae0b28b1da33526f8e6e8ab2152"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectObjectDeletionFunction.o",
+      "current_sha256": "842a18794e2636f733dc784cd5548c5871ccf962dcdd65fba88f38ea334ab09d",
+      "baseline_sha256": "ec5bc78d26796899589a871f0a46d3766a2c96453ace160ff870f8c772d5f57a",
+      "normalized_elf_sha256": "bd9862a5dede586386922368ebe59e6d3614faf3880d8da9d4f1adfae05ebe5b",
+      "provenance_sha256": "1ba4027bb225c73e4c4410f37938792ebcdfad664593296cf9d87f3d6daffb5f"
+    },
+    {
+      "object": "lib/al/src/Effect/alEffectSetFunction.o",
+      "current_sha256": "e9fb9fdf4689ec8cb9c4d597fbd929d54cfead72ce67828b14c73607d8347bda",
+      "baseline_sha256": "ab4e61a4ad666f8c0ed22913dc81e20b657200b42db14ce9e843c4676909f19f",
+      "normalized_elf_sha256": "a0a089fd2747725a2e269528c44ced49ab76c986319fbba9a36edc38ddcacf1f",
+      "provenance_sha256": "ee039e8a10c5f83a8322008836df641ee648bb8d4c2a5b739f75a02069d8c735"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteDirector.o",
+      "current_sha256": "07563febd808ea51c1627e7349a63108a975ce3ae99056992569023967b32b1b",
+      "baseline_sha256": "8a0cca330a173d908ccaa3e151989ef83457e81670bcd5b061b62c8a30c40e9d",
+      "normalized_elf_sha256": "15f30e19afa1c1fe1ff688a422aa9740db8a7a630e3ea4679d0422022c1a87ee",
+      "provenance_sha256": "97928b41992737ffd9a6e0da97dce0984a815219b18573377ff635579db8b81b"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteOrderFunction.o",
+      "current_sha256": "6aee69ff28a2c3c72bdae19a2b0c1208d09877c23dbd432c0cb674105ed241cc",
+      "baseline_sha256": "21c13918a209af3b642eebe78890252ed64b0b72cdc931b26c526efe95485a3b",
+      "normalized_elf_sha256": "e9ec17c396693ea3d0c34a1197ac709d146a915a4ba14b79ba3d54c2ad1672c9",
+      "provenance_sha256": "eaf360a6c88cbddaba068373055c3112235f29977dab363534b18d32a341400f"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteRequestKeeperFunction.o",
+      "current_sha256": "3e0ef5b60801b4a691d0fbab8b5fd31032fe63818b066b7c837b34329679d3f7",
+      "baseline_sha256": "8b1b83dc5985b1bdefdf3944b5bf38f295eeb41d546e6aee293645e83e340213",
+      "normalized_elf_sha256": "3542102d67dfd510c58c700d3e03f889ae2923e7021d4bb2855dee68e3a51e22",
+      "provenance_sha256": "b010a20286d3a8427541df6a3991d108b4281d89dcc3e129eeb25747d5ca038b"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteTableHolder.o",
+      "current_sha256": "12c1f9e4a7aa5e848bdd9bac3d12073e30591a40664bf5046fc863314e79c2fa",
+      "baseline_sha256": "0d8fe6fe2ffeef24a5a7cf7c6ba3d8ce36fe845be12663151f156ad860f49466",
+      "normalized_elf_sha256": "d28c0838bd96260cc82626e925a92140a66d8bb3a6634d8d4f7587dd8038c4c6",
+      "provenance_sha256": "ed392389c88657e2db8feba43218d0fd3d882e35c3bbb2aee94048300c958ab8"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteTableHolderDraw.o",
+      "current_sha256": "653afe4daf4282913ac7b0b250f44868535e970bd236478ab8012a56261eac4e",
+      "baseline_sha256": "24c7fb647c08a3d903d3ad418350bc1d1a3a8b00b876310c5c64dc585c931810",
+      "normalized_elf_sha256": "dedca3030e83c18eaf04d735b859d664a973458c83beaac5ed4da861a0b7ef4d",
+      "provenance_sha256": "4cfaa721fc8739946efefd66d4f509da24ad2b441532352b94a01158e217560e"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteTableHolderUpdate.o",
+      "current_sha256": "5fda47c842165d1a9994b1d2a9a2ca64fabd75c7b6375decb1c9d84e9d54a446",
+      "baseline_sha256": "2a8635d2e8fb34e0259f6889432fc12c6ac5c1b8670adc29e629c6fc11349918",
+      "normalized_elf_sha256": "873092f29ab8bc986e8cd3eea94f5694eb593b6faece9c5829b59bb3f7d0dca5",
+      "provenance_sha256": "375d18d96c341962239883fc82c756f8bb640ae912900232a93f881b8c1e97f7"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecuteTableHolderUpdateInit.o",
+      "current_sha256": "4c50e4efed0789692b7cd1da3e5412302e92781319f4a4fdace3fbcc3d9e1c25",
+      "baseline_sha256": "669b8ab899a210bcd7e81ca82851342944f64757f3c568fee990ff8ce89bc073",
+      "normalized_elf_sha256": "ef163fa2ec3a8ccf6a2ab21e78f772d1e2b98f5ad3d47c5fdb25bc04708d9778",
+      "provenance_sha256": "6838b375e9ad4bcd61af4285e0f385f47116e556f219a09d48821e3605aad16c"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecutorActorList.o",
+      "current_sha256": "84fe3f13299a948d45f198a31fbb3c0cc60b997cbfa95765e11b843863314507",
+      "baseline_sha256": "cc0fe10c1057fc891310c47d23864bab70ead374d553fa0165c191ef66107640",
+      "normalized_elf_sha256": "34187fda995e99360fc0e07a9d4cfa20d2bdb8498c6f30854b8e203a4d7ef541",
+      "provenance_sha256": "8b201db64b10b7952e237c3cf2bd94e09413432eedb6d9dff5a923b072d566f4"
+    },
+    {
+      "object": "lib/al/src/Execute/alExecutorTableListFunction.o",
+      "current_sha256": "a404243cabb8fb2192f688770c9c6144ef7637f0490465f3d53d56562321350a",
+      "baseline_sha256": "47d13f13873c7c33f488cabce7a88e6f579dd4b2cfeff07e033d4a1942b2e35e",
+      "normalized_elf_sha256": "f84ff33ec17f02a5767135f98db58c9af1f821ee05e0c548564fdafdf34b7bc9",
+      "provenance_sha256": "2f5f60a728a68899167e6bf7899c5ead725462b90b0a08e0d1414b5328521af4"
+    },
+    {
+      "object": "lib/al/src/Factory/alActorFactory.o",
+      "current_sha256": "55c7e86116fc224fd127669bb47b1d40a743199a1862faaa27266d01889ffe36",
+      "baseline_sha256": "66ce09ae751b535298ce99756adbcccf8218454072ce3567eb137cb67c88471f",
+      "normalized_elf_sha256": "e4d034492fae0e49bca84ea227f1768c32198efaa57d90a485fe279ed6878316",
+      "provenance_sha256": "9bcc14b804a5a1624c95a91c043eb95bf89001fa7004d65254087bb855a532f6"
+    },
+    {
+      "object": "lib/al/src/Factory/alAreaObjFactory.o",
+      "current_sha256": "1cb56e4a363954b01007507aa4cab1b32533fad5a82623201d2964c83d9576bf",
+      "baseline_sha256": "d02d2cc47dfa828e4dc7b2f58ee338431a9bb8e38aa6ad53ecf898803083a180",
+      "normalized_elf_sha256": "129a127f1fe472755f9679951a358c61751664134ba627d35fbda0cd5f2dc663",
+      "provenance_sha256": "44cbf334db5110cc8698cc46aa57e35fa7c52d3956c0c220b1bc21155a63146b"
+    },
+    {
+      "object": "lib/al/src/File/alFileFunction.o",
+      "current_sha256": "603aea11142195d8b645babf6c2905f014a6efea9ba05262a4fc8cab2e66f6c1",
+      "baseline_sha256": "f0c8ff33f2b0e73335feca00f2774f2dbd083ab3bde7fad4ef4ae9d2c3b769d6",
+      "normalized_elf_sha256": "30e8e5f8587b55a09844ec7d249a6e1ba62aa20cfe9c01ad5cbf80215c28d68a",
+      "provenance_sha256": "c84466f27668aec539766b81d751c5a462d44eb31481e0fc76fb1705641a12b7"
+    },
+    {
+      "object": "lib/al/src/File/seadFileDevice.o",
+      "current_sha256": "85caf8395c73f36b7ab1d971bb18f7aec758b07048f57d1f7ee3a370862d3b7b",
+      "baseline_sha256": "9f5592dd75763ca73334f69518dc1bb1fb449eb158980f1b7f178b47484178f7",
+      "normalized_elf_sha256": "737b247491c36b430fd1aebbc0743fe07a6e5f13965d1a88f9f0be17c4863f57",
+      "provenance_sha256": "6dd4c0d8076c1f6da6bc0d823343ec3c45f4aa94ffb56e715794cb5761e2b566"
+    },
+    {
+      "object": "lib/al/src/HitSensor/alHitSensor.o",
+      "current_sha256": "028cc892730e94e336c37cff1b237c5cb268392dd6926afd74d16fe32f6076a6",
+      "baseline_sha256": "3cb27d2be0d0d08afa23c6cacb0c236949659a58eedd31874a7e56546ab60c78",
+      "normalized_elf_sha256": "7770608aff26b171da6f130d75aa7504e0b90a8ef447c1fdf34ec7f509b568d6",
+      "provenance_sha256": "a067ccc56219992b7df890ea9c1445d499d0d12ad1a59dcb0cc658a31be1edc5"
+    },
+    {
+      "object": "lib/al/src/HitSensor/alSensorHitGroup.o",
+      "current_sha256": "f7c3f2cae00e812f5c1e1d66412334b8f0badff4d96e5d458eba23a464810984",
+      "baseline_sha256": "b3dfb508e40d321bf6d74044910680faf5a5d190298118b2e2170c9e6bcaf137",
+      "normalized_elf_sha256": "f0a18a1654cbf73203d802a7c754d7d999409fd0c69f551764c02f45a3d8f409",
+      "provenance_sha256": "9e24b8f34b575fbd0cccca0fe3ec638f3cc22c1aa442e460eb9886fee5bdfe61"
+    },
+    {
+      "object": "lib/al/src/ItemHolder275828.o",
+      "current_sha256": "824faad3898d8f7ab4f93d8959b2d79804d5100a06368145e8e019e3ee051729",
+      "baseline_sha256": "f98a3baa07d676b08e7493adbfcf83c22cc2c923dab102b5cac7468b6ea15820",
+      "normalized_elf_sha256": "d9d189d05092445e66f07662009bda050c636bd73d040846fcf34430afdf4cb6",
+      "provenance_sha256": "0a4441a62c1d4da2d1959e71183077a722d0ef673a6ccf05a83e0995a2a6b6f9"
+    },
+    {
+      "object": "lib/al/src/KeyPose/alKeyPose.o",
+      "current_sha256": "a35690f4d7ed6b1fdb900719817a56eaee33ce300a50ed69e0a77a3db7317728",
+      "baseline_sha256": "1d7adec98626c1af92d7e5e14748a14a4f6b2dd3acbdebd2a479053944098016",
+      "normalized_elf_sha256": "f8f38a33e3a0ec54dd1f5eb4c20092af89cb748607f89c3cedc7012123261d85",
+      "provenance_sha256": "4aa18c79d9a318e1f58a0186d3f4ef322ecd459c96bb34d2c8e15468cecb4fa5"
+    },
+    {
+      "object": "lib/al/src/KeyPose/alKeyPoseFunction.o",
+      "current_sha256": "95cee9cbaecdaf32d42ec64b95cb925c6b9196ae1eb38620ec2f8ef6a0f87fca",
+      "baseline_sha256": "e91c329833969e1dbc7c4ffe981c060712b4e35cb040f978766df58b0db3f3a4",
+      "normalized_elf_sha256": "8124d03dd246e5186928127c79bf831c1c9d8b2bb9d1d01e5b63091333869ca7",
+      "provenance_sha256": "87d2fd938d2c25e2495b55d44716d797ecb55d903a85bc5c064ee8ccafcf61ae"
+    },
+    {
+      "object": "lib/al/src/KeyPose/alKeyPoseKeeper.o",
+      "current_sha256": "81f7364be6354b4598bbf15574fbfca4b8f4900529b318e85a5c7c8c22367e9a",
+      "baseline_sha256": "47fa36d5c913540ae7748ecefc56b9f97d3e131089be85d9977413db2b945dea",
+      "normalized_elf_sha256": "2fca9d27d29e91217007660178554b490b4acfe026dbb39be53df65c07888021",
+      "provenance_sha256": "96f5904d77a39437feaa70805915c26dad9196f1c7f701623ebfce7eb003a0a8"
+    },
+    {
+      "object": "lib/al/src/Layout/alLayoutActor.o",
+      "current_sha256": "1ebd4c2c7ceb5ef16cf1ab37fbece6accda2dc3273690e3326eb409e9cb26d2d",
+      "baseline_sha256": "c559d438b6aea9e33054f6a1f74092b17c825b4474865f572e1d2c30c904d47a",
+      "normalized_elf_sha256": "a138479e93864339c634ed296ca372eb16f19dd6a15f7794c60278164b6c4f4c",
+      "provenance_sha256": "bf70f910c0de73f59d164084a136cb8a9a305f3583f050d403581cdbbc4587f7"
+    },
+    {
+      "object": "lib/al/src/Layout/alLayoutKit.o",
+      "current_sha256": "b393a80ff629a464a92bd8050ff9be430ded6ccda589ae969ad8ccde500ee151",
+      "baseline_sha256": "84c851efe6e696251791e8eeefa12f8f36fa2abb03cb70a4d51448893e8800ff",
+      "normalized_elf_sha256": "bd088b7b48f7e6b07b6426dde2a43190159ce800c9c387881c72a89363c1d245",
+      "provenance_sha256": "4025e10f777a591a4fd6a7126fecef967c1e910e96479717b37b39d4a7c25546"
+    },
+    {
+      "object": "lib/al/src/Layout/alWipeSimple.o",
+      "current_sha256": "e2f8161c4c25450a5b6636b3a4591eedc4dd88ecb4af96d1b91bebb17fb5211e",
+      "baseline_sha256": "425ecdeb7ba51618bf52b31675b50958771cde5210f88c17927b98dfb2e10403",
+      "normalized_elf_sha256": "f99fdf068c829f377b2a467698249418905f784be66740c62598a2af7b44de4f",
+      "provenance_sha256": "c186dd6fc18844943a45c5a6a5e23bd42219af386604b3ca098c54c8589a5ffb"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alActorActionKeeper.o",
+      "current_sha256": "6c5c976e67a8fba4f97e19dafd4a4908fb06ff7ccf32e15da718b2ba6f000878",
+      "baseline_sha256": "4611f5d686afefc6c87aa188c17246d179797247878a769ec214b7e7d97e5d25",
+      "normalized_elf_sha256": "1d2337b03b2004e778600e1f194643c52e7f2bab66c1d909e4d63f786f44ab0c",
+      "provenance_sha256": "7e96f20bbd69adbeff0066329fbb1351102818bbc375c31efa8046e613186470"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alActorExecuteInfo.o",
+      "current_sha256": "c9e7c9d01ba6f2517dc7606da80dd7954971215e7afeec2ecdd1d91abe9b8eed",
+      "baseline_sha256": "d3d084bf9b6b5a92d6e921af63f334404ccc8db25ef8dc3b2431fd0f3e6f0266",
+      "normalized_elf_sha256": "dc86871b00def1f6b9c7cbe5f9f1decfee747e862ff0f78b6ad0c666daf862b3",
+      "provenance_sha256": "305c1724794aa951b57a469d5257282e09f91a3276a54bcc1b60c1788c12ae29"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alActorExecutionHooks.o",
+      "current_sha256": "089aacaff24a05a77dfea4bfb578d7d568b52237d2e4b3c2ae30fdd3ecaf0016",
+      "baseline_sha256": "cecf81f1414d5da33417eca6ac5d11f238276b2cbf6813aa71c84938d7ee9193",
+      "normalized_elf_sha256": "55a121f47f717064a83d1cd4f28f6f3ecec41baa6581875153919b1beab2402e",
+      "provenance_sha256": "17d2bfa26cc397ae851b23f3c0b4eb031c704197769ce76625bb578e6c15fcb4"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alActorInitInfo.o",
+      "current_sha256": "c4e99468fcf4d72550f820e3e5f125a2abe6e1fcebe2b837704dd50aaf173dba",
+      "baseline_sha256": "0bbb26a650569c0db11aa7688f4c447148ac8035702bc679a34f2bb70cc5d1ae",
+      "normalized_elf_sha256": "0bccd46bdf7fff963b8fc257d890f07bc1bd2a270e7fa887473b13fca4493569",
+      "provenance_sha256": "f63ffdbf67fd87e0d4d987a76b658f62e8320553579d83feebfc6bc393e56116"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alActorInitUtil.o",
+      "current_sha256": "3d7640aaf7b333a021c0aca7177d89d08308d3aaab6f16feb4b5922b0496cb18",
+      "baseline_sha256": "e8438aaa44c7183c42230e11a993f81e2fbfc777392b99130e56aa13c2b595ae",
+      "normalized_elf_sha256": "16de4b68cc8919b869c522bd6c12095909e17d5e5748234994494e4b66f1be83",
+      "provenance_sha256": "51e8434ce4a4f1dee375a43ddc79f4ba5ea76398ba9ba029fa075ee45fc43309"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alActorPoseKeeper.o",
+      "current_sha256": "a2339e23ab29e5b6b5b9f6b38808be3ab2d7e6f10d9e204e2ed03f606b581ae4",
+      "baseline_sha256": "5863883a878199b13a4683ccf527e90fc18008d1d54f260214f74298a83f4a10",
+      "normalized_elf_sha256": "3a299ea485521eab4aa2187b5eda6bd6afd3e9c32253764a480268c679790949",
+      "provenance_sha256": "4bc708f30a2479eea4e2f22a623452586aaa2b601c4741a72606bc34665b3700"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alHitSensorDirector.o",
+      "current_sha256": "9fd9036887260dd42a324c73a27c912ef326f966b2b846336943442893ffa28e",
+      "baseline_sha256": "2440474217a72c4be4fa28382a60f41714d893436df79da92f47d74f31efd527",
+      "normalized_elf_sha256": "57a6f4b53a690643153d21cd193025fe92841f5cd5185d75f2567babecccafde",
+      "provenance_sha256": "373da946d8869f77903776b5f715fbcd3091f35af92c71957fd36de3dbaa91e6"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alHitSensorFunction.o",
+      "current_sha256": "4ef3b84ef796783c093d2ea5383e2199e2c9400af54f5be2db8c735d0e155be2",
+      "baseline_sha256": "4dbc39449bc53ac4dc310ae3175505ac3df16b5b634a00f1446994c8438ad5bb",
+      "normalized_elf_sha256": "46a77a6249c6b1043387ff97996ccef72c5ec4b1402b6247e9eddab88f8fe7cb",
+      "provenance_sha256": "d3baef9b787368e4cd7fd91e956938b0072f21d55f42e09a0e50ed465e0b01d1"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alHitSensorKeeper.o",
+      "current_sha256": "ec04122f71001b30176b907e0e2b0c449e90362c41cc0d9d0acaedadd4614163",
+      "baseline_sha256": "c1f1de8a07e99e8675ea56fd3b8bf6bde8895b2bc832ff097bf6b994b627c705",
+      "normalized_elf_sha256": "38de849cfbf6b20f07f94e3a5bb0ffd760ec13c9846ff384b1b577d74125beb2",
+      "provenance_sha256": "2728ace42fdfb5b863b92232ed260fff3e1d912e32340848e84e8652ae6b8c34"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alLiveActor.o",
+      "current_sha256": "662bd88250f7ec9c9b57fd6704a9c5f56d2b2c6f74f205004878d3c8fc2267b9",
+      "baseline_sha256": "134e51b51cc687de9695774711d5480518dfc5a60ec767050679d6a2824e5eb4",
+      "normalized_elf_sha256": "1837e5476f04945645b448c3a9f6f457344a297776017110c043d58a135b3bd2",
+      "provenance_sha256": "c2da0e200b495d9726f288d50eb76e3fd330cd14bebf7d19b4623d50a4faa603"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alLiveActorFlag.o",
+      "current_sha256": "d5707e815168e65be71d83f24c993f91b18ecee7f9408c54defa8c4d559834b6",
+      "baseline_sha256": "413ede9937024b2bdc996ee6733c86f23dc30879ab07293407cd94c96704abe1",
+      "normalized_elf_sha256": "28b3afbad3e6855fefc17958eafd9b2979d049ac2241da18ef224546e8942bac",
+      "provenance_sha256": "158c742282f6d82c9bbaf6fa2a41e045ef5dec028597ae46c44e068aa97a0fc4"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alLiveActorFunction.o",
+      "current_sha256": "1d2c3430ad203e47472afb07113208be112550cdac0927eefe5445a56bd94dc6",
+      "baseline_sha256": "b44f46dfe765a7da95286875b210e28ff37c16f4c98b4379fc8cebe5b38c28c1",
+      "normalized_elf_sha256": "1c2e2f8c68360a8ff25dfd0f9965b3a72d0fdbdc748fe1eebf22299dbe426b58",
+      "provenance_sha256": "fe043bd737fa9d5963e3469598e416fafb47fca87a2624a7ac19384429578beb"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alLiveActorGroup.o",
+      "current_sha256": "e2d704b1dd7bc23a3ca1d34b20ab0813783d405950a6fe6f44ef28326181d029",
+      "baseline_sha256": "8fa535d52375705b5a9154026cc07da4ba65cc67799c52598e1720c583fcf88b",
+      "normalized_elf_sha256": "970836e167cd0250a229582e5b88068910f06800145895d935ad5dfb2f99b8f5",
+      "provenance_sha256": "d38a7d11ea2fe5b334ef503ad87bebb3a1682b3a032a6d8093bd213dc3bcd2cb"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alLiveActorKit.o",
+      "current_sha256": "6c0ee88ea35a79d5d46bedd0e36b9e9ad776eb01f03930dfb8c350c0e045bb20",
+      "baseline_sha256": "9840ed76135926a556f8cad22ee4f03c6d058e15267c34f2a0c745065585b088",
+      "normalized_elf_sha256": "a2c79130557a6a9313ef4d503add74cc8f287cd5810733d71c3773396152078f",
+      "provenance_sha256": "0f8bb58a5efce5db29d83f0d99038545af16a4585f0d885128c1e8d14a003561"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alSensorFunction.o",
+      "current_sha256": "3c7871810f51b06640f449a226dff7a7c8972cdd00929f01ca7db88c9c533f36",
+      "baseline_sha256": "10cc6bb6e027b83f81fbed15d214c5e9e8d6c2162b7e9ae534605ca4f4d4e371",
+      "normalized_elf_sha256": "40039b05e08800a1d8f6079a0714973fd62903b749043e5ef09679e95a451b27",
+      "provenance_sha256": "993ddc2ce545a063b23c98ac3b83ad9cecddc642f1afa96c359251c827b5aba3"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alSensorMsg.o",
+      "current_sha256": "d3f36bf1cf399a76d4101e629e09bb39aa5be880b73a4b903e7c5247545be08b",
+      "baseline_sha256": "b055d5ffd71738ff87263b8a32de7d1e5d8a670cd14b3bc69e1b4a5a4070a7c9",
+      "normalized_elf_sha256": "ea8a464bba4a894746e2de578dc6fd6348f71538c1118cdc2ec9313158329945",
+      "provenance_sha256": "b6f057c8ca2b3d9d2fd19214d2e0ce8ff163ad234e0a0f539677ff65ffadea91"
+    },
+    {
+      "object": "lib/al/src/LiveActor/alSubActorFunction.o",
+      "current_sha256": "67af3681c139ef47db5a96fdc23780747a034826aa5a38a3dd2f2a39078f9956",
+      "baseline_sha256": "a0d461f8ec04c8192575b6f912915663442ede82ee4d5e80dfbc2265d6872e91",
+      "normalized_elf_sha256": "f67f2e75b92b8a351cdd8e68fa98fee538ae650ab9a7c9dabff886a40a2ee2d2",
+      "provenance_sha256": "ef45bac46bbdb35bbfc69c08aaa1e00a5a632584693a8082794ed5f861b6a108"
+    },
+    {
+      "object": "lib/al/src/MapObj/alFallMapParts.o",
+      "current_sha256": "1f7d48945aa12f3444050a46416e5cad38716d844af41cc919b15a239b5c83fa",
+      "baseline_sha256": "135670d137a1c8bdcee37e54903727431f638f3973961a6d924de823b3c45fb0",
+      "normalized_elf_sha256": "b770c09e2ea981429a8d96f3742baba5213053b4276eb9d62d4b96b00d1e4066",
+      "provenance_sha256": "bd0053afabc636427a13f226c57d734f0f49201ce1a0a43aa5499cba3ea035e2"
+    },
+    {
+      "object": "lib/al/src/MapObj/alMapObjActor.o",
+      "current_sha256": "2c7cbac87432c1e9cf4d6faf5367a74bdd088ad008deaaf24937cc411b978779",
+      "baseline_sha256": "7e26aa1e6df51c3db4d21a7f7e116c1e3f2abf34867ee6ec12e68714bbf7265a",
+      "normalized_elf_sha256": "0cf1dbafe78449a8914906bdf1187f7a62435f93bbc41c04ee661bd88788e081",
+      "provenance_sha256": "7b7500db81a9fc8fe3ccd0094750c23622162de1a666bafb3213689591193ddc"
+    },
+    {
+      "object": "lib/al/src/Math/alHashUtil.o",
+      "current_sha256": "62bd2af003f0f13773dcf75ecb835a5e343126a44bac838b5d4a580b4c08359b",
+      "baseline_sha256": "bcdd8543219046b5776af505e056da686778580061bb431d2b928e7aae7948b1",
+      "normalized_elf_sha256": "cc168d1a5afece86d9120ae147907095b937201f889b162e0f6522cdb6b24b5a",
+      "provenance_sha256": "c0fc3cd447119f2a3d4c87edfeda51c634e57464898caddcb9be3f93b785150d"
+    },
+    {
+      "object": "lib/al/src/Math/alMathUtil.o",
+      "current_sha256": "2fcca6597b03d14d6555bacce5da839e6d7211b7880245ac8c02ffa409352f4a",
+      "baseline_sha256": "6f24b89bcdb237f28f69844fa4b105b9126f45c6eb129c592508d6bdd9172781",
+      "normalized_elf_sha256": "8a37528e6fef6aeaf08b16cb7ccfca16d746c207b17cc208a448cfd2f64e2fe6",
+      "provenance_sha256": "d0e8e6ca84950b9274cc9be9efe2734e5610003d4ae3390e9894f5b221dcbaae"
+    },
+    {
+      "object": "lib/al/src/Math/alVectorUtil.o",
+      "current_sha256": "037c2218302cee7c662a7cda5cf01e30df37f1a4dcc7d54a3d77399663491f69",
+      "baseline_sha256": "2c019344faa0b92b93dc52acf205b405cf930c87858ff5aca9af851792fe5b1c",
+      "normalized_elf_sha256": "b586bf6a46c53004029ce46ac178a813ff10a3beaf1f4e3da5292d15292ddc76",
+      "provenance_sha256": "62d9da3f8e22a1b0187a1befd20f8235f5141d94645edeb7a3b570af52cb49b5"
+    },
+    {
+      "object": "lib/al/src/Math/seadMathAngle.o",
+      "current_sha256": "03ac8c8f12884b818a22a77f288b6e49fca17440538fe4f6bf42278be2befe04",
+      "baseline_sha256": "602fa8224030fc55cc2d0cf7a460ae22bf4572a9d569b74898558fcbc0bd2f3b",
+      "normalized_elf_sha256": "0ee3e0e810827a4b3ffd4b8ccbb4121312728de007cc376958561bf3768c9b6f",
+      "provenance_sha256": "d242488e1bc909010a7a1ce609b06ad7d7f6742197a73022e6587514c06d7d83"
+    },
+    {
+      "object": "lib/al/src/Math/seadMatrixConversion.o",
+      "current_sha256": "c0c3fa3f984d00e2917f8468a5f98d60f8a0297bdb71b9f439c283de8a8d50fc",
+      "baseline_sha256": "3cdb01e0331cd7c5f7168e19949a2dc6dde052ed8e98325b15098412a2df7346",
+      "normalized_elf_sha256": "54507adc6ca11d23c8ebb4733ac7c94a82cabd7459c75e966b08280a5a0b9082",
+      "provenance_sha256": "787ff3ff591e9a9b395860f41d7cbe6be3182a07af6439a6bcd6ccf62f7eb614"
+    },
+    {
+      "object": "lib/al/src/Math/seadMatrixCopy.o",
+      "current_sha256": "b267585f5d78860ed9ed454ebe052e24230244289ae7b3ae093a82934ecdf060",
+      "baseline_sha256": "11f553afd72c8851cbc145dadb0f12822523342193b621a5c0aa154b4c1264a0",
+      "normalized_elf_sha256": "8cdf9edf6936912842f8722ea3e3d3411e4feb0ded7a401362e38d404ddd8650",
+      "provenance_sha256": "bc219e1e8c1c222155ad34694f1f14fa502ffbb237ba9a73e99c8bf58708985d"
+    },
+    {
+      "object": "lib/al/src/Math/seadStereoUtil.o",
+      "current_sha256": "29ee78d608bac730a225b64c53f0816e1b42c2c384051a8bc209f3a86228af83",
+      "baseline_sha256": "0ba1bf89bf5e31ef48736083cf90ac24eb1055a07c89bf294bf689a846b3c56e",
+      "normalized_elf_sha256": "f91b95296948c55429ef0b094c7de7fe2405f7d529fd65641059232135bd669a",
+      "provenance_sha256": "96f79e1264a51e040f69ddfa7a596f4be173dadf64f8b877cb12f30abf684710"
+    },
+    {
+      "object": "lib/al/src/Memory/alMemorySystem.o",
+      "current_sha256": "59f98418aca0d644fc8688adb5dbd1a1cbeb30939e23c74a61661b9c52ba8ad1",
+      "baseline_sha256": "6d31c2c763cfa062af896204ab0f2f7ff6ed9e3ae1bb998087d5f726d94ded1e",
+      "normalized_elf_sha256": "8015be49f865d8c2257bb497b12b344bf537a8b50720ab9c2102cbc23c773614",
+      "provenance_sha256": "dddaff654122938c9618e406c3b0300f2ea413eafc5153a4391ad61102f73b7c"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveActionCtrl.o",
+      "current_sha256": "2b378be5152130d9baf964194c908a7331eb002ff88d9cd7331935aba91c0d2a",
+      "baseline_sha256": "b71a9551a68ba87b32bb154a819ac455333a9f4d017f988628c396f4c084b9e2",
+      "normalized_elf_sha256": "6a9290eeb33c0230037acdcbf8c39ef8b5cd8d3e40f746b026e6e42c1a020050",
+      "provenance_sha256": "110733b7f88871ed2f0dae23af130a2f4536200c5ad798ab13fb4795b4791f44"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveExecutor.o",
+      "current_sha256": "2388a44166884cad76af13de8d147b11355d607ebf3b58473a79c066fc66a22e",
+      "baseline_sha256": "e507105345bea858291b8ee12102db0063d886b0ee9a0318107a5c2782c4e982",
+      "normalized_elf_sha256": "62b6926c1827b70331704e9884e6658d5dd9ed544c90c27699f36a030094baab",
+      "provenance_sha256": "d07b90d2ccb14a07334294d06390149e8df4153ff33c63b8054678831a59e6b7"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveFunction.o",
+      "current_sha256": "a3cf679c33d802d62807b9e2a3edbd622abb99c7d1113dcd4f3dca089e275b32",
+      "baseline_sha256": "1f70f483589ffb54276cace32514b54eb0eed3d24ba553a7ee6ea39e1b8424d4",
+      "normalized_elf_sha256": "e0bdd906d8206cca3c50c2b98a77c3d77271235fa7085ece5afd91698825dcec",
+      "provenance_sha256": "6fa41285f18839977f58b1c5cfc328d040c1c79684b549dd02da25a9913046c3"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveKeeper.o",
+      "current_sha256": "3cf1a0adddc4e8cdf5cb79822bd8051c903d8721c295bcd6261a23e4342a0c37",
+      "baseline_sha256": "8183a1701a427480ab8c17b522fb2dab4a840d9d7bfbf9eebc442780227ab683",
+      "normalized_elf_sha256": "ff297901b4165049b808b70b2e7a5d4540bd464e3eb9aee8e88e864040871b9a",
+      "provenance_sha256": "2eeb894e0c3c48db5fc4ce9f68bfed346e6ccbc45764d21b0f0798aab0757425"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveStateBase.o",
+      "current_sha256": "a0e2bbc3ef91c6670d13db798f3fee4cfa531cad7327b7c020126ab8c2edc7fc",
+      "baseline_sha256": "f4daf5eadb4900b8049129fcf47cc7e05b06aa93106cd02d48483422283c05f7",
+      "normalized_elf_sha256": "d5fdcbc8b7d2e6f96115307404e9a4db1c11b083f1646045dc0fb094fb480724",
+      "provenance_sha256": "ef33ae00bb600ccb6199a994158634bfaa532e15f362a8327e1167f5b310874e"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveStateCtrl.o",
+      "current_sha256": "71b39f453263471b501d6b02d4b613b4862bc11fbdb47edd68290adb60762f54",
+      "baseline_sha256": "27ce590f5bfbba633fefb3cff4ef928a65503716036c4e0c988c460211cf588d",
+      "normalized_elf_sha256": "51dcf5a11e5d296b7d08a65914a06fffdd925aa9f1466654d85d203066f5aae4",
+      "provenance_sha256": "a7badd620f244eb61251312d82e46ac5b3713d8f8652af9d0584330ac9a10da0"
+    },
+    {
+      "object": "lib/al/src/Nerve/alNerveStepFunction.o",
+      "current_sha256": "34a28e1dc178c20272a9670c6f3f3df906938a4916a6cb57aef6be47356f5db0",
+      "baseline_sha256": "a5a32873a2b35187e7f5ce2ae4f813d55f88645e251ee6d2dcf793e2c6590b04",
+      "normalized_elf_sha256": "d506a5ffa6ea2dd7ecdd3920d17559dc8a82f33b39f80799a74a9e0b9df2c448",
+      "provenance_sha256": "268bde7e74101f730d7093c4f4aacba977206e814cf1590a39d931554c46749c"
+    },
+    {
+      "object": "lib/al/src/Npc/alBreakModel.o",
+      "current_sha256": "85695fee40cba06f8048db4f24d9253737a5613bb31dda6c154d1784f2d26d96",
+      "baseline_sha256": "9b44a67a699b7e2f26e4945dc6a58c8e0235d72fbc80ee90db946ea4c0ca6f9f",
+      "normalized_elf_sha256": "43927de1e5548f33d5009a65e4f37dd39696aae2cbbc8b390d4665be70cc8cc6",
+      "provenance_sha256": "156dc1b1f35d380fbb2f992b93ab353ccc9c7a31b6d83496a12aa7df4457945f"
+    },
+    {
+      "object": "lib/al/src/Npc/alEffectObj.o",
+      "current_sha256": "541d47a46acef1ac95a137fd1285df1e8c5ed4251435bc27083ea316c95f64b4",
+      "baseline_sha256": "c7d337bc0491bec899a61effb05db0eb6955f857f310f133e95cd00e6f00c6f4",
+      "normalized_elf_sha256": "80d9226a3b7f04085bbf35de3a5609bc5a423153ed9edbce11cd680ff1d7c7dd",
+      "provenance_sha256": "525f01960512bc4e001317c254a4fd1d6ef3958e6fa216f6aae512e8937da7dd"
+    },
+    {
+      "object": "lib/al/src/Npc/alSky.o",
+      "current_sha256": "97a178d39171a8822b107835d4cc94159d9d0e9d14e2c9adaf6e6d29d4b2fc36",
+      "baseline_sha256": "96ffed697bae284a882609fc9f12892aa9f6512633f9e1bbf419cb5d63a258fa",
+      "normalized_elf_sha256": "fc298d113caee41dd5b7d20cce12a77ff67b2afc283e8121c71a5fa84df38538",
+      "provenance_sha256": "d6ab04a6d009252da7cab6d64a1f2e611718f8abc1e092aa0539b5c199853e97"
+    },
+    {
+      "object": "lib/al/src/Placement/alPlacementArgumentFunction.o",
+      "current_sha256": "878496b3d37449c1d5c34f2668972a99e390c6d077a33420c813100486b4370b",
+      "baseline_sha256": "3e7b7e79b42911fee83f39e005a7d86fae634e8d82930dadeafe4f334a61fd76",
+      "normalized_elf_sha256": "90c7469614643ea117d73c3cd15685f65336a8f24d609fb82f4acd68cb360a1e",
+      "provenance_sha256": "bf38a2f5f91e8e6bd8f8330a16977e2f1d8c59e4da69075ff7528fd7224bac3a"
+    },
+    {
+      "object": "lib/al/src/Placement/alPlacementFunction.o",
+      "current_sha256": "88a3a0aee7e34c2ae5e84c6477e89899a3e445c8f10cee1c3815206c476eebd5",
+      "baseline_sha256": "89d6137800a8a7deaa9673a690f1bded28f7eeea54eeb0551641f30b5f4f97d2",
+      "normalized_elf_sha256": "4e3f4712e36b434b4d981d011e578e58c8b22f7014a79877ddd4e8f0e0c784ed",
+      "provenance_sha256": "70847dc6d9cda0af2575a87067ebad7dbe84adc2453272f0a3be320984bea4e1"
+    },
+    {
+      "object": "lib/al/src/Rail/alRail.o",
+      "current_sha256": "6859f5fc2d4788e3dd5cf2c16bb2ca7c39f565fa02c64175dd8cf25af4b379e8",
+      "baseline_sha256": "d864d82e65597f5735bc54de9703aefb8a04438bf80ab0dfbaff968313a0c4ed",
+      "normalized_elf_sha256": "d260f2e15a4db63831e655161467f27ec4c5a185ca4d2760f5209c13f4abcc50",
+      "provenance_sha256": "23f915e27f2bb696171dac40004d1e609d643e4e3be71a3755edd8b8b0be749e"
+    },
+    {
+      "object": "lib/al/src/Rail/alRailFunction.o",
+      "current_sha256": "6cf2ddd61cdf6fcf4b036458b1675252c1205311987a5ddcf6ad4c40a932d35e",
+      "baseline_sha256": "926020d99a6f50b8da4d55dbf74fc577486fc928251792543d7d1e78195484f9",
+      "normalized_elf_sha256": "7d9674b5b583167cb012a458091af402e7365c73aa11491602f5e067fbe7fe60",
+      "provenance_sha256": "61634f77d9b6a3cd1161e073177f1eb66e83379bbac06ff74863af31ab3b1f54"
+    },
+    {
+      "object": "lib/al/src/Rail/alRailKeeper.o",
+      "current_sha256": "3d06ebd48a3f814916b4325f4453dc083a05fd60b5b9d18eb845927377be7fa8",
+      "baseline_sha256": "b2c05443266674fc3f69bae43bfbfda275b5b3145b4cebbd18f41db7026b580f",
+      "normalized_elf_sha256": "56fc3f05d2078bd511b4df5d6f12fc95d9613ac0dfe278506d375a63d815bcad",
+      "provenance_sha256": "1bd74a02948267931e7e51d82da82a93fb9a1eb3ee4b336f8c17348ec9c13dfa"
+    },
+    {
+      "object": "lib/al/src/Rail/alRailMoveMovement.o",
+      "current_sha256": "fa7a6bb04585fed9c2c4a9d090958eb73dd95846e797df061fc5c56d97365045",
+      "baseline_sha256": "a29e4f3f005b1549df1d7a1eed5b14f3eab495e69abf3168f2a85a3ae2bccf16",
+      "normalized_elf_sha256": "d8a215feeb8228710d867cf8ac837ca6a5596a57154a340b15bd42e64544eef4",
+      "provenance_sha256": "0d0fc61ee2b75914e09df4cbd3aeefe1c34c429e58e6bc4aedffa87f1727065d"
+    },
+    {
+      "object": "lib/al/src/Rail/alRailRider.o",
+      "current_sha256": "469c724af19d8ed7881e50aed3d73132aa40c26192894da7d50c181a5be02498",
+      "baseline_sha256": "0aaf73aae8cf759a18e94a94d6cd5f907af677b183ad7ebc1a176a3822e0425a",
+      "normalized_elf_sha256": "3afe08abcd47edbcb343b2a8d4fe7c6a72d67a4414a3351aae2cfc53cc91f65f",
+      "provenance_sha256": "6031fa2cf76352505f31163a80345cc4d90aedf8766f77f156fbc442601de980"
+    },
+    {
+      "object": "lib/al/src/Scene/alScene.o",
+      "current_sha256": "1c5f7550ff69765c57fc1769237de6f983ffe27f69ee823bc73286d4c9a64fda",
+      "baseline_sha256": "82efbcdfb6c03874a7ae46949b279888ff0c83b1458fd80951a5e15ee10b329f",
+      "normalized_elf_sha256": "57b5d7dd33df06230b587379a6c202cdbdfd2ea1c398ad3f8656dc273c0deda3",
+      "provenance_sha256": "27fff7bddefeadda09cc23ea885b6aff96e0a5c78ac6e4d78e90c7dd45d05292"
+    },
+    {
+      "object": "lib/al/src/Scene/alSceneFunction.o",
+      "current_sha256": "0c998797e3e1e2df8299dbcd4165e2cc3c6d78ba42a6d87d796f5eded9de7fbb",
+      "baseline_sha256": "6e5ccf18ff1b8bf6e4b2ad280741db98d73f11dedbaaefb928c937df25b74d37",
+      "normalized_elf_sha256": "7d76e1029940e95722959ce275ccec2008fba67126ba7b0b1f7177d0cc0f9f24",
+      "provenance_sha256": "e9a2f2b94747e8158e8e25628e674a14d78840bd9d5db31ca7843f12a15825cf"
+    },
+    {
+      "object": "lib/al/src/Scene/alSceneObjHolder.o",
+      "current_sha256": "b1b3393952537ed6013d8e9d8028d0fa9928373090b4403a53924b9329a731a9",
+      "baseline_sha256": "eca0f06c4ad9e74e68c3575a806d7e3acc925e1cf93abc4e4576728080f42958",
+      "normalized_elf_sha256": "a0904fb76f6b6cc3d3b7f67dddd5d1ab9b1bc9c705f378e25b2ae3179c284744",
+      "provenance_sha256": "ae67b057739a58130df77b832766b61a458cc678e5ce38a57dd35a3a9c518efa"
+    },
+    {
+      "object": "lib/al/src/Sequence/alSequence.o",
+      "current_sha256": "c154f9e510fcd0e89ecf2164008dc55e84641930399078f71fe8ac8e69d5ee61",
+      "baseline_sha256": "53aef3dddf7202e59c32b38b8b9ea9efc5a2711b67eab1b025b2e5ceec087ca9",
+      "normalized_elf_sha256": "b8da2fa14f0f7674fdf13984d47481456b31e38b700b5d82498f89874c275dd2",
+      "provenance_sha256": "206ce37967c62023b0c1d8a31b10a0bd3a57c8179bb4114f8c43d89968085230"
+    },
+    {
+      "object": "lib/al/src/Stage/alStageResourceKeeper.o",
+      "current_sha256": "f6cfdfa1a09f5b9c55b2cdd7439fc4b1ee5b2fc60c573304ef0a02d221bcb211",
+      "baseline_sha256": "a012aef53b4468197fe021d30598a11b65b7cabd7d7c601f42f36bc2d14d81dd",
+      "normalized_elf_sha256": "954a6ca04f9f23b0b22b58a98a51d119fee0de0211c9c8d7c41207ea908690c8",
+      "provenance_sha256": "f0abb8af55327d4774eb2051eee07adb4f2f9679cd857b6613af102eb861ca54"
+    },
+    {
+      "object": "lib/al/src/Stage/alStageSwitchAccesser.o",
+      "current_sha256": "536a299b1a0e60fdc619b9505344f8ad6f6c0af64da73a3de39fe540983c1474",
+      "baseline_sha256": "fd5a6c4466a01f530783fcfdfbff7397dbaa70268c6f928825570389643934b7",
+      "normalized_elf_sha256": "fe89f66d5aaca1d9e097367e5f89f5168f7cdf8dee359ebad63fcb6974f0a457",
+      "provenance_sha256": "81c761fe3aea7f139a843a245e06974c1da73cfb377b50dca330104e7cb1145d"
+    },
+    {
+      "object": "lib/al/src/Stage/alStageSwitchKeeper.o",
+      "current_sha256": "167964700a59bed82d4f96200634b96afd5e9ca4567d1a2cdb6b1de100cf7ebd",
+      "baseline_sha256": "95666a213fe62f694516fc523597545b3797fdc95ac5672829903e8aed29dc9a",
+      "normalized_elf_sha256": "df6b74674a01152f7771d1ed49684bb3a8c23aa9b79be3c2c5764b6ca7e40859",
+      "provenance_sha256": "3311b8001c5416175696176c42a9f976c3f4dbf39cf0f2905a7b2edd54c7eae0"
+    },
+    {
+      "object": "lib/al/src/Stage/alStageSwitchType.o",
+      "current_sha256": "a9dccac87eaca7c4cf74131802fbbffc8e5d3781508a8310f1e2e19ef415a10a",
+      "baseline_sha256": "df7fa6672aaf421c3d470528dd54fbc00ac940959456cd137e6f2a988d5a2dcf",
+      "normalized_elf_sha256": "07fec29375c3c11baceee85c5ec6a2a00661af0e54fc11dec24113d54f826a38",
+      "provenance_sha256": "ccff0e78035cd31fac2e71a3f50d052703ef3640eccaf39d343978cfc8bc543b"
+    },
+    {
+      "object": "lib/al/src/Stage/alStageSwitchTypeCount.o",
+      "current_sha256": "d7da77822949c57efc71249564c9eec36a64fbc11003b93a1a296f2cc3760ad8",
+      "baseline_sha256": "dfb95b44114c98ca19ec9536a71606e8fd99764413a81b9de2705805f60772eb",
+      "normalized_elf_sha256": "84d4cab3d8630f5889e4b5f1ea085a8946c460684e888319dc704845cca8ad10",
+      "provenance_sha256": "c588af01184dc72a30197d58ba8ac5896bddc8ec03b34f1a1b98a2fa92e79c95"
+    },
+    {
+      "object": "lib/al/src/System/alSystemKit.o",
+      "current_sha256": "ae55e74bb64e97fc076dd39b368a2eeefb0670956ca416f00e963be2f479c156",
+      "baseline_sha256": "8d3c248ac5d0063726e4d438b6ba68d513f4faa42d7cc5f74730397015026412",
+      "normalized_elf_sha256": "64facaa06586ae384bfdcd3911b55ee650c24291d333cdb8584c71d01b428623",
+      "provenance_sha256": "b23c13965b9f7835392743c90768ba82c459c0ec4bd27871279817f36358e1f7"
+    },
+    {
+      "object": "lib/al/src/Util/alItemTypeLookup.o",
+      "current_sha256": "5f48672bf7eba70c48e9f3c6ce33760d5102cc5ee72988a59260cc1403e32629",
+      "baseline_sha256": "b1e67951e276e03eb7efd59509cafe0710dcfea304c76e289d33d05d6f49bec7",
+      "normalized_elf_sha256": "b53a643ead34def685aef485fa307d0fdd568d44c51708182fd41091d799b35e",
+      "provenance_sha256": "ef9f2bd6af69cc345d33500d440aa0daa71cc32adcb27fef6db2c39abd9f3beb"
+    },
+    {
+      "object": "lib/al/src/Util/alJMapInfo.o",
+      "current_sha256": "c765db7cb400a4f2708c7bdb352061682d6a8edda48c2dc6840705e9e2ed9b37",
+      "baseline_sha256": "acee45efa6e4337c79d6868d61d942a678b74aabc2fd091fc2576cf506c41860",
+      "normalized_elf_sha256": "60b7358bf0f6bb649dde254bdcedaf39432f3c565c8d63c4a221279e52cd1442",
+      "provenance_sha256": "f498fe2d5856279bb305a4da01c3b7b3763d140b59bafa31fbae953081c73648"
+    },
+    {
+      "object": "lib/al/src/Util/alStringUtil.o",
+      "current_sha256": "7aa3a5bf428ff6e808c60b47fd90a4b4ddc91a75310f2ed51d73c9a3bfb3b5a9",
+      "baseline_sha256": "ef2200fbf8ccaecbcf84a12622f4a982e226734f916aa65973f0a6d2ff31749c",
+      "normalized_elf_sha256": "72c5744a21e1ad2e086248a29307644fe2d3cf15c5d7de94c95d1c94d5c9ff9c",
+      "provenance_sha256": "4a656a1f8cf3f6e2a135e8e7a6838e6af78848c19249fd9684bfca6ab876ff58"
+    },
+    {
+      "object": "lib/al/src/Util/seadCalendarTime.o",
+      "current_sha256": "b0b41fd791b2c9966844485ed3b1dacef649a9b927e8248c8f099be67463278c",
+      "baseline_sha256": "fd72fc6618878cebb14a3f83327b2bd5a98a342b0a1408402835705545f27ad1",
+      "normalized_elf_sha256": "7784a169cf6f4f76521a27ad5e4d79ed2d85646333b4ae6614f79b090f208e49",
+      "provenance_sha256": "78dfa38f6aae7bc786821924add3182a0b28c4bb5d3a9b1a8e611face08a4874"
+    },
+    {
+      "object": "lib/al/src/Util/seadDateUtil.o",
+      "current_sha256": "10064a706665bad16cd9512de23fccfcbe803842fc52153879daf37e2d4de849",
+      "baseline_sha256": "d1c1a1d1aebf630fcf1c3153015a4a893f244130a73ba855deb65df41dc91f47",
+      "normalized_elf_sha256": "8165a4c1981a15ca7c1891da720ea8a4efc44632e304e4a08b42320e942d809f",
+      "provenance_sha256": "b6b160e4d2976c5a7d6be776c8fe4a5f2051929b48435318685247fe73e5bedd"
+    },
+    {
+      "object": "lib/al/src/Util/seadList.o",
+      "current_sha256": "8bc33cbcd85827eb7c31ef514cdedd50aac8ff2ea6087b0f40ce90c672240b0f",
+      "baseline_sha256": "fc325112100caa189182c3298ab09aeeb90a75e71ad4a78a4b13aa6cfc61ee51",
+      "normalized_elf_sha256": "2e21107fbb03267db0efc836d9bcc130694dddb57e2dced8f1b95170262cc950",
+      "provenance_sha256": "5b9313fcef653fb4ceca0a32bb4687a9e633c9da2bdb94919bf0de68ec4e5a7a"
+    },
+    {
+      "object": "lib/al/src/Util/seadPtrArrayImpl.o",
+      "current_sha256": "bac4015e4d1c2b45194f7fe9969b44d5c24b73b5bb80d6aabdc284f5325e0b8f",
+      "baseline_sha256": "c60d809d674a1eb5e4bd0964812d2bb95cf9be2f1ed1672c3908a63154e4ef22",
+      "normalized_elf_sha256": "72e652060566e0c92338e9d9e461a50f759ef574fef3bbc19be6126675a985e1",
+      "provenance_sha256": "0902713ee06c2583dfd73efd40c9304c41d8db2e5fa0970b1e2995dbf83e0926"
+    },
+    {
+      "object": "lib/al/src/Util/seadRandom.o",
+      "current_sha256": "0e765f3f8f7dd43e20bdb960ff3f7cd801ffe296cfaba4b46bdc5962c0390c62",
+      "baseline_sha256": "05c5dd310d29874273c4e79e5230095bf6c1527f6ec2f9a0dd680b21ae7267a3",
+      "normalized_elf_sha256": "8289178b6cf89f31377c6d7ee287664da11a156c4be5945d6c2c99068c4ac392",
+      "provenance_sha256": "4eaa180f793a474a9da43fac8302f5385f80068ae6870e6b6535a652bc8a2e99"
+    },
+    {
+      "object": "lib/al/src/Util/seadStreamScalar.o",
+      "current_sha256": "f707249e6e9913e4d2bf4a818d88c95e4545995566af728834972edf032aa4c3",
+      "baseline_sha256": "d8209eebbbfe8f262e9d43542b7d0b80e94e13d5fb86896d144aff6fba9bd757",
+      "normalized_elf_sha256": "8dda7c99b400d479e56e06036d0d535c250dd5f15f2b196e2faab6500f44f577",
+      "provenance_sha256": "5a0b4a415e63567eddf61b0163241410178db598a1c19eea30b82504616d5409"
+    },
+    {
+      "object": "lib/al/src/Util/seadTreeNode.o",
+      "current_sha256": "7d249271178cfc41c2939f488ea7e074db6d31e7ae812806ea3f0c3955e5fa7d",
+      "baseline_sha256": "44355e09f9b0be120ad7a353fe6fd3af9767d0241ca19d4b2a7f734eabf052fe",
+      "normalized_elf_sha256": "b5dde0e4ea46347294bf6ceef1c7cc5574e65bb807079ac8cb5b91de78ed6591",
+      "provenance_sha256": "80ff82c2e35801b19033c54b2dbb6591ac14f9c07fb1b9ea2238a7434f8616db"
+    },
+    {
+      "object": "lib/al/src/Yaml/alByamlHashIter.o",
+      "current_sha256": "cf00b608fe3d7f6c13b55bdd8a7b400a25ea6e5a413428aeb7827768f60cad3d",
+      "baseline_sha256": "908662469116df8aad55f4a45c0b31e02df12452f97a6ab05af6412f4efbe114",
+      "normalized_elf_sha256": "21ff9d8fc0c368da765fa75a819377394494c6b359be17a13788e27feeb1f2c6",
+      "provenance_sha256": "0b3246c2de2e9ffe9e8f55fb4f409e1ca2147cf8546155f415843bd254b41e39"
+    },
+    {
+      "object": "lib/al/src/Yaml/alByamlIter.o",
+      "current_sha256": "7ba6819625e60ee79e1d76110ed9cac88ee5ecf9b5c7882e058c52faeb8dc93d",
+      "baseline_sha256": "047f8e6ba97120c81bc98c2692bf3f535e466ef9f5e9aa839e4de05bbab88ea6",
+      "normalized_elf_sha256": "0d62719a7840bee8b5536d3315ac447e4677a99e4cd922c0056ed68602b90a19",
+      "provenance_sha256": "00bf4bd282c32fa63d544c61fdde2be02e35f8c90644737606538d332b70f2b7"
+    },
+    {
+      "object": "lib/al/src/Yaml/alByamlIteratorConstructors.o",
+      "current_sha256": "b985d019caed194aa6d6c98035c7dc2203e3156849d3ea061e4f7cd839a9b574",
+      "baseline_sha256": "a94caf1f6758da77b92845a46ff0c6be655827eb602cbd31f924871f70e0894e",
+      "normalized_elf_sha256": "effeddac190c3d17c40f027bc73bdb71f1acdad4239d0dfbdc063d4345777ee9",
+      "provenance_sha256": "34f0d49f8825e4602e3e780f04913fbcb79afa58b667bd1637840ff71fe2e8f2"
+    },
+    {
+      "object": "lib/al/src/Yaml/alByamlStringTableIter.o",
+      "current_sha256": "67181907a65544ce4cdb8cc8280f59bd197aeb2f0d09ba9134df9755b526f22b",
+      "baseline_sha256": "5976bef18b7453d0fd9d738ce60445dad1e72b4d25830cc9443eb3699027212b",
+      "normalized_elf_sha256": "7b56edd1a442fff45edcc46f4fbccdb1d8765c0fc64fe0430e4c963e043acd26",
+      "provenance_sha256": "c29f6e8c1dd6499366cb820e79f72fc6388c702610c855eec32019c9bf051512"
+    }
+  ],
+  "all_equal": true,
+  "normalization": "repository prefix in STT_FILE names and nonallocated .comment only; raw symtab/string offsets replaced by resolved symbols",
+  "scaffold": {
+    "old_allocated_sections": 2095,
+    "old_unwind_entries": 0,
+    "all_old_sections_and_entries_equal": true,
+    "added_sections": [
+      "i.fn_00225E70",
+      "i.fn_00225F68",
+      "i.fn_00226060",
+      "i.fn_00226158",
+      "i.fn_0022624C",
+      "i.fn_00226344",
+      "i.fn_0022643C",
+      "i.fn_00226534",
+      "i.fn_0022662C",
+      "i.fn_00226724",
+      "i.fn_0022681C",
+      "i.fn_00226910",
+      "i.fn_00226A04",
+      "i.fn_00227490",
+      "i.fn_00227588",
+      "i.fn_0022767C",
+      "i.fn_002276D8",
+      "i.fn_00227CF0",
+      "i.fn_00271028",
+      "i.fn_002783BC",
+      "i.fn_0027F2C0",
+      "i.fn_002CDEA4"
+    ],
+    "current_sha256": "e83652f11540c3c53ca438e27f14ea2fdf81b8c34fbeec5143e55ec87c9a2e54",
+    "baseline_sha256": "e52600779b3e687c57914724bd646be7593fa3dafc3d782cb7616b2e500077eb"
+  },
+  "map_sha256": "94ac5673e907db521bf6b4b606d02be64ee7bae8a8fd2f08328b0c30d85b3db9"
+}

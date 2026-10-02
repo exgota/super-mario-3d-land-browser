@@ -1,0 +1,918 @@
+{
+  "heads": 114,
+  "pattern": "fn_002(25E70|25F68|26060|26158|2624C|26344|2643C|26534|2662C|26724|2681C|26910|26A04|27490|27588|2767C|276D8|27CF0|71028|783BC|7C05C|7F2C0)",
+  "results": [
+    {
+      "head": "15b86c1261540e76259cb58f2ad053d8b2ed349a",
+      "matches": []
+    },
+    {
+      "head": "9afb977aace02ba36176b2b04ec50a12cc39eedc",
+      "matches": [
+        "9afb977aace02ba36176b2b04ec50a12cc39eedc:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "9afb977aace02ba36176b2b04ec50a12cc39eedc:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "9afb977aace02ba36176b2b04ec50a12cc39eedc:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "9afb977aace02ba36176b2b04ec50a12cc39eedc:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "6446a5bfb53b2ea2183f04745e5977ead9a97ee8",
+      "matches": [
+        "6446a5bfb53b2ea2183f04745e5977ead9a97ee8:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "6446a5bfb53b2ea2183f04745e5977ead9a97ee8:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "6518b13c5f88ed6d6b6f458c3be35407eecd879a",
+      "matches": [
+        "6518b13c5f88ed6d6b6f458c3be35407eecd879a:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "6518b13c5f88ed6d6b6f458c3be35407eecd879a:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "3795d021f883d46fb69cead8a82243ace2d03002",
+      "matches": [
+        "3795d021f883d46fb69cead8a82243ace2d03002:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "3795d021f883d46fb69cead8a82243ace2d03002:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "d47fe01cf42d89aae7acbf1306f47ed0526d4426",
+      "matches": [
+        "d47fe01cf42d89aae7acbf1306f47ed0526d4426:Game/backup/src/Enemy/BlockDragonGenerator.cpp:92:void fn_0027C05C( al::LiveActor* );",
+        "d47fe01cf42d89aae7acbf1306f47ed0526d4426:Game/backup/src/Enemy/BlockDragonGenerator.cpp:189:                fn_0027C05C( segment );",
+        "d47fe01cf42d89aae7acbf1306f47ed0526d4426:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "d47fe01cf42d89aae7acbf1306f47ed0526d4426:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "4f2a1c0403218badcad1aed9975fe6cc2bc1c19e",
+      "matches": [
+        "4f2a1c0403218badcad1aed9975fe6cc2bc1c19e:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "4f2a1c0403218badcad1aed9975fe6cc2bc1c19e:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "4f2a1c0403218badcad1aed9975fe6cc2bc1c19e:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "4f2a1c0403218badcad1aed9975fe6cc2bc1c19e:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "81e753ac52ffe72caa07c54ab797b19082fc1d45",
+      "matches": [
+        "81e753ac52ffe72caa07c54ab797b19082fc1d45:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "81e753ac52ffe72caa07c54ab797b19082fc1d45:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "81e753ac52ffe72caa07c54ab797b19082fc1d45:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "81e753ac52ffe72caa07c54ab797b19082fc1d45:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "cbf8ff77d73a7439a8604f480b8fa3968e822ce7",
+      "matches": [
+        "cbf8ff77d73a7439a8604f480b8fa3968e822ce7:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "cbf8ff77d73a7439a8604f480b8fa3968e822ce7:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "cbf8ff77d73a7439a8604f480b8fa3968e822ce7:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "cbf8ff77d73a7439a8604f480b8fa3968e822ce7:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "958b879f4e2a6980505695fcacc2224935249811",
+      "matches": [
+        "958b879f4e2a6980505695fcacc2224935249811:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "958b879f4e2a6980505695fcacc2224935249811:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "0a693e93508e8bda2ac8de8a34c613fc59fdd3d5",
+      "matches": [
+        "0a693e93508e8bda2ac8de8a34c613fc59fdd3d5:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "0a693e93508e8bda2ac8de8a34c613fc59fdd3d5:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f77d544888650d27eafcb5c73690184246cab624",
+      "matches": [
+        "f77d544888650d27eafcb5c73690184246cab624:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f77d544888650d27eafcb5c73690184246cab624:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "ef6f03542b3d39e343f9652b39198e07cda03529",
+      "matches": [
+        "ef6f03542b3d39e343f9652b39198e07cda03529:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "ef6f03542b3d39e343f9652b39198e07cda03529:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "ef6f03542b3d39e343f9652b39198e07cda03529:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "ef6f03542b3d39e343f9652b39198e07cda03529:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "325a26b44eced9173b6a9f08fabe3d200a0473eb",
+      "matches": [
+        "325a26b44eced9173b6a9f08fabe3d200a0473eb:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "325a26b44eced9173b6a9f08fabe3d200a0473eb:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "5e5c56f137e31313109ffc4c38ce34b1225e7561",
+      "matches": [
+        "5e5c56f137e31313109ffc4c38ce34b1225e7561:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "5e5c56f137e31313109ffc4c38ce34b1225e7561:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "5e5c56f137e31313109ffc4c38ce34b1225e7561:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "5e5c56f137e31313109ffc4c38ce34b1225e7561:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "22b76f7a1df175170a24fe835e5a0f33172390c7",
+      "matches": [
+        "22b76f7a1df175170a24fe835e5a0f33172390c7:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "22b76f7a1df175170a24fe835e5a0f33172390c7:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "22b76f7a1df175170a24fe835e5a0f33172390c7:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "22b76f7a1df175170a24fe835e5a0f33172390c7:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "7ccde0ac3c5d0118800a65372d1382dabf6149c9",
+      "matches": [
+        "7ccde0ac3c5d0118800a65372d1382dabf6149c9:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "7ccde0ac3c5d0118800a65372d1382dabf6149c9:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "7ccde0ac3c5d0118800a65372d1382dabf6149c9:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "7ccde0ac3c5d0118800a65372d1382dabf6149c9:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8e084bc0835a4a8796216cce5bf981537af54546",
+      "matches": [
+        "8e084bc0835a4a8796216cce5bf981537af54546:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8e084bc0835a4a8796216cce5bf981537af54546:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "8e084bc0835a4a8796216cce5bf981537af54546:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "8e084bc0835a4a8796216cce5bf981537af54546:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "531f1b944c41fed92651305bfdeeb637eb53ab07",
+      "matches": [
+        "531f1b944c41fed92651305bfdeeb637eb53ab07:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "531f1b944c41fed92651305bfdeeb637eb53ab07:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "531f1b944c41fed92651305bfdeeb637eb53ab07:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "531f1b944c41fed92651305bfdeeb637eb53ab07:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "684e2381159b3e9a3444893f581840582a46d6ee",
+      "matches": []
+    },
+    {
+      "head": "36a86e9b72b5b7cd90d0f853871ba308cada32ed",
+      "matches": [
+        "36a86e9b72b5b7cd90d0f853871ba308cada32ed:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "36a86e9b72b5b7cd90d0f853871ba308cada32ed:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "36a86e9b72b5b7cd90d0f853871ba308cada32ed:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "36a86e9b72b5b7cd90d0f853871ba308cada32ed:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "1fdb12fcbc747e87a8b5db4b95d31ccfae6145b5",
+      "matches": [
+        "1fdb12fcbc747e87a8b5db4b95d31ccfae6145b5:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "1fdb12fcbc747e87a8b5db4b95d31ccfae6145b5:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "1fdb12fcbc747e87a8b5db4b95d31ccfae6145b5:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "1fdb12fcbc747e87a8b5db4b95d31ccfae6145b5:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "3e26956d51589a1df4d3bb0121794c198148ea2b",
+      "matches": [
+        "3e26956d51589a1df4d3bb0121794c198148ea2b:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "3e26956d51589a1df4d3bb0121794c198148ea2b:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "48dc3ccbd958e33cfecef040c43f283f62a09c3c",
+      "matches": [
+        "48dc3ccbd958e33cfecef040c43f283f62a09c3c:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "48dc3ccbd958e33cfecef040c43f283f62a09c3c:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "48dc3ccbd958e33cfecef040c43f283f62a09c3c:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "48dc3ccbd958e33cfecef040c43f283f62a09c3c:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "9a6d9788ab300d3b6a1c3ea63f430d4520e28880",
+      "matches": [
+        "9a6d9788ab300d3b6a1c3ea63f430d4520e28880:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "9a6d9788ab300d3b6a1c3ea63f430d4520e28880:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "9a6d9788ab300d3b6a1c3ea63f430d4520e28880:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "9a6d9788ab300d3b6a1c3ea63f430d4520e28880:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "00928bd3eb7a782caffde77db68845d32360f7b5",
+      "matches": [
+        "00928bd3eb7a782caffde77db68845d32360f7b5:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "00928bd3eb7a782caffde77db68845d32360f7b5:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "00928bd3eb7a782caffde77db68845d32360f7b5:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "00928bd3eb7a782caffde77db68845d32360f7b5:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8c0dd474200d2d7bbf65b9b0b361a5f803a40698",
+      "matches": [
+        "8c0dd474200d2d7bbf65b9b0b361a5f803a40698:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8c0dd474200d2d7bbf65b9b0b361a5f803a40698:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "08f91ec88c956712bd97c62b9182d5b3579afdae",
+      "matches": [
+        "08f91ec88c956712bd97c62b9182d5b3579afdae:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "08f91ec88c956712bd97c62b9182d5b3579afdae:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "08f91ec88c956712bd97c62b9182d5b3579afdae:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "08f91ec88c956712bd97c62b9182d5b3579afdae:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "a716a73b7f35c8a6f01ff9820bcd4bb08380bbb8",
+      "matches": [
+        "a716a73b7f35c8a6f01ff9820bcd4bb08380bbb8:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "a716a73b7f35c8a6f01ff9820bcd4bb08380bbb8:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "7d8afdb6230960e2504ac686ef7fd2f71d5daca9",
+      "matches": [
+        "7d8afdb6230960e2504ac686ef7fd2f71d5daca9:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "7d8afdb6230960e2504ac686ef7fd2f71d5daca9:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "7d8afdb6230960e2504ac686ef7fd2f71d5daca9:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "7d8afdb6230960e2504ac686ef7fd2f71d5daca9:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "a749e484199d897552c271e571446f3cd32eb2aa",
+      "matches": [
+        "a749e484199d897552c271e571446f3cd32eb2aa:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "a749e484199d897552c271e571446f3cd32eb2aa:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "1c6f030b5c64ce09cd0a00695ee4218888cfb88b",
+      "matches": [
+        "1c6f030b5c64ce09cd0a00695ee4218888cfb88b:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "1c6f030b5c64ce09cd0a00695ee4218888cfb88b:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "4b0a9128f688b933df7eea2aa202f6253dcb416a",
+      "matches": [
+        "4b0a9128f688b933df7eea2aa202f6253dcb416a:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "4b0a9128f688b933df7eea2aa202f6253dcb416a:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "2fe0650d8e667b59a450d11ae256799722a9562d",
+      "matches": [
+        "2fe0650d8e667b59a450d11ae256799722a9562d:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "2fe0650d8e667b59a450d11ae256799722a9562d:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "c2de8c23738a0ca8f4858869565e9b45626dd052",
+      "matches": [
+        "c2de8c23738a0ca8f4858869565e9b45626dd052:lib/al/src/LiveActor/alLiveActor.cpp:33:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "c2de8c23738a0ca8f4858869565e9b45626dd052:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "1ec65fc9013a6782fd5f3dcccbb705a4eec83834",
+      "matches": [
+        "1ec65fc9013a6782fd5f3dcccbb705a4eec83834:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "1ec65fc9013a6782fd5f3dcccbb705a4eec83834:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "bdf89e53cf9a21e88380b335813d6d6e61c950f1",
+      "matches": [
+        "bdf89e53cf9a21e88380b335813d6d6e61c950f1:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "bdf89e53cf9a21e88380b335813d6d6e61c950f1:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "bdf89e53cf9a21e88380b335813d6d6e61c950f1:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "bdf89e53cf9a21e88380b335813d6d6e61c950f1:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8df182f6163cd451369555eb712746f9553a2a08",
+      "matches": [
+        "8df182f6163cd451369555eb712746f9553a2a08:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8df182f6163cd451369555eb712746f9553a2a08:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "8df182f6163cd451369555eb712746f9553a2a08:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "8df182f6163cd451369555eb712746f9553a2a08:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "86104d96a7f570383bbfefc5fffad998e134496c",
+      "matches": [
+        "86104d96a7f570383bbfefc5fffad998e134496c:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "86104d96a7f570383bbfefc5fffad998e134496c:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "86104d96a7f570383bbfefc5fffad998e134496c:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "86104d96a7f570383bbfefc5fffad998e134496c:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "32cc8f9cd90fdd466db551a3a395fff46ea4b506",
+      "matches": [
+        "32cc8f9cd90fdd466db551a3a395fff46ea4b506:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "32cc8f9cd90fdd466db551a3a395fff46ea4b506:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "91070b64879b061fe8540213a4b36640f35c36f4",
+      "matches": [
+        "91070b64879b061fe8540213a4b36640f35c36f4:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "91070b64879b061fe8540213a4b36640f35c36f4:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "91070b64879b061fe8540213a4b36640f35c36f4:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "91070b64879b061fe8540213a4b36640f35c36f4:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f15d147ee0d9b25dc8933f16dcea1eb6b9693715",
+      "matches": [
+        "f15d147ee0d9b25dc8933f16dcea1eb6b9693715:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f15d147ee0d9b25dc8933f16dcea1eb6b9693715:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "29310b0d4c1d68953778330ab57ed5dff7241352",
+      "matches": [
+        "29310b0d4c1d68953778330ab57ed5dff7241352:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "29310b0d4c1d68953778330ab57ed5dff7241352:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "6b74a275309173bde0164b87b86ddba33f8263d3",
+      "matches": [
+        "6b74a275309173bde0164b87b86ddba33f8263d3:lib/al/src/LiveActor/alLiveActor.cpp:33:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "6b74a275309173bde0164b87b86ddba33f8263d3:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "d3a5f3db1339b360aa6674bc4e0c289adcc033ea",
+      "matches": [
+        "d3a5f3db1339b360aa6674bc4e0c289adcc033ea:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "d3a5f3db1339b360aa6674bc4e0c289adcc033ea:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "493cb648893c2c5be4ad21457b808ab211bfc743",
+      "matches": [
+        "493cb648893c2c5be4ad21457b808ab211bfc743:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "493cb648893c2c5be4ad21457b808ab211bfc743:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f41cb6229a64e3238c83b469a951444e3dd9f129",
+      "matches": [
+        "f41cb6229a64e3238c83b469a951444e3dd9f129:lib/al/src/LiveActor/alLiveActor.cpp:33:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f41cb6229a64e3238c83b469a951444e3dd9f129:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "3de056e0dcb33619c32f8b46ef64f74c90d28934",
+      "matches": [
+        "3de056e0dcb33619c32f8b46ef64f74c90d28934:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "3de056e0dcb33619c32f8b46ef64f74c90d28934:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "3de056e0dcb33619c32f8b46ef64f74c90d28934:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "3de056e0dcb33619c32f8b46ef64f74c90d28934:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "45a4305466a7c4cbd87589169384102e88f8d1b5",
+      "matches": [
+        "45a4305466a7c4cbd87589169384102e88f8d1b5:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "45a4305466a7c4cbd87589169384102e88f8d1b5:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "45a4305466a7c4cbd87589169384102e88f8d1b5:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "45a4305466a7c4cbd87589169384102e88f8d1b5:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8cf3391f553e6daacde91b42b371e63a6aab36fc",
+      "matches": [
+        "8cf3391f553e6daacde91b42b371e63a6aab36fc:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8cf3391f553e6daacde91b42b371e63a6aab36fc:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "bbc659c1bcae2970990c8bdde4ad82e0c2576153",
+      "matches": [
+        "bbc659c1bcae2970990c8bdde4ad82e0c2576153:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "bbc659c1bcae2970990c8bdde4ad82e0c2576153:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c",
+      "matches": [
+        "5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "54d39734c4edffeeac012157ab71fb11c40d815b",
+      "matches": [
+        "54d39734c4edffeeac012157ab71fb11c40d815b:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "54d39734c4edffeeac012157ab71fb11c40d815b:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "54d39734c4edffeeac012157ab71fb11c40d815b:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "54d39734c4edffeeac012157ab71fb11c40d815b:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "57f902421f6874f132d5ea971d1aa5b224c5a528",
+      "matches": [
+        "57f902421f6874f132d5ea971d1aa5b224c5a528:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "57f902421f6874f132d5ea971d1aa5b224c5a528:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "754f99a30a337756df5aa01c28b4ed6a977fecd5",
+      "matches": [
+        "754f99a30a337756df5aa01c28b4ed6a977fecd5:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "754f99a30a337756df5aa01c28b4ed6a977fecd5:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "754f99a30a337756df5aa01c28b4ed6a977fecd5:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "754f99a30a337756df5aa01c28b4ed6a977fecd5:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8991bec8cb27ff1a2dac0003f059d270a0b17493",
+      "matches": [
+        "8991bec8cb27ff1a2dac0003f059d270a0b17493:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8991bec8cb27ff1a2dac0003f059d270a0b17493:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "8991bec8cb27ff1a2dac0003f059d270a0b17493:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "8991bec8cb27ff1a2dac0003f059d270a0b17493:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "b294c8e8c3424f9893407c339347b1ce31863437",
+      "matches": [
+        "b294c8e8c3424f9893407c339347b1ce31863437:lib/al/src/LiveActor/alLiveActor.cpp:33:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "b294c8e8c3424f9893407c339347b1ce31863437:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "a4f1579f9f0f13dacfe91d92501cf74154c131ad",
+      "matches": [
+        "a4f1579f9f0f13dacfe91d92501cf74154c131ad:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "a4f1579f9f0f13dacfe91d92501cf74154c131ad:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "a74ef6247dcf52073d9b05fd0e091aa7e3579563",
+      "matches": [
+        "a74ef6247dcf52073d9b05fd0e091aa7e3579563:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "a74ef6247dcf52073d9b05fd0e091aa7e3579563:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "b16e2a0cc32e0cdacac5ba94feabe67432433391",
+      "matches": [
+        "b16e2a0cc32e0cdacac5ba94feabe67432433391:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "b16e2a0cc32e0cdacac5ba94feabe67432433391:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "b16e2a0cc32e0cdacac5ba94feabe67432433391:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "b16e2a0cc32e0cdacac5ba94feabe67432433391:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c",
+      "matches": [
+        "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "c2e343e1d07a8b2d16b2c86bbf7b5bb9f65edda2",
+      "matches": [
+        "c2e343e1d07a8b2d16b2c86bbf7b5bb9f65edda2:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "c2e343e1d07a8b2d16b2c86bbf7b5bb9f65edda2:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "c2e343e1d07a8b2d16b2c86bbf7b5bb9f65edda2:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "c2e343e1d07a8b2d16b2c86bbf7b5bb9f65edda2:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "e2cbf8db72566da78fc16b77a5b90026bfd9ea0a",
+      "matches": [
+        "e2cbf8db72566da78fc16b77a5b90026bfd9ea0a:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "e2cbf8db72566da78fc16b77a5b90026bfd9ea0a:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "e87d556cd4d993606a03e205b4604d863d718bd4",
+      "matches": [
+        "e87d556cd4d993606a03e205b4604d863d718bd4:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "e87d556cd4d993606a03e205b4604d863d718bd4:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "58499c26f836bacfbe5d271642e57c4178d04561",
+      "matches": [
+        "58499c26f836bacfbe5d271642e57c4178d04561:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "58499c26f836bacfbe5d271642e57c4178d04561:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "5aa3339c953d03f10548494b7bb217964ec90948",
+      "matches": [
+        "5aa3339c953d03f10548494b7bb217964ec90948:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "5aa3339c953d03f10548494b7bb217964ec90948:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "87b07eeadb252bd8b66f4781efe53a1d8b9a94f2",
+      "matches": [
+        "87b07eeadb252bd8b66f4781efe53a1d8b9a94f2:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "87b07eeadb252bd8b66f4781efe53a1d8b9a94f2:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "71ad7c479dfbad99a9ff71fa02bcbb607d30276b",
+      "matches": [
+        "71ad7c479dfbad99a9ff71fa02bcbb607d30276b:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "71ad7c479dfbad99a9ff71fa02bcbb607d30276b:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "e70e77a66f4768bd5b7d31469ef60571fef161d6",
+      "matches": [
+        "e70e77a66f4768bd5b7d31469ef60571fef161d6:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "e70e77a66f4768bd5b7d31469ef60571fef161d6:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "51d9a0c1459963917a2a2f73051fa8af11ed6728",
+      "matches": [
+        "51d9a0c1459963917a2a2f73051fa8af11ed6728:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "51d9a0c1459963917a2a2f73051fa8af11ed6728:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "4ff711bdcb4304008813f6cfbdf5e609a15bab2e",
+      "matches": [
+        "4ff711bdcb4304008813f6cfbdf5e609a15bab2e:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "4ff711bdcb4304008813f6cfbdf5e609a15bab2e:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "646a14e2d07ff73717ac524403ca470e271067f3",
+      "matches": [
+        "646a14e2d07ff73717ac524403ca470e271067f3:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "646a14e2d07ff73717ac524403ca470e271067f3:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "646a14e2d07ff73717ac524403ca470e271067f3:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "646a14e2d07ff73717ac524403ca470e271067f3:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "d65414a32464f5d68cf920d6fdfb6c66a884e645",
+      "matches": [
+        "d65414a32464f5d68cf920d6fdfb6c66a884e645:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "d65414a32464f5d68cf920d6fdfb6c66a884e645:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "d65414a32464f5d68cf920d6fdfb6c66a884e645:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "d65414a32464f5d68cf920d6fdfb6c66a884e645:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f8e6da9a4b701cb143daf63c89d069218db34c7f",
+      "matches": [
+        "f8e6da9a4b701cb143daf63c89d069218db34c7f:Game/backup/src/Enemy/BlockDragonGenerator.cpp:92:void fn_0027C05C( al::LiveActor* );",
+        "f8e6da9a4b701cb143daf63c89d069218db34c7f:Game/backup/src/Enemy/BlockDragonGenerator.cpp:189:                fn_0027C05C( segment );",
+        "f8e6da9a4b701cb143daf63c89d069218db34c7f:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f8e6da9a4b701cb143daf63c89d069218db34c7f:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "1837a2f4d9a7b95a5406d8e8d14683b646b909cc",
+      "matches": [
+        "1837a2f4d9a7b95a5406d8e8d14683b646b909cc:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "1837a2f4d9a7b95a5406d8e8d14683b646b909cc:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "1837a2f4d9a7b95a5406d8e8d14683b646b909cc:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "1837a2f4d9a7b95a5406d8e8d14683b646b909cc:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "a67da622a95949b7213e6475c19cc4a5e4f3897d",
+      "matches": [
+        "a67da622a95949b7213e6475c19cc4a5e4f3897d:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "a67da622a95949b7213e6475c19cc4a5e4f3897d:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "5c9c99281729d9595422e79859551bb4c9dc8801",
+      "matches": [
+        "5c9c99281729d9595422e79859551bb4c9dc8801:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "5c9c99281729d9595422e79859551bb4c9dc8801:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "5c9c99281729d9595422e79859551bb4c9dc8801:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "5c9c99281729d9595422e79859551bb4c9dc8801:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "10ed1be60097f7d1bd138c20ccbae176fde26914",
+      "matches": [
+        "10ed1be60097f7d1bd138c20ccbae176fde26914:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "10ed1be60097f7d1bd138c20ccbae176fde26914:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "27047bf018fc827918a6da4878f83c0a8423f8a0",
+      "matches": [
+        "27047bf018fc827918a6da4878f83c0a8423f8a0:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "27047bf018fc827918a6da4878f83c0a8423f8a0:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "0a3ea889700c86b90551aabbd90ab29d4e55d829",
+      "matches": [
+        "0a3ea889700c86b90551aabbd90ab29d4e55d829:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "0a3ea889700c86b90551aabbd90ab29d4e55d829:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "0a3ea889700c86b90551aabbd90ab29d4e55d829:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "0a3ea889700c86b90551aabbd90ab29d4e55d829:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "6f854591fe3370ef10b5976f5ee11ca0024eb7a1",
+      "matches": [
+        "6f854591fe3370ef10b5976f5ee11ca0024eb7a1:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "6f854591fe3370ef10b5976f5ee11ca0024eb7a1:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "6f854591fe3370ef10b5976f5ee11ca0024eb7a1:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "6f854591fe3370ef10b5976f5ee11ca0024eb7a1:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "ee962a4a096d6001d65211dacd735cbf7ed252a3",
+      "matches": [
+        "ee962a4a096d6001d65211dacd735cbf7ed252a3:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "ee962a4a096d6001d65211dacd735cbf7ed252a3:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "ee962a4a096d6001d65211dacd735cbf7ed252a3:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "ee962a4a096d6001d65211dacd735cbf7ed252a3:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673",
+      "matches": [
+        "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673:Game/backup/src/MapObj/StreetPassObjInit14414C.cpp:75:void fn_00271028(Actor*,const Quat*);",
+        "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673:Game/backup/src/MapObj/StreetPassObjInit14414C.cpp:187:            fn_00271028(actor,&rotation);",
+        "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c",
+      "matches": [
+        "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "283ae00173fe4224e810e04f9d2ff4c0cd4c1fe3",
+      "matches": [
+        "283ae00173fe4224e810e04f9d2ff4c0cd4c1fe3:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "283ae00173fe4224e810e04f9d2ff4c0cd4c1fe3:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "283ae00173fe4224e810e04f9d2ff4c0cd4c1fe3:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "283ae00173fe4224e810e04f9d2ff4c0cd4c1fe3:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "93e3e9817771d1512986ecdbc07d40cc9569e927",
+      "matches": [
+        "93e3e9817771d1512986ecdbc07d40cc9569e927:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "93e3e9817771d1512986ecdbc07d40cc9569e927:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "93e3e9817771d1512986ecdbc07d40cc9569e927:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "93e3e9817771d1512986ecdbc07d40cc9569e927:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "25b50ee2b2433bef3777f2033537ed7f755045ae",
+      "matches": [
+        "25b50ee2b2433bef3777f2033537ed7f755045ae:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "25b50ee2b2433bef3777f2033537ed7f755045ae:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "25b50ee2b2433bef3777f2033537ed7f755045ae:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "25b50ee2b2433bef3777f2033537ed7f755045ae:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "240e6ce111ebe3e50a8e74caea801919b62cf98a",
+      "matches": [
+        "240e6ce111ebe3e50a8e74caea801919b62cf98a:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "240e6ce111ebe3e50a8e74caea801919b62cf98a:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "240e6ce111ebe3e50a8e74caea801919b62cf98a:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "240e6ce111ebe3e50a8e74caea801919b62cf98a:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "077c6a475a125216a4fac977c61229ebe44e138f",
+      "matches": [
+        "077c6a475a125216a4fac977c61229ebe44e138f:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "077c6a475a125216a4fac977c61229ebe44e138f:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "868df7197ed2f307c6fa20e93c3622974875a981",
+      "matches": [
+        "868df7197ed2f307c6fa20e93c3622974875a981:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "868df7197ed2f307c6fa20e93c3622974875a981:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "868df7197ed2f307c6fa20e93c3622974875a981:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "868df7197ed2f307c6fa20e93c3622974875a981:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "cd620f97827f8a0ea3c48aeb92c76660f639f613",
+      "matches": [
+        "cd620f97827f8a0ea3c48aeb92c76660f639f613:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "cd620f97827f8a0ea3c48aeb92c76660f639f613:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "cd620f97827f8a0ea3c48aeb92c76660f639f613:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "cd620f97827f8a0ea3c48aeb92c76660f639f613:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8ad9366461a5f8a4f8e30afc06ed9cb9acb658a8",
+      "matches": [
+        "8ad9366461a5f8a4f8e30afc06ed9cb9acb658a8:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8ad9366461a5f8a4f8e30afc06ed9cb9acb658a8:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "8ad9366461a5f8a4f8e30afc06ed9cb9acb658a8:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "8ad9366461a5f8a4f8e30afc06ed9cb9acb658a8:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "a6bde63d849484c8ca451641b24032b8d4fc14d6",
+      "matches": [
+        "a6bde63d849484c8ca451641b24032b8d4fc14d6:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "a6bde63d849484c8ca451641b24032b8d4fc14d6:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "a6bde63d849484c8ca451641b24032b8d4fc14d6:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "a6bde63d849484c8ca451641b24032b8d4fc14d6:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "16f73469a7f5cd32943aa9647c7a8663a175ae0e",
+      "matches": [
+        "16f73469a7f5cd32943aa9647c7a8663a175ae0e:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "16f73469a7f5cd32943aa9647c7a8663a175ae0e:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "16f73469a7f5cd32943aa9647c7a8663a175ae0e:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "16f73469a7f5cd32943aa9647c7a8663a175ae0e:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "021f5e1cfd5d2145ef08d4e84f1ab5627cb2036b",
+      "matches": [
+        "021f5e1cfd5d2145ef08d4e84f1ab5627cb2036b:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "021f5e1cfd5d2145ef08d4e84f1ab5627cb2036b:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "021f5e1cfd5d2145ef08d4e84f1ab5627cb2036b:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "021f5e1cfd5d2145ef08d4e84f1ab5627cb2036b:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "8304fe09e7d148f2b0e3bbbb2bff7c70aaf74af2",
+      "matches": [
+        "8304fe09e7d148f2b0e3bbbb2bff7c70aaf74af2:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "8304fe09e7d148f2b0e3bbbb2bff7c70aaf74af2:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f7f27140bbd42d9ed69a0a6942f258463ff68bab",
+      "matches": [
+        "f7f27140bbd42d9ed69a0a6942f258463ff68bab:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f7f27140bbd42d9ed69a0a6942f258463ff68bab:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "f7f27140bbd42d9ed69a0a6942f258463ff68bab:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "f7f27140bbd42d9ed69a0a6942f258463ff68bab:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "16ffdbe34c8e533a4b3b3a30c75df1be2385695c",
+      "matches": [
+        "16ffdbe34c8e533a4b3b3a30c75df1be2385695c:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "16ffdbe34c8e533a4b3b3a30c75df1be2385695c:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "16ffdbe34c8e533a4b3b3a30c75df1be2385695c:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "16ffdbe34c8e533a4b3b3a30c75df1be2385695c:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "802b255f733b467201aa0ecc6069314a48180958",
+      "matches": [
+        "802b255f733b467201aa0ecc6069314a48180958:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "802b255f733b467201aa0ecc6069314a48180958:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "d1870ea1921885e4c9bf56e5b69de57591dc5a77",
+      "matches": [
+        "d1870ea1921885e4c9bf56e5b69de57591dc5a77:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "d1870ea1921885e4c9bf56e5b69de57591dc5a77:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "d8c4bfe3e8a65024eb03bfb126c45ec9e6061d34",
+      "matches": [
+        "d8c4bfe3e8a65024eb03bfb126c45ec9e6061d34:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "d8c4bfe3e8a65024eb03bfb126c45ec9e6061d34:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "d8c4bfe3e8a65024eb03bfb126c45ec9e6061d34:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "d8c4bfe3e8a65024eb03bfb126c45ec9e6061d34:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "df55d6b6ac7f5d6075a6ba59ffa030131175739e",
+      "matches": [
+        "df55d6b6ac7f5d6075a6ba59ffa030131175739e:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "df55d6b6ac7f5d6075a6ba59ffa030131175739e:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f7b7697b41aefb88fb3287962d8efeb7fa1c16ba",
+      "matches": [
+        "f7b7697b41aefb88fb3287962d8efeb7fa1c16ba:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f7b7697b41aefb88fb3287962d8efeb7fa1c16ba:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "c0e16c9e3f18426b417899850a24fb897c3e088d",
+      "matches": [
+        "c0e16c9e3f18426b417899850a24fb897c3e088d:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "c0e16c9e3f18426b417899850a24fb897c3e088d:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "c0e16c9e3f18426b417899850a24fb897c3e088d:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "c0e16c9e3f18426b417899850a24fb897c3e088d:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "bbb67bca76048605d2e757085301ddc0df4d6dad",
+      "matches": [
+        "bbb67bca76048605d2e757085301ddc0df4d6dad:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "bbb67bca76048605d2e757085301ddc0df4d6dad:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "bbb67bca76048605d2e757085301ddc0df4d6dad:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "bbb67bca76048605d2e757085301ddc0df4d6dad:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "2294399f464e422dff6bd0c8ff7ad36d79ea3b81",
+      "matches": [
+        "2294399f464e422dff6bd0c8ff7ad36d79ea3b81:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "2294399f464e422dff6bd0c8ff7ad36d79ea3b81:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "2294399f464e422dff6bd0c8ff7ad36d79ea3b81:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "2294399f464e422dff6bd0c8ff7ad36d79ea3b81:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "d41966fb139f84e8827c7623f8ce0fddf7f20c94",
+      "matches": [
+        "d41966fb139f84e8827c7623f8ce0fddf7f20c94:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "d41966fb139f84e8827c7623f8ce0fddf7f20c94:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "86844777f5ac500db3c17c3abd9a87e230785a10",
+      "matches": [
+        "86844777f5ac500db3c17c3abd9a87e230785a10:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "86844777f5ac500db3c17c3abd9a87e230785a10:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "97a92e5b6c5dd911377c677e5e22840de701a508",
+      "matches": [
+        "97a92e5b6c5dd911377c677e5e22840de701a508:lib/al/src/LiveActor/alLiveActor.cpp:33:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "97a92e5b6c5dd911377c677e5e22840de701a508:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "64d7955c22ebbd6e6e8b9aaeb50aefd4beab7bb3",
+      "matches": [
+        "64d7955c22ebbd6e6e8b9aaeb50aefd4beab7bb3:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "64d7955c22ebbd6e6e8b9aaeb50aefd4beab7bb3:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "95940f5796310ca800ff1c649fc8efe2ed14ed04",
+      "matches": [
+        "95940f5796310ca800ff1c649fc8efe2ed14ed04:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "95940f5796310ca800ff1c649fc8efe2ed14ed04:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "95940f5796310ca800ff1c649fc8efe2ed14ed04:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "95940f5796310ca800ff1c649fc8efe2ed14ed04:lib/al/src/MapObj/alFallMapParts.cpp:148:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "1454120a760becbea77c2629f160f807355669c7",
+      "matches": [
+        "1454120a760becbea77c2629f160f807355669c7:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "1454120a760becbea77c2629f160f807355669c7:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "1454120a760becbea77c2629f160f807355669c7:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "1454120a760becbea77c2629f160f807355669c7:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "f2f08a2b0185b5e4200baf5fa34a76a478b17183",
+      "matches": [
+        "f2f08a2b0185b5e4200baf5fa34a76a478b17183:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "f2f08a2b0185b5e4200baf5fa34a76a478b17183:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );",
+        "f2f08a2b0185b5e4200baf5fa34a76a478b17183:lib/al/src/MapObj/alFallMapParts.cpp:22:extern \"C\" void fn_0027C05C( al::LiveActor* );",
+        "f2f08a2b0185b5e4200baf5fa34a76a478b17183:lib/al/src/MapObj/alFallMapParts.cpp:136:                fn_0027C05C( this );"
+      ]
+    },
+    {
+      "head": "37844b080b6f7469fb06558c4d272883bc3b6ee6",
+      "matches": [
+        "37844b080b6f7469fb06558c4d272883bc3b6ee6:lib/al/src/LiveActor/alLiveActor.cpp:34:extern \"C\" void fn_0027C05C( al::LiveActor* actor );",
+        "37844b080b6f7469fb06558c4d272883bc3b6ee6:lib/al/src/LiveActor/alLiveActor.cpp:255:        fn_0027C05C( this );"
+      ]
+    }
+  ]
+}
