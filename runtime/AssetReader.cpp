@@ -18,6 +18,7 @@
 #include <iostream>
 #include <limits>
 #include <map>
+#include <optional>
 #include <set>
 #include <span>
 #include <sstream>
@@ -1763,6 +1764,274 @@ std::vector<MaterialShaderSelection> readMaterialShaderSelections(Bytes data, co
             result.push_back(std::move(selection));
         }
     }
+    return result;
+}
+
+struct MaterialTextureCoordinate {
+    std::size_t offset = 0;
+    std::int32_t sourceSelector = 0;
+    std::uint32_t sourceModeField = 0;
+    std::uint32_t rawFieldEight = 0;
+    std::uint32_t transformVariantField = 0;
+    std::array<std::uint32_t, 5> parameterWords{};
+    std::uint8_t dirtyByte = 0;
+    std::uint8_t serializedEnableByte = 0;
+    std::uint16_t rawHalfword = 0;
+    std::array<std::uint32_t, 12> matrixWords{};
+    bool preparedEnabled = false;
+};
+
+struct CpuMaterialCoordinatePreparation {
+    std::string status;
+    std::size_t materialOffset = 0;
+    std::uint32_t configurationField = 0;
+    std::uint32_t coordinateCount = 0;
+    std::uint32_t materialStateFlags = 0;
+    std::array<std::int32_t, 3> mapperRelativePointerFields{};
+    std::array<std::size_t, 3> mapperOffsets{};
+    std::array<std::uint32_t, 3> mapperFlags{};
+    std::int32_t auxiliaryRelativePointerField = 0;
+    std::size_t auxiliaryOffset = 0;
+    std::array<MaterialTextureCoordinate, 3> coordinates{};
+};
+
+// This is the original enable-byte preparation, not a texture-cache initializer.
+std::array<bool, 3> prepareMaterialCoordinateEnableFlags(
+        std::uint8_t configuration, const std::array<bool, 3>& mappers, bool auxiliary) {
+    require(configuration <= 5, "Material coordinate configuration is unsupported");
+    return {
+        mappers[0] || ((configuration == 0 || configuration == 1) && auxiliary),
+        mappers[1] || (configuration == 2 && (mappers[2] || auxiliary)) ||
+            ((configuration == 1 || configuration == 3) && mappers[2]) || (configuration == 4 && auxiliary),
+        (configuration == 5 && (mappers[2] || auxiliary)) ||
+            ((configuration == 0 || configuration == 4) && mappers[2]) || (configuration == 3 && auxiliary)
+    };
+}
+
+// Every physical slot is retained. Serialized enable bytes are not initialization results.
+CpuMaterialCoordinatePreparation readCpuMaterialCoordinatePreparation(Bytes data, std::size_t materialOffset) {
+    CpuMaterialCoordinatePreparation result;
+    result.materialOffset = materialOffset;
+    result.status = "unsupported_material_coordinate_layout";
+    ByteReader input(data);
+    require(input.magic(0, "CGFX"), "Material coordinates require a CGFX member");
+    input.check(20, input.integer(24));
+    const std::size_t dataEnd = 20 + input.integer(24);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "Material coordinate metadata escapes DATA");
+    };
+    metadata(materialOffset, 12);
+    require(input.magic(materialOffset + 4, "MTOB"), "Material coordinate record has no MTOB signature");
+    if (input.integer(8) != 0x05000000 || input.integer(materialOffset) != 0x08000000)
+        return result;
+    metadata(materialOffset, 0x284);
+    result.materialStateFlags = input.integer(materialOffset + 0x18);
+    result.configurationField = input.integer(materialOffset + 0x1C);
+    result.coordinateCount = input.integer(materialOffset + 0x168);
+    require(result.coordinateCount <= 3, "Material coordinate count exceeds its physical slots");
+    std::array<bool, 3> mappers{};
+    for (std::size_t index = 0; index < 3; ++index) {
+        const std::size_t field = materialOffset + 0x274 + index * 4;
+        result.mapperRelativePointerFields[index] = std::bit_cast<std::int32_t>(input.integer(field));
+        mappers[index] = result.mapperRelativePointerFields[index] != 0;
+        if (mappers[index]) {
+            result.mapperOffsets[index] = input.relative(field);
+            metadata(result.mapperOffsets[index], 4);
+            result.mapperFlags[index] = input.integer(result.mapperOffsets[index]);
+        }
+        MaterialTextureCoordinate& coordinate = result.coordinates[index];
+        coordinate.offset = materialOffset + 0x16C + index * 88;
+        coordinate.sourceSelector = std::bit_cast<std::int32_t>(input.integer(coordinate.offset));
+        coordinate.sourceModeField = input.integer(coordinate.offset + 4);
+        coordinate.rawFieldEight = input.integer(coordinate.offset + 8);
+        coordinate.transformVariantField = input.integer(coordinate.offset + 0xC);
+        for (std::size_t component = 0; component < 5; ++component)
+            coordinate.parameterWords[component] = input.integer(coordinate.offset + 0x10 + component * 4);
+        coordinate.dirtyByte = input.byte(coordinate.offset + 0x24);
+        coordinate.serializedEnableByte = input.byte(coordinate.offset + 0x25);
+        coordinate.rawHalfword = std::uint16_t(input.integer(coordinate.offset + 0x26, 2));
+        for (std::size_t component = 0; component < 12; ++component)
+            coordinate.matrixWords[component] = input.integer(coordinate.offset + 0x28 + component * 4);
+    }
+    result.auxiliaryRelativePointerField = std::bit_cast<std::int32_t>(input.integer(materialOffset + 0x280));
+    if (result.auxiliaryRelativePointerField) {
+        result.auxiliaryOffset = input.relative(materialOffset + 0x280);
+        metadata(result.auxiliaryOffset, 4);
+    }
+    const std::uint8_t configuration = result.configurationField & 255;
+    result.status = "unsupported_material_coordinate_configuration";
+    if (configuration > 5)
+        return result;
+    const auto enabled = prepareMaterialCoordinateEnableFlags(configuration, mappers, result.auxiliaryOffset != 0);
+    for (std::size_t index = 0; index < 3; ++index)
+        result.coordinates[index].preparedEnabled = enabled[index];
+    if (configuration != 0)
+        return result;
+    result.status = "unsupported_material_coordinate_state_flags";
+    if (result.materialStateFlags & 0x140)
+        return result;
+    for (std::size_t index = 0; index < result.coordinateCount; ++index) {
+        const auto& coordinate = result.coordinates[index];
+        result.status = "unsupported_dirty_material_coordinate";
+        if (coordinate.dirtyByte)
+            return result;
+        result.status = "unsupported_material_coordinate_source_mode";
+        const std::uint8_t mode = coordinate.sourceModeField & 255;
+        if (mode != 0 && mode != 2)
+            return result;
+    }
+    result.status = "resource_local_material_coordinate_preparation";
+    return result;
+}
+
+struct CpuMaterialCoordinateInput {
+    // Explicitly supplied path identity. Runtime copies/animation/overrides are unhandled.
+    std::optional<bool> unmodifiedResourceMaterial;
+    std::optional<std::uint32_t> initialBooleanWord;
+    std::optional<std::span<const std::uint32_t>> destinationWords;
+};
+
+struct CpuMaterialCoordinateUniformTransfer {
+    std::string status;
+    CpuMaterialCoordinatePreparation preparation;
+    static constexpr std::uint32_t BooleanReplacementMask = 0x6E00;
+    std::uint32_t booleanSetBits = 0;
+    std::optional<std::uint32_t> finalBooleanWord;
+    std::array<std::uint32_t, 3> sourceScalarWords{};
+    // Unwritten alignment words remain unavailable unless the caller supplied them.
+    std::vector<std::optional<std::uint32_t>> writtenWords;
+    std::vector<std::size_t> alignmentWordOffsets;
+    std::vector<std::uint32_t> commandWords;
+    std::string booleanStatus = "unavailable_caller_material_boolean";
+    std::string commandStatus = "unavailable_material_coordinate_transfer";
+};
+
+CpuMaterialCoordinateUniformTransfer readCpuMaterialCoordinateUniformTransfer(
+        Bytes modelData, const ModelCatalog& catalog, std::size_t modelIndex, std::size_t materialIndex,
+        Bytes shaderData, const MaterialShaderSelection* selection, const CpuMaterialCoordinateInput* caller) {
+    CpuMaterialCoordinateUniformTransfer result;
+    require(modelIndex < catalog.models.size(), "Material coordinate model index exceeds its catalog");
+    const auto& model = catalog.models[modelIndex];
+    require(materialIndex < model.materials.size(), "Material coordinate index exceeds its model");
+    const auto& material = model.materials[materialIndex];
+    result.preparation = readCpuMaterialCoordinatePreparation(modelData, material.offset);
+    result.status = result.preparation.status;
+    if (result.status != "resource_local_material_coordinate_preparation")
+        return result;
+    result.status = "unsupported_model_material_coordinate_layout";
+    if (catalog.revision != 0x05000000 || model.status != "resource_local_fields")
+        return result;
+    ByteReader input(modelData);
+    const std::size_t dataEnd = 20 + input.integer(24);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "Material coordinate binding escapes DATA");
+    };
+    metadata(model.offset, 0xC4);
+    require(input.magic(model.offset + 4, "CMDL") && input.integer(model.offset) == model.flags &&
+            input.integer(model.offset + 0xBC) == model.materials.size(), "Material coordinate model disagrees with its input");
+    const std::size_t modelDictionary = input.relative(32);
+    metadata(modelDictionary, 28 + catalog.models.size() * 16);
+    require(input.magic(modelDictionary, "DICT") && input.integer(28) == catalog.models.size() &&
+            input.integer(modelDictionary + 8) == catalog.models.size() &&
+            input.integer(modelDictionary + 4) >= 28 + catalog.models.size() * 16 &&
+            input.integer(modelDictionary + 4) <= dataEnd - modelDictionary &&
+            input.relative(modelDictionary + 40 + modelIndex * 16) == model.offset,
+            "Material coordinate model dictionary identity differs");
+    const std::size_t dictionary = input.relative(model.offset + 0xC0);
+    metadata(dictionary, 28 + model.materials.size() * 16);
+    require(input.magic(dictionary, "DICT") && input.integer(dictionary + 8) == model.materials.size() &&
+            input.integer(dictionary + 4) >= 28 + model.materials.size() * 16 &&
+            input.integer(dictionary + 4) <= dataEnd - dictionary &&
+            input.relative(dictionary + 40 + materialIndex * 16) == material.offset &&
+            input.integer(material.offset) == material.flags, "Material coordinate dictionary identity differs");
+    result.status = "missing_shader_material_selection";
+    if (!selection)
+        return result;
+    result.status = "unavailable_material_coordinate_shader_archive";
+    if (shaderData.empty())
+        return result;
+    const auto shaderArchive = readShaderArchiveSelectionInput(shaderData);
+    const auto verifiedSelections = readMaterialShaderSelections(modelData, catalog, &shaderArchive);
+    const auto verified = std::find_if(verifiedSelections.begin(), verifiedSelections.end(), [&](const auto& entry) {
+        return entry.modelOffset == model.offset && entry.materialOffset == material.offset;
+    });
+    result.status = "mismatched_shader_material_selection";
+    if (verified == verifiedSelections.end() || selection->modelOffset != verified->modelOffset ||
+        selection->materialOffset != verified->materialOffset || selection->status != verified->status ||
+        selection->instanceSelected != verified->instanceSelected || !selection->optionalShaderArchivePresent ||
+        selection->referenceRelativePointerField != verified->referenceRelativePointerField ||
+        selection->referenceOffset != verified->referenceOffset || selection->referenceFlags != verified->referenceFlags ||
+        selection->referenceNamePresent != verified->referenceNamePresent || selection->referenceName != verified->referenceName ||
+        selection->cachedRelativePointerField != verified->cachedRelativePointerField ||
+        selection->selectedProgramName != verified->selectedProgramName ||
+        selection->sameAsNamedInitializerInstance != verified->sameAsNamedInitializerInstance ||
+        selection->instanceIndex != verified->instanceIndex || selection->selectedProgramOffset != verified->selectedProgramOffset ||
+        selection->selectedInstanceOffset != verified->selectedInstanceOffset || selection->vertexSelector != verified->vertexSelector ||
+        selection->geometrySelector != verified->geometrySelector ||
+        selection->vertexExecutableOffset != verified->vertexExecutableOffset ||
+        selection->geometryExecutableOffset != verified->geometryExecutableOffset)
+        return result;
+    result.status = verified->status;
+    if (!verified->instanceSelected || verified->status != "resource_local_optional_archive_shader_selection")
+        return result;
+    result.status = "unsupported_material_coordinate_geometry_shader";
+    if (verified->geometrySelector >= 0)
+        return result;
+    result.status = "unavailable_material_coordinate_path_identity";
+    if (!caller || !caller->unmodifiedResourceMaterial.has_value())
+        return result;
+    result.status = "unavailable_runtime_material_coordinate_override";
+    if (!*caller->unmodifiedResourceMaterial)
+        return result;
+    result.booleanSetBits = (result.preparation.coordinateCount > 1 ? 0x2000u : 0) |
+                            (result.preparation.coordinateCount > 2 ? 0x4000u : 0);
+    result.writtenWords = {0x1000, 0x000A0080};
+    for (std::size_t index = 0; index < result.preparation.coordinateCount; ++index) {
+        const auto& coordinate = result.preparation.coordinates[index];
+        if (!coordinate.preparedEnabled)
+            continue;
+        const auto& matrix = coordinate.matrixWords;
+        if ((coordinate.sourceModeField & 255) == 0) {
+            result.sourceScalarWords[index] = std::bit_cast<std::uint32_t>(static_cast<float>(coordinate.sourceSelector));
+            result.booleanSetBits |= 1u << (index + 9);
+        } else {
+            result.sourceScalarWords[index] = 0x40800000;
+        }
+        if (index < 2) {
+            for (const auto word : {std::uint32_t(0x8000000B + index * 3), 0x000F02C0u, matrix[3], 0x00BF02C1u,
+                    matrix[2], matrix[1], matrix[0], matrix[7], matrix[6], matrix[5], matrix[4],
+                    matrix[11], matrix[10], matrix[9], matrix[8]})
+                result.writtenWords.push_back(word);
+            result.alignmentWordOffsets.push_back(result.writtenWords.size());
+            result.writtenWords.push_back(std::nullopt);
+        } else {
+            for (const auto word : {0x80000011u, 0x808F02C0u, matrix[3], matrix[2], matrix[1], matrix[0],
+                                   matrix[7], matrix[6], matrix[5], matrix[4]})
+                result.writtenWords.push_back(word);
+        }
+    }
+    for (const auto word : {0x8000000Au, 0x804F02C0u, 0u, result.sourceScalarWords[2],
+                           result.sourceScalarWords[1], result.sourceScalarWords[0]})
+        result.writtenWords.push_back(word);
+    if (caller->initialBooleanWord) {
+        result.finalBooleanWord = (*caller->initialBooleanWord & ~CpuMaterialCoordinateUniformTransfer::BooleanReplacementMask) |
+                                  result.booleanSetBits;
+        result.booleanStatus = "supplied_material_boolean_transition";
+    }
+    result.commandStatus = "unavailable_caller_material_alignment_words";
+    if (caller->destinationWords) {
+        require(caller->destinationWords->size() >= result.writtenWords.size(), "Material coordinate destination is truncated");
+        for (const std::size_t offset : result.alignmentWordOffsets)
+            result.writtenWords[offset] = (*caller->destinationWords)[offset];
+    }
+    if (std::all_of(result.writtenWords.begin(), result.writtenWords.end(), [](const auto& word) { return word.has_value(); })) {
+        for (const auto& word : result.writtenWords)
+            result.commandWords.push_back(*word);
+        result.commandStatus = "complete_resource_local_material_coordinate_packet";
+    }
+    result.status = "resource_local_material_coordinate_uniform_transfer";
     return result;
 }
 
