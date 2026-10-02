@@ -8324,7 +8324,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00265B78,          ,0x00265B90,          ,U,f,,
 0x00265B90,          ,0x00265BC8,          ,U,f,,
 0x00265BC8,0x00265C28,0x00265C2C,          ,U,f,_ZN4sead21PerspectiveProjection3setEffff,
-0x00265C2C,          ,0x00265C40,          ,U,f,,
+0x00265C2C,          ,0x00265C40,          ,O,f,fn_00265C2C,
 0x00265C40,          ,0x00265C50,          ,U,f,,
 0x00265C50,0x00265D34,0x00265D44,          ,U,f,,
 0x00265D44,          ,0x00265D98,          ,U,f,,
