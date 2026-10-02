@@ -8938,7 +8938,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00275738,          ,0x00275748,          ,U,f,,
 0x00275748,0x002757FC,0x00275800,          ,U,f,,
 0x00275800,          ,0x00275828,          ,U,f,,
-0x00275828,0x00275C58,0x00276534,          ,M,f,_ZN10ItemHolderC1Ebbi,
+0x00275828,0x00275C58,0x00276534,          ,U,f,_ZN10ItemHolderC1Ebbi,
 0x00276534,          ,0x0027654C,          ,U,f,,
 0x0027654C,          ,0x00276588,          ,U,f,,
 0x00276588,          ,0x00276590,          ,U,f,_ZN2rp17createCoinRotaterEv,
