@@ -10649,7 +10649,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002C26CC,          ,0x002C273C,          ,U,f,,
 0x002C273C,          ,0x002C27D8,          ,U,f,,
 0x002C27D8,          ,0x002C2808,          ,U,f,,
-0x002C2808,          ,0x002C2810,          ,U,f,,
+0x002C2808,          ,0x002C2810,          ,O,f,fn_002C2808,
 0x002C2810,          ,0x002C2820,          ,U,f,,
 0x002C2820,0x002C28BC,0x002C28C0,          ,U,f,,
 0x002C28C0,          ,0x002C28C8,          ,U,f,,
