@@ -7599,7 +7599,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00252AE0,          ,0x00252AFC,          ,U,f,,
 0x00252AFC,          ,0x00252B00,          ,U,f,,
 0x00252B00,          ,0x00252B04,          ,U,f,,
-0x00252B04,          ,0x00252B1C,          ,U,f,fn_00252B04,
+0x00252B04,          ,0x00252B1C,          ,O,f,fn_00252B04,
 0x00252B1C,          ,0x00252BF8,          ,U,f,_ZN2al20ExecuteRequestKeeper7requestEPNS_9LiveActorEi,
 0x00252BF8,0x00252D28,0x00252D34,          ,U,f,,
 0x00252D34,          ,0x00252DB4,          ,U,f,,
