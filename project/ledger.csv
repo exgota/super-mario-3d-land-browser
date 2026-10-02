@@ -787,3 +787,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T01:22:53.077705+00:00,0x00275828,_ZN10ItemHolderC1Ebbi,abandoned,8,10.454727
 2026-10-02T02:06:36.245006+00:00,0x0026D0E4,_ZN19alLiveActorFunction14calcAnimDirectEPN2al9LiveActorE,matched,2,14.143916
 2026-10-02T02:06:36.245006+00:00,0x0027FBE0,_ZN2al16startNerveActionEPNS_9LiveActorEPKc,matched,2,14.143916
+2026-10-02T02:06:36.245006+00:00,0x00245178,_ZN4sead12PtrArrayImpl8heapSortEPFiPKvS2_E,matched,4,13.574625
