@@ -5478,7 +5478,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EC9D8,          ,0x001ECA08,          ,U,f,,
 0x001ECA08,          ,0x001ECA30,          ,U,f,,
 0x001ECA30,          ,0x001ECA60,          ,U,f,,
-0x001ECA60,          ,0x001ECA68,          ,U,f,,
+0x001ECA60,          ,0x001ECA68,          ,O,f,fn_001ECA60,
 0x001ECA68,          ,0x001ECAB0,          ,U,f,,
 0x001ECAB0,0x001ECB10,0x001ECB14,          ,U,f,,
 0x001ECB14,0x001ECB58,0x001ECB60,          ,U,f,,
