@@ -1,10 +1,11 @@
 #pragma once
 
 #include <container/seadListImpl.h>
-#include <heap/seadHeap.h>
 
 namespace sead
 {
+
+class Heap;
 
 class IDisposer
 {
@@ -21,6 +22,8 @@ public:
         IDisposer( Heap* heap = 0, HeapNullOption option = cHeapNullOption_FindContainHeap );
         virtual ~IDisposer();
 };
+
+static_assert( sizeof( IDisposer ) == 0x10, "IDisposer target layout" );
 
 } // namespace sead
 
