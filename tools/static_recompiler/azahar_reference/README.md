@@ -49,3 +49,7 @@ The optional `azahar_render_capture.patch` continues to a selected natural prese
 ## Deterministic nonzero input
 
 The optional `azahar_input_capture.patch` records a bounded held-state script through the existing HID/movie calls and observes delivered HID ring entries. Playback uses the original movie only. [INPUT.md](../INPUT.md) describes the typed-movie/input/pixel comparator and a same-state neutral control. Repeated native and stock replays match all1802 delivered polls and the visible Welcome-to-StreetPass response. Browser devices and World1-1 input remain unverified.
+
+## Native HLE audio observation
+
+The optional `azahar_audio_capture.patch` records original stereo PCM and emulated timing before host FIFO submission. [AUDIO.md](../AUDIO.md) describes native/stock/repeat comparison and lossless local WAV preview. The bounded menu replay matches all 216000 stereo sample frames and audio events while preserving input/GPU/pixel checks. Live speaker/browser playback, World 1-1 and real-hardware DSP equivalence remain unverified.
