@@ -1,0 +1,22 @@
+{
+  "prior_checkpoint": "b16e2a0cc32e0cdacac5ba94feabe67432433391",
+  "candidates": [
+    {
+      "source": "lib/al/src/ItemHolder275828.cpp",
+      "lane": "dot/item-holder-family",
+      "symbol": "_ZN10ItemHolderC1Ebbi"
+    }
+  ],
+  "prerequisite_report": "item-holder-ownership.md at dot/item-holder-ownership/8df182f",
+  "metadata_prerequisites": [
+    "Independent U/dc whole ItemHolder table partition and _ZTV10ItemHolder identity at 0x003C488C..0x003C48A0",
+    "Existing unchanged 0x00275828..0x00276534 row named _ZN10ItemHolderC1Ebbi and enrolled by acceptance owner",
+    "Existing unchanged 0x0027A7B0..0x0027A7C4 row named _ZN9dot2758287NameRefC1EPKc",
+    "Verify established whole-U-table compact scaffold projection records table_bytes_accepted=false and does not retain or invent an address for the native ItemHolder name getter"
+  ],
+  "candidate_complete_bytes": 3340,
+  "source_patch_sha256": "0bbdd2a218de34a23805cf86cdea846ebd1afd75c50ddd01d7be4641a0c48a40",
+  "canonical_target_accepted": false,
+  "native_table_bytes_match_retail": false,
+  "native_name_getter_retail_address": null
+}
