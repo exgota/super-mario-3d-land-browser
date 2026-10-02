@@ -15,7 +15,6 @@ uint32_t fn_00149870(uint32_t, const uint32_t *, uint32_t, uint32_t);
 uint32_t fn_0014A03C(uint32_t, const uint32_t *, uint32_t, uint32_t);
 uint32_t fn_0014AA40(uint32_t, const uint32_t *, uint32_t, uint32_t);
 uint32_t fn_0014ACFC(uint32_t, const uint32_t *, uint32_t, uint32_t);
-uint32_t fn_0014AEDC(uint32_t, const uint32_t *, uint32_t, uint32_t);
 uint32_t fn_0014B0F0(uint32_t, const uint32_t *, uint32_t, uint32_t);
 uint32_t fn_0014B534(uint32_t, const uint32_t *, uint32_t, uint32_t);
 uint32_t fn_0014B6A8(uint32_t, const uint32_t *, uint32_t, uint32_t);
@@ -40,7 +39,6 @@ uint32_t fn_00149868(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { retu
 uint32_t fn_0014A034(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014A03C(*p, p, c, d); }
 uint32_t fn_0014AA38(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014AA40(*p, p, c, d); }
 uint32_t fn_0014ACF4(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014ACFC(*p, p, c, d); }
-uint32_t fn_0014AED4(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014AEDC(*p, p, c, d); }
 uint32_t fn_0014B0E8(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014B0F0(*p, p, c, d); }
 uint32_t fn_0014B52C(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014B534(*p, p, c, d); }
 uint32_t fn_0014B6A0(uint32_t, const uint32_t *p, uint32_t c, uint32_t d) { return fn_0014B6A8(*p, p, c, d); }
