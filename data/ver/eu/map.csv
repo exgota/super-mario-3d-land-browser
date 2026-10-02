@@ -13943,7 +13943,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x003352A0,          ,0x003352A8,          ,O,f,_ZNK2al20ActorPoseKeeperTFGSV10getGravityEv,
 0x003352A8,          ,0x00335314,          ,U,f,,
 0x00335314,          ,0x00335360,          ,U,f,,
-0x00335360,          ,0x0033536C,          ,U,f,,
+0x00335360,          ,0x0033536C,          ,O,f,fn_00335360,
 0x0033536C,          ,0x00335384,          ,U,f,,
 0x00335384,0x00335418,0x0033541C,          ,U,f,,
 0x0033541C,          ,0x0033545C,          ,U,f,,
