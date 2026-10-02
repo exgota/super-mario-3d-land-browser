@@ -8124,7 +8124,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00260984,0x002609F4,0x00260A0C,          ,U,f,,
 0x00260A0C,          ,0x00260A84,          ,U,f,,
 0x00260A84,0x00260AFC,0x00260B18,          ,O,f,_ZN2al6Camera4loadEPKNS_9ByamlIterE,
-0x00260B18,0x00260C04,0x00260C14,          ,U,f,,
+0x00260B18,0x00260C04,0x00260C14,          ,O,f,fn_00260B18,
 0x00260C14,          ,0x00260C70,          ,U,f,,
 0x00260C70,0x00260D34,0x00260D44,          ,U,f,,
 0x00260D44,          ,0x00260D58,          ,U,f,,
