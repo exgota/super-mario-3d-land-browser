@@ -778,3 +778,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T01:03:05.652705+00:00,0x00252B1C,_ZN2al20ExecuteRequestKeeper7requestEPNS_9LiveActorEi,abandoned,3,14.143596
 2026-10-02T01:16:07.062208+00:00,0x0031B3AC,_ZN2al9EffectObj4initERKNS_13ActorInitInfoE,matched,2,9.666262
 2026-10-02T01:16:07.062208+00:00,0x0031B45C,_ZN2al17EffectObjFunction18initActorEffectObjEPNS_9EffectObjERKNS_13ActorInitInfoEPKc,matched,2,9.666262
+2026-10-02T01:16:07.062208+00:00,0x002D9B9C,_ZN4sead10ReadStream7readS16ERs,matched,2,10.891864
