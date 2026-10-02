@@ -52,8 +52,10 @@ GROUP_CHUNK = 25
 SYNC_INTERVAL_SECONDS = 45 * 60
 # Verified matches land on TARGET_BRANCH. Its ref only moves, in one compare-and-swap step, to a commit
 # whose every new function tools/check.py already reported O on CANDIDATE_BRANCH, a scratch branch.
-TARGET_BRANCH = "factory"
+TARGET_BRANCH = "main"
 CANDIDATE_BRANCH = "integration-candidate"
+# The build inputs tools/low/buildProvenance.py hashes against HEAD.
+BUILD_INPUTS = ("Game", "lib", "data/config.json")
 EASTERN = datetime.timezone(datetime.timedelta(hours=-4))
 
 TIERS = {
@@ -820,6 +822,7 @@ class Supervisor:
             # The checker only credits committed source, so the candidate is committed on the scratch branch first.
             git(INTEGRATION, "add", "--", str(MAP), *copied)
             git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate {proposal.name}, not verified")
+            candidate = git(INTEGRATION, "rev-parse", "HEAD")
             job = {"addresses": addresses, "symbols": [symbols[a] for a in addresses]}
             results = attempt_in(INTEGRATION, job, final=True)
             failed = [a for a, r in results.items() if r["rank"] != "O"]
@@ -845,6 +848,14 @@ class Supervisor:
             git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
             git(INTEGRATION, "commit", "-q", "-m", message)
             final = git(INTEGRATION, "rev-parse", "HEAD")
+            differing = [path for path in BUILD_INPUTS
+                         if git(INTEGRATION, "rev-parse", f"{candidate}:{path}") != git(INTEGRATION, "rev-parse", f"{final}:{path}")]
+            if differing:
+                # The final commit must hold exactly the source the checker verified. Fail closed.
+                self.halted = f"{proposal.name}: final commit's {differing} trees differ from the checked candidate"
+                log_event(self.database, "alert", self.halted + f"; {TARGET_BRANCH} not moved")
+                self.restore_integration()
+                return
             if not move_target(final, base, f"factory: integrate {proposal.name}"):
                 log_event(self.database, "alert", f"{proposal.name}: {TARGET_BRANCH} moved during verification; requeued")
                 self.restore_integration()
@@ -888,7 +899,8 @@ class Supervisor:
                     if match and match[1] == "O" and match[2] != "O":
                         regressions.append(match[3])
             if regressions:
-                inherited = self.failing_on_main(regressions)
+                # On main itself every regression is the target's own; only a side branch can inherit one.
+                inherited = self.failing_on_main(regressions) if TARGET_BRANCH != "main" else []
                 own = [symbol for symbol in regressions if symbol not in inherited]
                 if inherited:
                     log_event(self.database, "alert", f"main itself is not exact for {inherited[:10]}; not caused by the factory")
@@ -980,8 +992,10 @@ def write_status(supervisor=None):
     lines += [f"State: **{state}**. Last sync with main: "
               f"{clock(supervisor.last_sync) if supervisor and supervisor.last_sync else 'not yet'}.", ""]
     lines += [f"Whole project on {TARGET_BRANCH}: **{exact_bytes / total * 100:.2f}%** of code bytes"
-              f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact.",
-              f"Factory commits not yet in main: {len(factory_commits)}.", ""]
+              f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact."]
+    if TARGET_BRANCH != "main":
+        lines.append(f"Factory commits not yet in main: {len(factory_commits)}.")
+    lines.append("")
     by_status = {r[0]: (r[1], r[2]) for r in jobs}
     lines += ["Queue: " + ", ".join(f"{k} {v[0]} jobs / {v[1]} functions" for k, v in sorted(by_status.items())), ""]
     lines += ["## Efficiency by tier", "",
