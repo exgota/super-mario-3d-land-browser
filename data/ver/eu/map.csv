@@ -6488,7 +6488,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0022151C,0x002219A4,0x002219BC,          ,U,f,,
 0x002219BC,0x00221A60,0x00221A64,          ,U,f,,
 0x00221A64,0x00221AC4,0x00221ADC,          ,U,f,_ZN4sead16DirectProjectionC1Ev,
-0x00221ADC,          ,0x00221AE4,          ,U,f,,
+0x00221ADC,          ,0x00221AE4,          ,O,f,fn_00221ADC,
 0x00221AE4,          ,0x00221B5C,          ,O,f,_ZN4sead14MethodTreeNode4callEv,
 0x00221B5C,0x00221BAC,0x00221BB0,          ,O,f,_ZN4sead8Matrix34IfE6makeSTERKNS_7Vector3IfEES5_,
 0x00221BB0,          ,0x00221CB8,          ,U,f,_ZN4sead15Matrix34CalcCtrIfE7makeSRTERN2nn4math5MTX34ERKNS3_4VEC3ES8_S8_,
