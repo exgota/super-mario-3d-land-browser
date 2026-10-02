@@ -1,5 +1,11 @@
 # Full shader-validator reconstruction
 
+## Producer attribution correction, 2026-10-02
+
+The old shv_ValidatorTail.h comment incorrectly attributed lookup/exclusion-mask initialization to 00108690. That root consumes the 189-entry lookup: literal00108F70 is00420F4C,00108E08 loads the base,00108E4C reads indexed entries, and00108E64 bounds the loop at189. It does not write the lookup. Independently identified producer001064E4 (_shm_initializeShaderManager) loads00420F4C at00106570 and writes index/register pairs from003A421C through00106580. Its later blocks at001069D0/00106A28/00106ABC initialize the three exclusion masks at00421240/58/70. Exact whole-object extent and map ownership still require separate evidence and main review; this correction does not establish accepted metadata.
+
+This update changes this report and comments only. All non-comment header text is byte-identical. No build or checker was rerun for the comment correction; earlier source/check hashes and measurements describe their named historical commits. It adds no exact or behavioral credit and makes no claim that accepted coverage was invalidated. The absolute-address accessors remain qualified diagnostic scaffolding, not canonical BSS ownership.
+
 **Integration qualification:** shared graphics C-symbol declarations differ between the state and shader branches. Do not claim combined integration until they are reconciled and regression checked. See [the exact conflict, common layout evidence, and proposed declaration contract](graphics-shared-declarations.md).
 
 `dot/shader-full-validator`, based on `5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c`.
