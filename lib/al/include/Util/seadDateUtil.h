@@ -1,6 +1,14 @@
 #ifndef SEAD_DATE_UTIL_SOURCE_H
 #define SEAD_DATE_UTIL_SOURCE_H
 
+namespace nn
+{
+namespace fnd
+{
+struct DateTimeParameters;
+}
+}
+
 namespace sead
 {
 
@@ -17,6 +25,12 @@ public:
         {
         public:
                 Time( const Hour& hour, const Minute& minute, const Second& second );
+                Time( int hour, int minute, int second )
+                {
+                        mHour.mValue = hour;
+                        mMinute.mValue = minute;
+                        mSecond.mValue = second;
+                }
 
         private:
                 Hour mHour;
@@ -38,6 +52,7 @@ public:
 
         CalendarTime( const Year& year, const Month& month, const Day& day,
                       const Hour& hour, const Minute& minute, const Second& second );
+        CalendarTime( const nn::fnd::DateTimeParameters& parameters );
         void setDate( const Date& date );
 
 private:

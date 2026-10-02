@@ -1,5 +1,23 @@
 #include <Util/seadDateUtil.h>
 
+namespace nn
+{
+namespace fnd
+{
+struct DateTimeParameters
+{
+        int mYear;
+        signed char mMonth;
+        signed char mDay;
+        signed char mWeekDay;
+        signed char mHour;
+        signed char mMinute;
+        signed char mSecond;
+        short mMillisecond;
+};
+}
+}
+
 namespace sead
 {
 
@@ -23,6 +41,22 @@ void CalendarTime::setDate( const Date& date )
 CalendarTime::CalendarTime( const Year& year, const Month& month, const Day& day,
                             const Hour& hour, const Minute& minute, const Second& second )
         : mDate( year, month, day ), mTime( hour, minute, second )
+{
+}
+
+template <class Value>
+static inline Value makeCalendarValue( int value )
+{
+        Value result;
+        result.mValue = value;
+        return result;
+}
+
+CalendarTime::CalendarTime( const nn::fnd::DateTimeParameters& parameters )
+        : mDate( makeCalendarValue<Year>( parameters.mYear ),
+                 makeCalendarValue<Month>( parameters.mMonth ),
+                 makeCalendarValue<Day>( parameters.mDay ) ),
+          mTime( parameters.mHour, parameters.mMinute, parameters.mSecond )
 {
 }
 

@@ -130,7 +130,7 @@ void hideModel( LiveActor* actor )
 
 #ifdef NON_MATCHING
 // register swap, maybe inlined
-bool tryStartMclAnimIfExist( LiveActor* actor, const char* animName )
+__attribute__((noinline)) bool tryStartMclAnimIfExist( LiveActor* actor, const char* animName )
 {
         AnimPlayerSimple* animPlayer = actor->getModelKeeper()->getModel()->getMclAnimPlayer();
         if ( animPlayer && animPlayer->isAnimExist( animName ) )
@@ -208,5 +208,79 @@ void initNerveAction( LiveActor* actor, const char* name, alNerveFunction::Nerve
         startNerveAction( actor, name );
 }
 #endif
+
+} // namespace al
+
+// This source-local prefix follows the original animation-provider loads.
+struct ActionAnimationController
+{
+        void* reserved[ 8 ];
+        void* animationChannels[ 6 ];
+};
+
+extern "C" bool fn_0024FDB8( al::ActorActionKeeper* keeper, const char* actionName );
+extern "C" bool fn_0024FD4C( al::LiveActor* actor, const char* actionName, int index );
+extern "C" bool fn_0024FD08( al::LiveActor* actor, const char* actionName, int index );
+extern "C" bool fn_00265128( al::LiveActor* actor, const char* actionName );
+extern "C" bool fn_0024FCB8( al::LiveActor* actor, const char* actionName );
+extern "C" bool fn_0024FC68( al::LiveActor* actor, const char* actionName );
+
+extern "C" bool fn_002636E4( const al::LiveActor* actor )
+{
+        const ActionAnimationController* controller =
+                reinterpret_cast<const ActionAnimationController*>( actor->getModelKeeper()->getModel() );
+        return controller->animationChannels[ 0 ] != 0;
+}
+
+extern "C" bool fn_00257754( const al::LiveActor* actor )
+{
+        const ActionAnimationController* controller =
+                reinterpret_cast<const ActionAnimationController*>( actor->getModelKeeper()->getModel() );
+        return controller->animationChannels[ 2 ] != 0;
+}
+
+extern "C" bool fn_0025776C( const al::LiveActor* actor )
+{
+        const ActionAnimationController* controller =
+                reinterpret_cast<const ActionAnimationController*>( actor->getModelKeeper()->getModel() );
+        return controller->animationChannels[ 3 ] != 0;
+}
+
+extern "C" bool fn_001CBEB8( const al::LiveActor* actor )
+{
+        const ActionAnimationController* controller =
+                reinterpret_cast<const ActionAnimationController*>( actor->getModelKeeper()->getModel() );
+        return controller->animationChannels[ 4 ] != 0;
+}
+
+extern "C" bool fn_001CBEA0( const al::LiveActor* actor )
+{
+        const ActionAnimationController* controller =
+                reinterpret_cast<const ActionAnimationController*>( actor->getModelKeeper()->getModel() );
+        return controller->animationChannels[ 1 ] != 0;
+}
+
+extern "C" bool fn_001CBF08( const al::LiveActor* actor )
+{
+        const ActionAnimationController* controller =
+                reinterpret_cast<const ActionAnimationController*>( actor->getModelKeeper()->getModel() );
+        return controller->animationChannels[ 5 ] != 0;
+}
+
+namespace al
+{
+
+void startAction( LiveActor* actor, const char* actionName )
+{
+        if ( actor->getActorActionKeeper() && ::fn_0024FDB8( actor->getActorActionKeeper(), actionName ) )
+                return;
+        ::fn_0024FD4C( actor, actionName, 0 );
+        ::fn_0024FD08( actor, actionName, 0 );
+        tryStartMclAnimIfExist( actor, actionName );
+        ::fn_00265128( actor, actionName );
+        ::fn_0024FCB8( actor, actionName );
+        ::fn_0024FC68( actor, actionName );
+}
+
 
 } // namespace al
