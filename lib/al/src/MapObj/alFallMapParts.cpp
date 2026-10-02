@@ -23,9 +23,24 @@ extern "C" void fn_0027C05C( al::LiveActor* );
 extern "C" void fn_0026FB1C( al::LiveActor* );
 
 extern "C" void fn_001C96B8( al::LiveActor* );
+extern "C" void fn_0028058C( al::LiveActor*, const al::ActorInitInfo& );
+extern "C" bool fn_002794F8( int*, const al::ActorInitInfo& );
+extern "C" void fn_00280538( al::IUseStageSwitch*, const al::ActorInitInfo& );
+extern "C" void fn_0027FAB8( al::LiveActor* );
 
 namespace al
 {
+
+static inline sead::Vector3f& copyStartingTranslation( sead::Vector3f& destination,
+        const sead::Vector3f& source )
+{
+        destination.x = source.x;
+        destination.y = source.y;
+        destination.z = source.z;
+        return destination;
+}
+
+typedef char FallMapPartsSizeAssertion[sizeof(FallMapParts) == 0x74 ? 1 : -1];
 
 namespace NrvFallMapParts
 {
@@ -46,19 +61,16 @@ FallMapParts::FallMapParts( const sead::SafeString& name )
 }
 #endif
 
-#ifdef NON_MATCHING
-// instruction swap
 void FallMapParts::init( const ActorInitInfo& info )
 {
         initActorPoseTQSV( this );
-        initMapPartsActor( this, info ); // this should be a thunk
-        mStartTrans = getTrans( this );
-        tryGetArg0( &mFallFrames, getPlacementInfo( info ) );
+        fn_0028058C( this, info );
+        copyStartingTranslation( mStartTrans, getTrans( this ) );
+        fn_002794F8( &mFallFrames, info );
         initNerve( this, &NrvFallMapParts::Wait );
-        initStageSwitchAppear( this, info );
-        trySyncStageSwitchAppear( this );
+        fn_00280538( this, info );
+        fn_0027FAB8( this );
 }
-#endif
 
 bool FallMapParts::receiveMsg( u32 msg, HitSensor* other, HitSensor* me )
 {

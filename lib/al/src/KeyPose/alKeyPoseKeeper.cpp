@@ -12,9 +12,6 @@ KeyPoseKeeper::KeyPoseKeeper()
 {
 }
 
-#ifdef NON_MATCHING
-
-// puts size of KeyPose in r7 and does weird stuff
 void KeyPoseKeeper::init( const ActorInitInfo& info )
 {
         int linkChildNum = calcLinkChildNum( info );
@@ -26,10 +23,9 @@ void KeyPoseKeeper::init( const ActorInitInfo& info )
         {
                 PlacementInfo keyPoseInfo;
                 getLinksInfoByIndex( &keyPoseInfo, info, i );
-                mKeyPoses[ i ].init( keyPoseInfo );
+                mKeyPoses[ i + 1 ].init( keyPoseInfo );
         }
 }
-#endif
 
 const KeyPose* KeyPoseKeeper::getCurrentKeyPose() const
 {

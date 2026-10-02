@@ -4,6 +4,10 @@
 #include <Rail/alRailFunction.h>
 #include <Rail/alRailMoveMovement.h>
 
+extern "C" void fn_002694a4( al::LiveActor*, float );
+extern "C" void fn_00273e28( al::LiveActor*, float );
+extern "C" void fn_0027139c( al::LiveActor*, float );
+
 namespace al
 {
 
@@ -32,11 +36,11 @@ void RailMoveMovement::exeMove()
         if ( isExistRail( mHost ) )
         {
                 if ( mMoveType == 0 )
-                        moveSyncRail( mHost, mSpeed );
+                        fn_002694a4( mHost, mSpeed );
                 else if ( mMoveType == 1 )
-                        moveSyncRailTurn( mHost, mSpeed );
+                        fn_00273e28( mHost, mSpeed );
                 else if ( mMoveType == 2 )
-                        moveSyncRailLoop( mHost, mSpeed );
+                        fn_0027139c( mHost, mSpeed );
         }
 }
 

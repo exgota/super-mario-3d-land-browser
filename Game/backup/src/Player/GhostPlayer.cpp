@@ -10,6 +10,9 @@
 #include "Scene/SceneObjFactory.h"
 #include "Util/SensorMsg.h"
 
+extern "C" void fn_0027D760( u32, const al::HitSensor*, const al::HitSensor* );
+extern "C" bool fn_0027A4EC( al::HitSensor*, al::HitSensor* );
+
 namespace NrvGhostPlayer
 {
 
@@ -60,7 +63,7 @@ void GhostPlayer::attackSensor( al::HitSensor* me, al::HitSensor* other )
                         al::sendMsgEnemyAttack( other, me );
                 }
                 if ( _6A && al::isSensorMapObj( other ) )
-                        al::sendMsg53( other, me );
+                        fn_0027A4EC( other, me );
         }
 }
 
@@ -68,7 +71,7 @@ bool GhostPlayer::receiveMsg( u32 msg, al::HitSensor* other, al::HitSensor* me )
 {
         if ( al::isMsgPlayerInvincibleAttack( msg ) && al::isNerve( this, &NrvGhostPlayer::Begin ) )
         {
-                rp::requestHitReactionToAttacker( msg, me, other );
+                fn_0027D760( msg, me, other );
                 al::startHitReactionDeath( this );
                 al::setNerve( this, &NrvGhostPlayer::Nrv5 );
                 return true;

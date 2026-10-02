@@ -8,6 +8,12 @@
 #include <Nerve/alNerveFunction.h>
 #include <Stage/alStageSwitchKeeper.h>
 
+extern "C" bool fn_0027063c( al::LiveActor*, const char* );
+extern "C" const char dat_003BCDA8[];
+extern "C" const char dat_003BCDB0[];
+
+static_assert_( sizeof( AppearStep ) == 0x60 );
+
 namespace al
 {
 
@@ -72,7 +78,7 @@ void AppearStep::startDisappear()
 void AppearStep::exeAppear()
 {
         if ( al::isFirstStep( this ) )
-                al::tryStartAction( this, "Appear" );
+                fn_0027063c( this, dat_003BCDA8 );
 
         if ( al::isActionEnd( this ) )
                 al::setNerve( this, &NrvAppearStep::Wait );
@@ -87,7 +93,7 @@ void AppearStep::exeWait()
 void AppearStep::exeDisappear()
 {
         if ( al::isFirstStep( this ) )
-                al::tryStartAction( this, "Disappear" );
+                fn_0027063c( this, dat_003BCDB0 );
 
         if ( al::isActionEnd( this ) )
                 al::setNerve( this, &NrvAppearStep::End );

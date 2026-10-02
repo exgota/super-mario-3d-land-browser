@@ -9,6 +9,8 @@
 #include <Stage/alStageSwitchKeeper.h>
 
 extern "C" const char dat_003BCDFC[];
+extern "C" void fn_00280538( al::IUseStageSwitch* receiver, const al::ActorInitInfo& info );
+extern "C" bool fn_0027FAB8( al::LiveActor* actor );
 
 namespace NrvAquariumSwimDebris
 {
@@ -25,8 +27,8 @@ void AquariumSwimDebris::init( const al::ActorInitInfo& info )
 {
         al::initActorWithArchiveName( this, info, "AquariumSwimDebris", nullptr );
         al::initNerve( this, &NrvAquariumSwimDebris::Appear, 1 );
-        al::initStageSwitchAppear( this, info );
-        al::trySyncStageSwitchAppear( this );
+        ::fn_00280538( this, info );
+        ::fn_0027FAB8( this );
 }
 
 void AquariumSwimDebris::exeAppear()
