@@ -1,0 +1,164 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -163,6 +163,23 @@
+ option(CITRA_WARNINGS_AS_ERRORS "Enable warnings as errors" ON)
+ option(CITRA_ADDRESS_SANITIZE "Enable address sanitizer" OFF)
+ option(ENABLE_CCACHE "Use ccache to speed up subsequent builds" OFF)
++option(ROOT_PORT_WEBASSEMBLY_PLATFORM "Build a generic static-CPU software platform" OFF)
++if(ROOT_PORT_WEBASSEMBLY_PLATFORM)
++    if(NOT EMSCRIPTEN OR NOT ARCHITECTURE STREQUAL "GENERIC")
++        message(FATAL_ERROR "The browser platform requires Emscripten and GENERIC architecture")
++    endif()
++    foreach(disallowed IN ITEMS ENABLE_QT ENABLE_SDL2 ENABLE_OPENGL ENABLE_VULKAN ENABLE_OPENAL ENABLE_CUBEB ENABLE_LIBUSB ENABLE_GDBSTUB ENABLE_TESTS ENABLE_ROOM ENABLE_ROOM_STANDALONE ENABLE_WEB_SERVICE ENABLE_SCRIPTING)
++        if(${disallowed})
++            message(FATAL_ERROR "Unsupported browser platform option: ${disallowed}")
++        endif()
++    endforeach()
++    if(NOT ENABLE_SOFTWARE_RENDERER)
++        message(FATAL_ERROR "The browser platform requires software rendering")
++    endif()
++    add_compile_definitions(ROOT_PORT_STATIC_CPU_ONLY=1)
++    add_compile_options(-pthread $<$<COMPILE_LANGUAGE:CXX>:-fwasm-exceptions>)
++    add_link_options(-pthread -fwasm-exceptions)
++endif()
+ 
+ # Handle incompatible options for libretro builds
+ if(ENABLE_LIBRETRO)
+--- a/externals/CMakeLists.txt
++++ b/externals/CMakeLists.txt
+@@ -316,6 +316,11 @@
+ else()
+     target_include_directories(json-headers INTERFACE ./json)
+     target_disable_warnings(json-headers)
++endif()
++
++# Generic rendering needs robin_map independently of the native CPU JIT.
++if(ROOT_PORT_WEBASSEMBLY_PLATFORM AND NOT TARGET tsl::robin_map)
++    add_subdirectory(robin-map EXCLUDE_FROM_ALL)
+ endif()
+ 
+ # OpenSSL
+@@ -363,7 +368,7 @@
+ target_compile_options(httplib INTERFACE -DCPPHTTPLIB_OPENSSL_SUPPORT)
+ target_link_libraries(httplib INTERFACE ${OPENSSL_LIBRARIES})
+ 
+-if (UNIX AND NOT APPLE)
++if (UNIX AND NOT APPLE AND NOT ROOT_PORT_WEBASSEMBLY_PLATFORM)
+     add_subdirectory(gamemode EXCLUDE_FROM_ALL)
+ endif()
+ 
+--- a/src/common/CMakeLists.txt
++++ b/src/common/CMakeLists.txt
+@@ -110,9 +110,16 @@
+     zstd_compression.h
+ )
+ 
++if(ROOT_PORT_WEBASSEMBLY_PLATFORM)
++    get_target_property(common_sources citra_common SOURCES)
++    list(REMOVE_ITEM common_sources
++        dynamic_library/dynamic_library.cpp dynamic_library/ffmpeg.cpp)
++    set_property(TARGET citra_common PROPERTY SOURCES "${common_sources}")
++endif()
++
+ target_include_directories(citra_common PUBLIC ${CMAKE_BINARY_DIR}/src)
+ 
+-if (UNIX AND NOT APPLE)
++if (UNIX AND NOT APPLE AND NOT ROOT_PORT_WEBASSEMBLY_PLATFORM)
+   target_sources(citra_common PRIVATE
+     linux/gamemode.cpp
+     linux/gamemode.h
+--- a/src/core/CMakeLists.txt
++++ b/src/core/CMakeLists.txt
+@@ -552,7 +552,7 @@
+ 
+ # FastInterp's dispatch loop requires GCC/Clang computed goto; MSVC builds
+ # fall back to DynCom when the JIT is off.
+-if (NOT MSVC)
++if (NOT MSVC AND NOT ROOT_PORT_WEBASSEMBLY_PLATFORM)
+     target_compile_definitions(citra_core PUBLIC HAVE_FASTINTERP)
+     target_sources(citra_core PRIVATE
+         arm/fastinterp/fastinterp.cpp
+@@ -564,6 +564,13 @@
+     )
+ endif()
+ 
++if(ROOT_PORT_WEBASSEMBLY_PLATFORM)
++    get_target_property(core_sources citra_core SOURCES)
++    list(FILTER core_sources EXCLUDE REGEX "^arm/(dyncom|skyeye_common)/.*\\.cpp$")
++    list(REMOVE_ITEM core_sources dumping/ffmpeg_backend.cpp)
++    set_property(TARGET citra_core PROPERTY SOURCES "${core_sources}")
++endif()
++
+ if (CITRA_USE_PRECOMPILED_HEADERS)
+     target_precompile_headers(citra_core PRIVATE precompiled_headers.h)
+ endif()
+--- a/src/core/core.cpp
++++ b/src/core/core.cpp
+@@ -20,7 +20,9 @@
+ #if CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+ #include "core/arm/dynarmic/arm_dynarmic.h"
+ #endif
++#ifndef ROOT_PORT_STATIC_CPU_ONLY
+ #include "core/arm/dyncom/arm_dyncom.h"
++#endif
+ #ifdef HAVE_FASTINTERP
+ #include "core/arm/fastinterp/fastinterp.h"
+ #endif
+@@ -553,6 +555,10 @@
+             cpu_cores.push_back(RootPortCapture::CreateCpuBackend(*this, *memory, i,
+                                                                   timing->GetTimer(i)));
+         }
++#ifdef ROOT_PORT_STATIC_CPU_ONLY
++    } else {
++        throw std::runtime_error("The browser platform requires a registered static CPU backend");
++#else
+     } else if (Settings::values.use_cpu_jit) {
+ #if CITRA_ARCH(x86_64) || CITRA_ARCH(arm64)
+         for (u32 i = 0; i < num_cores; ++i) {
+@@ -578,6 +584,7 @@
+             cpu_cores.push_back(
+                 std::make_shared<ARM_DynCom>(*this, *memory, USER32MODE, i, timing->GetTimer(i)));
+         }
++#endif
+     }
+     running_core = cpu_cores[0].get();
+ 
+--- a/src/root_port_capture/CMakeLists.txt
++++ b/src/root_port_capture/CMakeLists.txt
+@@ -18,7 +18,7 @@
+ 
+ # Optional strict static ARM backend. Paths point to the clean port checkout and
+ # ignored generated headers; neither guest source nor payload enters this tree.
+-if(ROOT_PORT_SOURCE_DIRECTORY AND ROOT_PORT_TRANSLATED_DIRECTORY)
++if(ROOT_PORT_SOURCE_DIRECTORY AND ROOT_PORT_TRANSLATED_DIRECTORY AND NOT ROOT_PORT_WEBASSEMBLY_PLATFORM)
+     add_executable(azahar_static_execution
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/StaticArmBackend.cpp
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/TranslatedFunctionModule.cpp
+@@ -42,3 +42,12 @@
+             root_port_headless_capture "${ROOT_PORT_TRANSLATED_LIBRARY_FILE}")
+     endif()
+ endif()
++
++if(ROOT_PORT_WEBASSEMBLY_PLATFORM)
++    set(ROOT_PORT_AZAHAR_SOURCE_DIRECTORY "${CMAKE_SOURCE_DIR}")
++    add_subdirectory("${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/webassembly"
++                     "${CMAKE_BINARY_DIR}/static_arm_webassembly")
++    add_custom_target(root_port_webassembly_platform
++        DEPENDS static_arm_webassembly citra_core video_core audio_core
++                input_common root_port_headless_capture)
++endif()
+--- a/src/video_core/CMakeLists.txt
++++ b/src/video_core/CMakeLists.txt
+@@ -100,6 +100,12 @@
+     video_core.h
+ )
+ 
++if(ROOT_PORT_WEBASSEMBLY_PLATFORM)
++    get_target_property(video_sources video_core SOURCES)
++    list(FILTER video_sources EXCLUDE REGEX "^shader/shader_jit.*\\.cpp$")
++    set_property(TARGET video_core PROPERTY SOURCES "${video_sources}")
++endif()
++
+ if (ENABLE_SOFTWARE_RENDERER)
+     target_sources(video_core PRIVATE
+         renderer_software/renderer_software.cpp

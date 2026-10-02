@@ -1235,3 +1235,13 @@ provide no guest ARMCC class-layout evidence. Linked coverage and selected
 execution are recorded separately. The platform, browser frame, World 1-1 and
 complete rank-O source registry remain open. Final hashes, reproduction and
 scope are in project/webassembly_translation_evidence.md.
+
+## 2026-10-02: reduced WebAssembly platform and real entropy
+
+Root/webassembly-platform freezes main 5a3ee8a8 and keeps the matching ARMCC inputs unchanged. A separate opt-in public Azahar profile uses GENERIC architecture, software rendering, actual platform services and the accepted static CPU adapter. It excludes guest ARM CPU interpreters/JITs, shader JITs and native loader/media implementations. Missing static CPU registration throws. Module-local O1/pthreads/wasm exceptions reproduce the already verified translated CPU without changing matching flags. Native option-off branches remain, with no additional native-build claim.
+
+The platform uses pinned public dependency revisions and original license notices. LibreSSL keeps real ChaCha/getentropy with checked pthread locking and zero-initialized allocation; failures abort. Four typed size-zero returns fix wasm32 narrowing. Thread diagnostics use the actual Emscripten API. The finite Node-only link uses NODERAWFS for the owned input copy. Browser file/worker transport is a separate family.
+
+A fresh full host reaches the natural first GPU swap and matches all 528 raw events/ticks and 79936 PICA bytes against corrected Azahar, with zero ARM interpreter/JIT fallback. Actual real-archive entropy/concurrency and C/Node failure checks pass. Source review exposed five tooling gaps; archive/notice provenance, bounded usage, preserved timeout logs and complete source exclusions are fixed before submission. An actual blocked Node entropy provider proves the 60-second refusal/log path. GPU parity and diagnostic CPU counts remain separate claims.
+
+The final build/replay receipts, source hashes, reproduction and explicit gaps are in project/webassembly_platform_evidence.md. No browser frame, World 1-1, complete rank-O registry, semantic gameplay state or new exact/native byte credit follows. Only the integrator moves main/ranks/ledger.
