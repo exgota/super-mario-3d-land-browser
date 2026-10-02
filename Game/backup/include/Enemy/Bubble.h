@@ -2,6 +2,8 @@
 
 #include <MapObj/alMapObjActor.h>
 
+class EnemyStateBlowDown;
+
 class Bubble : public al::MapObjActor
 {
 private:
@@ -12,7 +14,7 @@ private:
         float          _70;
         sead::Vector3f _74;
         sead::Quatf    _80;
-        int            _90;
+        EnemyStateBlowDown* _90;
 
 public:
         virtual void init( const al::ActorInitInfo& info );
