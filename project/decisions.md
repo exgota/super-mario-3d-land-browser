@@ -1331,3 +1331,7 @@ Job 3108 delivered two source-grounded actor references in a live packet. Indepe
 ## 2026-10-02: carry reviewed initializer names into a disjoint source batch
 
 This separate evidence commit carries forward the same nine flower identities from 9b3c89dda and two Hammer/Teresa initializer identities from 29bbc9aae onto the batch base. The owner approved the provisional flower names; both earlier evidence documents are retained. Only existing symbol fields change. Every rank, boundary, pool and other map field is byte-preserved. The original two names-only submissions remain independent; this commit gives the source batch a named build base without depending on their queue timing.
+
+## 2026-10-02: batch disjoint prepared initializer families
+
+Bug, flowers and Hammer touch nineteen disjoint source files, all unchanged from their individually checked final snapshots. Combining them shares the costly full-preservation cycle without source assembly by the integrator or any weaker gate. Final committed source passes all 87 targeted complete intervals; the five new roots total 2668 bytes and remain unaccepted until the integrator verdict. Preserve the three replaced source request payloads and hashes only after the replacement is queued. Their independent naming proposals remain unchanged. If the combined gate fails, investigate its actual evidence before deciding whether to split the batch.
