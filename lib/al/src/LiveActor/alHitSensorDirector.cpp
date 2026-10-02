@@ -18,6 +18,16 @@ namespace al
 namespace
 {
 
+struct SensorPairDifference
+{
+        float x, z, y;
+
+        SensorPairDifference( float xValue, float yValue, float zValue )
+        : x( xValue ), z( zValue ), y( yValue )
+        {
+        }
+};
+
 inline void tryAddHitSensorPair( HitSensor* first, HitSensor* second )
 {
         LiveActor* secondHost = second->getHost();
@@ -26,14 +36,14 @@ inline void tryAddHitSensorPair( HitSensor* first, HitSensor* second )
 
         const sead::Vector3f& firstPos = first->getPos();
         const sead::Vector3f& secondPos = second->getPos();
-        sead::Vector3f difference( firstPos.x - secondPos.x,
-                                   firstPos.y - secondPos.y,
-                                   firstPos.z - secondPos.z );
+        SensorPairDifference difference( firstPos.x - secondPos.x,
+        firstPos.y - secondPos.y,
+        firstPos.z - secondPos.z );
         float radius = first->getRadius() + second->getRadius();
         if ( radius * radius <= difference.x * difference.x
-                              + difference.y * difference.y
-                              + difference.z * difference.z )
-                return;
+        + difference.y * difference.y
+        + difference.z * difference.z )
+        return;
 
         if ( second->getType() != SensorType_Eye )
                 fn_0024977C( first, second );

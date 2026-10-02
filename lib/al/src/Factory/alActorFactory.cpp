@@ -265,3 +265,49 @@ const NameToActorCreator staticd( sActorFactoryEntries )[] = {
         { "DemoStarter", nullptr } };
 
 } // namespace al
+
+#include <Util/alStringUtil.h>
+
+extern const char dat_003BA0F8[];
+extern const char dat_003BA104[];
+
+namespace al
+{
+
+        inline const char* ActorFactory::findConvertedNameForCreator( const char* objectName ) const
+        {
+                const int conversionCount = mConvertNameData->getSize();
+                for ( int index = 0; index < conversionCount; ++index )
+                {
+                        ByamlIter entry;
+                        mConvertNameData->tryGetIterByIndex( &entry, index );
+                        const char* entryObjectName = nullptr;
+                        if ( entry.tryGetStringByKey( &entryObjectName, dat_003BA0F8 ) &&
+                        isEqualString( entryObjectName, objectName ) )
+                        {
+                                const char* className = nullptr;
+                                if ( entry.tryGetStringByKey( &className, dat_003BA104 ) )
+                                return className;
+                        }
+                }
+                return nullptr;
+        }
+
+        CreateActorFuncPtr ActorFactory::getCreator( const char* objectName ) const
+        {
+                const char* convertedName = findConvertedNameForCreator( objectName );
+                if ( convertedName )
+                {
+                        const int creatorCount =
+                        sizeof( sActorFactoryEntries ) / sizeof( sActorFactoryEntries[ 0 ] );
+                        for ( int creatorIndex = 0; creatorIndex < creatorCount; ++creatorIndex )
+                        {
+                                const NameToActorCreator& entry = sActorFactoryEntries[ creatorIndex ];
+                                if ( isEqualString( convertedName, entry.name ) )
+                                return entry.creator;
+                        }
+                }
+                return nullptr;
+        }
+
+} // namespace al

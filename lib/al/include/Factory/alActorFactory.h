@@ -17,6 +17,8 @@ private:
         Resource*  mArchive;
         ByamlIter* mConvertNameData;
 
+        inline const char* findConvertedNameForCreator( const char* objectName ) const;
+
 public:
         const char*        convertName( const char* objectName ) const;
         CreateActorFuncPtr getCreator( const char* objectName ) const;
