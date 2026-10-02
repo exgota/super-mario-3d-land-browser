@@ -1,8 +1,14 @@
 # Super Mario 3D Land decompilation
 
-A private, model-driven matching decompilation of Super Mario 3D Land (EU), with a browser port to follow. See `project/BRIEF.md`.
+A model-driven matching decompilation of Super Mario 3D Land (EU), with a browser port to follow. See `project/BRIEF.md`.
 
 ![Decompilation progress](docs/progress.svg)
+
+## How it is built
+
+GPT Astra orchestrates the project. It runs the integrator and the work queue, reviews submissions and decides what each lane works on. Workers run GPT-6.1 Sol and GPT-6 Luna on unmatched functions, and GPT-6 Pro takes the hardest ones. A separate root task builds the browser port.
+
+Only the integrator moves `main`. A function counts as matched only when `tools/check.py` reproduces its original bytes exactly, so every number above can be rerun.
 
 This repository does not contain game data. Building it requires your own copy of the game.
 
