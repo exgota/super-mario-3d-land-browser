@@ -245,3 +245,39 @@ namespace al
         return installExecutorTable(storage, dat_003D7760);
     }
 }
+
+namespace al
+{
+    // Original direct caller/provider boundaries stay out of line.
+    extern "C" const unsigned char dat_003D7744[];
+    extern "C" const unsigned char dat_003D75E0[];
+
+    extern "C" __attribute__((noinline)) ExecutorStorage* fn_002415DC(ExecutorStorage* storage, const char* name, int capacity)
+    {
+        storage = static_cast<ExecutorStorage*>(fn_00243B94(storage, name));
+        storage->mVirtualFunctionTable = dat_003D75E0;
+        storage->mCapacity = capacity;
+        storage->mSize = 0;
+        storage->mBuffer = 0;
+        storage->mBuffer = new void*[capacity];
+        for (int index = 0; index < storage->mCapacity; ++index)
+            storage->mBuffer[index] = 0;
+        return storage;
+    }
+
+    extern "C" __attribute__((noinline)) ModelDrawExecutorStorage* fn_001E7518(ModelDrawExecutorStorage* storage, const char* name, int capacity)
+    {
+        storage = static_cast<ModelDrawExecutorStorage*>(fn_00243B94(storage, name));
+        storage->mVirtualFunctionTable = dat_003D7744;
+        storage->mCapacity = capacity;
+        storage->mSize = 0;
+        storage->mBuffer = 0;
+        for (unsigned int byte = 0; byte < sizeof(storage->mOpaque14); ++byte)
+            storage->mOpaque14[byte] = 0;
+        storage->mDrawInfo = 0;
+        storage->mBuffer = new void*[capacity];
+        for (int index = 0; index < storage->mCapacity; ++index)
+            storage->mBuffer[index] = 0;
+        return storage;
+    }
+}
