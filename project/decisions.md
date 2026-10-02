@@ -1109,3 +1109,31 @@ Reconcile: main and factory merged on the candidate, taking O wherever either si
 Owner rule 13: only the integrator moves or pushes main; root and the dot work on `root/` and `dot/` branches, never commit to main, never set ranks, never edit the ledger. A scratch build may still set a row to M to link it; that change is never committed. This is Claude's reading of "never sets ranks".
 
 Lanes: rule 12 allows 8, compiles included. The factory takes at most 4 worker slots and drops one when the Mac swaps; the integrator's builds count as one lane; root runs with at most one subagent; the Pro relay is one lane. The 60-run model trial uses 6 worker slots, so root runs alone and the relay waits until the trial ends. Functions of 0x100 to 0x1FF bytes have no owner under the current partition (factory under 0x100, frog from 0x200). Claude cleans `build/exact_checks` in the main checkout if free disk drops under 8 GB; the halt line is 5 GB.
+
+## 2026-10-02: Model trial on single functions; Luna kept under 32 bytes (Claude, owner rule)
+
+The trial ran 60 single-function jobs: Sol high on 20 spread over four size buckets under 256 bytes, Luna medium and Luna max on 20 each under 64 bytes. Every match went through the integrator. Rates, minutes per job, and tokens per byte counted as uncached input plus output over matched bytes:
+
+| Model | 0-31 B | 32-63 B | 64-127 B | 128-255 B | All | Minutes | Tokens per byte |
+|---|---|---|---|---|---|---|---|
+| Sol high | 5/5 | 3/5 | 3/5 | 2/5 | 65% | 3.1 | 679 |
+| Luna medium | 10/10 | 2/10 | | | 60% | 1.6 | 806 |
+| Luna max | 9/10 | 4/10 | | | 65% | 3.2 | 1,239 |
+
+Owner rule: keep Luna for a size bucket only within 10 points of Sol high there. Under 32 bytes both Luna settings qualify (100% and 90% against 100%); Luna medium costs 401 tokens per byte there against Luna max's 999, so Luna medium takes tier 1 single functions under 32 bytes and Luna max is dropped. From 32 to 63 bytes Luna trails by 20 to 40 points, so Sol high takes them. Sol high matched 65% of single functions, above the 30% line, so single functions stay in production. The samples are small (5 per Sol bucket).
+
+## 2026-10-02: Owner changes at 04:35 (Claude, owner-directed)
+
+Functions of 256 to 511 bytes now belong to the factory: 1,762 jobs covering 1,780 functions and 630,140 bytes start at Sol xhigh with a 20-minute timeout in reserved slot s1; misses go to the Pro relay. Rule 12 no longer caps factory worker slots; the swap guard starts at 4 of 10 slot threads, drops one on swap-outs (2,048 pages in 5 minutes) and adds one after 15 quiet minutes. All open jobs were reset to tier 1 (Sol high), since none had a Sol high attempt. Priorities: browser demo, then 100% byte-exact. The root finishes its current branch, then works only on the port runtime toward the six port milestones, with decompiled functions replacing recompiled ones by address. Class layout questions go to the Pro relay.
+
+Integrator faults found and fixed today: a submission with no claims failed on an empty final commit (root heap-layout, after its full check passed); a claim on a row already at M failed on an empty rank commit (root CalendarTime); trial slots paused by the swap guard never exited. Root's two submissions are queued again. Frog pushed three NonMatching reconstructions (dot/course-select-scene-init, dot/model-resource-setup, dot/texture-binding-state) with no exact claims; they are not submitted.
+
+## 2026-10-02: Provider errors retry; failed spend; usage-policy halt (Claude, owner-directed)
+
+Run 79 (band job 11683, two functions of 456 bytes) ended with "Selected model is at capacity" and was counted as a miss, which failed the job and queued it for Pro. Owner fix: a provider error is retried at the same tier after a back-off of 60, 120, 300, 600, then 900 seconds per slot; it never escalates, never goes to Pro, and never counts toward the 50-in-a-row halt. Run 79 is now outcome "error", job 11683 is open at tier 3 again, and its Pro packet was withdrawn before the relay sent it.
+
+Workers now run without `--ephemeral`, so each run's Codex session file records token counts as the turn goes; the integrator reads the last count when a run dies before `turn.completed`, then deletes the session file. Runs ending in an error or a timeout show as failed spend per tier on the dashboard. Run 79 predates this and reports 0 tokens.
+
+A response saying a prompt was flagged for usage policy halts everything: the integrator checks each worker's log, and every 30 seconds scans new events in the root's and the relay's Codex session files; it writes HALT_ALL, and Claude stops the other lanes and tells the owner.
+
+The integrator restarted at 04:54 to load these changes; the restart abandoned three in-flight runs, whose jobs reopened. Root's branch root/integrator-commit-receipts, a patch to the repository's copy of the integrator for the two empty-commit faults, was declined: the integrator is operator-owned and both faults were already fixed. Frog has pushed five NonMatching reconstructions since resuming (course-select-scene-init, model-resource-setup, texture-binding-state, item-spawn-dispatcher, skeletal-animation-construction); none claims an exact function, so none was submitted.
