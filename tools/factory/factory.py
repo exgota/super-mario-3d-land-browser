@@ -6,8 +6,11 @@ worktrees, and a deterministic integrator. Only tools/check.py decides what matc
 
 Commands (run with the repository's virtual environment python):
   init                 build the job queue from the target branch map
-  run [--slots T:N,..] supervise workers, integrate matches, sync with main, write STATUS.md
-  status               rewrite and print STATUS.md
+  run [--slots N]      supervise workers, integrate matches and submissions, run the periodic full check, write STATUS.md
+  trial --plan ...     run single-function trials of named model settings, integrating any match
+  trial-report         print match rate, minutes and tokens per byte for every trial run
+  submit --branch ...  ask the integrator to verify a root/ or dot/ branch and land it on main
+  status               rewrite and print STATUS.md and STATUS.json
   attempt              (inside a worker worktree) build and check the current job
   install-merge-driver register the row-wise map.csv merge driver for every worktree
   merge-map O A B      git merge driver for data/ver/eu/map.csv
@@ -59,9 +62,34 @@ BUILD_INPUTS = ("Game", "lib", "data/config.json")
 EASTERN = datetime.timezone(datetime.timedelta(hours=-4))
 
 TIERS = {
-    1: {"model": "gpt-6-luna", "effort": "medium", "attempts": 5, "timeout": 20 * 60},
-    2: {"model": "gpt-6.1-sol", "effort": "high", "attempts": 8, "timeout": 40 * 60},
+    1: {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60},
+    2: {"model": "gpt-6.1-sol", "effort": "xhigh", "attempts": 8, "timeout": 15 * 60},
 }
+# Model settings for single-function trials. A trial never escalates or fails a job; misses go back to the queue.
+TRIAL_SETTINGS = {
+    "sol-high": {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60},
+    "luna-medium": {"model": "gpt-6-luna", "effort": "medium", "attempts": 5, "timeout": 10 * 60},
+    "luna-max": {"model": "gpt-6-luna", "effort": "max", "attempts": 5, "timeout": 10 * 60},
+}
+SIZE_BUCKETS = ((0, 32), (32, 64), (64, 128), (128, 256))
+# Brief rule 12 allows 8 lanes, compiles included: 4 worker slots, the integrator's own builds, the root with one
+# subagent, and the Pro relay.
+MAXIMUM_SLOTS = 4
+SWAP_PAGES_PER_FIVE_MINUTES = 2048
+NO_MATCH_HALT_RUNS = 50
+MAXIMUM_PERIODIC_DEMOTIONS = 5
+MINIMUM_FREE_DISK_BYTES = 5 * 1024 ** 3
+HALT_ALL_FILE = HOME / "HALT_ALL"
+STATUS_JSON = HOME / "STATUS.json"
+# Lanes and the operator exchange files with the integrator here, inside the repository but excluded from git.
+INTEGRATOR_EXCHANGE = REPOSITORY / ".integrator"
+SUBMISSIONS = INTEGRATOR_EXCHANGE / "submissions"
+SUBMISSION_RESULTS = INTEGRATOR_EXCHANGE / "results"
+PRO_QUEUE = INTEGRATOR_EXCHANGE / "pro_queue"
+PRO_ANSWERS = INTEGRATOR_EXCHANGE / "pro_answers"
+SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/")
+# The oracle (brief rule 2): a lane's change to these waits for the operator's review.
+ORACLE_PATHS = ("tools/check.py", "tools/diff.py", "tools/progress.py", "tools/low/", "tools/asm-differ")
 
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 
@@ -303,7 +331,7 @@ def command_init(arguments):
         matched = [r for r in members if r["rank"] == "O"]
         size = members[0]["end"] - members[0]["start"]
         sibling = default_name(matched[0]) if matched else ""
-        tier = 1 if size <= 64 else 2
+        tier = 1
         for i in range(0, len(open_members), GROUP_CHUNK):
             chunk = open_members[i:i + GROUP_CHUNK]
             kind = "group" if len(chunk) > 1 else "single"
@@ -437,9 +465,9 @@ Rules:
 Finish with one line per function: the address and matched or failed."""
 
 
-def build_packet(job, worktree, rows_by_start, symbols, code, readable):
+def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings):
     addresses = [int(a, 16) for a in job["addresses"].split(",")]
-    tier = TIERS[job["tier"]]
+    tier = settings
     first = rows_by_start[addresses[0]]
     file_name = FACTORY_SOURCE_DIRECTORY / (("fn_%08X.cpp" if len(addresses) == 1 else "group_%08X.cpp") % addresses[0])
     names = []
@@ -481,6 +509,11 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable):
                           "", "```cpp", definition, "```"]
             if len(shown) >= 2:
                 break
+    if (job.get("note") or "").startswith("pro:"):
+        answer = pathlib.Path(job["note"][len("pro:"):])
+        if answer.exists():
+            parts += ["", "GPT-6 Pro, which cannot compile, proposed the forms below after earlier workers failed."
+                      " Try them in rank order, then adapt.", "", answer.read_text()]
     parts += ["", f"Check with `. ./development_environment.sh && python {HOME / 'factory.py'} attempt`"
               f" ({tier['attempts']} runs)."]
     factory_directory = worktree / ".factory"
@@ -615,18 +648,110 @@ def attempt_in(worktree, job, final=False, commit=False):
 
 # ---------------------------------------------------------------- supervisor
 
+def free_disk_bytes():
+    return shutil.disk_usage(HOME).free
+
+
+def swap_outs():
+    output = subprocess.run(["vm_stat"], capture_output=True, text=True).stdout
+    match = re.search(r"Swapouts:\s+(\d+)", output)
+    return int(match[1]) if match else 0
+
+
+def remote_target():
+    output = git(INTEGRATION, "ls-remote", "origin", f"refs/heads/{TARGET_BRANCH}", check=False)
+    return output.split()[0] if output else ""
+
+
+def is_constructor_or_destructor(symbol, readable):
+    """True for sead::CalendarTime::CalendarTime(...) or al::Foo<T>::~Foo(), judged from the demangled name."""
+    name = readable.get(symbol, "")
+    depth, cleaned = 0, ""
+    for character in name:
+        if character == "<":
+            depth += 1
+        elif character == ">":
+            depth -= 1
+        elif depth == 0:
+            if character == "(":
+                break
+            cleaned += character
+    pieces = [p for p in cleaned.split("::") if p]
+    return len(pieces) >= 2 and (pieces[-1].startswith("~") or pieces[-1] == pieces[-2])
+
+
+def lost_exact(changes_file):
+    """Symbols the full checker moved from O to anything else."""
+    lost = []
+    if changes_file.exists():
+        for line in changes_file.read_text().splitlines():
+            match = re.match(r"^(\S+) -> (\S+) (\S+)", line)
+            if match and match[1] == "O" and match[2] != "O":
+                lost.append(match[3])
+    return lost
+
+
+def gained_exact(changes_file):
+    gained = []
+    if changes_file.exists():
+        for line in changes_file.read_text().splitlines():
+            match = re.match(r"^(\S+) -> (\S+) (\S+)", line)
+            if match and match[1] != "O" and match[2] == "O":
+                gained.append(match[3])
+    return gained
+
+
+def set_ranks_by_symbol(worktree, ranks):
+    """ranks: {symbol: rank}. Returns the symbols whose row was found."""
+    path = worktree / MAP
+    lines = path.read_text().splitlines()
+    found = []
+    for index, line in enumerate(lines[1:], start=1):
+        fields = line.split(",")
+        if len(fields) > 6 and fields[6].strip() in ranks:
+            fields[4] = ranks[fields[6].strip()]
+            lines[index] = ",".join(fields)
+            found.append(fields[6].strip())
+    path.write_text("\n".join(lines) + "\n")
+    return found
+
+
+def rank_column_changes(before_text, after_text):
+    """Rows (by start address) whose rank differs between two map texts."""
+    def ranks(text):
+        return {line.split(",")[0]: line.split(",")[4].strip() for line in text.splitlines()[1:] if line.strip()}
+    before, after = ranks(before_text), ranks(after_text)
+    return sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
+
+
+def build_inputs_equal(first, second):
+    return all(git(INTEGRATION, "rev-parse", f"{first}:{path}") == git(INTEGRATION, "rev-parse", f"{second}:{path}")
+               for path in BUILD_INPUTS)
+
+
 class Supervisor:
-    def __init__(self, slots):
+    """slot_specs: {name: {"index": n, "tiers": [..], "kinds": [..] or None, "buckets": [(low, high)] or None,
+    "settings": TIERS override or None, "trial": label or None, "trial_queue": queue.Queue or None}}."""
+
+    def __init__(self, slot_specs):
         self.database = connect()
-        self.slots = slots
+        self.slot_specs = slot_specs
         self.integration_queue = queue.Queue()
         self.integration_lock = threading.Lock()
         self.active = {}
         self.stopping = False
         self.halted = ""
-        self.last_sync = 0.0
+        self.last_sync = 0.0  # the first idle moment runs a full check and push
         self.code = read_code()
         self.reload_symbols()
+        self.expected_target = target_commit()
+        self.last_pushed = remote_target()
+        self.last_checked = None
+        self.consecutive_misses = 0
+        self.maximum_slots = len([s for s in slot_specs.values() if not s.get("trial")]) or len(slot_specs)
+        self.allowed_slots = self.maximum_slots
+        self.swap_samples = []
+        self.last_slot_change = time.time()
 
     def reload_symbols(self):
         rows = target_rows()
@@ -634,8 +759,29 @@ class Supervisor:
         self.symbols = Symbols(rows)
         self.readable = demangle([r["symbol"] for r in rows if r["symbol"]])
 
+    def halt_all(self, reason):
+        """Stop the factory and leave HALT_ALL for the operator, who stops every other lane and waits for the owner."""
+        self.halted = reason
+        HALT_ALL_FILE.write_text(f"{datetime.datetime.now(EASTERN).isoformat(timespec='seconds')} {reason}\n")
+        log_event(self.database, "alert", "HALT ALL: " + reason)
+
+    def target_moved_externally(self):
+        current = target_commit()
+        if current != self.expected_target:
+            self.halt_all(f"{TARGET_BRANCH} moved outside the integrator: expected {self.expected_target[:9]}, found {current[:9]}")
+            return True
+        return False
+
+    def move(self, new, expected, reason):
+        if not move_target(new, expected, reason):
+            self.halt_all(f"{TARGET_BRANCH} moved outside the integrator during '{reason}'")
+            return False
+        self.expected_target = new
+        return True
+
     # leasing -------------------------------------------------------------
-    def lease(self, slot, tier):
+    def lease(self, slot):
+        spec = self.slot_specs[slot]
         live_rows = {}
         try:
             for row in load_rows(REPOSITORY / MAP):
@@ -643,28 +789,36 @@ class Supervisor:
         except Exception:
             pass
         with DATABASE_LOCK:
-            candidates = self.database.execute(
-                "SELECT * FROM jobs WHERE status='open' AND tier=? ORDER BY priority DESC LIMIT 50", (tier,)).fetchall()
-            for job in candidates:
-                addresses = [int(a, 16) for a in job["addresses"].split(",")]
-                still_open = [a for a in addresses if live_rows.get(a, "U") == "U"
-                              and self.rows_by_start.get(a, {}).get("rank") == "U"]
-                if not still_open:
-                    self.database.execute("UPDATE jobs SET status='skipped', note='taken elsewhere' WHERE id=?", (job["id"],))
-                    continue
-                address_text = ",".join("%08X" % a for a in still_open)
-                self.database.execute(
-                    "UPDATE jobs SET status='leased', leased_by=?, leased_at=?, addresses=?, attempts=attempts+1 WHERE id=?",
-                    (slot, time.time(), address_text, job["id"]))
-                self.database.commit()
-                leased = dict(job)
-                leased["addresses"] = address_text
-                return leased
+            for tier in spec["tiers"]:
+                query, parameters = "SELECT * FROM jobs WHERE status='open' AND tier=?", [tier]
+                if spec.get("kinds"):
+                    query += " AND kind IN (%s)" % ",".join("?" * len(spec["kinds"]))
+                    parameters += list(spec["kinds"])
+                if spec.get("buckets"):
+                    query += " AND (" + " OR ".join("(body_bytes >= ? AND body_bytes < ?)" for _ in spec["buckets"]) + ")"
+                    parameters += [bound for bucket in spec["buckets"] for bound in bucket]
+                candidates = self.database.execute(query + " ORDER BY priority DESC LIMIT 50", parameters).fetchall()
+                for job in candidates:
+                    addresses = [int(a, 16) for a in job["addresses"].split(",")]
+                    still_open = [a for a in addresses if live_rows.get(a, "U") == "U"
+                                  and self.rows_by_start.get(a, {}).get("rank") == "U"]
+                    if not still_open:
+                        self.database.execute("UPDATE jobs SET status='skipped', note='taken elsewhere' WHERE id=?", (job["id"],))
+                        continue
+                    address_text = ",".join("%08X" % a for a in still_open)
+                    self.database.execute(
+                        "UPDATE jobs SET status='leased', leased_by=?, leased_at=?, addresses=?, attempts=attempts+1 WHERE id=?",
+                        (slot, time.time(), address_text, job["id"]))
+                    self.database.commit()
+                    leased = dict(job)
+                    leased["addresses"] = address_text
+                    return leased
             self.database.commit()
         return None
 
     # workers -------------------------------------------------------------
-    def worker_loop(self, slot, tier):
+    def worker_loop(self, slot):
+        spec = self.slot_specs[slot]
         worktree = WORKSPACES / f"worker_{slot}"
         try:
             prepare_worktree(worktree)
@@ -672,31 +826,45 @@ class Supervisor:
             log_event(self.database, "error", f"{slot}: workspace setup failed: {error}")
             return
         while not self.stopping and not self.halted:
-            job = self.lease(slot, tier)
-            if not job:
-                time.sleep(60)
+            if spec["index"] >= self.allowed_slots:
+                time.sleep(30)
                 continue
+            if spec.get("trial_queue") is not None:
+                try:
+                    job = spec["trial_queue"].get_nowait()
+                except queue.Empty:
+                    break
+                execute(self.database, "UPDATE jobs SET status='leased', leased_by=?, leased_at=?, attempts=attempts+1 WHERE id=?",
+                        (slot, time.time(), job["id"]))
+            else:
+                job = self.lease(slot)
+                if not job:
+                    time.sleep(60)
+                    continue
             try:
-                self.run_job(slot, worktree, job)
+                self.run_job(slot, worktree, job, spec)
             except Exception as error:
                 log_event(self.database, "error", f"{slot} job {job['id']}: {error}")
-                execute(self.database, "UPDATE jobs SET status='open' WHERE id=?", (job["id"],))
+                execute(self.database, "UPDATE jobs SET status='open', leased_by=NULL WHERE id=?", (job["id"],))
                 time.sleep(30)
             finally:
                 self.active.pop(slot, None)
 
-    def run_job(self, slot, worktree, job):
-        settings = TIERS[job["tier"]]
+    def run_job(self, slot, worktree, job, spec):
+        settings = spec.get("settings") or TIERS[job["tier"]]
+        trial = spec.get("trial")
         head = target_commit()
         reset_worktree(worktree, head)
-        addresses, names = build_packet(job, worktree, self.rows_by_start, self.symbols, self.code, self.readable)
+        addresses, names = build_packet(job, worktree, self.rows_by_start, self.symbols, self.code, self.readable, settings)
         set_map_rows(worktree, {a: ("M", s) for a, s in zip(addresses, names)})
         started = time.time()
-        self.active[slot] = {"job": job["id"], "tier": job["tier"], "count": len(addresses),
-                             "first": addresses[0], "bytes": job["body_bytes"], "started": started}
+        self.active[slot] = {"job": job["id"], "tier": job["tier"], "count": len(addresses), "first": addresses[0],
+                             "bytes": job["body_bytes"], "started": started, "model": settings["model"],
+                             "effort": settings["effort"], "trial": trial}
         run_id = execute(self.database,
-                         "INSERT INTO runs (job_id, slot, tier, model, effort, started, outcome) VALUES (?,?,?,?,?,?,'running')",
-                         (job["id"], slot, job["tier"], settings["model"], settings["effort"], started)).lastrowid
+                         "INSERT INTO runs (job_id, slot, tier, model, effort, started, outcome, note) VALUES (?,?,?,?,?,?,'running',?)",
+                         (job["id"], slot, 0 if trial else job["tier"], settings["model"], settings["effort"], started,
+                          f"trial {trial}" if trial else "")).lastrowid
         prompt = WORKER_GUIDE.format(factory=HOME / "factory.py", attempts=settings["attempts"]) + \
             "\n\nStart by reading .factory/job.md."
         log_path = LOGS / "runs" / f"run_{run_id}.jsonl"
@@ -733,29 +901,35 @@ class Supervisor:
             results = attempt_in(worktree, job_data, final=True, commit=True)
             matched = [a for a, r in results.items() if r["rank"] == "O"]
         matched_bytes = sum(self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for a in matched)
-        note = f"edited existing files: {bad_edits}" if bad_edits else ""
+        note = f"edited existing files: {bad_edits}" if bad_edits else (f"trial {trial}" if trial else "")
         execute(self.database,
                 "UPDATE runs SET finished=?, outcome=?, input_tokens=?, cached_tokens=?, output_tokens=?,"
                 " matched_count=?, matched_bytes=?, note=? WHERE id=?",
                 (time.time(), outcome, usage["input_tokens"], usage["cached_input_tokens"], usage["output_tokens"],
                  len(matched), matched_bytes, note, run_id))
         remaining = [a for a in addresses if a not in matched]
+        remaining_text = ",".join("%08X" % a for a in remaining)
         proposal_job = job["id"]
         if not remaining:
             execute(self.database, "UPDATE jobs SET status='proposed', finished_at=? WHERE id=?", (time.time(), job["id"]))
+        elif trial:
+            execute(self.database, "UPDATE jobs SET status='open', addresses=?, leased_by=NULL WHERE id=?",
+                    (remaining_text, job["id"]))
+        elif (job["note"] or "").startswith("pro:"):
+            execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=?, note='pro tried' WHERE id=?",
+                    (remaining_text, time.time(), job["id"]))
+        elif job["tier"] < max(TIERS):
+            execute(self.database, "UPDATE jobs SET status='open', tier=?, addresses=?, leased_by=NULL WHERE id=?",
+                    (job["tier"] + 1, remaining_text, job["id"]))
         else:
-            remaining_text = ",".join("%08X" % a for a in remaining)
-            if job["tier"] < max(TIERS):
-                execute(self.database, "UPDATE jobs SET status='open', tier=?, addresses=?, leased_by=NULL WHERE id=?",
-                        (job["tier"] + 1, remaining_text, job["id"]))
-            else:
-                execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=? WHERE id=?",
-                        (remaining_text, time.time(), job["id"]))
-            if matched:
-                proposal_job = execute(
-                    self.database, "INSERT INTO jobs (kind, addresses, body_bytes, total_bytes, tier, priority, status, sibling)"
-                    " VALUES ('split',?,?,?,?,0,'proposed','')",
-                    (",".join("%08X" % a for a in matched), job["body_bytes"], matched_bytes, job["tier"])).lastrowid
+            execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=? WHERE id=?",
+                    (remaining_text, time.time(), job["id"]))
+            self.queue_for_pro(worktree, job, remaining)
+        if matched and remaining:
+            proposal_job = execute(
+                self.database, "INSERT INTO jobs (kind, addresses, body_bytes, total_bytes, tier, priority, status, sibling)"
+                " VALUES ('split',?,?,?,?,0,'proposed','')",
+                (",".join("%08X" % a for a in matched), job["body_bytes"], matched_bytes, job["tier"])).lastrowid
         if matched:
             proposal = PROPOSALS / f"job_{proposal_job}_run_{run_id}"
             shutil.rmtree(proposal, ignore_errors=True)
@@ -770,8 +944,47 @@ class Supervisor:
                  "attempts": attempts_used, "minutes": (time.time() - started) / 60,
                  "addresses": matched, "symbols": {a: n for a, n in zip(addresses, names)}}))
             self.integration_queue.put(proposal)
-        log_event(self.database, "run", f"{slot} job {job['id']} tier {job['tier']}: {len(matched)}/{len(addresses)} matched,"
+        if not trial:
+            self.consecutive_misses = 0 if matched else self.consecutive_misses + 1
+            if self.consecutive_misses >= NO_MATCH_HALT_RUNS and not self.halted:
+                self.halted = f"{NO_MATCH_HALT_RUNS} jobs in a row matched nothing"
+                log_event(self.database, "alert", "factory halted: " + self.halted)
+        log_event(self.database, "run", f"{slot} job {job['id']} {settings['model']} {settings['effort']}"
+                  f"{' trial ' + trial if trial else ''}: {len(matched)}/{len(addresses)} matched,"
                   f" {usage['input_tokens'] - usage['cached_input_tokens']} uncached + {usage['output_tokens']} out, {outcome}")
+
+    def queue_for_pro(self, worktree, job, remaining):
+        """A job that failed the top tier becomes a self-contained GPT-6 Pro packet, named so a reverse sort is largest first."""
+        total = job["body_bytes"] * len(remaining)
+        directory = PRO_QUEUE / "failures"
+        directory.mkdir(parents=True, exist_ok=True)
+        packet = (worktree / ".factory/job.md").read_text()
+        header = (f"# Factory failure, job {job['id']}\n\nAddresses: {', '.join('0x%08X' % a for a in remaining)}\n"
+                  f"Bytes: {total} ({job['body_bytes']} per function)\nTarget commit: {target_commit()}\n"
+                  "Compiler: ARMCC 4.1 build 791, -O3 -Otime --arm_only --gnu --signed_chars --enum_is_int --force_new_nothrow\n\n"
+                  "Both Sol high and Sol xhigh workers failed to match this. Return up to three ranked complete C++ forms.\n\n")
+        (directory / f"{total:05d}-{remaining[0]:08X}.md").write_text(header + packet)
+
+    def take_pro_answers(self):
+        """Reopen a failed job at tier 2 with Pro's answer attached, once."""
+        directory = PRO_ANSWERS / "failures"
+        if not directory.exists():
+            return
+        consumed = directory / "consumed"
+        for answer in sorted(directory.glob("*.md")):
+            match = re.search(r"([0-9A-F]{8})\.md$", answer.name)
+            if not match:
+                continue
+            consumed.mkdir(exist_ok=True)
+            kept = consumed / answer.name
+            shutil.move(str(answer), kept)
+            with DATABASE_LOCK:
+                job = self.database.execute("SELECT * FROM jobs WHERE status='failed' AND addresses LIKE ? AND note != 'pro tried'",
+                                            (f"{match[1]}%",)).fetchone()
+            if job:
+                execute(self.database, "UPDATE jobs SET status='open', tier=?, priority=9000000, note=? WHERE id=?",
+                        (max(TIERS), f"pro:{kept}", job["id"]))
+                log_event(self.database, "pro", f"job {job['id']} reopened with Pro's answer {answer.name}")
 
     # integration ---------------------------------------------------------
     def integrator_loop(self):
@@ -779,6 +992,9 @@ class Supervisor:
             try:
                 proposal = self.integration_queue.get(timeout=30)
             except queue.Empty:
+                if self.halted:
+                    continue
+                self.process_submissions()
                 if time.time() - self.last_sync > SYNC_INTERVAL_SECONDS and not self.halted:
                     self.sync()
                 continue
@@ -792,11 +1008,14 @@ class Supervisor:
 
     def restore_integration(self):
         """Put the scratch candidate branch back on the target tip, discarding any unverified work."""
+        subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--abort"], capture_output=True)
         git(INTEGRATION, "checkout", "-q", "-f", "-B", CANDIDATE_BRANCH, f"refs/heads/{TARGET_BRANCH}")
-        git(INTEGRATION, "clean", "-fdq", "--", str(FACTORY_SOURCE_DIRECTORY))
+        git(INTEGRATION, "clean", "-fdq", "--", str(FACTORY_SOURCE_DIRECTORY), "Game", "lib")
 
     def integrate(self, proposal):
         with self.integration_lock:
+            if self.target_moved_externally():
+                return
             metadata = json.loads((proposal / "matched.json").read_text())
             addresses = [int(a) for a in metadata["addresses"]]
             symbols = {int(k): v for k, v in metadata["symbols"].items()}
@@ -856,10 +1075,8 @@ class Supervisor:
                 log_event(self.database, "alert", self.halted + f"; {TARGET_BRANCH} not moved")
                 self.restore_integration()
                 return
-            if not move_target(final, base, f"factory: integrate {proposal.name}"):
-                log_event(self.database, "alert", f"{proposal.name}: {TARGET_BRANCH} moved during verification; requeued")
+            if not self.move(final, base, f"factory: integrate {proposal.name}"):
                 self.restore_integration()
-                self.integration_queue.put(proposal)
                 return
             execute(self.database, "UPDATE jobs SET status='matched', matched=? WHERE id=?",
                     (",".join("%08X" % a for a in addresses), metadata["job"]))
@@ -868,10 +1085,169 @@ class Supervisor:
             log_event(self.database, "match", f"{len(addresses)} functions, {sum(sizes.values())} bytes, first 0x{addresses[0]:08X}")
             shutil.rmtree(proposal, ignore_errors=True)
 
+    # submissions from root/ and dot/ branches --------------------------------
+    def process_submissions(self):
+        if not SUBMISSIONS.exists():
+            return
+        for path in sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime):
+            if self.halted:
+                return
+            # A submission's full check must start from a fully checked main, so its regressions are its own.
+            if self.submission_changes_build(path) and self.main_unchecked():
+                self.sync()
+                if self.halted:
+                    return
+            self.integrate_submission(path)
+
+    def main_unchecked(self):
+        """True unless the last full check covered every build input and map row now on the target."""
+        if self.last_checked is None:
+            return True
+        target = target_commit()
+        if target == self.last_checked:
+            return False
+        changed = git(INTEGRATION, "diff", "--name-only", self.last_checked, target).splitlines()
+        return any(p.startswith(("Game/", "lib/")) or p in ("data/config.json", str(MAP)) for p in changed)
+
+    def submission_changes_build(self, path):
+        try:
+            request = json.loads(path.read_text())
+            if request.get("claims") or request.get("nonmatching"):
+                return True
+            branch = request.get("branch", "")
+            if branch.startswith("dot/"):
+                git(INTEGRATION, "fetch", "-q", "origin", f"+refs/heads/{branch}:refs/remotes/origin/{branch}", check=False)
+            commit = git(INTEGRATION, "rev-parse", "--verify", f"{request.get('commit') or branch}^{{commit}}")
+            changed = git(INTEGRATION, "diff", "--name-only", git(INTEGRATION, "merge-base", target_commit(), commit), commit)
+            return any(p.startswith(("Game/", "lib/")) or p in ("data/config.json", str(MAP)) for p in changed.splitlines())
+        except Exception:
+            return True
+
+    def integrate_submission(self, path):
+        with self.integration_lock:
+            if self.target_moved_externally():
+                return
+            name = path.stem
+            try:
+                request = json.loads(path.read_text())
+                result = self.evaluate_submission(request, name)
+            except Exception as error:
+                result = {"outcome": "rejected", "reason": f"integrator error: {error}"}
+            if result["outcome"] != "accepted":
+                self.restore_integration()
+            result.update({"submission": name, "decided": datetime.datetime.now(EASTERN).isoformat(timespec="seconds")})
+            SUBMISSION_RESULTS.mkdir(parents=True, exist_ok=True)
+            (SUBMISSION_RESULTS / f"{name}.json").write_text(json.dumps(result, indent=2) + "\n")
+            processed = SUBMISSIONS / ("held" if result["outcome"] == "held" else "processed")
+            processed.mkdir(exist_ok=True)
+            shutil.move(str(path), processed / path.name)
+            log_event(self.database, "submission", f"{name}: {result['outcome']}"
+                      + (f", {result.get('reason', '')}" if result["outcome"] != "accepted" else
+                         f", {len(result.get('matched', []))} exact, {result.get('matched_bytes', 0)} bytes, main {result['main'][:9]}"))
+
+    def evaluate_submission(self, request, name):
+        branch, commit = request.get("branch", ""), request.get("commit", "")
+        if not branch.startswith(SUBMISSION_PREFIXES):
+            return {"outcome": "rejected", "reason": f"branch must start with one of {SUBMISSION_PREFIXES}"}
+        if branch.startswith("dot/"):
+            git(INTEGRATION, "fetch", "-q", "origin", f"+refs/heads/{branch}:refs/remotes/origin/{branch}", check=False)
+        commit = git(INTEGRATION, "rev-parse", "--verify", f"{commit or branch}^{{commit}}")
+        claims, nonmatching = list(request.get("claims", [])), list(request.get("nonmatching", []))
+        base_main = target_commit()
+        merge_base = git(INTEGRATION, "merge-base", base_main, commit)
+        changed = git(INTEGRATION, "diff", "--name-only", merge_base, commit).splitlines()
+        forbidden = [p for p in changed if p == "project/ledger.csv" or p.startswith(str(FACTORY_SOURCE_DIRECTORY) + "/")]
+        if forbidden:
+            return {"outcome": "rejected", "reason": f"lanes may not change {forbidden}"}
+        oracle = [p for p in changed if p == "data/config.json" or any(p == o or p.startswith(o) for o in ORACLE_PATHS)]
+        if oracle and not request.get("operator_approved"):
+            return {"outcome": "held", "reason": f"oracle files {oracle} need the operator's review (brief rule 2)"}
+        if str(MAP) in changed:
+            if rank_column_changes(git(INTEGRATION, "show", f"{merge_base}:{MAP}"), git(INTEGRATION, "show", f"{commit}:{MAP}")):
+                return {"outcome": "rejected", "reason": "lanes never set ranks; the branch changes rank cells in map.csv"}
+            for revision in git(INTEGRATION, "rev-list", f"{merge_base}..{commit}", "--", str(MAP)).splitlines():
+                touched = git(INTEGRATION, "diff-tree", "--no-commit-id", "--name-only", "-r", revision).splitlines()
+                extra = [p for p in touched if p != str(MAP) and not (p.startswith("project/") and p.endswith(".md"))]
+                if extra:
+                    return {"outcome": "rejected", "reason": f"map.csv changes need their own evidence commit (rule 2); {revision[:9]} also changes {extra}"}
+        self.restore_integration()
+        merge = subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--no-ff", "-q", "-m",
+                                f"Merge {branch} (submission {name})", commit], capture_output=True, text=True)
+        if merge.returncode != 0:
+            return {"outcome": "rejected", "reason": "does not merge cleanly onto main: " + (merge.stdout + merge.stderr).strip()[-400:]}
+        merged = git(INTEGRATION, "rev-parse", "HEAD")
+        rows = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
+        by_symbol = {r["symbol"]: r["start"] for r in rows.values() if r["symbol"]}
+
+        def resolve(claim):
+            if claim in by_symbol:
+                return by_symbol[claim]
+            unnamed = re.fullmatch(r"fn_([0-9A-Fa-f]{8})", claim)
+            if unnamed and int(unnamed[1], 16) in rows and not rows[int(unnamed[1], 16)]["symbol"]:
+                return int(unnamed[1], 16)
+            return None
+        addresses = {claim: resolve(claim) for claim in claims + nonmatching}
+        unknown = [claim for claim, address in addresses.items() if address is None or "f" not in rows[address]["type"]]
+        if unknown:
+            return {"outcome": "rejected", "reason": f"not function symbols in map.csv: {unknown[:10]}"}
+        flips = {addresses[claim]: ("M", claim) for claim in claims + nonmatching if rows[addresses[claim]]["rank"] != "O"}
+        if flips:
+            set_map_rows(INTEGRATION, flips)
+            git(INTEGRATION, "add", "--", str(MAP))
+            git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate ranks for submission {name}, not verified")
+        checked = git(INTEGRATION, "rev-parse", "HEAD")
+        if build_inputs_equal(base_main, checked) and str(MAP) not in changed and not flips:
+            if not self.move(merged, base_main, f"factory: accept submission {name} (no build input changes)"):
+                return {"outcome": "rejected", "reason": "main moved outside the integrator"}
+            return {"outcome": "accepted", "main": merged, "matched": [], "matched_bytes": 0, "checked": "no build inputs changed"}
+        status, output = tool(INTEGRATION, "make.py", "eu", timeout=1800)
+        if status != 0:
+            return {"outcome": "rejected", "reason": "build fails: " + output[-600:]}
+        changes_file = INTEGRATION / "data/ver/eu/.changes"
+        changes_file.unlink(missing_ok=True)
+        tool(INTEGRATION, "tools/check.py", "-q", "-w", timeout=1800)
+        regressions = lost_exact(changes_file)
+        if regressions:
+            return {"outcome": "rejected", "reason": f"breaks previously exact functions: {regressions[:20]}"}
+        gained = set(gained_exact(changes_file))
+        missing = [claim for claim in claims if claim not in gained and rows[addresses[claim]]["rank"] != "O"]
+        if missing:
+            return {"outcome": "rejected", "reason": f"claimed functions are not exact: {missing[:20]}"}
+        matched = [claim for claim in claims if claim in gained]
+        set_map_rows(INTEGRATION, {addresses[claim]: ("O", None) for claim in matched})
+        stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
+        with open(INTEGRATION / "project/ledger.csv", "a") as stream:
+            for claim in matched:
+                stream.write(f"{stamp},0x{addresses[claim]:08X},{claim},matched,{request.get('attempts', 1)},{request.get('minutes', 0)}\n")
+            for claim in nonmatching:
+                stream.write(f"{stamp},0x{addresses[claim]:08X},{claim},nonmatching,{request.get('attempts', 1)},{request.get('minutes', 0)}\n")
+        matched_bytes = sum(rows[addresses[claim]]["end"] - rows[addresses[claim]]["start"] for claim in matched)
+        git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
+        git(INTEGRATION, "reset", "-q", "--soft", merged)
+        git(INTEGRATION, "commit", "-q", "-m",
+            f"Accept submission {name} from {branch}: {len(matched)} exact, {len(nonmatching)} non-matching\n\n"
+            + "".join(f"- {s}\n" for s in matched) + (f"\n{request.get('summary', '')}\n" if request.get("summary") else "")
+            + "\nVerified by tools/check.py, full map, on a candidate commit before main moved.\n\n"
+            "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+        final = git(INTEGRATION, "rev-parse", "HEAD")
+        if not build_inputs_equal(checked, final):
+            self.halted = f"submission {name}: final build inputs differ from the checked candidate"
+            log_event(self.database, "alert", self.halted)
+            return {"outcome": "rejected", "reason": "integrator fault: final build inputs differ from the checked candidate"}
+        if not self.move(final, base_main, f"factory: accept submission {name}"):
+            return {"outcome": "rejected", "reason": "main moved outside the integrator"}
+        for claim in matched:
+            if addresses[claim] in self.rows_by_start:
+                self.rows_by_start[addresses[claim]]["rank"] = "O"
+        return {"outcome": "accepted", "main": final, "matched": matched, "matched_bytes": matched_bytes}
+
+    # periodic full check and push -------------------------------------------
     def sync(self):
-        """Merge the owner's main into the target branch on the candidate, verify every match, move the target, push."""
+        """Clean build and full check of the target tip; demote a few unconfirmed constructors, else halt; then push."""
         with self.integration_lock:
             self.last_sync = time.time()
+            if self.target_moved_externally():
+                return
             self.restore_integration()
             base = git(INTEGRATION, "rev-parse", "HEAD")
             if TARGET_BRANCH != "main":
@@ -879,91 +1255,182 @@ class Supervisor:
                                          f"Merge branch 'main' into {TARGET_BRANCH}", "main"],
                                         capture_output=True, text=True)
                 if result.returncode != 0:
-                    subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--abort"], capture_output=True)
                     log_event(self.database, "alert", f"merge of main failed: {result.stdout.strip()[-300:]} {result.stderr.strip()[-300:]}")
                     self.restore_integration()
                     return
-            status, output = tool(INTEGRATION, "make.py", "eu")
+            started = time.time()
+            status, output = tool(INTEGRATION, "make.py", "eu", "-ca", timeout=1800)
             if status != 0:
-                self.halted = f"{TARGET_BRANCH} does not build after merging main"
+                self.halted = f"{TARGET_BRANCH} does not build cleanly"
                 log_event(self.database, "alert", self.halted + ": " + output[-400:])
                 self.restore_integration()
                 return
             changes_file = INTEGRATION / "data/ver/eu/.changes"
             changes_file.unlink(missing_ok=True)
             tool(INTEGRATION, "tools/check.py", "-q", "-w", timeout=1800)
-            regressions = []
-            if changes_file.exists():
-                for line in changes_file.read_text().splitlines():
-                    match = re.match(r"^(\S+) -> (\S+) (\S+)", line)
-                    if match and match[1] == "O" and match[2] != "O":
-                        regressions.append(match[3])
-            if regressions:
-                # On main itself every regression is the target's own; only a side branch can inherit one.
-                inherited = self.failing_on_main(regressions) if TARGET_BRANCH != "main" else []
-                own = [symbol for symbol in regressions if symbol not in inherited]
-                if inherited:
-                    log_event(self.database, "alert", f"main itself is not exact for {inherited[:10]}; not caused by the factory")
-                if own:
-                    self.halted = f"regressions after sync that main does not have: {own[:10]}"
-                    log_event(self.database, "alert", self.halted)
+            checked = git(INTEGRATION, "rev-parse", "HEAD")
+            demoted = lost_exact(changes_file)
+            if demoted:
+                readable = demangle(demoted)
+                others = [s for s in demoted if not is_constructor_or_destructor(s, readable)]
+                if len(demoted) > MAXIMUM_PERIODIC_DEMOTIONS or others:
+                    self.halt_all(f"the full check demoted {len(demoted)} rows, {len(others)} of them not constructors"
+                                  f" or destructors: {demoted[:10]}")
                     self.restore_integration()
                     return
+                set_ranks_by_symbol(INTEGRATION, {s: "M" for s in demoted})
+                git(INTEGRATION, "add", "--", str(MAP))
+                git(INTEGRATION, "commit", "-q", "-m",
+                    f"Demote {len(demoted)} row{'s' if len(demoted) > 1 else ''} the periodic full check did not confirm\n\n"
+                    + "".join(f"- {s}\n" for s in demoted) + "\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+                log_event(self.database, "demote", f"periodic full check demoted to M: {demoted}")
             merged = git(INTEGRATION, "rev-parse", "HEAD")
-            if merged != base and not move_target(merged, base, "factory: merge main after a full check"):
-                log_event(self.database, "alert", f"{TARGET_BRANCH} moved during sync; nothing merged")
+            if not build_inputs_equal(checked, merged):
+                self.halted = "sync: final build inputs differ from the checked commit"
+                log_event(self.database, "alert", self.halted)
                 self.restore_integration()
                 return
-            self.reload_symbols()
-            push = subprocess.run(["git", "-C", str(INTEGRATION), "push", "-q", "origin", TARGET_BRANCH],
+            if merged != base and not self.move(merged, base, "factory: periodic full check"):
+                self.restore_integration()
+                return
+            self.last_checked = merged
+            remote = remote_target()
+            if remote != self.last_pushed:
+                self.halt_all(f"origin {TARGET_BRANCH} moved outside the integrator: expected {self.last_pushed[:9]}, found {remote[:9]}")
+                return
+            push = subprocess.run(["git", "-C", str(INTEGRATION), "push", "-q", "origin", f"refs/heads/{TARGET_BRANCH}"],
                                   capture_output=True, text=True)
+            if push.returncode == 0:
+                self.last_pushed = merged
+            self.reload_symbols()
             after = sum(1 for r in self.rows_by_start.values() if r["rank"] == "O")
-            log_event(self.database, "sync", f"merged main; {after} functions exact, no regressions;"
-                      f" push {'ok' if push.returncode == 0 else 'failed: ' + push.stderr.strip()[-200:]}")
-
-    def failing_on_main(self, symbols):
-        """Symbols the full checker also reports as lost on the owner's main tip (checker artifacts included)."""
-        if not (MAIN_PROBE / ".git").exists():
-            return []
-        git(MAIN_PROBE, "checkout", "-q", "--detach", "-f", "main")
-        status, _ = tool(MAIN_PROBE, "make.py", "eu")
-        if status != 0:
-            return list(symbols)
-        changes_file = MAIN_PROBE / "data/ver/eu/.changes"
-        changes_file.unlink(missing_ok=True)
-        tool(MAIN_PROBE, "tools/check.py", "-q", "-w", timeout=1800)
-        lost = set()
-        if changes_file.exists():
-            for line in changes_file.read_text().splitlines():
-                match = re.match(r"^(\S+) -> (\S+) (\S+)", line)
-                if match and match[1] == "O" and match[2] != "O":
-                    lost.add(match[3])
-        return [symbol for symbol in symbols if symbol in lost]
+            log_event(self.database, "sync", f"full check in {int(time.time() - started)} s; {after} functions exact;"
+                      f" {len(demoted)} demoted; push {'ok' if push.returncode == 0 else 'failed: ' + push.stderr.strip()[-200:]}")
 
     # main loop -----------------------------------------------------------
-    def run(self):
+    def adjust_slots(self):
+        """Run as many slots as the Mac holds without swapping: drop one on swap-outs, add one back after 30 quiet minutes."""
+        now = time.time()
+        self.swap_samples = [(t, o) for t, o in self.swap_samples if t >= now - 1800] + [(now, swap_outs())]
+        recent = [o for t, o in self.swap_samples if t >= now - 300]
+        if recent[-1] - recent[0] > SWAP_PAGES_PER_FIVE_MINUTES and self.allowed_slots > 1 and now - self.last_slot_change > 300:
+            self.allowed_slots -= 1
+            self.last_slot_change = now
+            log_event(self.database, "slots", f"swapping ({recent[-1] - recent[0]} pages in 5 min); allowed slots now {self.allowed_slots}")
+        elif (self.allowed_slots < self.maximum_slots and now - self.last_slot_change > 1800
+              and self.swap_samples[-1][1] - self.swap_samples[0][1] == 0):
+            self.allowed_slots += 1
+            self.last_slot_change = now
+            log_event(self.database, "slots", f"no swapping for 30 min; allowed slots now {self.allowed_slots}")
+
+    def run(self, until_idle=False):
         STOP_FILE.unlink(missing_ok=True)
         for path in PROPOSALS.glob("job_*"):
             self.integration_queue.put(path)
         execute(self.database, "UPDATE jobs SET status='open', leased_by=NULL WHERE status='leased'")
-        log_event(self.database, "start", f"slots {self.slots}")
+        execute(self.database, "UPDATE runs SET outcome='abandoned' WHERE outcome='running'")
+        log_event(self.database, "start", f"slots {sorted(self.slot_specs)}; target {TARGET_BRANCH} at {self.expected_target[:9]}")
         threads = [threading.Thread(target=self.integrator_loop, daemon=True)]
-        for tier, count in self.slots.items():
-            for index in range(count):
-                threads.append(threading.Thread(target=self.worker_loop, args=(f"t{tier}_{index + 1}", tier), daemon=True))
-        for thread in threads:
+        workers = [threading.Thread(target=self.worker_loop, args=(slot,), daemon=True) for slot in self.slot_specs]
+        for thread in threads + workers:
             thread.start()
         while True:
             write_status(self)
+            if HALT_ALL_FILE.exists() and not self.halted:
+                self.halted = HALT_ALL_FILE.read_text().strip()
+            if free_disk_bytes() < MINIMUM_FREE_DISK_BYTES and not self.halted:
+                self.halt_all(f"free disk is {free_disk_bytes() / 1024 ** 3:.1f} GB, under 5 GB")
+            if not self.halted:
+                if self.integration_lock.acquire(blocking=False):
+                    try:
+                        self.target_moved_externally()
+                    finally:
+                        self.integration_lock.release()
+                self.adjust_slots()
+                self.take_pro_answers()
             if STOP_FILE.exists() and not self.stopping:
                 self.stopping = True
                 log_event(self.database, "stop", "stop requested; finishing current jobs")
-            if self.stopping and not self.active and self.integration_queue.empty():
+            if until_idle and not any(w.is_alive() for w in workers) and not self.stopping:
+                self.stopping = True
+            if (self.stopping or self.halted) and not self.active and self.integration_queue.empty():
                 break
             time.sleep(30)
-        self.sync()
+        if not self.halted:
+            self.sync()
         write_status(self)
-        log_event(self.database, "stop", "supervisor exited")
+        log_event(self.database, "stop", "supervisor exited" + (f" (halted: {self.halted})" if self.halted else ""))
+
+
+# ---------------------------------------------------------------- trials
+
+def select_trial_jobs(database, rows_by_start, plan, seed):
+    """plan: [(label, count, maximum_bytes)]. Single-function jobs spread evenly over SIZE_BUCKETS below the maximum."""
+    import random
+    generator = random.Random(seed)
+    live = {r["start"]: r["rank"] for r in load_rows(REPOSITORY / MAP)}
+    chosen, used = {}, set()
+    for label, count, maximum in plan:
+        buckets = [(low, min(high, maximum)) for low, high in SIZE_BUCKETS if low < maximum]
+        shares = [count // len(buckets) + (1 if i < count % len(buckets) else 0) for i in range(len(buckets))]
+        chosen[label] = []
+        for (low, high), share in zip(buckets, shares):
+            candidates = [dict(row) for row in database.execute(
+                "SELECT * FROM jobs WHERE kind='single' AND status='open' AND body_bytes >= ? AND body_bytes < ?",
+                (low, high)).fetchall()]
+            candidates = [job for job in candidates if job["id"] not in used
+                          and rows_by_start.get(int(job["addresses"], 16), {}).get("rank") == "U"
+                          and live.get(int(job["addresses"], 16), "U") == "U"]
+            generator.shuffle(candidates)
+            for job in candidates[:share]:
+                used.add(job["id"])
+                chosen[label].append(job)
+    return chosen
+
+
+def command_trial(arguments):
+    plan = [(label, int(count), int(maximum)) for label, count, maximum in
+            (item.split(":") for item in arguments.plan.split(","))]
+    database = connect()
+    rows_by_start = {r["start"]: r for r in target_rows()}
+    chosen = select_trial_jobs(database, rows_by_start, plan, arguments.seed)
+    specs, index = {}, 0
+    for label, _, _ in plan:
+        work = queue.Queue()
+        for job in chosen[label]:
+            work.put(job)
+        for number in range(arguments.slots_per_label):
+            specs[f"s{index + 1}"] = {"index": index, "tiers": [], "settings": TRIAL_SETTINGS[label],
+                                      "trial": label, "trial_queue": work}
+            index += 1
+        print(f"{label}: {len(chosen[label])} jobs, sizes {sorted(j['body_bytes'] for j in chosen[label])}")
+    Supervisor(specs).run(until_idle=True)
+    print(trial_report())
+
+
+def trial_report():
+    database = connect()
+    rows = database.execute("SELECT r.*, j.body_bytes FROM runs r JOIN jobs j ON j.id = r.job_id"
+                            " WHERE r.note LIKE 'trial %' AND r.finished IS NOT NULL").fetchall()
+    groups = collections.defaultdict(list)
+    for row in rows:
+        label = row["note"][len("trial "):]
+        bucket = next(f"{low}-{high - 1}" for low, high in SIZE_BUCKETS if low <= row["body_bytes"] < high)
+        groups[(label, bucket)].append(row)
+        groups[(label, "all")].append(row)
+    lines = ["| Label | Size bucket | Jobs | Matched | Match rate | Minutes per job | Tokens per byte (uncached + output) |",
+             "|---|---|---|---|---|---|---|"]
+    for (label, bucket), items in sorted(groups.items()):
+        matched = sum(1 for r in items if r["matched_count"])
+        matched_bytes = sum(r["matched_bytes"] for r in items)
+        tokens = sum(r["input_tokens"] - r["cached_tokens"] + r["output_tokens"] for r in items)
+        minutes = sum(r["finished"] - r["started"] for r in items) / 60 / len(items)
+        per_byte = f"{tokens / matched_bytes:,.0f}" if matched_bytes else "n/a"
+        lines.append(f"| {label} | {bucket} | {len(items)} | {matched} | {matched / len(items) * 100:.0f}% |"
+                     f" {minutes:.1f} | {per_byte} |")
+    text = "\n".join(lines) + "\n"
+    (LOGS / "trial_report.md").write_text(text)
+    return text
 
 
 # ---------------------------------------------------------------- status
@@ -972,60 +1439,100 @@ def write_status(supervisor=None):
     database = supervisor.database if supervisor else connect()
     now = time.time()
     with DATABASE_LOCK:
-        jobs = database.execute("SELECT status, COUNT(*), SUM(LENGTH(addresses) - LENGTH(REPLACE(addresses, ',', '')) + 1)"
-                                " FROM jobs GROUP BY status").fetchall()
-        runs = database.execute("SELECT * FROM runs WHERE outcome != 'running'").fetchall()
-        recent_runs = database.execute("SELECT * FROM runs WHERE finished > ?", (now - 3600,)).fetchall()
+        jobs = database.execute("SELECT status, COUNT(*), SUM(LENGTH(addresses) - LENGTH(REPLACE(addresses, ',', '')) + 1),"
+                                " SUM(total_bytes) FROM jobs GROUP BY status").fetchall()
+        runs = database.execute("SELECT * FROM runs WHERE outcome NOT IN ('running', 'abandoned')").fetchall()
         events = database.execute("SELECT * FROM events ORDER BY time DESC LIMIT 12").fetchall()
-        alerts = database.execute("SELECT * FROM events WHERE kind IN ('alert','error') ORDER BY time DESC LIMIT 5").fetchall()
+        alerts = database.execute("SELECT * FROM events WHERE kind IN ('alert','error','demote') ORDER BY time DESC LIMIT 10").fetchall()
+        matches = database.execute("SELECT time, text FROM events WHERE kind='match' AND time > ?", (now - 86400,)).fetchall()
     rows = target_rows()
     functions = [r for r in rows if "f" in r["type"]]
     total = sum(r["end"] - r["start"] for r in functions)
     exact = [r for r in functions if r["rank"] == "O"]
     exact_bytes = sum(r["end"] - r["start"] for r in exact)
-    factory_commits = git(INTEGRATION, "log", "--oneline", f"main..{TARGET_BRANCH}", "--grep=via factory", check=False).splitlines()
     clock = lambda t: datetime.datetime.fromtimestamp(t, EASTERN).strftime("%H:%M")
-    lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", ""]
     state = "stopped"
     if supervisor:
         state = "halted: " + supervisor.halted if supervisor.halted else ("stopping" if supervisor.stopping else "running")
-    lines += [f"State: **{state}**. Last sync with main: "
-              f"{clock(supervisor.last_sync) if supervisor and supervisor.last_sync else 'not yet'}.", ""]
-    lines += [f"Whole project on {TARGET_BRANCH}: **{exact_bytes / total * 100:.2f}%** of code bytes"
-              f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact."]
-    if TARGET_BRANCH != "main":
-        lines.append(f"Factory commits not yet in main: {len(factory_commits)}.")
-    lines.append("")
-    by_status = {r[0]: (r[1], r[2]) for r in jobs}
-    lines += ["Queue: " + ", ".join(f"{k} {v[0]} jobs / {v[1]} functions" for k, v in sorted(by_status.items())), ""]
-    lines += ["## Efficiency by tier", "",
-              "| Tier | Model | Runs | Functions matched | Bytes matched | Uncached input | Output | Tokens per byte | Minutes per run |",
-              "|---|---|---|---|---|---|---|---|---|"]
+    accepted = []
+    for row in matches:
+        found = re.search(r"(\d+) bytes", row["text"])
+        if found:
+            accepted.append((row["time"], int(found[1])))
+    bytes_last = lambda hours: sum(b for t, b in accepted if t > now - hours * 3600)
+    hourly = [sum(b for t, b in accepted if now - (h + 1) * 3600 < t <= now - h * 3600) for h in range(24)][::-1]
+    tiers = []
     grouped = collections.defaultdict(list)
     for run in runs:
-        grouped[(run["tier"], run["model"], run["effort"])].append(run)
-    for (tier, model, effort), items in sorted(grouped.items()):
+        label = run["note"][len("trial "):] if (run["note"] or "").startswith("trial ") else f"tier {run['tier']}"
+        grouped[(label, run["model"], run["effort"])].append(run)
+    for (label, model, effort), items in sorted(grouped.items()):
         matched_bytes = sum(r["matched_bytes"] for r in items)
-        uncached = sum(r["input_tokens"] - r["cached_tokens"] for r in items)
-        output = sum(r["output_tokens"] for r in items)
-        total_tokens = sum(r["input_tokens"] + r["output_tokens"] for r in items)
-        per_byte = f"{total_tokens / matched_bytes:,.0f}" if matched_bytes else "n/a"
-        minutes = sum((r["finished"] - r["started"]) for r in items) / 60 / len(items)
-        lines.append(f"| {tier} | {model} {effort} | {len(items)} | {sum(r['matched_count'] for r in items)} |"
-                     f" {matched_bytes:,} | {uncached:,} | {output:,} | {per_byte} | {minutes:.1f} |")
-    hour_bytes = sum(r["matched_bytes"] for r in recent_runs)
-    lines += ["", f"Last hour: {hour_bytes:,} bytes matched by workers in {len(recent_runs)} runs.", ""]
-    if supervisor and supervisor.active:
-        lines += ["## Working now", ""]
-        for slot, info in sorted(supervisor.active.items()):
-            lines.append(f"- {slot}: job {info['job']}, {info['count']} function(s) from 0x{info['first']:08X},"
-                         f" {info['bytes']} bytes each, tier {info['tier']}, {int((now - info['started']) / 60)} min")
-        lines.append("")
+        uncached_and_output = sum(r["input_tokens"] - r["cached_tokens"] + r["output_tokens"] for r in items)
+        tiers.append({"label": label, "model": model, "effort": effort, "runs": len(items),
+                      "runs_matched": sum(1 for r in items if r["matched_count"]),
+                      "functions": sum(r["matched_count"] for r in items), "bytes": matched_bytes,
+                      "tokens_per_byte": round(uncached_and_output / matched_bytes) if matched_bytes else None,
+                      "minutes_per_run": round(sum(r["finished"] - r["started"] for r in items) / 60 / len(items), 1)})
+    slots = []
+    if supervisor:
+        for name, spec in sorted(supervisor.slot_specs.items(), key=lambda item: item[1]["index"]):
+            info = supervisor.active.get(name)
+            slots.append({"slot": name, "enabled": spec["index"] < supervisor.allowed_slots,
+                          "job": info["job"] if info else None, "model": info["model"] if info else None,
+                          "effort": info["effort"] if info else None, "functions": info["count"] if info else None,
+                          "bytes": info["bytes"] if info else None,
+                          "minutes": int((now - info["started"]) / 60) if info else None})
+    status = {
+        "generated": datetime.datetime.now(EASTERN).isoformat(timespec="seconds"), "state": state,
+        "target": TARGET_BRANCH, "target_commit": target_commit(),
+        "exact_functions": len(exact), "total_functions": len(functions), "exact_bytes": exact_bytes,
+        "total_bytes": total, "percent": round(exact_bytes / total * 100, 3),
+        "queue": [{"status": r[0], "jobs": r[1], "functions": r[2], "bytes": r[3]} for r in jobs],
+        "slots": slots, "allowed_slots": supervisor.allowed_slots if supervisor else 0,
+        "maximum_slots": supervisor.maximum_slots if supervisor else 0,
+        "accepted_bytes": {"last_hour": bytes_last(1), "last_6_hours": bytes_last(6), "last_24_hours": bytes_last(24)},
+        "accepted_bytes_by_hour": hourly, "tiers": tiers,
+        "alerts": [{"time": clock(e["time"]), "kind": e["kind"], "text": e["text"]} for e in alerts],
+        "events": [{"time": clock(e["time"]), "kind": e["kind"], "text": e["text"]} for e in events],
+        "halt_all": HALT_ALL_FILE.read_text().strip() if HALT_ALL_FILE.exists() else "",
+    }
+    STATUS_JSON.write_text(json.dumps(status, indent=1) + "\n")
+    lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", "",
+             f"State: **{state}**. Last full check: "
+             f"{clock(supervisor.last_sync) if supervisor and supervisor.last_sync else 'not yet'}.", "",
+             f"Whole project on {TARGET_BRANCH}: **{exact_bytes / total * 100:.2f}%** of code bytes"
+             f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact.", "",
+             "Queue: " + ", ".join(f"{q['status']} {q['jobs']} jobs / {q['functions']} functions" for q in status["queue"]), "",
+             f"Accepted bytes: {bytes_last(1):,} last hour, {bytes_last(6):,} last 6 hours.", "",
+             "## Efficiency", "",
+             "| Label | Model | Runs | Runs matched | Functions | Bytes | Tokens per byte (uncached + output) | Minutes per run |",
+             "|---|---|---|---|---|---|---|---|"]
+    for tier in tiers:
+        lines.append(f"| {tier['label']} | {tier['model']} {tier['effort']} | {tier['runs']} | {tier['runs_matched']} |"
+                     f" {tier['functions']} | {tier['bytes']:,} | {tier['tokens_per_byte'] or 'n/a'} | {tier['minutes_per_run']} |")
+    if slots:
+        lines += ["", "## Slots", ""] + [
+            f"- {s['slot']}: " + (f"job {s['job']}, {s['functions']} function(s), {s['bytes']} bytes each, {s['model']} {s['effort']},"
+                                  f" {s['minutes']} min" if s["job"] else ("idle" if s["enabled"] else "paused (swap guard)"))
+            for s in slots]
     if alerts:
-        lines += ["## Alerts and errors", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in alerts] + [""]
-    lines += ["## Recent events", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in events]
+        lines += ["", "## Alerts and errors", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in alerts]
+    lines += ["", "## Recent events", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in events]
     STATUS_FILE.write_text("\n".join(lines) + "\n")
     return STATUS_FILE.read_text()
+
+
+def command_submit(arguments):
+    """Write a submission request for the integrator. Used by root (root/ branches) and the operator (dot/, integrator/)."""
+    commit = git(REPOSITORY, "rev-parse", "--verify", f"{arguments.commit or arguments.branch}^{{commit}}")
+    SUBMISSIONS.mkdir(parents=True, exist_ok=True)
+    name = arguments.name or re.sub(r"[^A-Za-z0-9._-]+", "-", arguments.branch) + "-" + commit[:9]
+    request = {"branch": arguments.branch, "commit": commit,
+               "claims": [s for s in arguments.claims.split(",") if s], "nonmatching": [s for s in arguments.nonmatching.split(",") if s],
+               "summary": arguments.summary, "attempts": arguments.attempts, "minutes": arguments.minutes}
+    (SUBMISSIONS / f"{name}.json").write_text(json.dumps(request, indent=2) + "\n")
+    print(f"submitted {name}; the result will appear in {SUBMISSION_RESULTS / (name + '.json')}")
 
 
 # ---------------------------------------------------------------- entry
@@ -1052,7 +1559,23 @@ def main():
     init = commands.add_parser("init")
     init.add_argument("--force", action="store_true")
     run = commands.add_parser("run")
-    run.add_argument("--slots", default="1:1,2:1", help="tier:count pairs")
+    run.add_argument("--slots", type=int, default=MAXIMUM_SLOTS, help="worker slots, at most MAXIMUM_SLOTS")
+    run.add_argument("--tier-two-slots", type=int, default=1, help="slots that take tier 2 jobs before tier 1")
+    run.add_argument("--group-only", action="store_true", help="never lease single-function jobs")
+    trial = commands.add_parser("trial")
+    trial.add_argument("--plan", required=True, help="label:jobs:maximum_bytes,... with labels from TRIAL_SETTINGS")
+    trial.add_argument("--slots-per-label", type=int, default=2)
+    trial.add_argument("--seed", type=int, default=20261002)
+    commands.add_parser("trial-report")
+    submit = commands.add_parser("submit")
+    submit.add_argument("--branch", required=True)
+    submit.add_argument("--commit", default="")
+    submit.add_argument("--claims", default="", help="comma-separated symbols the branch makes exact")
+    submit.add_argument("--nonmatching", default="", help="comma-separated symbols the branch adds as non-matching")
+    submit.add_argument("--summary", default="")
+    submit.add_argument("--attempts", type=int, default=1)
+    submit.add_argument("--minutes", type=float, default=0)
+    submit.add_argument("--name", default="")
     commands.add_parser("status")
     attempt = commands.add_parser("attempt")
     attempt.add_argument("--final", action="store_true")
@@ -1067,8 +1590,17 @@ def main():
     if arguments.command == "init":
         command_init(arguments)
     elif arguments.command == "run":
-        slots = {int(t): int(n) for t, n in (pair.split(":") for pair in arguments.slots.split(","))}
-        Supervisor(slots).run()
+        count = min(arguments.slots, MAXIMUM_SLOTS)
+        kinds = ["group"] if arguments.group_only else None
+        specs = {f"s{i + 1}": {"index": i, "tiers": [2, 1] if i < arguments.tier_two_slots else [1, 2], "kinds": kinds}
+                 for i in range(count)}
+        Supervisor(specs).run()
+    elif arguments.command == "trial":
+        command_trial(arguments)
+    elif arguments.command == "trial-report":
+        print(trial_report())
+    elif arguments.command == "submit":
+        command_submit(arguments)
     elif arguments.command == "status":
         print(write_status())
     elif arguments.command == "attempt":
