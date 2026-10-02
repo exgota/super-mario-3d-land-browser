@@ -770,3 +770,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x001C5B08,_ZN2al13KeyPoseKeeper4initERKNS_13ActorInitInfoE,matched,2,7.693528
 2026-10-02T00:28:56.761383+00:00,0x001EA220,fn_001EA220,abandoned,3,8.945963
 2026-10-02T00:48:30.178151+00:00,001D1DA0,_ZN2al17HitSensorDirector7executeEv,matched,4,42.318454
+2026-10-02T00:48:30.178151+00:00,0x00268EB0,_ZNK2al12ActorFactory10getCreatorEPKc,matched,4,22.056877
