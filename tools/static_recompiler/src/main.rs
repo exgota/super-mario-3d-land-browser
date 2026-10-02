@@ -44,30 +44,31 @@ fn run() -> Result<(), String> {
     let image = Image { entry: text.base, text, rodata, data };
     let mut program = image.into_program(&[], &[]);
     let map = fs::read_to_string(&args[3]).map_err(|e| e.to_string())?;
-    let mut slots = BTreeSet::new();
     let mut function_count = 0;
     for line in map.lines().skip(1) {
         let fields: Vec<&str> = line.split(',').map(str::trim).collect();
         if fields.len() != 8 { return Err("unexpected map row shape".into()); }
         let start = address(fields[0])?;
-        let end = address(fields[2])?;
         if start < program.text.base || start >= program.text.end() { continue; }
         if fields[5].contains('f') {
             program.seeds.push((start, Source::Hint));
             function_count += 1;
-            if !fields[1].is_empty() {
-                for at in (address(fields[1])?..end).step_by(4) { slots.insert(at); }
-            }
-        } else {
-            for at in (start..end).step_by(4) { slots.insert(at); }
         }
     }
-    program.slots = Some(slots);
+    // Map Pool columns are placement metadata, not verified relocations. The original
+    // nninitStartUp executes its declared pool and falls through into the next row.
+    // Discover literal loads and executable flow from the binary itself.
+    program.slots = None;
     let replacements = recomp3ds::overrides::load(Path::new(&args[4]))?;
     let overrides: Vec<_> = replacements.into_iter().flat_map(|file| file.overrides).collect();
     // The orchestrator independently gates every replacement on frozen main's rank O.
     for item in &overrides { program.seeds.push((item.address, Source::Override)); }
-    let analysis = discover::analyze(&program);
+    let mut analysis = discover::analyze(&program);
+    // Every translated instruction can resume after a native scheduling boundary.
+    // This also separates conditional exits from unreachable lexical successors.
+    for function in analysis.functions.values_mut() {
+        function.labels.extend(function.instructions.iter().copied());
+    }
     let generated = codegen::generate(&[Unit { module: None, program: &program, analysis: &analysis }], &overrides);
     let output = Path::new(&args[5]);
     fs::create_dir_all(output).map_err(|e| e.to_string())?;
