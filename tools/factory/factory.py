@@ -47,6 +47,11 @@ STATUS_FILE = HOME / "STATUS.md"
 STOP_FILE = HOME / "STOP"
 LOGS = HOME / "logs"
 PROPOSALS = HOME / "proposals"
+# The closest failed draft of each function and its residual diff, carried into the next tier's packet and Pro packets.
+DRAFTS = HOME / "drafts"
+# A run stops after this many attempts in a row that do not reduce the differing lines below its best.
+STALL_ATTEMPTS = 3
+NEAR_MISS_LINES = 4
 VENV_PYTHON = REPOSITORY / ".venv" / "bin" / "python"
 MAP = pathlib.Path("data/ver/eu/map.csv")
 FACTORY_SOURCE_DIRECTORY = pathlib.Path("Game/backup/src/Factory")
@@ -71,7 +76,10 @@ TIERS = {
     2: {"model": "gpt-6.1-sol", "effort": "xhigh", "attempts": 8, "timeout": 15 * 60, "next": None},
     # Functions of 256 to 511 bytes (owner, 2026-10-02), in their own reserved slot.
     3: {"model": "gpt-6.1-sol", "effort": "xhigh", "attempts": 8, "timeout": 20 * 60, "next": None},
+    # A Luna miss on a group under 32 bytes goes to Sol high before Sol xhigh (owner, 2026-10-02).
+    4: {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60, "next": 2},
 }
+LUNA_GROUP_MISS_TIER = 4
 BAND_TIER = 3
 BAND_BYTES = (256, 512)
 # Model settings for single-function trials. A trial never escalates or fails a job; misses go back to the queue.
@@ -79,7 +87,14 @@ TRIAL_SETTINGS = {
     "sol-high": {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60},
     "luna-medium": {"model": "gpt-6-luna", "effort": "medium", "attempts": 5, "timeout": 10 * 60},
     "luna-max": {"model": "gpt-6-luna", "effort": "max", "attempts": 5, "timeout": 10 * 60},
+    # Hard-end trial (owner, 2026-10-02): no timeout but a 2-hour cap and a 10-minute inactivity kill.
+    "astra-high": {"model": "gpt-6-astra", "effort": "high", "attempts": 10, "timeout": 2 * 60 * 60},
+    "sol-ultra": {"model": "gpt-6.1-sol", "effort": "ultra", "attempts": 10, "timeout": 2 * 60 * 60},
 }
+INACTIVITY_KILL_SECONDS = 10 * 60
+# Until the weekly usage reset at 13:00 ET on 2026-10-02, a third slot may run hard-end trial jobs first (owner).
+HARD_END_THIRD_SLOT_UNTIL = datetime.datetime(2026, 10, 2, 13, 0, tzinfo=datetime.timezone(datetime.timedelta(hours=-4))).timestamp()
+SESSION_USAGE_LOG = HOME / "logs" / "session_usage.jsonl"
 SIZE_BUCKETS = ((0, 32), (32, 64), (64, 128), (128, 256))
 # Worker slots are not capped by brief rule 12 (owner, 2026-10-02): the swap guard runs as many as the Mac holds.
 SLOT_THREADS = 10
@@ -101,7 +116,7 @@ PORT_STATUS = INTEGRATOR_EXCHANGE / "port_status.json"
 PORT_MILESTONES = (
     "Static recompiler builds natively and reaches the first frame's GPU command stream, matching Azahar",
     "Rendering", "Input", "Audio", "World 1-1", "Browser build")
-SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/", "cleanup/")
+SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/", "cleanup/", "class/")
 # Cleanup branches may move code out of the Factory directory; they ride alone and lose no O row (owner, 2026-10-02).
 CLEANUP_PREFIX = "cleanup/"
 # Facts files (owner, 2026-10-02): offsets, types, signatures, symbol names and addresses only.
@@ -111,6 +126,14 @@ SOURCE_QUALITY_FILE = HOME / "logs" / "source_quality.json"
 ADDRESS_LITERALS_FILE = HOME / "logs" / "address_literals.json"
 # The oracle (brief rule 2): a lane's change to these waits for the operator's review.
 ORACLE_PATHS = ("tools/check.py", "tools/diff.py", "tools/progress.py", "tools/low/", "tools/asm-differ")
+OBJECT_ROOT = pathlib.Path("build/eu/obj")
+READELF = "/opt/homebrew/bin/arm-none-eabi-readelf"
+# A class-mode header change rechecks the exact functions of every object that includes it; past this many it rides
+# the periodic full check instead (about half a second per function).
+CLASS_HEADER_RECHECK_LIMIT = 240
+FULL_IMAGE_OUTPUT = pathlib.Path("build/eu/full_image_diagnostic")
+# Written by the daily audit when tools/check.py demotes a row the full-image compare did not flag.
+SPLIT_DISABLED_FILE = HOME / "SPLIT_DISABLED"
 
 ANSI = re.compile(r"\x1b\[[0-9;]*[A-Za-z]")
 # A provider error (model at capacity, rate limits, dropped streams) is retried at the same tier after a back-off;
@@ -495,6 +518,7 @@ Rules:
    It builds, then prints MATCHED or an assembly diff (target on the left) for each function.
    One run takes 30 to 120 seconds. Wait for it to finish; never start a second run while one is going.
    You have {attempts} attempt runs. Stop as soon as everything matches or the runs are used up.
+   The runs also end early after {stall} runs in a row that do not reduce the differing lines below your best.
 6. Before you finish, delete every function that still does not match, so the file holds only matching code.
    If nothing matches, delete the file.
 7. Do not read project/, tools/ or other source files unless job.md points you to them. Keep it short.
@@ -668,6 +692,7 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
                       " Try them in rank order, then adapt.", "", answer.read_text()]
     parts += ["", f"Check with `. ./development_environment.sh && python {HOME / 'factory.py'} attempt`"
               f" ({tier['attempts']} runs)."]
+    parts += format_drafts(addresses)  # last, so a Pro packet can swap in the newest drafts
     factory_directory = worktree / ".factory"
     factory_directory.mkdir(exist_ok=True)
     facts = factory_directory / "facts"
@@ -777,6 +802,12 @@ def command_attempt(arguments):
             print(result["detail"])
     print(f"\nSUMMARY: {len(matched)}/{len(results)} matched. Attempt {used + (0 if arguments.final else 1)}"
           f" of {job['attempt_limit']}.")
+    if not arguments.final and len(matched) < len(results):
+        record_best_drafts(worktree, job, results, used + 1)
+        if attempt_stalled(worktree, results) and used + 1 < job["attempt_limit"]:
+            counter.write_text(str(job["attempt_limit"]))
+            print(f"NO PROGRESS: {STALL_ATTEMPTS} runs in a row did not reduce the differing lines below your best."
+                  " That was your last run. Delete non-matching functions and finish now.")
     if arguments.final:
         print("FINAL " + json.dumps(matched))
 
@@ -805,12 +836,171 @@ def attempt_in(worktree, job, final=False, commit=False):
         tool(worktree, "tools/check.py", symbol, timeout=300)
         lines, index = read_map_lines(worktree / MAP)
         rank = parse_row(lines[index[address]])["rank"]
-        detail = ""
+        detail, diff, score = "", "", 0
         if rank != "O" and not final:
             _, diff = tool(worktree, "tools/diff.py", symbol, "-c", timeout=300)
             detail = "\n".join(diff.splitlines()[:90])
-        results[address] = {"symbol": symbol, "rank": rank, "detail": detail}
+            score = differing_lines(diff)
+        results[address] = {"symbol": symbol, "rank": rank, "detail": detail, "diff": diff, "score": score}
     return results
+
+
+def differing_lines(diff):
+    """Lines the diff marks as different: changed, register, immediate or stack operands, or only on one side."""
+    count = 0
+    for line in diff.splitlines():
+        if len(line) > 50 and line[50] in "|ris<>" and re.match(r"^\s*([0-9a-f]+:|\s{40,}[<>])", line):
+            count += 1
+    return count if count else None  # no parsable diff counts as no progress
+
+
+def record_best_drafts(worktree, job, results, attempt):
+    """Keep each function's closest draft so far, with its full residual diff, in .factory/best."""
+    best = worktree / ".factory" / "best"
+    best.mkdir(exist_ok=True)
+    sources = {path: (worktree / path).read_text(errors="ignore") for path in new_source_files(worktree, job["base"])}
+    for address, result in results.items():
+        if result["rank"] == "O" or not result["score"] or not sources:
+            continue
+        path = best / f"{address:08X}.json"
+        if path.exists() and json.loads(path.read_text())["score"] <= result["score"]:
+            continue
+        path.write_text(json.dumps({"address": address, "symbol": result["symbol"], "score": result["score"],
+                                    "attempt": attempt, "sources": sources, "diff": ANSI.sub("", result["diff"])}))
+
+
+def attempt_stalled(worktree, results):
+    """Record this attempt as (unmatched functions, differing lines); true once STALL_ATTEMPTS attempts in a row fail
+    to beat the best before them. A near miss, NEAR_MISS_LINES or fewer differing lines, keeps every run."""
+    history_path = worktree / ".factory" / "history.json"
+    history = [tuple(h) for h in json.loads(history_path.read_text())] if history_path.exists() else []
+    scores = [r["score"] for r in results.values() if r["rank"] != "O"]
+    # A failed build or an unparsable diff is no progress.
+    history.append((len(scores), 10 ** 9 if any(s is None for s in scores) else sum(scores)))
+    history_path.write_text(json.dumps(history))
+    best = min(history)
+    if best[1] <= NEAR_MISS_LINES:
+        return False
+    return len(history) > STALL_ATTEMPTS and min(history[-STALL_ATTEMPTS:]) >= min(history[:-STALL_ATTEMPTS])
+
+
+def load_draft(address):
+    path = DRAFTS / f"{address:08X}.json"
+    return json.loads(path.read_text()) if path.exists() else None
+
+
+def format_drafts(addresses):
+    """Packet text for the closest earlier drafts of these functions, one block per distinct source."""
+    parts, shown = [], set()
+    for address in addresses:
+        draft = load_draft(address)
+        if not draft:
+            continue
+        parts += ["", f"An earlier worker's closest draft of 0x{address:08X} ({draft['tier_label']}, attempt {draft['attempt']})"
+                  f" still had {draft['score']} differing lines. Start from it rather than from scratch.", ""]
+        for path, text in draft["sources"].items():
+            if text in shown:
+                parts.append(f"(Source `{path}` is the same as the draft above.)")
+                continue
+            shown.add(text)
+            parts += [f"Draft source `{path}`:", "", "```cpp", text.rstrip(), "```"]
+        parts += ["", "Its residual diff (target on the left):", "", "```", draft["diff"].rstrip(), "```"]
+    return parts
+
+
+def source_objects(worktree):
+    """Compiled objects of the source tree, keyed by source path without its suffix. The generated stubs under
+    build/ are weak placeholders and are skipped."""
+    root = worktree / OBJECT_ROOT
+    return {str(p.relative_to(root).with_suffix("")): p for p in root.rglob("*.o") if p.relative_to(root).parts[0] != "build"}
+
+
+def duplicate_definitions(worktree):
+    """Strong global symbols that more than one object defines, as {symbol: sorted source stems}. The archive link
+    keeps one of them silently (owner, 2026-10-02). COMDAT group members, such as template vtables and out-of-line
+    inline functions, are merged by the linker by design and do not count."""
+    stems = {str(path): stem for stem, path in source_objects(worktree).items()}
+    if not stems:
+        return {}
+    listing = subprocess.run([READELF, "-gsW", *stems], capture_output=True, text=True).stdout
+    owners = collections.defaultdict(set)
+    parts = re.split(r"^File: (.+)$", listing, flags=re.M)
+    for name, body in zip(parts[1::2], parts[2::2]):
+        grouped, in_group = set(), False
+        for line in body.splitlines():
+            if line.startswith("COMDAT group section"):
+                in_group = True
+                continue
+            if in_group:
+                member = re.match(r"\s+\[\s*(\d+)\]\s+\S", line)
+                if member:
+                    grouped.add(member[1])
+                    continue
+                if "[Index]" in line:
+                    continue
+                in_group = False
+            fields = line.split()
+            if (len(fields) >= 8 and fields[0].endswith(":") and fields[3] in ("FUNC", "OBJECT") and fields[4] == "GLOBAL"
+                    and fields[6] not in ("UND", "ABS", "COM") and fields[6] not in grouped):
+                owners[fields[7]].add(stems.get(name.strip(), name.strip()))
+    return {symbol: sorted(files) for symbol, files in owners.items() if len(files) > 1}
+
+
+def dependent_stems(worktree, headers):
+    """Source stems whose object depends on any of the headers, read from the compiler's dependency files."""
+    root = worktree / OBJECT_ROOT
+    wanted = {os.path.realpath(worktree / h) for h in headers}
+    found = set()
+    for depend in root.rglob("*.d"):
+        relative = depend.relative_to(root)
+        if relative.parts[0] == "build":
+            continue
+        for line in depend.read_text(errors="ignore").splitlines():
+            fields = re.findall(r'"([^"]*)"', line)
+            if len(fields) >= 2 and os.path.realpath(fields[1]) in wanted:
+                found.add(str(relative.with_suffix("")))
+                break
+    return found
+
+
+def change_stems(worktree, files):
+    """Objects a change compiles into: its own source files, and every object that includes one of its headers."""
+    stems = {str(pathlib.Path(f).with_suffix("")) for f in files if f.endswith((".cpp", ".cc", ".c"))}
+    headers = [f for f in files if f.endswith((".h", ".hpp", ".inc"))]
+    return stems | (dependent_stems(worktree, headers) if headers else set())
+
+
+def offending_duplicates(duplicates, stems):
+    return {symbol: files for symbol, files in duplicates.items() if set(files) & stems}
+
+
+def check_rank(worktree, address, symbol):
+    """Run tools/check.py on one row and return the rank it leaves in the worktree's map."""
+    tool(worktree, "tools/check.py", symbol, timeout=300)
+    lines, index = read_map_lines(worktree / MAP)
+    return parse_row(lines[index[address]])["rank"]
+
+
+def full_image_compare(worktree):
+    """The full-image byte compare (make.py eu --split): every O row's bytes, linked at original addresses, against
+    the original image. Returns the O rows whose bytes differ as {address: symbol}, or None when the compare did not
+    reach every O row in the worktree's map (it stops before comparing when, for example, a row's size changed)."""
+    root = worktree / FULL_IMAGE_OUTPUT
+    before = set(root.iterdir()) if root.exists() else set()
+    tool(worktree, "make.py", "eu", "--split", timeout=1800)
+    created = sorted(set(root.iterdir()) - before) if root.exists() else []
+    try:
+        comparison = created[-1] / "comparison.json" if len(created) == 1 else None
+        if comparison is None or not comparison.exists():
+            return None
+        compared = {int(x["address"], 16): x for x in json.loads(comparison.read_text())["source_O_intervals"]}
+        exact = {r["start"] for r in load_rows(worktree / MAP) if r["rank"] == "O" and "i" not in r["type"]}
+        if exact - set(compared):
+            return None
+        return {address: x["symbol"] for address, x in compared.items() if not x["equal"]}
+    finally:
+        for directory in created:
+            shutil.rmtree(directory, ignore_errors=True)
 
 
 # ---------------------------------------------------------------- supervisor
@@ -884,11 +1074,13 @@ def set_ranks_by_symbol(worktree, ranks):
 
 
 def rank_column_changes(before_text, after_text):
-    """Rows (by start address) whose rank differs between two map texts."""
+    """Rows (by start address) whose rank differs between two map texts. A row added or removed at rank U (a rule 2
+    boundary change in an evidence commit) sets no rank, so it does not count."""
     def ranks(text):
         return {line.split(",")[0]: line.split(",")[4].strip() for line in text.splitlines()[1:] if line.strip()}
     before, after = ranks(before_text), ranks(after_text)
-    return sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
+    return sorted(k for k in set(before) | set(after)
+                  if before.get(k) != after.get(k) and (before.get(k) or "U") != (after.get(k) or "U"))
 
 
 def build_inputs_equal(first, second):
@@ -923,13 +1115,21 @@ def read_run_log(log_path):
     errors = [message for message in errors if not POLICY_FLAG.search(message)]
     if thread:
         for session in (CODEX_HOME / "sessions").glob(f"*/*/*/rollout-*-{thread}.jsonl"):
-            last = None
+            last, percents = None, []
             for line in open(session, errors="ignore"):
                 if '"token_count"' in line:
                     try:
-                        last = (json.loads(line).get("payload", {}).get("info") or {}).get("total_token_usage") or last
+                        event = json.loads(line)
+                        payload = event.get("payload", {})
+                        last = (payload.get("info") or {}).get("total_token_usage") or last
+                        primary = (payload.get("rate_limits") or {}).get("primary") or {}
+                        if primary.get("used_percent") is not None:
+                            percents.append((event.get("timestamp"), primary["used_percent"], primary.get("window_minutes")))
                     except ValueError:
                         pass
+            if percents:
+                with open(SESSION_USAGE_LOG, "a") as stream:
+                    stream.write(json.dumps({"log": str(log_path), "thread": thread, "first": percents[0], "last": percents[-1]}) + "\n")
             if last and last.get("input_tokens", 0) + last.get("output_tokens", 0) > usage["input_tokens"] + usage["output_tokens"]:
                 usage = {key: last.get(key, 0) for key in usage}
             session.unlink(missing_ok=True)
@@ -959,6 +1159,8 @@ class Supervisor:
         # A restart soon after a full check waits out the rest of its interval instead of checking again.
         last = self.database.execute("SELECT MAX(time) FROM events WHERE kind='sync'").fetchone()[0]
         self.last_sync = last if last and time.time() - last < SYNC_INTERVAL_SECONDS else 0.0
+        audited = self.database.execute("SELECT MAX(time) FROM events WHERE kind='audit'").fetchone()[0]
+        self.last_audit_day = datetime.datetime.fromtimestamp(audited, EASTERN).date() if audited else None
         self.code = read_code()
         self.reload_symbols()
         self.vtable_slots = build_vtable_slots(list(self.rows_by_start.values()), self.code)
@@ -966,6 +1168,7 @@ class Supervisor:
         self.last_pushed = remote_target()
         self.batch_failures = {}
         self.class_proposal = None
+        self.class_pending = None  # a class-mode submission waiting for the periodic full check
         self.last_push_time = None
         self.consecutive_misses = 0
         self.backoff = {}
@@ -1004,7 +1207,19 @@ class Supervisor:
     # leasing -------------------------------------------------------------
     def lease(self, slot):
         spec = self.slot_specs[slot]
-        if spec.get("class_mode"):
+        if spec.get("hard_end_first") or time.time() < spec.get("hard_end_until", 0):
+            with DATABASE_LOCK:
+                job = self.database.execute("SELECT * FROM jobs WHERE status='open' AND kind='hardtrial' ORDER BY id LIMIT 1").fetchone()
+                if job:
+                    self.database.execute("UPDATE jobs SET status='leased', leased_by=?, leased_at=?, attempts=attempts+1 WHERE id=?",
+                                          (slot, time.time(), job["id"]))
+                    self.database.commit()
+                    return dict(job)
+        if spec.get("class_mode") and ((self.class_proposal and self.class_proposal.exists())
+                                       or (self.class_pending and self.class_pending.exists())):
+            # One class job at a time: while one waits to land, this slot does regular Sol work.
+            spec = {"tiers": [1, LUNA_GROUP_MISS_TIER, 2], "ranges": [(64, 256), (32, 64)], "largest_first": True}
+        elif spec.get("class_mode"):
             with DATABASE_LOCK:
                 job = self.database.execute("SELECT * FROM jobs WHERE status='open' AND kind='class' ORDER BY priority DESC, id LIMIT 1").fetchone()
                 if job:
@@ -1101,13 +1316,17 @@ class Supervisor:
                 self.active.pop(slot, None)
             if self.backoff.get(slot):
                 time.sleep(self.backoff[slot])
-            # One class-mode job at a time on the class file: the next starts only once this proposal is decided.
-            while spec.get("class_mode") and self.class_proposal and self.class_proposal.exists() and not self.halted:
-                time.sleep(20)
+
 
     def run_job(self, slot, worktree, job, spec):
         class_mode = job["kind"] == "class"
-        settings = spec.get("settings") or (TRIAL_SETTINGS["luna-medium"] if class_mode and job["tier"] == 0 else TIERS[job["tier"]])
+        hard_end = json.loads(job["note"]) if job["kind"] == "hardtrial" else None
+        if hard_end:
+            settings = TRIAL_SETTINGS[hard_end["label"]]
+        elif job["kind"] in ("single", "group") and spec.get("settings") and job["tier"] != 1:
+            settings = TIERS[job["tier"]]  # an escalated job never runs on the slot's own model
+        else:
+            settings = spec.get("settings") or (TRIAL_SETTINGS["luna-medium"] if class_mode and job["tier"] == 0 else TIERS[job["tier"]])
         trial = spec.get("trial")
         head = target_commit()
         reset_worktree(worktree, head)
@@ -1121,8 +1340,9 @@ class Supervisor:
         run_id = execute(self.database,
                          "INSERT INTO runs (job_id, slot, tier, model, effort, started, outcome, note) VALUES (?,?,?,?,?,?,'running',?)",
                          (job["id"], slot, 0 if trial else job["tier"], settings["model"], settings["effort"], started,
-                          f"trial {trial}" if trial else ("class" if class_mode else ""))).lastrowid
-        prompt = WORKER_GUIDE.format(factory=HOME / "factory.py", attempts=settings["attempts"]) + \
+                          f"trial {trial}" if trial else ("class" if class_mode else
+                                                          (f"hardtrial {hard_end['label']} {hard_end['group']}" if hard_end else "")))).lastrowid
+        prompt = WORKER_GUIDE.format(factory=HOME / "factory.py", attempts=settings["attempts"], stall=STALL_ATTEMPTS) + \
             "\n\nStart by reading .factory/job.md."
         log_path = LOGS / "runs" / f"run_{run_id}.jsonl"
         log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1133,13 +1353,27 @@ class Supervisor:
         with open(log_path, "w") as log_stream:
             process = subprocess.Popen(command, stdout=log_stream, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
                                        env=environment, start_new_session=True)
-            try:
-                process.wait(timeout=settings["timeout"])
-                outcome = "finished"
-            except subprocess.TimeoutExpired:
-                os.killpg(process.pid, signal.SIGTERM)
-                process.wait()
-                outcome = "timeout"
+            if hard_end:
+                # No timeout: a 2-hour cap, and a kill after 10 minutes without any new output.
+                outcome, last_size, last_change = "finished", 0, time.time()
+                while process.poll() is None:
+                    time.sleep(30)
+                    size = log_path.stat().st_size
+                    if size != last_size:
+                        last_size, last_change = size, time.time()
+                    if time.time() - last_change > INACTIVITY_KILL_SECONDS or time.time() - started > settings["timeout"]:
+                        outcome = "inactive" if time.time() - last_change > INACTIVITY_KILL_SECONDS else "timeout"
+                        os.killpg(process.pid, signal.SIGTERM)
+                        process.wait()
+                        break
+            else:
+                try:
+                    process.wait(timeout=settings["timeout"])
+                    outcome = "finished"
+                except subprocess.TimeoutExpired:
+                    os.killpg(process.pid, signal.SIGTERM)
+                    process.wait()
+                    outcome = "timeout"
         usage, provider_errors, policy_flags = read_run_log(log_path)
         if policy_flags:
             self.halt_all(f"usage policy flag in run {run_id} ({slot}, job {job['id']}): {policy_flags[0][:200]}")
@@ -1165,7 +1399,8 @@ class Supervisor:
             results = attempt_in(worktree, job_data, final=True, commit=True)
             matched = [a for a, r in results.items() if r["rank"] == "O"]
         matched_bytes = sum(self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for a in matched)
-        note = f"edited existing files: {bad_edits}" if bad_edits else (f"trial {trial}" if trial else ("class" if class_mode else ""))
+        note = f"edited existing files: {bad_edits}" if bad_edits else (f"trial {trial}" if trial else ("class" if class_mode else
+                                                                            (f"hardtrial {hard_end['label']} {hard_end['group']}" if hard_end else "")))
         if provider_errors and not trial:
             note = (note + "; " if note else "") + "provider error: " + provider_errors[-1][:160]
         execute(self.database,
@@ -1174,10 +1409,28 @@ class Supervisor:
                 (time.time(), outcome, usage["input_tokens"], usage["cached_input_tokens"], usage["output_tokens"],
                  len(matched), matched_bytes, note, run_id))
         remaining = [a for a in addresses if a not in matched]
+        self.keep_drafts(worktree, settings, run_id, matched, remaining)
         remaining_text = ",".join("%08X" % a for a in remaining)
         proposal_job = job["id"]
         retry = bool(provider_errors) and not policy_flags
-        if not remaining:
+        if hard_end:
+            # No escalation: the trial job is done either way; a step 1 run that comes back clean opens step 2.
+            execute(self.database, "UPDATE jobs SET status='done', finished_at=?, leased_by=NULL WHERE id=?", (time.time(), job["id"]))
+            if hard_end["step"] == 1:
+                clean = not policy_flags and not provider_errors and outcome == "finished"
+                execute(self.database, f"UPDATE jobs SET status='{'open' if clean else 'blocked'}' WHERE kind='hardtrial' AND status='waiting'")
+                log_event(self.database, "alert" if not clean else "trial",
+                          f"hard-end step 1 on {settings['model']} {settings['effort']}: outcome {outcome},"
+                          f" provider errors {provider_errors[-1:] or 'none'}, policy flags {len(policy_flags)}; step 2 {'opened' if clean else 'held'}")
+            retry = False
+            remaining = []
+        next_tier = {0: 2, 1: 2}.get(job["tier"]) if class_mode else TIERS.get(job["tier"], {}).get("next")
+        if (not class_mode and job["tier"] == 1 and settings["model"] == "gpt-6-luna"
+                and job["kind"] == "group" and job["body_bytes"] < 32):
+            next_tier = LUNA_GROUP_MISS_TIER
+        if hard_end:
+            pass
+        elif not remaining:
             execute(self.database, "UPDATE jobs SET status='proposed', finished_at=? WHERE id=?", (time.time(), job["id"]))
         elif trial or retry:
             execute(self.database, "UPDATE jobs SET status='open', addresses=?, leased_by=NULL WHERE id=?",
@@ -1185,9 +1438,9 @@ class Supervisor:
         elif "pro:" in (job["note"] or ""):
             execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=?, note=? WHERE id=?",
                     (remaining_text, time.time(), (job["note"].split("|")[0] + "|pro tried") if class_mode else "pro tried", job["id"]))
-        elif ({0: 2, 1: 2}.get(job["tier"]) if class_mode else TIERS[job["tier"]]["next"]):
+        elif next_tier:
             execute(self.database, "UPDATE jobs SET status='open', tier=?, addresses=?, leased_by=NULL WHERE id=?",
-                    ({0: 2, 1: 2}.get(job["tier"]) if class_mode else TIERS[job["tier"]]["next"], remaining_text, job["id"]))
+                    (next_tier, remaining_text, job["id"]))
         else:
             execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=? WHERE id=?",
                     (remaining_text, time.time(), job["id"]))
@@ -1216,7 +1469,7 @@ class Supervisor:
             self.integration_queue.put(proposal)
         self.backoff[slot] = (PROVIDER_RETRY_SECONDS[min(len(PROVIDER_RETRY_SECONDS) - 1, PROVIDER_RETRY_SECONDS.index(self.backoff[slot]) + 1)]
                               if self.backoff.get(slot) else PROVIDER_RETRY_SECONDS[0]) if retry else 0
-        if not trial and not retry:
+        if not trial and not retry and not hard_end:
             self.consecutive_misses = 0 if matched else self.consecutive_misses + 1
             if self.consecutive_misses >= NO_MATCH_HALT_RUNS and not self.halted:
                 self.halted = f"{NO_MATCH_HALT_RUNS} jobs in a row matched nothing"
@@ -1225,6 +1478,22 @@ class Supervisor:
                   f"{' trial ' + trial if trial else ''}: {len(matched)}/{len(addresses)} matched,"
                   f" {usage['input_tokens'] - usage['cached_input_tokens']} uncached + {usage['output_tokens']} out, {outcome}"
                   + (f"; retrying at the same tier in {self.backoff[slot]} s: {provider_errors[-1][:120]}" if retry else ""))
+
+    def keep_drafts(self, worktree, settings, run_id, matched, remaining):
+        """Move this run's closest draft of each unmatched function into DRAFTS when it beats the one kept there."""
+        DRAFTS.mkdir(exist_ok=True)
+        for address in matched:
+            (DRAFTS / f"{address:08X}.json").unlink(missing_ok=True)
+        for address in remaining:
+            path = worktree / ".factory" / "best" / f"{address:08X}.json"
+            if not path.exists():
+                continue
+            draft = json.loads(path.read_text())
+            kept = load_draft(address)
+            if kept and kept["score"] <= draft["score"]:
+                continue
+            draft.update(run=run_id, tier_label=f"{settings['model']} {settings['effort']}")
+            (DRAFTS / path.name).write_text(json.dumps(draft))
 
     def stage_facts(self, worktree, job, settings, outcome):
         """Keep each facts file, minus anything that looks like a listing or raw bytes, for the next facts commit."""
@@ -1245,7 +1514,10 @@ class Supervisor:
                   f"Bytes: {total} ({job['body_bytes']} per function)\nTarget commit: {target_commit()}\n"
                   "Compiler: ARMCC 4.1 build 791, -O3 -Otime --arm_only --gnu --signed_chars --enum_is_int --force_new_nothrow\n\n"
                   "Both Sol high and Sol xhigh workers failed to match this. Return up to three ranked complete C++ forms.\n\n")
-        (directory / f"{total:05d}-{remaining[0]:08X}.md").write_text(header + packet)
+        # The packet already holds drafts from earlier tiers; give Pro the closest one after this run as well.
+        packet = packet.split("\nAn earlier worker's closest draft", 1)[0].rstrip() + "\n"
+        drafts = format_drafts(remaining)
+        (directory / f"{total:05d}-{remaining[0]:08X}.md").write_text(header + packet + "\n".join(drafts) + "\n")
 
     def take_pro_answers(self):
         """Reopen a failed job at tier 2 with Pro's answer attached, once."""
@@ -1323,7 +1595,8 @@ class Supervisor:
             batch = [p for p in batch if p not in class_proposals]
             for proposal in class_proposals:
                 try:
-                    self.integrate_class(proposal)
+                    if self.integrate_class(proposal) == "ride":
+                        self.submit_class_proposal(proposal)
                 except Exception as error:
                     log_event(self.database, "error", f"class integration of {proposal.name} failed: {error}")
                     self.restore_integration()
@@ -1428,11 +1701,27 @@ class Supervisor:
             job = {"addresses": [a for e in entries for a in e["addresses"]],
                    "symbols": [e["symbols"][a] for e in entries for a in e["addresses"]]}
             results = attempt_in(INTEGRATION, job, final=True)
-            failing = [e for e in entries if any(results[a]["rank"] != "O" for a in e["addresses"])]
+            # A proposal may not define a symbol another object already defines (owner, 2026-10-02). When only
+            # proposals in this batch define it, the first one keeps it.
+            built = all(r["rank"] != "build-failed" for r in results.values())
+            stems = [change_stems(INTEGRATION, e["files"]) for e in entries]
+            doubled = collections.defaultdict(list)
+            for symbol, definers in (duplicate_definitions(INTEGRATION) if built else {}).items():
+                involved = [i for i, s in enumerate(stems) if s & set(definers)]
+                outside = set(definers) - set().union(*stems)
+                for index in (involved if outside else involved[1:]):
+                    doubled[index].append(f"{symbol} ({', '.join(definers)})")
+            failing = [e for i, e in enumerate(entries) if i in doubled or any(results[a]["rank"] != "O" for a in e["addresses"])]
             if failing:
                 for entry in failing:
-                    missed = ["%08X" % a for a in entry["addresses"] if results[a]["rank"] != "O"]
-                    log_event(self.database, "reject", f"{entry['proposal'].name}: not exact on a candidate of {TARGET_BRANCH}: {missed}")
+                    index = entries.index(entry)
+                    if index in doubled:
+                        log_event(self.database, "reject", f"{entry['proposal'].name}: defines symbols already defined: {doubled[index][:5]}")
+                        execute(self.database, "UPDATE jobs SET status='failed', note=? WHERE id=?",
+                                ("duplicate definition: " + "; ".join(doubled[index])[:500], entry["metadata"]["job"]))
+                    else:
+                        missed = ["%08X" % a for a in entry["addresses"] if results[a]["rank"] != "O"]
+                        log_event(self.database, "reject", f"{entry['proposal'].name}: not exact on a candidate of {TARGET_BRANCH}: {missed}")
                     self.retire(entry["proposal"], "rejected")
                 self.restore_integration()
                 passing = [e for e in entries if e not in failing]
@@ -1509,10 +1798,55 @@ class Supervisor:
             for path in staged:
                 path.unlink(missing_ok=True)
 
+    def submit_class_proposal(self, proposal):
+        """A class proposal whose header reaches too many exact functions rides the periodic full check: it becomes a
+        class/ branch (a map-only commit naming the function, then the class files) and a submission like a root branch."""
+        with self.integration_lock:
+            metadata = json.loads((proposal / "matched.json").read_text())
+            addresses = [int(a) for a in metadata["addresses"]]
+            symbols = {int(k): v for k, v in metadata["symbols"].items()}
+            class_files, job_base = metadata["class_files"], metadata["base"]
+            self.restore_integration()
+            base = git(INTEGRATION, "rev-parse", "HEAD")
+            stale = [f for f in class_files if git(INTEGRATION, "rev-parse", f"{base}:{f}", check=False)
+                     != git(INTEGRATION, "rev-parse", f"{job_base}:{f}", check=False)]
+            if stale:
+                log_event(self.database, "reject", f"{proposal.name}: class mode: {stale} changed on main since the job started")
+                execute(self.database, "UPDATE jobs SET status='open', leased_by=NULL WHERE id=?", (metadata["job"],))
+                self.retire(proposal, "rejected")
+                return
+            branch = f"class/{proposal.name}"
+            git(INTEGRATION, "checkout", "-q", "-f", "-B", branch, base)
+            current = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
+            renames = {a: (None, symbols[a]) for a in addresses if current[a]["symbol"] != symbols[a]}
+            if renames:
+                set_map_rows(INTEGRATION, renames)
+                git(INTEGRATION, "add", "--", str(MAP))
+                git(INTEGRATION, "commit", "-q", "-m", "Name " + ", ".join(f"0x{a:08X} {symbols[a]}" for a in renames)
+                    + " (class mode)\n\nThe class-mode worker wrote this function as a member; the row's symbol follows it.\n\n"
+                    "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+            for relative in class_files:
+                if (proposal / relative).exists():
+                    shutil.copy2(proposal / relative, INTEGRATION / relative)
+            git(INTEGRATION, "add", "--", *class_files)
+            git(INTEGRATION, "commit", "-q", "-m", f"Write {', '.join(symbols[a] for a in addresses)} in {class_files[-1]} (class mode, {metadata['model']})"
+                "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+            commit = git(INTEGRATION, "rev-parse", "HEAD")
+            self.restore_integration()
+            SUBMISSIONS.mkdir(parents=True, exist_ok=True)
+            path = SUBMISSIONS / f"class-{proposal.name}.json"
+            path.write_text(json.dumps({"branch": branch, "commit": commit, "claims": [symbols[a] for a in addresses],
+                                        "summary": f"Class mode: {', '.join(symbols[a] for a in addresses)} in {class_files[-1]}",
+                                        "attempts": metadata.get("attempts", 1), "minutes": round(metadata.get("minutes", 0), 4),
+                                        "class_job": metadata["job"], "model": metadata["model"]}, indent=2) + "\n")
+            self.class_pending = path
+            log_event(self.database, "submission", f"{path.stem}: rides the next periodic full check")
+            self.retire(proposal, None)
+
     def integrate_class(self, proposal):
         """Land one class-mode proposal: the worker's class file and header replace main's, but only if main's copies
-        are still the ones the job started from. A header change gets the full check; otherwise the claim and every
-        exact function the class file already defines must check O."""
+        are still the ones the job started from. The claim and every exact function in the objects the change compiles
+        into must check O. Returns "ride" when a header change reaches too many exact functions to recheck here."""
         with self.integration_lock:
             if self.target_moved_externally():
                 return
@@ -1538,33 +1872,39 @@ class Supervisor:
                 git(INTEGRATION, "add", "--", str(MAP), *class_files)
                 git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate class-mode {proposal.name}, not verified")
                 candidate = git(INTEGRATION, "rev-parse", "HEAD")
-                headers = [f for f in class_files if f.endswith((".h", ".hpp")) and git(INTEGRATION, "diff", "--name-only", base, candidate, "--", f)]
+                changed = [f for f in class_files if git(INTEGRATION, "diff", "--name-only", base, candidate, "--", f)]
+                headers = [f for f in changed if f.endswith((".h", ".hpp"))]
                 started = time.time()
-                if headers:
-                    built, output, lost, gained = self.full_check(INTEGRATION)
-                    missing = [symbols[a] for a in addresses if symbols[a] not in gained]
-                    if not built:
-                        reject = "build fails: " + output[-300:]
-                    elif lost or missing:
-                        reject = f"header change: lost {lost[:10]}, not exact {missing[:10]}"
+                status, output = tool(INTEGRATION, "make.py", "eu", timeout=1800)
+                if status != 0:
+                    reject = "build fails: " + output[-300:]
                 else:
-                    status, output = tool(INTEGRATION, "make.py", "eu", timeout=1800)
-                    if status != 0:
-                        reject = "build fails: " + output[-300:]
-                    else:
-                        source = next(f for f in class_files if f.endswith(".cpp"))
-                        obj = INTEGRATION / "build/eu/obj" / pathlib.Path(source).with_suffix(".o")
-                        listing = subprocess.run(["/opt/homebrew/bin/arm-none-eabi-nm", "--defined-only", str(obj)], capture_output=True, text=True).stdout
-                        defined = {parts[2] for parts in (line.split() for line in listing.splitlines()) if len(parts) == 3 and parts[1] in "Tt"}
-                        others = [r for r in current.values() if r["rank"] == "O" and (r["symbol"] or default_name(r)) in defined]
-                        to_check = [(a, symbols[a]) for a in addresses] + [(r["start"], r["symbol"] or default_name(r)) for r in others]
-                        failing = []
-                        for address, symbol in to_check:
-                            tool(INTEGRATION, "tools/check.py", symbol, timeout=300)
-                            if parse_row(read_map_lines(INTEGRATION / MAP)[0][read_map_lines(INTEGRATION / MAP)[1][address]])["rank"] != "O":
-                                failing.append(symbol)
-                        if failing:
-                            reject = f"not exact after the change: {failing[:10]}"
+                    # Recheck the claim and every exact function in the objects the change compiles into: the class
+                    # file and, on a header change, every object whose dependency file names the header (owner,
+                    # 2026-10-02). A header that reaches too many exact functions rides the periodic full check.
+                    objects, defined = source_objects(INTEGRATION), set()
+                    for stem in change_stems(INTEGRATION, changed):
+                        if stem in objects:
+                            listing = subprocess.run(["/opt/homebrew/bin/arm-none-eabi-nm", "--defined-only", str(objects[stem])],
+                                                     capture_output=True, text=True).stdout
+                            defined |= {parts[2] for parts in (line.split() for line in listing.splitlines()) if len(parts) == 3 and parts[1] in "Tt"}
+                    others = [r for r in current.values() if r["rank"] == "O" and (r["symbol"] or default_name(r)) in defined]
+                    if headers and len(others) > CLASS_HEADER_RECHECK_LIMIT:
+                        log_event(self.database, "submission", f"{proposal.name}: {headers} reach {len(others)} exact functions;"
+                                  " rides the next periodic full check")
+                        self.restore_integration()
+                        return "ride"
+                    to_check = [(a, symbols[a]) for a in addresses] + [(r["start"], r["symbol"] or default_name(r)) for r in others]
+                    failing = [symbol for address, symbol in to_check if check_rank(INTEGRATION, address, symbol) != "O"]
+                    if failing:
+                        reject = f"not exact after the change: {failing[:10]}"
+                    if headers:
+                        log_event(self.database, "class", f"{proposal.name}: header change rechecked {len(to_check)} functions"
+                                  f" in {len(change_stems(INTEGRATION, changed))} objects in {int(time.time() - started)} s")
+                if not reject:
+                    doubled = offending_duplicates(duplicate_definitions(INTEGRATION), change_stems(INTEGRATION, changed))
+                    if doubled:
+                        reject = "defines symbols already defined: " + "; ".join(f"{s} ({', '.join(d)})" for s, d in list(doubled.items())[:5])
             if reject:
                 log_event(self.database, "reject", f"{proposal.name}: class mode: {reject}")
                 execute(self.database, "UPDATE jobs SET status=?, leased_by=NULL WHERE id=?",
@@ -1583,7 +1923,7 @@ class Supervisor:
             git(INTEGRATION, "commit", "-q", "-m",
                 f"Match {len(addresses)} function{'s' if len(addresses) > 1 else ''} in {class_files[-1]} (class mode, {metadata['model']})\n\n"
                 + "".join(f"- 0x{a:08X} {symbols[a]} ({sizes[a]} bytes)\n" for a in addresses)
-                + f"\nVerified by tools/check.py ({'full check' if headers else 'the claim and every exact function in the class file'}) on a candidate commit before main moved.\n\n"
+                + f"\nVerified by tools/check.py (the claim and every exact function in the class file{' and in every object that includes the changed header' if headers else ''}) on a candidate commit before main moved.\n\n"
                 "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
             final = git(INTEGRATION, "rev-parse", "HEAD")
             if not build_inputs_equal(candidate, final):
@@ -1622,6 +1962,18 @@ class Supervisor:
 
     def decide(self, path, result):
         name = path.stem
+        try:
+            request = json.loads(path.read_text())
+        except (OSError, ValueError):
+            request = {}
+        if request.get("class_job"):
+            if result["outcome"] == "accepted":
+                execute(self.database, "UPDATE jobs SET status='matched', matched=? WHERE id=?",
+                        (",".join(request.get("claims", [])), request["class_job"]))
+                log_event(self.database, "class_match", f"{len(result.get('matched', []))} functions, {result.get('matched_bytes', 0)} bytes,"
+                          f" first {request.get('claims', ['?'])[0]} via the periodic full check")
+            elif result["outcome"] != "held":
+                execute(self.database, "UPDATE jobs SET status='open', leased_by=NULL WHERE id=?", (request["class_job"],))
         result.update({"submission": name, "decided": datetime.datetime.now(EASTERN).isoformat(timespec="seconds")})
         SUBMISSION_RESULTS.mkdir(parents=True, exist_ok=True)
         (SUBMISSION_RESULTS / f"{name}.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -1713,18 +2065,57 @@ class Supervisor:
             git(INTEGRATION, "reset", "-q", "--hard", before)
             raise SubmissionDecision({"outcome": "rejected", "reason": f"not function symbols in map.csv: {unknown[:10]}"})
         return {"branch": branch, "request": request, "claims": claims, "nonmatching": nonmatching,
-                "addresses": addresses, "map_changed": str(MAP) in changed}
+                "addresses": addresses, "map_changed": str(MAP) in changed, "changed": changed}
 
     # periodic full check and push -------------------------------------------
-    def full_check(self, worktree):
-        """Clean build and full-map check. Returns (built, build output tail, symbols lost from O, symbols gained O)."""
+    def full_check(self, worktree, claims=None):
+        """Clean build, the regression pass over every O row, and a check of each claim ({address: symbol}).
+        Returns (built, build output tail, symbols lost from O, symbols gained O).
+
+        The regression pass is the full-image byte compare (owner, 2026-10-02). A row it reports different is
+        demoted only when tools/check.py confirms. When the compare cannot reach every O row, and once a day as an
+        audit, the full tools/check.py pass decides instead."""
         status, output = tool(worktree, "make.py", "eu", "-ca", timeout=1800)
         if status != 0:
             return False, output[-400:], [], set()
-        changes_file = worktree / "data/ver/eu/.changes"
-        changes_file.unlink(missing_ok=True)
-        tool(worktree, "tools/check.py", "-q", "-w", timeout=1800)
-        return True, "", lost_exact(changes_file), set(gained_exact(changes_file))
+        audit = self.last_audit_day != datetime.datetime.now(EASTERN).date()
+        flagged = None if SPLIT_DISABLED_FILE.exists() else full_image_compare(worktree)
+        if flagged is None or audit:
+            changes_file = worktree / "data/ver/eu/.changes"
+            changes_file.unlink(missing_ok=True)
+            started = time.time()
+            tool(worktree, "tools/check.py", "-q", "-w", timeout=1800)
+            lost, gained = lost_exact(changes_file), set(gained_exact(changes_file))
+            if audit:
+                self.record_audit(flagged, lost, int(time.time() - started))
+            elif not SPLIT_DISABLED_FILE.exists():
+                log_event(self.database, "split", "the full-image compare did not reach every O row; the full tools/check.py pass decided")
+            return True, "", lost, gained
+        lost = []
+        for address, symbol in sorted(flagged.items()):
+            if check_rank(worktree, address, symbol) == "O":
+                log_event(self.database, "split", f"the full-image compare flagged {symbol}; tools/check.py keeps it O, so it stays")
+            else:
+                lost.append(symbol)
+        gained = {symbol for address, symbol in (claims or {}).items() if check_rank(worktree, address, symbol) == "O"}
+        return True, "", lost, gained
+
+    def record_audit(self, flagged, lost, seconds):
+        """The daily audit: the full tools/check.py pass beside the full-image compare on the same build. A row the
+        checker demotes that the compare did not flag puts the regression pass back on tools/check.py."""
+        self.last_audit_day = datetime.datetime.now(EASTERN).date()
+        if flagged is None:
+            log_event(self.database, "audit", f"full tools/check.py pass in {seconds} s demoted {len(lost)};"
+                      " the full-image compare did not reach every O row")
+            return
+        missed = sorted(set(lost) - set(flagged.values()))
+        log_event(self.database, "audit", f"full tools/check.py pass in {seconds} s demoted {len(lost)};"
+                  f" the full-image compare flagged {len(flagged)}; demoted but not flagged: {missed[:10]}")
+        if missed:
+            SPLIT_DISABLED_FILE.write_text(f"{datetime.datetime.now(EASTERN).isoformat(timespec='seconds')} audit: tools/check.py"
+                                           f" demoted {missed[:20]}, which the full-image compare did not flag\n")
+            log_event(self.database, "alert", "audit: the full-image compare missed rows tools/check.py demoted; the regression"
+                      f" pass is back on tools/check.py until the owner decides: {missed[:10]}")
 
     def demotions_allowed(self, demoted):
         if not demoted:
@@ -1768,9 +2159,13 @@ class Supervisor:
                 git(INTEGRATION, "add", "--", str(MAP))
                 git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate ranks for {len(riders)} submissions, not verified")
             checked = git(INTEGRATION, "rev-parse", "HEAD")
-            built, output, lost, gained = self.full_check(INTEGRATION)
+            built, output, lost, gained = self.full_check(INTEGRATION, {info["addresses"][c]: c for _, info in riders for c in info["claims"]})
             missing = {path: [c for c in info["claims"] if c not in gained and rows[info["addresses"][c]]["rank"] != "O"]
                        for path, info in riders}
+            # A rider may not define a symbol another object already defines (owner, 2026-10-02).
+            duplicates = duplicate_definitions(INTEGRATION) if built and riders else {}
+            doubled = {path: offending_duplicates(duplicates, change_stems(INTEGRATION, info["changed"])) for path, info in riders}
+            doubled = {path: found for path, found in doubled.items() if found}
             cleanup = any(info["branch"].startswith(CLEANUP_PREFIX) for _, info in riders)
             if cleanup and built and lost:
                 # Owner guard: a cleanup branch may lose no O row. Rows main loses on its own are demoted first and
@@ -1791,7 +2186,7 @@ class Supervisor:
                         log_event(self.database, "submission", f"{path.stem}: waits a cycle while main's own unconfirmed rows {main_lost[:5]} are demoted")
                 riders, merged_head, checked, lost, gained, missing = [], base, base, main_lost, set(), {}
                 self.restore_integration()
-            if riders and (not built or lost or any(missing.values())):
+            if riders and (not built or lost or any(missing.values()) or doubled):
                 # Tell main's own rows from the riders': check main alone in the probe worktree.
                 git(MAIN_PROBE, "checkout", "-q", "--detach", "-f", base)
                 git(MAIN_PROBE, "clean", "-fdq", "--", "Game", "lib")
@@ -1802,10 +2197,12 @@ class Supervisor:
                     self.restore_integration()
                     return
                 own = sorted(set(lost) - set(main_lost)) if built else ["(the combined build fails: " + output[-200:] + ")"]
-                if own or any(missing.values()):
+                if own or any(missing.values()) or doubled:
                     for path, info in riders:
                         if len(riders) == 1:
                             reason = (("the build fails with this branch merged: " + output[-300:]) if not built else
+                                      "defines symbols already defined: " + "; ".join(f"{s} ({', '.join(d)})" for s, d in list(doubled[path].items())[:10])
+                                      if path in doubled else
                                       f"breaks previously exact functions: {own[:20]}" if own else
                                       f"claimed functions are not exact: {missing[path][:20]}")
                             self.decide(path, {"outcome": "rejected", "reason": reason})
@@ -2178,7 +2575,7 @@ def source_quality(database, now):
             continue
         if event["kind"] == "match":
             factory_bytes += int(found[1])
-        elif event["kind"] == "class_match" or ": accepted" in event["text"]:
+        elif event["kind"] == "class_match" or (": accepted" in event["text"] and not event["text"].startswith("class-")):
             class_bytes += int(found[1])
     files, literals = quality["files"], quality["literals"]
     return {"class_file_share": files.get("class_file_share"), "factory_bytes": files.get("factory_bytes"),
@@ -2268,18 +2665,23 @@ def production_slot_specs(count, luna_single_bytes, group_only):
     kinds = ["group"] if group_only else None
     small = luna_single_bytes or 32
     roles = ["band", "class", "luna", "tier2", "tier1"] + ["tier1"] * max(0, count - 5)
+    hard_end_sol_slot = 4  # s5, the first plain Sol slot, also runs hard-end trial jobs first
     specs = {}
     for index, role in enumerate(roles[:count]):
         if role == "band":
-            spec = {"tiers": [BAND_TIER], "kinds": kinds}
+            spec = {"tiers": [BAND_TIER], "kinds": kinds, "hard_end_first": True}
         elif role == "class":
             spec = {"tiers": [], "class_mode": True}
         elif role == "luna":
             spec = {"tiers": [1], "kinds": kinds, "ranges": [(0, small)],
                     "settings": TRIAL_SETTINGS["luna-medium"], "fallback_kinds": ["facts"]}
         else:
-            spec = {"tiers": [2, 1] if role == "tier2" else [1, 2], "kinds": kinds,
+            spec = {"tiers": [2, LUNA_GROUP_MISS_TIER, 1] if role == "tier2" else [1, LUNA_GROUP_MISS_TIER, 2], "kinds": kinds,
                     "ranges": [(64, 256), (small, 64)], "largest_first": True}
+        if index == hard_end_sol_slot:
+            spec = dict(spec, hard_end_first=True)
+        elif index == hard_end_sol_slot + 1:
+            spec = dict(spec, hard_end_until=HARD_END_THIRD_SLOT_UNTIL)  # s6, when the swap guard has it enabled
         specs[f"s{index + 1}"] = dict(spec, index=index, role=role)
     return specs
 
