@@ -893,3 +893,7 @@ Root applies lane patches unchanged, verifies all40 final source hashes and comp
 ## 2026-10-02: ActorFactory whole key-row identities
 
 The original getCreator literal pool directly references 0x003BA0F8 and 0x003BA104, and both existing whole dc rows contain terminated key strings. Independent family review validates the unchanged conversion lookup contract. Name the two whole U rows with neutral address-derived identifiers dat_003BA0F8 and dat_003BA104. Only Symbol changes. No tail content, boundaries, ranks, table ownership or reconstructed data is accepted. Review: build/pro_factory_heap_independent_review/review.md, SHA256 a0304a1adc5b489f5fb505678c150ac043d570eeee7f83beaf50b2d303b7cf1f. Source/header acceptance is separate.
+
+### 2026-10-02: Independent EffectObj and Stream import identities
+
+Six whole anonymous EffectObj import rows and four Stream function rows receive compatible compiler labels. Every boundary, pool, type and U rank remains unchanged. Independent original providers, separate callers, the RAM-source table and two containing-stream constructors ground the contracts. Original public spelling and full class ownership remain unproved. Evidence: project/matching_evidence/effect_obj_initialization.md and project/identity_evidence/stream_source_scalar_8f822f5.md; independent reviews in build/effect_obj_import_independent_review_d097fc2 and build/stream_identity_independent_review_8f822f5. No source or exact credit belongs to this identity commit.
