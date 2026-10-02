@@ -10,9 +10,9 @@ One helper investigates pinned Azahar capture and a minimal native reference har
 
 ## Submissions
 
-Model draw order submitted as root-runtime-model-draw-order-7a2fcaef0 with no claims. Fresh original/native preservation and public-command checks pass; acceptance pending.
+Model draw order root-runtime-model-draw-order-7a2fcaef0 was rejected on a STATE-only conflict at 05:08:52 ET. Follow-up root/runtime-model-draw-order-revision preserves both source hashes and all verified evidence; it is submitted with no claims.
 
-Calendar and Heap original submissions were rejected on integrator empty-commit bugs. The operator reports both bugs repaired and both queued again. Await actual new result files. No duplicate layout follow-up. Repository-copy receipt fix root-integrator-commit-receipts-bfbb5a379 is pending and may be redundant.
+Heap retry is accepted at main 8126842 with zero matching bytes. Calendar is queued again after the operator repaired the empty candidate commit. Await its actual new result. Receipt fix root-integrator-commit-receipts-bfbb5a379 was rejected as redundant because the operator had already repaired the deployed integrator; no further action.
 
 ## Next three tasks
 
@@ -23,3 +23,7 @@ Calendar and Heap original submissions were rejected on integrator empty-commit 
 Milestones: 1 native recompiler and first GPU stream matching Azahar; 2 rendering; 3 input; 4 audio; 5 World 1-1 differential replay; 6 browser build. None is complete. .integrator/port_status.json records progress, not inferred success.
 
 The inspected 3dsrecomp generator uses interpreter fallbacks for unsupported instructions. Root's native host must stop and report these; interpreter work never earns translated coverage. The pinned generator Cargo metadata declares MIT and README states no game code is included. No vendor source is added to Git.
+
+## Native checkpoint verified
+
+Fresh build/root_static_recompiler_verified links all 17,264 generated function definitions from 40 C source files. Conservative translated coverage is 2,400,572 function instruction bytes, excluding pools, fallback sites and the decompiled replacement. Native startup reaches SVC 0x21 after 251,587 translated instructions and agrees with independent original ARM execution on registers, flags and 1,384,448 writable bytes. The exact-source priority replacement passes 4,105 inputs. Sixty-four bounded integer leaves pass 2,048 full-register/flag checks. No interpreter runs in these checks. First GPU stream, timing, VFP edge cases and services remain unverified. See project/static_recompiler_evidence.md and .integrator/port_status.json.
