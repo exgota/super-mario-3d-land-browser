@@ -12,6 +12,7 @@ const liveHelp = document.querySelector('#live-button-help');
 let configuration;
 let session;
 let completedAudio;
+let latestPreviewFrame;
 const heldSources = new Set();
 
 function publishButtonState() {
@@ -66,6 +67,24 @@ window.addEventListener('pagehide', releaseButton);
 document.addEventListener('visibilitychange', () => { if (document.hidden) releaseButton(); });
 
 export function capturedAudio() { return completedAudio; }
+export function previewFrameObservation() { return latestPreviewFrame && structuredClone(latestPreviewFrame); }
+
+function drawScreens(screens, preview = false) {
+    for (const [index, screen] of screens.entries()) {
+        const {width, height} = preview ? screen : screen.metadata;
+        requireCondition(screen.rgba instanceof ArrayBuffer && Number.isSafeInteger(width) &&
+            Number.isSafeInteger(height) && width > 0 && height > 0 && width <= 4096 && height <= 4096 &&
+            width * height * 4 === screen.rgba.byteLength && screen.rgba.byteLength <= 1024 * 1024,
+            'The screen extent changed.');
+        const canvas = document.querySelector(index === 0 ? '#top-screen' : '#bottom-screen');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(screen.rgba), width, height), 0, 0);
+        canvas.hidden = false;
+    }
+    document.querySelector('.screen-placeholder').hidden = true;
+    document.querySelector('.preview').classList.add('has-frame');
+}
 
 function discardAudio() {
     const previous = completedAudio;
@@ -158,6 +177,28 @@ async function receive(active, message) {
         document.body.dataset.buttonRequestAccepted = String(message.accepted);
     }
     else if (message.type === 'button_capture_ended') hideButton();
+    else if (message.type === 'preview_screens') {
+        requireCondition(configuration.options.frame_output && !active.manifest &&
+            Number.isSafeInteger(message.sequence) && message.sequence === (active.previewCount ?? 0) + 1 &&
+            typeof message.renderer_frame === 'string' && /^(0|[1-9][0-9]*)$/.test(message.renderer_frame) &&
+            typeof message.sampled_ticks === 'string' && /^(0|[1-9][0-9]*)$/.test(message.sampled_ticks) &&
+            message.screens?.length === 2 && message.screens[0].screen_identifier === 0 &&
+            message.screens[1].screen_identifier === 2 && message.screens.every(screen =>
+                typeof screen.sha256 === 'string' && /^[0-9a-f]{64}$/.test(screen.sha256)) &&
+            (!latestPreviewFrame || BigInt(message.renderer_frame) > BigInt(latestPreviewFrame.renderer_frame)),
+            'The preview frame order changed.');
+        drawScreens(message.screens, true);
+        active.previewCount = message.sequence;
+        latestPreviewFrame = {sequence: message.sequence, renderer_frame: message.renderer_frame,
+            sampled_ticks: message.sampled_ticks, screens: message.screens.map(({rgba, ...screen}) =>
+                ({...screen, bytes: rgba.byteLength}))};
+        document.body.dataset.previewFrameCount = String(active.previewCount);
+        document.body.dataset.previewRendererFrame = message.renderer_frame;
+        status.textContent = configuration.options.live_button_capture ?
+            'Showing sampled frames. Hold A to send input.' : 'Showing sampled frames from the recorded startup…';
+        active.worker.postMessage({schema_version:1, type:'acknowledge_preview',
+            capture_identifier:active.identifier, sequence:message.sequence});
+    }
     else if (message.type === 'capture_failed') throw new Error(message.message);
     else if (message.type === 'capture_manifest') {
         hideButton();
@@ -181,19 +222,8 @@ async function receive(active, message) {
     } else if (message.type === 'software_screens') {
         requireCondition(active.manifest && !active.screens && message.screens.length === 2,
                          'The captured screens are incomplete.');
-        for (const [index, screen] of message.screens.entries()) {
-            const {width, height} = screen.metadata;
-            requireCondition(screen.rgba instanceof ArrayBuffer && width * height * 4 === screen.rgba.byteLength,
-                             'The captured screen extent changed.');
-            const canvas = document.querySelector(index === 0 ? '#top-screen' : '#bottom-screen');
-            canvas.width = width;
-            canvas.height = height;
-            canvas.getContext('2d').putImageData(new ImageData(new Uint8ClampedArray(screen.rgba), width, height), 0, 0);
-            canvas.hidden = false;
-        }
+        drawScreens(message.screens);
         active.screens = true;
-        document.querySelector('.screen-placeholder').hidden = true;
-        document.querySelector('.preview').classList.add('has-frame');
         acknowledge(active, message);
     } else if (message.type === 'capture_file_chunk') {
         requireCondition(active.manifest && message.bytes instanceof ArrayBuffer && message.bytes.byteLength <= 65536,
@@ -256,6 +286,7 @@ form.addEventListener('submit', async event => {
     try {
         discardAudio();
         hideButton();
+        latestPreviewFrame = undefined;
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
         requireCondition(file.size === configuration.inputs.dump.expected_bytes,
@@ -267,7 +298,8 @@ form.addEventListener('submit', async event => {
         status.textContent = 'Loading the local replay…';
         document.body.dataset.captureState = 'loading';
         delete document.body.dataset.captureIdentifier;
-        for (const key of ['sampledRendererFrame', 'buttonPollCount', 'buttonRequestSequence', 'buttonRequestAccepted'])
+        for (const key of ['sampledRendererFrame', 'buttonPollCount', 'buttonRequestSequence', 'buttonRequestAccepted',
+                           'previewFrameCount', 'previewRendererFrame'])
             delete document.body.dataset[key];
         for (const canvas of document.querySelectorAll('canvas')) canvas.hidden = true;
         document.querySelector('.screen-placeholder').hidden = false;
@@ -326,7 +358,11 @@ try {
     requireCondition(response.ok, 'The local preview configuration could not be loaded.');
     configuration = await response.json();
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
-    if (configuration.options.live_button_capture)
+    if (configuration.options.frame_output)
+        document.querySelector('#preview-note').textContent = configuration.options.live_button_capture ?
+            'Sampled game frames appear during this finite run. Hold A to send input. Recorded sound is ready when the run ends.' :
+            'Sampled game frames appear during the recorded startup. The final frame and recorded sound arrive when the run ends.';
+    else if (configuration.options.live_button_capture)
         document.querySelector('#preview-note').textContent = 'Hold A during this finite input capture. The screens and recorded sound arrive when it ends. Continuous gameplay is still in progress.';
     else if (configuration.options.presentation_limit === null)
         document.querySelector('#preview-note').textContent = 'This startup check captures the first GPU submission. Use the frame preview to see the game screens.';

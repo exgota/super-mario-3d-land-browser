@@ -24,6 +24,12 @@ let buttonTimer;
 let buttonSequence = 0;
 let buttonProgress;
 const buttonRequests = [];
+let frameTimer;
+let frameTask;
+let pendingFrame;
+let frameControls;
+const frameReceipts = [];
+const MaximumPreviewFrames = 8192;
 
 function requireCondition(condition, message) {
     if (!condition) throw new Error(message);
@@ -66,14 +72,17 @@ function validateStart(value) {
         typeof value.capture_identifier === 'string' &&
         /^[A-Za-z0-9_-]{1,64}$/.test(value.capture_identifier), 'Invalid start descriptor');
     record(value.inputs, ['dump', 'block_schedule', 'movie', 'initial_user_files', 'initial_user_directories']);
-    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'record_base_ticks']
+    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'record_base_ticks', 'frame_output']
         .filter(key => Object.hasOwn(value.options, key));
     record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
     const inputCapture = Object.hasOwn(value.options, 'input_capture') ? value.options.input_capture : false;
     const audioCapture = Object.hasOwn(value.options, 'audio_capture') ? value.options.audio_capture : false;
     const liveButtonCapture = Object.hasOwn(value.options, 'live_button_capture') ? value.options.live_button_capture : false;
+    const frameOutput = Object.hasOwn(value.options, 'frame_output') ? value.options.frame_output : false;
     requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
-        typeof liveButtonCapture === 'boolean' && (!liveButtonCapture || (inputCapture && audioCapture)) &&
+        typeof liveButtonCapture === 'boolean' && typeof frameOutput === 'boolean' &&
+        (!frameOutput || value.options.presentation_limit !== null) &&
+        (!liveButtonCapture || (inputCapture && audioCapture)) &&
         (!audioCapture || inputCapture) &&
         (!(inputCapture || audioCapture) || value.options.presentation_limit !== null), 'Invalid observation profile');
     requireCondition(liveButtonCapture ? typeof value.options.record_base_ticks === 'string' &&
@@ -121,7 +130,7 @@ function validateStart(value) {
     requireCondition(inputs.reduce((sum, input) => sum + input.expected_bytes, 0) <= MaximumOutputBytes,
                      'Input extent exceeds the finite worker bound');
     return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture,
-                               live_button_capture: liveButtonCapture},
+                               live_button_capture: liveButtonCapture, frame_output: frameOutput},
             validated_inputs: inputs};
 }
 
@@ -135,6 +144,12 @@ function fail(error) {
     const failedPhase = phase;
     phase = 'failed';
     clearInterval(buttonTimer);
+    clearInterval(frameTimer);
+    if (pendingFrame) {
+        clearTimeout(pendingFrame.timer);
+        pendingFrame.reject(error);
+        pendingFrame = undefined;
+    }
     if (pendingTransfer) {
         clearTimeout(pendingTransfer.timer);
         pendingTransfer.reject(error);
@@ -164,6 +179,97 @@ function acknowledged(message, transfer = []) {
         pendingTransfer = {identifier, resolve, reject, timer};
         send({...message, transfer_identifier: identifier}, transfer);
     });
+}
+
+function ownedHeapCopy(pointer, length) {
+    const heap = module.HEAPU8;
+    pointer >>>= 0;
+    requireCondition(heap instanceof Uint8Array && pointer > 0 && Number.isSafeInteger(length) &&
+        length > 0 && pointer + length <= heap.byteLength, 'Preview slot extent is invalid');
+    const copy = new Uint8Array(length);
+    copy.set(heap.subarray(pointer, pointer + length));
+    requireCondition(copy.buffer instanceof ArrayBuffer, 'Preview copy still uses shared storage');
+    return copy;
+}
+
+function copyPreviewFrame() {
+    // This whole acquire/copy/release section is synchronous. No native export
+    // is called after an await or from onExit. Only owned slots are read here.
+    const lease = module._BrowserFrameOutputAcquire();
+    requireCondition(lease >= 0 && lease <= 2, 'Native preview bridge refused');
+    if (!lease) return;
+    let sequence;
+    try {
+        const words = ownedHeapCopy(module._BrowserFrameOutputMetadata(lease), 48);
+        const view = new DataView(words.buffer);
+        const fields = Array.from({length:12}, (_, index) => view.getUint32(index * 4, true));
+        sequence = fields[1];
+        requireCondition(fields[0] === 1 && sequence === frameReceipts.length + 1 &&
+            sequence <= MaximumPreviewFrames, 'Preview publication order changed');
+        const wide = (low, high) => ((BigInt(high) << 32n) | BigInt(low)).toString();
+        const rendererFrame = wide(fields[2], fields[3]);
+        const sampledTicks = wide(fields[4], fields[5]);
+        requireCondition(BigInt(rendererFrame) > 0n && (!frameReceipts.length ||
+            BigInt(rendererFrame) > BigInt(frameReceipts.at(-1).renderer_frame)), 'Preview frame order changed');
+        if (!frameControls) {
+            const results = {
+                invalid_lease_metadata: module._BrowserFrameOutputMetadata(3),
+                invalid_lease_release: module._BrowserFrameOutputRelease(3, sequence),
+                stale_sequence_pixels: module._BrowserFrameOutputPixels(lease, sequence - 1, 0),
+                stale_sequence_release: module._BrowserFrameOutputRelease(lease, sequence - 1),
+                invalid_screen_pixels: module._BrowserFrameOutputPixels(lease, sequence, 1),
+                lease_preserved: module._BrowserFrameOutputMetadata(lease) > 0
+            };
+            requireCondition(results.invalid_lease_metadata === 0 && results.invalid_lease_release === 1 &&
+                results.stale_sequence_pixels === 0 && results.stale_sequence_release === 1 &&
+                results.invalid_screen_pixels === 0 && results.lease_preserved, 'Preview refusal control failed');
+            frameControls = results;
+        }
+        const screens = [0, 2].map((screenIdentifier, index) => {
+            const [width, height, bytes] = fields.slice(6 + index * 3, 9 + index * 3);
+            requireCondition(width > 0 && height > 0 && width <= 4096 && height <= 4096 &&
+                width * height * 4 === bytes && bytes <= 1024 * 1024, 'Preview screen dimensions changed');
+            const rgba = ownedHeapCopy(module._BrowserFrameOutputPixels(lease, sequence, screenIdentifier), bytes);
+            return {screen_identifier: screenIdentifier, width, height, rgba};
+        });
+        return {sequence, renderer_frame: rendererFrame, sampled_ticks: sampledTicks, screens};
+    } finally {
+        if (sequence !== undefined)
+            requireCondition(module._BrowserFrameOutputRelease(lease, sequence) === 0, 'Preview lease release failed');
+    }
+}
+
+async function transferPreviewFrame(frame) {
+    const screens = await Promise.all(frame.screens.map(async screen => ({...screen,
+        sha256: Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', screen.rgba)))
+            .map(value => value.toString(16).padStart(2, '0')).join(''), rgba: screen.rgba.buffer})));
+    requireCondition(['running','validating'].includes(phase), 'Preview publication outlived the session');
+    const receipt = {sequence: frame.sequence, renderer_frame: frame.renderer_frame,
+        sampled_ticks: frame.sampled_ticks, screens: screens.map(({rgba, ...screen}) =>
+            ({...screen, bytes: rgba.byteLength}))};
+    frameReceipts.push(receipt);
+    await new Promise((resolve, reject) => {
+        const timer = setTimeout(() => { pendingFrame = undefined;
+            reject(new Error('Preview acknowledgment timed out')); }, TransferTimeoutMilliseconds);
+        pendingFrame = {sequence: frame.sequence, resolve, reject, timer};
+        send({type:'preview_screens', ...frame, screens}, screens.map(screen => screen.rgba));
+    });
+}
+
+function previewObservations() {
+    const lines = stderr.filter(line => line.startsWith('browser frame output '));
+    requireCondition(lines.length === 1 && frameControls && frameReceipts.length > 0,
+                     'Preview producer or real lease controls are absent');
+    const totals = parseRecord(lines[0].slice('browser frame output '.length));
+    record(totals, ['unique_frames','published','full_drops','unavailable','duplicate_polls','frame_gaps','geometry_errors']);
+    for (const value of Object.values(totals)) requireCondition(typeof value === 'string' &&
+        /^(0|[1-9][0-9]*)$/.test(value) && BigInt(value) <= BigInt(MaximumEvents), 'Invalid preview producer total');
+    requireCondition(totals.geometry_errors === '0' &&
+        BigInt(totals.unique_frames) === BigInt(totals.published) + BigInt(totals.full_drops) + BigInt(totals.unavailable) &&
+        BigInt(totals.published) >= BigInt(frameReceipts.length), 'Preview producer totals do not reconcile');
+    return {producer: totals, copied_and_acknowledged: frameReceipts.length,
+        unconsumed_publications: Number(BigInt(totals.published) - BigInt(frameReceipts.length)),
+        lease_controls: frameControls, frames: frameReceipts};
 }
 
 function enumerateCapture() {
@@ -552,14 +658,20 @@ async function exportFile(file, fileIndex) {
 }
 
 async function finish(status) {
+    clearInterval(frameTimer);
     requireCondition(phase === 'running' && status === 0, `Capture exited with status ${status}`);
     phase = 'validating';
     clearInterval(buttonTimer);
+    // Any already copied ordinary frame can finish its page acknowledgment.
+    // Native exports are forbidden here because SDK exitRuntime has run.
+    await frameTask;
+    requireCondition(phase === 'validating', 'Preview failure prevents capture completion');
     if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
     const {files, directories} = enumerateCapture();
     const {outcome, presentation, entries} = validateEvents(files);
     const observations = validateObservations(presentation, entries);
     if (descriptor.options.live_button_capture) observations.recorded_movie = validateRecordedMovie(entries, observations);
+    if (descriptor.options.frame_output) observations.preview_frames = previewObservations();
     const log = entries.get('user/log/reference_capture.log');
     requireCondition(log && !/\b(?:Input|Movie|Audio|Service\.DSP)(?:\.[A-Za-z0-9_.]+)?\s+<(?:Error|Critical)>/.test(readText('/capture/user/log/reference_capture.log',
         log.size, MaximumLogBytes)), 'Capture log is absent or reports Movie/Audio errors');
@@ -634,7 +746,8 @@ async function start(value) {
                 else delete instance.ENV[name];
             }
             for (const name of ['ROOT_PORT_BROWSER_BUTTON_CAPTURE', 'ROOT_PORT_RECORD_INITIAL_USER_STATE',
-                                'ROOT_PORT_RECORD_BASE_TICKS']) delete instance.ENV[name];
+                                'ROOT_PORT_RECORD_BASE_TICKS', 'ROOT_PORT_BROWSER_FRAME_OUTPUT']) delete instance.ENV[name];
+            if (descriptor.options.frame_output) instance.ENV.ROOT_PORT_BROWSER_FRAME_OUTPUT = '1';
             if (descriptor.options.live_button_capture) {
                 instance.ENV.ROOT_PORT_BROWSER_BUTTON_CAPTURE = '1';
                 instance.ENV.ROOT_PORT_RECORD_INITIAL_USER_STATE = '/owned/initial_user_state';
@@ -660,6 +773,13 @@ async function start(value) {
         arguments_.push('/owned/input_movie.ctm', '/owned/initial_user_state');
     const launchStatus = module.callMain(arguments_);
     requireCondition(launchStatus === 0, `CPU pthread launch refused with status ${launchStatus}`);
+    if (descriptor.options.frame_output) frameTimer = setInterval(() => {
+        if (phase !== 'running' || frameTask) return;
+        try {
+            const frame = copyPreviewFrame();
+            if (frame) frameTask = transferPreviewFrame(frame).catch(fail).finally(() => { frameTask = undefined; });
+        } catch (error) { fail(error); }
+    }, 25);
     if (descriptor.options.live_button_capture) buttonTimer = setInterval(() => {
         if (phase !== 'running') return;
         // The CPU samples its renderer during HID polling. These exports read
@@ -688,7 +808,17 @@ function setButton(value) {
 
 self.onmessage = event => {
     try {
-        if (event.data?.type === 'acknowledge_transfer') {
+        if (event.data?.type === 'acknowledge_preview') {
+            record(event.data, ['schema_version','type','capture_identifier','sequence']);
+            requireCondition(event.data.schema_version === 1 && descriptor?.options.frame_output &&
+                ['running','validating'].includes(phase) && pendingFrame &&
+                event.data.capture_identifier === descriptor.capture_identifier &&
+                event.data.sequence === pendingFrame.sequence, 'Unexpected preview acknowledgment');
+            const pending = pendingFrame;
+            pendingFrame = undefined;
+            clearTimeout(pending.timer);
+            pending.resolve();
+        } else if (event.data?.type === 'acknowledge_transfer') {
             record(event.data, ['schema_version', 'type', 'capture_identifier', 'transfer_identifier']);
             requireCondition(event.data.schema_version === 1 && phase === 'exporting' && pendingTransfer &&
                 event.data.capture_identifier === descriptor.capture_identifier &&
