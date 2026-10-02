@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "BrowserButtonInput.h"
+#include "BrowserFrameOutput.h"
 
 #include <atomic>
 #include <memory>
@@ -26,6 +27,7 @@ public:
         const auto frame = Core::System::GetInstance().GPU().Renderer().GetCurrentFrame();
         renderer_frame.store(static_cast<std::uint32_t>(frame), std::memory_order_release);
         poll_count.fetch_add(1, std::memory_order_release);
+        Port::SampleBrowserFrameOutput();
         return held_state.load(std::memory_order_acquire) != 0;
     }
 };
@@ -38,7 +40,7 @@ public:
 };
 }
 
-void Port::InstallBrowserButtonInput() {
+void Port::InstallBrowserButtonInput(bool allow_button_input) {
     previous_button = Settings::values.current_input_profile.buttons[Settings::NativeButton::A];
     held_state.store(0, std::memory_order_relaxed);
     poll_count.store(0, std::memory_order_relaxed);
@@ -46,7 +48,7 @@ void Port::InstallBrowserButtonInput() {
     Input::RegisterFactory<Input::ButtonDevice>(factory_name, std::make_shared<BrowserButtonFactory>());
     Settings::values.current_input_profile.buttons[Settings::NativeButton::A] =
         "engine:root_port_browser_button";
-    active.store(1, std::memory_order_release);
+    active.store(allow_button_input ? 1 : 0, std::memory_order_release);
 }
 
 void Port::UninstallBrowserButtonInput() {

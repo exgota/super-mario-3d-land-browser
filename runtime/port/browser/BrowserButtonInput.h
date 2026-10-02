@@ -3,7 +3,7 @@
 #include <cstdint>
 
 namespace Port {
-void InstallBrowserButtonInput();
+void InstallBrowserButtonInput(bool allow_button_input = true);
 void UninstallBrowserButtonInput();
 }
 
