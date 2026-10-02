@@ -739,3 +739,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x003508C4,_ZNK13NrvAppearStep22AppearStepNrvDisappear7executeEPN2al11NerveKeeperE,matched,3,4.573842
 2026-10-02T00:11:52.904631+00:00,0x0031B6EC,_ZN9FlowerPot4initERKN2al13ActorInitInfoE,matched,5,4.614131
 2026-10-02T00:11:52.904631+00:00,0x00364204,_ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7executeEPN2al11NerveKeeperE,matched,5,4.614131
+2026-10-02T00:11:52.904631+00:00,0x0015512C,_ZN14TrickHintPanel10receiveMsgEjPN2al9HitSensorES2_,matched,2,5.372115
