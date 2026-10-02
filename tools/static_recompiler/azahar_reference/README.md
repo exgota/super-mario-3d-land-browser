@@ -65,3 +65,7 @@ The optional `azahar_replay_duration.patch` makes the host watchdog configurable
 ## Longer command-data captures
 
 The optional `azahar_replay_payload_limits.patch` keeps the default128MiB PICA command-copy limit and adds a bounded opt-in byte extent. [REPLAY_PAYLOAD_LIMITS.md](REPLAY_PAYLOAD_LIMITS.md) documents it. Both builds, parser/boundary controls and unchanged native/stock menu output pass. A larger recording allowance supplies no gameplay acceptance.
+
+## Passive RAM observation
+
+`azahar_state_observation.patch` adds optional bounded RAM reads at existing natural software presentations. [STATE_OBSERVATION.md](STATE_OBSERVATION.md) documents the plan, unavailable-state rules and raw replay comparer. Synthetic memory controls and stock/native platform preservation pass; game field meanings and completed-update alignment remain unverified.
