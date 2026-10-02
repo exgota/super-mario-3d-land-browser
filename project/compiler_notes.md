@@ -20,7 +20,7 @@ Curated for worker packets. Evidence baseline: `e2336037d4f709acc082b3322daedadf
 
 ## How workers propose additions
 
-Workers append a candidate pattern to their function's `docs/facts/<address>.md`: function/address, source revision, compiler/module flags, changed expression or declaration, observed full-interval result, canonical receipt if accepted, and limits or counterexamples. Keep proposals out of this curated file until the driver verifies the source and evidence. A failed form can document a local negative observation; it is not a validated positive pattern. Packet delivery is pending driver integration; this curated file must remain read-only for workers.
+Workers append a candidate pattern to their function's `.factory/facts/<ADDRESS>.md`: function/address, source revision, compiler/module flags, changed expression or declaration, observed full-interval result, canonical receipt if accepted, and limits or counterexamples. Keep proposals out of this curated file until the driver verifies the source and evidence. A failed form can document a local negative observation; it is not a validated positive pattern. New jobs receive this curated file in their packets. This file must remain read-only for workers.
 
 ## Sources
 
