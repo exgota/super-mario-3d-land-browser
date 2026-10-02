@@ -6710,7 +6710,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0022A404,          ,0x0022A614,          ,U,f,,
 0x0022A614,          ,0x0022A66C,          ,U,f,,
 0x0022A66C,          ,0x0022A6CC,          ,U,f,,
-0x0022A6CC,          ,0x0022A6D4,          ,U,f,,
+0x0022A6CC,          ,0x0022A6D4,          ,O,f,fn_0022A6CC,
 0x0022A6D4,          ,0x0022A6E4,          ,U,f,,
 0x0022A6E4,0x0022A73C,0x0022A74C,          ,U,f,,
 0x0022A74C,          ,0x0022A75C,          ,U,f,,
