@@ -6,6 +6,7 @@
 #include "core/arm/arm_interface.h"
 #include "GuestMemoryTrace.h"
 #include "NativeBlockSchedule.h"
+#include "TranslatedFunctionModule.h"
 #include "recomp.h"
 
 namespace Kernel { class SVCContext; }
@@ -16,6 +17,10 @@ class StaticArmBackend final : public Core::ARM_Interface {
 public:
     StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
                      std::shared_ptr<Core::Timing::Timer> timer, const std::filesystem::path& library,
+                     std::shared_ptr<GuestMemoryTrace> trace = nullptr);
+    StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
+                     std::shared_ptr<Core::Timing::Timer> timer, const TranslatedFunctionModule& module,
+                     const std::filesystem::path& schedule_path,
                      std::shared_ptr<GuestMemoryTrace> trace = nullptr);
     ~StaticArmBackend() override;
     void Run() override;
@@ -45,6 +50,8 @@ public:
 protected:
     std::shared_ptr<Memory::PageTable> GetPageTable() const override;
 private:
+    void InitializeModule(Core::System& system, const TranslatedFunctionModule& module,
+                          const std::filesystem::path& schedule_path);
     static u8 Read8(Context*, u32);
     static u16 Read16(Context*, u32);
     static u32 Read32(Context*, u32);
@@ -57,7 +64,7 @@ private:
     Memory::MemorySystem& memory;
     std::unique_ptr<Kernel::SVCContext> svc;
     std::shared_ptr<Memory::PageTable> page_table;
-    void* library = nullptr;
+    [[maybe_unused]] void* library = nullptr;
     const Entry* entries = nullptr;
     u32 entry_count = 0;
     Context context{};

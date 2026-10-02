@@ -2,7 +2,9 @@
 #include "NativeTiming.h"
 #include <algorithm>
 #include <cstring>
+#ifndef ROOT_PORT_STATIC_MODULE_ONLY
 #include <dlfcn.h>
+#endif
 #include <iostream>
 #include <limits>
 #include <stdexcept>
@@ -18,11 +20,14 @@ void chargeBlock(Context* context, u32 address, u32 instructions, u64 ticks) {
     backend(context).ChargeBlock(address, instructions, ticks);
 }
 void stopDispatch(Context* context) { context->exit = EXIT_BUDGET; }
+#ifndef ROOT_PORT_STATIC_MODULE_ONLY
 template<class T> T loadSymbol(void* library, const char* name) {
     auto* pointer = dlsym(library, name);
     if (!pointer) throw std::runtime_error(std::string("missing static library symbol: ") + name);
     return reinterpret_cast<T>(pointer);
 }
+void closeNativeLibrary(void* library) { dlclose(library); }
+#endif
 }
 
 const Host StaticArmBackend::callbacks{Read8, Read16, Read32, Write8, Write16, Write32, RefuseInterpretation, Lookup};
@@ -31,29 +36,59 @@ StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& m
                                  std::shared_ptr<Core::Timing::Timer> timer_, const std::filesystem::path& path,
                                  std::shared_ptr<GuestMemoryTrace> trace_)
     : ARM_Interface(id, std::move(timer_)), memory(memory_),
-      svc(std::make_unique<Kernel::SVCContext>(system)), callback_pages(1 << 20, nullptr), trace(std::move(trace_)) {
-    library = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
-    if (!library) throw std::runtime_error(dlerror());
-    if (*loadSymbol<const u32*>(library, "recomp_abi") != RECOMP_ABI)
-        throw std::runtime_error("static CPU ABI disagreement");
-    if (*loadSymbol<const u32*>(library, "native_timing_revision") != 2)
-        throw std::runtime_error("static CPU timing ABI disagreement");
-    schedule = std::make_unique<NativeBlockSchedule>(path.parent_path() / "block_schedule.bin");
-    entries = loadSymbol<const Entry*>(library, "recomp_entries");
-    entry_count = *loadSymbol<const u32*>(library, "recomp_entry_count");
-    for (u32 i = 1; i < entry_count; ++i)
-        if (entries[i - 1].address >= entries[i].address) throw std::runtime_error("invalid static entry table");
-    *loadSymbol<NativeBlockTimingCallback*>(library, "native_block_timing_callback") = chargeBlock;
+      callback_pages(1 << 20, nullptr), trace(std::move(trace_)) {
+#ifdef ROOT_PORT_STATIC_MODULE_ONLY
+    (void)system;
+    (void)path;
+    throw std::runtime_error("native library loading is unavailable in the static-module build");
+#else
+    std::unique_ptr<void, decltype(&closeNativeLibrary)> loaded(
+        dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL), closeNativeLibrary);
+    if (!loaded) {
+        const auto* error = dlerror();
+        throw std::runtime_error(error ? error : "cannot load static CPU native library");
+    }
+    const TranslatedFunctionModule module{
+        *loadSymbol<const u32*>(loaded.get(), "recomp_abi"),
+        *loadSymbol<const u32*>(loaded.get(), "native_timing_revision"),
+        loadSymbol<const Entry*>(loaded.get(), "recomp_entries"),
+        *loadSymbol<const u32*>(loaded.get(), "recomp_entry_count"),
+        loadSymbol<NativeBlockTimingCallback*>(loaded.get(), "native_block_timing_callback")
+    };
+    InitializeModule(system, module, path.parent_path() / "block_schedule.bin");
+    library = loaded.release();
+#endif
+}
+
+StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& memory_, u32 id,
+                                 std::shared_ptr<Core::Timing::Timer> timer_, const TranslatedFunctionModule& module,
+                                 const std::filesystem::path& schedule_path,
+                                 std::shared_ptr<GuestMemoryTrace> trace_)
+    : ARM_Interface(id, std::move(timer_)), memory(memory_),
+      callback_pages(1 << 20, nullptr), trace(std::move(trace_)) {
+    InitializeModule(system, module, schedule_path);
+}
+
+void StaticArmBackend::InitializeModule(Core::System& system, const TranslatedFunctionModule& module,
+                                       const std::filesystem::path& schedule_path) {
+    module.Validate();
+    schedule = std::make_unique<NativeBlockSchedule>(schedule_path);
+    svc = std::make_unique<Kernel::SVCContext>(system);
+    entries = module.entries;
+    entry_count = module.entry_count;
     context.host = &callbacks;
     context.user = this;
     context.read_pages = context.write_pages = callback_pages.data();
     context.vfp = floating_registers.data();
     context.fpscr = &fpscr;
     page_table = memory.GetCurrentPageTable();
+    *module.timing_callback = chargeBlock;
 }
 StaticArmBackend::~StaticArmBackend() {
     std::cerr << "static CPU " << GetID() << " executed " << InstructionsExecuted() << " guest instructions; interpreter/JIT fallbacks 0\n";
-    if (library) dlclose(library);
+#ifndef ROOT_PORT_STATIC_MODULE_ONLY
+    if (library) closeNativeLibrary(library);
+#endif
 }
 
 void StaticArmBackend::Run() {
