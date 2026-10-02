@@ -67,6 +67,53 @@ python tools/static_recompiler/compare_state_observation.py \
 
 All output/report paths must be absent; reports belong to this checkout's ignored build directory. The accepted bounded checks use presentation 360, input/audio enabled and three diagnostic RAM observations. Both paths must preserve every raw GPU event/tick, PICA byte, screen/framebuffer byte, input event, stereo PCM sample and raw state observation. Both must report zero CPU fallback. Matching diagnostic RAM does not prove Section 7 semantic gameplay state or completed-update alignment.
 
+## Link the translated instruction module
+
+`runtime/port/webassembly_translation` is a separate wasm32 static target. It
+compiles all sealed timed generated C units, the real entry table, the timing
+callback cell and the address-selected source replacement. It links the
+accepted integer guest arithmetic target. Generated code, original instruction
+fixtures and outputs remain ignored. The adapter archive above and the platform
+implementation remain separate dependencies.
+
+Generate and verify a portable timed native module with the commands in
+[FLOATING_POINT.md](FLOATING_POINT.md), then cross-compile those sealed sources:
+
+```sh
+python tools/static_recompiler/build_webassembly_translation.py \
+  "$timed_native_directory" build/webassembly_translation \
+  --softfloat-source "$softfloat_source_directory" \
+  --emsdk "$emsdk_directory" --node "$node_executable" --cmake "$cmake_executable"
+python tools/static_recompiler/verify_webassembly_translation.py \
+  build/webassembly_translation build/webassembly_translation_verification \
+  --emsdk "$emsdk_directory" --node "$node_executable" --cmake "$cmake_executable"
+```
+
+Set these variables to absolute paths. Both output directories must be absent
+children of this checkout's ignored `build/`. The builder verifies the native
+library and every source seal, accepted arithmetic/timing source identity,
+replacement registry and the replacement's rank O/source identity on frozen
+integrator main. Its archive receipt explicitly carries zero execution credit.
+
+The verifier links an actual wasm executable with the complete immutable entry
+table. It reads back every actual address and compares it with the sealed source
+table, requires nonnull ordered function pointers and checks that priority
+dispatch resolves to its source override. It compares selected actual guest
+entry calls with original ARM execution through Unicorn, including all integer
+registers/next PC, NZCVQ/GE/Thumb, all 32 floating words and FPSCR. The source
+replacement comparison follows AAPCS: return value, callee-saved registers, SP
+and return PC. Caller-saved integer registers and arithmetic flags are excluded
+only for that source function. Every unsupported host memory/interpreter
+callback aborts. The translated wasm Context is 120 bytes and Entry is 8 bytes;
+these are host interface checks, not guest class-layout evidence.
+
+The selected probes cover 88192 floating-instruction cases and 4105 actual source
+replacement cases. Linking the complete table preserves the native manifest's
+conservative 2437712 function instruction bytes. Only those probes execute in
+this check. This does not establish translated startup, a browser host or a GPU
+frame. See [the evidence note](../../project/webassembly_translation_evidence.md)
+for actual receipts, hashes and limits.
+
 ## Remaining browser work
 
-A runnable host still requires a reduced generic Azahar build without ARM CPU fallback, target-compiled platform dependencies, workers/pthreads, owned-file loading, bounded memory, video presentation and audio. [FLOATING_POINT.md](FLOATING_POINT.md) supplies the separate integer-only guest arithmetic target. No browser page or game frame ran in the binding family. World 1-1 entry/goal, browser pixels/audio, performance and complete rank-O source binding remain unverified. [The evidence note](../../project/webassembly_static_binding_evidence.md) records the actual archive, callback contract, native replay and refusal/resource controls.
+A runnable host still requires a reduced generic Azahar build without ARM CPU fallback, target-compiled platform dependencies, workers/pthreads, owned-file loading, bounded memory, video presentation and audio. [FLOATING_POINT.md](FLOATING_POINT.md) supplies the separate integer-only guest arithmetic target. No browser page or game frame ran in the binding or translated-module families. World 1-1 entry/goal, browser pixels/audio, performance and complete rank-O source binding remain unverified. [The binding evidence note](../../project/webassembly_static_binding_evidence.md) records the actual adapter archive, callback contract, native replay and refusal/resource controls.
