@@ -12735,7 +12735,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00321AB4,          ,0x00321ACC,          ,O,f,_ZN9PeachRope4killEv,
 0x00321ACC,0x00321AF4,0x00321AF8,          ,O,f,_ZN9PeachRopeC1ERKN4sead14SafeStringBaseIcEE,
 0x00321AF8,0x00321BDC,0x00321BEC,          ,U,f,,
-0x00321BEC,0x00321C0C,0x00321C18,          ,U,f,,
+0x00321BEC,0x00321C0C,0x00321C18,          ,O,f,fn_00321BEC,
 0x00321C18,0x00321C90,0x00321CA0,          ,U,f,,
 0x00321CA0,0x00321CA8,0x00321CAC,          ,U,f,,
 0x00321CAC,0x00321D0C,0x00321D1C,          ,U,f,,
