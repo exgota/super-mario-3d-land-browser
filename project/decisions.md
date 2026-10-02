@@ -1294,3 +1294,10 @@ Draft carryover and post-crossing acceptance measurements are recorded in `proje
 The operator held `dot-placement-map-359c64101` before another full-check attempt. Both `project/dot_reports/placement-map.md` and `placement-temporary-lifetime-followup.md` at commit `359c64101` explicitly say initPlacementMap remains nonmatching. Their exact 144-byte sibling is tryGetPlacementInfo, which is already O on main. A checker command in a report is not a successful checker result. The request was moved unchanged to the local held directory, with its SHA-256 and reason retained in `logs/driver_intake_corrections.jsonl`. No game source, oracle, map, rank or ledger was changed.
 
 The weekly usage reset closes the credit-period acceptance measurement recorded in `project/driver_measurements_2026-10-02.md`. The six-slot production setup and load guard remain unchanged.
+
+
+## 2026-10-02: FileSelect operation identity and ABI repair queue
+
+Name the existing 0x0014AEDC..0x0014B0E8 function row `fn_0014AEDC`. Its 0x0014B0D8 pool and boundaries remain unchanged, and its rank remains U. The accepted `fn_0014AED4` caller already refers to that exact name; the owned EU binary branches from the 8-byte caller to this interval. This is an address identity, not a recovered original C++ name.
+
+The source proposed by `dot/root-14aedc` at 57f41a5a8 defines a void operation-state update. Its report explicitly flags the accepted caller's broad integer return and four-argument placeholder as incompatible C++ declarations. The driver held the original submission unchanged. A separate `cleanup/file-select-operation-abi` family, frozen from main 20ec130a8a313b3af9af2262d5c94a4d2bf92e3a, reconciles the root, its nerve execute caller, and three existing nerve helpers in a shared source/header. Both touched Factory translation units are in the preservation scope. No source claim is accepted by this naming commit; canonical checks and the integrator's full preservation gate still decide the cleanup.
