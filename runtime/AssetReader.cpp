@@ -2284,6 +2284,127 @@ CpuFixedAttributeResolution resolveCpuMissingFixedAttributes(
     return result;
 }
 
+enum class CpuCachedInitializationEntrypoint { DirectConsumer, ResetWrapper };
+
+struct CpuCachedInitializationInput {
+    std::optional<std::vector<std::uint32_t>> cachedWords;
+    std::optional<std::uint32_t> declaredWordCount;
+    std::optional<std::uint32_t> priorCopyFlag;
+    std::optional<CpuCachedInitializationEntrypoint> entrypoint;
+};
+
+struct CpuCachedInitializationCopy {
+    std::string status = "unavailable_supplied_cached_initialization";
+    std::optional<std::uint32_t> copyFlagAfter;
+    std::vector<std::uint32_t> commandWords;
+};
+
+CpuCachedInitializationCopy readCpuCachedInitializationCopy(
+        const CpuCachedInitializationInput* input) {
+    CpuCachedInitializationCopy result;
+    if (!input || !input->cachedWords || !input->declaredWordCount ||
+        !input->priorCopyFlag || !input->entrypoint)
+        return result;
+    if (*input->entrypoint != CpuCachedInitializationEntrypoint::DirectConsumer &&
+        *input->entrypoint != CpuCachedInitializationEntrypoint::ResetWrapper) {
+        result.status = "unsupported_cached_initialization_entrypoint";
+        return result;
+    }
+    require(*input->declaredWordCount <= input->cachedWords->size(),
+            "Cached initialization count exceeds supplied words");
+    result.copyFlagAfter = 1;
+    if (*input->entrypoint == CpuCachedInitializationEntrypoint::DirectConsumer &&
+        *input->priorCopyFlag == 1) {
+        result.status = "original_cached_initialization_skip";
+        return result;
+    }
+    result.commandWords.assign(input->cachedWords->begin(),
+        input->cachedWords->begin() + *input->declaredWordCount);
+    result.status = "original_cached_initialization_copy";
+    return result;
+}
+
+struct CpuCommandPacket {
+    std::size_t wordOffset = 0;
+    std::uint32_t header = 0;
+    std::uint16_t registerNumber = 0;
+    std::uint8_t writeMask = 0;
+    bool incremental = false;
+    std::vector<std::uint32_t> parameterWords;
+    std::optional<std::uint32_t> alignmentWord;
+    std::vector<std::uint32_t> commandWords;
+};
+
+struct CpuCommandStream {
+    std::string status = "unavailable_supplied_command_stream";
+    std::size_t suppliedWordCount = 0;
+    std::vector<CpuCommandPacket> packets;
+    std::vector<CpuFixedAttributeUploadInput> fixedUploads;
+};
+
+// This accepts the pinned public producer's bounded count encoding. Complete
+// unrelated packets stay raw. Any unproven fixed write invalidates the prefix.
+CpuCommandStream readCpuCommandStream(std::span<const std::uint32_t> words) {
+    CpuCommandStream result;
+    result.suppliedWordCount = words.size();
+    if (words.empty())
+        return result;
+    std::vector<CpuCommandPacket> packets;
+    std::vector<CpuFixedAttributeUploadInput> uploads;
+    for (std::size_t position = 0; position < words.size();) {
+        const std::size_t remaining = words.size() - position;
+        if (remaining < 2) {
+            result.status = "unsupported_incomplete_command_stream";
+            return result;
+        }
+        const std::uint32_t header = words[position + 1];
+        if (header & 0x70000000) {
+            result.status = "unsupported_command_count_encoding";
+            return result;
+        }
+        const std::size_t extra = (header >> 20) & 255;
+        const std::size_t payloadExtent = extra + 2;
+        const std::size_t packetExtent = payloadExtent + (payloadExtent & 1);
+        if (packetExtent > remaining) {
+            result.status = "unsupported_incomplete_command_stream";
+            return result;
+        }
+        const std::uint32_t firstRegister = header & 65535;
+        const bool incremental = header >> 31;
+        const std::uint32_t lastRegister = firstRegister + (incremental ? extra : 0);
+        if (lastRegister > 65535) {
+            result.status = "unsupported_incremented_register_extent";
+            return result;
+        }
+        const auto packetWords = words.subspan(position, packetExtent);
+        if (firstRegister <= 0x235 && lastRegister >= 0x232) {
+            if (!isCpuCompleteFixedAttributeUpload(packetWords)) {
+                result.status = "unsupported_fixed_attribute_command";
+                return result;
+            }
+            uploads.push_back({std::vector<std::uint32_t>(packetWords.begin(), packetWords.end())});
+        }
+        CpuCommandPacket packet;
+        packet.wordOffset = position;
+        packet.header = header;
+        packet.registerNumber = std::uint16_t(firstRegister);
+        packet.writeMask = std::uint8_t((header >> 16) & 15);
+        packet.incremental = incremental;
+        packet.parameterWords.push_back(words[position]);
+        packet.parameterWords.insert(packet.parameterWords.end(),
+            words.begin() + position + 2, words.begin() + position + payloadExtent);
+        if (payloadExtent & 1)
+            packet.alignmentWord = words[position + payloadExtent];
+        packet.commandWords.assign(packetWords.begin(), packetWords.end());
+        packets.push_back(std::move(packet));
+        position += packetExtent;
+    }
+    result.packets = std::move(packets);
+    result.fixedUploads = std::move(uploads);
+    result.status = "validated_supplied_command_stream";
+    return result;
+}
+
 std::string hexadecimal(const std::string& value) {
     const char* digits = "0123456789abcdef";
     std::string result;
