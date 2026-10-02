@@ -1,0 +1,23 @@
+--- a/src/common/thread.cpp
++++ b/src/common/thread.cpp
+@@ -7,6 +7,9 @@
+ #include "common/error.h"
+ #include "common/logging/log.h"
+ #include "common/thread.h"
++#ifdef __EMSCRIPTEN__
++#include <emscripten/threading.h>
++#endif
+ #ifdef __APPLE__
+ #include <mach/mach.h>
+ #elif defined(_WIN32)
+@@ -92,7 +95,9 @@
+ // MinGW with the POSIX threading model does not support pthread_setname_np
+ #if !defined(_WIN32) || defined(_MSC_VER)
+ void SetCurrentThreadName(const char* name) {
+-#ifdef __APPLE__
++#ifdef __EMSCRIPTEN__
++    emscripten_set_thread_name(pthread_self(), name);
++#elif defined(__APPLE__)
+     pthread_setname_np(name);
+ #elif defined(__Bitrig__) || defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
+     pthread_set_name_np(pthread_self(), name);

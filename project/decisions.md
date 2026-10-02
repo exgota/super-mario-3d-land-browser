@@ -1269,3 +1269,12 @@ from the retail executable only:
 Not named: 0x0028CB38, which frog's KoopaPillar source calls al::StringTmp<128>'s constructor. Main's
 lib/al/src/Npc/alEffectObj.cpp already calls that row as fn_0028CB38, so renaming it would break that object;
 KoopaPillar's source must call fn_0028CB38 instead.
+## 2026-10-02: reduced WebAssembly platform and real entropy
+
+Root/webassembly-platform freezes main 5a3ee8a8 and keeps the matching ARMCC inputs unchanged. A separate opt-in public Azahar profile uses GENERIC architecture, software rendering, actual platform services and the accepted static CPU adapter. It excludes guest ARM CPU interpreters/JITs, shader JITs and native loader/media implementations. Missing static CPU registration throws. Module-local O1/pthreads/wasm exceptions reproduce the already verified translated CPU without changing matching flags. Native option-off branches remain, with no additional native-build claim.
+
+The platform uses pinned public dependency revisions and original license notices. LibreSSL keeps real ChaCha/getentropy with checked pthread locking and zero-initialized allocation; failures abort. Four typed size-zero returns fix wasm32 narrowing. Thread diagnostics use the actual Emscripten API. The finite Node-only link uses NODERAWFS for the owned input copy. Browser file/worker transport is a separate family.
+
+A fresh full host reaches the natural first GPU swap and matches all 528 raw events/ticks and 79936 PICA bytes against corrected Azahar, with zero ARM interpreter/JIT fallback. Actual real-archive entropy/concurrency and C/Node failure checks pass. Source review exposed five tooling gaps; archive/notice provenance, bounded usage, preserved timeout logs and complete source exclusions are fixed before submission. An actual blocked Node entropy provider proves the 60-second refusal/log path. GPU parity and diagnostic CPU counts remain separate claims.
+
+The final build/replay receipts, source hashes, reproduction and explicit gaps are in project/webassembly_platform_evidence.md. No browser frame, World 1-1, complete rank-O registry, semantic gameplay state or new exact/native byte credit follows. Only the integrator moves main/ranks/ledger.
