@@ -13233,7 +13233,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0032A47C,0x0032A488,0x0032A48C,          ,U,f,,
 0x0032A48C,0x0032A498,0x0032A49C,          ,U,f,,
 0x0032A49C,0x0032A4A8,0x0032A4AC,          ,U,f,,
-0x0032A4AC,0x0032A4B8,0x0032A4BC,          ,U,f,,
+0x0032A4AC,0x0032A4B8,0x0032A4BC,          ,O,f,fn_0032A4AC,
 0x0032A4BC,0x0032A4C8,0x0032A4CC,          ,U,f,,
 0x0032A4CC,0x0032A4D8,0x0032A4DC,          ,U,f,,
 0x0032A4DC,0x0032A4E8,0x0032A4EC,          ,U,f,,
