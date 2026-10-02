@@ -37,6 +37,8 @@ All lanes below use that same protocol wall interval. Do not sum overlapping six
 | actor_group_matching | 3316 | 924 | 2392 | 473.150 |
 | large_actor_followup | 584 | 156 | 428 | 83.329 |
 
+Factory owns new U functions below0x100; finish already in-flight work, then local lanes choose>=0x100, packets/blocked/identity/runtime. Never edit Game/backup/src/Factory/. Merge factory before every hourly fresh clean/full-map gate; on regression push without the merge and record symbols. No factory per-function ledger/write-ups.
+
 Choose by expected(chance*complete family bytes+downstream bytes)/(investigation+implementation+intake hours). Estimates are not observed throughput. At most8total lanes. Runtime has no new timebox. Four unsuccessful meaningful forms per pass, complete physical history/packet, other work and overlap checks before coordinated requeue.
 
 ## Active source ownership, recorded before implementation
