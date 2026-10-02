@@ -19,6 +19,7 @@ Stop a running supervisor by creating the file STOP next to this script.
 import argparse
 import bisect
 import importlib.util
+import hashlib
 import collections
 import datetime
 import json
@@ -551,7 +552,71 @@ def this_accesses(code, row):
     return sorted(found)
 
 
-def write_facts_skeleton(path, row, name, readable, rows_by_start, code, vtable_slots):
+def packet_reference_material(worktree, rows_by_start, code):
+    """Read curated notes and ground primary-table references in the packet's own source revision."""
+    notes_path = worktree / "project/compiler_notes.md"
+    notes = notes_path.read_text() if notes_path.exists() else ""
+    catalog_path = worktree / "project/actor_catalog.json"
+    if not catalog_path.exists():
+        return notes, {}
+    catalog = json.loads(catalog_path.read_text())
+    if catalog.get("input_binary_sha256") != hashlib.sha256(code).hexdigest():
+        raise ValueError("Actor catalog does not describe the current executable")
+    function_starts = {address for address, row in rows_by_start.items() if "f" in row["type"]}
+    references = collections.defaultdict(list)
+    for address_text, identity in catalog["packet_lookup_by_primary_address_point"].items():
+        address_point = int(address_text, 16)
+        if identity.get("lookup_scope") != "exact_installed_primary_address_point_only":
+            continue
+        # Only the uninterrupted run of mapped function pointers from the installed address point is labeled.
+        # A zero, unknown target or table header ends it; a broad containing map row never supplies a class name.
+        offset, index = address_point - TEXT_BASE, 0
+        while 0 <= offset <= len(code) - 4:
+            target = struct.unpack_from("<I", code, offset)[0]
+            if target not in function_starts:
+                break
+            references[target].append({"address_point": address_point, "pointer_index": index,
+                                       "registry_name": identity["registry_name"],
+                                       "cpp_class_name": identity.get("accepted_cpp_class_name"),
+                                       "confidence": identity["confidence"]})
+            index += 1
+            offset += 4
+    return notes, references
+
+
+def actor_reference_lines(references):
+    lines = []
+    for reference in references:
+        identity = f"registry actor `{reference['registry_name']}`"
+        if reference["cpp_class_name"]:
+            identity += f", evidenced catalog C++ identity `{reference['cpp_class_name']}`"
+        else:
+            identity += ", C++ class spelling unresolved"
+        lines.append(f"- primary address point 0x{reference['address_point']:08X}, function-pointer index "
+                     f"{reference['pointer_index']}: {identity}; {reference['confidence']}")
+    return lines
+
+
+def worker_reference_sections(notes, actor_references, addresses):
+    parts = []
+    if notes:
+        parts += ["", "## Curated compiler reference", "",
+                  "The following is the read-only project/compiler_notes.md from this job's source revision.",
+                  "Propose additions only in .factory/facts/<ADDRESS>.md, with the observed source and checker result.",
+                  "", notes]
+    relevant = [address for address in addresses if actor_references.get(address)]
+    if relevant:
+        parts += ["", "## Verified actor table references", "",
+                  "Registry identifiers and evidenced project C++ identities are separate. These references do not",
+                  "prove an original class spelling, a unique method owner, or a complete vtable boundary.",
+                  "Function-pointer indices below start at the installed primary address point; existing map-row",
+                  "indices in facts are separate raw word indices. Full evidence: project/actor_catalog.json."]
+        for address in relevant:
+            parts += ["", f"Function 0x{address:08X}:", *actor_reference_lines(actor_references[address])]
+    return parts
+
+
+def write_facts_skeleton(path, row, name, readable, rows_by_start, code, vtable_slots, actor_references=None):
     """The mechanical half of a facts file; the worker fills in the class, the types and the signatures."""
     end = row["pool"] or row["end"]
     callees, data = set(), set()
@@ -578,7 +643,12 @@ def write_facts_skeleton(path, row, name, readable, rows_by_start, code, vtable_
     if not callees:
         lines.append("- none")
     lines += ["", "## Vtable slots", ""]
-    lines += [f"- vtable 0x{vtable:08X}, slot {slot}" for vtable, slot in vtable_slots.get(row["start"], [])] or ["- none found"]
+    lines += [f"- candidate table row 0x{vtable:08X}, raw word index {slot}"
+              for vtable, slot in vtable_slots.get(row["start"], [])] or ["- none found"]
+    verified = (actor_references or {}).get(row["start"], [])
+    if verified:
+        lines += ["", "Verified primary-table references (shared targets do not prove method ownership):",
+                  *actor_reference_lines(verified)]
     lines += ["", "## Data references", ""]
     lines += [f"- {default_name(rows_by_start[target])} (0x{target:08X}): not yet identified" for target in sorted(data)] or ["- none"]
     path.write_text("\n".join(lines) + "\n")
@@ -602,6 +672,8 @@ def build_vtable_slots(rows, code):
 def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings, vtable_slots=None):
     addresses = [int(a, 16) for a in job["addresses"].split(",")]
     tier = settings
+    compiler_notes, actor_references = packet_reference_material(worktree, rows_by_start, code)
+    reference_sections = worker_reference_sections(compiler_notes, actor_references, addresses)
     first = rows_by_start[addresses[0]]
     file_name = FACTORY_SOURCE_DIRECTORY / (("fn_%08X.cpp" if len(addresses) == 1 else "group_%08X.cpp") % addresses[0])
     names = []
@@ -632,8 +704,8 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
         parts += [f"Check with `. ./development_environment.sh && python {HOME / 'factory.py'} attempt` ({settings['attempts']} runs)."]
         factory_directory = worktree / ".factory"
         (factory_directory / "facts").mkdir(parents=True, exist_ok=True)
-        write_facts_skeleton(factory_directory / "facts" / f"{address:08X}.md", row, name, readable, rows_by_start, code, vtable_slots or {})
-        (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
+        write_facts_skeleton(factory_directory / "facts" / f"{address:08X}.md", row, name, readable, rows_by_start, code, vtable_slots or {}, actor_references)
+        (factory_directory / "job.md").write_text("\n".join(parts + reference_sections) + "\n")
         (factory_directory / "job.json").write_text(json.dumps({
             "id": job["id"], "addresses": addresses, "symbols": names, "file": info["file"],
             "class_files": [info["header"], info["file"]], "attempt_limit": settings["attempts"],
@@ -653,8 +725,8 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
         (factory_directory / "facts").mkdir(parents=True, exist_ok=True)
         for address, name in zip(addresses, names):
             write_facts_skeleton(factory_directory / "facts" / f"{address:08X}.md", rows_by_start[address], name, readable,
-                                 rows_by_start, code, vtable_slots or {})
-        (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
+                                 rows_by_start, code, vtable_slots or {}, actor_references)
+        (factory_directory / "job.md").write_text("\n".join(parts + reference_sections) + "\n")
         (factory_directory / "job.json").write_text(json.dumps({
             "id": job["id"], "addresses": addresses, "symbols": names, "file": "", "attempt_limit": 0,
             "base": git(worktree, "rev-parse", "HEAD")}))
@@ -707,8 +779,8 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
     facts.mkdir(exist_ok=True)
     for address, name in zip(addresses, names):
         write_facts_skeleton(facts / f"{address:08X}.md", rows_by_start[address], name, readable, rows_by_start, code,
-                             vtable_slots or {})
-    (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
+                             vtable_slots or {}, actor_references)
+    (factory_directory / "job.md").write_text("\n".join(parts + reference_sections) + "\n")
     (factory_directory / "job.json").write_text(json.dumps({
         "id": job["id"], "addresses": addresses, "symbols": names, "file": str(file_name),
         "attempt_limit": tier["attempts"], "base": git(worktree, "rev-parse", "HEAD"),

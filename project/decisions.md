@@ -1299,3 +1299,8 @@ The weekly usage reset closes the credit-period acceptance measurement recorded 
 ## 2026-10-02: Actor registry evidence corrects the historical scan scope
 
 The reproducible 268/222 scan combined five registries and treated literal-pool candidates as table links. Preserve that historical result with explicit heuristic labels. `project/actor_catalog.json` separately traces the complete 225-entry actor registry to primary table installations, retains 13 evidenced current C++ identities, and claims no recovered original class spellings or unique virtual method ownership. The driver independently reproduced every actor and historical record. `project/actor_catalog_evidence.md` and `tools/factory/inspect_actor_registry.py` document and reproduce the check. The RailDot/Seagull containing-row conflict remains a separate map-evidence issue; this commit changes no map row.
+
+
+## Worker packet reference deployment, 2026-10-02
+
+The owner approved the prepared update. The driver deployed the verified factory copy and restarted it within 44 seconds of the three reference-safety checks passing. New packets embed curated compiler notes and bounded actor references from their own source revision. Four fresh production packets contained the complete notes; their targets correctly had no actor-reference sections. Direct checks covered four packet forms and distinguished Seagull from its broad containing RailDot map row. The integrator and resource guards are unchanged. See `project/packet_reference_deployment.md` for the evidence and live-reference observation still pending. No exact-byte credit or throughput gain is claimed.
