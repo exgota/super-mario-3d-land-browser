@@ -1,0 +1,9 @@
+[package]
+name = "static-recompiler"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.88"
+publish = false
+
+[dependencies]
+recomp3ds = { git = "https://github.com/fearkov/3dsrecomp", rev = "83e6920784baff6ebc5888ed5cfdbf9735dfbf1c" }
