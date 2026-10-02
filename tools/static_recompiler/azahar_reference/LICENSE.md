@@ -7,3 +7,11 @@ SPDX-License-Identifier: GPL-2.0-or-later
 The project-authored instrumentation and isolated deterministic file-delay correction in these patches are supplied under the same GPL-2.0-or-later terms. Obtain the complete applicable text from [GNU General Public License version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html), or a later version chosen under that grant. Retain upstream notices and provide the applicable license with a distributed source derivative.
 
 This scoped license notice does not relicense the rest of the repository. The patches contain source changes only. Azahar checkouts, downloaded dependencies, executables and owner-derived game data must remain in ignored directories. No Nintendo source or SDK material was used for this instrumentation.
+
+## Dynarmic ARM64 control correction
+
+`azahar_floating_point_control.patch` modifies the public Dynarmic file `src/dynarmic/backend/arm64/emit_arm64_a32.cpp` at revision `e77b1ba0b7da7cbe93021b01a663acfe7c4dd516`. That file identifies its existing source as 0BSD and retains the upstream notices. The project-authored one-line correction is also supplied under 0BSD. This scoped grant does not change Azahar's GPL obligations when distributing its combined derivative. The standalone verification driver and runner contain project-authored tooling and no Nintendo source or guest instruction words.
+
+0BSD permission: Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.

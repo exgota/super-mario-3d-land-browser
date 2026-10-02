@@ -18,7 +18,11 @@ git -C build/port_tools/azahar_reproduction apply --check "$reference_directory/
 git -C build/port_tools/azahar_reproduction apply --check "$reference_directory/azahar_deterministic_io.patch"
 git -C build/port_tools/azahar_reproduction apply "$reference_directory/azahar_capture.patch"
 git -C build/port_tools/azahar_reproduction apply "$reference_directory/azahar_deterministic_io.patch"
+git -C build/port_tools/azahar_reproduction/externals/dynarmic apply --check -p3 "$reference_directory/azahar_floating_point_control.patch"
+git -C build/port_tools/azahar_reproduction/externals/dynarmic apply -p3 "$reference_directory/azahar_floating_point_control.patch"
 ```
+
+The fresh commands include the verified ARM64 host floating-point control correction. Historical source_provenance.json describes the earlier two-patch reference; FLOATING_POINT_CONTROL.md and floating_point_control_provenance.json describe the additional correction and its independent checks. To reproduce the uncorrected bounded control, defer the floating-point patch until after linking its original probe.
 
 Initialize only the listed dependencies. The capture patch allows this restricted dependency set when `ROOT_PORT_CAPTURE_MINIMAL_DEPENDENCIES=ON`. The disabled GUI, audio-device, networking frontend and Vulkan dependencies are unnecessary. `dependency_revisions.txt` records both initialized revisions and omitted upstream gitlinks. Submodule lines prefixed with `-` were intentionally not initialized.
 
