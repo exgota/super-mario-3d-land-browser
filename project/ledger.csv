@@ -796,3 +796,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T02:06:36.245006+00:00,0x00243808,_ZN4sead10FileDevice8tryCloseEPNS_10FileHandleE,matched,2,24.003573
 2026-10-02T02:06:36.245006+00:00,0x002D99F8,_ZN4sead10FileDevice8tryWriteEPjPNS_10FileHandleEPKhj,matched,2,24.003573
 2026-10-02T02:06:36.245006+00:00,0x003125BC,_ZN7NoteObj10receiveMsgEjPN2al9HitSensorES2_,matched,2,22.386564
+2026-10-02T02:06:36.245006+00:00,0x00312790,_ZN7NoteObj7controlEv,matched,5,22.386564
