@@ -3582,7 +3582,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001A3598,0x001A35CC,0x001A35D0,          ,U,f,,
 0x001A35D0,          ,0x001A35E4,          ,U,f,,
 0x001A35E4,0x001A36A0,0x001A36B8,          ,U,f,,
-0x001A36B8,0x001A36D0,0x001A36D4,          ,U,f,,
+0x001A36B8,0x001A36D0,0x001A36D4,          ,O,f,fn_001A36B8,
 0x001A36D4,0x001A36EC,0x001A36F0,          ,U,f,,
 0x001A36F0,0x001A3728,0x001A3730,          ,U,f,,
 0x001A3730,0x001A385C,0x001A386C,          ,U,f,,
