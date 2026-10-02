@@ -760,3 +760,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x0026B14C,_ZN4sead10ReadStream7readU64ERy,matched,2,10.371056
 2026-10-02T00:11:52.904631+00:00,0x0026B1E0,_ZN4sead10ReadStream12readMemBlockEPvj,matched,2,10.371056
 2026-10-02T00:11:52.904631+00:00,0x0026B204,_ZN4sead10ReadStream6readU8ERh,matched,2,10.371056
+2026-10-02T00:11:52.904631+00:00,0x0026B230,_ZN4sead10ReadStream6readS8ERa,matched,2,10.371056
