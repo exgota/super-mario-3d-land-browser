@@ -1,8 +1,3 @@
-extern "C" void* fn_00189164();
-namespace rp {
-void* getPlayerActor() { return fn_00189164(); }
-}
-
 extern "C" unsigned fn_001891D8();
 extern "C" unsigned fn_001891D4() { return fn_001891D8(); }
 extern "C" unsigned fn_001891F4();
