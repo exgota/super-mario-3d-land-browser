@@ -1037,3 +1037,7 @@ Root verifies24peerpaths/seal4bd414ed and applies two Symbol-only whole rows unc
 ## 2026-10-02: Record independent MethodTree lock and propagation identities
 
 Root verifies36peerpaths/seal4716679e and14complete original providers/callers/pools. Three whole-row Symbol-only names identify two external opaque-receiver lock imports and the68-byte two-pointer propagation target. Return values are unobserved and ignored; no hardware lock implementation, public API spelling, boundary or data change is adopted. Strict final source replay and canonical root preservation remain pending.
+
+## 2026-10-02: Independently reviewed action and channel-presence identities
+
+Root verifies91peerpaths/sealbb62c8ac, original32-path seal and separate correction0b3d1565. Eighteen neutral whole-row names preserve every other field. Original00265128 uses controller+2C,0024FCB8 uses+30; previously swapped JSON observations are superseded by the unchanged separately sealed correction. Fall-through extents and valid-channel/resource preconditions remain explicit. Six completion imports serve the capped192-byte packet; ready268-byte source excludes that body and those imports. No shared ModelCtr layout correction or matching credit follows from metadata.
