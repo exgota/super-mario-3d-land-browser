@@ -1323,3 +1323,7 @@ proposals rather than recovered names.
 Name the existing 0x0014AEDC..0x0014B0E8 function row `fn_0014AEDC`. Its 0x0014B0D8 pool and boundaries remain unchanged, and its rank remains U. The accepted `fn_0014AED4` caller already refers to that exact name; the owned EU binary branches from the 8-byte caller to this interval. This is an address identity, not a recovered original C++ name.
 
 The source proposed by `dot/root-14aedc` at 57f41a5a8 defines a void operation-state update. Its report explicitly flags the accepted caller's broad integer return and four-argument placeholder as incompatible C++ declarations. The driver held the original submission unchanged. A separate `cleanup/file-select-operation-abi` family, frozen from main 20ec130a8a313b3af9af2262d5c94a4d2bf92e3a, reconciles the root, its nerve execute caller, and three existing nerve helpers in a shared source/header. Both touched Factory translation units are in the preservation scope. No source claim is accepted by this naming commit; canonical checks and the integrator's full preservation gate still decide the cleanup.
+
+## 2026-10-02: observe applicable actor references in production
+
+Job 3108 delivered two source-grounded actor references in a live packet. Independent original-table word checks and the committed facts confirm both. The worker advanced before an atomic copy, so no full-packet hash is claimed. This closes the live-delivery observation left open in project/packet_reference_deployment.md without a production change or throughput attribution.
