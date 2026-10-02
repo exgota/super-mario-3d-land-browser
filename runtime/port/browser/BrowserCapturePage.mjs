@@ -9,11 +9,80 @@ const soundButton = document.querySelector('#play-recorded-sound');
 const soundStatus = document.querySelector('#sound-status');
 const liveButton = document.querySelector('#hold-a');
 const liveHelp = document.querySelector('#live-button-help');
+const circlePad = document.querySelector('#circle-pad');
+const circleButtons = [...circlePad.querySelectorAll('button')];
+const circleSources = new Map();
+const arrowDirections = {ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right'};
 let configuration;
 let session;
 let completedAudio;
 let latestPreviewFrame;
 const heldSources = new Set();
+
+function recording() {
+    return configuration?.options.live_button_capture || configuration?.options.live_circle_pad_capture;
+}
+
+function publishCirclePosition() {
+    const directions = new Set(circleSources.values());
+    for (const control of circleButtons)
+        control.setAttribute('aria-pressed', String(directions.has(control.dataset.direction)));
+    if (!session?.circleReady) return;
+    const horizontal = Number(directions.has('right')) - Number(directions.has('left'));
+    const vertical = Number(directions.has('up')) - Number(directions.has('down'));
+    const extent = horizontal && vertical ? 108 : 154;
+    const x = horizontal * extent, y = vertical * extent;
+    if (session.circleX === x && session.circleY === y) return;
+    session.circleX = x;
+    session.circleY = y;
+    session.worker.postMessage({schema_version:1, type:'set_circle_pad_position',
+        capture_identifier:session.identifier, sequence:session.circleSequence++, x, y});
+}
+
+function releaseCirclePad() {
+    circleSources.clear();
+    publishCirclePosition();
+}
+
+function hideCirclePad() {
+    releaseCirclePad();
+    if (session) session.circleReady = false;
+    circlePad.hidden = circlePad.disabled = true;
+}
+
+for (const control of circleButtons) {
+    control.addEventListener('pointerdown', event => {
+        if (event.button !== 0 || !session?.circleReady) return;
+        control.setPointerCapture(event.pointerId);
+        circleSources.set(`pointer:${event.pointerId}`, control.dataset.direction);
+        publishCirclePosition();
+    });
+    for (const name of ['pointerup', 'pointercancel', 'lostpointercapture'])
+        control.addEventListener(name, event => {
+            circleSources.delete(`pointer:${event.pointerId}`);
+            publishCirclePosition();
+        });
+    control.addEventListener('keydown', event => {
+        const direction = arrowDirections[event.code] ??
+            (['Space','Enter'].includes(event.code) ? control.dataset.direction : undefined);
+        if (!direction || !session?.circleReady) return;
+        event.preventDefault();
+        circleSources.set(`key:${event.code}`, direction);
+        publishCirclePosition();
+    });
+    control.addEventListener('keyup', event => {
+        if (!arrowDirections[event.code] && !['Space','Enter'].includes(event.code)) return;
+        event.preventDefault();
+        circleSources.delete(`key:${event.code}`);
+        publishCirclePosition();
+    });
+}
+circlePad.addEventListener('focusout', event => {
+    if (!circlePad.contains(event.relatedTarget)) releaseCirclePad();
+});
+window.addEventListener('blur', releaseCirclePad);
+window.addEventListener('pagehide', releaseCirclePad);
+document.addEventListener('visibilitychange', () => { if (document.hidden) releaseCirclePad(); });
 
 function publishButtonState() {
     if (!session?.buttonReady) return;
@@ -113,6 +182,7 @@ function requireCondition(condition, message) {
 
 function reportFailure(message) {
     hideButton();
+    hideCirclePad();
     discardAudio();
     if (session) {
         clearTimeout(session.watchdog);
@@ -155,7 +225,7 @@ async function receive(active, message) {
     requireCondition(message.schema_version === 1 && message.capture_identifier === active.identifier,
                      'The preview worker returned an invalid session.');
     if (message.type === 'capture_started') {
-        status.textContent = configuration.options.live_button_capture ?
+        status.textContent = recording() ?
             'Running the live input capture…' : 'Running the recorded startup…';
         document.body.dataset.captureState = 'running';
     }
@@ -177,6 +247,28 @@ async function receive(active, message) {
         document.body.dataset.buttonRequestAccepted = String(message.accepted);
     }
     else if (message.type === 'button_capture_ended') hideButton();
+    else if (message.type === 'circle_pad_capture_progress') {
+        requireCondition(configuration.options.live_circle_pad_capture && [0,1].includes(message.active) &&
+            Number.isSafeInteger(message.poll_count) && message.poll_count >= 0 &&
+            Number.isSafeInteger(message.sampled_renderer_frame) && message.sampled_renderer_frame >= 0 &&
+            Number.isSafeInteger(message.sampled_requested_x) && Number.isSafeInteger(message.sampled_requested_y) &&
+            message.sampled_requested_x ** 2 + message.sampled_requested_y ** 2 <= 154 ** 2,
+            'The circle pad progress is invalid.');
+        active.circleReady = message.active === 1 && message.poll_count > 0;
+        circlePad.hidden = false;
+        circlePad.disabled = !active.circleReady;
+        document.body.dataset.circlePollCount = String(message.poll_count);
+        document.body.dataset.circleRequestedX = String(message.sampled_requested_x);
+        document.body.dataset.circleRequestedY = String(message.sampled_requested_y);
+        document.body.dataset.sampledRendererFrame = String(message.sampled_renderer_frame);
+    }
+    else if (message.type === 'circle_pad_request_status') {
+        requireCondition(configuration.options.live_circle_pad_capture && Number.isSafeInteger(message.sequence) &&
+            [0,1,2].includes(message.status), 'The circle pad response is invalid.');
+        document.body.dataset.circleRequestSequence = String(message.sequence);
+        document.body.dataset.circleRequestAccepted = String(message.status === 0);
+    }
+    else if (message.type === 'circle_pad_capture_ended') hideCirclePad();
     else if (message.type === 'preview_screens') {
         requireCondition(configuration.options.frame_output && !active.manifest &&
             Number.isSafeInteger(message.sequence) && message.sequence === (active.previewCount ?? 0) + 1 &&
@@ -194,7 +286,8 @@ async function receive(active, message) {
                 ({...screen, bytes: rgba.byteLength}))};
         document.body.dataset.previewFrameCount = String(active.previewCount);
         document.body.dataset.previewRendererFrame = message.renderer_frame;
-        status.textContent = configuration.options.live_button_capture ?
+        status.textContent = configuration.options.live_circle_pad_capture ?
+            'Showing sampled frames. Hold a direction to send input.' : configuration.options.live_button_capture ?
             'Showing sampled frames. Hold A to send input.' : 'Showing sampled frames from the recorded startup…';
         active.worker.postMessage({schema_version:1, type:'acknowledge_preview',
             capture_identifier:active.identifier, sequence:message.sequence});
@@ -202,6 +295,7 @@ async function receive(active, message) {
     else if (message.type === 'capture_failed') throw new Error(message.message);
     else if (message.type === 'capture_manifest') {
         hideButton();
+        hideCirclePad();
         requireCondition(!active.manifest, 'The capture manifest was repeated.');
         active.manifest = message;
         if (configuration.options.audio_capture) {
@@ -260,7 +354,7 @@ async function receive(active, message) {
         clearTimeout(active.watchdog);
         active.worker.terminate();
         session = undefined;
-        status.textContent = configuration.options.live_button_capture ?
+        status.textContent = recording() ?
             'Captured the live input frame. Preview complete.' :
             active.screens ? 'Captured startup frame. Preview complete.' : 'Startup capture complete.';
         button.textContent = 'Run preview';
@@ -273,6 +367,7 @@ async function receive(active, message) {
 
 input.addEventListener('change', () => {
     hideButton();
+    hideCirclePad();
     discardAudio();
     error.hidden = true;
     button.disabled = !configuration || input.files.length !== 1;
@@ -286,6 +381,7 @@ form.addEventListener('submit', async event => {
     try {
         discardAudio();
         hideButton();
+        hideCirclePad();
         latestPreviewFrame = undefined;
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
@@ -299,13 +395,15 @@ form.addEventListener('submit', async event => {
         document.body.dataset.captureState = 'loading';
         delete document.body.dataset.captureIdentifier;
         for (const key of ['sampledRendererFrame', 'buttonPollCount', 'buttonRequestSequence', 'buttonRequestAccepted',
+                           'circlePollCount', 'circleRequestedX', 'circleRequestedY', 'circleRequestSequence', 'circleRequestAccepted',
                            'previewFrameCount', 'previewRendererFrame'])
             delete document.body.dataset[key];
         for (const canvas of document.querySelectorAll('canvas')) canvas.hidden = true;
         document.querySelector('.screen-placeholder').hidden = false;
         document.querySelector('.preview').classList.remove('has-frame');
         const identifier = `capture_${crypto.randomUUID().replaceAll('-', '')}`;
-        active = {identifier, abort: new AbortController(), buttonSequence: 0, buttonHeld: 0, buttonReady: false};
+        active = {identifier, abort: new AbortController(), buttonSequence: 0, buttonHeld: 0, buttonReady: false,
+                  circleSequence:0, circleX:0, circleY:0, circleReady:false};
         session = active;
         active.watchdog = setTimeout(() => { if (session === active)
             reportFailure('The preview timed out. Run it again or check the local capture logs.'); },
@@ -359,9 +457,12 @@ try {
     configuration = await response.json();
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
     if (configuration.options.frame_output)
-        document.querySelector('#preview-note').textContent = configuration.options.live_button_capture ?
+        document.querySelector('#preview-note').textContent = configuration.options.live_circle_pad_capture ?
+            'Sampled game frames appear during this finite run. Hold a direction to send input. Recorded sound is ready when the run ends.' : configuration.options.live_button_capture ?
             'Sampled game frames appear during this finite run. Hold A to send input. Recorded sound is ready when the run ends.' :
             'Sampled game frames appear during the recorded startup. The final frame and recorded sound arrive when the run ends.';
+    else if (configuration.options.live_circle_pad_capture)
+        document.querySelector('#preview-note').textContent = 'Hold a direction during this finite input capture. The screens and recorded sound arrive when it ends. Continuous gameplay is still in progress.';
     else if (configuration.options.live_button_capture)
         document.querySelector('#preview-note').textContent = 'Hold A during this finite input capture. The screens and recorded sound arrive when it ends. Continuous gameplay is still in progress.';
     else if (configuration.options.presentation_limit === null)

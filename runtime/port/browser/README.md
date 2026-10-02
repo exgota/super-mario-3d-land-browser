@@ -2,7 +2,7 @@
 
 This surface runs the actual static ARM port in a dedicated ES-module worker. It mounts the owner's approved dump, timing schedule, movie and complete initial user tree as readonly WORKERFS input. The existing compiled CPU/HLE/PICA/software renderer runs on the SDK's proxy pthread. The page receives real captured RGBA screens, not packaged game images. Every output file and directory is exported to the local server for the unchanged differential comparators.
 
-This is a finite capture. The default profile replays a recorded movie. The optional input/audio profile observes delivered movie input and original HLE PCM, then offers explicit playback of that completed browser-generated sound. An optional live-button profile records the browser's A button through normal HID. Optional frame output shows completed screen samples while the run executes. Unbounded interactive sessions, sustained frame rate, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
+This is a finite capture. The default profile replays a recorded movie. The optional input/audio profile observes delivered movie input and original HLE PCM, then offers explicit playback of that completed browser-generated sound. Optional live-button and circle-pad profiles record browser input through normal HID. Optional frame output shows completed screen samples while the run executes. Unbounded interactive sessions, sustained frame rate, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
 
 ## Build
 
@@ -102,9 +102,35 @@ The worker validates the new CTM after normal Movie.Shutdown: bounded file exten
 
 The verifier also supports keyboard, focus-loss and neutral input methods. It checks actual press/release or strictly neutral polls, CTM delivery, zero CPU fallback, all output files/directories, readonly inputs and displayed canvas bytes. This recording check alone does not certify stock parity. Replay each new CTM and its exported initial_user_state with the unchanged stock azahar_gpu_capture, at the same presentation/input/audio/payload/wall limits, then invoke unchanged compare_movie_replay.py with that new CTM. This general comparator permits unused input channels and exact silence while requiring every input/audio/GPU/tick/PICA/framebuffer/RGBA byte to match. Preserve original movie IDs and raw host logs. Use a separate neutral recording to establish the causal menu response.
 
+## Circle-pad recording
+
+Add `--live-circle-pad` to the finite server command. It selects a new recording with the same identified base clock and initial user tree as live A. It also requires input/audio observations. Its optional version-one `live_circle_pad_capture` field defaults to false. Circle-only recording keeps the A setter inactive; `--live-button` may explicitly enable A alongside it. Playback arguments and a live recording cannot be combined.
+
+```sh
+python tools/static_recompiler/serve_browser_execution.py \
+  build/browser_circle_pad_module_final build/browser_circle_pad_server \
+  --block-schedule /absolute/ignored/block_schedule.bin \
+  --reference /absolute/ignored/recorded_reference \
+  --dump-sha256 c83f9175208b3d60898d3a6d60451bee3108521e409cace362f63b46dda8c976 \
+  --dump-bytes 536870912 --presentation-limit 480 \
+  --live-circle-pad --frame-output --port 8796
+python tools/static_recompiler/verify_browser_circle_pad_capture.py \
+  http://127.0.0.1:8796 build/browser_circle_pad_capture \
+  --server-output build/browser_circle_pad_server \
+  --dump /absolute/ignored/owner_dump.3ds --sampled-frame 360 --screenshots
+```
+
+Four held controls follow the physical pad's direction. Pointer holds, focused arrow keys, Space and Enter share coherent paired positions. Opposite directions cancel; diagonals use `(±108, ±108)` within the radius-154 disk. Releases cover pointer up/cancel/lost capture, key up, group/window focus loss, hidden document and session end. The controls enable only after normal CPU device polls. Acknowledgments and sampled requested positions certify no delivery by themselves.
+
+The public `Input::AnalogDevice` returns a unit-circle tuple, with positive x right and positive y up. One lock-free atomic word publishes both axes and lifecycle state. Invalid integers, components or radial extents refuse without changing it. Installation saves only the CirclePad profile and restores it after the driver returns. Successful cleanup prints an immutable poll receipt before normal SDK exit. The worker makes no native calls from `onExit`.
+
+HID retains its normal scale, rounding, three-sample average and derived direction bits. The CTM records the averaged delivered position. Cardinal input from neutral ramps `51, 102, 154`; release decays `102, 51, 0`, including the corresponding negative values. The verifier checks signed cardinals, both diagonals, partial release and focus loss against the actual saved HID trace; reconciles every movie pad/touch record and the complete initial guest tree; requires both completed canvas identities/dimensions; and seals its own source before and after execution. Screenshot capture settles the mobile viewport before applying keyboard input. Its command receipts preserve timeout partial streams.
+
+Replay the new `capture_<identifier>/input_movie.ctm` and `initial_user_state` with unchanged stock Azahar at the same finite boundary, then run the existing `compare_movie_replay.py`. Browser recording alone earns no stock parity or game-state claim. `project/browser_circle_pad_evidence.md` records the bounded actual executions, refusal controls and strict stock comparisons. Arbitrary clock endpoints, old calls across reinstall, foreign factory-name collisions, physical mobile performance and player movement are outside that evidence.
+
 ## Sampled frames during execution
 
-Add --frame-output to a finite software-presentation server profile. The optional version-one boolean frame_output defaults to false and rejects a GPU-only first-swap profile. It can accompany movie playback or live-button recording. During playback, a neutral public input device supplies the CPU sampling callback; the original movie still supplies every delivered HID value, and the live setter remains inactive.
+Add --frame-output to a finite software-presentation server profile. The optional version-one boolean frame_output defaults to false and rejects a GPU-only first-swap profile. It can accompany movie playback or live-button/circle-pad recording. During playback, a neutral public input device supplies the CPU sampling callback; the original movie still supplies every delivered HID value, and the live setter remains inactive.
 
 BrowserFrameOutput uses public RendererSoftware::Screen data on the application's ordinary HID callback after completed SwapBuffers. Top-left screen 0 and bottom screen 2 are copied as one pair. Software bytes already have landscape row-major orientation: display width is ScreenInfo.height, display height is ScreenInfo.width. Frame and sample ticks retain uint64 identity through low/high metadata words and decimal strings. Sample ticks describe the later HID observation, not the preceding presentation tick.
 

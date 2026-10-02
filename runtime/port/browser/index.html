@@ -39,6 +39,16 @@
         <button id="hold-a" type="button" aria-pressed="false" aria-describedby="live-button-help" hidden disabled>Hold A</button>
         <p id="live-button-help" hidden>Hold the button, or use Space while it has focus.</p>
       </div>
+      <fieldset id="circle-pad" aria-describedby="circle-pad-help" hidden disabled>
+        <legend>Circle pad</legend>
+        <div class="circle-directions">
+          <button id="circle-up" data-direction="up" type="button" aria-pressed="false">Hold up</button>
+          <button id="circle-left" data-direction="left" type="button" aria-pressed="false">Hold left</button>
+          <button id="circle-down" data-direction="down" type="button" aria-pressed="false">Hold down</button>
+          <button id="circle-right" data-direction="right" type="button" aria-pressed="false">Hold right</button>
+        </div>
+        <p id="circle-pad-help">Hold a direction, or use the arrow keys while a direction has focus.</p>
+      </fieldset>
       <div class="recorded-sound">
         <button id="play-recorded-sound" type="button" hidden>Play recorded sound</button>
         <p id="sound-status" role="status" aria-live="polite" hidden></p>

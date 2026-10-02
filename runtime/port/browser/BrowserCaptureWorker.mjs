@@ -24,6 +24,11 @@ let buttonTimer;
 let buttonSequence = 0;
 let buttonProgress;
 const buttonRequests = [];
+let circleTimer;
+let circleSequence = 0;
+let circleProgress;
+let circleControls;
+const circleRequests = [];
 let frameTimer;
 let frameTask;
 let pendingFrame;
@@ -33,6 +38,16 @@ const MaximumPreviewFrames = 8192;
 
 function requireCondition(condition, message) {
     if (!condition) throw new Error(message);
+}
+
+function recording() {
+    return descriptor.options.live_button_capture || descriptor.options.live_circle_pad_capture;
+}
+
+function circlePosition(x, y) {
+    requireCondition(Number.isSafeInteger(x) && Number.isSafeInteger(y) &&
+        x >= -154 && x <= 154 && y >= -154 && y <= 154 && x * x + y * y <= 154 * 154,
+        'Invalid circle-pad position');
 }
 
 function integer(value, maximum = Number.MAX_SAFE_INTEGER, minimum = 0) {
@@ -72,22 +87,25 @@ function validateStart(value) {
         typeof value.capture_identifier === 'string' &&
         /^[A-Za-z0-9_-]{1,64}$/.test(value.capture_identifier), 'Invalid start descriptor');
     record(value.inputs, ['dump', 'block_schedule', 'movie', 'initial_user_files', 'initial_user_directories']);
-    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'record_base_ticks', 'frame_output']
+    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'live_circle_pad_capture',
+                             'record_base_ticks', 'frame_output']
         .filter(key => Object.hasOwn(value.options, key));
     record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
     const inputCapture = Object.hasOwn(value.options, 'input_capture') ? value.options.input_capture : false;
     const audioCapture = Object.hasOwn(value.options, 'audio_capture') ? value.options.audio_capture : false;
     const liveButtonCapture = Object.hasOwn(value.options, 'live_button_capture') ? value.options.live_button_capture : false;
+    const liveCirclePadCapture = Object.hasOwn(value.options, 'live_circle_pad_capture') ? value.options.live_circle_pad_capture : false;
     const frameOutput = Object.hasOwn(value.options, 'frame_output') ? value.options.frame_output : false;
     requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
-        typeof liveButtonCapture === 'boolean' && typeof frameOutput === 'boolean' &&
+        typeof liveButtonCapture === 'boolean' && typeof liveCirclePadCapture === 'boolean' && typeof frameOutput === 'boolean' &&
         (!frameOutput || value.options.presentation_limit !== null) &&
         (!liveButtonCapture || (inputCapture && audioCapture)) &&
+        (!liveCirclePadCapture || (inputCapture && audioCapture)) &&
         (!audioCapture || inputCapture) &&
         (!(inputCapture || audioCapture) || value.options.presentation_limit !== null), 'Invalid observation profile');
-    requireCondition(liveButtonCapture ? typeof value.options.record_base_ticks === 'string' &&
+    requireCondition((liveButtonCapture || liveCirclePadCapture) ? typeof value.options.record_base_ticks === 'string' &&
         /^(0|[1-9][0-9]{0,18})$/.test(value.options.record_base_ticks) &&
-        BigInt(value.options.record_base_ticks) <= 0x7fffffffffffffffn :
+        BigInt(value.options.record_base_ticks) <= BigInt(Number.MAX_SAFE_INTEGER) :
         !Object.hasOwn(value.options, 'record_base_ticks'), 'Invalid recording clock');
     if (value.options.presentation_limit !== null) integer(value.options.presentation_limit, 3600, 1);
     integer(value.options.wall_time_seconds, 3600, 1);
@@ -130,7 +148,8 @@ function validateStart(value) {
     requireCondition(inputs.reduce((sum, input) => sum + input.expected_bytes, 0) <= MaximumOutputBytes,
                      'Input extent exceeds the finite worker bound');
     return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture,
-                               live_button_capture: liveButtonCapture, frame_output: frameOutput},
+                               live_button_capture: liveButtonCapture, live_circle_pad_capture: liveCirclePadCapture,
+                               frame_output: frameOutput},
             validated_inputs: inputs};
 }
 
@@ -144,6 +163,7 @@ function fail(error) {
     const failedPhase = phase;
     phase = 'failed';
     clearInterval(buttonTimer);
+    clearInterval(circleTimer);
     clearInterval(frameTimer);
     if (pendingFrame) {
         clearTimeout(pendingFrame.timer);
@@ -662,15 +682,17 @@ async function finish(status) {
     requireCondition(phase === 'running' && status === 0, `Capture exited with status ${status}`);
     phase = 'validating';
     clearInterval(buttonTimer);
+    clearInterval(circleTimer);
     // Any already copied ordinary frame can finish its page acknowledgment.
     // Native exports are forbidden here because SDK exitRuntime has run.
     await frameTask;
     requireCondition(phase === 'validating', 'Preview failure prevents capture completion');
     if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
+    if (descriptor.options.live_circle_pad_capture) send({type: 'circle_pad_capture_ended'});
     const {files, directories} = enumerateCapture();
     const {outcome, presentation, entries} = validateEvents(files);
     const observations = validateObservations(presentation, entries);
-    if (descriptor.options.live_button_capture) observations.recorded_movie = validateRecordedMovie(entries, observations);
+    if (recording()) observations.recorded_movie = validateRecordedMovie(entries, observations);
     if (descriptor.options.frame_output) observations.preview_frames = previewObservations();
     const log = entries.get('user/log/reference_capture.log');
     requireCondition(log && !/\b(?:Input|Movie|Audio|Service\.DSP)(?:\.[A-Za-z0-9_.]+)?\s+<(?:Error|Critical)>/.test(readText('/capture/user/log/reference_capture.log',
@@ -689,6 +711,19 @@ async function finish(status) {
                          'Live input device or recorded movie is absent');
         manifest.button_requests = buttonRequests;
         manifest.button_progress = buttonProgress;
+    }
+    if (descriptor.options.live_circle_pad_capture) {
+        const closure = stderr.flatMap(line => {
+            const match = /^browser circle pad closed after ([0-9]+) device polls; profile restored$/.exec(line);
+            return match ? [Number(match[1])] : [];
+        });
+        requireCondition(circleProgress?.poll_count > 0 && circleControls?.active &&
+            closure.length === 1 && closure[0] === observations.input.polls &&
+            entries.get('input_movie.ctm')?.size > 256, 'Circle-pad device, cleanup or recorded movie is absent');
+        manifest.circle_pad_requests = circleRequests;
+        manifest.circle_pad_progress = circleProgress;
+        manifest.circle_pad_controls = circleControls;
+        manifest.circle_pad_closed_polls = closure[0];
     }
     requireCondition(encoder.encode(JSON.stringify({schema_version: 1,
         capture_identifier: descriptor.capture_identifier, transfer_identifier: nextTransferIdentifier,
@@ -746,10 +781,15 @@ async function start(value) {
                 else delete instance.ENV[name];
             }
             for (const name of ['ROOT_PORT_BROWSER_BUTTON_CAPTURE', 'ROOT_PORT_RECORD_INITIAL_USER_STATE',
-                                'ROOT_PORT_RECORD_BASE_TICKS', 'ROOT_PORT_BROWSER_FRAME_OUTPUT']) delete instance.ENV[name];
+                                'ROOT_PORT_RECORD_BASE_TICKS', 'ROOT_PORT_BROWSER_FRAME_OUTPUT',
+                                'ROOT_PORT_BROWSER_CIRCLE_PAD_CAPTURE']) delete instance.ENV[name];
             if (descriptor.options.frame_output) instance.ENV.ROOT_PORT_BROWSER_FRAME_OUTPUT = '1';
             if (descriptor.options.live_button_capture) {
                 instance.ENV.ROOT_PORT_BROWSER_BUTTON_CAPTURE = '1';
+            }
+            if (descriptor.options.live_circle_pad_capture)
+                instance.ENV.ROOT_PORT_BROWSER_CIRCLE_PAD_CAPTURE = '1';
+            if (recording()) {
                 instance.ENV.ROOT_PORT_RECORD_INITIAL_USER_STATE = '/owned/initial_user_state';
                 instance.ENV.ROOT_PORT_RECORD_BASE_TICKS = descriptor.options.record_base_ticks;
             }
@@ -765,11 +805,22 @@ async function start(value) {
             ['string', 'string', 'number'], [`/owned/${input.path}`, input.expected_sha256, input.expected_bytes]);
         requireCondition(status === 0, `Input identity failed for ${input.path}, status ${status}`);
     }
+    if (descriptor.options.live_circle_pad_capture) {
+        circleControls = {before_install: {
+            neutral: module._BrowserCirclePadInputSetPosition(0, 0),
+            out_of_range: module._BrowserCirclePadInputSetPosition(155, 0),
+            outside_disk: module._BrowserCirclePadInputSetPosition(154, 154),
+            active: module._BrowserCirclePadInputIsActive()
+        }};
+        requireCondition(circleControls.before_install.neutral === 2 && circleControls.before_install.out_of_range === 1 &&
+            circleControls.before_install.outside_disk === 1 && circleControls.before_install.active === 0,
+            'Inactive circle-pad controls failed');
+    }
     send({type: 'capture_started'});
     phase = 'running';
     // In the pinned SDK this launches the proxy pthread. It is not completion.
     const arguments_ = ['/owned/block_schedule.bin', '/owned/dump.3ds', '/capture'];
-    if (!descriptor.options.live_button_capture)
+    if (!recording())
         arguments_.push('/owned/input_movie.ctm', '/owned/initial_user_state');
     const launchStatus = module.callMain(arguments_);
     requireCondition(launchStatus === 0, `CPU pthread launch refused with status ${launchStatus}`);
@@ -789,6 +840,34 @@ async function start(value) {
             sampled_renderer_frame: module._BrowserButtonInputRendererFrame()};
         send({type: 'button_capture_progress', ...buttonProgress});
     }, 25);
+    if (descriptor.options.live_circle_pad_capture) circleTimer = setInterval(() => {
+        if (phase !== 'running') return;
+        try {
+            const active = module._BrowserCirclePadInputIsActive();
+            const pollCount = module._BrowserCirclePadInputPollCount();
+            const packed = module._BrowserCirclePadInputSampledPosition();
+            const x = (packed & 0x1ff) - 154;
+            const y = ((packed >>> 9) & 0x1ff) - 154;
+            circlePosition(x, y);
+            if (active && !circleControls.active) {
+                circleControls.active = {
+                    out_of_range: module._BrowserCirclePadInputSetPosition(-155, 0),
+                    outside_disk: module._BrowserCirclePadInputSetPosition(-154, -154)
+                };
+                requireCondition(circleControls.active.out_of_range === 1 && circleControls.active.outside_disk === 1,
+                    'Active circle-pad controls failed');
+                if (!descriptor.options.live_button_capture) {
+                    circleControls.active.button_input_active = module._BrowserButtonInputIsActive();
+                    circleControls.active.button_setter_refused = module._BrowserButtonInputSetHeldState(1);
+                    requireCondition(circleControls.active.button_input_active === 0 &&
+                        circleControls.active.button_setter_refused === 2, 'Circle-only capture enabled A input');
+                }
+            }
+            circleProgress = {active, poll_count: pollCount, sampled_requested_x: x, sampled_requested_y: y,
+                sampled_renderer_frame: module._BrowserButtonInputRendererFrame()};
+            send({type: 'circle_pad_capture_progress', ...circleProgress});
+        } catch (error) { fail(error); }
+    }, 25);
 }
 
 function setButton(value) {
@@ -804,6 +883,20 @@ function setButton(value) {
         accepted: status === 0, phase, ...(buttonProgress ?? {})};
     buttonRequests.push(response);
     send({type: 'button_request_status', ...response});
+}
+
+function setCirclePad(value) {
+    record(value, ['schema_version', 'type', 'capture_identifier', 'sequence', 'x', 'y']);
+    requireCondition(value.schema_version === 1 && descriptor?.options.live_circle_pad_capture &&
+        value.capture_identifier === descriptor.capture_identifier && integer(value.sequence, 4095) === circleSequence,
+        'Invalid circle-pad request');
+    circlePosition(value.x, value.y);
+    ++circleSequence;
+    const status = phase === 'running' ? module._BrowserCirclePadInputSetPosition(value.x, value.y) : 2;
+    const response = {sequence: value.sequence, x: value.x, y: value.y, status,
+        accepted: status === 0, phase, ...(circleProgress ?? {})};
+    circleRequests.push(response);
+    send({type: 'circle_pad_request_status', ...response});
 }
 
 self.onmessage = event => {
@@ -828,6 +921,8 @@ self.onmessage = event => {
             clearTimeout(pending.timer); pending.resolve();
         } else if (event.data?.type === 'set_button_held_state') {
             setButton(event.data);
+        } else if (event.data?.type === 'set_circle_pad_position') {
+            setCirclePad(event.data);
         } else {
             requireCondition(!started, 'This worker accepts one capture session only');
             started = true;
