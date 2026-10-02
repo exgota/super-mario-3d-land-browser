@@ -4517,7 +4517,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CF204,0x001CF2C4,0x001CF2CC,          ,U,f,,
 0x001CF2CC,0x001CF300,0x001CF304,          ,U,f,,
 0x001CF304,          ,0x001CF330,          ,U,f,,
-0x001CF330,0x001CF354,0x001CF358,          ,U,f,,
+0x001CF330,0x001CF354,0x001CF358,          ,O,f,fn_001CF330,
 0x001CF358,0x001CF3EC,0x001CF3F8,          ,U,f,,
 0x001CF3F8,0x001CF518,0x001CF524,          ,U,f,,
 0x001CF524,0x001CF58C,0x001CF590,          ,U,f,,
