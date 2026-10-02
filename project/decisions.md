@@ -1235,3 +1235,18 @@ provide no guest ARMCC class-layout evidence. Linked coverage and selected
 execution are recorded separately. The platform, browser frame, World 1-1 and
 complete rank-O source registry remain open. Final hashes, reproduction and
 scope are in project/webassembly_translation_evidence.md.
+
+## Hard-end trial closed (owner, 2026-10-02 13:55)
+
+Step 2 ran 20 functions on gpt-6.1-sol ultra and gpt-6-astra high, 10 attempts each, with no escalation. 21 runs
+finished without a stall-stop cut (4 started before the 09:54 deploy). Result: 1 match in 21 runs.
+
+- Astra high, 256-511 byte band misses: 1 of 6 matched (0x001A8D50, 356 bytes, 13.2 minutes), 1,156 fresh tokens
+  per matched byte, 13.2 minutes per run.
+- Sol ultra, band misses: 0 of 5, 22.2 minutes per run.
+- Astra high, 512-1,023 bytes: 0 of 5, 19.3 minutes per run.
+- Sol ultra, 512-1,023 bytes: 0 of 5, 32.5 minutes per run.
+
+The owner closed the trial on this result: the 18 reruns of cut runs were cancelled, no Sol ultra or Astra tier is
+added, and hard functions stay frog's lane. Weekly usage per run was read from whole-percent readings shared with every
+concurrent worker, so it was not used for the decision.
