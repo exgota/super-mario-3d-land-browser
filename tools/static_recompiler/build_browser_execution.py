@@ -91,7 +91,10 @@ def main():
     button_header = ROOT / "runtime/port/browser/BrowserButtonInput.h"
     frame_source = ROOT / "runtime/port/browser/BrowserFrameOutput.cpp"
     frame_header = ROOT / "runtime/port/browser/BrowserFrameOutput.h"
-    for source in (entry_source, identity_source, button_source, button_header, frame_source, frame_header, Path(__file__).resolve()):
+    circle_source = ROOT / "runtime/port/browser/BrowserCirclePadInput.cpp"
+    circle_header = ROOT / "runtime/port/browser/BrowserCirclePadInput.h"
+    for source in (entry_source, identity_source, button_source, button_header, frame_source, frame_header,
+                   circle_source, circle_header, Path(__file__).resolve()):
         protected[str(source)] = digest(source)
     for name, expected in manifest["licenses"].items():
         notice = platform / "licenses" / name
@@ -161,12 +164,14 @@ def main():
     identity_object = output / "BrowserInputIdentity.o"
     button_object = output / "BrowserButtonInput.o"
     frame_object = output / "BrowserFrameOutput.o"
+    circle_object = output / "BrowserCirclePadInput.o"
     run([compiler, *flags, "-Dmain=RunStaticCompiledExecution",
          "-c", ROOT / "runtime/port/AzaharCompiledExecution.cpp", "-o", main_object])
     run([compiler, *flags, "-c", entry_source, "-o", entry_object])
     button_flags = [flag for flag in flags if flag != "-w"]
     run([compiler, *button_flags, "-Wall", "-Wextra", "-Werror", "-c", button_source, "-o", button_object])
     run([compiler, *button_flags, "-Wall", "-Wextra", "-Werror", "-c", frame_source, "-o", frame_object])
+    run([compiler, *button_flags, "-Wall", "-Wextra", "-Werror", "-c", circle_source, "-o", circle_object])
     identity_flags = [flag for flag in flags if flag != "-w"]
     run([compiler, *identity_flags, "-Wall", "-Wextra", "-Werror",
          f"-I{platform / 'azahar_source/externals/libressl/include'}", f"-I{build / 'include'}",
@@ -184,19 +189,21 @@ def main():
             path = Path(token)
             token = str((path if path.is_absolute() else link_directory / path).resolve())
         browser_link.append(token)
-    browser_link += [str(main_object), str(entry_object), str(identity_object), str(button_object), str(frame_object),
+    browser_link += [str(main_object), str(entry_object), str(identity_object), str(button_object), str(frame_object), str(circle_object),
                      "-sENVIRONMENT=worker", "-sMODULARIZE=1", "-sEXPORT_ES6=1",
                      "-sEXPORT_NAME=createStaticPortModule", "-sINVOKE_RUN=0", "-sFILESYSTEM=1",
                      "-lworkerfs.js", "-sEXPORTED_FUNCTIONS=['_main','_BrowserInputIdentityValidateSha256',"
                      "'_BrowserButtonInputSetHeldState','_BrowserButtonInputIsActive',"
                      "'_BrowserButtonInputPollCount','_BrowserButtonInputRendererFrame',"
                      "'_BrowserFrameOutputAcquire','_BrowserFrameOutputMetadata',"
-                     "'_BrowserFrameOutputPixels','_BrowserFrameOutputRelease']",
+                     "'_BrowserFrameOutputPixels','_BrowserFrameOutputRelease',"
+                     "'_BrowserCirclePadInputSetPosition','_BrowserCirclePadInputIsActive',"
+                     "'_BrowserCirclePadInputPollCount','_BrowserCirclePadInputSampledPosition']",
                      "-sEXPORTED_RUNTIME_METHODS=['FS','WORKERFS','ENV','callMain','ccall','HEAPU8']",
                      "-sINCOMING_MODULE_JS_API=['noInitialRun','preRun','locateFile','print','printErr','onExit','onAbort','thisProgram']",
                      "-o", str(module)]
     # The main and identity objects must precede their static providers.
-    objects = [str(main_object), str(entry_object), str(identity_object), str(button_object), str(frame_object)]
+    objects = [str(main_object), str(entry_object), str(identity_object), str(button_object), str(frame_object), str(circle_object)]
     browser_link = [browser_link[0], *objects, *[token for token in browser_link[1:] if token not in objects]]
     run(browser_link)
     notices = output / "licenses"
@@ -216,6 +223,7 @@ def main():
                "input_identity_source_sha256": digest(identity_source), "protected_inputs": protected,
                "button_input_source_sha256": digest(button_source), "button_input_header_sha256": digest(button_header),
                "frame_output_source_sha256": digest(frame_source), "frame_output_header_sha256": digest(frame_header),
+               "circle_pad_source_sha256": digest(circle_source), "circle_pad_header_sha256": digest(circle_header),
                "licenses": manifest["licenses"],
                "commands": commands, "module": str(module), "module_sha256": digest(module),
                "wasm": str(wasm), "wasm_sha256": digest(wasm), "wasm_bytes": wasm.stat().st_size,

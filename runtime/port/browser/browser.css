@@ -56,6 +56,18 @@ button:disabled { cursor: default; background: #d5d9d1; color: #5d6459; }
 #hold-a[aria-pressed="true"] { color: #fff; background: var(--control); }
 #hold-a:disabled { color: #5d6459; background: #d5d9d1; border-color: #d5d9d1; }
 #sound-status, #live-button-help { margin: 8px 0 0; font-size: 12px; color: var(--secondary); }
+#circle-pad { padding: 0; margin: 16px 0 0; border: 0; min-width: 0; }
+#circle-pad legend { padding: 0; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+.circle-directions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+#circle-up { grid-column: 2; }
+#circle-left { grid-column: 1; grid-row: 2; }
+#circle-down { grid-column: 2; grid-row: 2; }
+#circle-right { grid-column: 3; grid-row: 2; }
+.circle-directions button { touch-action: none; color: var(--control); background: transparent; border: 1px solid var(--control); }
+.circle-directions button:hover { background: #e8eae2; }
+.circle-directions button[aria-pressed="true"] { color: #fff; background: var(--control); }
+#circle-pad:disabled button { color: #5d6459; background: #d5d9d1; border-color: #d5d9d1; }
+#circle-pad-help { margin: 8px 0 0; font-size: 12px; color: var(--secondary); }
 .preview.has-frame { animation: frame-arrival 240ms cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes frame-arrival { from { filter: brightness(.92); } to { filter: brightness(1); } }
 @media (max-width: 820px) {
