@@ -746,3 +746,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0012C3C8,_ZN11GhostPlayer12attackSensorEPN2al9HitSensorES2_,matched,2,4.627085
 2026-10-02T00:11:52.904631+00:00,00222884,_ZN4sead8TreeNode9detachAllEv,matched,3,8.468948
 2026-10-02T00:11:52.904631+00:00,002F2A74,_ZN4sead8TreeNode13pushBackChildEPS0_,matched,3,8.468948
+2026-10-02T00:11:52.904631+00:00,002F2AD4,_ZN4sead8TreeNode14pushFrontChildEPS0_,matched,5,4.606190
