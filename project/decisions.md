@@ -1327,3 +1327,7 @@ The source proposed by `dot/root-14aedc` at 57f41a5a8 defines a void operation-s
 ## 2026-10-02: observe applicable actor references in production
 
 Job 3108 delivered two source-grounded actor references in a live packet. Independent original-table word checks and the committed facts confirm both. The worker advanced before an atomic copy, so no full-packet hash is claimed. This closes the live-delivery observation left open in project/packet_reference_deployment.md without a production change or throughput attribution.
+
+## 2026-10-02: carry reviewed initializer names into a disjoint source batch
+
+This separate evidence commit carries forward the same nine flower identities from 9b3c89dda and two Hammer/Teresa initializer identities from 29bbc9aae onto the batch base. The owner approved the provisional flower names; both earlier evidence documents are retained. Only existing symbol fields change. Every rank, boundary, pool and other map field is byte-preserved. The original two names-only submissions remain independent; this commit gives the source batch a named build base without depending on their queue timing.
