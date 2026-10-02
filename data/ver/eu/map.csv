@@ -8618,7 +8618,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026DC8C,          ,0x0026DC9C,          ,U,f,,
 0x0026DC9C,          ,0x0026DCF8,          ,U,f,,
 0x0026DCF8,          ,0x0026DD54,          ,U,f,,
-0x0026DD54,          ,0x0026DD68,          ,U,f,,
+0x0026DD54,          ,0x0026DD68,          ,O,f,fn_0026DD54,
 0x0026DD68,          ,0x0026DD74,          ,U,f,,
 0x0026DD74,          ,0x0026DD98,          ,U,f,,
 0x0026DD98,          ,0x0026DDA0,          ,U,f,,
