@@ -5126,7 +5126,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E2860,          ,0x001E2878,          ,U,f,,
 0x001E2878,          ,0x001E288C,          ,U,f,,
 0x001E288C,          ,0x001E2890,          ,U,f,,
-0x001E2890,          ,0x001E2898,          ,U,f,,
+0x001E2890,          ,0x001E2898,          ,O,f,fn_001E2890,
 0x001E2898,0x001E28D4,0x001E28D8,          ,U,f,,
 0x001E28D8,          ,0x001E28F4,          ,U,f,,
 0x001E28F4,          ,0x001E2910,          ,O,f,_ZN2al22sendMsgKickStoneAttackEPNS_9HitSensorES1_,
