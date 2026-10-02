@@ -1,0 +1,260 @@
+{
+  "release": "3e",
+  "archive_url": "https://www.jhauser.us/arithmetic/SoftFloat-3e.zip",
+  "archive_sha256": "21130ce885d35c1fe73fc1e1bf2244178167e05c6747cad5f450cc991714c746",
+  "specialization": "ARM-VFPv2",
+  "files": [
+    {
+      "path": "s_eq128.c",
+      "sha256": "a655b6aa0dd7b1ef3751b9feeabacb30d320f016c296b4779d1cea73e56be570"
+    },
+    {
+      "path": "s_le128.c",
+      "sha256": "cad6e65141636d542a971ebe822b1f7c807c572c4f6d3050256aa2a692979711"
+    },
+    {
+      "path": "s_lt128.c",
+      "sha256": "50890d5b473dba4afb08bcfa2611df798e4d4b76afe9c6b1a0a188ffd08e2dfe"
+    },
+    {
+      "path": "s_shortShiftLeft128.c",
+      "sha256": "dde7c320c7017d824b9d77fc30259e869bee77cfdd9b0b1725e606057dbe364e"
+    },
+    {
+      "path": "s_shortShiftRight128.c",
+      "sha256": "2dfef3bfec3692202c422940018b37fd3a258bc55d7fdbe020e805e9aa8e6525"
+    },
+    {
+      "path": "s_shortShiftRightJam64.c",
+      "sha256": "be62320db279314179b14da8f2b30d510a9cbb80194c94cf382db8de11c58749"
+    },
+    {
+      "path": "s_shortShiftRightJam64Extra.c",
+      "sha256": "f34e6b869d1fbf785344523998d085d6ccb6bc577ae204b4389dc362b1242495"
+    },
+    {
+      "path": "s_shortShiftRightJam128.c",
+      "sha256": "bf0b26a46c897368c166caed141e4bb924a4dd296b6c412abf3d4ea1f568546b"
+    },
+    {
+      "path": "s_shortShiftRightJam128Extra.c",
+      "sha256": "1dc28b107971b61b861c05a8a218c9535f313323ae41b390fdb8551dbae81119"
+    },
+    {
+      "path": "s_shiftRightJam32.c",
+      "sha256": "6c17203abc851217a1cfa3561d389dd54af0bb3001e3b9195282589c756afe32"
+    },
+    {
+      "path": "s_shiftRightJam64.c",
+      "sha256": "bf5f98460d427c7d36d54dec5426d78366a24e84740ce0b06732a993eb6814d3"
+    },
+    {
+      "path": "s_shiftRightJam64Extra.c",
+      "sha256": "7ebcf64fdcd7c1d55865c28527614ef70595e4ea64e7c3e2fcf714dd828f4779"
+    },
+    {
+      "path": "s_shiftRightJam128.c",
+      "sha256": "d9d793cc9874afcdea0560d2c5742201178392c29e9e8ea6b490209ee9e639d9"
+    },
+    {
+      "path": "s_shiftRightJam128Extra.c",
+      "sha256": "41a53803ea1688c155bee620e9f20906460db7d713fc8365e413778c9316018c"
+    },
+    {
+      "path": "s_shiftRightJam256M.c",
+      "sha256": "da5d713c68a2234d2e1574ea3555420082506fe49a09e516ce616858ca50bfa6"
+    },
+    {
+      "path": "s_countLeadingZeros8.c",
+      "sha256": "84c5c634e61a4898cccb587f6048010a1e07b6edcb1a815ffea33a4d2663658a"
+    },
+    {
+      "path": "s_countLeadingZeros16.c",
+      "sha256": "d4752a31c3851313014e1dad0f2dacf6a160404f12d5feeca787862df1b13c9f"
+    },
+    {
+      "path": "s_countLeadingZeros32.c",
+      "sha256": "1d9e7a84ac8f2823de61a493a0392d96248f87d2a7932e245de70265687bf800"
+    },
+    {
+      "path": "s_countLeadingZeros64.c",
+      "sha256": "34406fc742b3fb19303d0b82d932c50129c634b67b3d9168f03c39c09c341cbf"
+    },
+    {
+      "path": "s_add128.c",
+      "sha256": "1dc8cbc0d9e168766b3803337b3394b64871d5f8ae047376b3e99ea5aa31d6ed"
+    },
+    {
+      "path": "s_add256M.c",
+      "sha256": "ad140135bb2aa2c72c40fb73ddf3897b4e82802e0aa9b1d9b51adf87e1fb502e"
+    },
+    {
+      "path": "s_sub128.c",
+      "sha256": "ede7d26acf09044f1c6f3d6ee5c79e5cbcf84460d56d24d829ac380a341405c9"
+    },
+    {
+      "path": "s_sub256M.c",
+      "sha256": "bbd66004d5a05bafec8bf2aac9a2bc64fb7827908df6efd01e6983271f9874af"
+    },
+    {
+      "path": "s_mul64ByShifted32To128.c",
+      "sha256": "95e2b8c8b8824c4e7bb67dcf974edfda84e42224121cf11867f18d670e097ed9"
+    },
+    {
+      "path": "s_mul64To128.c",
+      "sha256": "cb28fa4d4846652a584ce78de10a9afb122f57806f8412781dbedac674922191"
+    },
+    {
+      "path": "s_mul128By32.c",
+      "sha256": "76c565b7057427541f7b78fbdba28d0fd0b23ff1c9f91e6ca2a70db801557146"
+    },
+    {
+      "path": "s_mul128To256M.c",
+      "sha256": "047fde309f23b4dc8ccc553991239cf2141abcf917c9e681cc69ba8938d4d79b"
+    },
+    {
+      "path": "s_approxRecip_1Ks.c",
+      "sha256": "18d5b8a32366ad86cba26cb82b6403b17c7ff5895e49290a2d4bf5742caea2a5"
+    },
+    {
+      "path": "s_approxRecip32_1.c",
+      "sha256": "5f651f3ff36fc9e0f53992e1308c3197db7ca56d27a3d48e45dd3ca421b01f43"
+    },
+    {
+      "path": "s_approxRecipSqrt_1Ks.c",
+      "sha256": "31b5b77d4e98b898c9cf661947c8530da00a5632350fe280249087e846be6f97"
+    },
+    {
+      "path": "s_approxRecipSqrt32_1.c",
+      "sha256": "2107412b2c94d0b19c5b584d645bbad2cd4f0c3596ab11c95d00a282903f1731"
+    },
+    {
+      "path": "softfloat_state.c",
+      "sha256": "245e85655da222174390eab9687be7b32c1704d312934bbaadd81b1a4329a5f2"
+    },
+    {
+      "path": "ARM-VFPv2/softfloat_raiseFlags.c",
+      "sha256": "b30d08b68da0e3debde061145f2bc6de0592a9ecde66e792d7b683686cc16670"
+    },
+    {
+      "path": "ARM-VFPv2/s_propagateNaNF32UI.c",
+      "sha256": "d999fc8554dabdd3147212ae2cd8f388c50f840c059e495145663d5aa8265e7f"
+    },
+    {
+      "path": "ARM-VFPv2/s_propagateNaNF64UI.c",
+      "sha256": "44a18dfb2ec78c8598589ea7b084cab9acb3c55eaf19134ff038e367084f72f1"
+    },
+    {
+      "path": "s_normSubnormalF32Sig.c",
+      "sha256": "8e0f15899c33364c3cfe33644b389d34dc39ee5680a51e0aa18a8bb92401a3bb"
+    },
+    {
+      "path": "s_roundPackToF32.c",
+      "sha256": "4232db3446ab841912658297a05a04a39f8198dee8581a8f030f18f9dbf279f9"
+    },
+    {
+      "path": "s_normRoundPackToF32.c",
+      "sha256": "c248909aae4e4496f3bf42f6431fa0657e0be1534e6a6319bf3fd9bca3b2d048"
+    },
+    {
+      "path": "s_addMagsF32.c",
+      "sha256": "e0a47096f669348a0f068c0732e0154815f2a840d284cf9cc465949e262dc072"
+    },
+    {
+      "path": "s_subMagsF32.c",
+      "sha256": "e131bf24f7c1a734f102cd842938d74f5373a4adb9dcdec296026c43579cc09f"
+    },
+    {
+      "path": "f32_add.c",
+      "sha256": "9e394bb6e5fcb8c1c97e8a6cfeb59a54b6e56299d95cc7e00ec9337c6eac9ad5"
+    },
+    {
+      "path": "f32_sub.c",
+      "sha256": "0c4e5f92660d59ff4b94ddd7b9afdb39d5bfbcb9f22888e72bcf4b40ddda59a0"
+    },
+    {
+      "path": "f32_mul.c",
+      "sha256": "aeee48f05d0e2c38ae0da33117e390ab85e11f903e2e2fc942a280e81392f2c3"
+    },
+    {
+      "path": "f32_div.c",
+      "sha256": "b8af0f916df265b8e78952376da526fd446e222cc9be1ec7a7194ebd9dcb561c"
+    },
+    {
+      "path": "f32_sqrt.c",
+      "sha256": "7e6c3c65e5cff08b05ddd34c6d29330f8fe30237a809086af394072488bf80fe"
+    },
+    {
+      "path": "s_normSubnormalF64Sig.c",
+      "sha256": "b942313fededb11e3d117374dce3635161e36319c9f502a7db1b68054d51e1f2"
+    },
+    {
+      "path": "s_roundPackToF64.c",
+      "sha256": "e8c3c65b986d4deb7e32f83df0e8887b1d5c3532ce44fc0037d64101433f6234"
+    },
+    {
+      "path": "s_normRoundPackToF64.c",
+      "sha256": "2b0a47495c6a70a178c0a00a775289f3cd5c4d49d71858a41fe31a1d0a9f0e3b"
+    },
+    {
+      "path": "s_addMagsF64.c",
+      "sha256": "076349e43628e4d204f74d96924df2a7dc74fba4580bdf288cd915c51c934d74"
+    },
+    {
+      "path": "s_subMagsF64.c",
+      "sha256": "ba49c86793182190e1325aef81f53d2bd9e8297478cd8ad1616dc83472ef9585"
+    },
+    {
+      "path": "f64_add.c",
+      "sha256": "b788a9f2ad36c0b4fd831f2cd63017284bff6c2965876ea1e9fe283b65a3d4cb"
+    },
+    {
+      "path": "f64_sub.c",
+      "sha256": "b2bede4c0e35ee9572dbe9ebabd6a44e8fae902ea2307f26a3d31d49e8fb168f"
+    },
+    {
+      "path": "f64_mul.c",
+      "sha256": "44394167ef08997b9a4585d5f2289d0513bf9cd59f030dcdcb49ba7c6ab25ef4"
+    },
+    {
+      "path": "f64_div.c",
+      "sha256": "879f81a01150a94a48583133c526650c4c5423c5719c1f367a61c0113f88b713"
+    },
+    {
+      "path": "f64_sqrt.c",
+      "sha256": "181790dd6916704eb333c314384943fbe75f2174988d4e75b4f9f76f032d4664"
+    },
+    {
+      "path": "include/internals.h",
+      "sha256": "e7205630a8087895388cb6c6afbc5dfe8a8c201f4eb3eab2586e91a73e36bd4e"
+    },
+    {
+      "path": "include/opts-GCC.h",
+      "sha256": "b3766ad02173012a8b58df2c43b424dc387fbca241104b931e91365f59b36001"
+    },
+    {
+      "path": "include/primitiveTypes.h",
+      "sha256": "ab4e4209a90b07dcc7600636dcf1c04f910ba4ff63d0eec64b0141769c16a221"
+    },
+    {
+      "path": "include/primitives.h",
+      "sha256": "146644301372c13af893119485269d54f3d718df9ce8b1a96cb908d3b828b1ed"
+    },
+    {
+      "path": "include/softfloat.h",
+      "sha256": "0359d1f1c5bef11bcb728b5f065655bf0f144c918692f1350d5f44e25d68acd4"
+    },
+    {
+      "path": "include/softfloat_types.h",
+      "sha256": "d0876f30a0d3dde97dd16007dbf635d98ef8262476ab8913930548a70f140afa"
+    },
+    {
+      "path": "ARM-VFPv2/specialize.h",
+      "sha256": "25f0d84ea6b75af650207b930a4d5b914b5669b0769937d04a282c3027d7cdbf"
+    },
+    {
+      "path": "../COPYING.txt",
+      "sha256": "1a9bde4daac8f2fd9593128ef605238471209e79c9fc2cabc22557d3da29fa65"
+    }
+  ]
+}

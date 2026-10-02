@@ -25,15 +25,16 @@ typedef enum NativeFloatingPointOperation {
     NativeFloatingPointSquareRoot = 12
 } NativeFloatingPointOperation;
 
-/* Apply requires strict floating-point compilation, including
- * -frounding-math -ffp-contract=off and no fast-math. Operands/results are IEEE
- * bits. SquareRoot, Move, Absolute and Negate use right only. Other arithmetic
+/* Operands/results are IEEE bits. Integer-only SoftFloat arithmetic has explicit
+ * rounding and C11 thread-local state; it does not use host fenv or host floats.
+ * SquareRoot, Move, Absolute and Negate use right only. Other arithmetic
  * uses left/right, and operations 0 through 3 also use accumulator.
  *
  * Rounding, DN, FZ and cumulative exception flags come from the explicit guest
- * FPSCR. The host floating-point environment is restored before return.
- * Enabled guest exception traps and unavailable host fenv support abort rather
- * than silently run with different semantics. Guest exception delivery,
+ * FPSCR. All four SoftFloat state variables are restored before return.
+ * Enabled guest arithmetic exception traps and invalid selectors abort.
+ * Raw Move/Absolute/Negate preserve FPSCR even when traps are enabled.
+ * Guest exception delivery,
  * conversions, comparisons and short-vector register sequencing are not
  * implemented here. See project/native_floating_point_evidence.md for limits. */
 uint32_t NativeFloatingPointApplySingle(NativeFloatingPointOperation operation,

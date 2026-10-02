@@ -1,19 +1,29 @@
 #include "NativeFloatingPoint.h"
 
-#include <fenv.h>
-#include <float.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#pragma STDC FENV_ACCESS ON
-#pragma STDC FP_CONTRACT OFF
+#ifndef THREAD_LOCAL
+#error "NativeFloatingPoint requires SoftFloat built with THREAD_LOCAL=_Thread_local"
+#endif
+#include "softfloat.h"
 
-_Static_assert(FLT_RADIX == 2 && FLT_MANT_DIG == 24 && DBL_MANT_DIG == 53,
-               "NativeFloatingPoint requires IEEE binary32 and binary64");
-_Static_assert(sizeof(float) == 4 && sizeof(double) == 8,
-               "NativeFloatingPoint requires IEEE storage widths");
+/* These declarations reject an empty/non-TLS THREAD_LOCAL definition. The
+ * linked ARM-VFPv2 SoftFloat library must use the same C11 TLS declarations. */
+extern _Thread_local uint_fast8_t softfloat_roundingMode;
+extern _Thread_local uint_fast8_t softfloat_detectTininess;
+extern _Thread_local uint_fast8_t softfloat_exceptionFlags;
+extern _Thread_local uint_fast8_t extF80_roundingPrecision;
+
+_Static_assert(sizeof(float32_t) == sizeof(uint32_t), "SoftFloat binary32 storage width");
+_Static_assert(sizeof(float64_t) == sizeof(uint64_t), "SoftFloat binary64 storage width");
+
+typedef struct NativeFloatingPointEnvironment {
+    uint_fast8_t roundingMode;
+    uint_fast8_t detectTininess;
+    uint_fast8_t exceptionFlags;
+    uint_fast8_t extendedRoundingPrecision;
+} NativeFloatingPointEnvironment;
 
 enum {
     NativeFloatingPointInvalidFlag = 1u,
@@ -38,32 +48,43 @@ static void NativeFloatingPointValidate(uint32_t* fpscr) {
         NativeFloatingPointRefuse("guest floating-point exception delivery is unsupported");
 }
 
-static void NativeFloatingPointBegin(uint32_t* fpscr, fenv_t* environment) {
-    static const int rounding_modes[4] = {
-        FE_TONEAREST, FE_UPWARD, FE_DOWNWARD, FE_TOWARDZERO
+static void NativeFloatingPointBegin(uint32_t* fpscr, NativeFloatingPointEnvironment* environment) {
+    static const uint_fast8_t rounding_modes[4] = {
+        softfloat_round_near_even, softfloat_round_max,
+        softfloat_round_min, softfloat_round_minMag
     };
     NativeFloatingPointValidate(fpscr);
-    if (feholdexcept(environment) != 0)
-        NativeFloatingPointRefuse("cannot preserve host floating-point environment");
-    if (fesetenv(FE_DFL_ENV) != 0)
-        NativeFloatingPointRefuse("cannot establish IEEE host floating-point environment");
-    if (fesetround(rounding_modes[(*fpscr >> 22) & 3]) != 0)
-        NativeFloatingPointRefuse("host does not support requested rounding mode");
+    environment->roundingMode = softfloat_roundingMode;
+    environment->detectTininess = softfloat_detectTininess;
+    environment->exceptionFlags = softfloat_exceptionFlags;
+    environment->extendedRoundingPrecision = extF80_roundingPrecision;
+    softfloat_roundingMode = rounding_modes[(*fpscr >> 22) & 3];
+    /* Original VMUL boundary probes in both precisions set UFC|IXC for a tiny
+     * result that rounds to minimum normal. FZ also flushes that result. */
+    softfloat_detectTininess = softfloat_tininess_beforeRounding;
+    softfloat_exceptionFlags = 0;
 }
 
-static uint32_t NativeFloatingPointExceptionFlags(int exceptions) {
+static void NativeFloatingPointEnd(const NativeFloatingPointEnvironment* environment) {
+    softfloat_roundingMode = environment->roundingMode;
+    softfloat_detectTininess = environment->detectTininess;
+    softfloat_exceptionFlags = environment->exceptionFlags;
+    extF80_roundingPrecision = environment->extendedRoundingPrecision;
+}
+
+static uint32_t NativeFloatingPointExceptionFlags(uint_fast8_t exceptions) {
     uint32_t flags = 0;
-    if (exceptions & FE_INVALID) flags |= NativeFloatingPointInvalidFlag;
-    if (exceptions & FE_DIVBYZERO) flags |= NativeFloatingPointDivideByZeroFlag;
-    if (exceptions & FE_OVERFLOW) flags |= NativeFloatingPointOverflowFlag;
-    if (exceptions & FE_UNDERFLOW) flags |= NativeFloatingPointUnderflowFlag;
-    if (exceptions & FE_INEXACT) flags |= NativeFloatingPointInexactFlag;
+    if (exceptions & softfloat_flag_invalid) flags |= NativeFloatingPointInvalidFlag;
+    if (exceptions & softfloat_flag_infinite) flags |= NativeFloatingPointDivideByZeroFlag;
+    if (exceptions & softfloat_flag_overflow) flags |= NativeFloatingPointOverflowFlag;
+    if (exceptions & softfloat_flag_underflow) flags |= NativeFloatingPointUnderflowFlag;
+    if (exceptions & softfloat_flag_inexact) flags |= NativeFloatingPointInexactFlag;
     return flags;
 }
 
-/* NaN classification and operand priority use integer bits so the host cannot
- * quiet signaling operands before the guest invalid-operation flag is set. */
-#define DEFINE_NATIVE_FLOATING_POINT(Suffix, Integer, Real, SignMask, ExponentMask, FractionMask, QuietMask, DefaultNan, SquareRoot) \
+/* NaN classification, operand priority and raw operations use integer bits.
+ * SoftFloat performs only the selected arithmetic, never a fused operation. */
+#define DEFINE_NATIVE_FLOATING_POINT(Suffix, Integer, Real, FunctionPrefix, SignMask, ExponentMask, FractionMask, QuietMask, DefaultNan) \
 static int NativeFloatingPointIsNan##Suffix(Integer bits) { \
     return (bits & (ExponentMask)) == (ExponentMask) && (bits & (FractionMask)); \
 } \
@@ -97,23 +118,19 @@ static Integer NativeFloatingPointEvaluate##Suffix(NativeFloatingPointOperation 
     right = NativeFloatingPointPrepare##Suffix(right, fpscr); \
     if (NativeFloatingPointIsNan##Suffix(left) || NativeFloatingPointIsNan##Suffix(right)) \
         return NativeFloatingPointSelectNan##Suffix(left, right, fpscr); \
-    Real left_value, right_value, result_value; \
-    memcpy(&left_value, &left, sizeof(left)); \
-    memcpy(&right_value, &right, sizeof(right)); \
-    volatile Real a = left_value, b = right_value, result; \
-    if (feclearexcept(FE_ALL_EXCEPT) != 0) NativeFloatingPointRefuse("cannot clear host exception flags"); \
+    const Real a = { left }, b = { right }; \
+    Real result = { 0 }; \
+    softfloat_exceptionFlags = 0; \
     switch (operation) { \
-    case NativeFloatingPointMultiply: result = a * b; break; \
-    case NativeFloatingPointAdd: result = a + b; break; \
-    case NativeFloatingPointSubtract: result = a - b; break; \
-    case NativeFloatingPointDivide: result = a / b; break; \
-    case NativeFloatingPointSquareRoot: result = SquareRoot(b); break; \
-    default: NativeFloatingPointRefuse("invalid arithmetic operation"); result = 0; break; \
+    case NativeFloatingPointMultiply: result = FunctionPrefix##_mul(a, b); break; \
+    case NativeFloatingPointAdd: result = FunctionPrefix##_add(a, b); break; \
+    case NativeFloatingPointSubtract: result = FunctionPrefix##_sub(a, b); break; \
+    case NativeFloatingPointDivide: result = FunctionPrefix##_div(a, b); break; \
+    case NativeFloatingPointSquareRoot: result = FunctionPrefix##_sqrt(b); break; \
+    default: NativeFloatingPointRefuse("invalid arithmetic operation"); break; \
     } \
-    result_value = result; \
-    Integer bits; \
-    memcpy(&bits, &result_value, sizeof(bits)); \
-    uint32_t flags = NativeFloatingPointExceptionFlags(fetestexcept(FE_ALL_EXCEPT)); \
+    Integer bits = result.v; \
+    uint32_t flags = NativeFloatingPointExceptionFlags(softfloat_exceptionFlags); \
     if ((*fpscr & NativeFloatingPointFlushToZero) && \
         (NativeFloatingPointIsSubnormal##Suffix(bits) || (flags & NativeFloatingPointUnderflowFlag))) { \
         bits &= (SignMask); \
@@ -129,7 +146,7 @@ Integer NativeFloatingPointApply##Suffix(NativeFloatingPointOperation operation,
     if (operation == NativeFloatingPointMove) return right; \
     if (operation == NativeFloatingPointAbsolute) return right & ~(SignMask); \
     if (operation == NativeFloatingPointNegate) return right ^ (SignMask); \
-    fenv_t environment; \
+    NativeFloatingPointEnvironment environment; \
     NativeFloatingPointBegin(fpscr, &environment); \
     Integer result; \
     if (operation >= NativeFloatingPointMultiplyAccumulate && operation <= NativeFloatingPointNegatedAccumulatorSubtract) { \
@@ -142,17 +159,17 @@ Integer NativeFloatingPointApply##Suffix(NativeFloatingPointOperation operation,
     } else { \
         result = NativeFloatingPointEvaluate##Suffix(operation, left, right, fpscr); \
     } \
-    if (fesetenv(&environment) != 0) NativeFloatingPointRefuse("cannot restore host floating-point environment"); \
+    NativeFloatingPointEnd(&environment); \
     return result; \
 }
 
-DEFINE_NATIVE_FLOATING_POINT(Single, uint32_t, float,
+DEFINE_NATIVE_FLOATING_POINT(Single, uint32_t, float32_t, f32,
                             UINT32_C(0x80000000), UINT32_C(0x7F800000),
                             UINT32_C(0x007FFFFF), UINT32_C(0x00400000),
-                            UINT32_C(0x7FC00000), sqrtf)
-DEFINE_NATIVE_FLOATING_POINT(Double, uint64_t, double,
+                            UINT32_C(0x7FC00000))
+DEFINE_NATIVE_FLOATING_POINT(Double, uint64_t, float64_t, f64,
                             UINT64_C(0x8000000000000000), UINT64_C(0x7FF0000000000000),
                             UINT64_C(0x000FFFFFFFFFFFFF), UINT64_C(0x0008000000000000),
-                            UINT64_C(0x7FF8000000000000), sqrt)
+                            UINT64_C(0x7FF8000000000000))
 
 #undef DEFINE_NATIVE_FLOATING_POINT

@@ -8,6 +8,8 @@ Port milestone 1 passes the complete startup prefix through the first top-screen
 
 First follow `azahar_reference/BUILD.md` to obtain the pinned public Azahar source, dependencies and reference executable. Use one compile job. Run these commands from the port checkout, with local approved code.bin/exh.bin and the usual development environment:
 
+Obtain the unmodified official SoftFloat 3e source using [FLOATING_POINT.md](FLOATING_POINT.md). The timed module links the same integer-only, thread-local arithmetic target used by the browser build.
+
 ```sh
 . ./development_environment.sh
 python tools/static_recompiler/build_port.py --output build/platform_translation
@@ -16,7 +18,8 @@ python tools/static_recompiler/build_native_block_schedule.py \
   build/platform_translation build/port_tools/azahar_reproduction \
   build/port_tools/azahar_reproduction_build build/platform_schedule/block_schedule.bin
 python tools/static_recompiler/instrument_timing.py \
-  build/platform_translation build/port_tools/azahar_reproduction build/platform_timed_translation
+  build/platform_translation build/port_tools/azahar_reproduction build/platform_timed_translation \
+  --softfloat-source build/port_tools/SoftFloat-3e/source
 cp build/platform_schedule/block_schedule.bin build/platform_timed_translation/block_schedule.bin
 python tools/static_recompiler/verify_execution.py build/platform_timed_translation
 python tools/static_recompiler/verify_floating_point_execution.py build/platform_timed_translation
