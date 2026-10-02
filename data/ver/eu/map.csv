@@ -258,7 +258,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00107A24,          ,0x00107A28,          ,O,f,nngxlowInitialize,
 0x00107A28,0x00107AB8,0x00107ACC,          ,U,f,_ZN2nn5gxlow3CTR10InitializeEv,
 0x00107ACC,          ,0x00107AD0,          ,O,f,nngxlowYieldThread,
-0x00107AD0,0x00107AD8,0x00107ADC,          ,U,f,_ZN2nn5gxlow3CTR11YieldThreadEv,
+0x00107AD0,0x00107AD8,0x00107ADC,          ,O,f,_ZN2nn5gxlow3CTR11YieldThreadEv,
 0x00107ADC,          ,0x00107AE0,          ,O,f,nngxlowWriteHWRegsWithMask,
 0x00107AE0,          ,0x00107B10,          ,U,f,_ZN2nn5gxlow3CTR19WriteHWRegsWithMaskEjPKvS3_j,
 0x00107B10,          ,0x00107B14,          ,O,f,nngxlowIsFirstInitialization,
