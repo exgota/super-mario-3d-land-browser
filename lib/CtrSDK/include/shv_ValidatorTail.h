@@ -4,9 +4,10 @@
 
 namespace ShvReconstruction {
 
-// The six dirty words cover 189 cached PICA register values. The lookup and
-// exclusion masks are initialized in the retail BSS by 0x00108690; they have no
-// whole map identity yet. These are data references, never copied code.
+// The six dirty words cover 189 cached PICA register values. Root 0x00108690
+// consumes the lookup; it is not its producer. Shader manager 0x001064E4 writes
+// the lookup and exclusion masks. Whole map ownership remains unaccepted.
+// These are data references, never copied code.
 inline Word* registerNumbers() { return reinterpret_cast<Word*>(0x00420F4C); }
 inline Word* exclusionMask(Word address) { return reinterpret_cast<Word*>(address); }
 

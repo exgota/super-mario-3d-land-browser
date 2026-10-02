@@ -1,5 +1,11 @@
 # Shared graphics declarations: compiled integration proposal
 
+## Producer attribution correction, 2026-10-02
+
+The old shv_ValidatorTail.h comment incorrectly attributed lookup/exclusion-mask initialization to 00108690. That root consumes the 189-entry lookup: literal00108F70 is00420F4C,00108E08 loads the base,00108E4C reads indexed entries, and00108E64 bounds the loop at189. It does not write the lookup. Independently identified producer001064E4 (_shm_initializeShaderManager) loads00420F4C at00106570 and writes index/register pairs from003A421C through00106580. Its later blocks at001069D0/00106A28/00106ABC initialize the three exclusion masks at00421240/58/70. Exact whole-object extent and map ownership still require separate evidence and main review; this correction does not establish accepted metadata.
+
+This update changes this report and comments only. All non-comment header text is byte-identical. No build or checker was rerun for the comment correction; earlier source/check hashes and measurements describe their named historical commits. It adds no exact or behavioral credit and makes no claim that accepted coverage was invalidated. The absolute-address accessors remain qualified diagnostic scaffolding, not canonical BSS ownership.
+
 This branch gives seven reconstructed graphics roots one compatible declaration of their two shared C globals. A diagnostic translation unit including all nine interface/helper headers previously fails with incompatible-declaration errors; it now compiles. Every allocated output section remains identical to the individually tested objects, including bytes, flags, alignment, symbol definitions, relocation types/offsets/targets, and linked-section relationships. Whole object hashes differ because of non-runtime metadata; whole-object byte equality is not claimed.
 
 Base: `57f902421f6874f132d5ea971d1aa5b224c5a528`. Committed source checkpoint: `645490e6f279b57c326047f11dcedf6f142f31d7`. This is a separate integration proposal, not production intake or an exact match. New main `e87d556cd4d993606a03e205b4604d863d718bd4` changes no CtrSDK source, compiler configuration or byte-checker implementation; its651-root preservation has not been rerun here.
