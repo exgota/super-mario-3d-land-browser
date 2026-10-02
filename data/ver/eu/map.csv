@@ -8900,7 +8900,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002743F0,0x0027447C,0x00274480,          ,U,f,,
 0x00274480,          ,0x00274498,          ,U,f,,
 0x00274498,0x002744E0,0x002744E4,          ,U,f,_ZN2al5SceneC2EPKc,
-0x002744E4,          ,0x002744FC,          ,U,f,,
+0x002744E4,          ,0x002744FC,          ,O,f,fn_002744E4,
 0x002744FC,0x00274504,0x00274508,          ,U,f,,
 0x00274508,0x0027454C,0x0027455C,          ,U,f,,
 0x0027455C,          ,0x00274578,          ,U,f,,
