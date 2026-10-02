@@ -1,0 +1,15 @@
+extern "C" bool fn_0033E2D8() { return true; }
+extern "C" bool fn_00342078() { return true; }
+extern "C" bool fn_00342080() { return true; }
+extern "C" bool fn_0036DA54() { return true; }
+extern "C" bool fn_0036E598() { return true; }
+extern "C" bool fn_0036E77C() { return true; }
+extern "C" bool fn_0036EB20() { return true; }
+extern "C" bool fn_00375B54() { return true; }
+extern "C" bool fn_00375F00() { return true; }
+extern "C" bool fn_00376BBC() { return true; }
+extern "C" bool fn_00376BF4() { return true; }
+extern "C" bool fn_00376ED0() { return true; }
+extern "C" bool fn_00376FC4() { return true; }
+extern "C" bool fn_003779BC() { return true; }
+extern "C" bool fn_00377ACC() { return true; }
