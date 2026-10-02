@@ -19,6 +19,7 @@ private:
 public:
         virtual void init( const al::ActorInitInfo& info );
         void clearInitialState();
+        static bool isBelowLimit( int value );
         virtual void attackSensor( al::HitSensor* me, al::HitSensor* other );
         virtual bool receiveMsg( u32 msg, al::HitSensor* other, al::HitSensor* me );
 

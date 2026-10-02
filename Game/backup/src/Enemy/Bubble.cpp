@@ -26,6 +26,13 @@ void Bubble::clearInitialState()
         __rt_memclr( this, 0x12 );
 }
 
+bool Bubble::isBelowLimit( int value )
+{
+        if ( value >= 900 )
+                return false;
+        return true;
+}
+
 void Bubble::attackSensor( al::HitSensor* me, al::HitSensor* other )
 {
         if ( al::isNerve( this, &dat_003F1F00 ) )
