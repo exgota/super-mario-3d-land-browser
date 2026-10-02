@@ -87,9 +87,18 @@ def main():
         action += "await page.screenshot({path:" + json.dumps(str(output / "desktop_running.png")) + ",fullPage:true}); "
         action += "await page.setViewportSize({width:390,height:1200}); await page.screenshot({path:" + json.dumps(str(output / "mobile_running.png")) + ",fullPage:true}); await page.setViewportSize({width:1440,height:1080}); "
     if args.input_method == "pointer":
-        action += "const box = await target.boundingBox(); await page.mouse.move(box.x+box.width/2,box.y+box.height/2); await page.mouse.down(); await page.waitForTimeout(150); await page.mouse.up(); "
+        action += "const box = await target.boundingBox(); await page.mouse.move(box.x+box.width/2,box.y+box.height/2); await page.mouse.down(); "
     elif args.input_method in ("keyboard", "focus-loss"):
-        action += "await target.focus(); await page.keyboard.down('Space'); await page.waitForTimeout(150); "
+        action += "await target.focus(); await page.keyboard.down('Space'); "
+    if args.input_method != "neutral":
+        # Outer-worker filesystem service can delay both messages until a
+        # short wall-clock pulse has ended. Hold across observed device polls;
+        # actual saved HID edges, never this progress, certify delivery.
+        action += "await page.waitForFunction(() => document.body.dataset.buttonRequestSequence === '0' && document.body.dataset.buttonRequestAccepted === 'true',null,{timeout:30000}); "
+        action += "const heldPolls = await page.evaluate(() => Number(document.body.dataset.buttonPollCount)); await page.waitForFunction(count => Number(document.body.dataset.buttonPollCount) >= count+8,heldPolls,{timeout:30000}); "
+    if args.input_method == "pointer":
+        action += "await page.mouse.up(); "
+    elif args.input_method in ("keyboard", "focus-loss"):
         if args.input_method == "focus-loss":
             action += "await target.evaluate(element => element.blur()); "
         action += "await page.keyboard.up('Space'); "
