@@ -8500,7 +8500,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026ACDC,          ,0x0026ACEC,          ,U,f,,
 0x0026ACEC,          ,0x0026AD1C,          ,U,f,,
 0x0026AD1C,          ,0x0026AD30,          ,U,f,,
-0x0026AD30,          ,0x0026AD40,          ,U,f,,
+0x0026AD30,          ,0x0026AD40,          ,O,f,fn_0026AD30,
 0x0026AD40,          ,0x0026AD58,          ,U,f,,
 0x0026AD58,          ,0x0026AD6C,          ,U,f,,
 0x0026AD6C,          ,0x0026AD84,          ,U,f,,
