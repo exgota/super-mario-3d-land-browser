@@ -17,3 +17,5 @@ This scoped license notice does not relicense the rest of the repository. The pa
 THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 `azahar_replay_payload_limits.patch` changes only project-authored capture source added to the pinned public Azahar derivative. Its additions use the same GPL-2.0-or-later terms described above. No game bytes or Nintendo implementation are included.
+
+`azahar_state_observation.patch` adds project-authored generic capture source and hooks to the pinned public Azahar derivative, under GPL-2.0-or-later. The sampler headers retain that SPDX grant. The patch contains no game implementation, game addresses or data.
