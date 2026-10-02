@@ -2025,7 +2025,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0015E5B4,0x0015E750,0x0015E76C,          ,U,f,,
 0x0015E76C,0x0015E7D0,0x0015E7DC,          ,U,f,,
 0x0015E7DC,0x0015E804,0x0015E808,          ,U,f,,
-0x0015E808,          ,0x0015E854,          ,U,f,,
+0x0015E808,          ,0x0015E854,          ,O,f,fn_0015E808,
 0x0015E854,          ,0x0015E898,          ,U,f,,
 0x0015E898,          ,0x0015E8A0,          ,U,f,,
 0x0015E8A0,0x0015E9B4,0x0015E9C0,          ,U,f,,
