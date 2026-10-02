@@ -1,0 +1,13 @@
+extern "C" const char* fn_003615B4() { return "Break"; }
+extern "C" const char* fn_003615C4() { return "Touch"; }
+extern "C" const char* fn_003622BC() { return "GoEnd"; }
+extern "C" const char* fn_0036235C() { return "Return"; }
+extern "C" const char* fn_0036236C() { return "StandBy"; }
+extern "C" const char* fn_003646D8() { return "StandBy"; }
+extern "C" const char* fn_00366164() { return "Sign"; }
+extern "C" const char* fn_003661A4() { return "Sink"; }
+extern "C" const char* fn_0036A3CC() { return "Stop"; }
+extern "C" const char* fn_0036A53C() { return "StandBy"; }
+extern "C" const char* fn_0036AC98() { return "Stop"; }
+extern "C" const char* fn_0036C6EC() { return "Sign"; }
+extern "C" const char* fn_0036C83C() { return "Break"; }
