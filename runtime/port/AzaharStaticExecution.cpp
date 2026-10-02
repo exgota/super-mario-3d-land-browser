@@ -9,9 +9,10 @@ int main(int argc, char** argv) {
         return 2;
     }
     const std::filesystem::path library = std::filesystem::absolute(argv[1]);
-    RootPortCapture::RegisterCpuBackendFactory([library](Core::System& system, Memory::MemorySystem& memory,
+    const auto trace = Port::GuestMemoryTrace::FromEnvironment();
+    RootPortCapture::RegisterCpuBackendFactory([library, trace](Core::System& system, Memory::MemorySystem& memory,
                                                         u32 id, std::shared_ptr<Core::Timing::Timer> timer) {
-        return std::make_shared<Port::StaticArmBackend>(system, memory, id, std::move(timer), library);
+        return std::make_shared<Port::StaticArmBackend>(system, memory, id, std::move(timer), library, trace);
     });
     std::vector<char*> arguments{argv[0]};
     arguments.insert(arguments.end(), argv + 2, argv + argc);

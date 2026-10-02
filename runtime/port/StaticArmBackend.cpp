@@ -26,9 +26,10 @@ template<class T> T loadSymbol(void* library, const char* name) {
 const Host StaticArmBackend::callbacks{Read8, Read16, Read32, Write8, Write16, Write32, RefuseInterpretation, Lookup};
 
 StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& memory_, u32 id,
-                                 std::shared_ptr<Core::Timing::Timer> timer_, const std::filesystem::path& path)
+                                 std::shared_ptr<Core::Timing::Timer> timer_, const std::filesystem::path& path,
+                                 std::shared_ptr<GuestMemoryTrace> trace_)
     : ARM_Interface(id, std::move(timer_)), memory(memory_),
-      svc(std::make_unique<Kernel::SVCContext>(system)), callback_pages(1 << 20, nullptr) {
+      svc(std::make_unique<Kernel::SVCContext>(system)), callback_pages(1 << 20, nullptr), trace(std::move(trace_)) {
     library = dlopen(path.c_str(), RTLD_NOW | RTLD_LOCAL);
     if (!library) throw std::runtime_error(dlerror());
     if (*loadSymbol<const u32*>(library, "recomp_abi") != RECOMP_ABI)
@@ -75,7 +76,8 @@ void StaticArmBackend::Run() {
     }
 }
 void StaticArmBackend::Step() { throw std::runtime_error("static CPU cannot single-step a translated basic block"); }
-void StaticArmBackend::ChargeBlock(u32, u32 instructions, u64 ticks) {
+void StaticArmBackend::ChargeBlock(u32 address, u32 instructions, u64 ticks) {
+    current_instruction = address;
     instructions_executed += instructions;
     if (ticks & (u64(1) << 63)) supervisor_ticks += ticks & ~(u64(1) << 63);
     else timer->AddTicks(ticks);
@@ -134,7 +136,11 @@ u16 StaticArmBackend::Read16(Context* c, u32 a) { return backend(c).memory.Read1
 u32 StaticArmBackend::Read32(Context* c, u32 a) { return backend(c).memory.Read32(a); }
 void StaticArmBackend::Write8(Context* c, u32 a, u8 v) { backend(c).memory.Write8(a, v); }
 void StaticArmBackend::Write16(Context* c, u32 a, u16 v) { backend(c).memory.Write16(a, v); }
-void StaticArmBackend::Write32(Context* c, u32 a, u32 v) { backend(c).memory.Write32(a, v); }
+void StaticArmBackend::Write32(Context* c, u32 a, u32 v) {
+    auto& cpu = backend(c);
+    if (cpu.trace) cpu.trace->RecordWrite(cpu.GetID(), cpu.current_instruction, a, v, *c);
+    cpu.memory.Write32(a, v);
+}
 void StaticArmBackend::RefuseInterpretation(Context*, u32 address, u32 opcode) {
     throw std::runtime_error("static CPU interpreter fallback refused at " + std::to_string(address) + " opcode " + std::to_string(opcode));
 }

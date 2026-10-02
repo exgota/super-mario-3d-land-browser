@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <vector>
 #include "core/arm/arm_interface.h"
+#include "GuestMemoryTrace.h"
 #include "recomp.h"
 
 namespace Kernel { class SVCContext; }
@@ -13,7 +14,8 @@ namespace Port {
 class StaticArmBackend final : public Core::ARM_Interface {
 public:
     StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
-                     std::shared_ptr<Core::Timing::Timer> timer, const std::filesystem::path& library);
+                     std::shared_ptr<Core::Timing::Timer> timer, const std::filesystem::path& library,
+                     std::shared_ptr<GuestMemoryTrace> trace = nullptr);
     ~StaticArmBackend() override;
     void Run() override;
     void Step() override;
@@ -65,6 +67,8 @@ private:
     std::vector<u8*> callback_pages;
     u64 instructions_executed = 0;
     u64 supervisor_ticks = 0;
+    u32 current_instruction = 0;
+    std::shared_ptr<GuestMemoryTrace> trace;
     static const Host callbacks;
 };
 }
