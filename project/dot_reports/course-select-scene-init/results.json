@@ -1,0 +1,212 @@
+{
+  "base": "86104d96a7f570383bbfefc5fffad998e134496c",
+  "source_commit": "8164705dd179a9252ea1bc39d10851c6c0752632",
+  "target_start": "0x0017CB1C",
+  "target_end": "0x0017D398",
+  "target_size": 2172,
+  "compiled_size": 2156,
+  "strict_check": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n",
+  "source_sha256": "c0b308b4db931357e9b191c1cc839039a2a9ebee038962ea44baddb6c42eb29d",
+  "object_sha256": "fb6faff260b9121f990e0546353d6b198999afe3acd2c412271732fd9485a59a",
+  "diagnostic_sha256": "c4eb857c7d7c41a5bb279fc5fddc209ea4efd9c50ca38336b0608cf4e6739de5",
+  "map_restored_sha256": "94ac5673e907db521bf6b4b606d02be64ee7bae8a8fd2f08328b0c30d85b3db9",
+  "clean_build_elapsed_seconds": 43.88975930213928,
+  "replay": {
+    "fixture_entries": 254,
+    "executed_pairs": 254,
+    "fixture_ids": "0-239 and 241-254; 240 is only an uninstantiated generator template label, not an excluded case",
+    "original_root_instructions_visited": 465,
+    "compiled_root_instructions_visited": 461,
+    "total_instructions_original_compiled": [
+      293938,
+      281846
+    ],
+    "cases": 254,
+    "failures": 0,
+    "statuses": {
+      "returned": 250,
+      "fault": 2,
+      "modeled_fault": 2
+    },
+    "elapsed_seconds": 11.580430269241333,
+    "real_direct_entries": [
+      "0x243ff8",
+      "0x257ff8",
+      "0x25bd08",
+      "0x275048",
+      "0x275514",
+      "0x27654c",
+      "0x2765d0",
+      "0x276774",
+      "0x276c3c",
+      "0x27b31c",
+      "0x2910e8",
+      "0x32bd64"
+    ],
+    "modeled_entries": [
+      "0x13dccc",
+      "0x16b044",
+      "0x16b6c8",
+      "0x17bfac",
+      "0x17d9a0",
+      "0x17da74",
+      "0x18899c",
+      "0x188db0",
+      "0x188f20",
+      "0x1891a8",
+      "0x1a69e0",
+      "0x1b899c",
+      "0x1b979c",
+      "0x1cacb4",
+      "0x1cb48c",
+      "0x1dcba8",
+      "0x1de86c",
+      "0x1e6e5c",
+      "0x216f1c",
+      "0x243260",
+      "0x24e638",
+      "0x2527d8",
+      "0x2568cc",
+      "0x257ed0",
+      "0x257f74",
+      "0x257f88",
+      "0x266bac",
+      "0x268fe8",
+      "0x26ad40",
+      "0x26af80",
+      "0x26afbc",
+      "0x26ee44",
+      "0x27361c",
+      "0x274990",
+      "0x274a7c",
+      "0x274aa8",
+      "0x274ef0",
+      "0x275054",
+      "0x2753e8",
+      "0x275638",
+      "0x275748",
+      "0x2765a8",
+      "0x276660",
+      "0x2767a0",
+      "0x276810",
+      "0x276858",
+      "0x277658",
+      "0x27b364",
+      "0x27baac",
+      "0x27ee64",
+      "0x28e1e4",
+      "0x28e688",
+      "0x2932b0",
+      "0x700000",
+      "0x700004",
+      "0x700008",
+      "0x70000c"
+    ],
+    "body_sha256": "9086e14f1511f166643020e015a50612b7cdf27164dbeacee57dfe974aede8f3",
+    "all_passed": true,
+    "limits": "200000 instructions/case; at most 32 courses/pass; original globals/data, isolated non-overlapping scene/heap/stack; modeled heavy subsystem effects and allocations; no full scene/render/gameplay or exact-byte claim"
+  },
+  "preservation": {
+    "base": "86104d96a7f570383bbfefc5fffad998e134496c",
+    "baseline_report_sha256": "a692f9a29d92c3f8021b62a2254b06fb44776f34cfa2f51849364bde66dee374",
+    "baseline_prior_roots": 767,
+    "baseline_actual_definitions": 787,
+    "prior_input_count": 625,
+    "prior_object_count": 180,
+    "canonical_cpp_objects": 179,
+    "scaffold_objects": 1,
+    "added_objects": [
+      "build/eu/obj/Game/backup/src/Scene/CourseSelectSceneInit.o"
+    ],
+    "scaffold_comparison": {
+      "path": "build/eu/obj/build/eu/split/stubs.o",
+      "full_structure_equal": false,
+      "subsets": {
+        "allocated_sections": {
+          "old_entries": 2095,
+          "added_entries": 55,
+          "removed_or_changed_entries": 0
+        },
+        "symbols": {
+          "old_entries": 8062,
+          "added_entries": 198,
+          "removed_or_changed_entries": 0
+        },
+        "relocations": {
+          "old_entries": 1934,
+          "added_entries": 1476,
+          "removed_or_changed_entries": 1432
+        },
+        "allocated_relocations": {
+          "old_entries": 0,
+          "added_entries": 0,
+          "removed_or_changed_entries": 0
+        }
+      },
+      "source_diff": "Generated neutral scaffold aliases for the new U body/imports; no tracked scaffold or tool was edited. Nonallocated debug-frame relocation group numbering changes with added functions."
+    },
+    "failures": [],
+    "equivalent_canonical_cpp_and_inputs": true,
+    "elapsed_seconds": 16.461525678634644,
+    "scope": "All prior tracked blob contents and every prior canonical C++ object, including objects without accepted checks. Normalized provenance commands exclude checkout path only. Not a new full check gate."
+  },
+  "file_hashes": {
+    "tools/check.py": "e177e0abe130e645e75c5f0dc24abb19dbe83310de55f1f099ec8fc385e07317",
+    "tools/low/checkExactBytes.py": "aef81a3a21c49bb17b8a19f139d02607899257e04dbe461ece2992cc726fc2e2",
+    "tools/low/buildProvenance.py": "343d1a0954aba9a4805e71420be9a99d91185db4c8b329d1363d11efcee53529",
+    "data/config.json": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+    "data/compilers/4.1/791/bin/armcc.exe": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+    "data/compilers/4.1/791/bin/armlink.exe": "b9cffb71d7b58f3fd33fa8c4c8af884b75689bb5a9e9014309a08146bba676dc",
+    "data/compilers/4.0/902/bin/armcc.exe": "e6aca4ebc280a54065406bcc3a0ae3d9f4d0ac5a4032c3a193adb836c72e70fe",
+    "data/compilers/wibo": "aee836280b3d7c80c2031410219c907c9824c11be6b128d0744655de0f22280b",
+    "project/dot_reports/course-select-scene-init/preserve.py": "e53ff099a21e55d5e25b83f22ca88e80a6a0c676223920a557bf185e95cb0baa",
+    "project/dot_reports/course-select-scene-init/verify.py": "7c0fd7e772ec6aed228853edcadf530bd1fa60588dc3f00b3c6b39c63ac669f4",
+    "project/dot_reports/course-select-scene-init/replay.py": "ea3e65a4036af5f60ab0b864f2c515a86801c1ceab0dc27a0f26e520c32e5d24",
+    "project/dot_reports/course-select-scene-init/fixtures.json": "c7f991f6f9b0c5755bf138edd1cd8793f39098fc8fa20bac226da06e7e1d5982",
+    "project/dot_reports/course-select-scene-init/audit-imports.py": "a0dce49b1da5263e7dedc01e2608370f33e1e424aecb6a9471cb2d43c38e1e03",
+    "project/dot_reports/course-select-scene-init/imports.json": "90e34adbd2f45abdfa9fb24f7aeb565f74f2646f27e198b0dc04844fd307b9c0",
+    "project/dot_reports/course-select-scene-init/import-compatibility.json": "43b21fefdedaa4a5f766f56f3321fe48d7881272fb60f96b6fdf05cd839da72d"
+  },
+  "timing_window": {
+    "start_utc": "2026-10-02T05:17:23Z",
+    "through_utc": "2026-10-02T05:48:59Z",
+    "elapsed_seconds": 1896,
+    "accepted_bytes": 0,
+    "accepted_bytes_per_hour": 0
+  },
+  "attempts": [
+    {
+      "form": 1,
+      "commit": "ce871b4b1b41d03a409c9176d39743c0c9342faa",
+      "result": "Compile failed: declaring abstract al::Nerve objects as extern is rejected by ARMCC; no object, no exact credit."
+    },
+    {
+      "form": 1,
+      "declaration_repair": "c0eaff2787670687c52424e2de21873550914a3f",
+      "compiled_size": 2136,
+      "result": "Source closure rejected: An unresolved source helper is referenced by a non-branch relocation. The aggregate listener emitted two .constdata sections; no exact credit."
+    },
+    {
+      "form": 2,
+      "commit": "a1265ee7700e2a4fe982c5caecf36e92ac70d06f",
+      "compiled_size": 2156,
+      "result": "U -> M: The complete compiled section, including its literal pool, has a different size from the original interval.",
+      "physical_compilations": 2,
+      "notes": "One normal source compilation and one final clean recompilation. Identical source throughout verification."
+    }
+  ],
+  "harness_corrections": [
+    "The first allocation-fault replay compared callee-saved registers at the fault PC, which is not a return ABI obligation; normal-return checks are retained, fault comparisons cover status, address/size, trace and memory.",
+    "The initial preservation enumerator sent generated C stubs to the C++ provenance verifier. It now distinguishes 179 canonical C++ objects from one generated scaffold, while auditing both."
+  ],
+  "compatibility_revision": {
+    "commit": "8164705dd179a9252ea1bc39d10851c6c0752632",
+    "changes": [
+      "Use canonical s32 fn_0028E1E4(sead::BufferedSafeString*,const char*,...) with observed-view casts",
+      "Use existing sead::Vector3f::zero; remove raw dat_004305F8 array import"
+    ],
+    "linked_body_unchanged_sha256": "9086e14f1511f166643020e015a50612b7cdf27164dbeacee57dfe974aede8f3",
+    "successful_clean_compilations": 1
+  },
+  "physical_compilation_history": "Initial abstract-extern error (no object), declaration repair, second reconstruction form, clean recompilation, compatible-import clean recompilation: five physical compilations, four successful, two matching forms plus declaration-only repairs."
+}

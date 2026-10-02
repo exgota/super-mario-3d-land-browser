@@ -1,0 +1,520 @@
+[
+  {
+    "symbol": "_ZN2al10WipeSimpleC1EPKcS2_RKNS_14LayoutInitInfoES2_",
+    "address": 2517932,
+    "kind": "A",
+    "row_end": 2518036,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al11setSceneObjEPNS_9ISceneObjEi",
+    "address": 1881228,
+    "kind": "A",
+    "row_end": 1881260,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al12LiveActorKit7endInitEv",
+    "address": 2574736,
+    "kind": "A",
+    "row_end": 2574972,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al13ActorInitInfoC1Ev",
+    "address": 2583612,
+    "kind": "A",
+    "row_end": 2583648,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al13NerveExecutor9initNerveEPKNS_5NerveEi",
+    "address": 2601828,
+    "kind": "A",
+    "row_end": 2601884,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al14initNerveStateEPNS_9IUseNerveEPNS_14NerveStateBaseEPKNS_5NerveEPKc",
+    "address": 1879220,
+    "kind": "A",
+    "row_end": 1879296,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al16initPlacementMapEPNS_5SceneEPKNS_8ResourceERKNS_13ActorInitInfoEPKc",
+    "address": 2576112,
+    "kind": "A",
+    "row_end": 2576456,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al20findOrCreateResourceERKN4sead14SafeStringBaseIcEE",
+    "address": 2372192,
+    "kind": "A",
+    "row_end": 2372220,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al24makeStageDataArchivePathEPN4sead22BufferedSafeStringBaseIcEEPKciS5_",
+    "address": 2457592,
+    "kind": "A",
+    "row_end": 2457636,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al30initCreateActorNoPlacementInfoEPNS_9LiveActorERKNS_13ActorInitInfoE",
+    "address": 2616932,
+    "kind": "A",
+    "row_end": 2617008,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al5Scene16initActorFactoryEv",
+    "address": 2582544,
+    "kind": "A",
+    "row_end": 2582576,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al5Scene18initSceneObjHolderEv",
+    "address": 1610152,
+    "kind": "A",
+    "row_end": 1610176,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al5Scene24initAndLoadStageResourceEPKciPN4sead4HeapE",
+    "address": 1952680,
+    "kind": "A",
+    "row_end": 1952740,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al5Scene7endInitERKNS_13ActorInitInfoE",
+    "address": 2574972,
+    "kind": "A",
+    "row_end": 2574992,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN2al9ByamlIterC1Ev",
+    "address": 2691304,
+    "kind": "A",
+    "row_end": 2691320,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZN4sead7Vector3IfE4zeroE",
+    "address": 4392440,
+    "kind": "D",
+    "row_end": 4392452,
+    "row_type": "db"
+  },
+  {
+    "symbol": "_ZNK2al19StageResourceKeeper14getResourceMapEv",
+    "address": 2576456,
+    "kind": "A",
+    "row_end": 2576468,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZNK2al19StageResourceKeeper17getResourceDesignEv",
+    "address": 2577684,
+    "kind": "A",
+    "row_end": 2577696,
+    "row_type": "f"
+  },
+  {
+    "symbol": "_ZnwjRKSt9nothrow_t",
+    "address": 2699952,
+    "kind": "A",
+    "row_end": 2700012,
+    "row_type": "f"
+  },
+  {
+    "symbol": "dat_003B16DC",
+    "address": 3872476,
+    "kind": "D",
+    "row_end": 3872548,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003B1724",
+    "address": 3872548,
+    "kind": "D",
+    "row_end": 3872552,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003B1728",
+    "address": 3872552,
+    "kind": "D",
+    "row_end": 3872576,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003B1740",
+    "address": 3872576,
+    "kind": "D",
+    "row_end": 3872600,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003D7ABC",
+    "address": 4029116,
+    "kind": "D",
+    "row_end": 4029136,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003D7AE4",
+    "address": 4029156,
+    "kind": "D",
+    "row_end": 4029168,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003D9C34",
+    "address": 4037684,
+    "kind": "D",
+    "row_end": 4037712,
+    "row_type": "dc"
+  },
+  {
+    "symbol": "dat_003F0FA0",
+    "address": 4132768,
+    "kind": "D",
+    "row_end": 4132772,
+    "row_type": "d"
+  },
+  {
+    "symbol": "dat_003F0FA4",
+    "address": 4132772,
+    "kind": "D",
+    "row_end": 4132776,
+    "row_type": "d"
+  },
+  {
+    "symbol": "dat_003F0FC0",
+    "address": 4132800,
+    "kind": "D",
+    "row_end": 4132804,
+    "row_type": "d"
+  },
+  {
+    "symbol": "dat_003F1550",
+    "address": 4134224,
+    "kind": "D",
+    "row_end": 4134228,
+    "row_type": "d"
+  },
+  {
+    "symbol": "fn_0013DCCC",
+    "address": 1301708,
+    "kind": "A",
+    "row_end": 1302092,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0016B044",
+    "address": 1486916,
+    "kind": "A",
+    "row_end": 1487760,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0016B6C8",
+    "address": 1488584,
+    "kind": "A",
+    "row_end": 1489668,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0017BFAC",
+    "address": 1556396,
+    "kind": "A",
+    "row_end": 1556472,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0017D9A0",
+    "address": 1563040,
+    "kind": "A",
+    "row_end": 1563192,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0017DA74",
+    "address": 1563252,
+    "kind": "A",
+    "row_end": 1564280,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0018899C",
+    "address": 1608092,
+    "kind": "A",
+    "row_end": 1608636,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00188DB0",
+    "address": 1609136,
+    "kind": "A",
+    "row_end": 1609488,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00188F20",
+    "address": 1609504,
+    "kind": "A",
+    "row_end": 1609624,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_001A69E0",
+    "address": 1731040,
+    "kind": "A",
+    "row_end": 1731060,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_001B899C",
+    "address": 1804700,
+    "kind": "A",
+    "row_end": 1804776,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_001B979C",
+    "address": 1808284,
+    "kind": "A",
+    "row_end": 1808748,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_001DE86C",
+    "address": 1960044,
+    "kind": "A",
+    "row_end": 1960088,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_001E6E5C",
+    "address": 1994332,
+    "kind": "A",
+    "row_end": 1994436,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00216F1C",
+    "address": 2191132,
+    "kind": "A",
+    "row_end": 2191156,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00243FF8",
+    "address": 2375672,
+    "kind": "A",
+    "row_end": 2375684,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_002527D8",
+    "address": 2435032,
+    "kind": "A",
+    "row_end": 2435064,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00257ED0",
+    "address": 2457296,
+    "kind": "A",
+    "row_end": 2457460,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00257F74",
+    "address": 2457460,
+    "kind": "A",
+    "row_end": 2457480,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00257F88",
+    "address": 2457480,
+    "kind": "A",
+    "row_end": 2457572,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0025BD08",
+    "address": 2473224,
+    "kind": "A",
+    "row_end": 2473240,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00268FE8",
+    "address": 2527208,
+    "kind": "A",
+    "row_end": 2527276,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0026AD40",
+    "address": 2534720,
+    "kind": "A",
+    "row_end": 2534744,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0026AF80",
+    "address": 2535296,
+    "kind": "A",
+    "row_end": 2535328,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0026AFBC",
+    "address": 2535356,
+    "kind": "A",
+    "row_end": 2535380,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0026EE44",
+    "address": 2551364,
+    "kind": "A",
+    "row_end": 2551384,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0027361C",
+    "address": 2569756,
+    "kind": "A",
+    "row_end": 2570164,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00274AA8",
+    "address": 2575016,
+    "kind": "A",
+    "row_end": 2575752,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00275054",
+    "address": 2576468,
+    "kind": "A",
+    "row_end": 2577384,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_002753E8",
+    "address": 2577384,
+    "kind": "A",
+    "row_end": 2577684,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00275638",
+    "address": 2577976,
+    "kind": "A",
+    "row_end": 2578076,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00275748",
+    "address": 2578248,
+    "kind": "A",
+    "row_end": 2578432,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0027654C",
+    "address": 2581836,
+    "kind": "A",
+    "row_end": 2581896,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_002765A8",
+    "address": 2581928,
+    "kind": "A",
+    "row_end": 2581968,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_002765D0",
+    "address": 2581968,
+    "kind": "A",
+    "row_end": 2581992,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00276660",
+    "address": 2582112,
+    "kind": "A",
+    "row_end": 2582172,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00276774",
+    "address": 2582388,
+    "kind": "A",
+    "row_end": 2582432,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_002767A0",
+    "address": 2582432,
+    "kind": "A",
+    "row_end": 2582544,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00276858",
+    "address": 2582616,
+    "kind": "A",
+    "row_end": 2582640,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_00277658",
+    "address": 2586200,
+    "kind": "A",
+    "row_end": 2586208,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0027B31C",
+    "address": 2601756,
+    "kind": "A",
+    "row_end": 2601776,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0027BAAC",
+    "address": 2603692,
+    "kind": "A",
+    "row_end": 2603708,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0028E1E4",
+    "address": 2679268,
+    "kind": "A",
+    "row_end": 2679344,
+    "row_type": "f"
+  },
+  {
+    "symbol": "fn_0032BD64",
+    "address": 3325284,
+    "kind": "A",
+    "row_end": 3325292,
+    "row_type": "f"
+  }
+]

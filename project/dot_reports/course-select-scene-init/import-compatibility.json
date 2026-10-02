@@ -1,0 +1,759 @@
+{
+  "ref_heads": {
+    "refs/heads/dot/5025-packet-integration": "5025a6cd5ec8531fb1bc40ff4b570a0c01ef201c",
+    "refs/heads/dot/57f-packet-integration": "57f902421f6874f132d5ea971d1aa5b224c5a528",
+    "refs/heads/dot/a4f-packet-integration": "a4f1579f9f0f13dacfe91d92501cf74154c131ad",
+    "refs/heads/dot/actor-init-byaml": "4b0a9128f688b933df7eea2aa202f6253dcb416a",
+    "refs/heads/dot/actor-scale-reader": "6446a5bfb53b2ea2183f04745e5977ead9a97ee8",
+    "refs/heads/dot/area-cube": "15b86c1261540e76259cb58f2ad053d8b2ed349a",
+    "refs/heads/dot/area-cube-intersection": "531f1b944c41fed92651305bfdeeb637eb53ab07",
+    "refs/heads/dot/audio-disable-byte-state": "6518b13c5f88ed6d6b6f458c3be35407eecd879a",
+    "refs/heads/dot/beat-block-holder-init": "3795d021f883d46fb69cead8a82243ace2d03002",
+    "refs/heads/dot/block-dragon-init": "d47fe01cf42d89aae7acbf1306f47ed0526d4426",
+    "refs/heads/dot/bomb-hei-control": "4f2a1c0403218badcad1aed9975fe6cc2bc1c19e",
+    "refs/heads/dot/bomb-product-layout": "838a354ac3aecdc39887340aa1f29cc54fab2736",
+    "refs/heads/dot/bomb-product-layout-report": "81e753ac52ffe72caa07c54ab797b19082fc1d45",
+    "refs/heads/dot/bubble-init-literals": "cbf8ff77d73a7439a8604f480b8fa3968e822ce7",
+    "refs/heads/dot/byaml-component-metadata": "0a693e93508e8bda2ac8de8a34c613fc59fdd3d5",
+    "refs/heads/dot/byaml-data-key-reader": "f77d544888650d27eafcb5c73690184246cab624",
+    "refs/heads/dot/byaml-string-getter": "ef6f03542b3d39e343f9652b39198e07cda03529",
+    "refs/heads/dot/cfl-texture-root": "325a26b44eced9173b6a9f08fabe3d200a0473eb",
+    "refs/heads/dot/clean-main-audit": "a74ef6247dcf52073d9b05fd0e091aa7e3579563",
+    "refs/heads/dot/collider-b16-recheck": "5e5c56f137e31313109ffc4c38ce34b1225e7561",
+    "refs/heads/dot/collider-invalidation": "22b76f7a1df175170a24fe835e5a0f33172390c7",
+    "refs/heads/dot/course-list-residual": "7ccde0ac3c5d0118800a65372d1382dabf6149c9",
+    "refs/heads/dot/course-select-scene-init": "8164705dd179a9252ea1bc39d10851c6c0752632",
+    "refs/heads/dot/current-main-validation": "684e2381159b3e9a3444893f581840582a46d6ee",
+    "refs/heads/dot/current-proposal-preservation": "36a86e9b72b5b7cd90d0f853871ba308cada32ed",
+    "refs/heads/dot/display-initializer-28f9dc": "1fdb12fcbc747e87a8b5db4b95d31ccfae6145b5",
+    "refs/heads/dot/dual-screen-method-tree": "71ad7c479dfbad99a9ff71fa02bcbb607d30276b",
+    "refs/heads/dot/e2-packet-integration": "e2cbf8db72566da78fc16b77a5b90026bfd9ea0a",
+    "refs/heads/dot/e87-packet-integration": "e87d556cd4d993606a03e205b4604d863d718bd4",
+    "refs/heads/dot/effect-binding-identity": "3e26956d51589a1df4d3bb0121794c198148ea2b",
+    "refs/heads/dot/effect-math-import-8991": "48dc3ccbd958e33cfecef040c43f283f62a09c3c",
+    "refs/heads/dot/effect-resource-init": "9a6d9788ab300d3b6a1c3ea63f430d4520e28880",
+    "refs/heads/dot/emitter-transform-2ecbd0": "00928bd3eb7a782caffde77db68845d32360f7b5",
+    "refs/heads/dot/executor-holder-residual": "08f91ec88c956712bd97c62b9182d5b3579afdae",
+    "refs/heads/dot/executor-kit-packets": "8c0dd474200d2d7bbf65b9b0b361a5f803a40698",
+    "refs/heads/dot/factory-identifiers": "a716a73b7f35c8a6f01ff9820bcd4bb08380bbb8",
+    "refs/heads/dot/file-handle-read-odr": "7d8afdb6230960e2504ac686ef7fd2f71d5daca9",
+    "refs/heads/dot/fixed-point-processor": "a749e484199d897552c271e571446f3cd32eb2aa",
+    "refs/heads/dot/graphics-declaration-integration": "2fe0650d8e667b59a450d11ae256799722a9562d",
+    "refs/heads/dot/integer-argument-packet": "bbc659c1bcae2970990c8bdde4ad82e0c2576153",
+    "refs/heads/dot/integer-state-root": "1ec65fc9013a6782fd5f3dcccbb705a4eec83834",
+    "refs/heads/dot/isolated-intake": "c2de8c23738a0ca8f4858869565e9b45626dd052",
+    "refs/heads/dot/item-holder-family": "bdf89e53cf9a21e88380b335813d6d6e61c950f1",
+    "refs/heads/dot/item-holder-ownership": "8df182f6163cd451369555eb712746f9553a2a08",
+    "refs/heads/dot/jpeg-root-2397a8": "32cc8f9cd90fdd466db551a3a395fff46ea4b506",
+    "refs/heads/dot/largest-root-current": "f15d147ee0d9b25dc8933f16dcea1eb6b9693715",
+    "refs/heads/dot/largest-root-layout": "29310b0d4c1d68953778330ab57ed5dff7241352",
+    "refs/heads/dot/latest-clean-audit": "58499c26f836bacfbe5d271642e57c4178d04561",
+    "refs/heads/dot/latest-main-validation": "6b74a275309173bde0164b87b86ddba33f8263d3",
+    "refs/heads/dot/list-clear-audit": "d3a5f3db1339b360aa6674bc4e0c289adcc033ea",
+    "refs/heads/dot/list-sentinel-construction": "493cb648893c2c5be4ad21457b808ab211bfc743",
+    "refs/heads/dot/main-intake-validation": "f41cb6229a64e3238c83b469a951444e3dd9f129",
+    "refs/heads/dot/matrix-inverse-ieee": "5aa3339c953d03f10548494b7bb217964ec90948",
+    "refs/heads/dot/matrix-native-layouts": "87b07eeadb252bd8b66f4781efe53a1d8b9a94f2",
+    "refs/heads/dot/new-effect-packets": "8cf3391f553e6daacde91b42b371e63a6aab36fc",
+    "refs/heads/dot/note-generator-init": "e70e77a66f4768bd5b7d31469ef60571fef161d6",
+    "refs/heads/dot/packed-state-root": "51d9a0c1459963917a2a2f73051fa8af11ed6728",
+    "refs/heads/dot/packet-integration-a74": "4ff711bdcb4304008813f6cfbdf5e609a15bab2e",
+    "refs/heads/dot/packet-priority-validation": "b294c8e8c3424f9893407c339347b1ce31863437",
+    "refs/heads/dot/particle-editor-parameters": "646a14e2d07ff73717ac524403ca470e271067f3",
+    "refs/heads/dot/particle-shape-2a451c": "d65414a32464f5d68cf920d6fdfb6c66a884e645",
+    "refs/heads/dot/pending-exact-integration": "f8e6da9a4b701cb143daf63c89d069218db34c7f",
+    "refs/heads/dot/player-action-builder-source": "958b879f4e2a6980505695fcacc2224935249811",
+    "refs/heads/dot/player-actor-family-45a": "1837a2f4d9a7b95a5406d8e8d14683b646b909cc",
+    "refs/heads/dot/program-link-root": "1c6f030b5c64ce09cd0a00695ee4218888cfb88b",
+    "refs/heads/dot/program-state-root": "a67da622a95949b7213e6475c19cc4a5e4f3897d",
+    "refs/heads/dot/proposal-preservation-report": "5c9c99281729d9595422e79859551bb4c9dc8801",
+    "refs/heads/dot/quaternion-matrix-layout": "10ed1be60097f7d1bd138c20ccbae176fde26914",
+    "refs/heads/dot/rail-rider-construction": "27047bf018fc827918a6da4878f83c0a8423f8a0",
+    "refs/heads/dot/request-keeper-residual-8991": "91070b64879b061fe8540213a4b36640f35c36f4",
+    "refs/heads/dot/resource-construction-298c58": "0a3ea889700c86b90551aabbd90ab29d4e55d829",
+    "refs/heads/dot/resource-particle-family-8991": "6f854591fe3370ef10b5976f5ee11ca0024eb7a1",
+    "refs/heads/dot/root-130438": "ee962a4a096d6001d65211dacd735cbf7ed252a3",
+    "refs/heads/dot/root-1c6410": "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c",
+    "refs/heads/dot/root-1dfb44": "283ae00173fe4224e810e04f9d2ff4c0cd4c1fe3",
+    "refs/heads/dot/root-1eeba8": "93e3e9817771d1512986ecdbc07d40cc9569e927",
+    "refs/heads/dot/root-22f804": "240e6ce111ebe3e50a8e74caea801919b62cf98a",
+    "refs/heads/dot/root-230794": "077c6a475a125216a4fac977c61229ebe44e138f",
+    "refs/heads/dot/root-269a60": "868df7197ed2f307c6fa20e93c3622974875a981",
+    "refs/heads/dot/root-275828": "cd620f97827f8a0ea3c48aeb92c76660f639f613",
+    "refs/heads/dot/root-280798": "8ad9366461a5f8a4f8e30afc06ed9cb9acb658a8",
+    "refs/heads/dot/root-2eeb70": "a6bde63d849484c8ca451641b24032b8d4fc14d6",
+    "refs/heads/dot/root-33ba3c": "16f73469a7f5cd32943aa9647c7a8663a175ae0e",
+    "refs/heads/dot/root-33ce74": "021f5e1cfd5d2145ef08d4e84f1ab5627cb2036b",
+    "refs/heads/dot/root-3910c0": "8304fe09e7d148f2b0e3bbbb2bff7c70aaf74af2",
+    "refs/heads/dot/root-395114": "f7f27140bbd42d9ed69a0a6942f258463ff68bab",
+    "refs/heads/dot/root-39f3fc": "16ffdbe34c8e533a4b3b3a30c75df1be2385695c",
+    "refs/heads/dot/roulette-state-init": "802b255f733b467201aa0ecc6069314a48180958",
+    "refs/heads/dot/shader-full-validator": "d1870ea1921885e4c9bf56e5b69de57591dc5a77",
+    "refs/heads/dot/shader-partial-validator": "df55d6b6ac7f5d6075a6ba59ffa030131175739e",
+    "refs/heads/dot/shader-validator-initializer": "d8c4bfe3e8a65024eb03bfb126c45ec9e6061d34",
+    "refs/heads/dot/shadow-init": "f7b7697b41aefb88fb3287962d8efeb7fa1c16ba",
+    "refs/heads/dot/skeletal-animation-construction": "9d3f940fee5acaeddc18eb6885e582a268426931",
+    "refs/heads/dot/snapshot-3de": "3de056e0dcb33619c32f8b46ef64f74c90d28934",
+    "refs/heads/dot/snapshot-45a": "45a4305466a7c4cbd87589169384102e88f8d1b5",
+    "refs/heads/dot/snapshot-54d": "54d39734c4edffeeac012157ab71fb11c40d815b",
+    "refs/heads/dot/snapshot-754": "754f99a30a337756df5aa01c28b4ed6a977fecd5",
+    "refs/heads/dot/snapshot-861": "86104d96a7f570383bbfefc5fffad998e134496c",
+    "refs/heads/dot/snapshot-8991": "8991bec8cb27ff1a2dac0003f059d270a0b17493",
+    "refs/heads/dot/snapshot-b16": "b16e2a0cc32e0cdacac5ba94feabe67432433391",
+    "refs/heads/dot/snapshot-bc5": "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c",
+    "refs/heads/dot/snapshot-c2e": "c2e343e1d07a8b2d16b2c86bbf7b5bb9f65edda2",
+    "refs/heads/dot/sound-command-dispatcher": "bbb67bca76048605d2e757085301ddc0df4d6dad",
+    "refs/heads/dot/sound-start-22b6e8": "25b50ee2b2433bef3777f2033537ed7f755045ae",
+    "refs/heads/dot/sound-track-interpreter": "2294399f464e422dff6bd0c8ff7ad36d79ea3b81",
+    "refs/heads/dot/street-pass-init": "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673",
+    "refs/heads/dot/string-current-metadata": "d41966fb139f84e8827c7623f8ce0fddf7f20c94",
+    "refs/heads/dot/string-header-regression": "97a92e5b6c5dd911377c677e5e22840de701a508",
+    "refs/heads/dot/string-layer-integration": "86844777f5ac500db3c17c3abd9a87e230785a10",
+    "refs/heads/dot/swing-needle-roller": "64d7955c22ebbd6e6e8b9aaeb50aefd4beab7bb3",
+    "refs/heads/dot/texture-binding-state": "95940f5796310ca800ff1c649fc8efe2ed14ed04",
+    "refs/heads/dot/texture-surface-upload": "9afb977aace02ba36176b2b04ec50a12cc39eedc",
+    "refs/heads/dot/tree-b16-family": "1454120a760becbea77c2629f160f807355669c7",
+    "refs/heads/dot/tree-current-main": "f2f08a2b0185b5e4200baf5fa34a76a478b17183",
+    "refs/heads/dot/tree-push-front": "37844b080b6f7469fb06558c4d272883bc3b6ee6"
+  },
+  "refs_screened": 115,
+  "unique_source_header_blobs": 660,
+  "exact_symbol_hits": [
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "bf4d1e9ca891faae031eea0f9155c339179bfed8",
+      "paths": [
+        "lib/al/src/LiveActor/alActorInitByaml.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/actor-init-byaml"
+      ],
+      "line": 50,
+      "text": "void fn_00250FAC( void*, const char*, const char* );\nvoid fn_0028E1E4( void*, const char*, ... );\nActorInitByaml::String* fn_0028E350( void*, const char*, ... );"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "bf4d1e9ca891faae031eea0f9155c339179bfed8",
+      "paths": [
+        "lib/al/src/LiveActor/alActorInitByaml.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/actor-init-byaml"
+      ],
+      "line": 144,
+      "text": "                if ( suffix ) {\n                        fn_0028E1E4( &lightName, \"InitLight_%s\", suffix );\n                        if ( fn_00243A54( actor, lightName.cstr(), 0 ) ) name = lightName.cstr();"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "bf4d1e9ca891faae031eea0f9155c339179bfed8",
+      "paths": [
+        "lib/al/src/LiveActor/alActorInitByaml.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/actor-init-byaml"
+      ],
+      "line": 337,
+      "text": "                if ( suffix ) {\n                        fn_0028E1E4( &shadowName, \"InitShadow_%s\", suffix );\n                        if ( fn_00243A54( actor, shadowName.cstr(), 0 ) ) name = shadowName.cstr();"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "159118c38c1b17580a00defdba81b16b3e37cf91",
+      "paths": [
+        "lib/al/src/File/alFileFunction.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/actor-scale-reader",
+        "refs/heads/dot/area-cube-intersection",
+        "refs/heads/dot/beat-block-holder-init",
+        "refs/heads/dot/bomb-hei-control",
+        "refs/heads/dot/bomb-product-layout",
+        "refs/heads/dot/bomb-product-layout-report",
+        "refs/heads/dot/bubble-init-literals",
+        "refs/heads/dot/byaml-string-getter",
+        "refs/heads/dot/collider-b16-recheck",
+        "refs/heads/dot/collider-invalidation",
+        "refs/heads/dot/course-list-residual",
+        "refs/heads/dot/course-select-scene-init",
+        "refs/heads/dot/current-proposal-preservation",
+        "refs/heads/dot/display-initializer-28f9dc",
+        "refs/heads/dot/e87-packet-integration",
+        "refs/heads/dot/effect-math-import-8991",
+        "refs/heads/dot/effect-resource-init",
+        "refs/heads/dot/emitter-transform-2ecbd0",
+        "refs/heads/dot/executor-holder-residual",
+        "refs/heads/dot/executor-kit-packets",
+        "refs/heads/dot/file-handle-read-odr",
+        "refs/heads/dot/fixed-point-processor",
+        "refs/heads/dot/item-holder-family",
+        "refs/heads/dot/item-holder-ownership",
+        "refs/heads/dot/note-generator-init",
+        "refs/heads/dot/particle-editor-parameters",
+        "refs/heads/dot/particle-shape-2a451c",
+        "refs/heads/dot/player-actor-family-45a",
+        "refs/heads/dot/proposal-preservation-report",
+        "refs/heads/dot/request-keeper-residual-8991",
+        "refs/heads/dot/resource-construction-298c58",
+        "refs/heads/dot/resource-particle-family-8991",
+        "refs/heads/dot/root-130438",
+        "refs/heads/dot/root-1c6410",
+        "refs/heads/dot/root-1dfb44",
+        "refs/heads/dot/root-1eeba8",
+        "refs/heads/dot/root-22f804",
+        "refs/heads/dot/root-269a60",
+        "refs/heads/dot/root-275828",
+        "refs/heads/dot/root-280798",
+        "refs/heads/dot/root-2eeb70",
+        "refs/heads/dot/root-33ba3c",
+        "refs/heads/dot/root-33ce74",
+        "refs/heads/dot/root-395114",
+        "refs/heads/dot/root-39f3fc",
+        "refs/heads/dot/shader-validator-initializer",
+        "refs/heads/dot/skeletal-animation-construction",
+        "refs/heads/dot/snapshot-3de",
+        "refs/heads/dot/snapshot-45a",
+        "refs/heads/dot/snapshot-54d",
+        "refs/heads/dot/snapshot-754",
+        "refs/heads/dot/snapshot-861",
+        "refs/heads/dot/snapshot-8991",
+        "refs/heads/dot/snapshot-b16",
+        "refs/heads/dot/snapshot-bc5",
+        "refs/heads/dot/snapshot-c2e",
+        "refs/heads/dot/sound-command-dispatcher",
+        "refs/heads/dot/sound-start-22b6e8",
+        "refs/heads/dot/sound-track-interpreter",
+        "refs/heads/dot/street-pass-init",
+        "refs/heads/dot/texture-binding-state",
+        "refs/heads/dot/texture-surface-upload",
+        "refs/heads/dot/tree-b16-family",
+        "refs/heads/dot/tree-current-main",
+        "refs/heads/dot/tree-push-front"
+      ],
+      "line": 7,
+      "text": "\nextern \"C\" s32 fn_0028E1E4( sead::BufferedSafeString* receiver, const char* format, ... );\n"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "159118c38c1b17580a00defdba81b16b3e37cf91",
+      "paths": [
+        "lib/al/src/File/alFileFunction.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/actor-scale-reader",
+        "refs/heads/dot/area-cube-intersection",
+        "refs/heads/dot/beat-block-holder-init",
+        "refs/heads/dot/bomb-hei-control",
+        "refs/heads/dot/bomb-product-layout",
+        "refs/heads/dot/bomb-product-layout-report",
+        "refs/heads/dot/bubble-init-literals",
+        "refs/heads/dot/byaml-string-getter",
+        "refs/heads/dot/collider-b16-recheck",
+        "refs/heads/dot/collider-invalidation",
+        "refs/heads/dot/course-list-residual",
+        "refs/heads/dot/course-select-scene-init",
+        "refs/heads/dot/current-proposal-preservation",
+        "refs/heads/dot/display-initializer-28f9dc",
+        "refs/heads/dot/e87-packet-integration",
+        "refs/heads/dot/effect-math-import-8991",
+        "refs/heads/dot/effect-resource-init",
+        "refs/heads/dot/emitter-transform-2ecbd0",
+        "refs/heads/dot/executor-holder-residual",
+        "refs/heads/dot/executor-kit-packets",
+        "refs/heads/dot/file-handle-read-odr",
+        "refs/heads/dot/fixed-point-processor",
+        "refs/heads/dot/item-holder-family",
+        "refs/heads/dot/item-holder-ownership",
+        "refs/heads/dot/note-generator-init",
+        "refs/heads/dot/particle-editor-parameters",
+        "refs/heads/dot/particle-shape-2a451c",
+        "refs/heads/dot/player-actor-family-45a",
+        "refs/heads/dot/proposal-preservation-report",
+        "refs/heads/dot/request-keeper-residual-8991",
+        "refs/heads/dot/resource-construction-298c58",
+        "refs/heads/dot/resource-particle-family-8991",
+        "refs/heads/dot/root-130438",
+        "refs/heads/dot/root-1c6410",
+        "refs/heads/dot/root-1dfb44",
+        "refs/heads/dot/root-1eeba8",
+        "refs/heads/dot/root-22f804",
+        "refs/heads/dot/root-269a60",
+        "refs/heads/dot/root-275828",
+        "refs/heads/dot/root-280798",
+        "refs/heads/dot/root-2eeb70",
+        "refs/heads/dot/root-33ba3c",
+        "refs/heads/dot/root-33ce74",
+        "refs/heads/dot/root-395114",
+        "refs/heads/dot/root-39f3fc",
+        "refs/heads/dot/shader-validator-initializer",
+        "refs/heads/dot/skeletal-animation-construction",
+        "refs/heads/dot/snapshot-3de",
+        "refs/heads/dot/snapshot-45a",
+        "refs/heads/dot/snapshot-54d",
+        "refs/heads/dot/snapshot-754",
+        "refs/heads/dot/snapshot-861",
+        "refs/heads/dot/snapshot-8991",
+        "refs/heads/dot/snapshot-b16",
+        "refs/heads/dot/snapshot-bc5",
+        "refs/heads/dot/snapshot-c2e",
+        "refs/heads/dot/sound-command-dispatcher",
+        "refs/heads/dot/sound-start-22b6e8",
+        "refs/heads/dot/sound-track-interpreter",
+        "refs/heads/dot/street-pass-init",
+        "refs/heads/dot/texture-binding-state",
+        "refs/heads/dot/texture-surface-upload",
+        "refs/heads/dot/tree-b16-family",
+        "refs/heads/dot/tree-current-main",
+        "refs/heads/dot/tree-push-front"
+      ],
+      "line": 22,
+      "text": "{\n        ::fn_0028E1E4( out, \"LocalizedData/%s/%s\", al::getLanguageString(), archive.cstr() );\n}"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "159118c38c1b17580a00defdba81b16b3e37cf91",
+      "paths": [
+        "lib/al/src/File/alFileFunction.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/actor-scale-reader",
+        "refs/heads/dot/area-cube-intersection",
+        "refs/heads/dot/beat-block-holder-init",
+        "refs/heads/dot/bomb-hei-control",
+        "refs/heads/dot/bomb-product-layout",
+        "refs/heads/dot/bomb-product-layout-report",
+        "refs/heads/dot/bubble-init-literals",
+        "refs/heads/dot/byaml-string-getter",
+        "refs/heads/dot/collider-b16-recheck",
+        "refs/heads/dot/collider-invalidation",
+        "refs/heads/dot/course-list-residual",
+        "refs/heads/dot/course-select-scene-init",
+        "refs/heads/dot/current-proposal-preservation",
+        "refs/heads/dot/display-initializer-28f9dc",
+        "refs/heads/dot/e87-packet-integration",
+        "refs/heads/dot/effect-math-import-8991",
+        "refs/heads/dot/effect-resource-init",
+        "refs/heads/dot/emitter-transform-2ecbd0",
+        "refs/heads/dot/executor-holder-residual",
+        "refs/heads/dot/executor-kit-packets",
+        "refs/heads/dot/file-handle-read-odr",
+        "refs/heads/dot/fixed-point-processor",
+        "refs/heads/dot/item-holder-family",
+        "refs/heads/dot/item-holder-ownership",
+        "refs/heads/dot/note-generator-init",
+        "refs/heads/dot/particle-editor-parameters",
+        "refs/heads/dot/particle-shape-2a451c",
+        "refs/heads/dot/player-actor-family-45a",
+        "refs/heads/dot/proposal-preservation-report",
+        "refs/heads/dot/request-keeper-residual-8991",
+        "refs/heads/dot/resource-construction-298c58",
+        "refs/heads/dot/resource-particle-family-8991",
+        "refs/heads/dot/root-130438",
+        "refs/heads/dot/root-1c6410",
+        "refs/heads/dot/root-1dfb44",
+        "refs/heads/dot/root-1eeba8",
+        "refs/heads/dot/root-22f804",
+        "refs/heads/dot/root-269a60",
+        "refs/heads/dot/root-275828",
+        "refs/heads/dot/root-280798",
+        "refs/heads/dot/root-2eeb70",
+        "refs/heads/dot/root-33ba3c",
+        "refs/heads/dot/root-33ce74",
+        "refs/heads/dot/root-395114",
+        "refs/heads/dot/root-39f3fc",
+        "refs/heads/dot/shader-validator-initializer",
+        "refs/heads/dot/skeletal-animation-construction",
+        "refs/heads/dot/snapshot-3de",
+        "refs/heads/dot/snapshot-45a",
+        "refs/heads/dot/snapshot-54d",
+        "refs/heads/dot/snapshot-754",
+        "refs/heads/dot/snapshot-861",
+        "refs/heads/dot/snapshot-8991",
+        "refs/heads/dot/snapshot-b16",
+        "refs/heads/dot/snapshot-bc5",
+        "refs/heads/dot/snapshot-c2e",
+        "refs/heads/dot/sound-command-dispatcher",
+        "refs/heads/dot/sound-start-22b6e8",
+        "refs/heads/dot/sound-track-interpreter",
+        "refs/heads/dot/street-pass-init",
+        "refs/heads/dot/texture-binding-state",
+        "refs/heads/dot/texture-surface-upload",
+        "refs/heads/dot/tree-b16-family",
+        "refs/heads/dot/tree-current-main",
+        "refs/heads/dot/tree-push-front"
+      ],
+      "line": 27,
+      "text": "{\n        ::fn_0028E1E4( out, \"StageData/%s%s%d\", stageName, type, scenario );\n}"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "d6f801281cefcda3353209de7dafc8db070a30ed",
+      "paths": [
+        "lib/al/include/Effect/retail_ParticleEditorParameters.h"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 25,
+      "text": "// Preserve the formatter's established variadic BufferedSafeString interface.\ns32 fn_0028E1E4(sead::BufferedSafeString* receiver, const char* format, ...);\nvoid fn_0021F264(void*);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 54,
+      "text": "    p->integerLimit = 1000;\n    fn_0028E1E4(p->range0.string(), \"Min=%5.1f,Max=%5.1f\", -100.0, 100.0);\n    fn_0028E1E4(p->positive0.string(), \"Min=0,Max=%5.1f\", p->limit0);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 55,
+      "text": "    fn_0028E1E4(p->range0.string(), \"Min=%5.1f,Max=%5.1f\", -100.0, 100.0);\n    fn_0028E1E4(p->positive0.string(), \"Min=0,Max=%5.1f\", p->limit0);\n    fn_0028E1E4(p->range2.string(), \"Min=%5.1f,Max=%5.1f\", -p->limit2, p->limit2);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 56,
+      "text": "    fn_0028E1E4(p->positive0.string(), \"Min=0,Max=%5.1f\", p->limit0);\n    fn_0028E1E4(p->range2.string(), \"Min=%5.1f,Max=%5.1f\", -p->limit2, p->limit2);\n    fn_0028E1E4(p->positive2.string(), \"Min=0,Max=%5.1f\", p->limit2);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 57,
+      "text": "    fn_0028E1E4(p->range2.string(), \"Min=%5.1f,Max=%5.1f\", -p->limit2, p->limit2);\n    fn_0028E1E4(p->positive2.string(), \"Min=0,Max=%5.1f\", p->limit2);\n    fn_0028E1E4(p->smallPositive2.string(), \"Min=0,Max=%5.1f\", p->limit2 * 0.1f);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 58,
+      "text": "    fn_0028E1E4(p->positive2.string(), \"Min=0,Max=%5.1f\", p->limit2);\n    fn_0028E1E4(p->smallPositive2.string(), \"Min=0,Max=%5.1f\", p->limit2 * 0.1f);\n    fn_0028E1E4(p->autoRange1.string(), \"Min=%5.1f,Max=%5.1f,Menu=True,MenuDefault=Auto\", -p->limit1, p->limit1);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 59,
+      "text": "    fn_0028E1E4(p->smallPositive2.string(), \"Min=0,Max=%5.1f\", p->limit2 * 0.1f);\n    fn_0028E1E4(p->autoRange1.string(), \"Min=%5.1f,Max=%5.1f,Menu=True,MenuDefault=Auto\", -p->limit1, p->limit1);\n    fn_0028E1E4(p->autoPositive1.string(), \"Min=0,Max=%5.1f,Menu=True,MenuDefault=Auto\", p->limit1);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 60,
+      "text": "    fn_0028E1E4(p->autoRange1.string(), \"Min=%5.1f,Max=%5.1f,Menu=True,MenuDefault=Auto\", -p->limit1, p->limit1);\n    fn_0028E1E4(p->autoPositive1.string(), \"Min=0,Max=%5.1f,Menu=True,MenuDefault=Auto\", p->limit1);\n    fn_0028E1E4(p->autoRange3.string(), \"Min=%5.1f,Max=%5.1f,Menu=True,MenuDefault=Auto\", -p->limit3, p->limit3);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 61,
+      "text": "    fn_0028E1E4(p->autoPositive1.string(), \"Min=0,Max=%5.1f,Menu=True,MenuDefault=Auto\", p->limit1);\n    fn_0028E1E4(p->autoRange3.string(), \"Min=%5.1f,Max=%5.1f,Menu=True,MenuDefault=Auto\", -p->limit3, p->limit3);\n    fn_0028E1E4(p->autoPositive3.string(), \"Min=0,Max=%5.1f,Menu=True,MenuDefault=Auto\", p->limit3);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 62,
+      "text": "    fn_0028E1E4(p->autoRange3.string(), \"Min=%5.1f,Max=%5.1f,Menu=True,MenuDefault=Auto\", -p->limit3, p->limit3);\n    fn_0028E1E4(p->autoPositive3.string(), \"Min=0,Max=%5.1f,Menu=True,MenuDefault=Auto\", p->limit3);\n    fn_0028E1E4(p->integer0.string(), \"Min=0,Max=%d\", p->integerLimit);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 63,
+      "text": "    fn_0028E1E4(p->autoPositive3.string(), \"Min=0,Max=%5.1f,Menu=True,MenuDefault=Auto\", p->limit3);\n    fn_0028E1E4(p->integer0.string(), \"Min=0,Max=%d\", p->integerLimit);\n    fn_0028E1E4(p->integer1.string(), \"Min=1,Max=%d\", p->integerLimit);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 64,
+      "text": "    fn_0028E1E4(p->integer0.string(), \"Min=0,Max=%d\", p->integerLimit);\n    fn_0028E1E4(p->integer1.string(), \"Min=1,Max=%d\", p->integerLimit);\n    fn_0028E1E4(p->disabledRange0.string(), \"%s,IsEnable=False\", p->range0.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 65,
+      "text": "    fn_0028E1E4(p->integer1.string(), \"Min=1,Max=%d\", p->integerLimit);\n    fn_0028E1E4(p->disabledRange0.string(), \"%s,IsEnable=False\", p->range0.cstr());\n    fn_0028E1E4(p->disabledPositive0.string(), \"%s,IsEnable=False\", p->positive0.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 66,
+      "text": "    fn_0028E1E4(p->disabledRange0.string(), \"%s,IsEnable=False\", p->range0.cstr());\n    fn_0028E1E4(p->disabledPositive0.string(), \"%s,IsEnable=False\", p->positive0.cstr());\n    fn_0028E1E4(p->disabledPositive2.string(), \"%s,IsEnable=False\", p->positive2.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 67,
+      "text": "    fn_0028E1E4(p->disabledPositive0.string(), \"%s,IsEnable=False\", p->positive0.cstr());\n    fn_0028E1E4(p->disabledPositive2.string(), \"%s,IsEnable=False\", p->positive2.cstr());\n    fn_0028E1E4(p->disabledAutoRange1.string(), \"%s,IsEnable=False\", p->autoRange1.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 68,
+      "text": "    fn_0028E1E4(p->disabledPositive2.string(), \"%s,IsEnable=False\", p->positive2.cstr());\n    fn_0028E1E4(p->disabledAutoRange1.string(), \"%s,IsEnable=False\", p->autoRange1.cstr());\n    fn_0028E1E4(p->disabledAutoRange3.string(), \"%s,IsEnable=False\", p->autoRange3.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 69,
+      "text": "    fn_0028E1E4(p->disabledAutoRange1.string(), \"%s,IsEnable=False\", p->autoRange1.cstr());\n    fn_0028E1E4(p->disabledAutoRange3.string(), \"%s,IsEnable=False\", p->autoRange3.cstr());\n    fn_0028E1E4(p->disabledAutoPositive3.string(), \"%s,IsEnable=False\", p->autoPositive3.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 70,
+      "text": "    fn_0028E1E4(p->disabledAutoRange3.string(), \"%s,IsEnable=False\", p->autoRange3.cstr());\n    fn_0028E1E4(p->disabledAutoPositive3.string(), \"%s,IsEnable=False\", p->autoPositive3.cstr());\n    fn_0028E1E4(p->disabledInteger0.string(), \"%s,IsEnable=False\", p->integer0.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 71,
+      "text": "    fn_0028E1E4(p->disabledAutoPositive3.string(), \"%s,IsEnable=False\", p->autoPositive3.cstr());\n    fn_0028E1E4(p->disabledInteger0.string(), \"%s,IsEnable=False\", p->integer0.cstr());\n    fn_0028E1E4(p->disabledAutoPositive1.string(), \"%s,IsEnable=False\", p->autoPositive1.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 72,
+      "text": "    fn_0028E1E4(p->disabledInteger0.string(), \"%s,IsEnable=False\", p->integer0.cstr());\n    fn_0028E1E4(p->disabledAutoPositive1.string(), \"%s,IsEnable=False\", p->autoPositive1.cstr());\n    fn_0028E1E4(p->disabledInteger1.string(), \"%s,IsEnable=False\", p->integer1.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 73,
+      "text": "    fn_0028E1E4(p->disabledAutoPositive1.string(), \"%s,IsEnable=False\", p->autoPositive1.cstr());\n    fn_0028E1E4(p->disabledInteger1.string(), \"%s,IsEnable=False\", p->integer1.cstr());\n    fn_0028E1E4(p->autoPositive2.string(), \"%s,Menu=True,MenuDefault=Auto\", p->positive2.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 74,
+      "text": "    fn_0028E1E4(p->disabledInteger1.string(), \"%s,IsEnable=False\", p->integer1.cstr());\n    fn_0028E1E4(p->autoPositive2.string(), \"%s,Menu=True,MenuDefault=Auto\", p->positive2.cstr());\n    fn_0028E1E4(p->largeInteger0.string(), \"Min=0,Max=%d\", p->integerLimit * 10);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 75,
+      "text": "    fn_0028E1E4(p->autoPositive2.string(), \"%s,Menu=True,MenuDefault=Auto\", p->positive2.cstr());\n    fn_0028E1E4(p->largeInteger0.string(), \"Min=0,Max=%d\", p->integerLimit * 10);\n    fn_0028E1E4(p->largeInteger1.string(), \"Min=1,Max=%d\", p->integerLimit * 10);"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 76,
+      "text": "    fn_0028E1E4(p->largeInteger0.string(), \"Min=0,Max=%d\", p->integerLimit * 10);\n    fn_0028E1E4(p->largeInteger1.string(), \"Min=1,Max=%d\", p->integerLimit * 10);\n    fn_0028E1E4(p->disabledLargeInteger0.string(), \"%s,IsEnable=False\", p->largeInteger0.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 77,
+      "text": "    fn_0028E1E4(p->largeInteger1.string(), \"Min=1,Max=%d\", p->integerLimit * 10);\n    fn_0028E1E4(p->disabledLargeInteger0.string(), \"%s,IsEnable=False\", p->largeInteger0.cstr());\n    fn_0028E1E4(p->disabledLargeInteger1.string(), \"%s,IsEnable=False\", p->largeInteger1.cstr());"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 78,
+      "text": "    fn_0028E1E4(p->disabledLargeInteger0.string(), \"%s,IsEnable=False\", p->largeInteger0.cstr());\n    fn_0028E1E4(p->disabledLargeInteger1.string(), \"%s,IsEnable=False\", p->largeInteger1.cstr());\n"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "809306f4ca571ba4a5addb8f16b4be5b360720ea",
+      "paths": [
+        "lib/al/src/Effect/retail_ParticleEditorParameters.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/particle-editor-parameters"
+      ],
+      "line": 113,
+      "text": "    for (int i = 0; i < 16; ++i)\n        fn_0028E1E4(p->indexed[i].string(), \"[%d]\", i);\n    // The labels are Japanese \"numeric value 1/2\" in the executable's Shift-JIS."
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "e0b6f7e97aa6389d151f90fc2c957cf332d305cd",
+      "paths": [
+        "Game/backup/src/Player/PlayerActorInitSpecial.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/player-actor-family-45a"
+      ],
+      "line": 105,
+      "text": "void fn_0015BC90( void*, const al::ActorInitInfo*, const void*, const char*, unsigned int, unsigned int );\nint fn_0028E1E4( void*, const char*, ... );\nextern const unsigned char dat_003D0BE8[];"
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "blob": "e0b6f7e97aa6389d151f90fc2c957cf332d305cd",
+      "paths": [
+        "Game/backup/src/Player/PlayerActorInitSpecial.cpp"
+      ],
+      "refs": [
+        "refs/heads/dot/player-actor-family-45a"
+      ],
+      "line": 291,
+      "text": "                fn_0015BC90( _118, &info, value, name, arg4, arg5 );\n                fn_0028E1E4( &alternateName, \"%sRaccoonDog\", fn_001850E0( i ) );\n                arg5 = fn_00185004( i );"
+    },
+    {
+      "symbol": "dat_003D7ABC",
+      "blob": "afa35f757950111504321ee3659fb7461934ece7",
+      "paths": [
+        "lib/al/include/Light/LightDataDirector1C6410.h"
+      ],
+      "refs": [
+        "refs/heads/dot/root-1c6410"
+      ],
+      "line": 18,
+      "text": "extern \"C\" void fn_00292D20(dot1c6410::Color*);\nextern \"C\" const unsigned int dat_003D7ABC[];\n"
+    },
+    {
+      "symbol": "dat_003D7ABC",
+      "blob": "afa35f757950111504321ee3659fb7461934ece7",
+      "paths": [
+        "lib/al/include/Light/LightDataDirector1C6410.h"
+      ],
+      "refs": [
+        "refs/heads/dot/root-1c6410"
+      ],
+      "line": 29,
+      "text": "    char storage[128];\n    Path() : table(dat_003D7ABC), data(storage), capacity(128) {\n        storage[127] = storage[0] = 0;"
+    }
+  ]
+}

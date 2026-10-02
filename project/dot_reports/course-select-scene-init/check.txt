@@ -1,0 +1,1 @@
+U -> M: The complete compiled section, including its literal pool, has a different size from the original interval.
