@@ -1,23 +1,13 @@
-# Root port runtime state
+# Root rendered-frame capture state
 
-Owner priority is the browser demo, then byte exact. Root works only on port runtime and has one helper maximum. Only the integrator moves main/ranks/ledger. Generated code, timing tables, captures and tools stay ignored.
+Owner priority is the browser demo, then byte exact. Root is port-only with at most one helper. Only the integrator changes main/ranks/ledger. Owner-derived images, snapshots, movies, binaries and generated code remain ignored.
 
-## Current ownership and submissions
+Root/rendered-frame-capture starts from main b93bd187bc0a7e7bd5e91294f80e9eaf5a122ca1. Root owns the optional native/reference software presentation observer and documentation; its helper owns tools/static_recompiler/compare_rendered_capture.py. This finished source-only family has no matching build input or claims. Integrator acceptance is separate from the observed local runtime result.
 
-This root/native-block-scheduling family starts from main 00986a9698620c3e92aa62d3ccda72907552928f. It owns the generation-time block schedule, native scheduling adapter, bounded stock/native observation tools and platform evidence. No matching build input changes or exact-function claims. The finished family is submitted under root/native-block-scheduling with no claims. Check .integrator/results/ for its verdict and never resubmit while pending.
+Root/native-block-scheduling was accepted at28828aca. Port milestone1 passes two final native replays: all528 raw reference events/ticks and79936 PICA bytes exact,226978430 instructions,zero fallback. Native coverage remains2437712 original linked instruction bytes. Accepted-source bindings beyond the clean priority function remain incomplete.
 
-Root/azahar-static-platform was accepted at c1b16b46. Root/azahar-floating-point-control was accepted at 00bbfb2f. Both have zero matching credit. The earlier calendar placement proposal was rejected because the constructor claim was not exact; root is now port-only. Main moves solely through the integrator.
+Port milestone2 has bounded native software-rendering evidence. Presentation60 shows the title logo at400x240. Stock replay and two native replays agree on1430 raw events/ticks,95 PICA lists/765728 bytes,691200 RGBA bytes and345600 raw framebuffer bytes. Each native run executes343255755 guest instructions,zero interpreter/JIT fallback. Root and helper inspected the title logo locally. The first presentation is black and supplies no visible-rendering credit. Source hashes, reports, bounds and rerunnable commands are in project/rendered_frame_capture_evidence.md and tools/static_recompiler/RENDERING.md. Browser/WebGPU and later scenes remain open.
 
-## Observed checkpoint
+Next3 tasks: submit this observer/comparator family and monitor its verdict without resubmitting; implement deterministic nonzero reference input plus strict native replay; then capture and verify audio output before World1-1 state replay and the browser build. Class/ABI questions go to Pro. No new layout reconstruction by root.
 
-Port milestone 1 passes: two fresh native replays match all 528 reference events including ticks, all eight PICA lists/79,936 bytes, complete first top-screen swap and zero Movie errors. Native CPU0 executes 226,978,430 instructions; CPU1 executes zero; neither has interpreter/JIT fallback. Linked coverage remains 2,437,712 original function instruction bytes. Seven independent stock scheduling controls and startup/2,048 integer/4,105 priority/88,064 floating-point controls pass. See project/native_block_scheduling_evidence.md and ignored build/scheduled_capture_2_comparison.json, scheduled_capture_3_comparison.json and scheduled_capture_final_repeat_comparison.json in this worktree.
-
-The boundary is startup through SetBufferSwap, not a visibly presented frame. Rendering, input, audio, World 1-1 and browser milestones remain unverified. Only the clean priority source is registered natively; other rank-O bindings are incomplete. Logical cache visitation and the atomic priority scheduling adapter have explicit limits.
-
-## Next three tasks
-
-1. Submit this finished family, then capture and compare native/reference rendered framebuffers at a meaningful present boundary. Begin milestone 2 on root/<topic> from main.
-2. Build accepted-source guest-address lowering and a fail-closed per-address binding inventory. Pro's native-decompiled-function-abi answer is a proposal, not a verified compiler implementation.
-3. Advance input, audio, World 1-1 differential replay and the browser runtime in milestone order. Keep .integrator/port_status.json current with rerunnable evidence. Preserve failed captures and clean only root-owned scratch.
-
-No owner question blocks the work. One helper audited metadata and investigates public rendering APIs. Acceptance/merge-gate duties remain with the integrator. No accepted matching bytes are attributed to these port-only families.
+No owner question blocks independent work. Main acceptance and merge gates belong to the integrator. These port families add zero matching credit.
