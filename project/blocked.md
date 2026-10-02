@@ -110,3 +110,5 @@ No functional NonMatching claim or production source intake follows from these s
 ### 0x0024C9EC Collider::onInvalidate
 
 Four source forms remain8 bytes different over88 complete bytes under791/894. Proposed result layout also changes4 accepted bytes in isCollidedGround, so source/header intake is held. Eight target and four preservation compiles succeeded. No exact or functional credit. Packet: project/pro_requests/0024C9EC.md. Other work and a new preservation-safe scheduling hypothesis are required before another local pass.
+
+- FileHandle::read002D9AB8,64bytes: four unsuccessful source forms under791/894, best64bytes/23differences. Wrapper omitted from acceptedFileDevice source; no functionalNonMatching claim. Packet project/pro_requests/002D9AB8.md preserves ordinary call-boundary evidence and all forms. Other work precedes a coordinated requeue.
