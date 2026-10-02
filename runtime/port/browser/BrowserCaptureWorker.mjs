@@ -7,6 +7,7 @@ const MaximumEventBytes = 256 * 1024 * 1024;
 const MaximumEvents = 2000000;
 const MaximumLogBytes = 16 * 1024 * 1024;
 const MaximumLineBytes = 64 * 1024;
+const MaximumAudioBytes = 64 * 1024 * 1024;
 const TransferTimeoutMilliseconds = 30000;
 const UInt32Maximum = 0xffffffff;
 const encoder = new TextEncoder();
@@ -61,7 +62,13 @@ function validateStart(value) {
         typeof value.capture_identifier === 'string' &&
         /^[A-Za-z0-9_-]{1,64}$/.test(value.capture_identifier), 'Invalid start descriptor');
     record(value.inputs, ['dump', 'block_schedule', 'movie', 'initial_user_files', 'initial_user_directories']);
-    record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes']);
+    const observationKeys = ['input_capture', 'audio_capture'].filter(key => Object.hasOwn(value.options, key));
+    record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
+    const inputCapture = Object.hasOwn(value.options, 'input_capture') ? value.options.input_capture : false;
+    const audioCapture = Object.hasOwn(value.options, 'audio_capture') ? value.options.audio_capture : false;
+    requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
+        (!audioCapture || inputCapture) &&
+        (!(inputCapture || audioCapture) || value.options.presentation_limit !== null), 'Invalid observation profile');
     if (value.options.presentation_limit !== null) integer(value.options.presentation_limit, 3600, 1);
     integer(value.options.wall_time_seconds, 3600, 1);
     integer(value.options.pica_payload_limit_bytes, 1024 ** 3, 1);
@@ -102,7 +109,8 @@ function validateStart(value) {
     }
     requireCondition(inputs.reduce((sum, input) => sum + input.expected_bytes, 0) <= MaximumOutputBytes,
                      'Input extent exceeds the finite worker bound');
-    return {...value, validated_inputs: inputs};
+    return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture},
+            validated_inputs: inputs};
 }
 
 function send(message, transfer = []) {
@@ -362,6 +370,94 @@ function softwareScreens(presentation, entries) {
     });
 }
 
+function observationRecords(entry, accept) {
+    requireCondition(entry && entry.size > 0 && entry.size <= MaximumAudioBytes, 'Observation extent is invalid');
+    const decoder = new TextDecoder('utf-8', {fatal: true});
+    let pending = '';
+    let count = 0;
+    function consume(text) {
+        pending += text;
+        let newline;
+        while ((newline = pending.indexOf('\n')) !== -1) {
+            requireCondition(++count <= MaximumEvents, 'Observation event count exceeds bound');
+            accept(parseRecord(pending.slice(0, newline)));
+            pending = pending.slice(newline + 1);
+        }
+        requireCondition(encoder.encode(pending).length <= MaximumLineBytes, 'Observation line exceeds bound');
+    }
+    readChunks(`/capture/${entry.relative_path}`, entry.size, buffer => consume(decoder.decode(buffer, {stream: true})));
+    consume(decoder.decode());
+    requireCondition(pending === '', 'Observation has an incomplete final line');
+}
+
+function validateObservations(presentation, entries) {
+    if (!descriptor.options.input_capture && !descriptor.options.audio_capture) return {};
+    requireCondition(presentation, 'Observations need a software presentation');
+    const configurationEntry = entries.get('capture_configuration.json');
+    requireCondition(configurationEntry, 'Capture configuration is absent');
+    const configuration = parseRecord(readText('/capture/capture_configuration.json', configurationEntry.size, MaximumLineBytes));
+    const baseTicks = integer(configuration.base_ticks);
+    let inputOutcome;
+    let polls = 0;
+    let previousTicks = baseTicks;
+    let previousFrame = 0;
+    observationRecords(entries.get('input_events.jsonl'), event => {
+        requireCondition(!inputOutcome, 'Input observation continues after its outcome');
+        if (event.kind === 'input_outcome') {
+            record(event, ['sequence', 'kind', 'polls', 'complete']);
+            requireCondition(integer(event.sequence) === polls && integer(event.polls, MaximumEvents, 1) === polls &&
+                event.complete === true, 'Input observation is incomplete');
+            inputOutcome = event;
+            return;
+        }
+        record(event, ['sequence', 'kind', 'ticks', 'renderer_frame', 'pad_index', 'touch_index', 'buttons',
+            'delta_additions', 'delta_removals', 'circle_pad_x', 'circle_pad_y', 'touch_x', 'touch_y', 'touch_valid']);
+        requireCondition(event.kind === 'hid_input' && integer(event.sequence) === polls++, 'Input sequence disagrees');
+        const ticks = integer(event.ticks);
+        const frame = integer(event.renderer_frame);
+        requireCondition(ticks >= previousTicks && frame >= previousFrame && ticks <= presentation.ticks &&
+            frame <= presentation.renderer_frame, 'Input timing exceeds its presentation boundary');
+        previousTicks = ticks; previousFrame = frame;
+        integer(event.pad_index, 7); integer(event.touch_index, 7);
+        for (const key of ['buttons', 'delta_additions', 'delta_removals']) integer(event[key], UInt32Maximum);
+        integer(event.circle_pad_x, 154, -154); integer(event.circle_pad_y, 154, -154);
+        integer(event.touch_x, 319); integer(event.touch_y, 239); integer(event.touch_valid, 1);
+    });
+    requireCondition(inputOutcome, 'Input observation has no final outcome');
+    if (!descriptor.options.audio_capture) return {input: inputOutcome};
+    requireCondition(configuration.audio_sink === 'null', 'Audio observation must preserve the null sink');
+    let audioOutcome;
+    let blocks = 0;
+    previousTicks = baseTicks; previousFrame = 0;
+    observationRecords(entries.get('audio_events.jsonl'), event => {
+        requireCondition(!audioOutcome, 'Audio observation continues after its outcome');
+        if (event.kind === 'audio_outcome') {
+            record(event, ['sequence', 'kind', 'blocks', 'sample_frames', 'payload_bytes', 'complete']);
+            requireCondition(integer(event.sequence) === blocks && integer(event.blocks, MaximumEvents, 1) === blocks &&
+                integer(event.sample_frames) === blocks * 160 && integer(event.payload_bytes, MaximumAudioBytes, 1) === blocks * 640 &&
+                event.complete === true, 'Audio observation is incomplete');
+            audioOutcome = event;
+            return;
+        }
+        record(event, ['sequence', 'kind', 'ticks', 'renderer_frame', 'sample_rate', 'channels',
+            'sample_frames', 'first_sample_frame', 'payload_offset', 'payload_bytes']);
+        requireCondition(event.kind === 'audio_samples' && integer(event.sequence) === blocks &&
+            event.sample_rate === 32728 && event.channels === 2 && event.sample_frames === 160 &&
+            integer(event.first_sample_frame) === blocks * 160 && integer(event.payload_offset) === blocks * 640 &&
+            event.payload_bytes === 640, 'Audio sample extent disagrees');
+        const ticks = integer(event.ticks);
+        const frame = integer(event.renderer_frame);
+        requireCondition(ticks >= previousTicks && frame >= previousFrame && ticks <= presentation.ticks &&
+            frame <= presentation.renderer_frame, 'Audio timing exceeds its presentation boundary');
+        previousTicks = ticks; previousFrame = frame;
+        requireCondition(++blocks * 640 <= MaximumAudioBytes, 'Audio payload exceeds bound');
+    });
+    const pcm = entries.get('audio_pcm_s16le.bin');
+    requireCondition(audioOutcome && pcm && pcm.size === audioOutcome.payload_bytes, 'Audio PCM extent disagrees');
+    return {input: inputOutcome, audio: {relative_path: pcm.relative_path, payload_bytes: pcm.size,
+        sample_rate: 32728, channels: 2, sample_frames: audioOutcome.sample_frames, blocks}};
+}
+
 async function exportFile(file, fileIndex) {
     const stream = module.FS.open(`/capture/${file.relative_path}`, 'r');
     try {
@@ -385,8 +481,9 @@ async function finish(status) {
     phase = 'validating';
     const {files, directories} = enumerateCapture();
     const {outcome, presentation, entries} = validateEvents(files);
+    const observations = validateObservations(presentation, entries);
     const log = entries.get('user/log/reference_capture.log');
-    requireCondition(log && !/(?:Movie|Audio) <Error>/.test(readText('/capture/user/log/reference_capture.log',
+    requireCondition(log && !/\b(?:Movie|Audio(?:\.[A-Za-z0-9_.]+)?|Service\.DSP)\s+<(?:Error|Critical)>/.test(readText('/capture/user/log/reference_capture.log',
         log.size, MaximumLogBytes)), 'Capture log is absent or reports Movie/Audio errors');
     const counters = stderr.flatMap(line => {
         const match = /^static CPU ([0-9]+) executed ([0-9]+) guest instructions; interpreter\/JIT fallbacks ([0-9]+)$/.exec(line);
@@ -396,7 +493,7 @@ async function finish(status) {
         new Set(counters.map(counter => counter.cpu_identifier)).size === counters.length, 'Invalid CPU counters');
     const screens = softwareScreens(presentation, entries);
     phase = 'exporting';
-    const manifest = {type: 'capture_manifest', files, directories, outcome, stdout, stderr, counters};
+    const manifest = {type: 'capture_manifest', files, directories, outcome, stdout, stderr, counters, observations};
     requireCondition(encoder.encode(JSON.stringify({schema_version: 1,
         capture_identifier: descriptor.capture_identifier, transfer_identifier: nextTransferIdentifier,
         ...manifest})).length <= MaximumLogBytes, 'Serialized capture metadata exceeds the finite bound');
@@ -448,6 +545,10 @@ async function start(value) {
             if (descriptor.options.presentation_limit !== null)
                 instance.ENV.ROOT_PORT_CAPTURE_PRESENTATION = String(descriptor.options.presentation_limit);
             else delete instance.ENV.ROOT_PORT_CAPTURE_PRESENTATION;
+            for (const [option, name] of [['input_capture', 'ROOT_PORT_CAPTURE_INPUTS'], ['audio_capture', 'ROOT_PORT_CAPTURE_AUDIO']]) {
+                if (descriptor.options[option]) instance.ENV[name] = '1';
+                else delete instance.ENV[name];
+            }
         }],
         print: line => captureLine(stdout, line), printErr: line => captureLine(stderr, line),
         onAbort: reason => fail(new Error(`Runtime aborted: ${reason}`)),

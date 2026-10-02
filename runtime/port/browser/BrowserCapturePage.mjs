@@ -1,17 +1,45 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
+import {CapturedAudioPlayback} from './BrowserCapturedAudio.mjs';
 const form = document.querySelector('#preview-form');
 const input = document.querySelector('#game-file');
 const button = document.querySelector('#run-preview');
 const status = document.querySelector('#capture-status');
 const error = document.querySelector('#capture-error');
+const soundButton = document.querySelector('#play-recorded-sound');
+const soundStatus = document.querySelector('#sound-status');
 let configuration;
 let session;
+let completedAudio;
+
+export function capturedAudio() { return completedAudio; }
+
+function discardAudio() {
+    const previous = completedAudio;
+    completedAudio = undefined;
+    previous?.dispose();
+    soundButton.hidden = true;
+    soundButton.disabled = false;
+    soundButton.textContent = 'Play recorded sound';
+    soundStatus.hidden = true;
+    soundStatus.textContent = '';
+    delete document.body.dataset.audioState;
+}
+
+window.addEventListener('pagehide', discardAudio);
+
+function audioChanged() {
+    if (!completedAudio) return;
+    soundButton.textContent = completedAudio.source ? 'Stop sound' : 'Play recorded sound';
+    soundStatus.textContent = completedAudio.source ? 'Playing the recorded sound.' : 'Recorded sound is ready.';
+    document.body.dataset.audioState = completedAudio.source ? 'playing' : 'ready';
+}
 
 function requireCondition(condition, message) {
     if (!condition) throw new Error(message);
 }
 
 function reportFailure(message) {
+    discardAudio();
     if (session) {
         clearTimeout(session.watchdog);
         session.abort.abort();
@@ -60,6 +88,17 @@ async function receive(active, message) {
     else if (message.type === 'capture_manifest') {
         requireCondition(!active.manifest, 'The capture manifest was repeated.');
         active.manifest = message;
+        if (configuration.options.audio_capture) {
+            const metadata = message.observations?.audio;
+            requireCondition(metadata?.relative_path === 'audio_pcm_s16le.bin' && metadata.channels === 2 &&
+                metadata.sample_rate === 32728 && Number.isSafeInteger(metadata.sample_frames) && metadata.sample_frames > 0 &&
+                Number.isSafeInteger(metadata.payload_bytes) && metadata.payload_bytes === metadata.sample_frames * 4 &&
+                metadata.payload_bytes <= 64 * 1024 * 1024, 'The recorded sound metadata is incomplete.');
+            const fileIndex = message.files.findIndex(file => file.relative_path === metadata.relative_path);
+            requireCondition(fileIndex !== -1 && message.files[fileIndex].size === metadata.payload_bytes,
+                             'The recorded sound file extent changed.');
+            active.audio = {metadata, fileIndex, offset: 0, pcm: new Uint8Array(metadata.payload_bytes)};
+        }
         await preserve(active, 'manifest', JSON.stringify(message));
         if (session !== active) return;
         status.textContent = 'Saving the captured frame…';
@@ -86,6 +125,15 @@ async function receive(active, message) {
                          'The capture transfer exceeds its bound.');
         await preserve(active, 'chunk', message.bytes,
                        {'X-Capture-File': String(message.file_index), 'X-Capture-Offset': String(message.offset)});
+        if (session !== active) return;
+        if (active.audio?.fileIndex === message.file_index) {
+            const audio = active.audio;
+            requireCondition(message.offset === audio.offset && message.total_bytes === audio.pcm.byteLength &&
+                message.bytes.byteLength > 0 && audio.offset + message.bytes.byteLength <= audio.pcm.byteLength,
+                'The recorded sound transfer is incomplete.');
+            audio.pcm.set(new Uint8Array(message.bytes), audio.offset);
+            audio.offset += message.bytes.byteLength;
+        }
         acknowledge(active, message);
     } else if (message.type === 'capture_completed') {
         requireCondition(active.manifest && (!configuration.options.presentation_limit || active.screens),
@@ -96,6 +144,14 @@ async function receive(active, message) {
         acknowledge(active, message);
     } else if (message.type === 'shutdown_complete') {
         requireCondition(active.completed, 'The worker closed before the capture was saved.');
+        if (configuration.options.audio_capture) {
+            requireCondition(active.audio && active.audio.offset === active.audio.pcm.byteLength,
+                             'The recorded sound did not finish transferring.');
+            completedAudio = new CapturedAudioPlayback(active.audio.metadata, active.audio.pcm, audioChanged);
+            soundButton.hidden = false;
+            soundStatus.hidden = false;
+            audioChanged();
+        }
         clearTimeout(active.watchdog);
         active.worker.terminate();
         session = undefined;
@@ -109,6 +165,7 @@ async function receive(active, message) {
 }
 
 input.addEventListener('change', () => {
+    discardAudio();
     error.hidden = true;
     button.disabled = !configuration || input.files.length !== 1;
     if (configuration) status.textContent = input.files.length ? 'Ready to run.' : 'Choose your game file to begin.';
@@ -119,6 +176,7 @@ form.addEventListener('submit', async event => {
     if (session) return reportFailure('The preview was stopped. Run it again to start a new capture.');
     let active;
     try {
+        discardAudio();
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
         requireCondition(file.size === configuration.inputs.dump.expected_bytes,
@@ -167,6 +225,19 @@ form.addEventListener('submit', async event => {
     } catch (problem) { if (!active || session === active) reportFailure(problem.message); }
 });
 
+soundButton.addEventListener('click', async () => {
+    const audio = completedAudio;
+    if (!audio) return;
+    if (audio.source) return audio.stop();
+    soundButton.disabled = true;
+    try { await audio.play(); }
+    catch (problem) { if (completedAudio === audio) {
+        soundStatus.textContent = problem.message;
+        document.body.dataset.audioState = 'failed';
+    } }
+    finally { if (completedAudio === audio) soundButton.disabled = false; }
+});
+
 try {
     requireCondition(crossOriginIsolated && typeof SharedArrayBuffer === 'function',
                      'Open this page through the local preview server to enable the runtime.');
@@ -176,6 +247,10 @@ try {
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
     if (configuration.options.presentation_limit === null)
         document.querySelector('#preview-note').textContent = 'This startup check captures the first GPU submission. Use the frame preview to see the game screens.';
+    else if (configuration.options.audio_capture)
+        document.querySelector('#preview-note').textContent = 'This preview replays recorded menu input and stops at a captured frame. You can then play its recorded sound. Live controls and continuous sound are still in progress.';
+    else if (configuration.options.input_capture)
+        document.querySelector('#preview-note').textContent = 'This preview replays recorded menu input and stops at a captured frame. Live controls and sound are still in progress.';
     status.textContent = 'Choose your game file to begin.';
     document.body.dataset.captureState = 'ready';
     button.disabled = input.files.length !== 1;

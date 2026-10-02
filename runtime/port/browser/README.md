@@ -2,7 +2,7 @@
 
 This surface runs the actual static ARM port in a dedicated ES-module worker. It mounts the owner's approved dump, timing schedule, movie and complete initial user tree as readonly WORKERFS input. The existing compiled CPU/HLE/PICA/software renderer runs on the SDK's proxy pthread. The page receives real captured RGBA screens, not packaged game images. Every output file and directory is exported to the local server for the unchanged differential comparators.
 
-This is a finite recorded-startup preview. Continuous gameplay, live browser input, audio playback, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
+This is a finite recorded replay. The optional input/audio profile observes the delivered movie input and the original HLE PCM, then offers explicit playback of that completed browser-generated sound. Continuous gameplay, live browser input, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
 
 ## Build
 
@@ -47,7 +47,37 @@ python tools/static_recompiler/verify_browser_execution.py \
   --exercise-controls --headed --keep-open
 ```
 
-The verifier selects the actual File, waits for actual shutdown, checks the complete exported tree and unchanged inputs, invokes the existing strict comparator and hashes both displayed canvas buffers against the original RGBA payloads. With --exercise-controls it first rejects a wrong-sized file, stops an active download and verifies a clean new capture. Desktop/mobile screenshots stay ignored; actual PNG dimensions, document geometry and loaded fonts are checked and recorded. The mobile review viewport is 390 × 1000 so both screens are captured without a short-viewport scrollbar crop. Use --first-swap in both server and verifier for the GPU-only boundary. The server's first-swap movie/snapshot comes from reference_fixed_io_0; the verifier's corrected floating-point oracle is reference_updated_floating_point_control_0. Each run receives a fresh capture identifier. The verifier closes its own browser unless --keep-open is explicit.
+The verifier selects the actual File, waits for actual shutdown, checks the complete exported tree and unchanged inputs, invokes the existing strict comparator and hashes both displayed canvas buffers against the original RGBA payloads. With --exercise-controls it first rejects a wrong-sized file, stops an active download and verifies a clean new capture. Desktop/mobile screenshots stay ignored; actual PNG dimensions, document geometry and loaded fonts are checked and recorded. The mobile review viewport is 390 × 1200, including the optional sound action, so both screens are captured without a short-viewport scrollbar crop. Use --first-swap in both server and verifier for the GPU-only boundary. The server's first-swap movie/snapshot comes from reference_fixed_io_0; the verifier's corrected floating-point oracle is reference_updated_floating_point_control_0. Each run receives a fresh capture identifier. The verifier closes its own browser unless --keep-open is explicit.
+
+## Recorded input and sound
+
+The version-one configuration accepts optional boolean input_capture and audio_capture options, absent options defaulting to false. The server supplies both explicitly. --observe-input captures movie-delivered HID; --observe-audio also enables input capture and the existing HLE observer. Both require a software-presentation boundary. No recording script or live device state replaces the readonly movie. Capture settings preserve the original null sink, audio event ticks and sample counts.
+
+For the verified menu movie, use the original input capture for serving the movie/snapshot and the original stock audio replay as the comparison oracle:
+
+```sh
+python tools/static_recompiler/serve_browser_execution.py \
+  /Users/exgota/super-mario-3d-land-browser/build/root_browser_execution/build/browser_module_submission \
+  build/browser_audio_server \
+  --block-schedule /Users/exgota/super-mario-3d-land-browser/build/root_native_block_scheduling/build/native_block_schedule_full/block_schedule.bin \
+  --reference /Users/exgota/super-mario-3d-land-browser/build/root_port_input/reference_scripted_360 \
+  --dump-sha256 c83f9175208b3d60898d3a6d60451bee3108521e409cace362f63b46dda8c976 \
+  --dump-bytes 536870912 --presentation-limit 360 --observe-audio \
+  --wall-time-seconds 360 --port 8782
+python tools/static_recompiler/verify_browser_execution.py \
+  http://127.0.0.1:8782 build/browser_audio_verification \
+  --dump /Users/exgota/super-mario-3d-land-browser/build/root_port_reference/owned_dump.3ds \
+  --server-output build/browser_audio_server \
+  --reference /Users/exgota/super-mario-3d-land-browser/build/root_port_audio/reference_scripted_360 \
+  --movie /Users/exgota/super-mario-3d-land-browser/build/root_port_input/reference_scripted_360/input_movie.ctm \
+  --observe-audio --exercise-controls --headed --keep-open --timeout-seconds 600
+```
+
+The audio profile invokes unchanged compare_audio_capture.py, including exact HID/movie/render checks and varying PCM. Input-only uses unchanged compare_input_capture.py. These are the existing menu-observation policies; they are not general acceptance policies for every possible silent or single-channel input sequence. A replay directory may lack its own movie, so pass the original --movie explicitly.
+
+The worker validates complete input/audio outcomes, event timing, contiguous sample offsets, PCM extent and the selected presentation before exporting. The page copies only acknowledged actual PCM chunks, at most 64 KiB each. It exposes sound only after successful capture shutdown, with a 64 MiB PCM bound. Signed-16 little-endian pairs map directly to two Float32 channels by division by 32768, at the original nominal 32728 Hz. No gain normalization, gap filling, channel mixing, synthetic samples or reference audio is used.
+
+The explicit Play recorded sound gesture creates/resumes the AudioContext and starts one completed clip. Stop and natural end return the action to its ready state. A new file, run or failure disposes the previous clip. Browser output can resample to the device's rate; original PCM and source-buffer equality do not claim bit-exact speaker output. The verifier checks every original PCM-derived Float32 sample, equal-rate OfflineAudioContext output, no autoplay, explicit play/stop and natural completion. This is completed-clip playback, not synchronized continuous audio or proof of recognizable speaker output.
 
 ## Identity and completion
 

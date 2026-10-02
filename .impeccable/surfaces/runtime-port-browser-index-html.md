@@ -2,12 +2,14 @@
 version: 1
 slug: "runtime-port-browser-index-html"
 primary_target: "runtime/port/browser/index.html"
-related_targets: ["runtime/port/browser/browser.css","runtime/port/browser/BrowserCapturePage.mjs"]
+related_targets: ["runtime/port/browser/browser.css","runtime/port/browser/BrowserCapturePage.mjs","runtime/port/browser/BrowserCapturedAudio.mjs"]
 ---
 
 # Local browser preview surface
 
-Scope: the owner selects their approved EU dump, runs one recorded startup, sees the actual two captured screens and receives a clear completion or failure. The local server stores exact replay output under ignored build/. This is an Operate surface. Interactive gameplay and audio playback are separate runtime work.
+Scope: the owner selects their approved EU dump, runs one recorded replay, sees the actual two captured screens and receives a clear completion or failure. The optional audio profile offers playback of its completed clip. The local server stores exact replay output under ignored build/. This is an Operate surface. Interactive gameplay and continuously synchronized audio are separate runtime work.
+
+Current expansion: the optional input/audio replay profile may expose one explicit Play recorded sound / Stop sound action after successful capture shutdown. It uses only the actual completed PCM from that browser run. Preserve the incumbent screen geometry, typography, palette and file/run flow. No autoplay, reference-sample substitution, continuous sound or live-control claim. The note distinguishes recorded menu output from playable controls.
 
 Routine choices follow the approved brief without an owner interview: plain HTML/CSS/ES modules, a single owned-file control and screens before implementation details. No owner-selected visual preference or standing workflow is claimed. The direction contract was persisted after the initial source pass; it does not claim an earlier approval.
 

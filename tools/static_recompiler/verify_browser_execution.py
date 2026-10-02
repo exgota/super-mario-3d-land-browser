@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import re
 import subprocess
+import struct
 import sys
 import time
 from urllib.parse import urlsplit
@@ -24,6 +25,9 @@ def main():
     parser.add_argument("--server-output", type=Path, required=True)
     parser.add_argument("--reference", type=Path, required=True)
     parser.add_argument("--first-swap", action="store_true")
+    parser.add_argument("--observe-input", action="store_true", help="require strict recorded HID parity")
+    parser.add_argument("--observe-audio", action="store_true", help="require strict PCM/input parity and real WebAudio play/stop")
+    parser.add_argument("--movie", type=Path, help="original recorded movie when the reference is a replay directory")
     parser.add_argument("--headed", action="store_true")
     parser.add_argument("--keep-open", action="store_true", help="leave only this verification browser open for inspection")
     parser.add_argument("--exercise-controls", action="store_true", help="verify file rejection, cancellation and recovery before the real capture")
@@ -38,6 +42,11 @@ def main():
         raise ValueError("Own ignored output directories are required")
     if not 1 <= args.timeout_seconds <= 7200:
         raise ValueError("Invalid external browser deadline")
+    configuration = json.loads((server_output / "configuration.json").read_text())
+    if (bool(configuration["options"].get("audio_capture")) != args.observe_audio or
+        bool(configuration["options"].get("input_capture")) != (args.observe_input or args.observe_audio) or
+        (configuration["options"]["presentation_limit"] is None) != args.first_swap):
+        raise ValueError("Server observation profile differs from the requested verification")
     dump = args.dump.resolve()
     protected_dump = {"path": str(dump), "sha256": digest(dump), "bytes": dump.stat().st_size}
     output.mkdir(parents=True)
@@ -164,15 +173,21 @@ def main():
                          "preserved_host_log": {"path": log_path, "reference_sha256": initial_files[log_path],
                                                 "browser_sha256": recorded_files[log_path],
                                                 "reason": "Unchanged host logging initialization precedes snapshot recording."}}
-    comparator = ROOT / "tools/static_recompiler" / ("compare_gpu_capture.py" if args.first_swap else "compare_rendered_capture.py")
+    comparator_name = ("compare_audio_capture.py" if args.observe_audio else "compare_input_capture.py" if args.observe_input
+                       else "compare_gpu_capture.py" if args.first_swap else "compare_rendered_capture.py")
+    comparator = ROOT / "tools/static_recompiler" / comparator_name
     comparison_path = output / "comparison.json"
     comparison_command = [sys.executable, str(comparator), str(args.reference.resolve()), str(capture),
                           "--report", str(comparison_path)]
+    if args.observe_input or args.observe_audio:
+        movie = args.movie.resolve() if args.movie else args.reference.resolve() / "input_movie.ctm"
+        comparison_command.extend(["--movie", str(movie)])
     with (output / "comparison.log").open("wb") as stream:
         comparison = subprocess.run(comparison_command, stdout=stream, stderr=subprocess.STDOUT, timeout=60)
     if comparison.returncode or json.loads(comparison_path.read_text()).get("passed") is not True:
         raise RuntimeError("Actual browser differential comparison refused")
     pixels = {}
+    audio = {}
     capture_viewports = {}
     if not args.first_swap:
         pixels = evaluate("async () => { const result = {}; for (const name of ['top-screen', 'bottom-screen']) { "
@@ -183,7 +198,60 @@ def main():
             payload = "rendered_screen_0.rgba" if name == "top-screen" else "rendered_screen_2.rgba"
             if screen["hidden"] or screen["sha256"] != receipt["files"][payload]:
                 raise RuntimeError("Displayed browser canvas bytes differ from exported original RGBA")
-        for name, width, height in (("desktop", 1440, 1080), ("mobile", 390, 1000)):
+        if args.observe_audio:
+            audio = evaluate("async () => { const player = (await import('./BrowserCapturePage.mjs')).capturedAudio(); "
+                "if (!player || !(player.buffer instanceof AudioBuffer)) throw new Error('No actual captured AudioBuffer'); "
+                "const identity = await player.identity(); const offline = new OfflineAudioContext(2, player.buffer.length, player.buffer.sampleRate); "
+                "const source = offline.createBufferSource(); source.buffer = player.buffer; source.connect(offline.destination); source.start(); "
+                "const rendered = await offline.startRendering(); const hashes = []; for (let channel = 0; channel < 2; ++channel) { "
+                "const samples = rendered.getChannelData(channel); const bytes = new ArrayBuffer(samples.length * 4); const view = new DataView(bytes); "
+                "for (let index = 0; index < samples.length; ++index) view.setFloat32(index * 4, samples[index], true); "
+                "hashes.push([...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(value => value.toString(16).padStart(2, '0')).join('')); } "
+                "return {identity, rendered_rate: rendered.sampleRate, rendered_frames: rendered.length, rendered_channels: rendered.numberOfChannels, "
+                "rendered_float32le_sha256: hashes, initial_context_absent: !player.context, initial_source_absent: !player.source}; }")
+            pcm_path = capture / "audio_pcm_s16le.bin"
+            pcm = pcm_path.read_bytes()
+            from hashlib import sha256
+            channel_hashes = [sha256(), sha256()]
+            for samples in struct.iter_unpack("<hh", pcm):
+                for channel, sample in enumerate(samples):
+                    channel_hashes[channel].update(struct.pack("<f", sample / 32768))
+            expected_hashes = [item.hexdigest() for item in channel_hashes]
+            if (audio["identity"]["pcm_sha256"] != digest(pcm_path) or
+                audio["identity"]["channel_float32le_sha256"] != expected_hashes or
+                audio["rendered_float32le_sha256"] != expected_hashes or audio["rendered_rate"] != 32728 or
+                audio["rendered_frames"] != len(pcm) // 4 or audio["rendered_channels"] != 2 or
+                not audio["initial_context_absent"] or not audio["initial_source_absent"]):
+                raise RuntimeError("Actual WebAudio conversion/offline output differs from the completed browser PCM")
+            # The observed menu is dual mono. A separate, channel-distinct
+            # signal checks byte order and channel assignment on the real graph.
+            fixture_samples = [(0, -32768), (32767, -12345), (-257, 513), (12345, -1)]
+            fixture_bytes = b"".join(struct.pack("<hh", *samples) for samples in fixture_samples)
+            audio["stereo_fixture"] = evaluate("async () => { const {CapturedAudioPlayback} = await import('./BrowserCapturedAudio.mjs'); "
+                "const bytes = new Uint8Array(" + json.dumps(list(fixture_bytes)) + "); const player = new CapturedAudioPlayback("
+                "{sample_rate: 32728, channels: 2, sample_frames: 4, payload_bytes: 16}, bytes, () => {}); "
+                "const offline = new OfflineAudioContext(2, 4, 32728); const source = offline.createBufferSource(); "
+                "source.buffer = player.buffer; source.connect(offline.destination); source.start(); const rendered = await offline.startRendering(); "
+                "const channels = [Array.from(rendered.getChannelData(0)), Array.from(rendered.getChannelData(1))]; "
+                "const identity = await player.identity(); player.dispose(); return {identity, channels}; }")
+            if audio["stereo_fixture"]["channels"] != [[pair[channel] / 32768 for pair in fixture_samples] for channel in range(2)]:
+                raise RuntimeError("Independent channel-distinct signed-16 fixture disagrees with the real WebAudio graph")
+            run(["run-code", "async (page) => { await page.getByRole('button', {name: 'Play recorded sound', exact: true}).click(); "
+                 "await page.waitForFunction(() => document.body.dataset.audioState === 'playing'); "
+                 "await page.waitForTimeout(150); await page.getByRole('button', {name: 'Stop sound', exact: true}).click(); "
+                 "await page.waitForFunction(() => document.body.dataset.audioState === 'ready'); }"])
+            run(["run-code", "async (page) => { await page.getByRole('button', {name: 'Play recorded sound', exact: true}).click(); "
+                 "await page.waitForFunction(() => document.body.dataset.audioState === 'playing'); "
+                 "await page.waitForFunction(() => document.body.dataset.audioState === 'ready', null, {timeout: 30000}); }"])
+            audio["playback"] = evaluate("async () => { const player = (await import('./BrowserCapturePage.mjs')).capturedAudio(); "
+                "return {events: player.events, context_state: player.context.state, context_time: player.context.currentTime, "
+                "context_rate: player.context.sampleRate, source_absent: !player.source, button: document.querySelector('#play-recorded-sound').textContent}; }")
+            if ([item["kind"] for item in audio["playback"]["events"]] != ["started", "stopped", "started", "ended"] or
+                audio["playback"]["context_state"] != "running" or not audio["playback"]["source_absent"] or
+                audio["playback"]["context_time"] <= len(pcm) / 4 / 32728):
+                raise RuntimeError("Actual explicit WebAudio play/stop/natural completion refused")
+            audio["scope"] = "Exact browser PCM and normalized Float32 source plus equal-rate offline graph; live AudioContext runs, stops and ends. Speaker fidelity and continuous synchronization unverified."
+        for name, width, height in (("desktop", 1440, 1080), ("mobile", 390, 1200)):
             code = "async (page) => { await page.setViewportSize({width: " + str(width) + ", height: " + str(height) + "}); "
             code += "await page.evaluate(() => document.fonts.ready); await page.screenshot({path: " + json.dumps(str(output / f"{name}.png")) + ", fullPage: true, animations: 'disabled'}); }"
             run(["run-code", code])
@@ -203,12 +271,14 @@ def main():
     result = {"passed": True, "capture": str(capture), "browser": evaluate("() => navigator.userAgent"),
               "states": states, "pixels": pixels, "capture_viewports": capture_viewports,
               "control_states": controls, "protected_dump": protected_dump,
+              "audio": audio,
               "snapshot_identity": snapshot_identity,
               "capture_receipt_sha256": digest(receipt_path), "capture_manifest_sha256": digest(manifest_path),
               "comparison_command": comparison_command, "comparison_sha256": digest(comparison_path),
               "comparator_sha256": digest(comparator), "source_sha256": digest(Path(__file__)),
               "scope": "Actual bounded browser startup, complete directory and guest-file preservation with raw host logs retained, strict raw differential replay "
-                       "and optional displayed frame bytes. No continuous gameplay, browser audio/input or World 1-1 claim."}
+                       "and optional displayed frame bytes, recorded HID/audio observations and explicit completed-clip WebAudio playback. "
+                       "No continuous gameplay, live HID/audio synchronization or World 1-1 claim."}
     (output / "result.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps({"passed": True, "capture": str(capture), "pixels": pixels, "scope": result["scope"]}), flush=True)
 
