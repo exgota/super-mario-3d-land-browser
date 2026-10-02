@@ -766,3 +766,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x002DA384,_ZN4sead11WriteStream8writeS16Es,matched,2,10.371056
 2026-10-02T00:11:52.904631+00:00,0x002DA3B0,_ZN4sead11WriteStream8writeS32Ei,matched,2,10.371056
 2026-10-02T00:11:52.904631+00:00,0x00136F64,_ZN2al12FallMapParts10receiveMsgEjPNS_9HitSensorES2_,matched,11,8.558081
+2026-10-02T00:11:52.904631+00:00,0x00136FF0,_ZN2al12FallMapParts4initERKNS_13ActorInitInfoE,matched,11,8.558081
