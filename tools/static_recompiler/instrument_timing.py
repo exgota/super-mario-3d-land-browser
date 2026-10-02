@@ -86,11 +86,18 @@ int main() { std::uint32_t pair[2]; while (std::cin.read(reinterpret_cast<char*>
             words = instruction.findall(match[3])
             if len(words) != int(match[2]):
                 raise RuntimeError(f"block instruction extent disagrees at {match[1]}")
-            ticks = sum(lookup[(len(opcode) == 4, int(opcode, 16))] for _, opcode in words)
-            if not ticks:
-                raise RuntimeError("empty block cost")
+            if len(words) != 1:
+                raise RuntimeError("timed generation requires one resumable instruction per budget")
+            _, opcode = words[0]
+            thumb, operation = len(opcode) == 4, int(opcode, 16)
+            ticks = lookup[(thumb, operation)]
+            condition = ((operation >> 8) & 15) if thumb and operation & 0xF000 == 0xD000 else (14 if thumb else operation >> 28)
+            expression = f"NativeConditionalTicks(ctx, {condition}, {ticks}ull)"
+            supervisor = (thumb and operation & 0xFF00 == 0xDF00) or (not thumb and operation & 0x0F000000 == 0x0F000000)
+            if supervisor:
+                expression = f"NATIVE_SUPERVISOR_TICKS({expression})"
             blocks += 1
-            return f"BUDGET(0x{match[1]}u, {match[2]}, {ticks}ull);" + match[3]
+            return f"BUDGET(0x{match[1]}u, {match[2]}, {expression});" + match[3]
         text = path.read_text().replace('#include "recomp.h"', '#include "NativeTiming.h"', 1)
         text = block.sub(replace, text)
         if re.search(r"BUDGET\(0x[0-9A-F]+u, \d+\);", text):

@@ -64,7 +64,11 @@ void StaticArmBackend::Run() {
         context.exit = EXIT_NONE;
         context.depth = 0;
         code(&context);
-        if (context.exit == EXIT_SVC) svc->CallSVC(context.svc);
+        if (context.exit == EXIT_SVC) {
+            svc->CallSVC(context.svc);
+            timer->AddTicks(supervisor_ticks);
+            supervisor_ticks = 0;
+        }
         if (context.exit == EXIT_BUDGET || reschedule || timer->GetDowncount() <= 0) return;
         if (context.r[15] == before_pc && instructions_executed == before_count)
             throw std::runtime_error("static CPU dispatch made no progress");
@@ -73,7 +77,8 @@ void StaticArmBackend::Run() {
 void StaticArmBackend::Step() { throw std::runtime_error("static CPU cannot single-step a translated basic block"); }
 void StaticArmBackend::ChargeBlock(u32, u32 instructions, u64 ticks) {
     instructions_executed += instructions;
-    timer->AddTicks(ticks);
+    if (ticks & (u64(1) << 63)) supervisor_ticks += ticks & ~(u64(1) << 63);
+    else timer->AddTicks(ticks);
     if (timer->GetDowncount() <= 0) context.budget = 0;
 }
 void StaticArmBackend::ClearInstructionCache() {}

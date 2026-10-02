@@ -64,6 +64,7 @@ private:
     bool reschedule = false;
     std::vector<u8*> callback_pages;
     u64 instructions_executed = 0;
+    u64 supervisor_ticks = 0;
     static const Host callbacks;
 };
 }
