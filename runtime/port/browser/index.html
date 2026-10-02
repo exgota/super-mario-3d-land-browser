@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Super Mario 3D Land · Local preview</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="browser.css">
+  <script type="module" src="BrowserCapturePage.mjs"></script>
+</head>
+<body>
+  <main>
+    <section class="preview" aria-label="Game screens">
+      <figure class="screen top-screen">
+        <canvas id="top-screen" width="400" height="240" aria-label="Top game screen" hidden></canvas>
+        <p class="screen-placeholder">Your game appears here.</p>
+        <figcaption>Top screen</figcaption>
+      </figure>
+      <figure class="screen bottom-screen">
+        <canvas id="bottom-screen" width="320" height="240" aria-label="Bottom game screen" hidden></canvas>
+        <figcaption>Bottom screen</figcaption>
+      </figure>
+    </section>
+    <section class="controls" aria-labelledby="title">
+      <h1 id="title">Super Mario<br> 3D Land</h1>
+      <p class="introduction">A local browser preview.<br> Load your own EU game dump.</p>
+      <form id="preview-form">
+        <label for="game-file">Game file</label>
+        <input id="game-file" type="file" accept=".3ds" aria-describedby="file-help">
+        <p id="file-help">Choose the approved EU .3ds file.</p>
+        <button id="run-preview" type="submit" disabled>Run preview</button>
+      </form>
+      <div class="feedback">
+        <p id="capture-status" role="status" aria-live="polite">Preparing local preview…</p>
+        <p id="capture-error" role="alert" hidden></p>
+      </div>
+      <p class="preview-note" id="preview-note">This preview runs a recorded startup and stops at a captured frame. Playable controls and sound are still in progress.</p>
+    </section>
+  </main>
+</body>
+</html>

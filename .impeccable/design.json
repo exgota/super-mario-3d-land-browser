@@ -1,0 +1,444 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-02T20:47:35.326297Z",
+  "title": "Design System: Super Mario 3D Land Local Browser Preview",
+  "extensions": {
+    "colorMeta": {
+      "page": {
+        "displayName": "Warm Pale Ground",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.00825 91.48)",
+          "oklch(26.43% 0.00825 91.48)",
+          "oklch(37.86% 0.00825 91.48)",
+          "oklch(49.29% 0.00825 91.48)",
+          "oklch(60.71% 0.00825 91.48)",
+          "oklch(72.14% 0.00825 91.48)",
+          "oklch(83.57% 0.00825 91.48)",
+          "oklch(95.00% 0.00825 91.48)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "ink": {
+        "displayName": "Charcoal Text",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.00781 128.79)",
+          "oklch(26.43% 0.00781 128.79)",
+          "oklch(37.86% 0.00781 128.79)",
+          "oklch(49.29% 0.00781 128.79)",
+          "oklch(60.71% 0.00781 128.79)",
+          "oklch(72.14% 0.00781 128.79)",
+          "oklch(83.57% 0.00781 128.79)",
+          "oklch(95.00% 0.00781 128.79)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "secondary": {
+        "displayName": "Quiet Gray Text",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01194 131.47)",
+          "oklch(26.43% 0.01194 131.47)",
+          "oklch(37.86% 0.01194 131.47)",
+          "oklch(49.29% 0.01194 131.47)",
+          "oklch(60.71% 0.01194 131.47)",
+          "oklch(72.14% 0.01194 131.47)",
+          "oklch(83.57% 0.01194 131.47)",
+          "oklch(95.00% 0.01194 131.47)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "line": {
+        "displayName": "Pale Gray Divider",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01090 112.40)",
+          "oklch(26.43% 0.01090 112.40)",
+          "oklch(37.86% 0.01090 112.40)",
+          "oklch(49.29% 0.01090 112.40)",
+          "oklch(60.71% 0.01090 112.40)",
+          "oklch(72.14% 0.01090 112.40)",
+          "oklch(83.57% 0.01090 112.40)",
+          "oklch(95.00% 0.01090 112.40)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "control": {
+        "displayName": "Restrained Green Action",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15.00% 0.04060 158.62)",
+          "oklch(26.43% 0.04060 158.62)",
+          "oklch(37.86% 0.04060 158.62)",
+          "oklch(49.29% 0.04060 158.62)",
+          "oklch(60.71% 0.04060 158.62)",
+          "oklch(72.14% 0.04060 158.62)",
+          "oklch(83.57% 0.04060 158.62)",
+          "oklch(95.00% 0.04060 158.62)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "focus": {
+        "displayName": "Amber Focus",
+        "role": "semantic",
+        "tonalRamp": [
+          "oklch(15.00% 0.09210 78.37)",
+          "oklch(26.43% 0.09210 78.37)",
+          "oklch(37.86% 0.09210 78.37)",
+          "oklch(49.29% 0.09210 78.37)",
+          "oklch(60.71% 0.09210 78.37)",
+          "oklch(72.14% 0.09210 78.37)",
+          "oklch(83.57% 0.09210 78.37)",
+          "oklch(95.00% 0.09210 78.37)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "failure": {
+        "displayName": "Red Failure",
+        "role": "semantic",
+        "tonalRamp": [
+          "oklch(15.00% 0.12566 28.27)",
+          "oklch(26.43% 0.12566 28.27)",
+          "oklch(37.86% 0.12566 28.27)",
+          "oklch(49.29% 0.12566 28.27)",
+          "oklch(60.71% 0.12566 28.27)",
+          "oklch(72.14% 0.12566 28.27)",
+          "oklch(83.57% 0.12566 28.27)",
+          "oklch(95.00% 0.12566 28.27)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "screen-well": {
+        "displayName": "Charcoal Screen Well",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01075 151.25)",
+          "oklch(26.43% 0.01075 151.25)",
+          "oklch(37.86% 0.01075 151.25)",
+          "oklch(49.29% 0.01075 151.25)",
+          "oklch(60.71% 0.01075 151.25)",
+          "oklch(72.14% 0.01075 151.25)",
+          "oklch(83.57% 0.01075 151.25)",
+          "oklch(95.00% 0.01075 151.25)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "screen-placeholder": {
+        "displayName": "Pale Screen Text",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01122 149.83)",
+          "oklch(26.43% 0.01122 149.83)",
+          "oklch(37.86% 0.01122 149.83)",
+          "oklch(49.29% 0.01122 149.83)",
+          "oklch(60.71% 0.01122 149.83)",
+          "oklch(72.14% 0.01122 149.83)",
+          "oklch(83.57% 0.01122 149.83)",
+          "oklch(95.00% 0.01122 149.83)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "action-text": {
+        "displayName": "White Action Text",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.00000 0.00)",
+          "oklch(26.43% 0.00000 0.00)",
+          "oklch(37.86% 0.00000 0.00)",
+          "oklch(49.29% 0.00000 0.00)",
+          "oklch(60.71% 0.00000 0.00)",
+          "oklch(72.14% 0.00000 0.00)",
+          "oklch(83.57% 0.00000 0.00)",
+          "oklch(95.00% 0.00000 0.00)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "action-hover": {
+        "displayName": "Deep Green Hover",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15.00% 0.03894 157.92)",
+          "oklch(26.43% 0.03894 157.92)",
+          "oklch(37.86% 0.03894 157.92)",
+          "oklch(49.29% 0.03894 157.92)",
+          "oklch(60.71% 0.03894 157.92)",
+          "oklch(72.14% 0.03894 157.92)",
+          "oklch(83.57% 0.03894 157.92)",
+          "oklch(95.00% 0.03894 157.92)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "action-disabled": {
+        "displayName": "Inactive Gray Ground",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01164 128.61)",
+          "oklch(26.43% 0.01164 128.61)",
+          "oklch(37.86% 0.01164 128.61)",
+          "oklch(49.29% 0.01164 128.61)",
+          "oklch(60.71% 0.01164 128.61)",
+          "oklch(72.14% 0.01164 128.61)",
+          "oklch(83.57% 0.01164 128.61)",
+          "oklch(95.00% 0.01164 128.61)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "action-disabled-text": {
+        "displayName": "Inactive Gray Text",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01923 133.96)",
+          "oklch(26.43% 0.01923 133.96)",
+          "oklch(37.86% 0.01923 133.96)",
+          "oklch(49.29% 0.01923 133.96)",
+          "oklch(60.71% 0.01923 133.96)",
+          "oklch(72.14% 0.01923 133.96)",
+          "oklch(83.57% 0.01923 133.96)",
+          "oklch(95.00% 0.01923 133.96)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "file-selector-hover": {
+        "displayName": "Pale File Hover",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01086 118.03)",
+          "oklch(26.43% 0.01086 118.03)",
+          "oklch(37.86% 0.01086 118.03)",
+          "oklch(49.29% 0.01086 118.03)",
+          "oklch(60.71% 0.01086 118.03)",
+          "oklch(72.14% 0.01086 118.03)",
+          "oklch(83.57% 0.01086 118.03)",
+          "oklch(95.00% 0.01086 118.03)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "selection": {
+        "displayName": "Pale Green Selection",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.02376 153.40)",
+          "oklch(26.43% 0.02376 153.40)",
+          "oklch(37.86% 0.02376 153.40)",
+          "oklch(49.29% 0.02376 153.40)",
+          "oklch(60.71% 0.02376 153.40)",
+          "oklch(72.14% 0.02376 153.40)",
+          "oklch(83.57% 0.02376 153.40)",
+          "oklch(95.00% 0.02376 153.40)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      },
+      "scrollbar": {
+        "displayName": "Muted Gray Scrollbar",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15.00% 0.01773 133.88)",
+          "oklch(26.43% 0.01773 133.88)",
+          "oklch(37.86% 0.01773 133.88)",
+          "oklch(49.29% 0.01773 133.88)",
+          "oklch(60.71% 0.01773 133.88)",
+          "oklch(72.14% 0.01773 133.88)",
+          "oklch(83.57% 0.01773 133.88)",
+          "oklch(95.00% 0.01773 133.88)"
+        ],
+        "tonalRampSource": "Derived panel preview only; not implemented CSS tokens."
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Responsive Heading",
+        "purpose": "Project title on the wide layout."
+      },
+      "display-narrow": {
+        "displayName": "Narrow Heading",
+        "purpose": "Project title at max-width 820px; the explicit line break is hidden."
+      },
+      "body": {
+        "displayName": "Introduction",
+        "purpose": "Local preview and owned-file instructions."
+      },
+      "label": {
+        "displayName": "Label and Action",
+        "purpose": "File label and run or stop action."
+      },
+      "field": {
+        "displayName": "File Input",
+        "purpose": "Native file selection and filename."
+      },
+      "status": {
+        "displayName": "Status and Alert",
+        "purpose": "Polite capture status and failure alert."
+      },
+      "help": {
+        "displayName": "Supporting Instructions",
+        "purpose": "File help and finite-preview scope note."
+      },
+      "caption": {
+        "displayName": "Screen Caption",
+        "purpose": "Labels below each screen well."
+      },
+      "placeholder": {
+        "displayName": "Empty Screen Text",
+        "purpose": "Centered empty-state message in the top well."
+      }
+    },
+    "motion": [
+      {
+        "name": "frame-arrival",
+        "value": "240ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "One brightness change from 0.92 to 1 when the two real frames arrive. Source-defined; execution was unscored."
+      },
+      {
+        "name": "action-hover",
+        "value": "background 160ms ease-out",
+        "purpose": "Enabled action hover-color transition."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none; transition: none",
+        "purpose": "At prefers-reduced-motion: reduce, disable frame arrival and action transition. Source-defined; execution was unscored."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow-layout",
+        "value": "820px"
+      }
+    ],
+    "globalStates": {
+      "focusVisible": "outline: 3px solid var(--focus); outline-offset: 5px;",
+      "selection": "background: #c7d7cb; color: var(--ink);",
+      "scrollbar": "scrollbar-color: #969d92 var(--page); scrollbar-width: thin;",
+      "scope": "Source-defined global treatments. Keyboard execution was unscored; native scrollbar support depends on the browser."
+    },
+    "evidenceScope": {
+      "source": [
+        "runtime/port/browser/index.html",
+        "runtime/port/browser/browser.css",
+        "runtime/port/browser/BrowserCapturePage.mjs"
+      ],
+      "direction": [
+        "project/browser_preview_surface.md",
+        ".impeccable/surfaces/runtime-port-browser-index-html.md"
+      ],
+      "review": "build/browser_submission_recovery/finish_review.md",
+      "reviewDisposition": "ship",
+      "reviewScope": "Captured finite startup operating surface only.",
+      "captures": [
+        {
+          "width": 1440,
+          "height": 1080
+        },
+        {
+          "width": 390,
+          "height": 1000
+        }
+      ],
+      "priorReview": "build/browser_submission_frame/finish_review.md",
+      "priorReviewDisposition": "recapture; preserved and superseded by the full valid review.",
+      "rawProofs": [
+        "build/browser_submission_gpu/result.json",
+        "build/browser_submission_recovery/result.json"
+      ],
+      "verifiedRecovery": [
+        "Wrong-size file rejection.",
+        "Stopped sidecar download with enabled controls and hidden screens.",
+        "Fresh capture completes after retry."
+      ],
+      "ownerVisualApproval": "Not claimed.",
+      "unscored": [
+        "Motion execution.",
+        "Reduced-motion execution.",
+        "Keyboard execution."
+      ],
+      "runtimeGaps": [
+        "Continuous browser gameplay.",
+        "Browser input and audio.",
+        "World 1-1.",
+        "Complete rank-O adapters."
+      ],
+      "assets": "Only unmodified IBM Plex Sans Regular and SemiBold interface fonts ship as binary assets. Game frames and review screenshots remain private ignored build evidence. No public raster."
+    }
+  },
+  "components": [
+    {
+      "name": "Run or Stop Action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single full-width capture action. State text is changed by the runtime, not this static sample.",
+      "html": "<button class=\"ds-primary-action\" type=\"button\">Run preview</button>",
+      "css": ".ds-primary-action { width: 100%; min-height: 48px; font-family: \"IBM Plex Sans\", sans-serif; font-size: 14px; font-weight: 600; color: #fff; background: var(--control, #354f40); border: 0; border-radius: 4px; cursor: pointer; transition: background 160ms ease-out; } .ds-primary-action:hover { background: #263e30; } .ds-primary-action:focus-visible { outline: 3px solid var(--focus, #876323); outline-offset: 5px; } .ds-primary-action:disabled { cursor: default; background: #d5d9d1; color: #5d6459; } @media (prefers-reduced-motion: reduce) { .ds-primary-action { transition: none; } }"
+    },
+    {
+      "name": "Disabled Run Action",
+      "kind": "button",
+      "refersTo": "button-primary-disabled",
+      "description": "The initial unavailable action before local configuration and a file are ready.",
+      "html": "<button class=\"ds-primary-action\" type=\"button\" disabled>Run preview</button>",
+      "css": ".ds-primary-action { width: 100%; min-height: 48px; font-family: \"IBM Plex Sans\", sans-serif; font-size: 14px; font-weight: 600; color: #fff; background: var(--control, #354f40); border: 0; border-radius: 4px; cursor: pointer; transition: background 160ms ease-out; } .ds-primary-action:hover { background: #263e30; } .ds-primary-action:focus-visible { outline: 3px solid var(--focus, #876323); outline-offset: 5px; } .ds-primary-action:disabled { cursor: default; background: #d5d9d1; color: #5d6459; } @media (prefers-reduced-motion: reduce) { .ds-primary-action { transition: none; } }"
+    },
+    {
+      "name": "Owned File Control",
+      "kind": "input",
+      "refersTo": "file-selector",
+      "description": "Native file selection with the implemented label, selector and help. This sample does not run or upload a file.",
+      "html": "<label class=\"ds-file-label\" for=\"ds-game-file\">Game file</label><input class=\"ds-file-input\" id=\"ds-game-file\" type=\"file\" accept=\".3ds\" aria-describedby=\"ds-file-help\"><p class=\"ds-file-help\" id=\"ds-file-help\">Choose the approved EU .3ds file.</p>",
+      "css": ".ds-file-label { display: block; margin-bottom: 10px; font-family: \"IBM Plex Sans\", sans-serif; font-size: 14px; font-weight: 600; color: var(--ink, #252723); } .ds-file-input { width: 100%; font-family: \"IBM Plex Sans\", sans-serif; font-size: 13px; padding: 12px 0; color: var(--secondary, #62665f); border-bottom: 1px solid var(--line, #d4d5cd); } .ds-file-input::file-selector-button { font: inherit; color: var(--ink, #252723); padding: 8px 12px; margin-right: 12px; background: transparent; border: 1px solid var(--line, #d4d5cd); border-radius: 4px; cursor: pointer; } .ds-file-input::file-selector-button:hover { background: #e8eae2; } .ds-file-input:focus-visible { outline: 3px solid var(--focus, #876323); outline-offset: 5px; } .ds-file-help { font-family: \"IBM Plex Sans\", sans-serif; font-size: 12px; line-height: 1.55; color: var(--secondary, #62665f); margin: 10px 0 24px; }"
+    },
+    {
+      "name": "Capture Status",
+      "kind": "custom",
+      "description": "Reserved feedback space with polite status and a hidden alert.",
+      "html": "<div class=\"ds-feedback\"><p class=\"ds-status\" role=\"status\" aria-live=\"polite\">Choose your game file to begin.</p><p class=\"ds-error\" role=\"alert\" hidden></p></div>",
+      "css": ".ds-feedback { min-height: 64px; margin-top: 18px; font-family: \"IBM Plex Sans\", sans-serif; } .ds-status { font-size: 13px; line-height: 1.55; margin: 0; color: var(--secondary, #62665f); } .ds-error { font-size: 13px; line-height: 1.55; color: var(--failure, #8b3028); margin: 8px 0 0; overflow-wrap: anywhere; } .ds-error[hidden] { display: none; } @media (max-width: 820px) { .ds-feedback { min-height: 34px; } }"
+    },
+    {
+      "name": "Capture Failure",
+      "kind": "custom",
+      "description": "The implemented wrong-size rejection wording and failure treatment.",
+      "html": "<div class=\"ds-feedback\"><p class=\"ds-status\" role=\"status\">Preview stopped.</p><p class=\"ds-error\" role=\"alert\">This file has a different size. Choose the approved EU .3ds dump.</p></div>",
+      "css": ".ds-feedback { min-height: 64px; margin-top: 18px; font-family: \"IBM Plex Sans\", sans-serif; } .ds-status { font-size: 13px; line-height: 1.55; margin: 0; color: var(--secondary, #62665f); } .ds-error { font-size: 13px; line-height: 1.55; color: var(--failure, #8b3028); margin: 8px 0 0; overflow-wrap: anywhere; } .ds-error[hidden] { display: none; } @media (max-width: 820px) { .ds-feedback { min-height: 34px; } }"
+    },
+    {
+      "name": "Paired Screen Wells",
+      "kind": "custom",
+      "refersTo": "screen-top",
+      "description": "Empty 5:3 and 4:3 screen wells, with the bottom at 80% width. No game pixels or raster assets appear in this sample.",
+      "html": "<div class=\"ds-screen-pair\"><figure class=\"ds-screen ds-screen-top\"><p class=\"ds-screen-placeholder\">Your game appears here.</p><figcaption class=\"ds-screen-caption\">Top screen</figcaption></figure><figure class=\"ds-screen ds-screen-bottom\"><figcaption class=\"ds-screen-caption\">Bottom screen</figcaption></figure></div>",
+      "css": ".ds-screen-pair { display: flex; flex-direction: column; align-items: center; gap: 26px; } .ds-screen { margin: 0; width: 100%; position: relative; background: #171c18; } .ds-screen-top { aspect-ratio: 5 / 3; } .ds-screen-bottom { width: 80%; aspect-ratio: 4 / 3; } .ds-screen-placeholder { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; font-family: \"IBM Plex Sans\", sans-serif; color: #c6cdc7; font-size: 14px; line-height: 1.55; } .ds-screen-caption { position: absolute; top: calc(100% + 6px); font-family: \"IBM Plex Sans\", sans-serif; font-size: 11px; color: var(--secondary, #62665f); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Broadcast Monitor Inspection Bench",
+    "overview": "A warm pale ground surrounds charcoal screen wells and a narrow operating column. Restrained green identifies the action. Quiet typography leaves the real game pixels as the focal material. This describes the implemented local preview, not a standing visual preference for the whole project.\n\nSource authority is `runtime/port/browser/index.html`, `browser.css` and `BrowserCapturePage.mjs`, with the direction recorded in `project/browser_preview_surface.md` and `.impeccable/surfaces/runtime-port-browser-index-html.md`. The full review at `build/browser_submission_recovery/finish_review.md` says **ship** for the captured finite startup surface at **1440 \u00d7 1080** and **390 \u00d7 1000**. It supersedes the earlier recapture disposition without deleting it. No owner visual approval is claimed. Motion and keyboard execution remain unscored. The separate raw proofs are `build/browser_submission_gpu/result.json` and `build/browser_submission_recovery/result.json`; continuous browser gameplay, input, audio, World 1-1 and complete rank-O adapters remain separate gaps.",
+    "keyCharacteristics": [
+      "Actual pixels with faithful screen proportions.",
+      "One owned-file control and one run or stop action.",
+      "Flat surfaces, quiet supporting text and reserved status space.",
+      "Controls first at narrow widths."
+    ],
+    "rules": [
+      {
+        "name": "The Interface Font Rule",
+        "body": "Preserve the Regular and SemiBold interface faces; game text remains part of the captured pixels.",
+        "section": "typography"
+      },
+      {
+        "name": "The Screen Geometry Rule",
+        "body": "Preserve each canvas aspect ratio and the bottom screen's 80% width relationship.",
+        "section": "layout"
+      }
+    ],
+    "dos": [
+      "Do preserve actual canvas pixels and the Screen Geometry Rule.",
+      "Do keep operational state readable with the existing live status, alert and visible-focus treatments.",
+      "Do document new execution claims separately from visual review."
+    ],
+    "donts": [
+      "Don't ship game frames, captures or review screenshots as public assets; keep them in ignored `build/` evidence.",
+      "Don't infer motion, keyboard execution or owner visual approval from the completed still captures.",
+      "Don't describe this finite startup as playable World 1-1 or continuous browser gameplay."
+    ]
+  }
+}
