@@ -135,3 +135,14 @@ All five are unaccepted scratch searches; final ready source omits their definit
 | 0x002DF244 | fn_002DF244 | Four unsuccessful forms, whole84bytes remain nonexact. | New grounded pass after other work; packet002DF244. |
 | 0x002DF354 | fn_002DF354 | Four unsuccessful forms, whole144bytes remain nonexact. | New grounded pass after other work; packet002DF354. |
 | 0x002DF3E4 | fn_002DF3E4 | Four unsuccessful forms, whole92bytes remain nonexact. | New grounded pass after other work; packet002DF3E4. |
+
+## Six parked packets from the current family passes,2026-10-02
+
+No body is adopted from these packets and no functional NonMatching claim follows. Per-root shared family windows overlap; physical failures and diagnostics remain distinct from meaningful source forms. Other work and overlap checks precede a coordinated new pass.
+
+- 0x003510B0: Fugumannen Move2 callback140bytes, best3 differing register bytes under both compilers after3forms/6successful compiles; stopped before speculative fourth. Packet project/pro_requests/003510B0.md.
+- 0x00351178: Fugumannen Move callback152bytes, best3 differing register bytes under both compilers after3forms/6successful compiles; stopped before speculative fourth. Packet project/pro_requests/00351178.md.
+- 0x0027CE60: isActionEnd192bytes, best42differing bytes in forms1/2/3 under both compilers; form4extent236refused. Packet project/pro_requests/0027CE60.md.
+- 0x0028CE18: DateTime Unix setter244target, final240extent refused under both compilers; earlier248forms/provenance refusal retained. Packet project/pro_requests/0028CE18.md.
+- 0x002F25EC: DateTime setter244bytes, final176differing bytes under both compilers; all4forms retained. Packet project/pro_requests/002F25EC.md.
+- 0x00223A20: MethodTree detach112bytes, bestform3/12differing bytes under both compilers; all4forms retained. Packet project/pro_requests/00223A20.md.
