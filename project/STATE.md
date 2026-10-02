@@ -7,7 +7,7 @@ M2 requires every game function byte-exact and the complete linked image matchin
 Read AGENTS.md, BRIEF.md in full, this file and newest daily report on restart. Run development_environment.sh before toolchain commands. No game data or unclear-provenance SDK/source may enter Git.
 
 ## Verified matching
-- Strict733 canonical committed-source ARMCC roots,48576/2756024 complete function bytes including pools,1.762539%,18055function rows. Only check.py setsO; NonMatching adds no exact credit.
+- Strict740 canonical committed-source ARMCC roots,49140/2756024 complete function bytes including pools,1.783003%,18055function rows. Only check.py setsO; NonMatching adds no exact credit.
 - Latest ExecuteUpdate908 plus unchanged dot Course408 gate accepts2/2 at02:39:50UTC. Cleanlink passes, all731prior roots/all751actual definitions preserve,277.804seconds. Report build/acceptance_factory_execute_course_gate/report.json. Source0fff25a, acceptance515749c/5e75040, SVG4da9544.
 - Prior14/5356-byte gate preserves717roots/all737definitions in277.163seconds: LiveActor232,PtrArray508,corrected dotItemHolder3340,FileDevice740,NoteObj536. EarlierItemHolder undefined-import rejection remains recorded; no alias bridge/checker rescue adopted.
 - Compact main is an explicit scaffold, approximately178C++ sources. Count actual outputs in each gate; preserve every actual accepted strong/weak definition. Serialize map-reading audits with map-writing gates.
@@ -23,18 +23,18 @@ Each lane uses that same wall interval, not summed overlapping ledger minutes.
 
 | Lane | Accepted bytes | Carried | Newly graded/investigated | Bytes/hour |
 | --- | ---: | ---: | ---: | ---: |
-| actor_lifecycle | 1076 | 308 | 768 | 298.359 |
-| large_library_matching | 1940 | 328 | 1612 | 537.934 |
-| byaml_matching | 772 | 0 | 772 | 214.064 |
-| source_intake_review | 3748 | 3748 | 0 | 1039.266 |
-| large_actor_matching | 904 | 524 | 380 | 250.666 |
-| actor_group_matching | 2328 | 924 | 1404 | 645.521 |
-| large_actor_followup | 584 | 156 | 428 | 161.935 |
+| actor_lifecycle | 1076 | 308 | 768 | 245.459 |
+| large_library_matching | 2232 | 328 | 1904 | 509.169 |
+| byaml_matching | 772 | 0 | 772 | 176.110 |
+| source_intake_review | 3748 | 3748 | 0 | 855.002 |
+| large_actor_matching | 1176 | 524 | 652 | 268.272 |
+| actor_group_matching | 2328 | 924 | 1404 | 531.068 |
+| large_actor_followup | 584 | 156 | 428 | 133.223 |
 
 Score(chance*completefamilybytes+downstreambytes)/(investigation+implementation+intakehours). Estimates are not observations. At most8total lanes. Runtime has no newtimebox. Four unsuccessful meaningfulforms/pass, retainphysicalfailures/history, packetcommit andotherwork before coordinatedrequeue.
 
 ## Current owners and ready inventory
-- Root: acceptance/map/ledger/shared docs/Git. Latest733 checkpoint clean-links for the03:09UTC hourly push; prior origin54d3973 pushed02:12:49UTC. Next hourly push due04:09UTC. Clean make.py eu -ca mustlink beforeeverypush; refreshSVG.
+- Root: acceptance/map/ledger/shared docs/Git. Audited origin754f99a pushed03:09:07UTC with733roots; clean178C++ sources link. Next push due04:09UTC. Clean make.py eu -ca mustlink beforeeverypush; refreshSVG.
 - large_actor_matching: newBubble.cpp/dedicatedBubble.h only, base88d6105. Readyattack124+ctor148=272paired791/894, source20159a74, build/actor_matching_bubble/review.md,406sealedpaths. Pointer90repair preserveswidth/offset; ctorSafeString-reference is correct. Separatetable prerequisitea359254 establishes152bytes3D27DC..3D2874 with identical304byteunion/allUdata. Neutralprovider evidence awaitspeer/rootreview, message0x44→decimal44/0x2c evidencecorrection requested. Init372/receive160 cappedfourforms, absentreadyTU. Two packets retain -50.0f/3F1EF0 corrections uncompiled; nofifthform. Wholepatches/queue supplied, canonicalpending.
 - large_library_matching: onlyexistingseadFileDevice.cpp, unchangedheaders/data, base88d6105; preserve5accepted740bytes. Archive10U/736 screened. Ready5/292 (2DF11C124,2DF198100,2DF29852,2DF4408,2DF4488) paired; other5/444cappedfourforms. Package sealing; separate neutralprovider review. Directoryclose52 ordinaryweakhelper must disappear under unchanged linker inlineclosure; canonicalprovenance/closure required.
 - actor_group_matching: onlyexistingalExecuteTableHolderDraw.cpp, unchangedheaders, base0fff25a. Drawinit24B1681028 requeued afterotherwork; new4forms111→42→7→27differences,both791/894. Noexactqueue, nofifthform; packet/evidence sealing. All4prioractualDrawdefinitions preserve. Sharedfn_001DC890/FunctorExecutorStorage declarations remainODR-compatible withUpdate. Historicaldotintermediate snapshots unavailable are explicitly recorded.
@@ -45,7 +45,7 @@ Score(chance*completefamilybytes+downstreambytes)/(investigation+implementation+
 
 ## Pro and dot
 All24batchtwoforms/allinitialtestforms graded with projectbuild/check/preservation, Outcomescommitted. Batchtwo2/8exact Hit496+Factory264,bothprimary,760bytes. Initial1/3Scale172fallback; combined3/11/932. LaterlocalExecute908/dotCourse408 do notturntrialmisses intohits. FrogBomb704/49baseline pairedverified; Profailed/tiedit. No currentreservations.
-Ownerre-enabledPro2026-10-01 via privateoriginGitHubconnector. Claude sendscommittedpacketpaths andwritesuncommittedresponses; gradeeveryrankedform promptly. About200owner messages/week, measuredscaling.46packets committedbeforeBubble/Archive. Keep historicalpackets afteracceptance; activeblocked listcontainsunacceptedroots.
+Ownerre-enabledPro2026-10-01 via privateoriginGitHubconnector. Claude sendscommittedpacketpaths andwritesuncommittedresponses; gradeeveryrankedform promptly. About200owner messages/week, measuredscaling.54 packets are committed after Bubble, Archive and Draw capped intake. Keep historicalpackets afteracceptance; activeblocked listcontainsunacceptedroots.
 Dot is parallel, noexclusivehardownership. Localmaytake large/blocked/packetroots after checking86currentdotrefs/reports/localowners. Fetcheveryfewhours.32canonicalaccepted dotroots/8936bytes. String-source intakeheldforindependentclass/tablelayer audit. Sourceonly proposalsnevercountbeforeprojectcheck.
 
 ## Native runtime evidence and limits
@@ -58,3 +58,7 @@ Newcommande6proposal: explicitlysuppliedCPUframing/rawcachedcopy only. Lane1514s
 2. Complete current audited push, then next clean-link/pushby04:09UTC, updateledger/STATE/SVG/daily. Whole733image diagnosticmayfollowafter nextsourcebatch. Privateoriginonly.
 3. ContinueSky72/preparersupport andpacketDraw1028. Groundnextruntimedependency; screenfamiliesbyexpectedbytes/hour/newdotwork. Cappedrequeues requireotherwork/explicitownership.
 Held: stringwrapper/base/table/ProductSequenceownership, colliderheader predicate regression, Matrix33inverse260 andController480/456. ABI/datablockonlydependentwork. Recent733acceptance clearsBRIEFstall. StoponlyBRIEFconditions; recordrequiredquestions andcontinueindependentwork.
+
+Latest gate accepted7/564 at2026-10-02T03:26:28.023307+00:00,740roots/49140bytes;733priorroots/753definitions preserve in282.349seconds. Bubble/Archive ready source is accepted, capped source remains absent. Sky72 has96sealedpaths and17peerpaths verified, queued next canonicalbatch. Cumulative11916bytes/4.383618hours=2718.303bytes/hour;5988carried,5928new attribution=1352.308. Latest accepted lane totals: actor_lifecycle1076,large_library2232,byaml772,source_intake3748,large_actor1176,actor_group2328,followup584. Rates use this wall interval.
+
+New exclusive owners before implementation: large_actor_matching owns only Fugumannen.cpp atd7350e2/source7811a9b8, unchangedheaders,292new Move/Move2 bytes, estimated272.53bytes/hour. Preserve18defs/676localaccepted+factory56, independent multScalar/VEC3 ABI first. large_library_matching owns only seadTreeNode.cpp at754f99a/source189dd2c8, unchangedheaders/data,588new MethodTree operatingbytes, estimated513.556bytes/hour; preserve6O436bytes/7defs, independent lock-provider names first. Fourformsmaximum, full unchangedpatches, no shared source editing. Previous Bubble/FileDevice implementation ownership is released after frozen intake.

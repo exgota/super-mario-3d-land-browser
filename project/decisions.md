@@ -973,3 +973,15 @@ Five blank whole U function rows receive only address-spelled identities from se
 ## Archive ledger timestamp correction, 2026-10-02
 
 The five abandoned rows initially used an approximate03:09 timestamp. Replace only those timestamps with the exact recorded seal endpoint2026-10-02T03:06:43.671934UTC from handoff_manifest.json. Attempts and the shared30.274227-minute window are unchanged. No byte/rank/source credit changes.
+
+## Seven-root Bubble/Archive canonical acceptance, 2026-10-02
+
+Observed2026-10-02T03:26:28.023307+00:00: all7/564 complete bytes pass the unchanged normal committed-source checker after a clean build. All733 prior roots/all753 actual canonical definitions preserve in282.349151seconds. Coverage740roots/49140bytes/1.783003%. Archive's weak8-byte accessor is eliminated by normal source-provenance inlineclosure; it receives no original address or byte credit. Bubble C2 is one section alias, not extra credit. Capped seven siblings and Draw1028 stay unaccepted. Source packets and original correction seals remain immutable.
+
+Cumulative factory11916acceptedbytes/4.383618hours=2718.303bytes/hour. Carried5988; newly graded/investigated5928=1352.308bytes/hour. This falls from3147.746 aggregate/1487.360 new attribution at the prior observation. Root evidence intake, capped searches and tooling consumed the later window; no sustained local speedup is claimed. Per-function ledger windows include each shared family preparation plus the full4.705819minute canonical gate and overlap, rather than total labor.
+
+## Fugumannen and MethodTree operating-family ownership before implementation
+
+Assign large_actor_matching only Game/backup/src/Enemy/Fugumannen.cpp atd7350e2/source7811a9b8, unchanged headers. Move2/Move140+152=292newbytes, estimate0.70chance/45minutes=272.53expectedbytes/hour, downstream0/carried0. Original calls known Vector3CalcCtr::multScalar where current source expands scaling inline; provider/12-byte VEC3 ABI and ODR compatibility need independent evidence. Preserve18actual definitions,5accepted local676bytes and factory56. No target attempt/packet/dot conflict across88refs. Source-local imports only, fourformcap.
+
+Assign large_library_matching only existing lib/al/src/Util/seadTreeNode.cpp at754f99a/source189dd2c8, unchanged headers/data. Seven MethodTree operating roots588newbytes, estimate(0.65*588+80downstream)/0.90hours=513.556expectedbytes/hour. Preserve6acceptedTreeNode436bytes/all7definitions. Original constructor/caller ground observed offsets; blank lock providers28CD24/84 and28CDB4/100 need separate neutral identity evidence. Constructor/string/manager tables and hardware lock implementation stay outside. Check89dotrefs, no operating-body claim. Any noinline organization on existing bodies must preserve their complete contracts and normal flags.
