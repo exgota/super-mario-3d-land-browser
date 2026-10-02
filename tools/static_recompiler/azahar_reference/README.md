@@ -53,3 +53,7 @@ The optional `azahar_input_capture.patch` records a bounded held-state script th
 ## Native HLE audio observation
 
 The optional `azahar_audio_capture.patch` records original stereo PCM and emulated timing before host FIFO submission. [AUDIO.md](../AUDIO.md) describes native/stock/repeat comparison and lossless local WAV preview. The bounded menu replay matches all 216000 stereo sample frames and audio events while preserving input/GPU/pixel checks. Live speaker/browser playback, World 1-1 and real-hardware DSP equivalence remain unverified.
+
+## Bounded longer replays
+
+The optional `azahar_replay_duration.patch` makes the host watchdog configurable, retaining its 120-second default and existing emulated timing. [REPLAY_DURATION.md](REPLAY_DURATION.md) describes the bounded option, refusal behavior and evidence. Longer World 1-1 replay still requires original movies and every Section 7 state observation.
