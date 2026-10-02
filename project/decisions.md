@@ -1033,3 +1033,7 @@ The existing driver restores candidate-rank changes but does not restore prior-r
 ## 2026-10-02: Record independent calendar parameter and month-table import identities
 
 Root verifies24peerpaths/seal4bd414ed and applies two Symbol-only whole rows unchanged. Existing48-byte month data and428-byte parameter producer remain external/U. Provider writes twelve bytes into incoming output storage; its finalr0 is not an evidenced returned pointer, so source discards unspecified result. No copied table, boundary split, public provider spelling or exact credit. The independently reviewed note is copied unchanged.
+
+## 2026-10-02: Record independent MethodTree lock and propagation identities
+
+Root verifies36peerpaths/seal4716679e and14complete original providers/callers/pools. Three whole-row Symbol-only names identify two external opaque-receiver lock imports and the68-byte two-pointer propagation target. Return values are unobserved and ignored; no hardware lock implementation, public API spelling, boundary or data change is adopted. Strict final source replay and canonical root preservation remain pending.
