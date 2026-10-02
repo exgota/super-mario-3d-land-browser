@@ -124,82 +124,96 @@ def main():
         report['elapsed_seconds'] = time.monotonic() - started
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
 
-    build_started = time.monotonic()
-    with (output / 'clean_build.log').open('w') as stream:
-        result = subprocess.run([sys.executable, 'make.py', 'eu', '-ca'], stdout=stream, stderr=subprocess.STDOUT)
-    report['clean_build_returncode'] = result.returncode
-    report['clean_build_seconds'] = time.monotonic() - build_started
-    save()
-    if result.returncode:
-        return 1
-    inventory_started = time.monotonic()
-    definitions = {symbol: [] for symbol in prior_symbols | proposed_symbols}
-    for object_path in sorted((root / 'build/eu/obj').rglob('*.o')):
-        relative = object_path.relative_to(root / 'build/eu/obj')
-        if relative.parts[0] not in ('Game', 'lib'):
-            continue
-        source = relative.with_suffix('.cpp')
-        if not (root / source).is_file():
-            continue
-        with object_path.open('rb') as stream:
-            table = ELFFile(stream).get_section_by_name('.symtab')
-            if table is None:
+    whole_gate_map = (root / 'data/ver/eu/map.csv').read_bytes()
+
+    def run_gate():
+        build_started = time.monotonic()
+        with (output / 'clean_build.log').open('w') as stream:
+            result = subprocess.run([sys.executable, 'make.py', 'eu', '-ca'], stdout=stream, stderr=subprocess.STDOUT)
+        report['clean_build_returncode'] = result.returncode
+        report['clean_build_seconds'] = time.monotonic() - build_started
+        save()
+        if result.returncode:
+            return 1
+        inventory_started = time.monotonic()
+        definitions = {symbol: [] for symbol in prior_symbols | proposed_symbols}
+        for object_path in sorted((root / 'build/eu/obj').rglob('*.o')):
+            relative = object_path.relative_to(root / 'build/eu/obj')
+            if relative.parts[0] not in ('Game', 'lib'):
                 continue
-            for definition in table.iter_symbols():
-                if definition.name in definitions and isinstance(definition['st_shndx'], int) and definition['st_info']['type'] == 'STT_FUNC':
-                    definitions[definition.name].append((definition['st_info']['bind'] == 'STB_GLOBAL', object_path))
-    report['definition_inventory_seconds'] = time.monotonic() - inventory_started
-    report['checker_transport'] = arguments.checker_transport
-    report['worker_jobs'] = []
-    worker = AcceptanceWorker(root) if arguments.checker_transport == 'worker' else None
-    report['worker_startup'] = worker.ready if worker else None
-
-    def run_check(symbol, object_path):
-        if worker:
-            result, record = worker.check(symbol, object_path)
-            report['worker_jobs'].append(record)
-            return result
-        return subprocess.run([sys.executable, 'tools/check.py', symbol, '--object', str(object_path)], capture_output=True, text=True)
-
-    def finish_checker():
-        nonlocal worker
-        if worker:
-            worker.close()
-            worker = None
+            source = relative.with_suffix('.cpp')
+            if not (root / source).is_file():
+                continue
+            with object_path.open('rb') as stream:
+                table = ELFFile(stream).get_section_by_name('.symtab')
+                if table is None:
+                    continue
+                for definition in table.iter_symbols():
+                    if definition.name in definitions and isinstance(definition['st_shndx'], int) and definition['st_info']['type'] == 'STT_FUNC':
+                        definitions[definition.name].append((definition['st_info']['bind'] == 'STB_GLOBAL', object_path))
+        report['definition_inventory_seconds'] = time.monotonic() - inventory_started
+        report['checker_transport'] = arguments.checker_transport
+        report['worker_jobs'] = []
+        worker = AcceptanceWorker(root) if arguments.checker_transport == 'worker' else None
+        report['worker_startup'] = worker.ready if worker else None
+    
+        def run_check(symbol, object_path):
+            if worker:
+                result, record = worker.check(symbol, object_path)
+                report['worker_jobs'].append(record)
+                return result
+            return subprocess.run([sys.executable, 'tools/check.py', symbol, '--object', str(object_path)], capture_output=True, text=True)
+    
+        def finish_checker():
+            nonlocal worker
+            if worker:
+                worker.close()
+                worker = None
+    
+        try:
+            for index, row in enumerate(previous):
+                available = definitions[row['Symbol']]
+                strong = [entry for entry in available if entry[0]]
+                paths = sorted({entry[1] for entry in available})
+                strong_paths = {entry[1] for entry in strong}
+                if not paths or len(strong_paths) > 1:
+                    report['prior_checks'].append({'symbol': row['Symbol'], 'error': 'Missing or ambiguous canonical definition'})
+                    save()
+                    return 1
+                for object_path in paths:
+                    job_started = time.monotonic()
+                    result = run_check(row['Symbol'], object_path)
+                    report['prior_checks'].append({'symbol': row['Symbol'], 'object': str(object_path.relative_to(root)),
+                                                   'returncode': result.returncode, 'seconds': time.monotonic() - job_started, 'output': result.stdout, 'error': result.stderr})
+                save()
+                if (index + 1) % 50 == 0:
+                    print('Prior roots checked:', index + 1, '/', len(previous), flush=True)
+            if any(check.get('returncode', 1) for check in report['prior_checks']):
+                print('Preservation rejected. Return the unchanged source proposal to its owner.', flush=True)
+                return 1
+            # Only the unchanged project checker writes O. Its candidate rank changes
+            # remain provisional until the entire batch succeeds; failure restores M.
+            check_candidates(candidates, root, report, save, definitions, run_check, finish_checker)
+        except BaseException:
+            report['accepted'] = False
+            save()
+            raise
+        finally:
+            if worker:
+                worker.terminate()
+        print('Canonical candidates:', sum(check['returncode'] == 0 for check in report['candidate_checks']), '/', len(candidates), flush=True)
+        return 0 if report['accepted'] else 1
 
     try:
-        for index, row in enumerate(previous):
-            available = definitions[row['Symbol']]
-            strong = [entry for entry in available if entry[0]]
-            paths = sorted({entry[1] for entry in available})
-            strong_paths = {entry[1] for entry in strong}
-            if not paths or len(strong_paths) > 1:
-                report['prior_checks'].append({'symbol': row['Symbol'], 'error': 'Missing or ambiguous canonical definition'})
-                save()
-                return 1
-            for object_path in paths:
-                job_started = time.monotonic()
-                result = run_check(row['Symbol'], object_path)
-                report['prior_checks'].append({'symbol': row['Symbol'], 'object': str(object_path.relative_to(root)),
-                                               'returncode': result.returncode, 'seconds': time.monotonic() - job_started, 'output': result.stdout, 'error': result.stderr})
-            save()
-            if (index + 1) % 50 == 0:
-                print('Prior roots checked:', index + 1, '/', len(previous), flush=True)
-        if any(check.get('returncode', 1) for check in report['prior_checks']):
-            print('Preservation rejected. Return the unchanged source proposal to its owner.', flush=True)
-            return 1
-        # Only the unchanged project checker writes O. Its candidate rank changes
-        # remain provisional until the entire batch succeeds; failure restores M.
-        check_candidates(candidates, root, report, save, definitions, run_check, finish_checker)
+        return run_gate()
     except BaseException:
         report['accepted'] = False
-        save()
         raise
     finally:
-        if worker:
-            worker.terminate()
-    print('Canonical candidates:', sum(check['returncode'] == 0 for check in report['candidate_checks']), '/', len(candidates), flush=True)
-    return 0 if report['accepted'] else 1
+        if not report['accepted']:
+            (root / 'data/ver/eu/map.csv').write_bytes(whole_gate_map)
+            report['whole_gate_map_restored'] = True
+            save()
 
 
 if __name__ == '__main__':
