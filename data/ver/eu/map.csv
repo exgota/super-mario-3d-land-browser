@@ -10520,7 +10520,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002BD928,          ,0x002BD938,          ,U,f,,
 0x002BD938,          ,0x002BD948,          ,U,f,,
 0x002BD948,0x002BDD54,0x002BDD5C,          ,U,f,,
-0x002BDD5C,          ,0x002BDD64,          ,U,f,,
+0x002BDD5C,          ,0x002BDD64,          ,O,f,fn_002BDD5C,
 0x002BDD64,0x002BDDC4,0x002BDDC8,          ,U,f,,
 0x002BDDC8,0x002BDE04,0x002BDE10,          ,U,f,,
 0x002BDE10,0x002BDE28,0x002BDE2C,          ,U,f,,
