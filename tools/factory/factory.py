@@ -52,6 +52,11 @@ DRAFTS = HOME / "drafts"
 # A run stops after this many attempts in a row that do not reduce the differing lines below its best.
 STALL_ATTEMPTS = 3
 NEAR_MISS_LINES = 4
+STALL_RULE = "\n   The runs also end early after {stall} runs in a row that do not reduce the differing lines below your best."
+# Attempt output shows the whole diff up to this many lines, then only differing regions with context.
+DIFF_LINES_SHOWN = 160
+DIFF_CONTEXT_LINES = 3
+DIFF_MARKS = "|ris<>"
 VENV_PYTHON = REPOSITORY / ".venv" / "bin" / "python"
 MAP = pathlib.Path("data/ver/eu/map.csv")
 FACTORY_SOURCE_DIRECTORY = pathlib.Path("Game/backup/src/Factory")
@@ -101,6 +106,9 @@ SLOT_THREADS = 10
 STARTING_SLOTS = 4
 SWAP_PAGES_PER_FIVE_MINUTES = 2048
 QUIET_SECONDS_BEFORE_ADDING_A_SLOT = 15 * 60
+# Owner, 2026-10-02 13:40: hard cap of 6 slots, and one slot fewer whenever the 5-minute load average is above 15.
+MAXIMUM_SLOTS = 6
+LOAD_AVERAGE_LIMIT = 15
 NO_MATCH_HALT_RUNS = 50
 MAXIMUM_PERIODIC_DEMOTIONS = 5
 MINIMUM_FREE_DISK_BYTES = 5 * 1024 ** 3
@@ -517,8 +525,7 @@ Rules:
 5. Check your work only with:  . ./development_environment.sh && python {factory} attempt
    It builds, then prints MATCHED or an assembly diff (target on the left) for each function.
    One run takes 30 to 120 seconds. Wait for it to finish; never start a second run while one is going.
-   You have {attempts} attempt runs. Stop as soon as everything matches or the runs are used up.
-   The runs also end early after {stall} runs in a row that do not reduce the differing lines below your best.
+   You have {attempts} attempt runs. Stop as soon as everything matches or the runs are used up.{stall_rule}
 6. Before you finish, delete every function that still does not match, so the file holds only matching code.
    If nothing matches, delete the file.
 7. Do not read project/, tools/ or other source files unless job.md points you to them. Keep it short.
@@ -692,7 +699,8 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
                       " Try them in rank order, then adapt.", "", answer.read_text()]
     parts += ["", f"Check with `. ./development_environment.sh && python {HOME / 'factory.py'} attempt`"
               f" ({tier['attempts']} runs)."]
-    parts += format_drafts(addresses)  # last, so a Pro packet can swap in the newest drafts
+    if job["kind"] != "hardtrial":  # a hard-end trial run starts clean, with no draft from another model's run
+        parts += format_drafts(addresses)  # last, so a Pro packet can swap in the newest drafts
     factory_directory = worktree / ".factory"
     factory_directory.mkdir(exist_ok=True)
     facts = factory_directory / "facts"
@@ -703,7 +711,8 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
     (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
     (factory_directory / "job.json").write_text(json.dumps({
         "id": job["id"], "addresses": addresses, "symbols": names, "file": str(file_name),
-        "attempt_limit": tier["attempts"], "base": git(worktree, "rev-parse", "HEAD")}))
+        "attempt_limit": tier["attempts"], "base": git(worktree, "rev-parse", "HEAD"),
+        "stall_stop": job["kind"] != "hardtrial"}))  # hard-end trial runs use all their attempts (owner, 2026-10-02)
     return addresses, names
 
 
@@ -804,7 +813,7 @@ def command_attempt(arguments):
           f" of {job['attempt_limit']}.")
     if not arguments.final and len(matched) < len(results):
         record_best_drafts(worktree, job, results, used + 1)
-        if attempt_stalled(worktree, results) and used + 1 < job["attempt_limit"]:
+        if job.get("stall_stop", True) and attempt_stalled(worktree, results) and used + 1 < job["attempt_limit"]:
             counter.write_text(str(job["attempt_limit"]))
             print(f"NO PROGRESS: {STALL_ATTEMPTS} runs in a row did not reduce the differing lines below your best."
                   " That was your last run. Delete non-matching functions and finish now.")
@@ -839,19 +848,58 @@ def attempt_in(worktree, job, final=False, commit=False):
         detail, diff, score = "", "", 0
         if rank != "O" and not final:
             _, diff = tool(worktree, "tools/diff.py", symbol, "-c", timeout=300)
-            detail = "\n".join(diff.splitlines()[:90])
+            detail = readable_diff(diff)
             score = differing_lines(diff)
         results[address] = {"symbol": symbol, "rank": rank, "detail": detail, "diff": diff, "score": score}
     return results
 
 
+def diff_marker(line):
+    """The diff's mark for one listing line (changed, register, immediate, stack, or one side only), or None if it matches.
+    The mark sits in column 50 unless a long target operand pushed it right."""
+    if len(line) <= 50 or not re.match(r"^\s*([0-9a-f]+:|\s{40,}[<>])", line):
+        return None
+    if line[50] in DIFF_MARKS:
+        return line[50]
+    if line[49] != " ":
+        found = re.compile(r"([|ris<>])(?= |$)").search(line, 50)
+        return found.group(1) if found else None
+    return None
+
+
 def differing_lines(diff):
-    """Lines the diff marks as different: changed, register, immediate or stack operands, or only on one side."""
-    count = 0
-    for line in diff.splitlines():
-        if len(line) > 50 and line[50] in "|ris<>" and re.match(r"^\s*([0-9a-f]+:|\s{40,}[<>])", line):
-            count += 1
+    """Lines the diff marks as different."""
+    count = sum(1 for line in diff.splitlines() if diff_marker(line))
     return count if count else None  # no parsable diff counts as no progress
+
+
+def readable_diff(diff, limit=DIFF_LINES_SHOWN, context=DIFF_CONTEXT_LINES):
+    """The whole diff when it fits; otherwise the header and every differing line with a few lines of context,
+    so the end of a large function is never cut off."""
+    lines = diff.splitlines()
+    if len(lines) <= limit:
+        return "\n".join(lines)
+    listing = [i for i, line in enumerate(lines) if re.match(r"^\s*([0-9a-f]+:|\s{40,}[<>])", line)]
+    if not listing:
+        return "\n".join(lines[:limit])
+    first, last = listing[0], listing[-1]
+    differing = [i for i in listing if diff_marker(lines[i])]
+    keep = set()
+    for i in differing:
+        keep.update(range(max(first, i - context), min(last, i + context) + 1))
+    shown, previous = lines[:first], first - 1
+    for i in sorted(keep):
+        if i > previous + 1:
+            shown.append(f"    ... {i - previous - 1} matching lines ...")
+        shown.append(lines[i])
+        previous = i
+    if previous < last:
+        shown.append(f"    ... {last - previous} matching lines ...")
+    shown += lines[last + 1:]
+    if len(shown) > limit:
+        hidden = sum(1 for line in shown[limit:] if diff_marker(line))
+        shown = shown[:limit] + [f"    ... {hidden} more differing lines not shown; fix the ones above first ..."]
+    return "\n".join(shown)
 
 
 def record_best_drafts(worktree, job, results, attempt):
@@ -904,7 +952,7 @@ def format_drafts(addresses):
                 continue
             shown.add(text)
             parts += [f"Draft source `{path}`:", "", "```cpp", text.rstrip(), "```"]
-        parts += ["", "Its residual diff (target on the left):", "", "```", draft["diff"].rstrip(), "```"]
+        parts += ["", "Its residual diff (target on the left):", "", "```", readable_diff(draft["diff"], limit=250).rstrip(), "```"]
     return parts
 
 
@@ -1173,7 +1221,7 @@ class Supervisor:
         self.consecutive_misses = 0
         self.backoff = {}
         self.lane_offsets = {}
-        self.maximum_slots = len(slot_specs)
+        self.maximum_slots = min(len(slot_specs), MAXIMUM_SLOTS)
         self.allowed_slots = min(self.maximum_slots, starting_slots or self.maximum_slots)
         self.swap_samples = []
         self.last_slot_change = time.time()
@@ -1342,7 +1390,8 @@ class Supervisor:
                          (job["id"], slot, 0 if trial else job["tier"], settings["model"], settings["effort"], started,
                           f"trial {trial}" if trial else ("class" if class_mode else
                                                           (f"hardtrial {hard_end['label']} {hard_end['group']}" if hard_end else "")))).lastrowid
-        prompt = WORKER_GUIDE.format(factory=HOME / "factory.py", attempts=settings["attempts"], stall=STALL_ATTEMPTS) + \
+        prompt = WORKER_GUIDE.format(factory=HOME / "factory.py", attempts=settings["attempts"],
+                                     stall_rule="" if hard_end else STALL_RULE.format(stall=STALL_ATTEMPTS)) + \
             "\n\nStart by reading .factory/job.md."
         log_path = LOGS / "runs" / f"run_{run_id}.jsonl"
         log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1944,7 +1993,12 @@ class Supervisor:
 
     # submissions from root/ and dot/ branches --------------------------------
     def pending_submissions(self):
-        return sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime) if SUBMISSIONS.exists() else []
+        """Oldest first, except that frog's dot/ work goes before everything and cleanup branches go last (owner,
+        2026-10-02: hard functions are frog's lane)."""
+        def order(path):
+            name = path.name
+            return (0 if name.startswith("dot-") else 2 if name.startswith(CLEANUP_PREFIX.rstrip("/") + "-") else 1, path.stat().st_mtime)
+        return sorted(SUBMISSIONS.glob("*.json"), key=order) if SUBMISSIONS.exists() else []
 
     def submission_changes_build(self, path):
         try:
@@ -2328,19 +2382,25 @@ class Supervisor:
 
     # main loop -----------------------------------------------------------
     def adjust_slots(self):
-        """Run as many slots as the Mac holds without swapping: drop one on swap-outs, add one after 15 quiet minutes."""
+        """Run as many slots as the Mac holds without swapping or overheating: drop one on swap-outs or a 5-minute load
+        average above LOAD_AVERAGE_LIMIT, add one after 15 quiet minutes, never above MAXIMUM_SLOTS."""
         now = time.time()
+        load = os.getloadavg()[1]
         self.swap_samples = [(t, o) for t, o in self.swap_samples if t >= now - 1800] + [(now, swap_outs())]
+        self.load_samples = [(t, l) for t, l in getattr(self, "load_samples", []) if t >= now - 1800] + [(now, load)]
         recent = [o for t, o in self.swap_samples if t >= now - 300]
-        if recent[-1] - recent[0] > SWAP_PAGES_PER_FIVE_MINUTES and self.allowed_slots > 1 and now - self.last_slot_change > 300:
+        swapping = recent[-1] - recent[0] > SWAP_PAGES_PER_FIVE_MINUTES
+        if (swapping or load > LOAD_AVERAGE_LIMIT) and self.allowed_slots > 1 and now - self.last_slot_change > 300:
             self.allowed_slots -= 1
             self.last_slot_change = now
-            log_event(self.database, "slots", f"swapping ({recent[-1] - recent[0]} pages in 5 min); allowed slots now {self.allowed_slots}")
+            reason = f"swapping ({recent[-1] - recent[0]} pages in 5 min)" if swapping else f"5-minute load average {load:.1f}"
+            log_event(self.database, "slots", f"{reason}; allowed slots now {self.allowed_slots}")
         elif (self.allowed_slots < self.maximum_slots and now - self.last_slot_change > QUIET_SECONDS_BEFORE_ADDING_A_SLOT
-              and self.swap_samples[-1][1] - min(o for t, o in self.swap_samples if t >= now - QUIET_SECONDS_BEFORE_ADDING_A_SLOT) == 0):
+              and self.swap_samples[-1][1] - min(o for t, o in self.swap_samples if t >= now - QUIET_SECONDS_BEFORE_ADDING_A_SLOT) == 0
+              and max(l for t, l in self.load_samples if t >= now - QUIET_SECONDS_BEFORE_ADDING_A_SLOT) <= LOAD_AVERAGE_LIMIT):
             self.allowed_slots += 1
             self.last_slot_change = now
-            log_event(self.database, "slots", f"no swapping for 15 min; allowed slots now {self.allowed_slots}")
+            log_event(self.database, "slots", f"no swapping and load at most {LOAD_AVERAGE_LIMIT} for 15 min; allowed slots now {self.allowed_slots}")
 
     def run(self, until_idle=False):
         STOP_FILE.unlink(missing_ok=True)

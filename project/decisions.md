@@ -1278,3 +1278,13 @@ The platform uses pinned public dependency revisions and original license notice
 A fresh full host reaches the natural first GPU swap and matches all 528 raw events/ticks and 79936 PICA bytes against corrected Azahar, with zero ARM interpreter/JIT fallback. Actual real-archive entropy/concurrency and C/Node failure checks pass. Source review exposed five tooling gaps; archive/notice provenance, bounded usage, preserved timeout logs and complete source exclusions are fixed before submission. An actual blocked Node entropy provider proves the 60-second refusal/log path. GPU parity and diagnostic CPU counts remain separate claims.
 
 The final build/replay receipts, source hashes, reproduction and explicit gaps are in project/webassembly_platform_evidence.md. No browser frame, World 1-1, complete rank-O registry, semantic gameplay state or new exact/native byte credit follows. Only the integrator moves main/ranks/ledger.
+
+## Factory deployment record and driver transfer, 2026-10-02
+
+The tracked `tools/factory/factory.py` now records the already deployed operator file, SHA-256 `594cfa3994e0b5c0b2248a0ff53f3e96c10eebee947f8128b84f97d7c5b727e0`. Production has used this file since the 13:57 deployment. This submission changes no running factory process and does not restart it. It records the approved six-slot cap, load guard, whole-diff presentation, closed-trial isolation and dot-first submission ordering. The source was compared byte for byte with the deployed file and passed a syntax compile. The preceding driver reported the three reference safety checks and targeted checks before deployment; the retained `tests/ref_safety_candidate.log` records all three passing. Those historical checks were not rerun for this copy.
+
+Codex assumed driver ownership after the Claude session released it. Hourly checks and the safety monitor are active. Root retains port ownership, the relay retains its pending Pro answer, and the owner alone messages frog. The Claude Artifact dashboard cannot be updated by the new driver with the current toolset and remains explicitly stale.
+
+The rejected `dot-course-list-87d89a0ff` submission must not be retried unchanged. The branch final canonical report states that the World constructor is 692 compiled bytes versus a 700-byte original interval and remains M. Its World source body is identical to current main. An earlier text extraction had incorrectly treated a checker command as an exact claim. No match is credited.
+
+Draft carryover and post-crossing acceptance measurements are recorded in `project/driver_measurements_2026-10-02.md`. Worker post-run matches and integrator-accepted bytes remain separate.
