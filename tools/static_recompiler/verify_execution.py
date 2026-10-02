@@ -8,7 +8,6 @@ import json
 from pathlib import Path
 import random
 import struct
-import subprocess
 
 import capstone
 import unicorn
@@ -192,6 +191,8 @@ class Execution:
         native_flags = sum(getattr(context, name) << bit for name, bit in (("n", 31), ("z", 30), ("c", 29), ("v", 28), ("q", 27)))
         if not replacement and native_flags != self.reference.reg_read(arm.UC_ARM_REG_CPSR) & 0xF8000000:
             raise RuntimeError(f"flag divergence at {entry:08x}")
+        if not replacement and context.ge != (self.reference.reg_read(arm.UC_ARM_REG_CPSR) >> 16) & 15:
+            raise RuntimeError(f"GE flag divergence at {entry:08x}")
         if (context.exit == 1) != (self.last_svc is not None) or (self.last_svc is not None and context.svc != self.last_svc):
             raise RuntimeError("supervisor-call boundary divergence")
         return context
@@ -223,9 +224,51 @@ def main():
         registers[0] = value
         registers[13:16] = [0x10000000, RETURN_ADDRESS, 0x10766C]
         execution.compare(0x10766C, registers, generator.getrandbits(5) << 27, replacement=True)
+    # Sample bounded retail leaf functions across the executable. They may read literal
+    # pools, but cannot require class layouts, pointer arguments, services, or other functions.
+    decoder = capstone.Cs(capstone.CS_ARCH_ARM, capstone.CS_MODE_ARM)
+    decoder.detail = True
+    candidates = []
+    with (directory / "function_map.csv").open() as source:
+        rows = [{k.strip(): v.strip() for k, v in row.items()} for row in csv.DictReader(source)]
+    for row in rows:
+        if "f" not in row["Type"]:
+            continue
+        start, end = int(row["Start"], 16), int(row["Pool"] or row["End"], 16)
+        if start == 0x10766C or not 4 <= end - start <= 48 or start not in execution.lookup:
+            continue
+        instructions = list(decoder.disasm(execution.code[start - 0x100000:end - 0x100000], start))
+        if len(instructions) * 4 != end - start or instructions[-1].id != capstone.arm.ARM_INS_BX:
+            continue
+        permitted = True
+        for instruction in instructions:
+            if instruction.mnemonic.startswith(("v", "str", "stm", "ldm", "push", "pop", "mcr", "mrc", "svc", "ldrex", "strex", "swp", "bkpt")):
+                permitted = False
+            if instruction.id in (capstone.arm.ARM_INS_BL, capstone.arm.ARM_INS_BLX):
+                permitted = False
+            if instruction.id == capstone.arm.ARM_INS_BX and instruction.op_str != "lr":
+                permitted = False
+            if instruction.id == capstone.arm.ARM_INS_B:
+                target = instruction.operands[0].imm
+                if not instruction.address < target < end:
+                    permitted = False
+            for operand in instruction.operands:
+                if operand.type == capstone.arm.ARM_OP_MEM and operand.mem.base != capstone.arm.ARM_REG_PC:
+                    permitted = False
+        if permitted:
+            candidates.append(start)
+    sampled = sorted(generator.sample(candidates, min(64, len(candidates))))
+    leaf_cases = 0
+    for entry in sampled:
+        for _ in range(32):
+            registers = [generator.getrandbits(32) for _ in range(16)]
+            registers[13:16] = [0x10000000, RETURN_ADDRESS, entry]
+            execution.compare(entry, registers, generator.getrandbits(5) << 27)
+            leaf_cases += 1
     report = {"original_sha256": execution.manifest["original_sha256"],
               "library_sha256": execution.manifest["library_sha256"], "unicorn_version": unicorn.__version__,
               "startup": startup, "priority_replacement_cases": len(priority_cases),
+              "bounded_integer_leaf_addresses": sampled, "bounded_integer_leaf_cases": leaf_cases,
               "replacement_contract": "AAPCS return r0, callee-saved r4-r11, SP and return PC; caller-saved registers and flags excluded",
               "interpreter_instructions": 0, "gpu_frame_verified": False}
     (directory / "execution_report.json").write_text(json.dumps(report, indent=2) + "\n")
