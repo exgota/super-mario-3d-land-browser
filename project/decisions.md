@@ -1304,3 +1304,17 @@ The reproducible 268/222 scan combined five registries and treated literal-pool 
 ## Worker packet reference deployment, 2026-10-02
 
 The owner approved the prepared update. The driver deployed the verified factory copy and restarted it within 44 seconds of the three reference-safety checks passing. New packets embed curated compiler notes and bounded actor references from their own source revision. Four fresh production packets contained the complete notes; their targets correctly had no actor-reference sections. Direct checks covered four packet forms and distinguished Seagull from its broad containing RailDot map row. The integrator and resource guards are unchanged. See `project/packet_reference_deployment.md` for the evidence and live-reference observation still pending. No exact-byte credit or throughput gain is claimed.
+## Names for frog's Bug::init claim (2026-10-02 16:45)
+
+dot/root-2d4544 claims Bug::init exact; its symbols name two rows that are unnamed on main. No boundary, extent or rank
+change. Evidence, from the retail executable as recorded in project/dot_reports/root-2d4544.md:
+
+- 0x002D4544 Bug::init: retail actor-factory entry 0x003B9A48 names "Bug" and points to creator 0x00397DF4; the class
+  vtable's init slot is 0x002D4544.
+- 0x0027AF28 EnemyStateHipDropDown constructor: the class is already declared in main's
+  Game/backup/include/Enemy/EnemyStateHipDropDown.h, and Bug::init calls this constructor with the host, its
+  parameter object and a name.
+
+Held for the owner: dot/root-11a174 (FireFlower), dot/root-1579f0 (BoomerangFlower) and dot/root-177020
+(SuperLeafSpecial) also need six shared helper rows named FlowerInit::*, which frog's reports call descriptive
+proposals rather than recovered names.
