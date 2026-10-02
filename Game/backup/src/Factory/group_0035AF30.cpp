@@ -1,0 +1,17 @@
+extern "C" const char* fn_0035AF30() { return "Appear"; }
+extern "C" const char* fn_0035AFBC() { return "Stop"; }
+extern "C" const char* fn_0035B88C() { return "Move"; }
+extern "C" const char* fn_0035B8E0() { return "Stop"; }
+extern "C" const char* fn_0035B924() { return "Stop"; }
+extern "C" const char* fn_0035D4DC() { return "Stop"; }
+extern "C" const char* fn_0035D4EC() { return "Stop"; }
+extern "C" const char* fn_0035D5E0() { return "Stop"; }
+extern "C" const char* fn_0035D6F0() { return "Stop"; }
+extern "C" const char* fn_0035D76C() { return "Move"; }
+extern "C" const char* fn_0035D958() { return "Stop"; }
+extern "C" const char* fn_0035D988() { return "Stop"; }
+extern "C" const char* fn_0035EBC8() { return "Stop"; }
+extern "C" const char* fn_0035ED54() { return "Stop"; }
+extern "C" const char* fn_0035F4C0() { return "Move"; }
+extern "C" const char* fn_0035F4D0() { return "Stop"; }
+extern "C" const char* fn_0035F5D4() { return "Stop"; }
