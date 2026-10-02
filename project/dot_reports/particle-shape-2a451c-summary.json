@@ -1,0 +1,274 @@
+{
+  "pairs": 2310,
+  "agree": 2304,
+  "returning": 2262,
+  "seconds": 201.085458278656,
+  "root_instructions": 628,
+  "image": "replay-combined.axf",
+  "image_sha256": "e90aa67f3b854db184652cf32c95f925c3d45b9127ab9e91d8a9479559b3a1d8",
+  "source_sha256": "94d39656f793974eac59cc0966ce383e9f7c2511ec4bd3ef157e6a0a18ef390f",
+  "object_sha256": "f68bb80d1512c5dc391b9f58faaa40d5387dd5ed85b4229c349fedfcefb05c1e",
+  "family_input_hashes": {
+    "/workspace/scratch/73cdb2c524af/mario-particle-shape-2a451c/lib/CtrSDK/sources/retail_ParticleBinding.cpp": "94d39656f793974eac59cc0966ce383e9f7c2511ec4bd3ef157e6a0a18ef390f",
+    "/workspace/scratch/73cdb2c524af/mario-particle-shape-2a451c/lib/CtrSDK/sources/retail_ParticleShapeSize.cpp": "d6ebb737bf4344f302329c960ecc7ad3d63ed1d8bc93ab3bbe8836b55acdd73a",
+    "/workspace/scratch/73cdb2c524af/mario-particle-shape-2a451c/lib/CtrSDK/include/retail/ParticleShape.h": "e1104ed6525d6dae9ebaa62657286cabb75b3c49704c388038b56069c24f7d33"
+  },
+  "agreeing_fault_pairs": 42,
+  "divergent_fault_pairs": 6,
+  "nontermination_or_budget_exhaustions": 0,
+  "jump_table_intervals": [
+    [
+      "0x2a45f8",
+      "0x2a4628"
+    ],
+    [
+      "0x2a4698",
+      "0x2a46cc"
+    ],
+    [
+      "0x2a478c",
+      "0x2a47b0"
+    ],
+    [
+      "0x2a4ac4",
+      "0x2a4af4"
+    ],
+    [
+      "0x2a4c44",
+      "0x2a4c78"
+    ],
+    [
+      "0x2a4e74",
+      "0x2a4e98"
+    ]
+  ],
+  "uncovered_executable_instructions": [],
+  "known_divergences": [
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 0,
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "candidate_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 4194304,
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "candidate_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 8388608,
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "candidate_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 12582912,
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "candidate_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 16777216,
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "candidate_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 33554432,
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "candidate_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    }
+  ],
+  "retail_original_callee_entries": {
+    "0x22f590": 17202,
+    "0x288414": 12582,
+    "0x22f468": 16944,
+    "0x292354": 17676,
+    "0x2a4434": 2262,
+    "0x28b330": 4512,
+    "0x22f554": 3438,
+    "0x22f35c": 3426
+  },
+  "candidate_original_callee_entries": {
+    "0x288414": 12582,
+    "0x22f468": 16944,
+    "0x292354": 17676,
+    "0x2a4434": 2262,
+    "0x28b330": 4512,
+    "0x22f35c": 3426
+  },
+  "helpers": {
+    "results": [
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+        "pairs": 1848,
+        "output_sha256": "49b6e3d9b9fa8c3c93e1f09d122f34d0f08cb1f8a47158a11073546fb2343f90",
+        "all_equal": true
+      },
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+        "pairs": 24024,
+        "output_sha256": "9a2a5ed9daebe68706fb8b7cc8887872e71a6defee35d858c8d9319456de776b",
+        "all_equal": true
+      }
+    ],
+    "total_pairs": 25872,
+    "seconds": 6.884670899002231,
+    "modelled_callees": [],
+    "source_sha256": "d6ebb737bf4344f302329c960ecc7ad3d63ed1d8bc93ab3bbe8836b55acdd73a",
+    "object_sha256": "107c230311ed32a6e05afab3cb4cf4a4e0a876b67dea58d45db3ad857f8a4b9e"
+  },
+  "canonical": {
+    "root": "complete-section size mismatch",
+    "root_bytes": 2692,
+    "target_root_bytes": 2796,
+    "helpers": [
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+        "size": 32,
+        "target_size": 32,
+        "differing_bytes": 10,
+        "relocations": [],
+        "section_sha256": "e02dcce54255bc06dff6cddb80c44ef068fd94bad494e60f909c4ad61972b0bd"
+      },
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+        "size": 60,
+        "target_size": 60,
+        "differing_bytes": 31,
+        "relocations": [],
+        "section_sha256": "41586ed20eccf2a4b1eec373fe44c81317b900ef4fbb0bfa585abc39c0bdbd8c"
+      }
+    ]
+  },
+  "preservation": {
+    "prior_objects": 175,
+    "prior_inputs": 365,
+    "baseline_roots": 707,
+    "baseline_definitions": 726,
+    "all_equal": true
+  },
+  "replay_result_sha256": "9da4348c2a60133bc5ed7e125d2deb77ec87e8ae1dafd89a45eade3336d1978d"
+}
