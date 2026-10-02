@@ -10888,7 +10888,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002CA5E4,0x002CA9BC,0x002CADBC,          ,U,f,,
 0x002CADBC,0x002CAE0C,0x002CAE1C,          ,U,f,,
 0x002CAE1C,0x002CB200,0x002CB4B0,          ,U,f,,
-0x002CB4B0,          ,0x002CB4E0,          ,U,f,,
+0x002CB4B0,          ,0x002CB4E0,          ,O,f,fn_002CB4B0,
 0x002CB4E0,0x002CB524,0x002CB52C,          ,U,f,,
 0x002CB52C,          ,0x002CB598,          ,U,f,,
 0x002CB598,          ,0x002CB5C4,          ,U,f,,
