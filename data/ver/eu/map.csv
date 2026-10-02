@@ -8627,7 +8627,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026DE6C,0x0026DEF4,0x0026DF08,          ,U,f,,
 0x0026DF08,          ,0x0026DF44,          ,U,f,,
 0x0026DF44,          ,0x0026E13C,          ,O,f,_ZN2al9LiveActor8movementEv,
-0x0026E13C,          ,0x0026E144,          ,U,f,fn_0026E13C,
+0x0026E13C,          ,0x0026E144,          ,O,f,fn_0026E13C,
 0x0026E144,0x0026E1D8,0x0026E1DC,          ,U,f,,
 0x0026E1DC,0x0026E1EC,0x0026E1F0,          ,U,f,,
 0x0026E1F0,          ,0x0026E2C8,          ,U,f,,
