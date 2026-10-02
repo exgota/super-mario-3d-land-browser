@@ -1,27 +1,23 @@
-# Root lane state
+# Root port lane state
 
-Owner resumed the root lane on 2026-10-02 for class layouts and the port runtime. BRIEF rule 13 assigns all acceptance, main, ranks, and ledger writes to the integrator. Work only on root branches. No subagents until the operator ends the model trial; afterward at most one.
+Owner priority 2026-10-02: browser demo, then 100% byte exact. Root now works only on port runtime. Class layouts go to the Pro relay. One subagent maximum. Only the integrator moves main/ranks/ledger. No Factory source or adjacent factory changes.
 
-## In flight and ownership
+## Submissions and current work
 
-`root/calendar-constructor-placement` at `a671ac0` is submitted as `root-calendar-constructor-placement-a671ac00c`. It changes only a C1 section override and project notes. Local clean build and the standard checker pass the 116-byte C2 constructor and five accepted siblings. Committed rank remains M. Full-map result is pending in `.integrator/results/`.
+Heap layout is accepted by root-heap-layout-e6d8485e8-retry as main 8126842, with zero exact bytes. The receipt-fix branch was rejected as redundant after operator repairs. No action remains on it.
 
-Current branch `root/heap-layout` starts at `0800d9a`. This lane exclusively owns `lib/sead/include/heap/seadHeap.h`, `lib/sead/include/heap/seadDisposer.h`, their evidence note, and the clean module README. Reconstruct the Heap base layout from original constructor 0x0028B6A4, disposer constructor/destructor, list insertion/removal, and independently observed callers. This is layout work, without function matching claims. Current dot branches do not change either header. Factory ownership below 0x100 and frog ownership at or above 0x200 remain respected.
+CalendarTime is queued again after the operator repaired the empty candidate commit. Await its actual new result. Local clean build and six checks pass; ranks are integrator-owned.
 
-M2 and M3 are unfinished. No level has run. Historical metrics are not new lane credit. Original executable must retain SHA-256 e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64.
+Model draw order root-runtime-model-draw-order-7a2fcaef0 was rejected at 05:08:52 ET solely on a STATE merge conflict. This follow-up root/runtime-model-draw-order-revision starts from current main and adopts the complete source/evidence unchanged. It owns runtime/AssetReader.cpp, runtime/ModelDrawSchedule.cpp, and its evidence note. Native hashes and all prior fresh checks remain valid. Submit with no claims.
+
+Root's independent root/static-recompiler branch owns tools/static_recompiler and runtime/port. Its pinned public generator translates raw code.bin/exh.bin, while all generated C/objects stay under ignored build. Native startup agrees with independent original ARM execution at the first supervisor call. The exact rank-O priority source is compiled unchanged and replaces the generated function by address. GPU stream equality remains unverified.
 
 ## Next three tasks
 
-1. Ground and validate Heap fields, preserve existing dispatch, and submit a small header family. Queue ambiguous layout questions to Pro; proposals require independent checks.
-2. Revalidate the earlier frozen resource-local model draw-order proposal from fresh original/native runs. Its source remains unapplied and uncredited until validation.
-3. Advance a concrete port/runtime component toward Section 7 differential replay. Keep missing state explicit and distinguish component parity from gameplay.
+1. Submit the unchanged draw-order follow-up and read its verdict.
+2. Finish and submit the native static translation family after final source/evidence audit.
+3. Integrate the static backend with the pinned native platform host, reach the first top-screen GPU stream, and compare it with Azahar at the same boundary.
 
-## Limits and handoff
+Milestones: 1 native static recompilation and first GPU stream matching Azahar; 2 rendering; 3 input; 4 audio; 5 World 1-1 differential replay; 6 browser build. None is complete. .integrator/port_status.json is current. Native component parity earns no matching game-byte credit. Original game data stays local and unchanged.
 
-Never check out, move, commit to, merge into, or push main. Never edit ledger.csv or Game/backup/src/Factory/. Never commit or submit rank changes. Never modify the adjacent factory. Submit complete patches with the factory submit command; read and report every result file. Continue independent work during acceptance.
-
-Disk observation: 13 GiB free. Remove only this lane's disposable build scratch after use. Prior-lane scratch remains untouched. Keep this file under 150 lines.
-
-## Heap candidate verification
-
-Source commit a51b4ef passes the clean project build, 16 binary-grounded ARMCC layout assertions, and eight accepted heap-facing checker roots. No new matching claim is made. The 100 fetched dot branches contain no changes to the owned headers. Self-contained layout question sead_heap_base.md is queued; no response is received yet. This submission retains opaque lock storage and raw direction encoding rather than claiming their unrecovered types.
+The single helper builds an ignored Azahar software reference harness with one compile slot. New user-state randomness requires a preserved initial user snapshot and reference movie for repeatable comparison. No owner question is blocking work.
