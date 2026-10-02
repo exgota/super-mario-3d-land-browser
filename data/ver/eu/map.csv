@@ -13146,7 +13146,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00329F0C,0x00329F18,0x00329F1C,          ,U,f,,
 0x00329F1C,0x00329F28,0x00329F2C,          ,U,f,,
 0x00329F2C,0x00329F38,0x00329F3C,          ,U,f,,
-0x00329F3C,0x00329F48,0x00329F4C,          ,U,f,,
+0x00329F3C,0x00329F48,0x00329F4C,          ,O,f,fn_00329F3C,
 0x00329F4C,0x00329F58,0x00329F5C,          ,U,f,,
 0x00329F5C,0x00329F68,0x00329F6C,          ,U,f,,
 0x00329F6C,0x00329F78,0x00329F7C,          ,U,f,,
