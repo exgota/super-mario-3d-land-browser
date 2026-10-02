@@ -1213,3 +1213,25 @@ Hard-end trial step 1: Astra high on one band function, job 12061, 08:39 to 08:5
 The browser libc cannot reproduce the native helper's host rounding/exception control. The port therefore uses official SoftFloat 3e, ARM-VFPv2, generic integer primitives and C11 TLS on both targets. A pinned source/header/license manifest verifies all dependency inputs; downloaded source stays ignored and its BSD notice accompanies built archives. Guest DN/FZ and NaN operand priority remain explicit in the adapter. Original VMUL probes in both precisions establish before-rounding tininess; separately rounded original multiply-accumulate probes forbid fused substitution.
 
 The final target passes 88192 selected original-instruction result/FPSCR comparisons on native and wasm32, 88064 generated native-entry comparisons and two untouched complete recorded-menu Azahar comparisons. Existing Game/lib/config/map/rank/ledger and ARMCC flags are unchanged. No new translated bytes or exact credit follow. See project/portable_floating_point_evidence.md for final hashes, reproducible commands and limits.
+
+## 2026-10-02: link sealed translated entries into wasm32 separately from the platform
+
+The translated target uses module-local O1 and disabled contraction to match the
+verified native optimization level and keep compilation of large generated C
+units bounded. It compiles all timed source units and the address-selected
+priority source override, with the accepted integer arithmetic target as its
+link dependency. The builder requires source seals and rank-O/source identity
+on frozen integrator main. ARMCC inputs and flags stay unchanged.
+
+The actual linked Node module preserves all 642664 addresses and conservative
+2437712 function instruction bytes. All 88192 selected floating-instruction
+cases and 4105 source replacement cases match original ARM execution, with zero
+CPU fallback. Six refusal/first-difference controls pass. A warning exemption
+surrounds only the unused helper in the sealed generated header; strict warnings
+remain enabled for the verification runner. No generated header changes.
+
+Host Context/Entry size checks establish only the wasm32 port interface. They
+provide no guest ARMCC class-layout evidence. Linked coverage and selected
+execution are recorded separately. The platform, browser frame, World 1-1 and
+complete rank-O source registry remain open. Final hashes, reproduction and
+scope are in project/webassembly_translation_evidence.md.

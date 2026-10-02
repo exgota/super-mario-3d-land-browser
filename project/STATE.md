@@ -1,27 +1,11 @@
-# Root portable arithmetic and browser platform state
+# Root WebAssembly translation state
 
-Owner priority: browser demo, then byte exact. Root works only on port runtime. Class layouts go to the Pro relay. One subagent maximum. Only the integrator moves main/ranks/ledger. No Factory or matching-source changes.
+Root/webassembly-translation starts from integrator main c6fd1ec793ff52820710dac7231bf7199ceb8d2e. Root owns a target that compiles and links sealed translated instruction entries, native timing callbacks and the accepted portable guest arithmetic for wasm32. The platform remains separate. One helper investigates a reduced public Azahar platform only in ignored scratch. No class reconstruction, claims, Game/lib/config/map/rank/ledger/Factory changes.
 
-## Ownership and base
+Portable arithmetic root-portable-floating-point-948112254 was accepted at 1962e361b80d0e7f409de0ca3fd03e5fbb8c0457. Browser binding root-webassembly-static-binding-3c45d96a9 was accepted at f02ee7bd. Their public checks and two native replays preserve all prior bounded outputs. Native translated coverage remains 2437712 bytes.
 
-Root/portable-floating-point starts at cd5f5515 and fast-forwards its own unpublished branch to integrator base 9d5d6885d35de24604832527c90a68b493ac30d3. Root owns runtime/port arithmetic, its CMake/native builder and numerical tools. One helper supplied NativeFloatingPoint.c and ignored numerical evidence. No claims, new exact credit or new wasm game-byte credit. Official SoftFloat 3e source stays unmodified in ignored build/port_tools.
+The final wasm target compiles all 37 generated units, entries, timing and the source replacement, preserving all 47 source seals and producing the same archive in two fresh builds. Its actual executable links all 642664 addresses and 2437712 conservative function instruction bytes. All 88192 floating-instruction and 4105 source replacement cases match original ARM execution, including register state/next PC. Priority address dispatch resolves to the actual decompiled source override; six malformed/refusal/divergence controls pass. No CPU interpreter runs. See project/webassembly_translation_evidence.md and build/root_webassembly_translation/build/translation_verification_final/result.json. Only the selected probes execute; no native/exact byte increase or browser frame follows.
 
-## Verified current family
+Next three tasks: submit this no-claim family and watch its verdict; integrate and verify the reduced public platform/dependency link on a fresh root branch; replay the first GPU stream with the actual wasm CPU, then move the owned-file/worker/software-screen host into a browser. One helper owns isolated generic Azahar/LibreSSL investigation in ignored build/root_browser_platform_investigation. Crypto entropy/concurrent-generator probes pass there; complete platform linkage remains in flight. Keep host-pointer ABI distinct from guest ARMCC class layouts. The browser must match Azahar before a browser frame claim.
 
-The integer-only ARM-VFPv2/C11 TLS target passes 88192 selected original result/FPSCR checks natively and in real wasm32 Node execution. Public wasm verification retains 1058304 actual result bytes; all equal independent original execution. It passes 1672 state and 20000 concurrent arithmetic checks. Parent also verifies helper refusal/import/TLS controls and all 261 frozen scratch paths. Public reproduction instructions and final source hashes are in project/portable_floating_point_evidence.md and tools/static_recompiler/FLOATING_POINT.md.
-
-The rebuilt timed native library passes 88064 original generated-entry comparisons, 188695 startup instructions plus 1384448 writable bytes, 4105 exact-source priority cases and 2048 integer cases. Two fresh complete recorded-menu replays preserve stock input, GPU events/ticks, pixels/framebuffers, PCM audio and 12 diagnostic raw fields. Each runs 393977876 guest instructions with zero interpreter/JIT fallback. No World 1-1 or Section 7 semantic state claim.
-
-## Submissions
-
-Browser binding root-webassembly-static-binding-3c45d96a9 was accepted at f02ee7bdf05a99439634f33cf261af1cc7f404f9, no matching build inputs changed. The earlier heap/runtime/static platform, rendering, input, audio, payload limit and state-observation families were accepted. Calendar placement remains rejected/nonexact and belongs to matching lanes now.
-
-Portable arithmetic is ready for its no-claims submission. Watch .integrator/results for its verdict and do not duplicate a waiting submission. The integrator handles merge gates and ledger/rank duties.
-
-## Next three tasks
-
-1. Submit the verified portable arithmetic family and report its actual verdict. Preserve sealed native module/captures and public wasm receipts.
-2. Build a reduced generic browser platform with StaticArmBackend and software rendering. One helper investigates only isolated ignored source/configuration trials; root owns public integration on a new root branch. Exclude CPU interpreter/JIT fallback and host-only GPU/window dependencies.
-3. Link actual translated wasm entries by address, load the owner's dump at runtime, then compare the first GPU stream and rendered output with the unchanged native Azahar reference before claiming a browser milestone.
-
-Milestones 1 through 4 retain bounded native evidence. Milestones 5 and 6 are in progress. Linked native translated coverage stays 2437712 bytes, distinct from byte-exact matching. The arithmetic archive supplies no game code. No browser page/frame, World 1-1 entry/goal, full rank-O ABI binding, conversions/comparison exceptions or short-vector certification yet. Pro's player-root closure proposal remains a proposal; raw getter equality alone cannot establish the controlled player.
+Milestones 1 through 4 retain bounded native evidence. Milestones 5 and 6 are in progress. No World 1-1 entry/goal, browser rendering, complete rank-O binding or Section 7 semantic state acceptance. Only the integrator moves main/ranks/ledger. One subagent maximum.
