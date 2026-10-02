@@ -1318,3 +1318,7 @@ change. Evidence, from the retail executable as recorded in project/dot_reports/
 Held for the owner: dot/root-11a174 (FireFlower), dot/root-1579f0 (BoomerangFlower) and dot/root-177020
 (SuperLeafSpecial) also need six shared helper rows named FlowerInit::*, which frog's reports call descriptive
 proposals rather than recovered names.
+
+## 2026-10-02: independently identify two proposed actor initializers
+
+Name only the existing 0016C938 and 0030A714 rows for HammerBrosHammer::init and Teresa::init. Original creator allocation, constructor receiver stores and primary +4 dispatch entries establish their reconstruction identities. No original symbol spelling is asserted. Preserve all other map fields and all ranks. Source acceptance is separate: Hammer has an explicit 0x74 prefix versus 0x90 allocation limit; Teresa has three shared ABI prerequisites. Evidence is in project/evidence/hammer_teresa_initializer_names.md. This metadata proposal earns zero exact bytes.
