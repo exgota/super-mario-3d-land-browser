@@ -28,3 +28,11 @@ Root applies the lane's complete AssetReader patch unchanged and validates the c
 The137owner meshes provide561source assignments,28inline uploads,94source words,112encoded words and168packet words. Both native configurations pass1100conversion/packing fixtures and six mapping controls. Retail overflow conversion uses unsigned007F0000 and discards sign;512negative-overflow fixtures explicitly differ from the pinned public libctru routine. This is measured original behavior. Unsupported descending mappings remain unavailable. All1083missing fixed values remain unavailable, with no default assignment.
 
 Prior uniform1289fixtures/15468words plus137owner packets, context645/face393/root1276/palette481/math3422bits/selection39members and49asset/archive outputs remain equal. Evidence: build/runtime/native_inline_attribute_root_validation/root_summary.json and its fresh reports. No active shader, scalar sampling, final vertex, GPU rendering, level or gameplay equivalence is claimed.
+
+## Supplied fixed upload history, fresh root validation 2026-10-02
+
+The unchanged122-line patch04d043b6 produces committed complete source4260601f. Root verifies all2500authoritative hashes before and after replay, then copies exactly ten frozen support files plus the committed source into an absent validation directory. Fixtures, reports and executables are generated afresh. Original instruction/source guards remain unchanged.
+
+Debug with address/undefined sanitizers and O3 each pass10025ordered history cases,2818available values,81017unavailable values and11272encoded words, plus17status controls and38malformed rejections. All137owner meshes are read afresh. Without supplied history,1083missing owner values and provenance remain null. A separately supplied original setup prefix resolves controlled inputs only. Corrupt or partial histories provide no known values transactionally. Prior inline/uniform/context/face/root/palette/math/selection and49asset/scene outputs remain identical.
+
+Evidence: build/runtime/native_fixed_attribute_history_root_validation/root_summary.json and original/native/preservation reports. Actual scene startup/reset submission, GPU sampled float24 values, active shader execution, final vertices, rendering and gameplay remain unverified. No level has run.
