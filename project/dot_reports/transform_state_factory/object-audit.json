@@ -1,0 +1,196 @@
+{
+  "original_start": "002A2C9C",
+  "original_end": "002A34D4",
+  "original_complete_bytes": 2104,
+  "original_instruction_bytes": 2060,
+  "original_instructions": 515,
+  "original_pools": [
+    [
+      "002A3170",
+      "002A3198",
+      40
+    ],
+    [
+      "002A34D0",
+      "002A34D4",
+      4
+    ]
+  ],
+  "object_sha256": "d217fdffbffdc85074710deecef41516ef53e24a5084c11d381746a9f26e6c43",
+  "allocated": [
+    {
+      "section": "i.fn_002A2C9C",
+      "size": 1648,
+      "flags": 6,
+      "sha256": "a9bc418d9cad00a13dd0a7443a863527cf26bfc938f4f88a39d782854f8fa5d9"
+    },
+    {
+      "section": ".ARM.exidx",
+      "size": 8,
+      "flags": 130,
+      "sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+    }
+  ],
+  "functions": [
+    {
+      "name": "fn_002A2C9C",
+      "size": 1644,
+      "section": "i.fn_002A2C9C"
+    }
+  ],
+  "undefined_imports": [
+    "dat_003D82D0",
+    "dat_003D86BC",
+    "dat_003F389C",
+    "dat_003F38A8",
+    "dat_00430C68",
+    "dat_00430CF0",
+    "dat_00430D20",
+    "fn_00254890",
+    "fn_0028A998",
+    "fn_00291470",
+    "fn_002B349C"
+  ],
+  "relocations": [
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 288,
+      "type": 28,
+      "symbol": "fn_0028A998"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 304,
+      "type": 28,
+      "symbol": "fn_00254890"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 316,
+      "type": 28,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 352,
+      "type": 28,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 416,
+      "type": 28,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 472,
+      "type": 28,
+      "symbol": "fn_0028A998"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 544,
+      "type": 28,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 560,
+      "type": 29,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 580,
+      "type": 28,
+      "symbol": "fn_0028A998"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 652,
+      "type": 28,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 668,
+      "type": 29,
+      "symbol": "fn_00291470"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 920,
+      "type": 28,
+      "symbol": "fn_002B349C"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1204,
+      "type": 2,
+      "symbol": "dat_003F38A8"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1208,
+      "type": 2,
+      "symbol": "dat_00430CF0"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1216,
+      "type": 2,
+      "symbol": "dat_00430D20"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1220,
+      "type": 2,
+      "symbol": "dat_003F389C"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1224,
+      "type": 2,
+      "symbol": "dat_00430C68"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1228,
+      "type": 2,
+      "symbol": "dat_003D86BC"
+    },
+    {
+      "section": "i.fn_002A2C9C",
+      "offset": 1232,
+      "type": 2,
+      "symbol": "dat_003D82D0"
+    },
+    {
+      "section": ".ARM.exidx",
+      "offset": 0,
+      "type": 42,
+      "symbol": "i.fn_002A2C9C"
+    },
+    {
+      "section": ".debug_frame",
+      "offset": 104,
+      "type": 2,
+      "symbol": "__ARM_grp_.debug_frame$5"
+    },
+    {
+      "section": ".debug_frame",
+      "offset": 108,
+      "type": 2,
+      "symbol": "i.fn_002A2C9C"
+    }
+  ],
+  "canonical_result": "Source closure rejected: An unresolved source helper is referenced by a non-branch relocation.",
+  "canonical_extent_grade": "not reached",
+  "missing_canonical_data_identities": [
+    "dat_00430C68",
+    "dat_00430CF0",
+    "dat_00430D20"
+  ],
+  "subview": "00430D20 is the three-float scale view at00430CF0+30, not an independent allocation claim"
+}

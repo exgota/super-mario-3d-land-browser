@@ -1,0 +1,8 @@
+clean-build-reproduction.log 0 40.202 seconds
+check-reproduction.log 0 1.297 seconds
+diagnostic-link-reproduction.log 0 0.014 seconds
+replay-reproduction.log 0 7.171 seconds
+extended-reproduction.log 0 0.854 seconds
+audit-reproduction.log 0 0.12 seconds
+preservation-reproduction.log 0 9.026 seconds
+{"finished_utc": "2026-10-02T06:10:49.247159+00:00", "timings": {"clean-build-reproduction.log": 40.20172643661499, "check-reproduction.log": 1.297243356704712, "diagnostic-link-reproduction.log": 0.013866424560546875, "replay-reproduction.log": 7.171220779418945, "extended-reproduction.log": 0.8540222644805908, "audit-reproduction.log": 0.12006592750549316, "preservation-reproduction.log": 9.025974750518799}, "object_sha256": "d217fdffbffdc85074710deecef41516ef53e24a5084c11d381746a9f26e6c43", "kind": "NonMatching; canonical missing-row refusal; zero exact credit", "map_sha256": "94ac5673e907db521bf6b4b606d02be64ee7bae8a8fd2f08328b0c30d85b3db9", "artifacts": {"replay-result.json": "1dd43192d3f2e41b8d0c22bc65d15a4954d380dec191a25f96d251df05bb0c39", "object-audit.json": "52014708857618f0e241649da14bdbe036ada1f1aa9ba2f9b8b59f27c2e816ac", "extended-result.json": "9504ff10f4bfe095a5bfb9a36810d2a845a6fdcd844b01a923cbaeaf1a61d68b", "preservation.json": "ffecabee301c1b374333966867d01f2829378fb53722630c0d6609f13c0e4192"}}

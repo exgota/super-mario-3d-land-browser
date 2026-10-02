@@ -1,0 +1,44 @@
+{
+  "type_checks": [
+    {
+      "type": "Matrix34",
+      "candidate": "lib/al/include/Observed/TransformStateFactory.h",
+      "candidate_sha256": "068413445386a649e5b0091a039216b63a9d7f5a3e56aacf35bebf6b53703585",
+      "reference": "../mario-root-33ba3c/lib/CtrSDK/include/clean/TransformBlendRoot.h",
+      "reference_sha256": "2fb0536fe909e796fa0243e981fbb38ef7bc30883f91518897c514fd0f1ef75c",
+      "definition_tokens_identical": true
+    },
+    {
+      "type": "Transform",
+      "candidate": "lib/al/include/Observed/TransformStateFactory.h",
+      "candidate_sha256": "068413445386a649e5b0091a039216b63a9d7f5a3e56aacf35bebf6b53703585",
+      "reference": "../mario-root-33ba3c/lib/CtrSDK/include/clean/TransformBlendRoot.h",
+      "reference_sha256": "2fb0536fe909e796fa0243e981fbb38ef7bc30883f91518897c514fd0f1ef75c",
+      "definition_tokens_identical": true
+    },
+    {
+      "type": "AllocatorVtable",
+      "candidate": "lib/al/include/Observed/TransformStateFactory.h",
+      "candidate_sha256": "068413445386a649e5b0091a039216b63a9d7f5a3e56aacf35bebf6b53703585",
+      "reference": "../mario-skeletal-animation-construction/lib/al/include/Observed/SkeletalAnimationConstruction.h",
+      "reference_sha256": "423cad401f65dde8a44681e737c5cc8d64614dadb35fa68055ccf65a1d4fe26c",
+      "definition_tokens_identical": true
+    },
+    {
+      "type": "Allocator",
+      "candidate": "lib/al/include/Observed/TransformStateFactory.h",
+      "candidate_sha256": "068413445386a649e5b0091a039216b63a9d7f5a3e56aacf35bebf6b53703585",
+      "reference": "../mario-skeletal-animation-construction/lib/al/include/Observed/SkeletalAnimationConstruction.h",
+      "reference_sha256": "423cad401f65dde8a44681e737c5cc8d64614dadb35fa68055ccf65a1d4fe26c",
+      "definition_tokens_identical": true
+    }
+  ],
+  "shared_C_declarations": {
+    "fn_0028A998": "int(unsigned*)",
+    "fn_00291470": "void(transform_blend::Matrix34*,const transform_blend::Matrix34*)",
+    "dat_003F389C": "unsigned",
+    "dat_00430C68": "transform_blend::Matrix34"
+  },
+  "resolution": "transform_state uses declarations import the same transform_blend nominal types; copied definitions are token-identical, not merely layout-compatible",
+  "integration_scope": "No combined source build. Historical inactive Effect packet declares fn291470 using references to another nominal type, and must not be revived unchanged together with this family."
+}
