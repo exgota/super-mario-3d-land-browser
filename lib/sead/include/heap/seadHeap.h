@@ -1,13 +1,30 @@
 #pragma once
 
 #include <nn/types.h>
+#include <container/seadOffsetList.h>
+#include <heap/seadDisposer.h>
+#include <prim/seadSafeString.h>
 
 namespace sead
 {
 
-// Only the dispatch prefix required by the current game sources is recovered.
-class Heap
+// The EU base constructor and FrameHeap creator establish this 0x70-byte layout.
+// Lock storage and virtual slots without independent identities stay opaque.
+class Heap : public IDisposer
 {
+private:
+        SafeString mName;
+        void* mStartAddress;
+        u32 mSize;
+        Heap* mParent;
+        OffsetList<Heap> mChildren;
+        ListNode mChildNode;
+        OffsetList<IDisposer> mDisposers;
+        u8 mDirectionEncoding;
+        u8 mReservedBytes4D[ 3 ];
+        u32 mCriticalSectionStorage[ 7 ];
+        u32 mFlags;
+
 public:
         enum HeapDirection
         {
@@ -26,6 +43,8 @@ private:
 public:
         virtual void freeAll();
 };
+
+static_assert( sizeof( Heap ) == 0x70, "Heap target layout" );
 
 class ScopedCurrentHeapSetter
 {
