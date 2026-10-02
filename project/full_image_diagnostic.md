@@ -45,3 +45,9 @@ The isolated split image preserves667/667 complete intervals/37224bytes,173 cano
 ### Restored717-root factory checkpoint, 2026-10-02
 
 The clean-restored d5ed939 source snapshot links an isolated3096576-byte image preserving717/717complete accepted intervals/41904bytes. Whole SHA56582c3a5fe81294cf8cba7245c2c23d68b194a4eeb857ced143f2672c051f86 differs in2479083bytes;617493equalbytes include incidental zeros/padding and add no exact credit. Evidence directory build/eu/full_image_diagnostic/1790904936498210000. Root verifies every frozen input/canonical object against current files. Original code/linkerinput bytes and static-recompiled/placeholder behavior claims remain zero. No image/runtime/gameplay equality is inferred.
+
+## 2026-10-02, 731-root diagnostic
+
+At tracked snapshot88d6105, the full split build preserves731/731 complete accepted intervals,47260bytes, in a3096576-byte linked image. Root verifies all369 input hashes and177 canonical original/snapshot object/provenance records against current inputs. The linked SHA256 isdbbd0253415d92c4034cba517e0d05cc5d41dda4bf16976e340e1c75fb5b9dd6. Whole-image comparison reports2474490 differing and622086 equal bytes. Equal zeros/padding remain incidental and add no decompilation credit.
+
+No original bytes appear in linker inputs, static-recompiled behavior bytes remain0, and placeholders claim no behavior. This remains a diagnostic scaffold, without matching eligibility or runtime/gameplay claims. Evidence: build/eu/full_image_diagnostic/1790907452973281000/comparison.json and snapshot/manifest.json.
