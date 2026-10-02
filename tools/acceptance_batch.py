@@ -11,6 +11,9 @@ import time
 
 from elftools.elf.elffile import ELFFile
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools.acceptance_worker import AcceptanceWorker
+
 
 def command(arguments, **options):
     return subprocess.run(arguments, check=True, **options)
@@ -22,7 +25,7 @@ def map_rows(text):
 
 
 
-def check_candidates(candidates, root, report, save, definitions=None):
+def check_candidates(candidates, root, report, save, definitions=None, checker=None, finish_checker=None):
     """Undo every candidate rank change when the complete batch fails."""
     map_path = root / 'data/ver/eu/map.csv'
     prior_map = map_path.read_bytes()
@@ -41,7 +44,7 @@ def check_candidates(candidates, root, report, save, definitions=None):
             checks = []
             for object_path in paths:
                 started = time.monotonic()
-                result = subprocess.run([sys.executable, 'tools/check.py', candidate['symbol'], '--object', str(object_path)], capture_output=True, text=True)
+                result = checker(candidate['symbol'], object_path) if checker else subprocess.run([sys.executable, 'tools/check.py', candidate['symbol'], '--object', str(object_path)], capture_output=True, text=True)
                 checks.append({'object': str(object_path.relative_to(root)), 'returncode': result.returncode,
                                'seconds': time.monotonic() - started, 'output': result.stdout, 'error': result.stderr})
             report['candidate_checks'].append({'candidate': candidate,
@@ -49,6 +52,8 @@ def check_candidates(candidates, root, report, save, definitions=None):
                                                'seconds': sum(check['seconds'] for check in checks),
                                                'definitions': checks})
             save()
+        if finish_checker:
+            finish_checker()
         report['accepted'] = all(check['returncode'] == 0 for check in report['candidate_checks'])
         if not report['accepted']:
             map_path.write_bytes(prior_map)
@@ -66,6 +71,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('manifest', type=Path)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--checker-transport', choices=('worker', 'cli'), default='worker')
     arguments = parser.parse_args()
     manifest = json.loads(arguments.manifest.read_text())
     root = Path(__file__).resolve().parents[1]
@@ -118,12 +124,15 @@ def main():
         report['elapsed_seconds'] = time.monotonic() - started
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
 
+    build_started = time.monotonic()
     with (output / 'clean_build.log').open('w') as stream:
         result = subprocess.run([sys.executable, 'make.py', 'eu', '-ca'], stdout=stream, stderr=subprocess.STDOUT)
     report['clean_build_returncode'] = result.returncode
+    report['clean_build_seconds'] = time.monotonic() - build_started
     save()
     if result.returncode:
         return 1
+    inventory_started = time.monotonic()
     definitions = {symbol: [] for symbol in prior_symbols | proposed_symbols}
     for object_path in sorted((root / 'build/eu/obj').rglob('*.o')):
         relative = object_path.relative_to(root / 'build/eu/obj')
@@ -139,28 +148,56 @@ def main():
             for definition in table.iter_symbols():
                 if definition.name in definitions and isinstance(definition['st_shndx'], int) and definition['st_info']['type'] == 'STT_FUNC':
                     definitions[definition.name].append((definition['st_info']['bind'] == 'STB_GLOBAL', object_path))
-    for index, row in enumerate(previous):
-        available = definitions[row['Symbol']]
-        strong = [entry for entry in available if entry[0]]
-        paths = sorted({entry[1] for entry in available})
-        strong_paths = {entry[1] for entry in strong}
-        if not paths or len(strong_paths) > 1:
-            report['prior_checks'].append({'symbol': row['Symbol'], 'error': 'Missing or ambiguous canonical definition'})
+    report['definition_inventory_seconds'] = time.monotonic() - inventory_started
+    report['checker_transport'] = arguments.checker_transport
+    report['worker_jobs'] = []
+    worker = AcceptanceWorker(root) if arguments.checker_transport == 'worker' else None
+    report['worker_startup'] = worker.ready if worker else None
+
+    def run_check(symbol, object_path):
+        if worker:
+            result, record = worker.check(symbol, object_path)
+            report['worker_jobs'].append(record)
+            return result
+        return subprocess.run([sys.executable, 'tools/check.py', symbol, '--object', str(object_path)], capture_output=True, text=True)
+
+    def finish_checker():
+        nonlocal worker
+        if worker:
+            worker.close()
+            worker = None
+
+    try:
+        for index, row in enumerate(previous):
+            available = definitions[row['Symbol']]
+            strong = [entry for entry in available if entry[0]]
+            paths = sorted({entry[1] for entry in available})
+            strong_paths = {entry[1] for entry in strong}
+            if not paths or len(strong_paths) > 1:
+                report['prior_checks'].append({'symbol': row['Symbol'], 'error': 'Missing or ambiguous canonical definition'})
+                save()
+                return 1
+            for object_path in paths:
+                job_started = time.monotonic()
+                result = run_check(row['Symbol'], object_path)
+                report['prior_checks'].append({'symbol': row['Symbol'], 'object': str(object_path.relative_to(root)),
+                                               'returncode': result.returncode, 'seconds': time.monotonic() - job_started, 'output': result.stdout, 'error': result.stderr})
             save()
+            if (index + 1) % 50 == 0:
+                print('Prior roots checked:', index + 1, '/', len(previous), flush=True)
+        if any(check.get('returncode', 1) for check in report['prior_checks']):
+            print('Preservation rejected. Return the unchanged source proposal to its owner.', flush=True)
             return 1
-        for object_path in paths:
-            result = subprocess.run([sys.executable, 'tools/check.py', row['Symbol'], '--object', str(object_path)], capture_output=True, text=True)
-            report['prior_checks'].append({'symbol': row['Symbol'], 'object': str(object_path.relative_to(root)),
-                                           'returncode': result.returncode, 'output': result.stdout, 'error': result.stderr})
+        # Only the unchanged project checker writes O. Its candidate rank changes
+        # remain provisional until the entire batch succeeds; failure restores M.
+        check_candidates(candidates, root, report, save, definitions, run_check, finish_checker)
+    except BaseException:
+        report['accepted'] = False
         save()
-        if (index + 1) % 50 == 0:
-            print('Prior roots checked:', index + 1, '/', len(previous), flush=True)
-    if any(check.get('returncode', 1) for check in report['prior_checks']):
-        print('Preservation rejected. Return the unchanged source proposal to its owner.', flush=True)
-        return 1
-    # Only the unchanged project checker writes O. Its candidate rank changes
-    # remain provisional until the entire batch succeeds; failure restores M.
-    check_candidates(candidates, root, report, save, definitions)
+        raise
+    finally:
+        if worker:
+            worker.terminate()
     print('Canonical candidates:', sum(check['returncode'] == 0 for check in report['candidate_checks']), '/', len(candidates), flush=True)
     return 0 if report['accepted'] else 1
 
