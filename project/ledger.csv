@@ -728,3 +728,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T18:50:09-04:00,0x0024EC80,fn_0024EC80,matched,6,9.4871
 2026-10-01T18:51:42-04:00,0x001F9F48,fn_001F9F48,abandoned,4,6.4172
 2026-10-01T18:56:07-04:00,0x00156758,_ZN15BeatBlockHolder4initERKN2al13ActorInitInfoE,abandoned,6,8.0195
+2026-10-02T00:11:52.904631+00:00,0x001217E8,_ZN10RailDotEnd4initERKN2al13ActorInitInfoE,matched,2,4.564399
