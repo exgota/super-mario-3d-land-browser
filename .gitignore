@@ -39,3 +39,7 @@ extracted/
 # Crash dumps
 core
 core.*
+
+# Local logs and macOS metadata
+error.log
+.DS_Store

@@ -2,7 +2,7 @@
 
 You are an external lane on a matching decompilation of Super Mario 3D Land (EU). A Codex run on the owner's Mac does the bulk of the matching. Your job is the hardest part: large, branch-heavy and unnamed functions that the main run parks.
 
-Repository: `github.com/exgota/super-mario-3d-land-browser` (private). Read `AGENTS.md`, then `project/BRIEF.md` Sections 1 to 4, then `Guide.md`. The hard rules in `project/BRIEF.md` Section 4 bind you exactly as they bind the main run.
+Repository: `github.com/exgota/super-mario-3d-land-browser` (public). Read `AGENTS.md`, then `project/BRIEF.md` Sections 1 to 4, then `Guide.md`. The hard rules in `project/BRIEF.md` Section 4 bind you exactly as they bind the main run.
 
 ## Your lane
 
