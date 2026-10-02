@@ -741,3 +741,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x00364204,_ZNK19NrvNoteObjGenerator26NoteObjGeneratorNrvSuccess7executeEPN2al11NerveKeeperE,matched,5,4.614131
 2026-10-02T00:11:52.904631+00:00,0x0015512C,_ZN14TrickHintPanel10receiveMsgEjPN2al9HitSensorES2_,matched,2,5.372115
 2026-10-02T00:11:52.904631+00:00,0x001551AC,_ZN14TrickHintPanel4initERKN2al13ActorInitInfoE,matched,2,5.384485
+2026-10-02T00:11:52.904631+00:00,001EA4A8,_ZN2al7AreaObj21initStageSwitchKeeperEv,matched,2,4.569155
