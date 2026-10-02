@@ -19,3 +19,7 @@ Next tasks: submit this finished no-claim frame-output family and report the int
 ## Driver packet delivery observation
 
 The driver owns this documentation-only update to project/packet_reference_deployment.md from the current integrator main. Record the first naturally applicable production actor-reference packet and its independent original-table and committed-facts checks. No production, source, map, rank or ledger change is included.
+
+## Driver initializer intake batch
+
+The driver owns cleanup/initializer-intake-batch from 4e5fe20cb2ed6ff928aaf1244b74181004b748a0. This combines the already checked, disjoint Bug, flower and Hammer initializer families into one cleanup submission so one mandatory full-preservation check can judge all five new roots. Scope is the same nineteen source files documented in the individual intake evidence. Preserve their final source bytes; keep the eleven previously proposed symbol names in a separate evidence commit. Existing source submissions remain queued until this combined final source is checked and ready. No production setting, acceptance rule, rank or ledger change is authorized by this batching decision.
