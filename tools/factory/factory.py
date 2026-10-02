@@ -53,6 +53,9 @@ TEXT_BASE = 0x100000
 MAX_FUNCTION_BYTES = 256
 GROUP_CHUNK = 25
 SYNC_INTERVAL_SECONDS = 45 * 60
+# One build and one round of checks takes every queued proposal touching different files, up to these limits.
+MAXIMUM_BATCH_PROPOSALS = 40
+MAXIMUM_BATCH_FUNCTIONS = 400
 # Verified matches land on TARGET_BRANCH. Its ref only moves, in one compare-and-swap step, to a commit
 # whose every new function tools/check.py already reported O on CANDIDATE_BRANCH, a scratch branch.
 TARGET_BRANCH = "main"
@@ -786,6 +789,14 @@ def read_run_log(log_path):
     return usage, errors, flags
 
 
+class SubmissionDecision(Exception):
+    """A submission's outcome reached before the full check: rejected, held for the operator, or deferred."""
+
+    def __init__(self, result):
+        super().__init__(result.get("reason", result["outcome"]))
+        self.result = result
+
+
 class Supervisor:
     """slot_specs: {name: {"index": n, "tiers": [..], "kinds": [..] or None, "buckets": [(low, high)] or None,
     "settings": TIERS override or None, "trial": label or None, "trial_queue": queue.Queue or None}}."""
@@ -803,7 +814,8 @@ class Supervisor:
         self.reload_symbols()
         self.expected_target = target_commit()
         self.last_pushed = remote_target()
-        self.last_checked = None
+        self.batch_failures = {}
+        self.last_push_time = None
         self.consecutive_misses = 0
         self.backoff = {}
         self.lane_offsets = {}
@@ -1094,22 +1106,49 @@ class Supervisor:
     # integration ---------------------------------------------------------
     def integrator_loop(self):
         while not (self.stopping and self.integration_queue.empty()):
-            try:
-                proposal = self.integration_queue.get(timeout=30)
-            except queue.Empty:
-                if self.halted:
-                    continue
-                self.process_submissions()
-                if time.time() - self.last_sync > SYNC_INTERVAL_SECONDS and not self.halted:
-                    self.sync()
+            if not self.halted and time.time() - self.last_sync > SYNC_INTERVAL_SECONDS:
+                self.sync()
                 continue
+            batch = self.collect_batch()
             if self.halted:
+                continue  # the proposals stay on disk and are queued again when the supervisor restarts
+            if not batch:
+                self.land_quiet_submissions()
                 continue
             try:
-                self.integrate(proposal)
+                self.integrate_batch(batch)
             except Exception as error:
-                log_event(self.database, "error", f"integration of {proposal.name} failed: {error}")
+                log_event(self.database, "error", f"integration of a batch of {len(batch)} failed: {error}")
                 self.restore_integration()
+                for proposal in batch:
+                    self.batch_failures[proposal.name] = self.batch_failures.get(proposal.name, 0) + 1
+                    if self.batch_failures[proposal.name] >= 2:
+                        self.retire(proposal, "rejected")
+                    elif proposal.exists():
+                        self.integration_queue.put(proposal)
+
+    def collect_batch(self):
+        try:
+            batch = [self.integration_queue.get(timeout=30)]
+        except queue.Empty:
+            return []
+        while len(batch) < MAXIMUM_BATCH_PROPOSALS:
+            try:
+                batch.append(self.integration_queue.get_nowait())
+            except queue.Empty:
+                break
+        return batch
+
+    def retire(self, proposal, kind):
+        """Delete an integrated proposal, or keep a rejected or skipped one aside where a restart will not requeue it."""
+        if kind is None:
+            shutil.rmtree(proposal, ignore_errors=True)
+            return
+        destination = PROPOSALS / kind
+        destination.mkdir(exist_ok=True)
+        shutil.rmtree(destination / proposal.name, ignore_errors=True)
+        if proposal.exists():
+            shutil.move(str(proposal), destination / proposal.name)
 
     def restore_integration(self):
         """Put the scratch candidate branch back on the target tip, discarding any unverified work."""
@@ -1117,56 +1156,91 @@ class Supervisor:
         git(INTEGRATION, "checkout", "-q", "-f", "-B", CANDIDATE_BRANCH, f"refs/heads/{TARGET_BRANCH}")
         git(INTEGRATION, "clean", "-fdq", "--", str(FACTORY_SOURCE_DIRECTORY), "Game", "lib")
 
-    def integrate(self, proposal):
+    def integrate_batch(self, proposals):
+        """Every queued proposal that touches different files goes into one candidate, one build and one round of
+        checks. If any proposal misses, it is set aside and the rest go through a fresh cycle, so main only ever
+        receives exactly the source that was checked."""
         with self.integration_lock:
             if self.target_moved_externally():
                 return
-            metadata = json.loads((proposal / "matched.json").read_text())
-            addresses = [int(a) for a in metadata["addresses"]]
-            symbols = {int(k): v for k, v in metadata["symbols"].items()}
             self.restore_integration()
             base = git(INTEGRATION, "rev-parse", "HEAD")
             live = {r["start"]: r["rank"] for r in load_rows(REPOSITORY / MAP)}
             current = {r["start"]: r["rank"] for r in load_rows(INTEGRATION / MAP)}
-            collisions = [a for a in addresses if live.get(a, "U") != "U" or current.get(a, "U") != "U"]
-            if collisions:
-                log_event(self.database, "skip", f"{proposal.name}: already matched elsewhere {['%08X' % a for a in collisions]}")
-                return
-            copied = []
-            for path in proposal.rglob("*"):
-                if path.is_file() and path.suffix in (".cpp", ".h"):
-                    relative = path.relative_to(proposal)
+            entries, taken_addresses, taken_files, deferred = [], set(), set(), []
+            for proposal in proposals:
+                if not (proposal / "matched.json").exists():
+                    continue
+                metadata = json.loads((proposal / "matched.json").read_text())
+                addresses = [int(a) for a in metadata["addresses"]]
+                symbols = {int(k): v for k, v in metadata["symbols"].items()}
+                collisions = [a for a in addresses if live.get(a, "U") != "U" or current.get(a, "U") != "U" or a in taken_addresses]
+                if collisions:
+                    log_event(self.database, "skip", f"{proposal.name}: already matched elsewhere {['%08X' % a for a in collisions]}")
+                    self.retire(proposal, "skipped")
+                    continue
+                files = [str(p.relative_to(proposal)) for p in proposal.rglob("*") if p.is_file() and p.suffix in (".cpp", ".h")]
+                existing = [f for f in files if (INTEGRATION / f).exists()]
+                if existing:
+                    log_event(self.database, "reject", f"{proposal.name}: {existing} already exist on {TARGET_BRANCH}")
+                    self.retire(proposal, "rejected")
+                    continue
+                functions = sum(len(e["addresses"]) for e in entries)
+                if any(f in taken_files for f in files) or (entries and functions + len(addresses) > MAXIMUM_BATCH_FUNCTIONS):
+                    deferred.append(proposal)
+                    continue
+                for relative in files:
                     destination = INTEGRATION / relative
-                    if destination.exists():
-                        raise RuntimeError(f"{relative} already exists on {TARGET_BRANCH}")
                     destination.parent.mkdir(parents=True, exist_ok=True)
-                    shutil.copy2(path, destination)
-                    copied.append(str(relative))
-            set_map_rows(INTEGRATION, {a: ("M", symbols[a]) for a in addresses})
-            # The checker only credits committed source, so the candidate is committed on the scratch branch first.
-            git(INTEGRATION, "add", "--", str(MAP), *copied)
-            git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate {proposal.name}, not verified")
-            candidate = git(INTEGRATION, "rev-parse", "HEAD")
-            job = {"addresses": addresses, "symbols": [symbols[a] for a in addresses]}
-            results = attempt_in(INTEGRATION, job, final=True)
-            failed = [a for a, r in results.items() if r["rank"] != "O"]
-            if failed:
-                log_event(self.database, "reject", f"{proposal.name}: not exact on a candidate of {TARGET_BRANCH}:"
-                          f" {['%08X' % a for a in failed]}")
+                    shutil.copy2(proposal / relative, destination)
+                taken_files.update(files)
+                taken_addresses.update(addresses)
+                entries.append({"proposal": proposal, "metadata": metadata, "addresses": addresses,
+                                "symbols": symbols, "files": files})
+            for proposal in deferred:
+                self.integration_queue.put(proposal)
+            if not entries:
                 self.restore_integration()
                 return
-            sizes = {a: self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for a in addresses}
-            lines = [f"- 0x{a:08X} {symbols[a]} ({sizes[a]} bytes)" for a in addresses]
-            message = (f"Match {len(addresses)} function{'s' if len(addresses) > 1 else ''} at 0x{addresses[0]:08X}"
-                       f" via factory ({metadata['model']})\n\n" + "\n".join(lines) +
+            set_map_rows(INTEGRATION, {a: ("M", e["symbols"][a]) for e in entries for a in e["addresses"]})
+            # The checker only credits committed source, so the candidate is committed on the scratch branch first.
+            git(INTEGRATION, "add", "--", str(MAP), *[f for e in entries for f in e["files"]])
+            git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate batch of {len(entries)} proposals, not verified")
+            candidate = git(INTEGRATION, "rev-parse", "HEAD")
+            started = time.time()
+            job = {"addresses": [a for e in entries for a in e["addresses"]],
+                   "symbols": [e["symbols"][a] for e in entries for a in e["addresses"]]}
+            results = attempt_in(INTEGRATION, job, final=True)
+            failing = [e for e in entries if any(results[a]["rank"] != "O" for a in e["addresses"])]
+            if failing:
+                for entry in failing:
+                    missed = ["%08X" % a for a in entry["addresses"] if results[a]["rank"] != "O"]
+                    log_event(self.database, "reject", f"{entry['proposal'].name}: not exact on a candidate of {TARGET_BRANCH}: {missed}")
+                    self.retire(entry["proposal"], "rejected")
+                self.restore_integration()
+                passing = [e for e in entries if e not in failing]
+                for entry in passing:
+                    self.integration_queue.put(entry["proposal"])
+                log_event(self.database, "batch", f"{len(failing)} of {len(entries)} proposals missed; {len(passing)} go through a fresh cycle")
+                return
+            sizes = {a: self.rows_by_start[a]["end"] - self.rows_by_start[a]["start"] for e in entries for a in e["addresses"]}
+            stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
+            sections = []
+            with open(INTEGRATION / "project/ledger.csv", "a") as stream:
+                for entry in entries:
+                    metadata, addresses = entry["metadata"], entry["addresses"]
+                    share = metadata.get("minutes", 0) / len(addresses)
+                    for address in addresses:
+                        stream.write(f"{stamp},0x{address:08X},{entry['symbols'][address]},matched,{metadata.get('attempts', 1)},{share:.4f}\n")
+                    sections.append(f"{entry['proposal'].name} ({metadata['model']}):\n"
+                                    + "\n".join(f"- 0x{a:08X} {entry['symbols'][a]} ({sizes[a]} bytes)" for a in addresses))
+            functions = sum(len(e["addresses"]) for e in entries)
+            first = entries[0]["addresses"][0]
+            title = (f"Match {functions} function{'s' if functions > 1 else ''} at 0x{first:08X} via factory ({entries[0]['metadata']['model']})"
+                     if len(entries) == 1 else f"Match {functions} functions in {len(entries)} factory proposals")
+            message = (title + "\n\n" + "\n\n".join(sections) +
                        "\n\nVerified by tools/check.py on a candidate commit before the branch moved.\n\n"
                        "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
-            ledger = INTEGRATION / "project/ledger.csv"
-            stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
-            share = metadata.get("minutes", 0) / len(addresses)
-            with open(ledger, "a") as stream:
-                for address in addresses:
-                    stream.write(f"{stamp},0x{address:08X},{symbols[address]},matched,{metadata.get('attempts', 1)},{share:.4f}\n")
             # One final commit on the base: the same checked source, the map as the checker left it, and the ledger.
             git(INTEGRATION, "reset", "-q", "--soft", base)
             git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
@@ -1176,46 +1250,27 @@ class Supervisor:
                          if git(INTEGRATION, "rev-parse", f"{candidate}:{path}") != git(INTEGRATION, "rev-parse", f"{final}:{path}")]
             if differing:
                 # The final commit must hold exactly the source the checker verified. Fail closed.
-                self.halted = f"{proposal.name}: final commit's {differing} trees differ from the checked candidate"
+                self.halted = f"batch of {len(entries)}: final commit's {differing} trees differ from the checked candidate"
                 log_event(self.database, "alert", self.halted + f"; {TARGET_BRANCH} not moved")
                 self.restore_integration()
                 return
-            if not self.move(final, base, f"factory: integrate {proposal.name}"):
+            if not self.move(final, base, f"factory: integrate {len(entries)} proposal{'s' if len(entries) > 1 else ''}"):
                 self.restore_integration()
                 return
-            execute(self.database, "UPDATE jobs SET status='matched', matched=? WHERE id=?",
-                    (",".join("%08X" % a for a in addresses), metadata["job"]))
-            for address in addresses:
-                self.rows_by_start[address]["rank"] = "O"
-            log_event(self.database, "match", f"{len(addresses)} functions, {sum(sizes.values())} bytes, first 0x{addresses[0]:08X}")
-            shutil.rmtree(proposal, ignore_errors=True)
+            for entry in entries:
+                execute(self.database, "UPDATE jobs SET status='matched', matched=? WHERE id=?",
+                        (",".join("%08X" % a for a in entry["addresses"]), entry["metadata"]["job"]))
+                for address in entry["addresses"]:
+                    self.rows_by_start[address]["rank"] = "O"
+                log_event(self.database, "match", f"{len(entry['addresses'])} functions,"
+                          f" {sum(sizes[a] for a in entry['addresses'])} bytes, first 0x{entry['addresses'][0]:08X}")
+                self.retire(entry["proposal"], None)
+            log_event(self.database, "batch", f"{len(entries)} proposals, {functions} functions, {sum(sizes.values())} bytes"
+                      f" in one cycle of {int(time.time() - started)} s")
 
     # submissions from root/ and dot/ branches --------------------------------
-    def process_submissions(self):
-        if not SUBMISSIONS.exists():
-            return
-        pending = sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime)
-        changes_build = {path: self.submission_changes_build(path) for path in pending}
-        # Submissions that leave build inputs alone land in seconds, so they go first.
-        for path in sorted(pending, key=lambda p: changes_build[p]):
-            if self.halted:
-                return
-            # A submission's full check must start from a fully checked main, so its regressions are its own.
-            if changes_build[path] and self.main_unchecked():
-                self.sync()
-                if self.halted:
-                    return
-            self.integrate_submission(path)
-
-    def main_unchecked(self):
-        """True unless the last full check covered every build input and map row now on the target."""
-        if self.last_checked is None:
-            return True
-        target = target_commit()
-        if target == self.last_checked:
-            return False
-        changed = git(INTEGRATION, "diff", "--name-only", self.last_checked, target).splitlines()
-        return any(p.startswith(("Game/", "lib/")) or p in ("data/config.json", str(MAP)) for p in changed)
+    def pending_submissions(self):
+        return sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime) if SUBMISSIONS.exists() else []
 
     def submission_changes_build(self, path):
         try:
@@ -1231,59 +1286,82 @@ class Supervisor:
         except Exception:
             return True
 
-    def integrate_submission(self, path):
-        with self.integration_lock:
-            if self.target_moved_externally():
-                return
-            name = path.stem
-            try:
-                request = json.loads(path.read_text())
-                result = self.evaluate_submission(request, name)
-            except Exception as error:
-                result = {"outcome": "rejected", "reason": f"integrator error: {error}"}
-            if result["outcome"] != "accepted":
-                self.restore_integration()
-            result.update({"submission": name, "decided": datetime.datetime.now(EASTERN).isoformat(timespec="seconds")})
-            SUBMISSION_RESULTS.mkdir(parents=True, exist_ok=True)
-            (SUBMISSION_RESULTS / f"{name}.json").write_text(json.dumps(result, indent=2) + "\n")
-            processed = SUBMISSIONS / ("held" if result["outcome"] == "held" else "processed")
-            processed.mkdir(exist_ok=True)
-            shutil.move(str(path), processed / path.name)
-            log_event(self.database, "submission", f"{name}: {result['outcome']}"
-                      + (f", {result.get('reason', '')}" if result["outcome"] != "accepted" else
-                         f", {len(result.get('matched', []))} exact, {result.get('matched_bytes', 0)} bytes, main {result['main'][:9]}"))
+    def decide(self, path, result):
+        name = path.stem
+        result.update({"submission": name, "decided": datetime.datetime.now(EASTERN).isoformat(timespec="seconds")})
+        SUBMISSION_RESULTS.mkdir(parents=True, exist_ok=True)
+        (SUBMISSION_RESULTS / f"{name}.json").write_text(json.dumps(result, indent=2) + "\n")
+        processed = SUBMISSIONS / ("held" if result["outcome"] == "held" else "processed")
+        processed.mkdir(exist_ok=True)
+        shutil.move(str(path), processed / path.name)
+        log_event(self.database, "submission", f"{name}: {result['outcome']}"
+                  + (f", {result.get('reason', '')[:300]}" if result["outcome"] != "accepted" else
+                     f", {len(result.get('matched', []))} exact, {result.get('matched_bytes', 0)} bytes, main {result['main'][:9]}"))
 
-    def evaluate_submission(self, request, name):
-        branch, commit = request.get("branch", ""), request.get("commit", "")
+    def land_quiet_submissions(self):
+        """Submissions that change no build input land at once; the rest ride the next periodic full check."""
+        for path in self.pending_submissions():
+            if self.halted or self.stopping:
+                return
+            if self.submission_changes_build(path):
+                continue
+            with self.integration_lock:
+                if self.target_moved_externally():
+                    return
+                self.restore_integration()
+                base = git(INTEGRATION, "rev-parse", "HEAD")
+                try:
+                    info = self.merge_submission(json.loads(path.read_text()), path.stem, base_only=True)
+                except SubmissionDecision as decision:
+                    self.restore_integration()
+                    self.decide(path, decision.result)
+                    continue
+                merged = git(INTEGRATION, "rev-parse", "HEAD")
+                if not build_inputs_equal(base, merged) or info["map_changed"] or info["claims"] or info["nonmatching"]:
+                    self.restore_integration()
+                    continue
+                if not self.move(merged, base, f"factory: accept submission {path.stem} (no build input changes)"):
+                    return
+                self.decide(path, {"outcome": "accepted", "main": merged, "matched": [], "matched_bytes": 0,
+                                   "checked": "no build inputs changed"})
+
+    def merge_submission(self, request, name, base_only=False):
+        """Validate a submission and merge it onto the candidate as it stands. Raises SubmissionDecision to reject,
+        hold, or (when other submissions are already merged and this one conflicts with them) defer it."""
+        branch = request.get("branch", "")
         if not branch.startswith(SUBMISSION_PREFIXES):
-            return {"outcome": "rejected", "reason": f"branch must start with one of {SUBMISSION_PREFIXES}"}
+            raise SubmissionDecision({"outcome": "rejected", "reason": f"branch must start with one of {SUBMISSION_PREFIXES}"})
         if branch.startswith("dot/"):
             git(INTEGRATION, "fetch", "-q", "origin", f"+refs/heads/{branch}:refs/remotes/origin/{branch}", check=False)
-        commit = git(INTEGRATION, "rev-parse", "--verify", f"{commit or branch}^{{commit}}")
+        commit = git(INTEGRATION, "rev-parse", "--verify", f"{request.get('commit') or branch}^{{commit}}")
         claims, nonmatching = list(request.get("claims", [])), list(request.get("nonmatching", []))
-        base_main = target_commit()
-        merge_base = git(INTEGRATION, "merge-base", base_main, commit)
+        merge_base = git(INTEGRATION, "merge-base", target_commit(), commit)
         changed = git(INTEGRATION, "diff", "--name-only", merge_base, commit).splitlines()
         forbidden = [p for p in changed if p == "project/ledger.csv" or p.startswith(str(FACTORY_SOURCE_DIRECTORY) + "/")]
         if forbidden:
-            return {"outcome": "rejected", "reason": f"lanes may not change {forbidden}"}
+            raise SubmissionDecision({"outcome": "rejected", "reason": f"lanes may not change {forbidden}"})
         oracle = [p for p in changed if p == "data/config.json" or any(p == o or p.startswith(o) for o in ORACLE_PATHS)]
         if oracle and not request.get("operator_approved"):
-            return {"outcome": "held", "reason": f"oracle files {oracle} need the operator's review (brief rule 2)"}
+            raise SubmissionDecision({"outcome": "held", "reason": f"oracle files {oracle} need the operator's review (brief rule 2)"})
         if str(MAP) in changed:
             if rank_column_changes(git(INTEGRATION, "show", f"{merge_base}:{MAP}"), git(INTEGRATION, "show", f"{commit}:{MAP}")):
-                return {"outcome": "rejected", "reason": "lanes never set ranks; the branch changes rank cells in map.csv"}
+                raise SubmissionDecision({"outcome": "rejected", "reason": "lanes never set ranks; the branch changes rank cells in map.csv"})
             for revision in git(INTEGRATION, "rev-list", f"{merge_base}..{commit}", "--", str(MAP)).splitlines():
                 touched = git(INTEGRATION, "diff-tree", "--no-commit-id", "--name-only", "-r", revision).splitlines()
                 extra = [p for p in touched if p != str(MAP) and not (p.startswith("project/") and p.endswith(".md"))]
                 if extra:
-                    return {"outcome": "rejected", "reason": f"map.csv changes need their own evidence commit (rule 2); {revision[:9]} also changes {extra}"}
-        self.restore_integration()
+                    raise SubmissionDecision({"outcome": "rejected", "reason": f"map.csv changes need their own evidence commit"
+                                              f" (rule 2); {revision[:9]} also changes {extra}"})
+        before = git(INTEGRATION, "rev-parse", "HEAD")
         merge = subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--no-ff", "-q", "-m",
                                 f"Merge {branch} (submission {name})", commit], capture_output=True, text=True)
         if merge.returncode != 0:
-            return {"outcome": "rejected", "reason": "does not merge cleanly onto main: " + (merge.stdout + merge.stderr).strip()[-400:]}
-        merged = git(INTEGRATION, "rev-parse", "HEAD")
+            subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--abort"], capture_output=True)
+            git(INTEGRATION, "reset", "-q", "--hard", before)
+            if before != target_commit() and not base_only:
+                raise SubmissionDecision({"outcome": "deferred"})
+            raise SubmissionDecision({"outcome": "rejected", "reason": "does not merge cleanly onto main: "
+                                      + (merge.stdout + merge.stderr).strip()[-400:]})
         rows = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
         by_symbol = {r["symbol"]: r["start"] for r in rows.values() if r["symbol"]}
 
@@ -1297,121 +1375,153 @@ class Supervisor:
         addresses = {claim: resolve(claim) for claim in claims + nonmatching}
         unknown = [claim for claim, address in addresses.items() if address is None or "f" not in rows[address]["type"]]
         if unknown:
-            return {"outcome": "rejected", "reason": f"not function symbols in map.csv: {unknown[:10]}"}
-        # Rows enter the build at M; rows already at M or O need nothing.
-        flips = {addresses[claim]: ("M", claim) for claim in claims + nonmatching
-                 if rows[addresses[claim]]["rank"] not in ("O", "M")}
-        if flips:
-            set_map_rows(INTEGRATION, flips)
-            git(INTEGRATION, "add", "--", str(MAP))
-            git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate ranks for submission {name}, not verified")
-        checked = git(INTEGRATION, "rev-parse", "HEAD")
-        if build_inputs_equal(base_main, checked) and str(MAP) not in changed and not flips and not claims:
-            if not self.move(merged, base_main, f"factory: accept submission {name} (no build input changes)"):
-                return {"outcome": "rejected", "reason": "main moved outside the integrator"}
-            return {"outcome": "accepted", "main": merged, "matched": [], "matched_bytes": 0, "checked": "no build inputs changed"}
-        status, output = tool(INTEGRATION, "make.py", "eu", timeout=1800)
-        if status != 0:
-            return {"outcome": "rejected", "reason": "build fails: " + output[-600:]}
-        changes_file = INTEGRATION / "data/ver/eu/.changes"
-        changes_file.unlink(missing_ok=True)
-        tool(INTEGRATION, "tools/check.py", "-q", "-w", timeout=1800)
-        regressions = lost_exact(changes_file)
-        if regressions:
-            return {"outcome": "rejected", "reason": f"breaks previously exact functions: {regressions[:20]}"}
-        gained = set(gained_exact(changes_file))
-        missing = [claim for claim in claims if claim not in gained and rows[addresses[claim]]["rank"] != "O"]
-        if missing:
-            return {"outcome": "rejected", "reason": f"claimed functions are not exact: {missing[:20]}"}
-        matched = [claim for claim in claims if claim in gained]
-        set_map_rows(INTEGRATION, {addresses[claim]: ("O", None) for claim in matched})
-        stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
-        with open(INTEGRATION / "project/ledger.csv", "a") as stream:
-            for claim in matched:
-                stream.write(f"{stamp},0x{addresses[claim]:08X},{claim},matched,{request.get('attempts', 1)},{request.get('minutes', 0)}\n")
-            for claim in nonmatching:
-                stream.write(f"{stamp},0x{addresses[claim]:08X},{claim},nonmatching,{request.get('attempts', 1)},{request.get('minutes', 0)}\n")
-        matched_bytes = sum(rows[addresses[claim]]["end"] - rows[addresses[claim]]["start"] for claim in matched)
-        git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
-        git(INTEGRATION, "reset", "-q", "--soft", merged)
-        if subprocess.run(["git", "-C", str(INTEGRATION), "diff", "--cached", "--quiet"]).returncode == 0:
-            # Nothing to record: no claims or non-matching rows. The checked merge itself is the final commit.
-            git(INTEGRATION, "reset", "-q", "--hard", merged)
-            if not self.move(merged, base_main, f"factory: accept submission {name}"):
-                return {"outcome": "rejected", "reason": "main moved outside the integrator"}
-            return {"outcome": "accepted", "main": merged, "matched": [], "matched_bytes": 0}
-        git(INTEGRATION, "commit", "-q", "-m",
-            f"Accept submission {name} from {branch}: {len(matched)} exact, {len(nonmatching)} non-matching\n\n"
-            + "".join(f"- {s}\n" for s in matched) + (f"\n{request.get('summary', '')}\n" if request.get("summary") else "")
-            + "\nVerified by tools/check.py, full map, on a candidate commit before main moved.\n\n"
-            "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
-        final = git(INTEGRATION, "rev-parse", "HEAD")
-        if not build_inputs_equal(checked, final):
-            self.halted = f"submission {name}: final build inputs differ from the checked candidate"
-            log_event(self.database, "alert", self.halted)
-            return {"outcome": "rejected", "reason": "integrator fault: final build inputs differ from the checked candidate"}
-        if not self.move(final, base_main, f"factory: accept submission {name}"):
-            return {"outcome": "rejected", "reason": "main moved outside the integrator"}
-        for claim in matched:
-            if addresses[claim] in self.rows_by_start:
-                self.rows_by_start[addresses[claim]]["rank"] = "O"
-        # The full check ran on these build inputs; only the claims' ranks changed, and the check set them.
-        self.last_checked = final
-        return {"outcome": "accepted", "main": final, "matched": matched, "matched_bytes": matched_bytes}
+            git(INTEGRATION, "reset", "-q", "--hard", before)
+            raise SubmissionDecision({"outcome": "rejected", "reason": f"not function symbols in map.csv: {unknown[:10]}"})
+        return {"branch": branch, "request": request, "claims": claims, "nonmatching": nonmatching,
+                "addresses": addresses, "map_changed": str(MAP) in changed}
 
     # periodic full check and push -------------------------------------------
+    def full_check(self, worktree):
+        """Clean build and full-map check. Returns (built, build output tail, symbols lost from O, symbols gained O)."""
+        status, output = tool(worktree, "make.py", "eu", "-ca", timeout=1800)
+        if status != 0:
+            return False, output[-400:], [], set()
+        changes_file = worktree / "data/ver/eu/.changes"
+        changes_file.unlink(missing_ok=True)
+        tool(worktree, "tools/check.py", "-q", "-w", timeout=1800)
+        return True, "", lost_exact(changes_file), set(gained_exact(changes_file))
+
+    def demotions_allowed(self, demoted):
+        if not demoted:
+            return True
+        readable = demangle(demoted)
+        others = [s for s in demoted if not is_constructor_or_destructor(s, readable)]
+        if len(demoted) > MAXIMUM_PERIODIC_DEMOTIONS or others:
+            self.halt_all(f"the full check demoted {len(demoted)} rows, {len(others)} of them not constructors"
+                          f" or destructors: {demoted[:10]}")
+            return False
+        return True
+
     def sync(self):
-        """Clean build and full check of the target tip; demote a few unconfirmed constructors, else halt; then push."""
+        """One clean build and full check serves the periodic check of main and every submission that changes build
+        inputs: they ride along merged onto the candidate. A few unconfirmed constructors are demoted, more halts.
+        If the combined check fails, main is checked alone in the probe worktree to tell its rows from the riders'."""
         with self.integration_lock:
             self.last_sync = time.time()
             if self.target_moved_externally():
                 return
             self.restore_integration()
             base = git(INTEGRATION, "rev-parse", "HEAD")
-            if TARGET_BRANCH != "main":
-                result = subprocess.run(["git", "-C", str(INTEGRATION), "merge", "-q", "-m",
-                                         f"Merge branch 'main' into {TARGET_BRANCH}", "main"],
-                                        capture_output=True, text=True)
-                if result.returncode != 0:
-                    log_event(self.database, "alert", f"merge of main failed: {result.stdout.strip()[-300:]} {result.stderr.strip()[-300:]}")
+            started = time.time()
+            waiting = [p for p in self.pending_submissions() if self.submission_changes_build(p)]
+            solo = [p for p in waiting if json.loads(p.read_text()).get("solo")]
+            riders = []
+            for path in (solo[:1] if solo else waiting):
+                try:
+                    riders.append((path, self.merge_submission(json.loads(path.read_text()), path.stem)))
+                except SubmissionDecision as decision:
+                    if decision.result["outcome"] != "deferred":
+                        self.decide(path, decision.result)
+            merged_head = git(INTEGRATION, "rev-parse", "HEAD")
+            rows = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
+            flips = {info["addresses"][claim]: ("M", claim) for _, info in riders for claim in info["claims"] + info["nonmatching"]
+                     if rows[info["addresses"][claim]]["rank"] not in ("O", "M")}
+            if flips:
+                set_map_rows(INTEGRATION, flips)
+                git(INTEGRATION, "add", "--", str(MAP))
+                git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate ranks for {len(riders)} submissions, not verified")
+            checked = git(INTEGRATION, "rev-parse", "HEAD")
+            built, output, lost, gained = self.full_check(INTEGRATION)
+            missing = {path: [c for c in info["claims"] if c not in gained and rows[info["addresses"][c]]["rank"] != "O"]
+                       for path, info in riders}
+            if riders and (not built or lost or any(missing.values())):
+                # Tell main's own rows from the riders': check main alone in the probe worktree.
+                git(MAIN_PROBE, "checkout", "-q", "--detach", "-f", base)
+                git(MAIN_PROBE, "clean", "-fdq", "--", "Game", "lib")
+                main_built, main_output, main_lost, _ = self.full_check(MAIN_PROBE)
+                if not main_built:
+                    self.halted = f"{TARGET_BRANCH} does not build cleanly"
+                    log_event(self.database, "alert", self.halted + ": " + main_output)
                     self.restore_integration()
                     return
-            started = time.time()
-            status, output = tool(INTEGRATION, "make.py", "eu", "-ca", timeout=1800)
-            if status != 0:
+                own = sorted(set(lost) - set(main_lost)) if built else ["(the combined build fails: " + output[-200:] + ")"]
+                if own or any(missing.values()):
+                    for path, info in riders:
+                        if len(riders) == 1:
+                            reason = (("the build fails with this branch merged: " + output[-300:]) if not built else
+                                      f"breaks previously exact functions: {own[:20]}" if own else
+                                      f"claimed functions are not exact: {missing[path][:20]}")
+                            self.decide(path, {"outcome": "rejected", "reason": reason})
+                        else:
+                            request = json.loads(path.read_text())
+                            request["solo"] = True
+                            path.write_text(json.dumps(request, indent=2) + "\n")
+                    if len(riders) > 1:
+                        log_event(self.database, "submission", f"{len(riders)} riders failed together; each rides alone from now on")
+                    # Main alone: its own regressions follow the demotion policy below.
+                    self.restore_integration()
+                    riders, lost, gained, merged_head, checked = [], main_lost, set(), base, base
+                built = True
+            if not built:
                 self.halted = f"{TARGET_BRANCH} does not build cleanly"
-                log_event(self.database, "alert", self.halted + ": " + output[-400:])
+                log_event(self.database, "alert", self.halted + ": " + output)
                 self.restore_integration()
                 return
-            changes_file = INTEGRATION / "data/ver/eu/.changes"
-            changes_file.unlink(missing_ok=True)
-            tool(INTEGRATION, "tools/check.py", "-q", "-w", timeout=1800)
-            checked = git(INTEGRATION, "rev-parse", "HEAD")
-            demoted = lost_exact(changes_file)
-            if demoted:
-                readable = demangle(demoted)
-                others = [s for s in demoted if not is_constructor_or_destructor(s, readable)]
-                if len(demoted) > MAXIMUM_PERIODIC_DEMOTIONS or others:
-                    self.halt_all(f"the full check demoted {len(demoted)} rows, {len(others)} of them not constructors"
-                                  f" or destructors: {demoted[:10]}")
-                    self.restore_integration()
-                    return
-                set_ranks_by_symbol(INTEGRATION, {s: "M" for s in demoted})
-                git(INTEGRATION, "add", "--", str(MAP))
-                git(INTEGRATION, "commit", "-q", "-m",
-                    f"Demote {len(demoted)} row{'s' if len(demoted) > 1 else ''} the periodic full check did not confirm\n\n"
-                    + "".join(f"- {s}\n" for s in demoted) + "\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
-                log_event(self.database, "demote", f"periodic full check demoted to M: {demoted}")
-            merged = git(INTEGRATION, "rev-parse", "HEAD")
-            if not build_inputs_equal(checked, merged):
-                self.halted = "sync: final build inputs differ from the checked commit"
+            if not self.demotions_allowed(lost):
+                self.restore_integration()
+                return
+            # The final commit: rider merges stay; ranks, demotions and the ledger go into one integrator commit.
+            git(INTEGRATION, "reset", "-q", "--soft", merged_head)
+            rows = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
+            ranks = {}
+            for _, info in riders:
+                for claim in info["claims"] + info["nonmatching"]:
+                    address = info["addresses"][claim]
+                    ranks[address] = ("O" if claim in gained else ("M" if rows[address]["rank"] != "O" else "O"), claim)
+            if ranks:
+                set_map_rows(INTEGRATION, ranks)
+            if lost:
+                set_ranks_by_symbol(INTEGRATION, {s: "M" for s in lost})
+                log_event(self.database, "demote", f"periodic full check demoted to M: {lost}")
+            stamp = datetime.datetime.now(EASTERN).isoformat(timespec="seconds")
+            accepted = []
+            with open(INTEGRATION / "project/ledger.csv", "a") as stream:
+                for path, info in riders:
+                    request = info["request"]
+                    matched = [c for c in info["claims"] if c in gained]
+                    for claim in matched:
+                        stream.write(f"{stamp},0x{info['addresses'][claim]:08X},{claim},matched,{request.get('attempts', 1)},{request.get('minutes', 0)}\n")
+                    for claim in info["nonmatching"]:
+                        stream.write(f"{stamp},0x{info['addresses'][claim]:08X},{claim},nonmatching,{request.get('attempts', 1)},{request.get('minutes', 0)}\n")
+                    accepted.append((path, info, matched))
+            git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
+            if subprocess.run(["git", "-C", str(INTEGRATION), "diff", "--cached", "--quiet"]).returncode != 0:
+                lines = [f"Periodic full check: {len(riders)} submission{'s' if len(riders) != 1 else ''} accepted, {len(lost)} rows demoted"]
+                for _, info, matched in accepted:
+                    lines.append(f"\n{info['branch']}: {len(matched)} exact, {len(info['nonmatching'])} non-matching")
+                    lines += [f"- {claim}" for claim in matched]
+                if lost:
+                    lines.append("\nDemoted to M, not confirmed by the full check:")
+                    lines += [f"- {symbol}" for symbol in lost]
+                lines.append("\nVerified by tools/check.py, full map, on a clean build of the candidate before main moved."
+                             "\n\nCo-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+                git(INTEGRATION, "commit", "-q", "-m", "\n".join(lines))
+            else:
+                git(INTEGRATION, "reset", "-q", "--hard", merged_head)
+            final = git(INTEGRATION, "rev-parse", "HEAD")
+            if not build_inputs_equal(checked, final):
+                self.halted = "periodic full check: final build inputs differ from the checked candidate"
                 log_event(self.database, "alert", self.halted)
                 self.restore_integration()
                 return
-            if merged != base and not self.move(merged, base, "factory: periodic full check"):
+            if final != base and not self.move(final, base, "factory: periodic full check"
+                                               + (f" with {len(riders)} submissions" if riders else "")):
                 self.restore_integration()
                 return
-            self.last_checked = merged
+            for path, info, matched in accepted:
+                matched_bytes = sum(rows[info["addresses"][c]]["end"] - rows[info["addresses"][c]]["start"] for c in matched)
+                self.decide(path, {"outcome": "accepted", "main": final, "matched": matched, "matched_bytes": matched_bytes,
+                                   "checked": "rode the periodic full check"})
             remote = remote_target()
             if remote != self.last_pushed:
                 self.halt_all(f"origin {TARGET_BRANCH} moved outside the integrator: expected {self.last_pushed[:9]}, found {remote[:9]}")
@@ -1419,11 +1529,14 @@ class Supervisor:
             push = subprocess.run(["git", "-C", str(INTEGRATION), "push", "-q", "origin", f"refs/heads/{TARGET_BRANCH}"],
                                   capture_output=True, text=True)
             if push.returncode == 0:
-                self.last_pushed = merged
+                self.last_pushed = final
+                self.last_push_time = time.time()
             self.reload_symbols()
             after = sum(1 for r in self.rows_by_start.values() if r["rank"] == "O")
             log_event(self.database, "sync", f"full check in {int(time.time() - started)} s; {after} functions exact;"
-                      f" {len(demoted)} demoted; push {'ok' if push.returncode == 0 else 'failed: ' + push.stderr.strip()[-200:]}")
+                      f" {len(riders)} submissions rode along; {len(lost)} demoted;"
+                      f" push {'ok' if push.returncode == 0 else 'failed: ' + push.stderr.strip()[-200:]}")
+
 
     # main loop -----------------------------------------------------------
     def adjust_slots(self):
@@ -1447,6 +1560,9 @@ class Supervisor:
             self.integration_queue.put(path)
         execute(self.database, "UPDATE jobs SET status='open', leased_by=NULL WHERE status='leased'")
         execute(self.database, "UPDATE runs SET outcome='abandoned' WHERE outcome='running'")
+        # No run is in flight yet, so any worker session file left here belongs to a run that died with a supervisor.
+        for session in (CODEX_HOME / "sessions").glob("*/*/*/rollout-*.jsonl"):
+            session.unlink(missing_ok=True)
         log_event(self.database, "start", f"slots {sorted(self.slot_specs)}; target {TARGET_BRANCH} at {self.expected_target[:9]}")
         threads = [threading.Thread(target=self.integrator_loop, daemon=True)]
         workers = [threading.Thread(target=self.worker_loop, args=(slot,), daemon=True) for slot in self.slot_specs]
@@ -1564,6 +1680,7 @@ def write_status(supervisor=None):
         events = database.execute("SELECT * FROM events ORDER BY time DESC LIMIT 12").fetchall()
         alerts = database.execute("SELECT * FROM events WHERE kind IN ('alert','error','demote') ORDER BY time DESC LIMIT 10").fetchall()
         matches = database.execute("SELECT time, text FROM events WHERE kind='match' AND time > ?", (now - 86400,)).fetchall()
+        last_push = database.execute("SELECT MAX(time) FROM events WHERE kind='sync' AND text LIKE '%push ok%'").fetchone()[0]
     rows = target_rows()
     functions = [r for r in rows if "f" in r["type"]]
     total = sum(r["end"] - r["start"] for r in functions)
@@ -1619,6 +1736,7 @@ def write_status(supervisor=None):
         "events": [{"time": clock(e["time"]), "kind": e["kind"], "text": e["text"]} for e in events],
         "halt_all": HALT_ALL_FILE.read_text().strip() if HALT_ALL_FILE.exists() else "",
         "port": port_status(total),
+        "integrator": integrator_queue(supervisor, last_push, now),
     }
     STATUS_JSON.write_text(json.dumps(status, indent=1) + "\n")
     lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", "",
@@ -1628,6 +1746,8 @@ def write_status(supervisor=None):
              f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact.", "",
              "Queue: " + ", ".join(f"{q['status']} {q['jobs']} jobs / {q['functions']} functions" for q in status["queue"]), "",
              f"Accepted bytes: {bytes_last(1):,} last hour, {bytes_last(6):,} last 6 hours.", "",
+             f"Integrator queue: {status['integrator']['proposals_waiting']} proposals, {status['integrator']['submissions_waiting']} submissions;"
+             f" last push to origin {status['integrator']['minutes_since_push']} min ago.", "",
              "## Efficiency", "",
              "| Label | Model | Runs | Runs matched | Functions | Bytes | Tokens per byte (uncached + output) | Failed spend (error or timeout) | Minutes per run |",
              "|---|---|---|---|---|---|---|---|---|"]
@@ -1645,6 +1765,24 @@ def write_status(supervisor=None):
     lines += ["", "## Recent events", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in events]
     STATUS_FILE.write_text("\n".join(lines) + "\n")
     return STATUS_FILE.read_text()
+
+
+def integrator_queue(supervisor, last_push, now):
+    """How much is waiting for the integrator, and how long origin has gone without a push."""
+    submissions = sorted(SUBMISSIONS.glob("*.json")) if SUBMISSIONS.exists() else []
+    riding = 0
+    for path in submissions:
+        try:
+            request = json.loads(path.read_text())
+        except (OSError, ValueError):
+            continue
+        riding += bool(request.get("claims") or request.get("nonmatching") or request.get("solo"))
+    return {"proposals_waiting": len(list(PROPOSALS.glob("job_*"))), "submissions_waiting": len(submissions),
+            "submissions_with_claims": riding,
+            "last_push": datetime.datetime.fromtimestamp(last_push, EASTERN).isoformat(timespec="seconds") if last_push else "",
+            "minutes_since_push": int((now - last_push) / 60) if last_push else None,
+            "minutes_to_next_full_check": max(0, int((supervisor.last_sync + SYNC_INTERVAL_SECONDS - now) / 60))
+            if supervisor and supervisor.last_sync else None}
 
 
 def port_status(total_code_bytes):
