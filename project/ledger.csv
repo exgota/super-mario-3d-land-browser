@@ -755,3 +755,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x0021711C,_ZN4sead11WriteStream8writeU64Ey,matched,2,10.371056
 2026-10-02T00:11:52.904631+00:00,0x0021714C,_ZN4sead11WriteStream7writeU8Eh,matched,2,10.371056
 2026-10-02T00:11:52.904631+00:00,0x00251644,_ZN4sead11WriteStream7writeS8Ea,matched,2,10.371056
+2026-10-02T00:11:52.904631+00:00,0x002518A4,_ZN4sead11WriteStream13writeMemBlockEPKvj,matched,2,10.371056
