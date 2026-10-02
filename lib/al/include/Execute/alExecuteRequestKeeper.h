@@ -6,11 +6,12 @@ namespace al
 {
 
 class LiveActor;
+struct ExecuteRequestQueue;
 
 class ExecuteRequestKeeper
 {
 private:
-        u8 _0[ 0x10 ];
+        ExecuteRequestQueue* _0[ 4 ];
 
 public:
         void request( LiveActor*, int );
