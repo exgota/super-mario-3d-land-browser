@@ -18,6 +18,7 @@ Stop a running supervisor by creating the file STOP next to this script.
 """
 import argparse
 import bisect
+import importlib.util
 import collections
 import datetime
 import json
@@ -100,7 +101,14 @@ PORT_STATUS = INTEGRATOR_EXCHANGE / "port_status.json"
 PORT_MILESTONES = (
     "Static recompiler builds natively and reaches the first frame's GPU command stream, matching Azahar",
     "Rendering", "Input", "Audio", "World 1-1", "Browser build")
-SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/")
+SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/", "cleanup/")
+# Cleanup branches may move code out of the Factory directory; they ride alone and lose no O row (owner, 2026-10-02).
+CLEANUP_PREFIX = "cleanup/"
+# Facts files (owner, 2026-10-02): offsets, types, signatures, symbol names and addresses only.
+FACTS_STAGING = HOME / "facts_staging"
+FACTS_DIRECTORY = pathlib.Path("docs/facts")
+SOURCE_QUALITY_FILE = HOME / "logs" / "source_quality.json"
+ADDRESS_LITERALS_FILE = HOME / "logs" / "address_literals.json"
 # The oracle (brief rule 2): a lane's change to these waits for the operator's review.
 ORACLE_PATHS = ("tools/check.py", "tools/diff.py", "tools/progress.py", "tools/low/", "tools/asm-differ")
 
@@ -386,6 +394,11 @@ def target_commit():
     return git(INTEGRATION, "rev-parse", f"refs/heads/{TARGET_BRANCH}")
 
 
+def load_rows_at(commit):
+    text = git(INTEGRATION, "show", f"{commit}:{MAP}")
+    return [parse_row(line) for line in text.splitlines()[1:] if line.strip()]
+
+
 def target_rows():
     """Map rows at the target branch tip, never the candidate worktree in the middle of a verification."""
     text = git(INTEGRATION, "show", f"refs/heads/{TARGET_BRANCH}:{MAP}")
@@ -482,10 +495,77 @@ Rules:
 6. Before you finish, delete every function that still does not match, so the file holds only matching code.
    If nothing matches, delete the file.
 7. Do not read project/, tools/ or other source files unless job.md points you to them. Keep it short.
+8. Before you finish, matched or not, complete .factory/facts/<ADDRESS>.md for every function in job.md. Fill in the
+   class guess with a confidence and the evidence, the type of each struct offset listed, an inferred C++ signature
+   for each callee, and what each data reference is. Only offsets, types, signatures, symbol names and addresses:
+   no disassembly, no raw bytes, no copied data.
 Finish with one line per function: the address and matched or failed."""
 
 
-def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings):
+def this_accesses(code, row):
+    """(offset, size, read or write) for each load or store through r0, the this pointer on entry."""
+    found = set()
+    end = row["pool"] or row["end"]
+    for address in range(row["start"], end, 4):
+        word = struct.unpack_from("<I", code, address - TEXT_BASE)[0]
+        if (word >> 28) == 0xF or ((word >> 16) & 0xF) != 0:
+            continue
+        if (word & 0x0E000000) == 0x04000000 and not word & (1 << 25):     # LDR, STR, LDRB, STRB with an immediate
+            found.add((word & 0xFFF, 1 if word & (1 << 22) else 4, "read" if word & (1 << 20) else "write"))
+        elif (word & 0x0E4000F0) == 0x004000B0:                            # LDRH, STRH with an immediate
+            found.add((((word >> 4) & 0xF0) | (word & 0xF), 2, "read" if word & (1 << 20) else "write"))
+    return sorted(found)
+
+
+def write_facts_skeleton(path, row, name, readable, rows_by_start, code, vtable_slots):
+    """The mechanical half of a facts file; the worker fills in the class, the types and the signatures."""
+    end = row["pool"] or row["end"]
+    callees, data = set(), set()
+    for address in range(row["start"], end, 4):
+        word = struct.unpack_from("<I", code, address - TEXT_BASE)[0]
+        if (word & 0x0F000000) == 0x0B000000 and (word >> 28) != 0xF:      # BL
+            offset = (word & 0xFFFFFF) << 2
+            target = address + 8 + (offset - (1 << 26) if offset & (1 << 25) else offset)
+            if target in rows_by_start:
+                callees.add(target)
+    for address in range(end, row["end"], 4):
+        value = struct.unpack_from("<I", code, address - TEXT_BASE)[0]
+        target = rows_by_start.get(value)
+        if target:
+            (callees if "f" in target["type"] else data).add(value)
+    lines = [f"# {name}", "", f"Address 0x{row['start']:08X}, {row['end'] - row['start']} bytes.", "",
+             "## Class guess", "", "Not yet inferred.", "", "## Struct offsets touched (this is r0 on entry)", ""]
+    accesses = this_accesses(code, row)
+    lines += [f"- +0x{offset:X}, {size} byte{'s' if size > 1 else ''}, {kind}: type not yet inferred" for offset, size, kind in accesses] or ["- none"]
+    lines += ["", "## Callees", ""]
+    for target in sorted(callees):
+        callee = default_name(rows_by_start[target])
+        lines.append(f"- {callee} (0x{target:08X})" + (f": {readable[callee]}" if callee in readable else ": signature not yet inferred"))
+    if not callees:
+        lines.append("- none")
+    lines += ["", "## Vtable slots", ""]
+    lines += [f"- vtable 0x{vtable:08X}, slot {slot}" for vtable, slot in vtable_slots.get(row["start"], [])] or ["- none found"]
+    lines += ["", "## Data references", ""]
+    lines += [f"- {default_name(rows_by_start[target])} (0x{target:08X}): not yet identified" for target in sorted(data)] or ["- none"]
+    path.write_text("\n".join(lines) + "\n")
+
+
+def build_vtable_slots(rows, code):
+    """Function address -> [(vtable address, slot)] for every data row that is mostly function pointers."""
+    starts = {r["start"] for r in rows if "f" in r["type"]}
+    slots = collections.defaultdict(list)
+    for row in rows:
+        if "f" in row["type"] or row["end"] - row["start"] < 8 or row["end"] - TEXT_BASE > len(code):
+            continue
+        words = struct.unpack_from("<%dI" % ((row["end"] - row["start"]) // 4), code, row["start"] - TEXT_BASE)
+        hits = [i for i, w in enumerate(words) if w in starts]
+        if len(hits) >= 2 and len(hits) * 2 >= len(words):
+            for index in hits:
+                slots[words[index]].append((row["start"], index))
+    return slots
+
+
+def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings, vtable_slots=None):
     addresses = [int(a, 16) for a in job["addresses"].split(",")]
     tier = settings
     first = rows_by_start[addresses[0]]
@@ -496,6 +576,26 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
         name = default_name(row)
         names.append(name)
     listing, _ = disassemble(code, first, symbols)
+    if job["kind"] == "facts":
+        sources = sorted({p.relative_to(worktree).as_posix() for p in (worktree / FACTORY_SOURCE_DIRECTORY).glob("*.cpp")
+                          if any(f"{n}(" in p.read_text(errors="ignore") for n in names)})
+        parts = [f"# Job {job['id']}: facts only", "",
+                 "These functions already match byte for byte; their source is in " + ", ".join(f"`{s}`" for s in sources) + ".",
+                 "Do not write or edit any code and do not run attempt. Read the source and the listings below, then complete",
+                 "the facts file for each function in .factory/facts/ (rule 8).", ""]
+        for address, name in zip(addresses, names):
+            listing, _ = disassemble(code, rows_by_start[address], symbols)
+            parts += [f"`{name}` at 0x{address:08X}:", "", "```", listing, "```", ""]
+        factory_directory = worktree / ".factory"
+        (factory_directory / "facts").mkdir(parents=True, exist_ok=True)
+        for address, name in zip(addresses, names):
+            write_facts_skeleton(factory_directory / "facts" / f"{address:08X}.md", rows_by_start[address], name, readable,
+                                 rows_by_start, code, vtable_slots or {})
+        (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
+        (factory_directory / "job.json").write_text(json.dumps({
+            "id": job["id"], "addresses": addresses, "symbols": names, "file": "", "attempt_limit": 0,
+            "base": git(worktree, "rev-parse", "HEAD")}))
+        return addresses, names
     parts = [f"# Job {job['id']}", "", f"Write: `{file_name}`", ""]
     if len(addresses) == 1:
         symbol = names[0]
@@ -538,6 +638,11 @@ def build_packet(job, worktree, rows_by_start, symbols, code, readable, settings
               f" ({tier['attempts']} runs)."]
     factory_directory = worktree / ".factory"
     factory_directory.mkdir(exist_ok=True)
+    facts = factory_directory / "facts"
+    facts.mkdir(exist_ok=True)
+    for address, name in zip(addresses, names):
+        write_facts_skeleton(facts / f"{address:08X}.md", rows_by_start[address], name, readable, rows_by_start, code,
+                             vtable_slots or {})
     (factory_directory / "job.md").write_text("\n".join(parts) + "\n")
     (factory_directory / "job.json").write_text(json.dumps({
         "id": job["id"], "addresses": addresses, "symbols": names, "file": str(file_name),
@@ -809,9 +914,12 @@ class Supervisor:
         self.active = {}
         self.stopping = False
         self.halted = ""
-        self.last_sync = 0.0  # the first idle moment runs a full check and push
+        # A restart soon after a full check waits out the rest of its interval instead of checking again.
+        last = self.database.execute("SELECT MAX(time) FROM events WHERE kind='sync'").fetchone()[0]
+        self.last_sync = last if last and time.time() - last < SYNC_INTERVAL_SECONDS else 0.0
         self.code = read_code()
         self.reload_symbols()
+        self.vtable_slots = build_vtable_slots(list(self.rows_by_start.values()), self.code)
         self.expected_target = target_commit()
         self.last_pushed = remote_target()
         self.batch_failures = {}
@@ -888,6 +996,14 @@ class Supervisor:
                     leased = dict(job)
                     leased["addresses"] = address_text
                     return leased
+            for kind in spec.get("fallback_kinds", []):
+                job = self.database.execute("SELECT * FROM jobs WHERE status='open' AND kind=? ORDER BY priority DESC, id LIMIT 1",
+                                            (kind,)).fetchone()
+                if job:
+                    self.database.execute("UPDATE jobs SET status='leased', leased_by=?, leased_at=?, attempts=attempts+1 WHERE id=?",
+                                          (slot, time.time(), job["id"]))
+                    self.database.commit()
+                    return dict(job)
             self.database.commit()
         return None
 
@@ -934,7 +1050,8 @@ class Supervisor:
         trial = spec.get("trial")
         head = target_commit()
         reset_worktree(worktree, head)
-        addresses, names = build_packet(job, worktree, self.rows_by_start, self.symbols, self.code, self.readable, settings)
+        addresses, names = build_packet(job, worktree, self.rows_by_start, self.symbols, self.code, self.readable, settings,
+                                        self.vtable_slots)
         set_map_rows(worktree, {a: ("M", s) for a, s in zip(addresses, names)})
         started = time.time()
         self.active[slot] = {"job": job["id"], "tier": job["tier"], "count": len(addresses), "first": addresses[0],
@@ -972,6 +1089,14 @@ class Supervisor:
         bad_edits = changed_tracked_files(worktree, job_data["base"])
         files = new_source_files(worktree, job_data["base"])
         matched = []
+        self.stage_facts(worktree, job, settings, outcome)
+        if job["kind"] == "facts":
+            execute(self.database, "UPDATE runs SET finished=?, outcome=?, input_tokens=?, cached_tokens=?, output_tokens=?, note=? WHERE id=?",
+                    (time.time(), outcome, usage["input_tokens"], usage["cached_input_tokens"], usage["output_tokens"], "facts", run_id))
+            execute(self.database, "UPDATE jobs SET status=?, finished_at=?, leased_by=NULL WHERE id=?",
+                    ("open" if provider_errors else "done", time.time(), job["id"]))
+            log_event(self.database, "run", f"{slot} facts job {job['id']} {settings['model']} {settings['effort']}: {len(addresses)} functions, {outcome}")
+            return
         if not bad_edits and files:
             results = attempt_in(worktree, job_data, final=True, commit=True)
             matched = [a for a, r in results.items() if r["rank"] == "O"]
@@ -1033,6 +1158,15 @@ class Supervisor:
                   f"{' trial ' + trial if trial else ''}: {len(matched)}/{len(addresses)} matched,"
                   f" {usage['input_tokens'] - usage['cached_input_tokens']} uncached + {usage['output_tokens']} out, {outcome}"
                   + (f"; retrying at the same tier in {self.backoff[slot]} s: {provider_errors[-1][:120]}" if retry else ""))
+
+    def stage_facts(self, worktree, job, settings, outcome):
+        """Keep each facts file, minus anything that looks like a listing or raw bytes, for the next facts commit."""
+        FACTS_STAGING.mkdir(exist_ok=True)
+        listing = re.compile(r"^\s*[0-9A-Fa-f]{8}\s+[a-z]{1,6}[a-z.]*\s|\.word\b|\b(?:[0-9A-Fa-f]{2}\s){8,}")
+        for path in (worktree / ".factory" / "facts").glob("*.md"):
+            kept = [line for line in path.read_text(errors="ignore").splitlines() if not listing.search(line)]
+            kept.insert(1, f"\nWritten by factory job {job['id']} ({settings['model']} {settings['effort']}, run {outcome}).")
+            (FACTS_STAGING / path.name).write_text("\n".join(kept) + "\n")
 
     def queue_for_pro(self, worktree, job, remaining):
         """A job that failed the top tier becomes a self-contained GPT-6 Pro packet, named so a reverse sort is largest first."""
@@ -1114,6 +1248,7 @@ class Supervisor:
                 continue  # the proposals stay on disk and are queued again when the supervisor restarts
             if not batch:
                 self.land_quiet_submissions()
+                self.land_facts()
                 continue
             try:
                 self.integrate_batch(batch)
@@ -1126,6 +1261,9 @@ class Supervisor:
                         self.retire(proposal, "rejected")
                     elif proposal.exists():
                         self.integration_queue.put(proposal)
+            # Quiet submissions and facts need no build, so a steady stream of proposals must not starve them.
+            self.land_quiet_submissions()
+            self.land_facts()
 
     def collect_batch(self):
         try:
@@ -1268,6 +1406,30 @@ class Supervisor:
             log_event(self.database, "batch", f"{len(entries)} proposals, {functions} functions, {sum(sizes.values())} bytes"
                       f" in one cycle of {int(time.time() - started)} s")
 
+    def land_facts(self):
+        """Commit the staged facts files to docs/facts/ on main as one docs-only commit."""
+        staged = sorted(FACTS_STAGING.glob("*.md")) if FACTS_STAGING.exists() else []
+        if not staged or self.halted:
+            return
+        with self.integration_lock:
+            if self.target_moved_externally():
+                return
+            self.restore_integration()
+            base = git(INTEGRATION, "rev-parse", "HEAD")
+            (INTEGRATION / FACTS_DIRECTORY).mkdir(parents=True, exist_ok=True)
+            for path in staged:
+                shutil.copy2(path, INTEGRATION / FACTS_DIRECTORY / path.name)
+            git(INTEGRATION, "add", "--", str(FACTS_DIRECTORY))
+            if subprocess.run(["git", "-C", str(INTEGRATION), "diff", "--cached", "--quiet"]).returncode != 0:
+                git(INTEGRATION, "commit", "-q", "-m", f"Record facts for {len(staged)} function{'s' if len(staged) != 1 else ''}\n\n"
+                    "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
+                final = git(INTEGRATION, "rev-parse", "HEAD")
+                if not build_inputs_equal(base, final) or not self.move(final, base, "factory: facts"):
+                    self.restore_integration()
+                    return
+            for path in staged:
+                path.unlink(missing_ok=True)
+
     # submissions from root/ and dot/ branches --------------------------------
     def pending_submissions(self):
         return sorted(SUBMISSIONS.glob("*.json"), key=lambda p: p.stat().st_mtime) if SUBMISSIONS.exists() else []
@@ -1337,7 +1499,8 @@ class Supervisor:
         claims, nonmatching = list(request.get("claims", [])), list(request.get("nonmatching", []))
         merge_base = git(INTEGRATION, "merge-base", target_commit(), commit)
         changed = git(INTEGRATION, "diff", "--name-only", merge_base, commit).splitlines()
-        forbidden = [p for p in changed if p == "project/ledger.csv" or p.startswith(str(FACTORY_SOURCE_DIRECTORY) + "/")]
+        forbidden = [p for p in changed if p == "project/ledger.csv" or
+                     (p.startswith(str(FACTORY_SOURCE_DIRECTORY) + "/") and not branch.startswith(CLEANUP_PREFIX))]
         if forbidden:
             raise SubmissionDecision({"outcome": "rejected", "reason": f"lanes may not change {forbidden}"})
         oracle = [p for p in changed if p == "data/config.json" or any(p == o or p.startswith(o) for o in ORACLE_PATHS)]
@@ -1414,7 +1577,9 @@ class Supervisor:
             base = git(INTEGRATION, "rev-parse", "HEAD")
             started = time.time()
             waiting = [p for p in self.pending_submissions() if self.submission_changes_build(p)]
-            solo = [p for p in waiting if json.loads(p.read_text()).get("solo")]
+            # A cleanup branch rides alone, so any loss of an O row is unambiguously its own.
+            solo = [p for p in waiting if json.loads(p.read_text()).get("solo")
+                    or json.loads(p.read_text()).get("branch", "").startswith(CLEANUP_PREFIX)]
             riders = []
             for path in (solo[:1] if solo else waiting):
                 try:
@@ -1434,6 +1599,26 @@ class Supervisor:
             built, output, lost, gained = self.full_check(INTEGRATION)
             missing = {path: [c for c in info["claims"] if c not in gained and rows[info["addresses"][c]]["rank"] != "O"]
                        for path, info in riders}
+            cleanup = any(info["branch"].startswith(CLEANUP_PREFIX) for _, info in riders)
+            if cleanup and built and lost:
+                # Owner guard: a cleanup branch may lose no O row. Rows main loses on its own are demoted first and
+                # the branch waits a cycle; any loss beyond main's rejects it.
+                git(MAIN_PROBE, "checkout", "-q", "--detach", "-f", base)
+                git(MAIN_PROBE, "clean", "-fdq", "--", "Game", "lib")
+                main_built, main_output, main_lost, _ = self.full_check(MAIN_PROBE)
+                if not main_built:
+                    self.halted = f"{TARGET_BRANCH} does not build cleanly"
+                    log_event(self.database, "alert", self.halted + ": " + main_output)
+                    self.restore_integration()
+                    return
+                beyond = sorted(set(lost) - set(main_lost))
+                for path, info in riders:
+                    if beyond:
+                        self.decide(path, {"outcome": "rejected", "reason": f"cleanup loses exact rows: {beyond[:20]}"})
+                    else:
+                        log_event(self.database, "submission", f"{path.stem}: waits a cycle while main's own unconfirmed rows {main_lost[:5]} are demoted")
+                riders, merged_head, checked, lost, gained, missing = [], base, base, main_lost, set(), {}
+                self.restore_integration()
             if riders and (not built or lost or any(missing.values())):
                 # Tell main's own rows from the riders': check main alone in the probe worktree.
                 git(MAIN_PROBE, "checkout", "-q", "--detach", "-f", base)
@@ -1509,6 +1694,16 @@ class Supervisor:
             else:
                 git(INTEGRATION, "reset", "-q", "--hard", merged_head)
             final = git(INTEGRATION, "rev-parse", "HEAD")
+            if cleanup and riders:
+                exact_before = {r["start"] for r in load_rows_at(base) if r["rank"] == "O"}
+                exact_after = {r["start"] for r in load_rows_at(final) if r["rank"] == "O"}
+                if not exact_after >= exact_before:
+                    for path, info, _ in accepted:
+                        self.decide(path, {"outcome": "rejected", "reason": "cleanup: exact rows after the commit do not contain"
+                                           f" those before: {['%08X' % a for a in sorted(exact_before - exact_after)][:20]}"})
+                    log_event(self.database, "alert", "cleanup guard rejected a branch at the final commit; main not moved")
+                    self.restore_integration()
+                    return
             if not build_inputs_equal(checked, final):
                 self.halted = "periodic full check: final build inputs differ from the checked candidate"
                 log_event(self.database, "alert", self.halted)
@@ -1532,11 +1727,35 @@ class Supervisor:
                 self.last_pushed = final
                 self.last_push_time = time.time()
             self.reload_symbols()
+            self.measure_source_quality(final)
             after = sum(1 for r in self.rows_by_start.values() if r["rank"] == "O")
             log_event(self.database, "sync", f"full check in {int(time.time() - started)} s; {after} functions exact;"
                       f" {len(riders)} submissions rode along; {len(lost)} demoted;"
                       f" push {'ok' if push.returncode == 0 else 'failed: ' + push.stderr.strip()[-200:]}")
 
+
+    def measure_source_quality(self, commit):
+        """Exact bytes defined in Factory objects versus class files, from the clean build's symbol tables, and the
+        raw address literal count under Game/. Both feed the dashboard."""
+        try:
+            defined = set()
+            for obj in (INTEGRATION / "build/eu/obj" / FACTORY_SOURCE_DIRECTORY).rglob("*.o"):
+                listing = subprocess.run(["/opt/homebrew/bin/arm-none-eabi-nm", "--defined-only", str(obj)],
+                                         capture_output=True, text=True).stdout
+                defined |= {parts[2] for parts in (line.split() for line in listing.splitlines()) if len(parts) == 3 and parts[1] in "Tt"}
+            exact = [(r["symbol"] or default_name(r), r["end"] - r["start"]) for r in load_rows_at(commit) if r["rank"] == "O" and "f" in r["type"]]
+            total = sum(size for _, size in exact)
+            factory_bytes = sum(size for name, size in exact if name in defined)
+            SOURCE_QUALITY_FILE.write_text(json.dumps({"commit": commit, "exact_bytes": total, "factory_bytes": factory_bytes,
+                                                       "class_file_bytes": total - factory_bytes,
+                                                       "class_file_share": round((total - factory_bytes) / total * 100, 1) if total else 0,
+                                                       "measured": datetime.datetime.now(EASTERN).isoformat(timespec="seconds")}) + "\n")
+            specification = importlib.util.spec_from_file_location("scan_address_literals", HOME / "scan_address_literals.py")
+            scanner = importlib.util.module_from_spec(specification)
+            specification.loader.exec_module(scanner)
+            ADDRESS_LITERALS_FILE.write_text(json.dumps(scanner.scan(commit), indent=1) + "\n")
+        except Exception as error:
+            log_event(self.database, "error", f"source quality measurement failed: {error}")
 
     # main loop -----------------------------------------------------------
     def adjust_slots(self):
@@ -1737,6 +1956,7 @@ def write_status(supervisor=None):
         "halt_all": HALT_ALL_FILE.read_text().strip() if HALT_ALL_FILE.exists() else "",
         "port": port_status(total),
         "integrator": integrator_queue(supervisor, last_push, now),
+        "source_quality": source_quality(database, now),
     }
     STATUS_JSON.write_text(json.dumps(status, indent=1) + "\n")
     lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", "",
@@ -1765,6 +1985,37 @@ def write_status(supervisor=None):
     lines += ["", "## Recent events", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in events]
     STATUS_FILE.write_text("\n".join(lines) + "\n")
     return STATUS_FILE.read_text()
+
+
+def source_quality(database, now):
+    """Class-file share of exact bytes, the class-file share of the last 24 hours' matched bytes, and the raw
+    address literal count."""
+    quality = {}
+    for path, key in ((SOURCE_QUALITY_FILE, "files"), (ADDRESS_LITERALS_FILE, "literals")):
+        try:
+            quality[key] = json.loads(path.read_text())
+        except (OSError, ValueError):
+            quality[key] = {}
+    with DATABASE_LOCK:
+        events = database.execute("SELECT kind, text FROM events WHERE kind IN ('match', 'submission') AND time > ?", (now - 86400,)).fetchall()
+    factory_bytes = class_bytes = 0
+    for event in events:
+        found = re.search(r"(\d+) bytes", event["text"])
+        if not found:
+            continue
+        if event["kind"] == "match":
+            factory_bytes += int(found[1])
+        elif ": accepted" in event["text"]:
+            class_bytes += int(found[1])
+    files, literals = quality["files"], quality["literals"]
+    return {"class_file_share": files.get("class_file_share"), "factory_bytes": files.get("factory_bytes"),
+            "class_file_bytes": files.get("class_file_bytes"), "measured": files.get("measured"),
+            "last_24_hours_class_file_share": round(class_bytes / (factory_bytes + class_bytes) * 100, 1) if factory_bytes + class_bytes else None,
+            "last_24_hours_matched_bytes": factory_bytes + class_bytes,
+            "address_literals": literals.get("total"), "power_of_two_constants": literals.get("power_of_two_constants"),
+            "address_literal_files": {path: counts.get("code", 0) + counts.get("rodata", 0) + counts.get("data", 0)
+                                      for path, counts in literals.get("files", {}).items()
+                                      if counts.get("code", 0) + counts.get("rodata", 0) + counts.get("data", 0)}}
 
 
 def integrator_queue(supervisor, last_push, now):
@@ -1849,7 +2100,7 @@ def production_slot_specs(count, luna_single_bytes, group_only):
             spec = {"tiers": [BAND_TIER], "kinds": kinds}
         elif role == "luna":
             spec = {"tiers": [1], "kinds": ["single"], "buckets": [(0, luna_single_bytes)],
-                    "settings": TRIAL_SETTINGS["luna-medium"]}
+                    "settings": TRIAL_SETTINGS["luna-medium"], "fallback_kinds": ["facts"]}
         else:
             spec = {"tiers": [2, 1] if role == "tier2" else [1, 2], "kinds": kinds, "leave_small_singles": luna_single_bytes}
         specs[f"s{index + 1}"] = dict(spec, index=index, role=role)
