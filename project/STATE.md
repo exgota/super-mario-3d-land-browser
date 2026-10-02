@@ -1,21 +1,9 @@
-# Root port runtime state
+# Root bounded replay duration state
 
-## Ownership and submissions
+Root/replay-duration starts from main f6539c9732ebe3426a420dc8725eccaa771f7d2b. Root owns the optional source-only host watchdog setting and evidence. Its single helper inventories clean player/camera/RNG/timer/coin references for a Pro packet, without reconstructing classes. No matching inputs, ranks, ledger or claims.
 
-Root/audio-sample-capture starts from main f3034bb6f1dfb12f700989f28cf7e89246f3a774. Root owns the optional source-only HLE PCM observer, comparator and documentation. Its single helper completed independent contract and actual capture checks. No matching inputs, ranks, ledger changes or claims. Final audio evidence is project/audio_sample_capture_evidence.md. Submission follows the final source-only commit; inspect .integrator/results/ for the verdict before any retry.
+Audio sample capture 764554eb5 was accepted at f6539c97. The no-build-input verdict is .integrator/results/root-audio-sample-capture-764554eb5.json. Milestones 1 through 4 have bounded native evidence; milestone 5 is in progress, milestone 6 not started. Recompiled coverage stays 2437712 bytes; rank-O source ABI registry beyond priority is incomplete.
 
-Root/input-record-playback 4acb6b4ec was accepted at f58c0b95. Root/rendered-frame-capture 55540caf4 was accepted at c57bceef. Native block scheduling, platform and FP control are accepted. Calendar placement was rejected as nonexact; root now works only on runtime. Only the integrator moves main, ranks and the ledger.
+World 1-1 setup recordings have advanced through StreetPass setup to the animated title screen. A 1000-presentation reference takes 84.807 seconds, approaching the unchanged 120-second host watchdog. The current small patch makes the watchdog configurable from 1 through 3600 host seconds, retains the 120-second default and leaves emulated timing, CPU, HID/movie and renderer semantics untouched. Both builds, all 28 parser/deadline controls and default/extended exact audio/input/GPU/pixel preservation pass. Evidence: project/replay_duration_evidence.md. A longer setup run exposes the upstream missing-MiiSelector assertion; preserve the failed partial capture.
 
-## Observed port scope
-
-Milestones 1, 2 and 3 have bounded native GPU, title-logo pixels and causal menu-input evidence. Milestone 4 has bounded native audio evidence: stock/native/repeats match 1350 HLE blocks, 216000 stereo sample frames, all audio events/ticks, 1802 HID polls, 4583 GPU events/ticks, 8642912 PICA bytes and both screen/framebuffer streams. Each native replay executes 393977876 CPU0 guest instructions with zero interpreter/JIT fallback. Final-source receipts are under build/root_audio_sample_capture/build; AUDIO.md provides reproduction.
-
-The WAV preview independently decodes as 6.599853 seconds of stereo PCM16 at 32728 Hz. Listening and live speakers were not assessed. Shared HLE parity does not prove hardware DSP accuracy. World 1-1 state replay and browser execution remain open. Recompiled coverage is 2437712 instruction bytes. The rank-O source replacement registry beyond the priority conversion remains incomplete. No matching credit follows runtime observations.
-
-## Next tasks
-
-1. Read the audio submission verdict and report it. Continue independent World 1-1 work while it waits.
-2. Record menu entry and a World 1-1 input path through the original movie interface. Request player/camera/RNG/timer/coin observation layouts from Pro; do not reconstruct classes in this lane.
-3. Compare fixed-frame game state and whole-level input replays, then build browser execution and WebGPU/WebAudio presentation.
-
-No owner question blocks independent work. Downloaded tools and every owner-derived library, capture, image, audio sample, snapshot and movie stay ignored. Run at most one helper. Keep unsupported execution fail-closed.
+The accidental unchanged-base submission f6539c973 has no patch. Wait for its verdict before submitting the finished source commit. Next: report the duration verdict; register default frontend applets and continue menu recording; validate the queued Pro player answer and reach World 1-1 and compare fixed-frame state and the complete input path through the goal. Browser/WebGPU/WebAudio follows. Only the integrator changes main/ranks/ledger. Keep owner-derived inputs and outputs ignored and unsupported native execution fail-closed.
