@@ -20,3 +20,7 @@ The Heap Pro question `.integrator/pro_queue/layout/sead_heap_base.md` is queued
 3. Reconstruct one al actor layout needed by active matching or extend the port's differential-replay boundary. Check dot overlap before selecting functions.
 
 M2 and M3 remain unfinished. No level has run. Static resource order is not active scene scheduling, GPU/shader execution, rendering, or gameplay. No exact game-byte credit follows from native runtime functions. Original executable and dump stay unchanged and local. Keep evidence under ignored build/data, and delete only this lane's disposable scratch when no longer needed.
+
+## Runtime candidate verified
+
+The committed complete source and public command pass fresh original/sanitized/optimized checks, 39 models/137 meshes, all prior native interfaces, and 235 public-command comparisons plus six refusals per build. All 8,678 historical seals verify before/after. No assets, ranks, ledger or matching source changes. The first Calendar rejection is recorded; the follow-up worktree clean-builds and is being rechecked after connecting the existing ignored differ checkout. Heap verdict remains pending.
