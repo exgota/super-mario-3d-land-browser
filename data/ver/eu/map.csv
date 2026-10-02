@@ -6081,7 +6081,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002120E8,          ,0x002120FC,          ,U,f,__set_errno,
 0x002120FC,          ,0x00212104,          ,U,f,,
 0x00212104,          ,0x0021215C,          ,U,f,,
-0x0021215C,          ,0x00212168,          ,U,f,,
+0x0021215C,          ,0x00212168,          ,O,f,fn_0021215C,
 0x00212168,          ,0x002121B8,          ,U,f,,
 0x002121B8,          ,0x002121C8,          ,U,f,,
 0x002121C8,          ,0x002121D8,          ,U,f,,
