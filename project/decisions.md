@@ -1299,3 +1299,8 @@ The weekly usage reset closes the credit-period acceptance measurement recorded 
 ## 2026-10-02: Actor registry evidence corrects the historical scan scope
 
 The reproducible 268/222 scan combined five registries and treated literal-pool candidates as table links. Preserve that historical result with explicit heuristic labels. `project/actor_catalog.json` separately traces the complete 225-entry actor registry to primary table installations, retains 13 evidenced current C++ identities, and claims no recovered original class spellings or unique virtual method ownership. The driver independently reproduced every actor and historical record. `project/actor_catalog_evidence.md` and `tools/factory/inspect_actor_registry.py` document and reproduce the check. The RailDot/Seagull containing-row conflict remains a separate map-evidence issue; this commit changes no map row.
+
+
+## 2026-10-02: Independently bound the Matrix34 identity BSS row
+
+Add only `dat_00430A88`, a 48-byte Matrix34 identity ending at 0x00430AB8, with blank Pool, rank U and Type db. Complete initialization, separate immediately adjacent matrices and an independent full-width copy consumer establish that span. `project/evidence/matrix34_identity_bss.md` records the evidence. Five other requested addresses remain distinct evidence questions in `pending_bss_identities.md`; 0x00430D20 is a field of the CF0 transform and must not become an overlapping object row. This commit claims no source match and changes no existing function or data boundary.
