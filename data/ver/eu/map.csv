@@ -3040,7 +3040,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0018CA58,0x0018CA94,0x0018CA9C,          ,U,f,,
 0x0018CA9C,          ,0x0018CAA4,          ,O,f,fn_0018CA9C,
 0x0018CAA4,0x0018CC20,0x0018CC38,          ,U,f,,
-0x0018CC38,0x0018CD78,0x0018CE40,          ,U,f,,
+0x0018CC38,0x0018CD78,0x0018CE40,          ,O,f,fn_0018CC38,
 0x0018CE40,0x0018CF3C,0x0018CFBC,          ,O,f,fn_0018CE40,
 0x0018CFBC,0x0018CFE0,0x0018CFE4,          ,U,f,,
 0x0018CFE4,          ,0x0018CFE8,          ,O,f,fn_0018CFE4,
