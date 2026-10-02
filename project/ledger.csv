@@ -776,3 +776,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T01:03:05.652705+00:00,0x0030E678,_ZN7BombHei7controlEv,abandoned,3,6.727678
 2026-10-02T01:03:05.652705+00:00,0x0024F344,_ZN2al12MemorySystem23createSceneResourceHeapEPKc,abandoned,3,14.871226
 2026-10-02T01:03:05.652705+00:00,0x00252B1C,_ZN2al20ExecuteRequestKeeper7requestEPNS_9LiveActorEi,abandoned,3,14.143596
+2026-10-02T01:16:07.062208+00:00,0x0031B3AC,_ZN2al9EffectObj4initERKNS_13ActorInitInfoE,matched,2,9.666262
