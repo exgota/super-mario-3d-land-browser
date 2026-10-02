@@ -6209,7 +6209,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00216EB0,          ,0x00216EC4,          ,O,f,fn_00216EB0,
 0x00216EC4,          ,0x00216ED8,          ,U,f,,
 0x00216ED8,          ,0x00216EDC,          ,U,f,,
-0x00216EDC,          ,0x00216EE4,          ,U,f,,
+0x00216EDC,          ,0x00216EE4,          ,O,f,fn_00216EDC,
 0x00216EE4,          ,0x00216F00,          ,U,f,,
 0x00216F00,          ,0x00216F1C,          ,U,f,,
 0x00216F1C,          ,0x00216F34,          ,U,f,,
