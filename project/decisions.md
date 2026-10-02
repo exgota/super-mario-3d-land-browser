@@ -1165,3 +1165,19 @@ In the hour to 07:08, 70 of 85 non-trial runs were on functions under 32 bytes (
 Second pilot in class mode: Bubble. It is named in the map through its vtable, has `Game/backup/include/Enemy/Bubble.h` and `Game/backup/src/Enemy/Bubble.cpp`, and its translation unit (0x00302840 to 0x00303628) holds 19 unmatched functions up to 511 bytes in every size bucket (5, 4, 2, 5, 3), with 3 exact already. It was the only class meeting all three conditions: classes named by unmatched mangled methods are SDK namespaces without headers here, and vtable windows of other named classes span their own overrides only (at most 6 to 14 unmatched). Today 651 unmatched functions (122,060 bytes) have a known class from their map names. Class-mode integration was tested on a clone by replaying commit a5a2ae45 (three FireBall functions): one move, three functions O; a stale proposal was refused.
 
 The raw address literal job (Sol high, 10.2 minutes, 136,262 fresh tokens) added bss rows 0x0042F534 and 0x0042FA14, 0x20 bytes each (initialization writes eight floats through each), and switched group_00350028.cpp to dat_ names; all 8 functions still match locally. It rides the next periodic full check under the cleanup guard.
+## 2026-10-02: FunctorV0M cleanup symbol and vtable evidence
+
+Cleanup lane cleanup/functor-v0m, base e8cc28789146f8adefb87de4b218a032767296bd,
+grounds five instances using builder object stores, callback descriptors, named
+map methods and existing host headers. The ten function rows acquire the
+compiler's template-instance names without changing any other function column
+or rank. The five anonymous vtable regions are repartitioned at their ABI header
+addresses, eight bytes before the callable address points; the existing
+AppearStep clone's compiler relocation establishes that addend independently.
+Data ranks remain U and covered intervals are preserved. No function boundary,
+target binary, compiler flag, checker or ledger changes. Full attribution,
+old/new symbols, exact data partitions and all 66 blocked instances are recorded
+in [functor-v0m-cleanup.md](functor-v0m-cleanup.md). AppearStep already uses the
+template; Garigari's remaining clone stays raw because its callback has no real
+map/header name. Build/check outcomes will be recorded after canonical checks;
+this naming evidence itself claims no new accepted bytes.

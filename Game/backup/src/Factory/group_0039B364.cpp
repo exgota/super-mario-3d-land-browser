@@ -16,7 +16,6 @@ extern "C" const unsigned char dat_003D5A5C;
 extern "C" const unsigned char dat_003D5A6C;
 extern "C" const unsigned char dat_003D5A7C;
 extern "C" const unsigned char dat_003D5A8C;
-extern "C" const unsigned char dat_003D5A9C;
 extern "C" const unsigned char dat_003D5AAC;
 extern "C" const unsigned char dat_003D5ABC;
 extern "C" const unsigned char dat_003D5ACC;
@@ -54,7 +53,6 @@ CLONE(0039B3CC, dat_003D5A5C)
 CLONE(0039B434, dat_003D5A6C)
 CLONE(0039B49C, dat_003D5A7C)
 CLONE(0039B504, dat_003D5A8C)
-CLONE(0039B56C, dat_003D5A9C)
 CLONE(0039B5D4, dat_003D5AAC)
 CLONE(0039B63C, dat_003D5ABC)
 CLONE(0039B6A4, dat_003D5ACC)
