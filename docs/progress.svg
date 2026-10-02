@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="831" height="706" viewBox="0 0 831 706" role="img" aria-label="Decompilation progress: 1.52% of code bytes matched, 717 of 18055 functions">
+<svg xmlns="http://www.w3.org/2000/svg" width="831" height="706" viewBox="0 0 831 706" role="img" aria-label="Decompilation progress: 1.71% of code bytes matched, 731 of 18055 functions">
 <style>
   .surface { fill: #ffffff; } .title { fill: #1f2328; } .muted { fill: #59636e; }
   .empty { fill: #e4e8e3; } .matched { fill: #0ca30c; } .nonmatching { fill: #e8a20c; }
@@ -11,11 +11,11 @@
 </style>
 <defs><pattern id="box" width="5" height="5" patternUnits="userSpaceOnUse" x="16" y="92"><rect class="empty" width="4" height="4"/></pattern></defs>
 <rect class="surface" width="831" height="706" rx="8"/>
-<text class="title" x="16" y="34" font-size="22" font-weight="600"><tspan class="figure">1.52%</tspan> of code bytes matched</text>
-<text class="muted figure" x="815" y="34" font-size="12" text-anchor="end">41,904 / 2,756,024 bytes</text>
-<text class="muted" x="16" y="56" font-size="13"><tspan class="figure">717</tspan> of <tspan class="figure">18,055</tspan> functions byte-exact · EU Rev 2 · 2026-10-01</text>
+<text class="title" x="16" y="34" font-size="22" font-weight="600"><tspan class="figure">1.71%</tspan> of code bytes matched</text>
+<text class="muted figure" x="815" y="34" font-size="12" text-anchor="end">47,260 / 2,756,024 bytes</text>
+<text class="muted" x="16" y="56" font-size="13"><tspan class="figure">731</tspan> of <tspan class="figure">18,055</tspan> functions byte-exact · EU Rev 2 · 2026-10-01</text>
 <rect class="empty" x="16" y="68" width="799" height="6" rx="3"/>
-<rect class="matched" x="16" y="68" width="12.1" height="6" rx="3"/>
+<rect class="matched" x="16" y="68" width="13.7" height="6" rx="3"/>
 <rect fill="url(#box)" x="16" y="92" width="799" height="559"/>
 <rect fill="url(#box)" x="16" y="652" width="674" height="4"/>
 <rect class="matched" x="246" y="92" width="4" height="4"/>
@@ -278,6 +278,8 @@
 <rect class="matched" x="476" y="292" width="4" height="4"/>
 <rect class="matched" x="521" y="292" width="4" height="4"/>
 <rect class="matched" x="536" y="292" width="4" height="4"/>
+<rect class="matched" x="551" y="292" width="4" height="4"/>
+<rect class="matched" x="556" y="292" width="4" height="4"/>
 <rect class="matched" x="591" y="292" width="4" height="4"/>
 <rect class="matched" x="111" y="297" width="4" height="4"/>
 <rect class="matched" x="116" y="297" width="4" height="4"/>
@@ -290,8 +292,11 @@
 <rect class="matched" x="311" y="312" width="4" height="4"/>
 <rect class="matched" x="421" y="312" width="4" height="4"/>
 <rect class="matched" x="431" y="312" width="4" height="4"/>
+<rect class="matched" x="451" y="312" width="4" height="4"/>
+<rect class="matched" x="461" y="312" width="4" height="4"/>
 <rect class="matched" x="796" y="312" width="4" height="4"/>
 <rect class="matched" x="801" y="312" width="4" height="4"/>
+<rect class="matched" x="46" y="317" width="4" height="4"/>
 <rect class="matched" x="276" y="317" width="4" height="4"/>
 <rect class="matched" x="306" y="317" width="4" height="4"/>
 <rect class="matched" x="316" y="317" width="4" height="4"/>
@@ -330,6 +335,7 @@
 <rect class="matched" x="66" y="327" width="4" height="4"/>
 <rect class="matched" x="76" y="327" width="4" height="4"/>
 <rect class="matched" x="156" y="327" width="4" height="4"/>
+<rect class="matched" x="176" y="327" width="4" height="4"/>
 <rect class="matched" x="186" y="327" width="4" height="4"/>
 <rect class="matched" x="241" y="327" width="4" height="4"/>
 <rect class="matched" x="451" y="327" width="4" height="4"/>
@@ -392,6 +398,7 @@
 <rect class="matched" x="256" y="357" width="4" height="4"/>
 <rect class="matched" x="261" y="357" width="4" height="4"/>
 <rect class="matched" x="441" y="357" width="4" height="4"/>
+<rect class="matched" x="551" y="357" width="4" height="4"/>
 <rect class="matched" x="606" y="357" width="4" height="4"/>
 <rect class="matched" x="616" y="357" width="4" height="4"/>
 <rect class="matched" x="621" y="357" width="4" height="4"/>
@@ -436,6 +443,7 @@
 <rect class="nonmatching" x="651" y="367" width="4" height="4"/>
 <rect class="matched" x="656" y="367" width="4" height="4"/>
 <rect class="matched" x="671" y="367" width="4" height="4"/>
+<rect class="matched" x="711" y="367" width="4" height="4"/>
 <rect class="matched" x="731" y="367" width="4" height="4"/>
 <rect class="matched" x="776" y="367" width="4" height="4"/>
 <rect class="matched" x="801" y="367" width="4" height="4"/>
@@ -545,6 +553,7 @@
 <rect class="matched" x="676" y="382" width="4" height="4"/>
 <rect class="matched" x="681" y="382" width="4" height="4"/>
 <rect class="matched" x="711" y="382" width="4" height="4"/>
+<rect class="matched" x="731" y="382" width="4" height="4"/>
 <rect class="matched" x="761" y="382" width="4" height="4"/>
 <rect class="matched" x="776" y="382" width="4" height="4"/>
 <rect class="matched" x="16" y="387" width="4" height="4"/>
@@ -577,6 +586,7 @@
 <rect class="matched" x="561" y="397" width="4" height="4"/>
 <rect class="matched" x="636" y="397" width="4" height="4"/>
 <rect class="matched" x="426" y="442" width="4" height="4"/>
+<rect class="matched" x="101" y="447" width="4" height="4"/>
 <rect class="matched" x="156" y="447" width="4" height="4"/>
 <rect class="matched" x="161" y="447" width="4" height="4"/>
 <rect class="matched" x="166" y="447" width="4" height="4"/>
@@ -597,7 +607,11 @@
 <rect class="matched" x="341" y="462" width="4" height="4"/>
 <rect class="matched" x="66" y="477" width="4" height="4"/>
 <rect class="matched" x="76" y="477" width="4" height="4"/>
+<rect class="matched" x="631" y="477" width="4" height="4"/>
 <rect class="matched" x="636" y="477" width="4" height="4"/>
+<rect class="matched" x="651" y="477" width="4" height="4"/>
+<rect class="matched" x="656" y="477" width="4" height="4"/>
+<rect class="matched" x="661" y="477" width="4" height="4"/>
 <rect class="matched" x="726" y="477" width="4" height="4"/>
 <rect class="matched" x="81" y="482" width="4" height="4"/>
 <rect class="matched" x="86" y="482" width="4" height="4"/>
@@ -744,7 +758,7 @@
 <rect class="matched" x="486" y="647" width="4" height="4"/>
 <rect class="matched" x="306" y="652" width="4" height="4"/>
 <rect class="matched" x="16" y="669" width="10" height="10" rx="2"/>
-<text class="muted" x="32" y="678" font-size="12">Matched <tspan class="figure">717</tspan></text>
+<text class="muted" x="32" y="678" font-size="12">Matched <tspan class="figure">731</tspan></text>
 <rect class="nonmatching" x="146" y="669" width="10" height="10" rx="2"/>
 <text class="muted" x="162" y="678" font-size="12">Nonmatching <tspan class="figure">8</tspan></text>
 <rect class="empty" x="286" y="669" width="10" height="10" rx="2"/>
