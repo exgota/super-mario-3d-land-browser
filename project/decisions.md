@@ -999,3 +999,7 @@ Root assigns actor_lifecycle only lib/al/src/LiveActor/alLiveActorFunction.cpp a
 ## 2026-10-02: Independent Sky pointer-provider identity
 
 Root adopts the lane's unchanged Sky import evidence and names only the existing whole28-byte U/f row0026CCD0..0026CCEC as fn_0026CCD0. Provider loads and two external three-word consumers independently support the no-argument pointer ABI. The17-path peer seal0c925a5f and96-path source proposal seal4898dedd rootverify. No public camera spelling, provider implementation, boundary or data credit is added. Existing stage-switch imports retain their independently corroborated receiver/boolean contracts.
+
+## 2026-10-02: Complete calendar conversion family ownership
+
+Before implementation, root assigns byaml_matching only lib/al/src/Util/seadCalendarTime.cpp and complete lib/al/include/Util/seadDateUtil.h against06f7b2a, unchanged source3d6e5e70/header80f2afd8. All17 screening paths verify. Constructor116 and two complete244-byte setters total604newbytes with zero carried/downstream credit. The independent month table and twelve-byte parameter provider need neutral whole-row import review separately; no table copy or boundary split is authorized. Preserve seven CalendarTime definitions/fourO220bytes and both DateUtil definitions/twoO240bytes affected by the header. Constructor aliases are recorded as new definitions without duplicate root credit; use existing manual intake when the unchanged preparer cannot enroll added definitions. Estimated362.4bytes/hour includes70minutes at0.70family acceptance probability.
