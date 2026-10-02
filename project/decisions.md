@@ -1278,3 +1278,18 @@ The platform uses pinned public dependency revisions and original license notice
 A fresh full host reaches the natural first GPU swap and matches all 528 raw events/ticks and 79936 PICA bytes against corrected Azahar, with zero ARM interpreter/JIT fallback. Actual real-archive entropy/concurrency and C/Node failure checks pass. Source review exposed five tooling gaps; archive/notice provenance, bounded usage, preserved timeout logs and complete source exclusions are fixed before submission. An actual blocked Node entropy provider proves the 60-second refusal/log path. GPU parity and diagnostic CPU counts remain separate claims.
 
 The final build/replay receipts, source hashes, reproduction and explicit gaps are in project/webassembly_platform_evidence.md. No browser frame, World 1-1, complete rank-O registry, semantic gameplay state or new exact/native byte credit follows. Only the integrator moves main/ranks/ledger.
+
+## Names for frog's Bug::init claim (2026-10-02 16:45)
+
+dot/root-2d4544 claims Bug::init exact; its symbols name two rows that are unnamed on main. No boundary, extent or rank
+change. Evidence, from the retail executable as recorded in project/dot_reports/root-2d4544.md:
+
+- 0x002D4544 Bug::init: retail actor-factory entry 0x003B9A48 names "Bug" and points to creator 0x00397DF4; the class
+  vtable's init slot is 0x002D4544.
+- 0x0027AF28 EnemyStateHipDropDown constructor: the class is already declared in main's
+  Game/backup/include/Enemy/EnemyStateHipDropDown.h, and Bug::init calls this constructor with the host, its
+  parameter object and a name.
+
+Held for the owner: dot/root-11a174 (FireFlower), dot/root-1579f0 (BoomerangFlower) and dot/root-177020
+(SuperLeafSpecial) also need six shared helper rows named FlowerInit::*, which frog's reports call descriptive
+proposals rather than recovered names.
