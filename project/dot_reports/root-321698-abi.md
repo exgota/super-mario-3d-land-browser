@@ -1,4 +1,4 @@
-# Root 00321698: blocked by an accepted private import type
+# Root 00321698: earlier import blocker withdrawn
 
 Base: `8ae3d9d55e639057950efb7ba3a0c7ccc29c5f65`.
 Branch: `dot/root-321698`. Interval: `[0x00321698, 0x003218B4)`, 540 bytes, rank U.
@@ -40,10 +40,11 @@ Accepted `Game/backup/src/Factory/fn_0017C41C.cpp` declares the same C symbol
 That private type has no identity usable by another translation unit and
 is not the established LayoutActor class. The accepted caller is rank O;
 its latest source commit is `47807304a253ba33a68c47e1c52b10ad8998de38`.
-No consistent shared declaration exists on this base. A second incompatible
-C declaration, cast, or fabricated alias would conceal the conflict.
+The original review missed the existing accepted lowercase alias described below.
+The uppercase private declaration remains inconsistent, but does not require a
+new incompatible declaration or fabricated alias for this target.
 
-Stop pending integrator-owned reconciliation of that accepted import.
+The earlier stop on this import alone is withdrawn; fresh target screening is required.
 No accepted Factory source or shared header was changed.
 
 ## Data and verification
@@ -54,6 +55,18 @@ All direct target data references have existing complete map rows:
 vtable also exist. No missing-row request is needed.
 
 Source forms attempted: 0. No C++ candidate, build, or canonical check was
-run because the real shared ABI contract blocks source construction.
+run during the original preflight. That preflight conclusion is corrected below.
 No match or progress credit is claimed. The complete map remains byte-for-byte
 identical to the base; no scratch names or rank changes are required.
+
+## 2026-10-02 correction: established typed alias
+
+Current main `6b0e2a1385b814b70344023d9816424edcc7d832` contains the accepted
+ordinary `Game/backup/src/Layout/CourseSelectMap.cpp` declaration
+`fn_0027e6c8(al::LayoutActor*, const char*, const char*, int)` at line 9.
+It is used by rank-O root `fn_00159fec` and other CourseSelectMap methods.
+Reusing this existing lowercase symbol and public contract is distinct from
+inventing an alternate export. Preserve that exact spelling and leave the
+uppercase Factory declaration untouched. No new match or compilation is claimed
+by this correction. The target may be reopened after current ownership and all
+remaining import checks; this note does not preapprove other unresolved ABIs.
