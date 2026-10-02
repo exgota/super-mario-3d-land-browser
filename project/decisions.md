@@ -1071,3 +1071,7 @@ Common Executor final78-path screen is rootverified. Its final494.545expectedbyt
 ## 2026-10-02: Correct Beat grading source reservation before implementation
 
 The historical normal grader names Game/backup/src/MapObj/BeatBlockHolder.cpp; its shortened display log had led root to reserve Game/BeatBlockHolder.cpp incorrectly. Before any compile/source attempt, the exclusive large_actor_matching reservation is corrected to the historical Game/backup/src/MapObj/BeatBlockHolder.cpp. Existing Game source_dir, every include/compiler flag/config and the normal build step stay unchanged. No alternate source directory or enumeration workaround is authorized. Both paths remain absent on main.
+
+## 2026-10-02: Independently approved common Executor data labels
+
+Root verifies58supplier paths and38peer paths/sealf9030640. Independent review decodes24complete original providers/callers/pools and all3whole data rows/80bytes from the verified original. Only previously blank Symbol values change to dat_003D7744/28,dat_003D75E0/28,dat_003D670C/24; U/dc/bounds/pools/section and every other map column remain unchanged. Accepted outer providers and Update/Draw allocation independently corroborate receiver+0 and borrowed name+4. No public class/table ownership, address-point partition, hidden allocator argument, copied data, boundary split or matching credit is inferred. Supplier note is applied unchanged; the reviewer store-address transcription correction is retained separately. Source and canonical acceptance remain separate.
