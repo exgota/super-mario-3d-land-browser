@@ -771,3 +771,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:28:56.761383+00:00,0x001EA220,fn_001EA220,abandoned,3,8.945963
 2026-10-02T00:48:30.178151+00:00,001D1DA0,_ZN2al17HitSensorDirector7executeEv,matched,4,42.318454
 2026-10-02T00:48:30.178151+00:00,0x00268EB0,_ZNK2al12ActorFactory10getCreatorEPKc,matched,4,22.056877
+2026-10-02T01:03:05.652705+00:00,0x0016A11C,_ZN2al10CourseList4initEv,abandoned,3,19.188702
