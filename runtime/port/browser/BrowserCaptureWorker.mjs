@@ -20,6 +20,10 @@ let descriptor;
 let module;
 let nextTransferIdentifier = 0;
 let pendingTransfer;
+let buttonTimer;
+let buttonSequence = 0;
+let buttonProgress;
+const buttonRequests = [];
 
 function requireCondition(condition, message) {
     if (!condition) throw new Error(message);
@@ -62,13 +66,20 @@ function validateStart(value) {
         typeof value.capture_identifier === 'string' &&
         /^[A-Za-z0-9_-]{1,64}$/.test(value.capture_identifier), 'Invalid start descriptor');
     record(value.inputs, ['dump', 'block_schedule', 'movie', 'initial_user_files', 'initial_user_directories']);
-    const observationKeys = ['input_capture', 'audio_capture'].filter(key => Object.hasOwn(value.options, key));
+    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'record_base_ticks']
+        .filter(key => Object.hasOwn(value.options, key));
     record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
     const inputCapture = Object.hasOwn(value.options, 'input_capture') ? value.options.input_capture : false;
     const audioCapture = Object.hasOwn(value.options, 'audio_capture') ? value.options.audio_capture : false;
+    const liveButtonCapture = Object.hasOwn(value.options, 'live_button_capture') ? value.options.live_button_capture : false;
     requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
+        typeof liveButtonCapture === 'boolean' && (!liveButtonCapture || (inputCapture && audioCapture)) &&
         (!audioCapture || inputCapture) &&
         (!(inputCapture || audioCapture) || value.options.presentation_limit !== null), 'Invalid observation profile');
+    requireCondition(liveButtonCapture ? typeof value.options.record_base_ticks === 'string' &&
+        /^(0|[1-9][0-9]{0,18})$/.test(value.options.record_base_ticks) &&
+        BigInt(value.options.record_base_ticks) <= 0x7fffffffffffffffn :
+        !Object.hasOwn(value.options, 'record_base_ticks'), 'Invalid recording clock');
     if (value.options.presentation_limit !== null) integer(value.options.presentation_limit, 3600, 1);
     integer(value.options.wall_time_seconds, 3600, 1);
     integer(value.options.pica_payload_limit_bytes, 1024 ** 3, 1);
@@ -109,7 +120,8 @@ function validateStart(value) {
     }
     requireCondition(inputs.reduce((sum, input) => sum + input.expected_bytes, 0) <= MaximumOutputBytes,
                      'Input extent exceeds the finite worker bound');
-    return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture},
+    return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture,
+                               live_button_capture: liveButtonCapture},
             validated_inputs: inputs};
 }
 
@@ -122,6 +134,7 @@ function fail(error) {
     if (phase === 'failed' || phase === 'closed') return;
     const failedPhase = phase;
     phase = 'failed';
+    clearInterval(buttonTimer);
     if (pendingTransfer) {
         clearTimeout(pendingTransfer.timer);
         pendingTransfer.reject(error);
@@ -458,6 +471,68 @@ function validateObservations(presentation, entries) {
         sample_rate: 32728, channels: 2, sample_frames: audioOutcome.sample_frames, blocks}};
 }
 
+function validateRecordedMovie(entries, observations) {
+    const entry = entries.get('input_movie.ctm');
+    requireCondition(entry && entry.size > 256 && entry.size <= 16 * 1024 * 1024 &&
+                     (entry.size - 256) % 7 === 0, 'Recorded movie extent is invalid');
+    const bytes = new Uint8Array(entry.size);
+    readChunks('/capture/input_movie.ctm', entry.size, (buffer, offset) => bytes.set(buffer, offset));
+    const view = new DataView(bytes.buffer);
+    const configuration = parseRecord(readText('/capture/capture_configuration.json',
+        entries.get('capture_configuration.json').size, MaximumLineBytes));
+    const program = parseRecord(readText('/capture/program_identity.json',
+        entries.get('program_identity.json')?.size, MaximumLineBytes));
+    requireCondition(bytes[0] === 0x43 && bytes[1] === 0x54 && bytes[2] === 0x4d && bytes[3] === 0x1b &&
+        view.getBigUint64(4, true) === BigInt(integer(program.program_id, Number.MAX_SAFE_INTEGER, 1)) &&
+        [...bytes.slice(12, 32)].map(value => value.toString(16).padStart(2, '0')).join('') === configuration.source_commit &&
+        view.getBigUint64(32, true) === BigInt(integer(configuration.init_time)) &&
+        view.getBigInt64(92, true) === BigInt(descriptor.options.record_base_ticks) &&
+        configuration.base_ticks === Number(view.getBigInt64(92, true)) &&
+        bytes.slice(100, 256).every(value => value === 0), 'Recorded movie metadata disagrees');
+    let padOffset = -1;
+    let awaitingTouch = false;
+    const delivered = [];
+    const counts = Array(6).fill(0);
+    for (let offset = 256; offset < bytes.length; offset += 7) {
+        const kind = bytes[offset];
+        requireCondition(kind < counts.length && (!awaitingTouch || kind === 1) &&
+                         (kind !== 1 || awaitingTouch), 'Recorded movie call order disagrees');
+        ++counts[kind];
+        if (kind === 0) {
+            padOffset = offset;
+            awaitingTouch = true;
+            const buttons = view.getUint16(offset + 1, true);
+            const x = view.getInt16(offset + 3, true), y = view.getInt16(offset + 5, true);
+            requireCondition((buttons & ~0x3fff) === 0 && Math.abs(x) <= 154 && Math.abs(y) <= 154,
+                             'Recorded pad exceeds its bounds');
+        } else if (kind === 1) {
+            const x = view.getUint16(offset + 1, true), y = view.getUint16(offset + 3, true);
+            requireCondition(x < 320 && y < 240 && bytes[offset + 5] <= 1 && bytes[offset + 6] === 0,
+                             'Recorded touch exceeds its bounds');
+            delivered.push({buttons: view.getUint16(padOffset + 1, true),
+                circle_pad_x: view.getInt16(padOffset + 3, true), circle_pad_y: view.getInt16(padOffset + 5, true),
+                touch_x: x, touch_y: y, touch_valid: bytes[offset + 5]});
+            awaitingTouch = false;
+        } else if (kind === 4) requireCondition(bytes[offset + 5] <= 1 && bytes[offset + 6] <= 1,
+                                               'Recorded infrared flags are invalid');
+        else if (kind === 5) requireCondition(bytes[offset + 5] === 0 && bytes[offset + 6] === 0,
+                                              'Recorded extra-HID padding is invalid');
+    }
+    requireCondition(!awaitingTouch && delivered.length === observations.input.polls &&
+        counts[0] === delivered.length && counts[1] === delivered.length &&
+        view.getBigUint64(84, true) === BigInt(delivered.length), 'Recorded pad/poll counts disagree');
+    let index = 0;
+    observationRecords(entries.get('input_events.jsonl'), event => {
+        if (event.kind !== 'hid_input') return;
+        const pad = delivered[index++];
+        requireCondition(pad && pad.buttons === (event.buttons & 0x3fff) &&
+            ['circle_pad_x', 'circle_pad_y', 'touch_x', 'touch_y', 'touch_valid'].every(key => pad[key] === event[key]),
+            'Recorded movie differs from delivered HID');
+    });
+    requireCondition(index === delivered.length, 'Recorded movie has an unmatched poll');
+    return {pad_count: delivered.length, record_counts: counts, base_ticks: descriptor.options.record_base_ticks};
+}
+
 async function exportFile(file, fileIndex) {
     const stream = module.FS.open(`/capture/${file.relative_path}`, 'r');
     try {
@@ -479,11 +554,14 @@ async function exportFile(file, fileIndex) {
 async function finish(status) {
     requireCondition(phase === 'running' && status === 0, `Capture exited with status ${status}`);
     phase = 'validating';
+    clearInterval(buttonTimer);
+    if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
     const {files, directories} = enumerateCapture();
     const {outcome, presentation, entries} = validateEvents(files);
     const observations = validateObservations(presentation, entries);
+    if (descriptor.options.live_button_capture) observations.recorded_movie = validateRecordedMovie(entries, observations);
     const log = entries.get('user/log/reference_capture.log');
-    requireCondition(log && !/\b(?:Movie|Audio(?:\.[A-Za-z0-9_.]+)?|Service\.DSP)\s+<(?:Error|Critical)>/.test(readText('/capture/user/log/reference_capture.log',
+    requireCondition(log && !/\b(?:Input|Movie|Audio|Service\.DSP)(?:\.[A-Za-z0-9_.]+)?\s+<(?:Error|Critical)>/.test(readText('/capture/user/log/reference_capture.log',
         log.size, MaximumLogBytes)), 'Capture log is absent or reports Movie/Audio errors');
     const counters = stderr.flatMap(line => {
         const match = /^static CPU ([0-9]+) executed ([0-9]+) guest instructions; interpreter\/JIT fallbacks ([0-9]+)$/.exec(line);
@@ -494,6 +572,12 @@ async function finish(status) {
     const screens = softwareScreens(presentation, entries);
     phase = 'exporting';
     const manifest = {type: 'capture_manifest', files, directories, outcome, stdout, stderr, counters, observations};
+    if (descriptor.options.live_button_capture) {
+        requireCondition(buttonProgress?.poll_count > 0 && entries.get('input_movie.ctm')?.size > 256,
+                         'Live input device or recorded movie is absent');
+        manifest.button_requests = buttonRequests;
+        manifest.button_progress = buttonProgress;
+    }
     requireCondition(encoder.encode(JSON.stringify({schema_version: 1,
         capture_identifier: descriptor.capture_identifier, transfer_identifier: nextTransferIdentifier,
         ...manifest})).length <= MaximumLogBytes, 'Serialized capture metadata exceeds the finite bound');
@@ -549,6 +633,13 @@ async function start(value) {
                 if (descriptor.options[option]) instance.ENV[name] = '1';
                 else delete instance.ENV[name];
             }
+            for (const name of ['ROOT_PORT_BROWSER_BUTTON_CAPTURE', 'ROOT_PORT_RECORD_INITIAL_USER_STATE',
+                                'ROOT_PORT_RECORD_BASE_TICKS']) delete instance.ENV[name];
+            if (descriptor.options.live_button_capture) {
+                instance.ENV.ROOT_PORT_BROWSER_BUTTON_CAPTURE = '1';
+                instance.ENV.ROOT_PORT_RECORD_INITIAL_USER_STATE = '/owned/initial_user_state';
+                instance.ENV.ROOT_PORT_RECORD_BASE_TICKS = descriptor.options.record_base_ticks;
+            }
         }],
         print: line => captureLine(stdout, line), printErr: line => captureLine(stderr, line),
         onAbort: reason => fail(new Error(`Runtime aborted: ${reason}`)),
@@ -564,9 +655,35 @@ async function start(value) {
     send({type: 'capture_started'});
     phase = 'running';
     // In the pinned SDK this launches the proxy pthread. It is not completion.
-    const launchStatus = module.callMain(['/owned/block_schedule.bin', '/owned/dump.3ds', '/capture',
-                                         '/owned/input_movie.ctm', '/owned/initial_user_state']);
+    const arguments_ = ['/owned/block_schedule.bin', '/owned/dump.3ds', '/capture'];
+    if (!descriptor.options.live_button_capture)
+        arguments_.push('/owned/input_movie.ctm', '/owned/initial_user_state');
+    const launchStatus = module.callMain(arguments_);
     requireCondition(launchStatus === 0, `CPU pthread launch refused with status ${launchStatus}`);
+    if (descriptor.options.live_button_capture) buttonTimer = setInterval(() => {
+        if (phase !== 'running') return;
+        // The CPU samples its renderer during HID polling. These exports read
+        // only our atomics, not Core or the renderer on this outer thread.
+        buttonProgress = {active: module._BrowserButtonInputIsActive(),
+            poll_count: module._BrowserButtonInputPollCount(),
+            sampled_renderer_frame: module._BrowserButtonInputRendererFrame()};
+        send({type: 'button_capture_progress', ...buttonProgress});
+    }, 25);
+}
+
+function setButton(value) {
+    record(value, ['schema_version', 'type', 'capture_identifier', 'sequence', 'held']);
+    requireCondition(value.schema_version === 1 && descriptor?.options.live_button_capture &&
+        value.capture_identifier === descriptor.capture_identifier &&
+        integer(value.sequence, 4095) === buttonSequence++ &&
+        integer(value.held, 1) === value.held, 'Invalid button request');
+    // A correctly scoped release can arrive after normal guest shutdown. It
+    // earns no delivery claim and must not invalidate the completed capture.
+    const status = phase === 'running' ? module._BrowserButtonInputSetHeldState(value.held) : 2;
+    const response = {sequence: value.sequence, held: value.held, status,
+        accepted: status === 0, phase, ...(buttonProgress ?? {})};
+    buttonRequests.push(response);
+    send({type: 'button_request_status', ...response});
 }
 
 self.onmessage = event => {
@@ -579,6 +696,8 @@ self.onmessage = event => {
             const pending = pendingTransfer;
             pendingTransfer = undefined;
             clearTimeout(pending.timer); pending.resolve();
+        } else if (event.data?.type === 'set_button_held_state') {
+            setButton(event.data);
         } else {
             requireCondition(!started, 'This worker accepts one capture session only');
             started = true;

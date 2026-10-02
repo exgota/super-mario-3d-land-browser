@@ -2,7 +2,7 @@
 
 This surface runs the actual static ARM port in a dedicated ES-module worker. It mounts the owner's approved dump, timing schedule, movie and complete initial user tree as readonly WORKERFS input. The existing compiled CPU/HLE/PICA/software renderer runs on the SDK's proxy pthread. The page receives real captured RGBA screens, not packaged game images. Every output file and directory is exported to the local server for the unchanged differential comparators.
 
-This is a finite recorded replay. The optional input/audio profile observes the delivered movie input and the original HLE PCM, then offers explicit playback of that completed browser-generated sound. Continuous gameplay, live browser input, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
+This is a finite capture. The default profile replays a recorded movie. The optional input/audio profile observes delivered movie input and original HLE PCM, then offers explicit playback of that completed browser-generated sound. An optional live-button profile records the browser's A button through normal HID. Continuous rendering/gameplay, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
 
 ## Build
 
@@ -17,7 +17,7 @@ python tools/static_recompiler/build_browser_execution.py \
   --node /Users/exgota/super-mario-3d-land-browser/build/port_tools/emsdk/node/24.19.0_64bit/bin/node
 ```
 
-Outputs must be absent children of this checkout's ignored build/. The builder validates sealed actual execution/audit/entropy receipts, audited provider identities and all four notices. It reproduces the entire verified Node wasm byte for byte from the complete current link closure before allowing the browser link. It recompiles the unchanged port main with its entry symbol renamed, adds a browser entry and bounded input-identity helper, then links the real archives with the browser-specific filesystem/exports. Original artifacts remain unchanged. The browser entry stops and flushes the logger on the application pthread before normal SDK exit begins. It preserves native destructors and the actual onExit callback. It adds no Node filesystem fallback, alternate ARM interpreter, synthetic CPU/GPU provider or game data.
+Outputs must be absent children of this checkout's ignored build/. The builder validates sealed actual execution/audit/entropy receipts, audited provider identities and all four notices. It reproduces the entire verified Node wasm byte for byte from the complete current link closure before allowing the browser link. It recompiles the unchanged port main with its entry symbol renamed, adds a browser entry, bounded input-identity helper and public host-button factory, then links the real archives with the browser-specific filesystem/exports. Original artifacts remain unchanged. The browser entry stops and flushes the logger on the application pthread before normal SDK exit begins. It preserves native destructors and the actual onExit callback. It adds no Node filesystem fallback, alternate ARM interpreter, synthetic CPU/GPU provider or game data.
 
 The initial profile inherits the verified 18-thread pool, 8 MiB stack and shared memory bounds of 1 GiB initial/2 GiB maximum. These are desktop test bounds, not a mobile memory or realtime-performance claim. Emscripten 6.0.10 is the tested SDK. Snapshot directory installation depends on that SDK's actual WORKERFS.createNode hook; do not assume this internal API survives an SDK upgrade.
 
@@ -78,6 +78,29 @@ The audio profile invokes unchanged compare_audio_capture.py, including exact HI
 The worker validates complete input/audio outcomes, event timing, contiguous sample offsets, PCM extent and the selected presentation before exporting. The page copies only acknowledged actual PCM chunks, at most 64 KiB each. It exposes sound only after successful capture shutdown, with a 64 MiB PCM bound. Signed-16 little-endian pairs map directly to two Float32 channels by division by 32768, at the original nominal 32728 Hz. No gain normalization, gap filling, channel mixing, synthetic samples or reference audio is used.
 
 The explicit Play recorded sound gesture creates/resumes the AudioContext and starts one completed clip. Stop and natural end return the action to its ready state. A new file, run or failure disposes the previous clip. Browser output can resample to the device's rate; original PCM and source-buffer equality do not claim bit-exact speaker output. The verifier checks every original PCM-derived Float32 sample, equal-rate OfflineAudioContext output, no autoplay, explicit play/stop and natural completion. This is completed-clip playback, not synchronized continuous audio or proof of recognizable speaker output.
+
+## Live A-button recording
+
+Use a newly built module with the button bridge and add --live-button to the server command. Serving still identifies the original readonly movie and full initial state. Only that movie's base-tick metadata seeds the new recording. The runtime receives schedule/dump/output arguments, with no positional movie or playback snapshot. ROOT_PORT_RECORD_INITIAL_USER_STATE supplies the full readonly starting tree; ROOT_PORT_RECORD_BASE_TICKS supplies its identified decimal clock. The entry refuses a simultaneous live-button and positional playback profile. Both input and audio observations are required, with a finite software-presentation limit.
+
+```sh
+python tools/static_recompiler/serve_browser_execution.py \
+  build/browser_module build/browser_button_server \
+  --block-schedule /Users/exgota/super-mario-3d-land-browser/build/root_native_block_scheduling/build/native_block_schedule_full/block_schedule.bin \
+  --reference /Users/exgota/super-mario-3d-land-browser/build/root_port_input/reference_scripted_360 \
+  --dump-sha256 c83f9175208b3d60898d3a6d60451bee3108521e409cace362f63b46dda8c976 \
+  --dump-bytes 536870912 --presentation-limit 480 --live-button --port 8787
+python tools/static_recompiler/verify_browser_button_capture.py \
+  http://127.0.0.1:8787 build/browser_button_verification \
+  --dump /Users/exgota/super-mario-3d-land-browser/build/root_port_reference/owned_dump.3ds \
+  --server-output build/browser_button_server --input-method pointer --screenshots --keep-open
+```
+
+Hold A accepts pointer or focused Space/Enter. Releases cover pointer up/cancel/lost capture, key up, button/window focus loss, hidden document and session end. Input becomes available only after the actual registered device has been polled. The outer worker reads only exported atomics; renderer-frame samples originate on the CPU's ordinary HID path. Requests acknowledge queued held state, never delivered game input. Polls and the actual CTM provide delivery evidence. A short pulse can coalesce between polls. Screens and recorded sound arrive only after the finite run ends.
+
+The worker validates the new CTM after normal Movie.Shutdown: bounded file extent, header/revision/program/clock, typed record order and padding, pad/touch/header counts and every delivered HID value. Input, audio and GPU outcomes must be complete; Input/Movie/Audio errors refuse completion. Correctly scoped input messages arriving after guest shutdown earn refusal and do not invalidate successful exports. Requests are sequenced and bounded to 4096 per capture.
+
+The verifier also supports keyboard, focus-loss and neutral input methods. It checks actual press/release or strictly neutral polls, CTM delivery, zero CPU fallback, all output files/directories, readonly inputs and displayed canvas bytes. This recording check alone does not certify stock parity. Replay each new CTM and its exported initial_user_state with the unchanged stock azahar_gpu_capture, at the same presentation/input/audio/payload/wall limits, then invoke unchanged compare_movie_replay.py with that new CTM. This general comparator permits unused input channels and exact silence while requiring every input/audio/GPU/tick/PICA/framebuffer/RGBA byte to match. Preserve original movie IDs and raw host logs. Use a separate neutral recording to establish the causal menu response.
 
 ## Identity and completion
 

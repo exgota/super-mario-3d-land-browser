@@ -1,6 +1,6 @@
 # Local browser preview surface
 
-Scope: the owner selects their approved EU dump, runs one recorded startup, sees the actual two captured screens and receives a clear completion or failure. The local server stores exact replay output under ignored build/. This is an Operate surface. Interactive gameplay and audio playback are separate runtime work.
+Scope: the owner selects their approved EU dump, runs one finite capture, sees the actual two captured screens and receives a clear completion or failure. The default replays recorded startup; an optional A-button profile records real browser input during the run. Its screens and completed sound arrive after shutdown. The local server stores exact replay output under ignored build/. This is an Operate surface. Continuous gameplay and synchronized audio are separate runtime work.
 
 Routine choices follow the approved brief without an owner interview: plain HTML/CSS/ES modules, a single owned-file control and screens before implementation details. No owner-selected visual preference or standing workflow is claimed. The direction contract was persisted after the initial source pass; it does not claim an earlier approval.
 
