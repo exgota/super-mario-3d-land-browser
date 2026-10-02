@@ -20,16 +20,21 @@
 
 extern "C" const sead::Matrix34f* fn_002519B0( al::ModelKeeper* keeper, const char* jointName );
 
+extern "C" void fn_00129074( al::LiveActor* actor, const sead::Matrix34f& matrix, const sead::Vector3f& scale );
+extern "C" void fn_002DDC68( sead::Matrix34f* matrix, const sead::Vector3f& scale );
+extern "C" void fn_001D2D44( al::LiveActor* actor, const sead::Matrix34f* matrix );
+extern "C" void fn_001D30C4( al::ActorActionKeeper* keeper, const char* actionName );
+
 void alLiveActorFunction::calcAnimDirect( al::LiveActor* actor )
 {
         sead::Matrix34f baseMtx;
         actor->mActorPoseKeeper->calcBaseMtx( &baseMtx ); /* alActorPoseFunction::calcBaseMtx */
         if ( actor->mModelKeeper )
-                al::setBaseMtxAndCalcAnim( actor, baseMtx, actor->mActorPoseKeeper->getScale() /* al::getScale */ );
+                ::fn_00129074( actor, baseMtx, actor->mActorPoseKeeper->getScale() /* al::getScale */ );
         if ( actor->mCollisionParts )
         {
-                al::preScaleMtx( &baseMtx, actor->mActorPoseKeeper->getScale() /* al::getScale */ );
-                al::syncCollisionMtx( actor, &baseMtx );
+                ::fn_002DDC68( &baseMtx, actor->mActorPoseKeeper->getScale() /* al::getScale */ );
+                ::fn_001D2D44( actor, &baseMtx );
         }
         if ( actor->getEffectKeeper() )
                 actor->getEffectKeeper()->update();
@@ -179,7 +184,7 @@ float getSensorRadius( const LiveActor* actor, const char* sensorName )
 void startNerveAction( LiveActor* actor, const char* actionName )
 {
         if ( actor->getActorActionKeeper() )
-                actor->getActorActionKeeper()->tryStartActionNoAnim( actionName );
+                ::fn_001D30C4( actor->getActorActionKeeper(), actionName );
         alNerveFunction::setNerveAction( actor, actionName );
 }
 
