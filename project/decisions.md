@@ -957,3 +957,7 @@ All previous history, inline, uniform, context, face, root, palette, math, selec
 ## Hourly733 checkpoint, 2026-10-02
 
 Clean make.py eu -ca exits0, rebuilds45 Game/132 al/1 SDK C++ sources plus the generated stub object, links and exports code.bin. All179 output objects have provenance records. Prior733 acceptance remains backed by the canonical gate; only native runtime and documentation changed since it. Build warnings are retained in build/audited_push_733_d7350e2/clean_build_stderr.txt. The fresh native replay is accepted. Bubble/Archive proposals remain pending independent metadata and canonical acceptance; the hourly private-origin push proceeds before those gates.
+
+## Bubble callback and constructor identities, 2026-10-02
+
+Apply the corrected complete evidence patch unchanged after independent original creator/SafeString/interface/provider review. Four anonymous U function rows receive class ABI labels; every interval, pool, type and rank remains identical. Source272 is still pending. Root verifies406 original sealed paths,12 correction paths and28 independent peer paths. The evidence-only sender typo0x44 is corrected to0x2C, decimal44; source and diagnostics stay unchanged and original seal is retained. Table boundary evidence remains separatea359254. No original public-symbol spelling claim or exact/data credit.
