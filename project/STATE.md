@@ -1,27 +1,25 @@
-# Root lane state
+# Root port lane state
 
-Owner resumed the root lane on 2026-10-02 for class layouts and the port runtime. BRIEF rule 13 assigns all acceptance, main, ranks, and ledger writes to the integrator. Work only on root branches. No subagents until the operator ends the model trial; afterward at most one.
+Owner priority 2026-10-02: browser demo, then 100% byte exact. Root now works only on the port. Class layouts go to the Pro relay. One subagent maximum. Only the integrator moves main/ranks/ledger. No Factory source or adjacent factory changes.
 
-## In flight and ownership
+## Ownership
 
-`root/calendar-constructor-placement` at `a671ac0` is submitted as `root-calendar-constructor-placement-a671ac00c`. It changes only a C1 section override and project notes. Local clean build and the standard checker pass the 116-byte C2 constructor and five accepted siblings. Committed rank remains M. Full-map result is pending in `.integrator/results/`.
+Branch root/static-recompiler starts from main d0f536c. Root owns tools/static_recompiler, runtime/port, and project/static_recompiler_evidence.md. It adapts a pinned public ARM-to-C generator from raw code.bin/exh.bin and the read-only function map, with native address-keyed replacements. Generated game-derived C and binaries remain under ignored build. Matching Game/lib sources remain unchanged.
 
-Current branch `root/heap-layout` starts at `0800d9a`. This lane exclusively owns `lib/sead/include/heap/seadHeap.h`, `lib/sead/include/heap/seadDisposer.h`, their evidence note, and the clean module README. Reconstruct the Heap base layout from original constructor 0x0028B6A4, disposer constructor/destructor, list insertion/removal, and independently observed callers. This is layout work, without function matching claims. Current dot branches do not change either header. Factory ownership below 0x100 and frog ownership at or above 0x200 remain respected.
+One helper investigates pinned Azahar capture and a minimal native reference harness under build/root_port_reference. No child agents are allowed. Root builds the translator/host independently.
 
-M2 and M3 are unfinished. No level has run. Historical metrics are not new lane credit. Original executable must retain SHA-256 e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64.
+## Submissions
+
+Model draw order submitted as root-runtime-model-draw-order-7a2fcaef0 with no claims. Fresh original/native preservation and public-command checks pass; acceptance pending.
+
+Calendar and Heap original submissions were rejected on integrator empty-commit bugs. The operator reports both bugs repaired and both queued again. Await actual new result files. No duplicate layout follow-up. Repository-copy receipt fix root-integrator-commit-receipts-bfbb5a379 is pending and may be redundant.
 
 ## Next three tasks
 
-1. Ground and validate Heap fields, preserve existing dispatch, and submit a small header family. Queue ambiguous layout questions to Pro; proposals require independent checks.
-2. Revalidate the earlier frozen resource-local model draw-order proposal from fresh original/native runs. Its source remains unapplied and uncredited until validation.
-3. Advance a concrete port/runtime component toward Section 7 differential replay. Keep missing state explicit and distinguish component parity from gameplay.
+1. Translate the owner's hashed raw executable and link the generated functions natively, with interpreter callbacks refusing unsupported instructions.
+2. Verify translated execution and one rank-O decompiled replacement against independent original execution. Count only linked translated function instructions; keep the scoreboard evidence current.
+3. Reach the first top-screen GPU stream through the platform host and compare original submissions/chained PICA lists with Azahar at the same swap boundary.
 
-## Limits and handoff
+Milestones: 1 native recompiler and first GPU stream matching Azahar; 2 rendering; 3 input; 4 audio; 5 World 1-1 differential replay; 6 browser build. None is complete. .integrator/port_status.json records progress, not inferred success.
 
-Never check out, move, commit to, merge into, or push main. Never edit ledger.csv or Game/backup/src/Factory/. Never commit or submit rank changes. Never modify the adjacent factory. Submit complete patches with the factory submit command; read and report every result file. Continue independent work during acceptance.
-
-Disk observation: 13 GiB free. Remove only this lane's disposable build scratch after use. Prior-lane scratch remains untouched. Keep this file under 150 lines.
-
-## Heap candidate verification
-
-Source commit a51b4ef passes the clean project build, 16 binary-grounded ARMCC layout assertions, and eight accepted heap-facing checker roots. No new matching claim is made. The 100 fetched dot branches contain no changes to the owned headers. Self-contained layout question sead_heap_base.md is queued; no response is received yet. This submission retains opaque lock storage and raw direction encoding rather than claiming their unrecovered types.
+The inspected 3dsrecomp generator uses interpreter fallbacks for unsupported instructions. Root's native host must stop and report these; interpreter work never earns translated coverage. The pinned generator Cargo metadata declares MIT and README states no game code is included. No vendor source is added to Git.
