@@ -1,0 +1,26 @@
+{
+  "original_instruction_count": 466,
+  "all_reachable_instructions_covered": true,
+  "code_ranges": [
+    [
+      "002EDFE8",
+      "002EE46C"
+    ],
+    [
+      "002EE570",
+      "002EE834"
+    ]
+  ],
+  "original_callee_entry_counts_identical": true,
+  "calls_per_invocation": {
+    "0x21f264": 35.0,
+    "0x21f21c": 8.0,
+    "0x28e1e4": 41.0,
+    "0x27ccbc": 1.0,
+    "0x292d20": 7.0,
+    "0x27c18c": 1.0,
+    "0x2499f4": 2.0
+  },
+  "complete_original_interval_size": 2192,
+  "exact_credit": 0
+}

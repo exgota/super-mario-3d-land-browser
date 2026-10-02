@@ -1,0 +1,20 @@
+{
+  "command": [
+    "data/compilers/wibo",
+    "data/compilers/4.1/791/bin/armlink.exe",
+    "--scatter",
+    "build/particle-editor-parameters/behavior.sct",
+    "--entry",
+    "fn_002EDFE8",
+    "--no_scanlib",
+    "--output",
+    "build/particle-editor-parameters/unresolved.axf",
+    "--map",
+    "--list",
+    "build/particle-editor-parameters/unresolved.map",
+    "build/eu/obj/lib/al/src/Effect/retail_ParticleEditorParameters.o",
+    "build/particle-editor-parameters/unresolved-imports.sym"
+  ],
+  "returncode": 1,
+  "output": "Error: L6218E: Undefined symbol dat_00430A88 (referred from retail_ParticleEditorParameters.o).\nFinished: 0 information, 0 warning and 1 error messages.\n"
+}

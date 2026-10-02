@@ -1,0 +1,13 @@
+{
+  "command": [
+    "python",
+    "make.py",
+    "eu",
+    "-ca"
+  ],
+  "returncode": 0,
+  "seconds": 38.1021647160087,
+  "started_unix": 1790917554.697239,
+  "finished_unix": 1790917592.7994392,
+  "map_sha256": "350611b6caf9bdba44895628edcf7955b53964976f621613198589760d9217e4"
+}

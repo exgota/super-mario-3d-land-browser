@@ -1,0 +1,16 @@
+{
+  "exact": false,
+  "reason": "Selected section alignment above four bytes is unsupported.",
+  "evidence": {
+    "symbol": "fn_002EDFE8",
+    "object": "build/eu/obj/lib/al/src/Effect/retail_ParticleEditorParameters.o",
+    "version": "eu",
+    "compiler": "4.1/791",
+    "original_start": 3071976,
+    "original_end": 3074168,
+    "original_size": 2192,
+    "map_sha256": "a2edad9dfe7e3e7db737a42a7ae98eaca7fe95c61429b0c3c44eae36119a5653",
+    "object_sha256": "2ffca586547c568aee5756163c7e69b5b365b7381347f1644bb5b95d468641eb",
+    "output_directory": "/workspace/scratch/73cdb2c524af/mario-particle-editor-parameters/build/exact_checks/eu/function_002EDFE8_8r341njb"
+  }
+}

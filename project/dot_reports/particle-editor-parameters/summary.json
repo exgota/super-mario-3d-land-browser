@@ -1,0 +1,50 @@
+{
+  "base": "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c",
+  "source_commit": "d094dc3518fa7701c1a37a691ba69ea17341eedd",
+  "initial_source_commit": "4bb6af8bebc2d56d436ff0e4abbba413eb28eef4",
+  "started_utc": "2026-10-02T04:49:31Z",
+  "evidence_finished_utc": "2026-10-02T05:08:48Z",
+  "forms": 2,
+  "exact_roots": 0,
+  "exact_bytes": 0,
+  "whole_original_root_bytes": 2192,
+  "diagnostic_root_bytes": 2228,
+  "diagnostic_extra_data_bytes": 15,
+  "diagnostic_alignment_gap_bytes": 1,
+  "diagnostic_total_image_bytes": 2244,
+  "source_sha256": "8a22323f0a071e490696d563b0c4cada6023346a13f2b4d2ef95015763d45cc1",
+  "header_sha256": "92d7fe713a4907eb16c5a649ab2285d6649f9145a955249e6a685be259803b75",
+  "script_sha256": {
+    "check.py": "05fd9e1662acfe4d516259e13fe1bfcdad937255f2c44fd8cf6f552e4641f6cc",
+    "link_replay.py": "cd26b914fb1558b63f169129fc97f23beefc1ff9508ef8c95898e4015b036482",
+    "replay.py": "fc9bf023fa52ec868493ed3658223f32160243e9d1786198c928c3c8db6509f0",
+    "preserve.py": "acd8a5779be0799623c8b9bc7ea41dd869606d7183e31782864160c2f70fde8c",
+    "coverage.py": "c83d2645d3bbdc3f1c88823ac5ce48ddb2205387c4df870c9c6d50fbf252b4c7",
+    "seal.py": "4e6470e0c63f53131ece22a8a095c81b8075a09697d6f3a1ce0739e11e30a051"
+  },
+  "evidence_sha256": {
+    "coverage.json": "054249c514132197a98ef322c848218fd3e28ac83998b213389dca2d5b092a4e",
+    "diagnostic-link.json": "a1e58be5da2a5b071fe8ff74e2f605d3ef02b93d44a274f9dabf77d483b2ad14",
+    "final-clean-build.json": "002986da6249006af6b00c3fb3d2bb53773db5ed290c538b79f7da69db11cbe5",
+    "form1-check.txt": "1131ba95d01ab755f8d69469f81f8ea8cd81708254d0ff4afdc5b90e72912fdd",
+    "form1-replay-result.json": "5e59d97661176dbbbec781472e4a30606c4258401c8afacf7483f7c6c6ecc3f4",
+    "form1-result.json": "d8db6636f711b182c810c0433dedd81a941fe8b512c377614bdc905923a00028",
+    "form2-check-meta.json": "1960e37b7f80edded44d668b4ded78eadd19c83d9a27bea0b0370c2b56479642",
+    "form2-check.txt": "1131ba95d01ab755f8d69469f81f8ea8cd81708254d0ff4afdc5b90e72912fdd",
+    "form2-result.json": "6d0b840b2a7c192efaca2a43f49dccd9a6121eadaf30070abb39b5f8150dea1f",
+    "input-seal.json": "8651052cd508145d6509467a01241a9ffb004f6565f3461c3cca9aee457bf761",
+    "preservation.json": "21f02c14b5a2775f6ec68f7b03817762713fc3330f017f181a858f5fc961cc2d",
+    "replay-before-locale-failure.json": "5806999d35fe442baec8f35e0ee3055f29c0dd8ff2edd245e0e41b4e99bbaf7f",
+    "replay-result.json": "92b34afa6f53a0ca797776338e0af9a1a36ee98a273d6523d10111b8ae8ca51a",
+    "reproduce.md": "15da153af4fe6abe14e5c264b4279426d87c0e21ab0d02b6e7a281e628df41fd",
+    "unresolved-link.json": "e9b2eda98f62bdfaf36dc32ac9b06253c1882c347558acbcd89cc92c6fd151f7"
+  },
+  "report_sha256": "1924473e312636512ac74d90bdbea3653deb3150e8466f684effdcccce13afb8",
+  "build_log_sha256": {
+    "form1-build.log": "9a5a24ee26b44c41b7c3a1a1981d047119d8f9dfd61ddc327b0f798d19d5eea6",
+    "form2-build.log": "96c3716f82a272c62d6ecc3b80cbdaff8f22317074d131a792ac9c8e5cc5eb9c",
+    "final-clean-build.log": "9a5a24ee26b44c41b7c3a1a1981d047119d8f9dfd61ddc327b0f798d19d5eea6"
+  },
+  "finished_utc": "2026-10-02T05:11:46Z",
+  "elapsed_wall_seconds": 1335.2284579277039
+}

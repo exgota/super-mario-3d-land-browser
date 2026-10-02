@@ -1,0 +1,94 @@
+{
+  "command": [
+    "data/compilers/wibo",
+    "data/compilers/4.1/791/bin/armlink.exe",
+    "--scatter",
+    "build/particle-editor-parameters/behavior.sct",
+    "--entry",
+    "fn_002EDFE8",
+    "--no_scanlib",
+    "--output",
+    "build/particle-editor-parameters/behavior.axf",
+    "--map",
+    "--list",
+    "build/particle-editor-parameters/behavior.map",
+    "build/eu/obj/lib/al/src/Effect/retail_ParticleEditorParameters.o",
+    "build/particle-editor-parameters/imports.sym"
+  ],
+  "imports": [
+    {
+      "symbol": "_ZN4sead14Vector3CalcCtrIfE9normalizeERN2nn4math4VEC3E",
+      "address": 2608316,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZN4sead15Matrix34CalcCtrIfE4copyERN2nn4math5MTX34ERKS4_",
+      "address": 2605452,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZTVN4sead14SafeStringBaseIcEE",
+      "address": 4037684,
+      "kind": "D",
+      "missing_map": false
+    },
+    {
+      "symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+      "address": 2681532,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "dat_003A2118",
+      "address": 3809560,
+      "kind": "D",
+      "missing_map": false
+    },
+    {
+      "symbol": "dat_003A211C",
+      "address": 3809564,
+      "kind": "D",
+      "missing_map": false
+    },
+    {
+      "symbol": "dat_00430A88",
+      "address": 4393608,
+      "kind": "D",
+      "missing_map": true
+    },
+    {
+      "symbol": "fn_0021F21C",
+      "address": 2224668,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_0021F264",
+      "address": 2224740,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_002499F4",
+      "address": 2398708,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_0028E1E4",
+      "address": 2679268,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00292D20",
+      "address": 2698528,
+      "kind": "A",
+      "missing_map": false
+    }
+  ],
+  "status": 0,
+  "credit": "behavior diagnostic only; no object editing or canonical metadata change"
+}
