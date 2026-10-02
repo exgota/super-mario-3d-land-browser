@@ -1,0 +1,1096 @@
+{
+  "manifest": {
+    "base": "8991bec8cb27ff1a2dac0003f059d270a0b17493",
+    "source_commit": "be5bee8bc7d698e6d3a98160861b6c5a736cf754",
+    "source_hashes": {
+      "lib/CtrSDK/sources/AddressResourceFactory.cpp": "2f7779fbc2184d5101b7b17471d5a5d127fd71dcf1e1b45d41ae36ddcd76a975",
+      "lib/CtrSDK/sources/retail_ParticleBinding.cpp": "fd3764bec403a36674e67c4fcb08eb59d35e76911649aa876d5e88e671493a06",
+      "lib/CtrSDK/sources/retail_ParticleShapeSize.cpp": "d6ebb737bf4344f302329c960ecc7ad3d63ed1d8bc93ab3bbe8836b55acdd73a",
+      "lib/CtrSDK/include/retail/ParticleShape.h": "e1104ed6525d6dae9ebaa62657286cabb75b3c49704c388038b56069c24f7d33",
+      "lib/CtrSDK/include/retail/ResourceParticleFamily.h": "4ee8ec2d9b23cd121e1795850b8549ba21af96a43bb7aba7677ca424253ec808"
+    },
+    "frozen_original_sources": {
+      "mario-resource-298c58": {
+        "head": "0a3ea889700c86b90551aabbd90ab29d4e55d829",
+        "sources": {
+          "lib/CtrSDK/sources/AddressResourceFactory.cpp": "85d0460855fe94644d96a5ced443fd92cca4905d6c076119f0a74313890e9aa9"
+        }
+      },
+      "mario-particle-shape-2a451c": {
+        "head": "d65414a32464f5d68cf920d6fdfb6c66a884e645",
+        "sources": {
+          "lib/CtrSDK/sources/retail_ParticleBinding.cpp": "94d39656f793974eac59cc0966ce383e9f7c2511ec4bd3ef157e6a0a18ef390f",
+          "lib/CtrSDK/sources/retail_ParticleShapeSize.cpp": "d6ebb737bf4344f302329c960ecc7ad3d63ed1d8bc93ab3bbe8836b55acdd73a",
+          "lib/CtrSDK/include/retail/ParticleShape.h": "e1104ed6525d6dae9ebaa62657286cabb75b3c49704c388038b56069c24f7d33"
+        }
+      }
+    },
+    "toolchain_and_inputs": {
+      "data/compilers/4.0/902/bin/armcc.exe": "e6aca4ebc280a54065406bcc3a0ae3d9f4d0ac5a4032c3a193adb836c72e70fe",
+      "data/ver/eu/code.bin": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+      "data/ver/eu/exh.bin": "94e61359c80498495dd77bb2df16f0def6fca94fca736dc8c3c929279b44d2c8",
+      "data/ver/eu/map.csv": "2dde00f86cc0bc6f174f3a281853a4faacea1f16b6b628d602bea687b4cdb805",
+      "tools/check.py": "e177e0abe130e645e75c5f0dc24abb19dbe83310de55f1f099ec8fc385e07317",
+      "tools/low/checkExactBytes.py": "aef81a3a21c49bb17b8a19f139d02607899257e04dbe461ece2992cc726fc2e2",
+      "tools/acceptance_batch.py": "f63eacb2b4914872a8258b41d48f5010733b58b69e046c7c07cb55932eeca0f5"
+    }
+  },
+  "published_packages": {
+    "resource": "0ee18252c9d108987d6da68a9a321dec10aa2509",
+    "particle": "d1ef5caf319e44eb332b26f48c6ba43ff7e4eac3",
+    "particle_tree": "f860f03654163af6835f917648d0a845f8023888"
+  },
+  "gate": {
+    "checkpoint": "be5bee8bc7d698e6d3a98160861b6c5a736cf754",
+    "prior_checkpoint": "8991bec8cb27ff1a2dac0003f059d270a0b17493",
+    "prior_roots": 717,
+    "ownership": {},
+    "accepted": true,
+    "clean_build_returncode": 0,
+    "elapsed_seconds": 713.3369534400044
+  },
+  "actual_definition_checks": 736,
+  "source_codegen": {
+    "checkpoint": "be5bee8bc7d698e6d3a98160861b6c5a736cf754",
+    "results": [
+      {
+        "source_tree": "mario-resource-298c58",
+        "source_head": "0a3ea889700c86b90551aabbd90ab29d4e55d829",
+        "object": "build/eu/obj/lib/CtrSDK/sources/AddressResourceFactory.o",
+        "old_object_sha256": "8656b1a7f9bd0335369a748560a2ec1e2ebf3818b3bbb465ee0332af4980b73d",
+        "new_object_sha256": "16b9d9ca2b6d35a3f43f092b22cb76ceaaec12782d0b0b1be618e335f809039b",
+        "allocated_bytes_equal": true,
+        "resolved_relocations_equal": true,
+        "all_nonfile_symbols_equal": true,
+        "definitions": [
+          [
+            "fn_00298C58",
+            "STT_FUNC",
+            "STB_GLOBAL",
+            "STV_HIDDEN",
+            "i.fn_00298C58",
+            0,
+            2984
+          ]
+        ],
+        "allocated_sections": [
+          {
+            "name": "i.fn_00298C58",
+            "size": 2984,
+            "sha256": "1e17956edd4968b0746072692ac6a2b4b4b28bf8442f2722c1090647363797e4"
+          },
+          {
+            "name": ".ARM.exidx",
+            "size": 8,
+            "sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+          }
+        ],
+        "imports": [
+          "",
+          "fn_00231EF0",
+          "fn_002997C8",
+          "fn_0029AFE8",
+          "fn_0029B57C",
+          "fn_0029E620",
+          "fn_002A451C",
+          "Lib$$Request$$armlib",
+          "Lib$$Request$$cpplib"
+        ],
+        "verified_provenance": {
+          "before": {
+            "source": "lib/CtrSDK/sources/AddressResourceFactory.cpp",
+            "compiler": "4.0/902",
+            "object_sha256": "8656b1a7f9bd0335369a748560a2ec1e2ebf3818b3bbb465ee0332af4980b73d"
+          },
+          "after": {
+            "source": "lib/CtrSDK/sources/AddressResourceFactory.cpp",
+            "compiler": "4.0/902",
+            "object_sha256": "16b9d9ca2b6d35a3f43f092b22cb76ceaaec12782d0b0b1be618e335f809039b"
+          }
+        }
+      },
+      {
+        "source_tree": "mario-particle-shape-2a451c",
+        "source_head": "d65414a32464f5d68cf920d6fdfb6c66a884e645",
+        "object": "build/eu/obj/lib/CtrSDK/sources/retail_ParticleBinding.o",
+        "old_object_sha256": "f68bb80d1512c5dc391b9f58faaa40d5387dd5ed85b4229c349fedfcefb05c1e",
+        "new_object_sha256": "628288d0c3c29f77b77616852eb6bdc39a3e3fd7d1b7632fe2c6d7ebc3ed024c",
+        "allocated_bytes_equal": true,
+        "resolved_relocations_equal": true,
+        "all_nonfile_symbols_equal": true,
+        "definitions": [
+          [
+            "__switch$$",
+            "STT_FUNC",
+            "STB_LOCAL",
+            "STV_DEFAULT",
+            "i.fn_002A451C",
+            208,
+            0
+          ],
+          [
+            "__switch$$",
+            "STT_FUNC",
+            "STB_LOCAL",
+            "STV_DEFAULT",
+            "i.fn_002A451C",
+            368,
+            0
+          ],
+          [
+            "__switch$$",
+            "STT_FUNC",
+            "STB_LOCAL",
+            "STV_DEFAULT",
+            "i.fn_002A451C",
+            612,
+            0
+          ],
+          [
+            "__switch$$",
+            "STT_FUNC",
+            "STB_LOCAL",
+            "STV_DEFAULT",
+            "i.fn_002A451C",
+            1364,
+            0
+          ],
+          [
+            "__switch$$",
+            "STT_FUNC",
+            "STB_LOCAL",
+            "STV_DEFAULT",
+            "i.fn_002A451C",
+            1736,
+            0
+          ],
+          [
+            "__switch$$",
+            "STT_FUNC",
+            "STB_LOCAL",
+            "STV_DEFAULT",
+            "i.fn_002A451C",
+            2288,
+            0
+          ],
+          [
+            "fn_002A451C",
+            "STT_FUNC",
+            "STB_GLOBAL",
+            "STV_HIDDEN",
+            "i.fn_002A451C",
+            0,
+            2692
+          ]
+        ],
+        "allocated_sections": [
+          {
+            "name": "i.fn_002A451C",
+            "size": 2692,
+            "sha256": "9826ddbdf06d400fe027bba9a0c41a8064b3ccaf9257af53553afd609bf89887"
+          },
+          {
+            "name": ".ARM.exidx",
+            "size": 8,
+            "sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+          }
+        ],
+        "imports": [
+          "",
+          "_ZN2nw3gfx13ParticleShape14AddVertexParamEijiPfPPh",
+          "_ZN2nw3gfx13ParticleShape15AddVertexStreamEijiiPPh",
+          "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+          "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+          "__rt_memclr",
+          "dat_003BA150",
+          "dat_003D8384",
+          "fn_002A4434",
+          "nnnstdMemCpy",
+          "Lib$$Request$$armlib",
+          "Lib$$Request$$cpplib"
+        ],
+        "verified_provenance": {
+          "before": {
+            "source": "lib/CtrSDK/sources/retail_ParticleBinding.cpp",
+            "compiler": "4.0/902",
+            "object_sha256": "f68bb80d1512c5dc391b9f58faaa40d5387dd5ed85b4229c349fedfcefb05c1e"
+          },
+          "after": {
+            "source": "lib/CtrSDK/sources/retail_ParticleBinding.cpp",
+            "compiler": "4.0/902",
+            "object_sha256": "628288d0c3c29f77b77616852eb6bdc39a3e3fd7d1b7632fe2c6d7ebc3ed024c"
+          }
+        }
+      },
+      {
+        "source_tree": "mario-particle-shape-2a451c",
+        "source_head": "d65414a32464f5d68cf920d6fdfb6c66a884e645",
+        "object": "build/eu/obj/lib/CtrSDK/sources/retail_ParticleShapeSize.o",
+        "old_object_sha256": "107c230311ed32a6e05afab3cb4cf4a4e0a876b67dea58d45db3ad857f8a4b9e",
+        "new_object_sha256": "25d9f63ecf6bd551182e20550dac3e1d7f4423fc22c66063ef38f1ef0ac58e2b",
+        "allocated_bytes_equal": true,
+        "resolved_relocations_equal": true,
+        "all_nonfile_symbols_equal": true,
+        "definitions": [
+          [
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+            "STT_FUNC",
+            "STB_GLOBAL",
+            "STV_HIDDEN",
+            "i._ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+            0,
+            32
+          ],
+          [
+            "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+            "STT_FUNC",
+            "STB_GLOBAL",
+            "STV_HIDDEN",
+            "i._ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+            0,
+            60
+          ]
+        ],
+        "allocated_sections": [
+          {
+            "name": "i._ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+            "size": 32,
+            "sha256": "e02dcce54255bc06dff6cddb80c44ef068fd94bad494e60f909c4ad61972b0bd"
+          },
+          {
+            "name": "i._ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+            "size": 60,
+            "sha256": "41586ed20eccf2a4b1eec373fe44c81317b900ef4fbb0bfa585abc39c0bdbd8c"
+          },
+          {
+            "name": ".ARM.exidx",
+            "size": 8,
+            "sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+          },
+          {
+            "name": ".ARM.exidx",
+            "size": 8,
+            "sha256": "01acecb507abfe1a354aa8064f4af5d3f1acd019e37db3c11c97523b71c76e9d"
+          }
+        ],
+        "imports": [
+          "",
+          "Lib$$Request$$armlib",
+          "Lib$$Request$$cpplib"
+        ],
+        "verified_provenance": {
+          "before": {
+            "source": "lib/CtrSDK/sources/retail_ParticleShapeSize.cpp",
+            "compiler": "4.0/902",
+            "object_sha256": "107c230311ed32a6e05afab3cb4cf4a4e0a876b67dea58d45db3ad857f8a4b9e"
+          },
+          "after": {
+            "source": "lib/CtrSDK/sources/retail_ParticleShapeSize.cpp",
+            "compiler": "4.0/902",
+            "object_sha256": "25d9f63ecf6bd551182e20550dac3e1d7f4423fc22c66063ef38f1ef0ac58e2b"
+          }
+        }
+      }
+    ],
+    "all_equal": true
+  },
+  "canonical": {
+    "results": [
+      {
+        "symbol": "fn_00298C58",
+        "returncode": 1,
+        "output": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n",
+        "error": "",
+        "evidence": {
+          "exact": false,
+          "reason": "The complete compiled section, including its literal pool, has a different size from the original interval.",
+          "evidence": {
+            "symbol": "fn_00298C58",
+            "object": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/eu/obj/lib/CtrSDK/sources/AddressResourceFactory.o",
+            "version": "eu",
+            "compiler": "4.0/902",
+            "original_start": 2722904,
+            "original_end": 2725832,
+            "original_size": 2928,
+            "map_sha256": "ca55e733bab0390470d27ba888a0f278a3edb5b6c7ad7369fea3b92bf979ded1",
+            "object_sha256": "16b9d9ca2b6d35a3f43f092b22cb76ceaaec12782d0b0b1be618e335f809039b",
+            "output_directory": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-fn_00298C58",
+            "compiled_section": "i.fn_00298C58",
+            "compiled_section_size": 2984,
+            "compiled_section_sha256": "1e17956edd4968b0746072692ac6a2b4b4b28bf8442f2722c1090647363797e4",
+            "isolated_object_sha256": "c931b0402cb78f8c46c26eb03bdb4989d651461f1435bb6b4c4478a491067218",
+            "imports": [
+              {
+                "symbol": "fn_00231EF0",
+                "address": 2301680,
+                "kind": "A",
+                "map_symbol": "",
+                "map_start": 2301680,
+                "map_end": 2301720,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "fn_002997C8",
+                "address": 2725832,
+                "kind": "A",
+                "map_symbol": "",
+                "map_start": 2725832,
+                "map_end": 2726080,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "fn_0029AFE8",
+                "address": 2732008,
+                "kind": "A",
+                "map_symbol": "",
+                "map_start": 2732008,
+                "map_end": 2733436,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "fn_0029B57C",
+                "address": 2733436,
+                "kind": "A",
+                "map_symbol": "",
+                "map_start": 2733436,
+                "map_end": 2733712,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "fn_0029E620",
+                "address": 2745888,
+                "kind": "A",
+                "map_symbol": "",
+                "map_start": 2745888,
+                "map_end": 2747552,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "fn_002A451C",
+                "address": 2770204,
+                "kind": "A",
+                "map_symbol": "fn_002A451C",
+                "map_start": 2770204,
+                "map_end": 2773000,
+                "defined_in_input": false
+              }
+            ]
+          }
+        }
+      },
+      {
+        "symbol": "fn_002A451C",
+        "returncode": 1,
+        "output": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n",
+        "error": "",
+        "evidence": {
+          "exact": false,
+          "reason": "The complete compiled section, including its literal pool, has a different size from the original interval.",
+          "evidence": {
+            "symbol": "fn_002A451C",
+            "object": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/eu/obj/lib/CtrSDK/sources/retail_ParticleBinding.o",
+            "version": "eu",
+            "compiler": "4.0/902",
+            "original_start": 2770204,
+            "original_end": 2773000,
+            "original_size": 2796,
+            "map_sha256": "04052555acbd836591795a66fb2fd42a0e3c032293ed223d1df72bcdb331684f",
+            "object_sha256": "628288d0c3c29f77b77616852eb6bdc39a3e3fd7d1b7632fe2c6d7ebc3ed024c",
+            "output_directory": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-fn_002A451C",
+            "compiled_section": "i.fn_002A451C",
+            "compiled_section_size": 2692,
+            "compiled_section_sha256": "9826ddbdf06d400fe027bba9a0c41a8064b3ccaf9257af53553afd609bf89887",
+            "isolated_object_sha256": "ea4c3073e62abba49764c287404a4bdabdb88e75ecc99ff02638bb41c903b2a0",
+            "imports": [
+              {
+                "symbol": "_ZN2nw3gfx13ParticleShape14AddVertexParamEijiPfPPh",
+                "address": 2290792,
+                "kind": "A",
+                "map_symbol": "_ZN2nw3gfx13ParticleShape14AddVertexParamEijiPfPPh",
+                "map_start": 2290792,
+                "map_end": 2291028,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "_ZN2nw3gfx13ParticleShape15AddVertexStreamEijiiPPh",
+                "address": 2290524,
+                "kind": "A",
+                "map_symbol": "_ZN2nw3gfx13ParticleShape15AddVertexStreamEijiiPPh",
+                "map_start": 2290524,
+                "map_end": 2290792,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+                "address": 2291088,
+                "kind": "A",
+                "map_symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+                "map_start": 2291088,
+                "map_end": 2291120,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+                "address": 2291028,
+                "kind": "A",
+                "map_symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+                "map_start": 2291028,
+                "map_end": 2291088,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "__rt_memclr",
+                "address": 2655252,
+                "kind": "A",
+                "map_symbol": "__rt_memclr",
+                "map_start": 2655252,
+                "map_end": 2655256,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "dat_003BA150",
+                "address": 3907920,
+                "kind": "D",
+                "map_symbol": "dat_003BA150",
+                "map_start": 3907920,
+                "map_end": 3907936,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "dat_003D8384",
+                "address": 4031364,
+                "kind": "D",
+                "map_symbol": "dat_003D8384",
+                "map_start": 4031364,
+                "map_end": 4031384,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "fn_002A4434",
+                "address": 2769972,
+                "kind": "A",
+                "map_symbol": "fn_002A4434",
+                "map_start": 2769972,
+                "map_end": 2770204,
+                "defined_in_input": false
+              },
+              {
+                "symbol": "nnnstdMemCpy",
+                "address": 2696020,
+                "kind": "A",
+                "map_symbol": "nnnstdMemCpy",
+                "map_start": 2696020,
+                "map_end": 2696924,
+                "defined_in_input": false
+              }
+            ]
+          }
+        }
+      },
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+        "returncode": 1,
+        "output": "\u001b[38;5;221mU -> m: The linked candidate differs from the unchanged original interval.\u001b[0m\u001b[K\n",
+        "error": "",
+        "evidence": {
+          "exact": false,
+          "reason": "The linked candidate differs from the unchanged original interval.",
+          "evidence": {
+            "symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+            "object": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/eu/obj/lib/CtrSDK/sources/retail_ParticleShapeSize.o",
+            "version": "eu",
+            "compiler": "4.0/902",
+            "original_start": 2291028,
+            "original_end": 2291088,
+            "original_size": 60,
+            "map_sha256": "08cdbfd8e292fcc5d71897036c7f570bc2d3444972e5a0903abcd5950251280f",
+            "object_sha256": "25d9f63ecf6bd551182e20550dac3e1d7f4423fc22c66063ef38f1ef0ac58e2b",
+            "output_directory": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+            "compiled_section": "i._ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+            "compiled_section_size": 60,
+            "compiled_section_sha256": "41586ed20eccf2a4b1eec373fe44c81317b900ef4fbb0bfa585abc39c0bdbd8c",
+            "isolated_object_sha256": "cd8c7e26fe7afd1af33c90c294c76e29666eb1cd4de78f6e5f5510bc5ff837f4",
+            "imports": [],
+            "link_command": [
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/data/compilers/wibo",
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/data/compilers/4.0/902/bin/armlink.exe",
+              "--cpu=MPCore",
+              "--fpu=VFPv2",
+              "--arm_only",
+              "--no_exceptions",
+              "--inline",
+              "--datacompressor=off",
+              "--no_debug",
+              "--no_scanlib",
+              "--mangled",
+              "--symbols",
+              "--map",
+              "--entry=_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+              "--keep=_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+              "--scatter=/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii/candidate.sct",
+              "--output=/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii/candidate.axf",
+              "--list=/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii/candidate.map",
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii/candidate.o",
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii/original_symbols.sym"
+            ],
+            "target_sha256": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+            "linked_section_sha256": "41586ed20eccf2a4b1eec373fe44c81317b900ef4fbb0bfa585abc39c0bdbd8c",
+            "different_bytes": 31,
+            "first_differences": [
+              2291028,
+              2291029,
+              2291030,
+              2291032,
+              2291033,
+              2291034,
+              2291036,
+              2291037
+            ]
+          }
+        }
+      },
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+        "returncode": 1,
+        "output": "\u001b[38;5;221mU -> m: The linked candidate differs from the unchanged original interval.\u001b[0m\u001b[K\n",
+        "error": "",
+        "evidence": {
+          "exact": false,
+          "reason": "The linked candidate differs from the unchanged original interval.",
+          "evidence": {
+            "symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+            "object": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/eu/obj/lib/CtrSDK/sources/retail_ParticleShapeSize.o",
+            "version": "eu",
+            "compiler": "4.0/902",
+            "original_start": 2291088,
+            "original_end": 2291120,
+            "original_size": 32,
+            "map_sha256": "f4e58633abaa8cf41265ed25a60a0bff2cd352dcad40b954fb1bbcc9d4c3eab6",
+            "object_sha256": "25d9f63ecf6bd551182e20550dac3e1d7f4423fc22c66063ef38f1ef0ac58e2b",
+            "output_directory": "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+            "compiled_section": "i._ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+            "compiled_section_size": 32,
+            "compiled_section_sha256": "e02dcce54255bc06dff6cddb80c44ef068fd94bad494e60f909c4ad61972b0bd",
+            "isolated_object_sha256": "8ad747bfe33721322a7e827e11f7fbc04f6c9eb17361cbdea02015fd57fd60e9",
+            "imports": [],
+            "link_command": [
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/data/compilers/wibo",
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/data/compilers/4.0/902/bin/armlink.exe",
+              "--cpu=MPCore",
+              "--fpu=VFPv2",
+              "--arm_only",
+              "--no_exceptions",
+              "--inline",
+              "--datacompressor=off",
+              "--no_debug",
+              "--no_scanlib",
+              "--mangled",
+              "--symbols",
+              "--map",
+              "--entry=_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+              "--keep=_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+              "--scatter=/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii/candidate.sct",
+              "--output=/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii/candidate.axf",
+              "--list=/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii/candidate.map",
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii/candidate.o",
+              "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/family/canonical-_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii/original_symbols.sym"
+            ],
+            "target_sha256": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+            "linked_section_sha256": "e02dcce54255bc06dff6cddb80c44ef068fd94bad494e60f909c4ad61972b0bd",
+            "different_bytes": 10,
+            "first_differences": [
+              2291096,
+              2291097,
+              2291099,
+              2291100,
+              2291101,
+              2291103,
+              2291105,
+              2291109
+            ]
+          }
+        }
+      }
+    ],
+    "restored_map_sha256": "2dde00f86cc0bc6f174f3a281853a4faacea1f16b6b628d602bea687b4cdb805"
+  },
+  "caller": {
+    "pairs": 655,
+    "agree": 655,
+    "returning": 620,
+    "seconds": 120.03715634346008,
+    "root_instructions": 572,
+    "failures": [],
+    "groups": {
+      "original_direct_callee": {
+        "pairs": 510,
+        "agree": 510,
+        "returning": 475,
+        "fault_pairs": 30,
+        "budget_pairs": 5,
+        "retail": {
+          "entries": {
+            "fn_00298C58": 510,
+            "fn_002A451C": 445,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 4005
+          },
+          "bodies": {
+            "fn_00298C58": 510,
+            "fn_002A451C": 445,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 4005
+          }
+        },
+        "candidate": {
+          "entries": {
+            "fn_00298C58": 510,
+            "fn_002A451C": 445,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 4005
+          },
+          "bodies": {
+            "fn_00298C58": 510,
+            "fn_002A451C": 445,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 4005
+          }
+        }
+      },
+      "binding_provider": {
+        "pairs": 125,
+        "agree": 125,
+        "returning": 125,
+        "fault_pairs": 0,
+        "budget_pairs": 0,
+        "retail": {
+          "entries": {
+            "fn_00298C58": 125,
+            "fn_002A451C": 125
+          },
+          "bodies": {
+            "fn_00298C58": 125
+          }
+        },
+        "candidate": {
+          "entries": {
+            "fn_00298C58": 125,
+            "fn_002A451C": 125
+          },
+          "bodies": {
+            "fn_00298C58": 125
+          }
+        }
+      },
+      "initializer_result": {
+        "pairs": 20,
+        "agree": 20,
+        "returning": 20,
+        "fault_pairs": 0,
+        "budget_pairs": 0,
+        "retail": {
+          "entries": {
+            "fn_00298C58": 20,
+            "fn_002A451C": 10,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 90
+          },
+          "bodies": {
+            "fn_00298C58": 20,
+            "fn_002A451C": 10,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 90
+          }
+        },
+        "candidate": {
+          "entries": {
+            "fn_00298C58": 20,
+            "fn_002A451C": 10,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 90
+          },
+          "bodies": {
+            "fn_00298C58": 20,
+            "fn_002A451C": 10,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 90
+          }
+        }
+      }
+    },
+    "symbols": {
+      "fn_00298C58": 6291548,
+      "fn_002A451C": 6294532,
+      "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 6291456,
+      "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 6291488
+    },
+    "image_sha256": "c7cfc6761a768718e5bd179e596abf8dad95f8a68c3e863abfb425910236cab7"
+  },
+  "actual_unmodeled_caller_particle_return_pairs": 445,
+  "synthetic_caller": {
+    "pairs": 5,
+    "agree": 5,
+    "returning": 5,
+    "seconds": 0.6197915077209473,
+    "root_instructions": 213,
+    "failures": [],
+    "scope": "separate synthetic caller-to-particle-to-both-sizing-helpers fixture; zero geometry capacity, one stream attribute index 0",
+    "groups": {
+      "original_direct_callee": {
+        "pairs": 5,
+        "agree": 5,
+        "returning": 5,
+        "fault_pairs": 0,
+        "budget_pairs": 0,
+        "retail": {
+          "entries": {
+            "fn_00298C58": 5,
+            "fn_002A451C": 5,
+            "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 5,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 40
+          },
+          "bodies": {
+            "fn_00298C58": 5,
+            "fn_002A451C": 5,
+            "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 5,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 40
+          }
+        },
+        "candidate": {
+          "entries": {
+            "fn_00298C58": 5,
+            "fn_002A451C": 5,
+            "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 5,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 40
+          },
+          "bodies": {
+            "fn_00298C58": 5,
+            "fn_002A451C": 5,
+            "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 5,
+            "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 40
+          }
+        }
+      },
+      "binding_provider": {
+        "pairs": 0,
+        "agree": 0,
+        "returning": 0,
+        "fault_pairs": 0,
+        "budget_pairs": 0,
+        "retail": {
+          "entries": {},
+          "bodies": {}
+        },
+        "candidate": {
+          "entries": {},
+          "bodies": {}
+        }
+      },
+      "initializer_result": {
+        "pairs": 0,
+        "agree": 0,
+        "returning": 0,
+        "fault_pairs": 0,
+        "budget_pairs": 0,
+        "retail": {
+          "entries": {},
+          "bodies": {}
+        },
+        "candidate": {
+          "entries": {},
+          "bodies": {}
+        }
+      }
+    },
+    "symbols": {
+      "fn_00298C58": 6291548,
+      "fn_002A451C": 6294532,
+      "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 6291456,
+      "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 6291488
+    },
+    "image_sha256": "c7cfc6761a768718e5bd179e596abf8dad95f8a68c3e863abfb425910236cab7"
+  },
+  "particle": {
+    "pairs": 2310,
+    "agree": 2304,
+    "returning": 2262,
+    "seconds": 235.60751819610596,
+    "root_instructions": 628,
+    "failures": [
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/particle/failure-0-382.json",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/particle/failure-4194304-382.json",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/particle/failure-8388608-382.json",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/particle/failure-12582912-382.json",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/particle/failure-16777216-382.json",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/build/particle/failure-33554432-382.json"
+    ],
+    "image": "replay-combined.axf",
+    "image_sha256": "655d44b2faa0f5623e4886740cabe726b844acef2042b1da594b4f3636a36c82",
+    "source_sha256": "fd3764bec403a36674e67c4fcb08eb59d35e76911649aa876d5e88e671493a06",
+    "object_sha256": "628288d0c3c29f77b77616852eb6bdc39a3e3fd7d1b7632fe2c6d7ebc3ed024c",
+    "family_input_hashes": {
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/lib/CtrSDK/sources/retail_ParticleBinding.cpp": "fd3764bec403a36674e67c4fcb08eb59d35e76911649aa876d5e88e671493a06",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/lib/CtrSDK/sources/retail_ParticleShapeSize.cpp": "d6ebb737bf4344f302329c960ecc7ad3d63ed1d8bc93ab3bbe8836b55acdd73a",
+      "/workspace/scratch/73cdb2c524af/mario-resource-particle-family-8991/lib/CtrSDK/include/retail/ParticleShape.h": "e1104ed6525d6dae9ebaa62657286cabb75b3c49704c388038b56069c24f7d33"
+    },
+    "entry_counts": {
+      "retail": {
+        "fn_002A451C": 2310,
+        "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 17202,
+        "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 3438
+      },
+      "candidate": {
+        "fn_002A451C": 2310,
+        "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii": 17202,
+        "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii": 3438
+      }
+    }
+  },
+  "known_particle_failures": [
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 0,
+      "diff": [
+        "invalid"
+      ],
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "source_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 4194304,
+      "diff": [
+        "invalid"
+      ],
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "source_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 8388608,
+      "diff": [
+        "invalid"
+      ],
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "source_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 12582912,
+      "diff": [
+        "invalid"
+      ],
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "source_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 16777216,
+      "diff": [
+        "invalid"
+      ],
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "source_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "case": {
+        "attributes": [
+          [
+            0,
+            0
+          ]
+        ],
+        "null_attribute": true
+      },
+      "fpscr": 33554432,
+      "diff": [
+        "invalid"
+      ],
+      "retail_invalid": [
+        [
+          19,
+          4,
+          4
+        ]
+      ],
+      "source_invalid": [
+        [
+          19,
+          0,
+          4
+        ]
+      ]
+    }
+  ],
+  "helper": {
+    "results": [
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape18AddVertexParamSizeEjii",
+        "pairs": 1848,
+        "output_sha256": "49b6e3d9b9fa8c3c93e1f09d122f34d0f08cb1f8a47158a11073546fb2343f90",
+        "all_equal": true
+      },
+      {
+        "symbol": "_ZN2nw3gfx13ParticleShape19AddVertexStreamSizeEjiii",
+        "pairs": 24024,
+        "output_sha256": "9a2a5ed9daebe68706fb8b7cc8887872e71a6defee35d858c8d9319456de776b",
+        "all_equal": true
+      }
+    ],
+    "total_pairs": 25872,
+    "seconds": 4.70025129699934,
+    "modelled_callees": [],
+    "source_sha256": "d6ebb737bf4344f302329c960ecc7ad3d63ed1d8bc93ab3bbe8836b55acdd73a",
+    "object_sha256": "25d9f63ecf6bd551182e20550dac3e1d7f4423fc22c66063ef38f1ef0ac58e2b"
+  },
+  "timing": {
+    "assignment_start": "2026-10-02T01:34:01+00:00",
+    "verification_packaged": "2026-10-02T01:49:28.192008+00:00",
+    "elapsed_seconds": 927.192008
+  },
+  "new_accepted_roots": 0,
+  "new_accepted_complete_bytes": 0,
+  "accepted_bytes_per_hour": 0,
+  "scope": "NonMatching declaration integration with fresh preservation and bounded executable source closure",
+  "replay_artifact_hashes": {
+    "build/research298c58/replay-result.json": "c19996a5dd275722b7eb8b1b015b6649c6a6f02679ed5f4515f9fee9529e760c",
+    "build/particle/replay-result.json": "33e451300329dc9bbe123b4c79f968e97070c021d098e437d56cb79423d3fca8",
+    "build/particle/helper-replay-result.json": "bd6eb7aabd7282662493734d5f83a9098247272b22de0f410ae22eefbca868ef",
+    "build/family/synthetic/replay-result.json": "e897526a85fa5184ea11043d1072296aab382d44ef710ef14ddea086f2c8d30d",
+    "build/family/source-family.patch": "fcfa48ceb4febb1edbee6ec1d9a87c63f6cf905303fad38a7bc07738722ba705"
+  },
+  "models": {
+    "engine": "Unicorn ARM / ARM1176, VFP enabled",
+    "caller_fpscr": [
+      0,
+      4194304,
+      8388608,
+      12582912,
+      16777216
+    ],
+    "particle_fpscr": [
+      0,
+      4194304,
+      8388608,
+      12582912,
+      16777216,
+      33554432
+    ],
+    "caller_instruction_budget": 500000,
+    "particle_instruction_budget": 100000,
+    "caller_compared_fixed_ranges": [
+      [
+        "0x800000",
+        "0x88ffff"
+      ],
+      [
+        "0x1000000",
+        "0x100ffff"
+      ]
+    ],
+    "caller_other_compared_ranges": "Every non-freed allocation at requested length; ownership-boolean padding bytes +1..+3 masked",
+    "particle_compared_range": [
+      "0x800000",
+      "0x9fffff"
+    ],
+    "stack_scratch_compared": false,
+    "hardware_endpoints": [
+      "0028E280 modeled no-op flush",
+      "0010B2BC modeled physical-address conversion"
+    ],
+    "allocator": "deterministic aligned arenas/prescribed failures, integer caller-saved clobbers; not a real heap",
+    "direct_helpers_fpscr": 0
+  }
+}
