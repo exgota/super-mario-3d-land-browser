@@ -8445,7 +8445,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002691D4,          ,0x002691DC,          ,U,f,,
 0x002691DC,          ,0x002691F0,          ,U,f,,
 0x002691F0,0x00269258,0x00269260,          ,U,f,,
-0x00269260,          ,0x00269290,          ,U,f,,
+0x00269260,          ,0x00269290,          ,O,f,fn_00269260,
 0x00269290,          ,0x0026935C,          ,U,f,,
 0x0026935C,          ,0x0026936C,          ,O,f,_ZN2al15getNextKeyTransEPKNS_13KeyPoseKeeperE,
 0x0026936C,          ,0x00269380,          ,U,f,,
