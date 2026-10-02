@@ -1,0 +1,9 @@
+# Sky initializer import identity
+
+Source is pinned to 0fff25aab3097d678a49ca557e5f9bad304442ac, lib/al/src/Npc/alSky.cpp SHA256 6146ea0649a9379d3110934948560a72ae8d153bf6b7232a8e9d92d90d23f71b. Name only the blank existing whole U/f row 0x0026CCD0..0x0026CCEC as fn_0026CCD0. Boundaries, type, rank and implementation stay unchanged. No semantic public getter name is proposed.
+
+The complete 28-byte original provider consumes no argument, calls the independently named LiveActorKit getter twice, loads kit+0x20, loads the first pointer, and returns pointer+0x34 in r0. The separate complete caller 0x00179EDC..0x00179EFC copies words at offsets 0,4,8 from its result. A separate original window beginning at 0x0015FD04 copies the same three words into stack storage before vector operations. These observations support a no-argument pointer return independently of the proposed Sky initializer. Use extern C const sead::Vector3f* fn_0026CCD0(). This establishes the pointer ABI and three-word use, not a full camera layout or public API spelling.
+
+Existing whole fn_00280538 at 0x00280538..0x0028058C and fn_0027FAB8 at 0x0027FAB8..0x0027FB44 retain their names. Accepted AquariumSwimDebris, TransparentWall, EffectObj source and FallMapParts evidence corroborate an adjusted IUseStageSwitch receiver with ActorInitInfo reference for the first, and original LiveActor receiver for the second. The complete second provider returns r0=1 or r0=0. Retain its existing boolean contract even though Sky ignores it.
+
+Accepted Sky constructor 0x002D503C..0x002D5090 zeroes the pointer at +0x60; accepted calcAnim 0x0025AA18..0x0025AA34 consumes that vector pointer. Source fields, inheritance, virtual slots, headers and data tables stay unchanged. The source proposal targets only init at 0x002D4FF4..0x002D503C, 72 complete bytes. The provider remains an external original import and gains no implementation credit.
