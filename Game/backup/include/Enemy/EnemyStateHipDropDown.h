@@ -15,5 +15,5 @@ private:
         void*                       _28;
 
 public:
-        EnemyStateHipDropDown( al::LiveActor* host, EnemyStateHipDropDownParam* blowDownParam, const char*, int );
+        EnemyStateHipDropDown( al::LiveActor* host, EnemyStateHipDropDownParam* blowDownParam, const char* );
 };
