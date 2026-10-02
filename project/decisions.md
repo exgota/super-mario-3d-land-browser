@@ -1318,3 +1318,7 @@ change. Evidence, from the retail executable as recorded in project/dot_reports/
 Held for the owner: dot/root-11a174 (FireFlower), dot/root-1579f0 (BoomerangFlower) and dot/root-177020
 (SuperLeafSpecial) also need six shared helper rows named FlowerInit::*, which frog's reports call descriptive
 proposals rather than recovered names.
+
+## 2026-10-02: owner approves provisional flower constructor identities
+
+The owner approved FlowerInit::Param, Appear, Forward, Vertical, Release and Ground as clearly marked reconstruction identities and authorized submission of the reviewed three-initializer family. Retain the documented bool,int formal choices without claiming original type recovery. Name the six constructor imports and three grounded actor initializer rows in this separate evidence commit; preserve all ranks, boundaries, pools and other fields. The normal integrator gate still decides source acceptance. Evidence: project/evidence/flower_initializer_names.md.
