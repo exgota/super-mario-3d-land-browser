@@ -1,0 +1,30 @@
+[
+  {
+    "worktree": "mario-effect-resource-init",
+    "path": "lib/al/src/Effect/retail_EffectResourceInit.cpp",
+    "head": "9a6d9788ab300d3b6a1c3ea63f430d4520e28880",
+    "sha256": "178c7cd7ed0159b3113722cb1a5420dc1ae510baed11c5c828fc3380e168586c",
+    "purpose": "Read-only cross-proposal declaration/layout audit; no combined integration"
+  },
+  {
+    "worktree": "mario-root-1c6410",
+    "path": "lib/al/src/Light/LightDataDirector1C6410.cpp",
+    "head": "1b0c0507e6845b5cd9d10c6d545aa8c85bd9af4c",
+    "sha256": "0c23f9a3461bab7637562bb01a2e48d82c54b25677ed79c0185aa0d647d2edb9",
+    "purpose": "Read-only cross-proposal declaration/layout audit; no combined integration"
+  },
+  {
+    "worktree": "mario-root-14414c",
+    "path": "Game/backup/src/MapObj/StreetPassObjInit14414C.cpp",
+    "head": "7914b8ef3d18216a8ac6e3ec3b0a5cfc62c68673",
+    "sha256": "4ca80c1d8a123d2ae6beb31eeedb3ed80d593ee4c1667a89c9afc28c4bf10c1b",
+    "purpose": "Read-only cross-proposal declaration/layout audit; no combined integration"
+  },
+  {
+    "worktree": "mario-root-33ba3c",
+    "path": "lib/CtrSDK/include/clean/TransformBlendRoot.h",
+    "head": "16f73469a7f5cd32943aa9647c7a8663a175ae0e",
+    "sha256": "2fb0536fe909e796fa0243e981fbb38ef7bc30883f91518897c514fd0f1ef75c",
+    "purpose": "Read-only cross-proposal declaration/layout audit; no combined integration"
+  }
+]

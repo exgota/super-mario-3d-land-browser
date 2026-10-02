@@ -1,0 +1,46 @@
+{
+  "start_utc": "2026-10-02T05:31:29+00:00",
+  "validated_utc": "2026-10-02T05:53:44.497661+00:00",
+  "elapsed_seconds": 1335.497661,
+  "source_forms": 2,
+  "exact_roots": 0,
+  "exact_bytes": 0,
+  "byte_sizes": {
+    "original_complete_interval": 2164,
+    "canonical_source_section": 1976
+  },
+  "returning_fixtures": 292,
+  "fault_fixtures": 43,
+  "original_instructions_covered": 466,
+  "original_executable_instructions": 528,
+  "old_object_count": 180,
+  "ordinary_old_objects": 179,
+  "old_dependency_input_count": 373,
+  "preexisting_tracked_file_count": 625,
+  "scaffold_additions": [
+    ".constdata_dat_003D62A0",
+    ".constdata_dat_003D8008",
+    ".constdata_dat_003D82A4",
+    ".constdata_dat_003D8500",
+    ".sdata_dat_003E23B8",
+    "i.fn_001C440C",
+    "i.fn_001D956C",
+    "i.fn_0024E47C",
+    "i.fn_0024E49C",
+    "i.fn_0024E568",
+    "i.fn_0024E598",
+    "i.fn_0026AC60",
+    "i.fn_00293088",
+    "i.fn_002A63D8"
+  ],
+  "reproduction_output": "clean-build-reproduction.log 0 36.618 seconds\ncheck-reproduction.log 0 0.86 seconds\ndiagnostic-link.log 0 0.022 seconds\nreturning-replay.log 0 7.007 seconds\nextended-replay.log 0 3.164 seconds\npreservation-reproduction.log 0 8.36 seconds\nNonMatching; zero exact credit. Row bytes restored by checker wrapper.\n",
+  "canonical_check": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n\nMap restored 94ac5673e907db521bf6b4b606d02be64ee7bae8a8fd2f08328b0c30d85b3db9\n",
+  "artifacts": {
+    "build/skeletal_animation_validation/result.json": "bf7276562bdb669bb8a82c41b024f1bf1ee800f3139c2f7bd82b038bb77c7d0e",
+    "build/skeletal_animation_validation/extended.json": "73f2f4c8d242e6995340e38bb907e70fa26a984a9ba782e65c2c3a850e22bb0d",
+    "build/skeletal_animation_validation/preservation.json": "544343acd85445c98e64879b775c101ce20e90b5217d7aab002b4c367169a499",
+    "build/skeletal_animation_validation/candidate.axf": "8ff9ba96e20b50d90c38e4393db07fd897cc4185e05d91422f814c9904cfc9a3",
+    "build/skeletal_animation_validation/clean-build-reproduction.log": "1dc414ea34503323f8f1fa14bf5a1f0e5d3c659118064c3484bff5c2d386764b",
+    "build/skeletal_animation_validation/reproduce-final.log": "633f9eebc1985b8debc5307c15b39ba37b9ccc45a5271c633b702d84c4f68d5b"
+  }
+}
