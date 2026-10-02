@@ -1294,3 +1294,8 @@ Draft carryover and post-crossing acceptance measurements are recorded in `proje
 The operator held `dot-placement-map-359c64101` before another full-check attempt. Both `project/dot_reports/placement-map.md` and `placement-temporary-lifetime-followup.md` at commit `359c64101` explicitly say initPlacementMap remains nonmatching. Their exact 144-byte sibling is tryGetPlacementInfo, which is already O on main. A checker command in a report is not a successful checker result. The request was moved unchanged to the local held directory, with its SHA-256 and reason retained in `logs/driver_intake_corrections.jsonl`. No game source, oracle, map, rank or ledger was changed.
 
 The weekly usage reset closes the credit-period acceptance measurement recorded in `project/driver_measurements_2026-10-02.md`. The six-slot production setup and load guard remain unchanged.
+
+
+## 2026-10-02: Actor registry evidence corrects the historical scan scope
+
+The reproducible 268/222 scan combined five registries and treated literal-pool candidates as table links. Preserve that historical result with explicit heuristic labels. `project/actor_catalog.json` separately traces the complete 225-entry actor registry to primary table installations, retains 13 evidenced current C++ identities, and claims no recovered original class spellings or unique virtual method ownership. The driver independently reproduced every actor and historical record. `project/actor_catalog_evidence.md` and `tools/factory/inspect_actor_registry.py` document and reproduce the check. The RailDot/Seagull containing-row conflict remains a separate map-evidence issue; this commit changes no map row.
