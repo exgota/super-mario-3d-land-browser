@@ -11030,7 +11030,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002CF33C,          ,0x002CF370,          ,U,f,,
 0x002CF370,          ,0x002CF3A0,          ,U,f,,
 0x002CF3A0,          ,0x002CF3D4,          ,U,f,,
-0x002CF3D4,          ,0x002CF3E0,          ,U,f,,
+0x002CF3D4,          ,0x002CF3E0,          ,O,f,fn_002CF3D4,
 0x002CF3E0,          ,0x002CF420,          ,U,f,,
 0x002CF420,          ,0x002CF44C,          ,U,f,,
 0x002CF44C,          ,0x002CF46C,          ,U,f,,
