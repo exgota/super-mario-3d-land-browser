@@ -1194,7 +1194,7 @@ class Supervisor:
         if flips:
             set_map_rows(INTEGRATION, flips)
             git(INTEGRATION, "add", "--", str(MAP))
-            git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate ranks for submission {name}, not verified")
+            git(INTEGRATION, "commit", "--allow-empty", "-q", "--no-verify", "-m", f"Candidate ranks for submission {name}, not verified")
         checked = git(INTEGRATION, "rev-parse", "HEAD")
         if build_inputs_equal(base_main, checked) and str(MAP) not in changed and not flips:
             if not self.move(merged, base_main, f"factory: accept submission {name} (no build input changes)"):
@@ -1224,7 +1224,7 @@ class Supervisor:
         matched_bytes = sum(rows[addresses[claim]]["end"] - rows[addresses[claim]]["start"] for claim in matched)
         git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
         git(INTEGRATION, "reset", "-q", "--soft", merged)
-        git(INTEGRATION, "commit", "-q", "-m",
+        git(INTEGRATION, "commit", "--allow-empty", "-q", "-m",
             f"Accept submission {name} from {branch}: {len(matched)} exact, {len(nonmatching)} non-matching\n\n"
             + "".join(f"- {s}\n" for s in matched) + (f"\n{request.get('summary', '')}\n" if request.get("summary") else "")
             + "\nVerified by tools/check.py, full map, on a candidate commit before main moved.\n\n"
