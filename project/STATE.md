@@ -1,23 +1,21 @@
-# Root port lane state
+# Root port runtime state
 
-Owner priority 2026-10-02: browser demo, then 100% byte exact. Root now works only on port runtime. Class layouts go to the Pro relay. One subagent maximum. Only the integrator moves main/ranks/ledger. No Factory source or adjacent factory changes.
+Owner priority: browser demo, then 100% byte exact. Root works only on port runtime, with at most one subagent. Class layouts go to Pro. Only the integrator moves main, ranks and ledger. Never commit payloads, generated game code, captures, movies or user state.
 
-## Submissions and current work
+Root owns the strict native CPU platform adapter, timing instrumentation and generator integration on root/azahar-static-platform in build/root_azahar_static_platform. The unpublished branch was refreshed from main after the accepted source families. No matching inputs, rank cells, ledger or Factory files are changed. Submit with no claims and do not resubmit while pending. STATE merges by taking the submitted branch version, per the operator.
 
-Heap layout is accepted by root-heap-layout-e6d8485e8-retry as main 8126842, with zero exact bytes. The receipt-fix branch was rejected as redundant after operator repairs. No action remains on it.
+Accepted families: heap layout 8126842; runtime draw order ab98515; static recompiler revision 8ad4868; pinned Azahar capture 6c30c2d; floating-point helpers a8cb16ae. These port/header submissions add no matching credit. Calendar section-only follow-up was rejected because the constructor is not exact. Do not resume matching under the port-only directive.
 
-CalendarTime is queued again after the operator repaired the empty candidate commit. Await its actual new result. Local clean build and six checks pass; ranks are integrator-owned.
+Current generation links 15,874 functions and 2,437,712 instruction bytes. Original and native startup each execute 188,695 instructions with matching registers/flags and 1,384,448 writable bytes. 64 integer leaf samples (2,048 cases), 4,105 exact-source priority cases and 88,064 generated floating-point cases pass. The former 251,587 coarse budget units counted skipped successors and were not a dynamic instruction count.
 
-Model draw order root-runtime-model-draw-order-7a2fcaef0 was rejected at 05:08:52 ET solely on a STATE merge conflict. This follow-up root/runtime-model-draw-order-revision starts from current main and adopts the complete source/evidence unchanged. It owns runtime/AssetReader.cpp, runtime/ModelDrawSchedule.cpp, and its evidence note. Native hashes and all prior fresh checks remain valid. Submit with no claims.
+The native source replacement registry remains the clean priority function at 0x0010766C. Other rank-O functions on main still need portable ABI adapters. Do not describe the registry as complete. Matching ARMCC remains authoritative.
 
-Root's independent root/static-recompiler branch owns tools/static_recompiler and runtime/port. Its pinned public generator translates raw code.bin/exh.bin, while all generated C/objects stay under ignored build. Native startup agrees with independent original ARM execution at the first supervisor call. The exact rank-O priority source is compiled unchanged and replaces the generated function by address. GPU stream equality remains unverified.
+Oracle: reference_fixed_io_0 and two clean same-movie/user-snapshot playbacks match all 528 events including ticks, 348 GSP commands and eight PICA lists (79,936 bytes). Evidence: build/root_port_reference/fixed_io_replay_report.json in the primary checkout. The accepted source package documents deterministic host-I/O latency and provenance. Use movie and initial user snapshot together.
 
-## Next three tasks
+Native execution with the final floating-point library reaches the first top-screen swap with 226,970,847 guest instructions and zero interpreter/JIT fallbacks. Runs static_execution_2 and static_execution_3 retain exactly the same raw native events and payloads. The latter enables only a filtered diagnostic observer. Command metadata/counts agree with the reference, but 18 PICA words and 473 event ticks differ. Strict comparison fails; milestone 1 remains in progress. Evidence: build/native_comparison_3.json in this worktree and build/root_port_reference/static_execution_3_receipt.json in the primary checkout. Library SHA-256: e0f53fa6edd3bb52a5f0a60f39f2d18b7efa6b2655c6d181782ae5a64dcc4fe8.
 
-1. Submit the unchanged draw-order follow-up and read its verdict.
-2. Finish and submit the native static translation family after final source/evidence audit.
-3. Integrate the static backend with the pinned native platform host, reach the first top-screen GPU stream, and compare it with Azahar at the same boundary.
+The memory trace identifies inverse viewport writes at 0x0038D03C, 0x0038D1C4 and 0x0038D23C with native FPSCR 0x63000010, nearest rounding. Controlled original/native viewport sequences agree under all four rounding modes. The one helper is checking stock Azahar's actual state at these writes using an ignored diagnostic build; accepted oracle source and raw reference artifacts remain preserved. Do not change arithmetic or normalize captures to obtain parity.
 
-Milestones: 1 native static recompilation and first GPU stream matching Azahar; 2 rendering; 3 input; 4 audio; 5 World 1-1 differential replay; 6 browser build. None is complete. .integrator/port_status.json is current. Native component parity earns no matching game-byte credit. Original game data stays local and unchanged.
+Next: finish and submit the native platform family after final source audit; resolve the actual FPSCR discrepancy and stock basic-block timing; rerun untouched first-swap capture, then proceed to rendering. Milestones 2 through 6 are not started. .integrator/port_status.json records linked bytes and rerunnable evidence. NATIVE_PLATFORM.md provides reproduction commands and explicit limitations.
 
-The single helper builds an ignored Azahar software reference harness with one compile slot. New user-state randomness requires a preserved initial user snapshot and reference movie for repeatable comparison. No owner question is blocking work.
+Native math conversion/compare exceptions, short-vector sequencing, dynamic code and exact scheduling remain open. Old generated objects were removed after linking; libraries, sources, logs and failed trials are retained. Keep free disk above 5 GiB and never clean another lane's scratch.

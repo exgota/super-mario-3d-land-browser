@@ -132,6 +132,11 @@ class Execution:
         self.reference.reg_write(arm.UC_ARM_REG_C13_C0_3, 0x1FF82000)
         self.reference.reg_write(arm.UC_ARM_REG_FPEXC, 0x40000000)
         self.last_svc = None
+        self.original_instructions = 0
+
+        def instruction(reference, address, size, user):
+            self.original_instructions += 1
+        self.reference.hook_add(unicorn.UC_HOOK_CODE, instruction)
 
         def interrupt(reference, number, user):
             pc = reference.reg_read(arm.UC_ARM_REG_PC)
@@ -151,6 +156,7 @@ class Execution:
     def compare(self, entry, registers, flags=0, *, replacement=False):
         self.errors.clear()
         self.last_svc = None
+        self.original_instructions = 0
         vfp, fpscr = (c.c_uint32 * 32)(), c.c_uint32(0)
         context = Context()
         context.r[:] = registers
@@ -214,7 +220,10 @@ def main():
             if bytes(array) != bytes(execution.reference.mem_read(base, len(array))):
                 raise RuntimeError(f"startup memory divergence at {base:08x}")
             memory_checks += len(array)
-    startup = {"instructions_native": 1000000 - context.budget, "svc": context.svc,
+    startup = {"native_budget_units": 1000000 - context.budget,
+               "original_instructions": execution.original_instructions,
+               "budget_units_equal_original_instructions": 1000000 - context.budget == execution.original_instructions,
+               "svc": context.svc,
                "next_pc": context.r[15], "writable_bytes_compared": memory_checks}
     execution.reset_memory()
     priority_cases = [0, 23, 24, 31, 32, 63, 0x7FFFFFFF, 0x80000000, 0xFFFFFFFF]
