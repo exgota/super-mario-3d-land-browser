@@ -961,3 +961,7 @@ Clean make.py eu -ca exits0, rebuilds45 Game/132 al/1 SDK C++ sources plus the g
 ## Bubble callback and constructor identities, 2026-10-02
 
 Apply the corrected complete evidence patch unchanged after independent original creator/SafeString/interface/provider review. Four anonymous U function rows receive class ABI labels; every interval, pool, type and rank remains identical. Source272 is still pending. Root verifies406 original sealed paths,12 correction paths and28 independent peer paths. The evidence-only sender typo0x44 is corrected to0x2C, decimal44; source and diagnostics stay unchanged and original seal is retained. Table boundary evidence remains separatea359254. No original public-symbol spelling claim or exact/data credit.
+
+## Draw initializer bounded requeue, 2026-10-02
+
+Four new meaningful forms stop at paired1028/7 residual register-selection bytes. Root verifies1504 sealed artifacts; no fifth form or source adoption follows. All four prior raw contracts and the three accepted neighbor intervals preserve in scratch, without claiming a full canonical gate. Two physical compiler environment failures and unavailable historical dot intermediate snapshots remain explicit. Ledger uses measured21.550834-minute freeze-to-seal window; its8.949492-minute best-diagnostic subset is not added. Source patch remains held; only evidence and592-line packet are committed. Fresh fetch finds new dot/root-1eeba8 shader-output proposal, screened separately without exact credit.

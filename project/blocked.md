@@ -121,3 +121,5 @@ Init372 and receive160 reach four unsuccessful meaningful forms each. No bodies 
 | --- | --- | --- | --- |
 | 0x0030324C | Bubble::init | Best372bytes/3differences; corrected -50.0f and3F1EF0 inputs are uncompiled. | New recorded pass after other work and overlap check; packet0030324C. |
 | 0x00303130 | Bubble::receiveMsg | Best164bytes/51differences versus160target. | New grounded structure after other work and overlap check; packet00303130. |
+
+| 0x0024B168 | ExecuteTableHolderDraw::init | Four new paired1028-byte forms differ111/42/7/27; best7 register bytes, pool92 exact. | New grounded pass after other work; packet0024B168. |
