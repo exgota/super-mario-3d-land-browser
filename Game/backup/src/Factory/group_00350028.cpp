@@ -20,6 +20,8 @@ extern "C" const Nerve dat_003F2010;
 extern "C" const Nerve dat_003F1FF0;
 extern "C" const Nerve dat_003F1FFC;
 extern "C" const Nerve dat_003F1FF8;
+extern "C" unsigned char dat_0042FA14[0x20];
+extern "C" unsigned char dat_0042F534[0x20];
 
 #define BODY(NAME, ACTION, VALUE, NERVE) \
 extern "C" void NAME(void*, Actor** holder) { \
@@ -31,13 +33,13 @@ extern "C" void NAME(void*, Actor** holder) { \
         _ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE(actor, &NERVE); \
 }
 
-BODY(fn_00350028, dat_003BC7C0, 0x0042FA14, dat_003F2420)
-BODY(fn_00350564, dat_003BC800, 0x0042FA14, dat_003F2450)
-BODY(fn_00350684, dat_003BC82C, 0x0042FA14, dat_003F2420)
-BODY(fn_003585B0, dat_003BADC0, 0x0042F534, dat_003F1FF4)
-BODY(fn_003586DC, dat_003BADC0, 0x0042F534, dat_003F2010)
-BODY(fn_0035885C, dat_003BADC0, 0x0042F534, dat_003F1FF0)
-BODY(fn_00358B18, dat_003BADD0, 0x0042F534, dat_003F1FFC)
-BODY(fn_00358BF0, dat_003BADD0, 0x0042F534, dat_003F1FF8)
+BODY(fn_00350028, dat_003BC7C0, reinterpret_cast<unsigned int>(&dat_0042FA14), dat_003F2420)
+BODY(fn_00350564, dat_003BC800, reinterpret_cast<unsigned int>(&dat_0042FA14), dat_003F2450)
+BODY(fn_00350684, dat_003BC82C, reinterpret_cast<unsigned int>(&dat_0042FA14), dat_003F2420)
+BODY(fn_003585B0, dat_003BADC0, reinterpret_cast<unsigned int>(&dat_0042F534), dat_003F1FF4)
+BODY(fn_003586DC, dat_003BADC0, reinterpret_cast<unsigned int>(&dat_0042F534), dat_003F2010)
+BODY(fn_0035885C, dat_003BADC0, reinterpret_cast<unsigned int>(&dat_0042F534), dat_003F1FF0)
+BODY(fn_00358B18, dat_003BADD0, reinterpret_cast<unsigned int>(&dat_0042F534), dat_003F1FFC)
+BODY(fn_00358BF0, dat_003BADD0, reinterpret_cast<unsigned int>(&dat_0042F534), dat_003F1FF8)
 
 #undef BODY
