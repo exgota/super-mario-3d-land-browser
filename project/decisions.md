@@ -1157,3 +1157,20 @@ Shiftability scan on main 648eb02: 8 raw image address literals under Game, all 
 How unmatched code and data get addresses today: the build's generated `stubs.c` gives every function row a weak stub in a section named `i.<symbol>` (2,907 stubs; 229 aliases for unnamed rows that committed source references), and gives each `dat_` name that committed source references a weak zero-filled array, but only where a data row starts at exactly that address (645 arrays). The generated scatter file pins each section at its row's start in `map.csv`. All 10,005 data rows are rank U: no data is reconstructed in source yet. 1,328 data rows are referenced by no function's literal pool, and the 251,524-byte bss has 5 rows covering 304 bytes.
 
 Integrator changes, tested on an isolated clone: cleanup branches may change the Factory directory, ride the full check alone, and are rejected on any loss of an O row (a reformatting branch was accepted; a branch dropping one definition was rejected with main unchanged); facts land as one docs-only commit per batch; the three reference-safety tests pass. Source quality at 07:03: 63.7% of exact bytes are in class files (51,364 of 80,604).
+
+## 2026-10-02: FunctorV0M cleanup symbol and vtable evidence
+
+Cleanup lane cleanup/functor-v0m, base e8cc28789146f8adefb87de4b218a032767296bd,
+grounds five instances using builder object stores, callback descriptors, named
+map methods and existing host headers. The ten function rows acquire the
+compiler's template-instance names without changing any other function column
+or rank. The five anonymous vtable regions are repartitioned at their ABI header
+addresses, eight bytes before the callable address points; the existing
+AppearStep clone's compiler relocation establishes that addend independently.
+Data ranks remain U and covered intervals are preserved. No function boundary,
+target binary, compiler flag, checker or ledger changes. Full attribution,
+old/new symbols, exact data partitions and all 66 blocked instances are recorded
+in [functor-v0m-cleanup.md](functor-v0m-cleanup.md). AppearStep already uses the
+template; Garigari's remaining clone stays raw because its callback has no real
+map/header name. Build/check outcomes will be recorded after canonical checks;
+this naming evidence itself claims no new accepted bytes.
