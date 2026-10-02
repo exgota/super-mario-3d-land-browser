@@ -801,3 +801,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T02:06:36.245006+00:00,0x00312870,_ZN7NoteObjC1EPKc,matched,2,22.386564
 2026-10-02T02:08:16.948998+00:00,0x002D9AB8,_ZN4sead10FileHandle4readEPhj,abandoned,4,19.384197
 2026-10-02T02:08:17.031105+00:00,0x00312664,_ZN7NoteObj4initERKN2al13ActorInitInfoE,abandoned,4,17.767188
+2026-10-02T02:20:52.514427+00:00,0x002DCCC4,_ZN4sead14ControllerBase13getStickHold_EjRKNS_7Vector2IfEEffi,abandoned,4,23.256035
+2026-10-02T02:20:52.514546+00:00,0x002DCFB4,_ZN4sead14ControllerBase23updateDerivativeParams_Ejb,abandoned,4,23.256035
