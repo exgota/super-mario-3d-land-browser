@@ -7350,7 +7350,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0024C8FC,          ,0x0024C978,          ,U,f,,
 0x0024C978,          ,0x0024C9EC,          ,U,f,,
 0x0024C9EC,0x0024CA3C,0x0024CA44,          ,U,f,_ZN2al8Collider12onInvalidateEv,
-0x0024CA44,          ,0x0024CA4C,          ,U,f,,
+0x0024CA44,          ,0x0024CA4C,          ,O,f,fn_0024CA44,
 0x0024CA4C,0x0024CAA0,0x0024CAA4,          ,U,f,_ZN2al12isPadTriggerEii,
 0x0024CAA4,0x0024CB94,0x0024CB9C,          ,U,f,,
 0x0024CB9C,          ,0x0024CBB8,          ,U,f,,
