@@ -41,3 +41,7 @@ The installed split path preserves all663 accepted intervals/36640 complete byte
 ### Pro fallback and acceptance-factory checkpoint, 2026-10-01
 
 The isolated split image preserves667/667 complete intervals/37224bytes,173 canonical objects and362 source/header/config inputs. Output is build/eu/full_image_diagnostic/1790896357789315000. Whole-image SHA7e842f8af52cb3ca4ee2b620da51614107368e099a1b1420dea63ddb8cffa2a2 differs from retail in2483017bytes;613559 equal bytes include incidental zeros/padding. No whole-image, runtime or gameplay claim follows. Root verifies every current object/input hash against the frozen snapshot before pushing. Clean linking/export and all667 normal linked-map roots pass; accepted regressions are zero.
+
+### Restored717-root factory checkpoint, 2026-10-02
+
+The clean-restored d5ed939 source snapshot links an isolated3096576-byte image preserving717/717complete accepted intervals/41904bytes. Whole SHA56582c3a5fe81294cf8cba7245c2c23d68b194a4eeb857ced143f2672c051f86 differs in2479083bytes;617493equalbytes include incidental zeros/padding and add no exact credit. Evidence directory build/eu/full_image_diagnostic/1790904936498210000. Root verifies every frozen input/canonical object against current files. Original code/linkerinput bytes and static-recompiled/placeholder behavior claims remain zero. No image/runtime/gameplay equality is inferred.
