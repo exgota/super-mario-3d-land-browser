@@ -2,7 +2,7 @@
 
 The strict native backend links locally translated game code to the pinned Azahar HLE platform and software GPU. Guest instructions execute in compiled C, with no interpreter or JIT fallback. Azahar remains the independent reference CPU. Generated source and libraries, owner inputs, movies, user state and GPU captures stay in ignored directories.
 
-This is a native platform checkpoint. Milestone 1 is incomplete: the observed first top-screen swap has the same command metadata as Azahar, but 18 PICA words and event ticks differ. Rendering, input, audio, World 1-1 and browser completion are not established by this checkpoint.
+Port milestone 1 passes the complete startup prefix through the first top-screen SetBufferSwap. Two fresh native runs match all 528 untouched reference events, including ticks, and all 79,936 PICA bytes. They execute 226,978,430 guest instructions with zero interpreter/JIT fallback. This boundary does not establish a visibly presented frame; rendering is milestone 2. The independent reference uses the documented public ARM64 FPSCR correction in BUILD.md.
 
 ## Generate and validate
 
@@ -12,19 +12,23 @@ First follow `azahar_reference/BUILD.md` to obtain the pinned public Azahar sour
 . ./development_environment.sh
 python tools/static_recompiler/build_port.py --output build/platform_translation
 python tools/static_recompiler/verify_execution.py build/platform_translation
+python tools/static_recompiler/build_native_block_schedule.py \
+  build/platform_translation build/port_tools/azahar_reproduction \
+  build/port_tools/azahar_reproduction_build build/platform_schedule/block_schedule.bin
 python tools/static_recompiler/instrument_timing.py \
   build/platform_translation build/port_tools/azahar_reproduction build/platform_timed_translation
+cp build/platform_schedule/block_schedule.bin build/platform_timed_translation/block_schedule.bin
 python tools/static_recompiler/verify_execution.py build/platform_timed_translation
 python tools/static_recompiler/verify_floating_point_execution.py build/platform_timed_translation
 ```
 
 In a worktree, pass the primary checkout's ignored Azahar path instead, and select the existing local Rust installation through CARGO, CARGO_HOME and RUSTUP_HOME as described in README.md. Every output directory must be absent. Generation reads a frozen main map without changing it. Map Pool hints are not relocation records: executable discovery follows binary control flow and literal reads. Every generated instruction is resumable.
 
-Timing instrumentation invokes the unchanged pinned instruction cost function only during generation. Runtime receives constants and evaluated ARM condition codes; it does not decode guest opcodes. Scalar arithmetic and square root use the independently checked guest FPSCR helpers. Compiled helper source and generated source are sealed in the build manifest.
+Timing generation invokes the unchanged pinned cost function and Dynarmic A32 frontend. The version-two sidecar retains stock block cycles, predicates, full descriptors and terminal trees. Runtime follows these records, keeps logical visited descriptors and the eight-entry return stack, and exposes completed-block charges at SVC and Run return. It does not decode guest opcodes. The native timing ABI is revision 2; old timed libraries are refused. The private table SHA256 and source seals belong in the build receipt. Scalar arithmetic and square root use the independently checked guest FPSCR helpers. Compiled helper source and generated source are sealed in the build manifest.
 
 ## Build the platform adapter
 
-Apply the third source-only patch after the two reference patches. The reference executable registers no native backend.
+Apply the native platform source patch after the reference capture, deterministic-I/O and Dynarmic FPSCR correction patches. The reference executable registers no native backend.
 
 ```sh
 git -C build/port_tools/azahar_reproduction apply --check \
@@ -66,6 +70,6 @@ For bounded debugging, set ROOT_PORT_MEMORY_TRACE_PATH to an absent ignored JSON
 
 ## Remaining limits
 
-Current timing advances at instruction boundaries. Stock Dynarmic charges basic blocks and defers the current block cost until after supervisor handling. Scheduling overshoot and block-level timing still differ. Short-vector sequencing, conversions and comparison exception behavior need additional checks. Dynamic guest code and instruction-cache invalidation are unsupported; single stepping is refused.
+Timing now reproduces the checked startup path, including all raw event ticks. The table covers the two scalar FPSCR modes used there. Unsupported modes, IT/big-endian state, interpreter/exception/check-bit terminals and unrepresented operations are refused. Logical cache visitation does not model stock cache-capacity eviction. The certified priority source adapter refuses a slice ending inside its atomic body; it can stop before entry. Other source bindings need their own resumable scheduling contracts. Short-vector sequencing, conversions and comparison exception behavior need additional checks. Dynamic guest code and instruction-cache invalidation are unsupported; single stepping is refused.
 
 The native source registry currently contains only the clean rank-O priority adapter at address 0x0010766C. Other rank-O functions on main still need portable ABI adapters. Class and pointer layout questions go to the Pro queue. This registry is incomplete and the dashboard's recompiled count is conservative linked instruction coverage, not matching credit.

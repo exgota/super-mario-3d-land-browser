@@ -4,6 +4,7 @@
 #include <cstring>
 #include <dlfcn.h>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 #include "core/hle/kernel/svc.h"
 #include "core/memory.h"
@@ -16,6 +17,7 @@ StaticArmBackend& backend(Context* context) {
 void chargeBlock(Context* context, u32 address, u32 instructions, u64 ticks) {
     backend(context).ChargeBlock(address, instructions, ticks);
 }
+void stopDispatch(Context* context) { context->exit = EXIT_BUDGET; }
 template<class T> T loadSymbol(void* library, const char* name) {
     auto* pointer = dlsym(library, name);
     if (!pointer) throw std::runtime_error(std::string("missing static library symbol: ") + name);
@@ -34,6 +36,9 @@ StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& m
     if (!library) throw std::runtime_error(dlerror());
     if (*loadSymbol<const u32*>(library, "recomp_abi") != RECOMP_ABI)
         throw std::runtime_error("static CPU ABI disagreement");
+    if (*loadSymbol<const u32*>(library, "native_timing_revision") != 2)
+        throw std::runtime_error("static CPU timing ABI disagreement");
+    schedule = std::make_unique<NativeBlockSchedule>(path.parent_path() / "block_schedule.bin");
     entries = loadSymbol<const Entry*>(library, "recomp_entries");
     entry_count = *loadSymbol<const u32*>(library, "recomp_entry_count");
     for (u32 i = 1; i < entry_count; ++i)
@@ -47,44 +52,61 @@ StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& m
     page_table = memory.GetCurrentPageTable();
 }
 StaticArmBackend::~StaticArmBackend() {
-    std::cerr << "static CPU " << GetID() << " executed " << instructions_executed << " guest instructions; interpreter/JIT fallbacks 0\n";
+    std::cerr << "static CPU " << GetID() << " executed " << InstructionsExecuted() << " guest instructions; interpreter/JIT fallbacks 0\n";
     if (library) dlclose(library);
 }
 
 void StaticArmBackend::Run() {
-    if (break_flag) return;
+    if (break_flag || timer->GetDowncount() <= 0) return;
+    if (cpsr_control & 0x0600FE00u)
+        throw std::runtime_error("native scheduling does not support CPSR IT or big-endian state");
     reschedule = false;
-    // Every generated instruction is resumable. Stock instruction costs advance the
-    // platform timer, and its downcount stops dispatch at the next instruction.
-    context.budget = 1000000;
-    while (!reschedule && timer->GetDowncount() > 0) {
+    schedule->BeginRun();
+    // The stock CPU exposes accumulated completed-block ticks at SVC and Run return.
+    // A linked forward block or return-stack hit can cross an expired slice.
+    context.budget = std::numeric_limits<int32_t>::max();
+    for (;;) {
+        if (!schedule->ResolveBoundary(context, context.r[15] | context.thumb, timer->GetDowncount(), reschedule)) {
+            timer->AddTicks(schedule->TakePendingTicks());
+            return;
+        }
         auto code = FindCode(context.r[15] | context.thumb);
         if (!code) throw std::runtime_error("missing static CPU entry at " + std::to_string(context.r[15]));
         const auto before_pc = context.r[15];
-        const auto before_count = instructions_executed;
+        const auto before_count = InstructionsExecuted();
         context.exit = EXIT_NONE;
         context.depth = 0;
         code(&context);
         if (context.exit == EXIT_SVC) {
+            timer->AddTicks(schedule->TakePendingTicks());
             svc->CallSVC(context.svc);
-            timer->AddTicks(supervisor_ticks);
-            supervisor_ticks = 0;
+            if (!schedule->Complete(context, context.r[15] | context.thumb, timer->GetDowncount(), reschedule)) {
+                timer->AddTicks(schedule->TakePendingTicks());
+                return;
+            }
         }
-        if (context.exit == EXIT_BUDGET || reschedule || timer->GetDowncount() <= 0) return;
-        if (context.r[15] == before_pc && instructions_executed == before_count)
+        if (context.exit == EXIT_BUDGET) {
+            timer->AddTicks(schedule->TakePendingTicks());
+            return;
+        }
+        if (reschedule) throw std::runtime_error("native reschedule outside a completed supervisor block");
+        if (context.r[15] == before_pc && InstructionsExecuted() == before_count)
             throw std::runtime_error("static CPU dispatch made no progress");
     }
 }
 void StaticArmBackend::Step() { throw std::runtime_error("static CPU cannot single-step a translated basic block"); }
-void StaticArmBackend::ChargeBlock(u32 address, u32 instructions, u64 ticks) {
+void StaticArmBackend::ChargeBlock(u32 address, u32 instructions, u64) {
     current_instruction = address;
-    instructions_executed += instructions;
-    if (ticks & (u64(1) << 63)) supervisor_ticks += ticks & ~(u64(1) << 63);
-    else timer->AddTicks(ticks);
-    if (timer->GetDowncount() <= 0) context.budget = 0;
+    if (instructions > 1 && address == 0x0010766C)
+        schedule->ChargePriorityReplacement(context, instructions, timer->GetDowncount(), reschedule);
+    else
+        schedule->BeforeInstruction(context, address, instructions, timer->GetDowncount(), reschedule);
 }
-void StaticArmBackend::ClearInstructionCache() {}
-void StaticArmBackend::InvalidateCacheRange(u32, std::size_t) {}
+void StaticArmBackend::ClearInstructionCache() { schedule->ClearVisited(); }
+void StaticArmBackend::InvalidateCacheRange(u32, std::size_t) {
+    // Guest code remains immutable. Dynamic executable writes require regeneration.
+    schedule->ClearVisited();
+}
 void StaticArmBackend::ClearExclusiveState() { context.exclusive = 0; }
 void StaticArmBackend::SetPageTable(const std::shared_ptr<Memory::PageTable>& table) { page_table = table; }
 std::shared_ptr<Memory::PageTable> StaticArmBackend::GetPageTable() const { return page_table; }
@@ -144,7 +166,11 @@ void StaticArmBackend::Write32(Context* c, u32 a, u32 v) {
 void StaticArmBackend::RefuseInterpretation(Context*, u32 address, u32 opcode) {
     throw std::runtime_error("static CPU interpreter fallback refused at " + std::to_string(address) + " opcode " + std::to_string(opcode));
 }
-Code StaticArmBackend::Lookup(Context* c, u32 a) { return backend(c).FindCode(a); }
+Code StaticArmBackend::Lookup(Context* c, u32 a) {
+    auto& cpu = backend(c);
+    if (!cpu.schedule->ResolveBoundary(*c, a, cpu.timer->GetDowncount(), cpu.reschedule)) return stopDispatch;
+    return cpu.FindCode(a);
+}
 Code StaticArmBackend::FindCode(u32 address) const {
     auto* end = entries + entry_count;
     auto* found = std::lower_bound(entries, end, address, [](const Entry& entry, u32 value) { return entry.address < value; });

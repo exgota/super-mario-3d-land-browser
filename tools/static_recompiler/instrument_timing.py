@@ -135,6 +135,7 @@ int main() { std::uint32_t pair[2]; while (std::cin.read(reinterpret_cast<char*>
                      "library": str(library), "library_sha256": digest(library),
                      "sources": {str(path.relative_to(ROOT)): digest(path) for path in sorted(output.iterdir()) if path.suffix in (".c", ".h", ".cpp")},
                      "timing_callback": "native_block_timing_callback",
+                     "native_timing_revision": 2,
                      "floating_point_operations_rewritten": floating_point_operations,
                      "runtime_verified": False,
                      "gpu_frame_verified": False})
