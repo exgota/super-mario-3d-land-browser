@@ -5169,7 +5169,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E3614,          ,0x001E3680,          ,O,f,_ZN2al24ExecuteTableHolderUpdate15tryRegisterUserEPNS_12IUseExecutorEPKc,
 0x001E3680,          ,0x001E36EC,          ,O,f,_ZN2al24ExecuteTableHolderUpdate18tryRegisterFunctorERKNS_11FunctorBaseEPKc,
 0x001E36EC,          ,0x001E37D8,          ,O,f,_ZN2al24ExecuteTableHolderUpdate23createExecutorListTableEv,
-0x001E37D8,0x001E3B0C,0x001E3B64,          ,U,f,_ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi,
+0x001E37D8,0x001E3B0C,0x001E3B64,          ,M,f,_ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi,
 0x001E3B64,          ,0x001E3BB0,          ,O,f,_ZN2al24ExecuteTableHolderUpdateC1Ev,
 0x001E3BB0,          ,0x001E3BC8,          ,U,f,,
 0x001E3BC8,0x001E3C60,0x001E3C64,          ,U,f,,
