@@ -1766,6 +1766,188 @@ std::vector<MaterialShaderSelection> readMaterialShaderSelections(Bytes data, co
     return result;
 }
 
+struct VertexUniformCoefficient {
+    std::size_t sourceOffset = 0;
+    std::uint32_t semantic = 0;
+    std::uint8_t inputRegisterByte = 0;
+    bool constant = false;
+    std::uint8_t componentCount = 0;
+    std::uint32_t multiplierWord = 0;
+};
+
+struct CpuVertexUniformConstruction {
+    std::string status;
+    bool shaderSelectionPresent = false;
+    std::size_t meshOffset = 0;
+    std::size_t shapeOffset = 0;
+    std::size_t shaderInstanceOffset = 0;
+    std::uint32_t initialMeshFlags = 0;
+    std::uint32_t constructedMeshFlags = 0;
+    std::vector<VertexUniformCoefficient> coefficients;
+    std::vector<std::uint32_t> commandWords;
+};
+
+// Retail 0x002AD654 constructs this transfer; 0x00190FE8 copies its 48 bytes.
+// Coefficients remain raw binary32 words. No shader multiplication is applied.
+CpuVertexUniformConstruction constructCpuVertexUniformPacket(
+        std::uint32_t meshFlags, std::span<const VertexUniformCoefficient> coefficients) {
+    CpuVertexUniformConstruction result;
+    result.status = "constructed_raw_vertex_uniform_packet";
+    result.initialMeshFlags = meshFlags;
+    result.constructedMeshFlags = meshFlags & ~std::uint32_t(3);
+    result.commandWords = {0x80000007, 0x000F02C0, 0, 0x007F02C1, 0, 0, 0, 0, 0, 0, 0, 0};
+    result.coefficients.assign(coefficients.begin(), coefficients.end());
+    for (const VertexUniformCoefficient& coefficient : coefficients) {
+        require(coefficient.semantic < 12, "Vertex uniform semantic exceeds its instance map");
+        require(coefficient.componentCount >= 1 && coefficient.componentCount <= 4,
+                "Vertex uniform component count is unsupported");
+        if (coefficient.inputRegisterByte & 0x80)
+            continue;
+        std::size_t slot = result.commandWords.size();
+        switch (coefficient.semantic) {
+            case 0: slot = 6; break;
+            case 1: slot = 5; break;
+            case 2: slot = 4; break;
+            case 3: slot = 2; break;
+            case 4: slot = 10; break;
+            case 5: slot = 9; break;
+            case 6: slot = 8; break;
+            case 8: slot = 7; break;
+            default: break;
+        }
+        if (slot < result.commandWords.size())
+            result.commandWords[slot] = coefficient.constant ? 0x3F800000 : coefficient.multiplierWord;
+        if (coefficient.componentCount == 4) {
+            if (coefficient.semantic == 3) result.constructedMeshFlags |= 1;
+            if (coefficient.semantic == 8) result.constructedMeshFlags |= 2;
+        }
+    }
+    return result;
+}
+
+// Selection is an explicit result of the optional-archive loader adapter.
+// Missing selections never receive constructor or material defaults.
+CpuVertexUniformConstruction readCpuVertexUniformConstruction(
+        Bytes modelData, const ModelGeometry& model, std::size_t meshIndex,
+        Bytes shaderData, const MaterialShaderSelection* selection) {
+    CpuVertexUniformConstruction result;
+    result.status = "missing_shader_material_selection";
+    result.shaderSelectionPresent = selection != nullptr;
+    if (!selection)
+        return result;
+    result.status = selection->status;
+    if (!selection->instanceSelected || selection->status != "resource_local_optional_archive_shader_selection")
+        return result;
+    result.status = "unsupported_model_uniform_layout";
+    if (model.status != "resource_local_fields")
+        return result;
+    require(meshIndex < model.meshes.size(), "Vertex uniform mesh index exceeds its model");
+    const ModelMesh& mesh = model.meshes[meshIndex];
+    require(mesh.shapeIndex < model.shapes.size() && mesh.materialIndex < model.materials.size(),
+            "Vertex uniform mesh binding exceeds its model");
+    result.status = "mismatched_shader_material_selection";
+    if (selection->modelOffset != model.offset || selection->materialOffset != model.materials[mesh.materialIndex].offset)
+        return result;
+    result.status = "unsupported_geometry_shader_uniform_state";
+    if (selection->geometrySelector >= 0)
+        return result;
+    const ModelShape& shape = model.shapes[mesh.shapeIndex];
+    result.meshOffset = mesh.offset;
+    result.shapeOffset = shape.offset;
+    result.shaderInstanceOffset = selection->selectedInstanceOffset;
+    result.initialMeshFlags = mesh.drawFlagsField;
+    ByteReader input(modelData), shader(shaderData);
+    require(input.magic(0, "CGFX") && shader.magic(0, "CGFX"), "Vertex uniform inputs require CGFX members");
+    input.check(20, input.integer(24));
+    shader.check(20, shader.integer(24));
+    const std::size_t dataEnd = 20 + input.integer(24);
+    const std::size_t shaderEnd = 20 + shader.integer(24);
+    auto metadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= dataEnd && size <= dataEnd - offset,
+                "Vertex uniform metadata escapes DATA");
+    };
+    auto shaderMetadata = [&](std::size_t offset, std::size_t size) {
+        require(offset >= 20 && offset <= shaderEnd && size <= shaderEnd - offset,
+                "Vertex uniform shader metadata escapes DATA");
+    };
+    metadata(mesh.offset, 0x30);
+    metadata(shape.offset, 0x40);
+    shaderMetadata(selection->selectedInstanceOffset, 0x88);
+    require(input.integer(mesh.offset + 0x2C) == mesh.drawFlagsField &&
+            input.integer(mesh.offset + 0x18) == mesh.shapeIndex &&
+            input.integer(mesh.offset + 0x1C) == mesh.materialIndex && input.relative(mesh.offset + 0x20) == model.offset,
+            "Vertex uniform model records disagree with their input");
+    require(shader.integer(selection->selectedInstanceOffset) == 3 &&
+            shader.relative(selection->selectedInstanceOffset + 0x84) == selection->selectedProgramOffset &&
+            std::bit_cast<std::int32_t>(shader.integer(selection->selectedInstanceOffset + 0xC)) == selection->vertexSelector &&
+            std::bit_cast<std::int32_t>(shader.integer(selection->selectedInstanceOffset + 0x10)) == selection->geometrySelector,
+            "Vertex uniform shader instance disagrees with its selection");
+    std::size_t remainingRecords = (dataEnd - 20) / 4;
+    auto pointerList = [&](std::size_t field, std::size_t count) {
+        metadata(field, 4);
+        std::vector<std::size_t> records;
+        require(count <= remainingRecords, "Vertex uniform list exceeds its record limit");
+        remainingRecords -= count;
+        if (!count) {
+            require(input.integer(field) == 0, "Empty vertex uniform list has a nonnull pointer");
+            return records;
+        }
+        const std::size_t list = input.relative(field);
+        metadata(list, count * 4);
+        for (std::size_t index = 0; index < count; ++index) {
+            const std::size_t offset = input.relative(list + index * 4);
+            metadata(offset, 4);
+            records.push_back(offset);
+        }
+        return records;
+    };
+    result.status = "unsupported_shape_uniform_layout";
+    if (input.integer(shape.offset) != 0x10000001)
+        return result;
+    const auto groups = pointerList(shape.offset + 0x3C, input.integer(shape.offset + 0x38));
+    result.status = "unsupported_empty_vertex_groups";
+    if (groups.empty())
+        return result;
+    std::vector<VertexUniformCoefficient> coefficients;
+    for (const std::size_t group : groups) {
+        metadata(group, 0x30);
+        const std::uint32_t layout = input.integer(group);
+        const std::uint32_t flags = input.integer(group + 8);
+        result.status = "unsupported_vertex_uniform_group";
+        if ((layout != 0x40000002 || flags != 2) && (layout != 0x80000000 || flags != 1))
+            return result;
+        std::vector<std::size_t> attributes{group};
+        if (flags & 2) {
+            attributes = pointerList(group + 0x2C, input.integer(group + 0x28));
+            if (attributes.empty()) {
+                result.status = "unsupported_empty_uniform_attributes";
+                return result;
+            }
+        }
+        for (const std::size_t attribute : attributes) {
+            metadata(attribute, 0x30);
+            require(input.integer(attribute + 8) == ((flags & 1) ? 1u : 0u),
+                    "Vertex uniform declaration flags disagree with their group");
+            const bool constant = input.integer(attribute + 8) & 1;
+            require(constant || input.integer(attribute) == 0x40000001,
+                    "Vertex uniform declaration has an unsupported layout");
+            const std::uint32_t semantic = input.integer(attribute + 4);
+            require(semantic < 12, "Vertex uniform semantic exceeds its instance map");
+            const std::uint8_t components = input.byte(attribute + (constant ? 0x10 : 0x28));
+            coefficients.push_back({attribute, semantic,
+                shader.byte(selection->selectedInstanceOffset + 0x4C + semantic), constant, components,
+                constant ? 0x3F800000 : input.integer(attribute + 0x2C)});
+        }
+    }
+    CpuVertexUniformConstruction constructed = constructCpuVertexUniformPacket(mesh.drawFlagsField, coefficients);
+    constructed.status = "resource_local_vertex_uniform_construction";
+    constructed.shaderSelectionPresent = true;
+    constructed.meshOffset = mesh.offset;
+    constructed.shapeOffset = shape.offset;
+    constructed.shaderInstanceOffset = selection->selectedInstanceOffset;
+    return constructed;
+}
+
 std::string hexadecimal(const std::string& value) {
     const char* digits = "0123456789abcdef";
     std::string result;
