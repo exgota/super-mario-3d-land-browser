@@ -1145,3 +1145,16 @@ The integrator built and checked each factory proposal on its own, about 35 seco
 Tests on an isolated clone: two clean proposals made one move and one commit; a batch with one broken proposal moved nothing, set it aside, and landed the clean one in a fresh cycle; a quiet submission landed at once while a claiming one waited, then rode the full check and was accepted with 25 exact; a broken rider was rejected with main unchanged. The three reference-safety tests pass on the batch code.
 
 Each worker's Codex session file is deleted as soon as its tokens are read, and stale ones are cleared at startup. The dashboard shows the integrator's queue and the minutes since the last push to origin. Root's branches kept conflicting with each other on `project/STATE.md`; the repository now merges that file by taking the submitted branch's version, since only the root edits it.
+
+## 2026-10-02: BSS rows for raw-address cleanup
+
+Add unnamed rank-U `db` rows `[0x0042F534, 0x0042F554)` and
+`[0x0042FA14, 0x0042FA34)`, each 0x20 bytes, in a separate boundary
+evidence commit before changing `group_00350028.cpp`. The EU initializers
+and constructor each write eight four-byte floats through the respective
+base: the last word begins at offset 0x1C. Independent initialization of
+the next objects at 0x0042F554 and 0x0042FA34 corroborates both endpoints.
+Both intervals lie in BSS and overlap no existing map row. Leave Symbol
+and SectionName empty so the referenced dat_ aliases use their default
+BSS sections; leave every existing row and rank unchanged. Full address
+traces and oracle identity are in [raw_address_bss_evidence.md](raw_address_bss_evidence.md).
