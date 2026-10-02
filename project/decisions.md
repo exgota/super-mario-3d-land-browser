@@ -1288,3 +1288,9 @@ Codex assumed driver ownership after the Claude session released it. Hourly chec
 The rejected `dot-course-list-87d89a0ff` submission must not be retried unchanged. The branch final canonical report states that the World constructor is 692 compiled bytes versus a 700-byte original interval and remains M. Its World source body is identical to current main. An earlier text extraction had incorrectly treated a checker command as an exact claim. No match is credited.
 
 Draft carryover and post-crossing acceptance measurements are recorded in `project/driver_measurements_2026-10-02.md`. Worker post-run matches and integrator-accepted bytes remain separate.
+
+## Correct unsupported placement-map intake claim, 2026-10-02
+
+The operator held `dot-placement-map-359c64101` before another full-check attempt. Both `project/dot_reports/placement-map.md` and `placement-temporary-lifetime-followup.md` at commit `359c64101` explicitly say initPlacementMap remains nonmatching. Their exact 144-byte sibling is tryGetPlacementInfo, which is already O on main. A checker command in a report is not a successful checker result. The request was moved unchanged to the local held directory, with its SHA-256 and reason retained in `logs/driver_intake_corrections.jsonl`. No game source, oracle, map, rank or ledger was changed.
+
+The weekly usage reset closes the credit-period acceptance measurement recorded in `project/driver_measurements_2026-10-02.md`. The six-slot production setup and load guard remain unchanged.
