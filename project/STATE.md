@@ -5,7 +5,7 @@ The owner resumed this lane for class layouts and the port runtime on 2026-10-02
 ## Submissions
 
 - CalendarTime: `root-calendar-constructor-placement-a671ac00c`. Clean build, constructor M -> O, five sibling matches; committed rank remains M. Integrator verdict pending. A local merge preview finds a conflict between appended decision notes, so prepare a follow-up branch after rejection without rewriting the pushed history.
-- Heap base: `root-heap-layout-e6d8485e8`. Reconstructs the observed 0x70-byte base with opaque lock storage. Clean build, 16 ARMCC ABI assertions, and eight existing exact callers pass. No new matching claim. Integrator verdict pending.
+- Heap base: `root-heap-layout-e6d8485e8`. Rejected at 04:21:53 ET by the integrator final receipt commit for zero claims. Operator blocker is in QUESTIONS; leave its code/source unchanged and resubmit after that path is repaired. Reconstructs the observed 0x70-byte base with opaque lock storage. Clean build, 16 ARMCC ABI assertions, and eight existing exact callers pass. No new matching claim. Integrator verdict pending.
 
 ## Ownership and current task
 
@@ -23,4 +23,4 @@ M2 and M3 remain unfinished. No level has run. Static resource order is not acti
 
 ## Runtime candidate verified
 
-The committed complete source and public command pass fresh original/sanitized/optimized checks, 39 models/137 meshes, all prior native interfaces, and 235 public-command comparisons plus six refusals per build. All 8,678 historical seals verify before/after. No assets, ranks, ledger or matching source changes. The first Calendar rejection is recorded; the follow-up worktree clean-builds and is being rechecked after connecting the existing ignored differ checkout. Heap verdict remains pending.
+The committed complete source and public command pass fresh original/sanitized/optimized checks, 39 models/137 meshes, all prior native interfaces, and 235 public-command comparisons plus six refusals per build. All 8,678 historical seals verify before/after. No assets, ranks, ledger or matching source changes. The first Calendar rejection is recorded; the follow-up worktree clean-builds and is being rechecked after connecting the existing ignored differ checkout. Heap was rejected by the zero-claim acceptance-receipt bug; no header rejection or acceptance is claimed. Calendar retry from the operator is pending; inspect its verdict before sending a duplicate follow-up.
