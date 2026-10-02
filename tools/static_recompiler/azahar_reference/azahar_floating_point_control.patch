@@ -1,0 +1,10 @@
+--- a/externals/dynarmic/src/dynarmic/backend/arm64/emit_arm64_a32.cpp
++++ b/externals/dynarmic/src/dynarmic/backend/arm64/emit_arm64_a32.cpp
+@@ -677,6 +677,7 @@
+     code.LDR(Wscratch0, Xstate, offsetof(A32JitState, upper_location_descriptor));
+     code.MOV(Wscratch1, 0x07f7'0000);
+     code.AND(Wscratch1, Wfpscr, Wscratch1);
++    code.MSR(oaknut::SystemReg::FPCR, Wscratch1.toX());
+     code.AND(Wscratch0, Wscratch0, 0x0000'ffff);
+     code.ORR(Wscratch0, Wscratch0, Wscratch1);
+     code.STR(Wscratch0, Xstate, offsetof(A32JitState, upper_location_descriptor));
