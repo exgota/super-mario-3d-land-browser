@@ -9,7 +9,6 @@ struct Functor {
     FunctionPointer function;
 };
 extern "C" void* _ZnwjRKSt9nothrow_t(unsigned int size);
-extern "C" unsigned int dat_003D5D6C;
 extern "C" unsigned int dat_003D5D7C;
 extern "C" unsigned int dat_003D5D8C;
 extern "C" unsigned int dat_003D5D9C;
@@ -22,25 +21,12 @@ extern "C" unsigned int dat_003D5DFC;
 extern "C" unsigned int dat_003D5E0C;
 extern "C" unsigned int dat_003D5E1C;
 extern "C" unsigned int dat_003D5E2C;
-extern "C" unsigned int dat_003D5E3C;
 extern "C" unsigned int dat_003D5E4C;
 extern "C" unsigned int dat_003D5E5C;
 extern "C" unsigned int dat_003D5E6C;
 extern "C" unsigned int dat_003D5E7C;
 extern "C" unsigned int dat_003D5E8C;
 extern "C" unsigned int dat_003D5E9C;
-extern "C" unsigned int dat_003D5EAC;
-}
-
-extern "C" Functor* fn_0039C7B4(const Functor* source)
-{
-    Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
-    if (result) {
-        result->vtable = &dat_003D5D6C;
-        result->parent = source->parent;
-        result->function = source->function;
-    }
-    return result;
 }
 
 extern "C" Functor* fn_0039C81C(const Functor* source)
@@ -175,17 +161,6 @@ extern "C" Functor* fn_0039CC94(const Functor* source)
     return result;
 }
 
-extern "C" Functor* fn_0039CCFC(const Functor* source)
-{
-    Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
-    if (result) {
-        result->vtable = &dat_003D5E3C;
-        result->parent = source->parent;
-        result->function = source->function;
-    }
-    return result;
-}
-
 extern "C" Functor* fn_0039CD64(const Functor* source)
 {
     Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
@@ -246,17 +221,6 @@ extern "C" Functor* fn_0039CF6C(const Functor* source)
     Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
     if (result) {
         result->vtable = &dat_003D5E9C;
-        result->parent = source->parent;
-        result->function = source->function;
-    }
-    return result;
-}
-
-extern "C" Functor* fn_0039CFD4(const Functor* source)
-{
-    Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
-    if (result) {
-        result->vtable = &dat_003D5EAC;
         result->parent = source->parent;
         result->function = source->function;
     }

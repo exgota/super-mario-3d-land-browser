@@ -23,7 +23,6 @@ extern "C" unsigned char dat_003D5C7C;
 extern "C" unsigned char dat_003D5C8C;
 extern "C" unsigned char dat_003D5C9C;
 extern "C" unsigned char dat_003D5CAC;
-extern "C" unsigned char dat_003D5CBC;
 extern "C" unsigned char dat_003D5CCC;
 extern "C" unsigned char dat_003D5CDC;
 extern "C" unsigned char dat_003D5CEC;
@@ -184,17 +183,6 @@ extern "C" Functor* fn_0039C2D4(const Functor* source)
     Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
     if (result) {
         result->table = &dat_003D5CAC;
-        result->parent = source->parent;
-        result->function = source->function;
-    }
-    return result;
-}
-
-extern "C" Functor* fn_0039C33C(const Functor* source)
-{
-    Functor* result = static_cast<Functor*>(_ZnwjRKSt9nothrow_t(sizeof(Functor)));
-    if (result) {
-        result->table = &dat_003D5CBC;
         result->parent = source->parent;
         result->function = source->function;
     }

@@ -9,6 +9,7 @@
 #include <Model/alModelKeeper.h>
 #include <Collision/alCollisionUtil.h>
 #include <Execute/alExecuteTableHolder.h>
+#include <Functor/alFunctorV0M.h>
 #include <LiveActor/alActorPoseKeeper.h>
 #include <LiveActor/alHitSensorKeeper.h>
 #include <LiveActor/alSubActorFunction.h>
@@ -58,6 +59,19 @@ extern "C" void fn_00250F94( al::LiveActor* actor );
 
 namespace al
 {
+
+template <>
+void FunctorV0M<LiveActor*, void ( LiveActor::* )()>::operator()() const
+{
+        ( mParent->*mFuncPtr )();
+}
+
+template <>
+FunctorV0M<LiveActor*, void ( LiveActor::* )()>*
+FunctorV0M<LiveActor*, void ( LiveActor::* )()>::clone() const
+{
+        return new FunctorV0M<LiveActor*, void ( LiveActor::* )()>( *this );
+}
 
 class ActorLightCtrl
 {
