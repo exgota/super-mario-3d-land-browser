@@ -1,0 +1,11 @@
+# FallMapParts initializer import identities
+
+This proposal names two existing whole U/f rows without changing their boundaries, ranks or implementations. The source family is pinned to b16e2a0cc32e0cdacac5ba94feabe67432433391. These identities permit ordinary declared external calls in the separately submitted FallMapParts initializer.
+
+At 0x0028058C..0x00280590, the complete original body is a tail branch to the independently mapped initMapPartsActor provider at 0x002D5668. It preserves both argument registers. The independent AppearStep initializer calls this entry at 0x00117678 after preserving its LiveActor receiver and ActorInitInfo reference. Use neutral name fn_0028058C and declaration void(al::LiveActor*, const al::ActorInitInfo&). No provider body is reconstructed.
+
+At 0x002794F8..0x00279554, the original provider preserves r0 as the integer output pointer, reads the first pointer from r1, calls existing Byaml validity/integer lookup providers and stores an integer only on success. Its own complete body, including the Arg0 literal pool, supplies the integer and boolean contracts independently of the submitted caller. Other mapped actor initializers call the same entry at 0x0011E568, 0x0011EB44 and 0x00120668. Use neutral name fn_002794F8 and declaration bool(int*, const al::ActorInitInfo&). No semantic provider rename or implementation is proposed.
+
+Existing whole fn_00280538 and fn_0027FAB8 rows retain their names. The former receives the already established IUseStageSwitch subobject at actor+0x0C and ActorInitInfo reference. The latter receives the original LiveActor receiver. The unchanged accepted factory at 0x0039674C allocates 0x74 bytes. The independent constructor stores a three-float translation at +0x60, integer at +0x6C and byte at +0x70. These corroborate the existing header; no header change is proposed.
+
+The source family proposes only receiveMsg 0x00136F64..0x00136FF0 and init 0x00136FF0..0x00137068. Their complete 140- and 120-byte intervals pass paired ARMCC 4.1/791 and 894 diagnostics, including 12- and 4-byte pools. Five previously accepted definitions emitted by this translation unit preserve both raw sections and relocation contracts. The local copyStartingTranslation helper disappears completely. Only the canonical project checker may award exact credit.

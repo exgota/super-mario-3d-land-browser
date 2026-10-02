@@ -881,3 +881,7 @@ The constructor names are compatible current compiler imports, not recovered ori
 ## 2026-10-02: Garigari whole-function identities
 
 Independent original factory, constructor, control-slot and member-pointer/operator evidence supports the three existing function rows at00315598,003155CC and0039CC6C. The separate review is build/garigari_identity_independent_review/review.md, SHA2566c3a4b318fc06ef41d0e027d8b153262aa8a6fe39914224bacd4f17db794b216. This commit changes only Symbol on those whole U/f rows and records the evidence. No interval, pool, rank, Type or table/data ownership is changed; the misleading containing table identity and generic clone remain unresolved. Canonical source acceptance is separate.
+
+## 2026-10-02: FallMapParts and KeyPose whole-import identities
+
+Independent original providers and separate actor callers ground fn_002794F8 (integer Arg0 lookup and boolean success), fn_0028058C (unadjusted tail branch to initMapPartsActor), and tryGetArg3 at0027AFF8 (integer output, Arg3 lookup and boolean success). Review build/fall_map_parts_key_pose_identity_review/review.md SHA256d79ab783902c82c7348158461c715c62ae81eb81190e43d309a95a12da9082e6 verifies the three unique whole-row preimages. These patches change only Symbol on existing U/f rows. No extent, rank, pool, Type or implementation changes. Source acceptance follows separately.
