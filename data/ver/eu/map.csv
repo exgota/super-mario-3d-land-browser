@@ -10214,7 +10214,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002ABBF0,          ,0x002ABBF4,          ,U,f,,
 0x002ABBF4,0x002ABC68,0x002ABC70,          ,U,f,,
 0x002ABC70,0x002ABCE0,0x002ABCEC,          ,U,f,,
-0x002ABCEC,          ,0x002ABCF8,          ,U,f,,
+0x002ABCEC,          ,0x002ABCF8,          ,O,f,fn_002ABCEC,
 0x002ABCF8,          ,0x002ABE28,          ,U,f,,
 0x002ABE28,          ,0x002AC22C,          ,U,f,,
 0x002AC22C,          ,0x002AC3A0,          ,U,f,,
