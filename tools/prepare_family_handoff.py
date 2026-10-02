@@ -9,7 +9,14 @@ ownership_record_commit, final_files (path to {file, sha256}), units, targets,
 compilers, evidence, form_history and timing. Each unit identifies source,
 provenance and baseline_contracts files with their hashes. Targets are addresses
 and source paths; identity and size come from the frozen map. Optional new_names
-name only blank whole rows and require a human evidence reference. Units may
+name only blank whole rows and require a hashed human evidence reference. A blank
+target requires an explicitly supplied fn_<address> neutral name. Its strict
+diagnostic remains pending until independently reviewed metadata is committed;
+the preparer never applies the separate import_names.patch. Optional
+additional_frozen_headers maps header paths to {sha256}; these read-only inputs
+must match frozen Git and current bytes before and after preparation. Supplied
+headers are copied, but only compiler-reported dependencies enter the effective
+closure. Units may
 explicitly explain removed unaccepted definitions. No ownership or ABI review
 is inferred. replay_only suppresses enrollment inventory for historical replays.
 
@@ -172,6 +179,8 @@ def prepare(root, specification, output, report):
     ownership = specification['ownership']
     final_files = {}
     baseline_files = {}
+    additional_headers = {}
+    evidence_hashes = {}
     with phase('validate_and_snapshot_inputs'):
         for name, entry in specification['final_files'].items():
             path = relative_path(name)
@@ -185,23 +194,69 @@ def prepare(root, specification, output, report):
             destination = output / 'final_files' / name
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.write_bytes(data)
+        evidence_records = []
+        for entry in specification.get('evidence', []):
+            path, data = supplied_file(root, entry)
+            destination = output / 'human_evidence' / str(len(evidence_records)) / path.name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(data)
+            evidence_hashes[entry['file']] = entry['sha256']
+            evidence_records.append({'original': entry, 'copied_path': str(destination.relative_to(output))})
+        report['human_evidence'] = evidence_records
+        for name, entry in specification.get('additional_frozen_headers', {}).items():
+            path = relative_path(name)
+            require(path.parts[0] in ('Game', 'lib') and path.suffix in ('.h', '.hpp'),
+                    'An additional frozen input must be a repository header: ' + name)
+            require(name not in final_files, 'Additional frozen header overlaps an owned final file: ' + name)
+            data = git_file(root, base, name)
+            require(digest(data) == entry['sha256'], 'Additional header differs from frozen Git: ' + name)
+            require((root / name).is_file() and digest((root / name).read_bytes()) == entry['sha256'],
+                    'Current additional header drift: ' + name)
+            additional_headers[name] = data
+            destination = output / 'additional_frozen_headers' / name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(data)
+        report['additional_frozen_header_hashes'] = {name: digest(data) for name, data in additional_headers.items()}
         map_data = git_file(root, base, 'data/ver/eu/map.csv')
         base_rows = rows(map_data.decode())
         by_address = {int(row['Start'], 16): row for row in base_rows}
-        current = {int(row['Start'], 16): row for row in rows((root / 'data/ver/eu/map.csv').read_text())}
+        current_map_data = (root / 'data/ver/eu/map.csv').read_bytes()
+        current = {int(row['Start'], 16): row for row in rows(current_map_data.decode())}
+        names = {int(entry['address'], 0): entry for entry in specification.get('new_names', [])}
+        require(len(names) == len(specification.get('new_names', [])), 'Duplicate name proposal.')
+        require(names.keys() <= by_address.keys(), 'New name has no existing whole row.')
+        for address, entry in names.items():
+            row = by_address[address]
+            require(not row['Symbol'] and entry.get('evidence') in evidence_hashes,
+                    'Known names cannot be renamed; new names need frozen human evidence.')
+            require(re.fullmatch(r'[A-Za-z_][A-Za-z_0-9]*', entry['symbol']), 'Invalid proposed symbol.')
+            actual = current.get(address)
+            require(actual is not None and actual['Symbol'] in ('', entry['symbol']) and
+                    all(actual[key] == row[key] for key in ('Start', 'Pool', 'End', 'Type', 'SectionName')),
+                    'Current proposed identity or extent drift.')
+            require(not any(other['Symbol'] == entry['symbol'] and int(other['Start'], 16) != address
+                            for other in base_rows + list(current.values())), 'Proposed symbol is already used by another row.')
         targets = []
         for entry in specification['targets']:
             address = int(entry['address'], 0)
             require(address in by_address, 'No frozen whole target row.')
             row = by_address[address]
-            require('f' in row['Type'] and row['Symbol'] and row['Rank'] != 'O', 'Target must be a named unaccepted frozen function.')
+            require('f' in row['Type'] and row['Rank'] != 'O', 'Target must be an unaccepted frozen function.')
+            name_proposal = names.get(address) if not row['Symbol'] else None
+            require(row['Symbol'] or (name_proposal is not None and name_proposal['symbol'] == f'fn_{address:08X}'),
+                    'A blank target needs an explicit evidenced whole-row neutral fn_<address> name.')
+            symbol = row['Symbol'] or name_proposal['symbol']
+            require(entry.get('symbol', symbol) == symbol, 'Target symbol differs from its frozen identity or explicit proposal.')
             require(entry['source'] in final_files and Path(entry['source']).suffix in ('.cpp', '.cc', '.cxx'), 'Target lacks a complete source file.')
             actual = current.get(address)
-            require(actual is not None and all(actual[key] == row[key] for key in ('Start', 'Pool', 'End', 'Type', 'Symbol', 'SectionName')),
+            require(actual is not None and actual['Symbol'] in (row['Symbol'], symbol) and
+                    all(actual[key] == row[key] for key in ('Start', 'Pool', 'End', 'Type', 'SectionName')),
                     'Current target identity or extent drift.')
             require(specification.get('replay_only', False) or actual['Rank'] != 'O', 'Current target is already accepted; use replay_only.')
-            targets.append({'address': row['Start'], 'symbol': row['Symbol'], 'source': entry['source'],
+            targets.append({'address': row['Start'], 'symbol': symbol, 'source': entry['source'],
                             'complete_bytes': int(row['End'], 16) - address, 'whole_map_row': row,
+                            'metadata_name_pending': not actual['Symbol'],
+                            'name_proposal': name_proposal,
                             'carried_ready_bytes': entry.get('carried_ready_bytes', 0)})
             require(0 <= targets[-1]['carried_ready_bytes'] <= targets[-1]['complete_bytes'], 'Invalid carried bytes for target.')
         require(len({item['symbol'] for item in targets}) == len(targets), 'Duplicate target.')
@@ -209,14 +264,7 @@ def prepare(root, specification, output, report):
         report['form_history'] = [verify_history(root, output, number, entry)
                                   for number, entry in enumerate(specification.get('form_history', []))]
         report['current_form'] = specification['form']
-        evidence_records = []
-        for entry in specification.get('evidence', []):
-            path, data = supplied_file(root, entry)
-            destination = output / 'human_evidence' / str(len(evidence_records)) / path.name
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(data)
-            evidence_records.append({'original': entry, 'copied_path': str(destination.relative_to(output))})
-        report['human_evidence'] = evidence_records
+        report['strict_diagnostics_pending_metadata'] = any(target['metadata_name_pending'] for target in targets)
 
     all_compiler_results = []
     report['compiler_results'] = all_compiler_results
@@ -279,6 +327,13 @@ def prepare(root, specification, output, report):
                     destination = snapshot / name
                     destination.parent.mkdir(parents=True, exist_ok=True)
                     destination.write_bytes(data)
+                for name, data in additional_headers.items():
+                    require((root / name).is_file() and digest((root / name).read_bytes()) == digest(data),
+                            'Current additional header drift before compilation: ' + name)
+                    frozen_inputs[name] = digest(data)
+                    destination = snapshot / name
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_bytes(data)
                 # Complete explicitly owned files are available for new includes;
                 # only actual dependency records enter the effective closure.
                 for name, data in final_files.items():
@@ -331,6 +386,8 @@ def prepare(root, specification, output, report):
                 added = actual.keys() - baseline.keys()
                 changed = [name for name in baseline.keys() & actual.keys() if name not in target_names and baseline[name] != actual[name]]
                 record.update(effective_dependency_hashes=effective, external_dependencies=external, definition_contracts=actual,
+                              additional_frozen_headers_used=sorted(dependencies & additional_headers.keys()),
+                              additional_frozen_headers_unused=sorted(additional_headers.keys() - dependencies),
                               removed_definitions=sorted(removed), added_definitions=sorted(added), changed_non_target_definitions=changed,
                               preserved_accepted_definitions=sorted(accepted_names & actual.keys()))
                 require(not changed, 'Non-target definition changed: ' + ', '.join(changed))
@@ -339,9 +396,19 @@ def prepare(root, specification, output, report):
                 require(all(name in actual and actual[name] == baseline[name] for name in accepted_names & baseline.keys()), 'Accepted family definition changed.')
             record['checks'] = []
             for target in unit_targets:
-                with phase('complete_interval_check:' + target['symbol'] + ':' + compiler_version):
-                    check = check_exact_bytes(target['symbol'], object_path, provenance['version'], compiler_version,
-                                              output_directory=directory / ('function_' + target['address'][2:]))
+                if target['metadata_name_pending']:
+                    definition = actual.get(target['symbol'])
+                    extent_valid = definition is not None and definition['offset'] == 0 and definition['size'] == target['complete_bytes']
+                    check = {'exact': False, 'strict_diagnostic_performed': False, 'pending_metadata': True,
+                             'compiled_extent_valid': extent_valid,
+                             'reason': 'Strict diagnostic awaits independently reviewed target metadata; no equality grade was performed.',
+                             'evidence': {'symbol': target['symbol'], 'object_sha256': object_hash,
+                                          'original_start': int(target['address'], 16),
+                                          'original_size': target['complete_bytes'], 'definition_contract': definition}}
+                else:
+                    with phase('complete_interval_check:' + target['symbol'] + ':' + compiler_version):
+                        check = check_exact_bytes(target['symbol'], object_path, provenance['version'], compiler_version,
+                                                  output_directory=directory / ('function_' + target['address'][2:]))
                 record['checks'].append({'target': target, 'result': check})
             require(digest(object_path.read_bytes()) == object_hash, 'Compiler object changed during checking.')
             require(all(digest((snapshot / name).read_bytes()) == expected for name, expected in effective.items()), 'Effective snapshot drift after checks.')
@@ -351,30 +418,36 @@ def prepare(root, specification, output, report):
     require(all((root / name).is_file() and digest((root / name).read_bytes()) == expected
                 for name, expected in current_dependency_hashes.items()), 'Current effective dependency drift after checks.')
     report['effective_current_dependency_hashes_unchanged'] = current_dependency_hashes
+    report['additional_frozen_header_hashes_after'] = {name: digest((root / name).read_bytes()) for name in additional_headers}
+    require(report['additional_frozen_header_hashes_after'] == report['additional_frozen_header_hashes'],
+            'Current additional header drift after checks.')
+    require(all((root / name).is_file() and digest((root / name).read_bytes()) == expected
+                for name, expected in evidence_hashes.items()), 'Frozen human evidence drift after checks.')
+    report['human_evidence_hashes_after'] = evidence_hashes
     report['paired_exact'] = bool(all_compiler_results) and all(record.get('compile_exit') == 0 and
         len(record.get('checks', [])) > 0 and all(item['result']['exact'] for item in record['checks']) for record in all_compiler_results)
 
     with phase('generate_patches_queue_and_report'):
         source_patch = b''.join(patch(baseline_files[name], data, name) for name, data in final_files.items())
         (output / 'source.patch').write_bytes(source_patch)
-        names = {int(entry['address'], 0): entry for entry in specification.get('new_names', [])}
-        require(len(names) == len(specification.get('new_names', [])), 'Duplicate name proposal.')
         named_lines = []
         for line in map_data.decode().splitlines(True):
             fields = line.rstrip('\n').split(',')
             address = int(fields[0], 16) if fields[0].startswith('0x') else None
             if address in names:
                 entry = names[address]
-                require(fields[6] == '' and entry.get('evidence') in {item['file'] for item in specification.get('evidence', [])},
-                        'Known names cannot be renamed; new names need frozen human evidence.')
-                require(current[address]['Symbol'] in ('', entry['symbol']) and all(current[address][key] == by_address[address][key]
-                        for key in ('Start', 'Pool', 'End', 'Type', 'SectionName')), 'Current proposed import identity drift.')
-                require(re.fullmatch(r'[A-Za-z_][A-Za-z_0-9]*', entry['symbol']), 'Invalid proposed symbol.')
                 fields[6] = entry['symbol']
                 line = ','.join(fields) + '\n'
             named_lines.append(line)
-        require(names.keys() <= by_address.keys(), 'New name has no existing whole row.')
         named = ''.join(named_lines).encode()
+        current_named_lines = []
+        for line in current_map_data.decode().splitlines(True):
+            fields = line.rstrip('\n').split(',')
+            address = int(fields[0], 16) if fields[0].startswith('0x') else None
+            if address in names and not fields[6].strip():
+                fields[6] = names[address]['symbol']
+                line = ','.join(fields) + '\n'
+            current_named_lines.append(line)
         enrolled_lines = []
         target_addresses = {int(target['address'], 16) for target in targets}
         for line in named.decode().splitlines(True):
@@ -384,10 +457,13 @@ def prepare(root, specification, output, report):
                 fields[4] = 'M'
                 line = ','.join(fields) + '\n'
             enrolled_lines.append(line)
-        (output / 'import_names.patch').write_bytes(patch(map_data, named, 'data/ver/eu/map.csv'))
+        (output / 'import_names.patch').write_bytes(patch(current_map_data, ''.join(current_named_lines).encode(), 'data/ver/eu/map.csv'))
         (output / 'enrollment.patch').write_bytes(patch(named, ''.join(enrolled_lines).encode(), 'data/ver/eu/map.csv'))
         report['source_hashes'] = {name: {'baseline_source_sha256': digest(baseline_files[name]), 'final_source_sha256': digest(data)} for name, data in final_files.items()}
-        report['new_names'] = [{'proposal': entry, 'whole_map_row': by_address[address]} for address, entry in names.items()]
+        report['new_names'] = [{'proposal': entry, 'whole_map_row': by_address[address],
+                                'evidence_sha256': evidence_hashes[entry['evidence']],
+                                'already_present_in_current_metadata': current[address]['Symbol'] == entry['symbol']}
+                               for address, entry in names.items()]
         report['timing_basis'] = specification.get('timing', {})
         started = specification.get('timing', {}).get('start_utc', report['start_utc'])
         previous_minutes = (datetime.datetime.now(datetime.timezone.utc) - datetime.datetime.fromisoformat(started)).total_seconds() / 60
@@ -409,10 +485,15 @@ def prepare(root, specification, output, report):
         report['canonical_queue_rows'] = len(queue)
         report['canonical_acceptance_pending'] = True
         report['new_exact_credit'] = 0
-        report['status'] = 'paired_exact_proposal' if report['paired_exact'] else 'unsuccessful_form'
+        pending_ready = report['strict_diagnostics_pending_metadata'] and bool(all_compiler_results) and all(
+            record.get('compile_exit') == 0 and record.get('checks') and all(
+                item['result']['exact'] or (item['result'].get('pending_metadata') and item['result']['compiled_extent_valid'])
+                for item in record['checks']) for record in all_compiler_results)
+        report['status'] = 'paired_exact_proposal' if report['paired_exact'] else 'metadata_pending' if pending_ready else 'unsuccessful_form'
         (output / 'review.md').write_text('# Family handoff\n\n' + f"Base `{base}`. Complete final files and hashes are in report.json. "
             f"Paired exact: {report['paired_exact']}. Queue rows: {len(queue)}. New exact credit: 0.\n\n"
             'Source ownership, ABI, layout and data identity remain supplied human evidence. '
+            'Blank-target metadata remains a separate unapplied proposal; its pending extent/contracts are not an equality grade. '
             'Root must commit the complete source, run the unchanged project build/checker and preserve every previous root and canonical definition.\n')
 
 
