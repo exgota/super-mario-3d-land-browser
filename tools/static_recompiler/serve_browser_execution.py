@@ -11,6 +11,7 @@ from threading import Lock
 from urllib.parse import urlsplit
 
 from audit_webassembly_platform import digest
+from compare_input_capture import load_movie
 
 ROOT = Path(__file__).resolve().parents[2]
 MAXIMUM_CHUNK = 65536
@@ -38,6 +39,7 @@ def main():
     parser.add_argument("--first-swap", action="store_true")
     parser.add_argument("--observe-input", action="store_true", help="capture movie-delivered HID observations")
     parser.add_argument("--observe-audio", action="store_true", help="capture HLE PCM and movie-delivered HID observations")
+    parser.add_argument("--live-button", action="store_true", help="record live browser A input from the reference initial state")
     parser.add_argument("--presentation-limit", type=int, default=60)
     parser.add_argument("--wall-time-seconds", type=int, default=180)
     parser.add_argument("--port", type=int, default=8765)
@@ -49,7 +51,7 @@ def main():
         raise ValueError("Invalid approved dump identity")
     if not 1 <= args.presentation_limit <= 3600 or not 1 <= args.wall_time_seconds <= 3600:
         raise ValueError("Invalid finite capture bound")
-    if args.first_swap and (args.observe_input or args.observe_audio):
+    if args.first_swap and (args.observe_input or args.observe_audio or args.live_button):
         raise ValueError("Input/audio observation needs a software-presentation boundary")
     manifest = json.loads((module / "build_manifest.json").read_text())
     if manifest.get("passed") is not True:
@@ -92,8 +94,12 @@ def main():
                      "options": {"presentation_limit": None if args.first_swap else args.presentation_limit,
                                  "wall_time_seconds": args.wall_time_seconds,
                                  "pica_payload_limit_bytes": 256 * 1024 * 1024,
-                                 "input_capture": args.observe_input or args.observe_audio,
-                                 "audio_capture": args.observe_audio}}
+                                 "input_capture": args.observe_input or args.observe_audio or args.live_button,
+                                 "audio_capture": args.observe_audio or args.live_button}}
+    if args.live_button:
+        movie = load_movie(args.reference / "input_movie.ctm")
+        configuration["options"].update({"live_button_capture": True,
+                                         "record_base_ticks": str(movie["base_ticks"])})
     protected = {str(path): digest(path) for path in {*assets.values(), *sidecars.values(),
                                                    module / "build_manifest.json"}}
     output.mkdir(parents=True)

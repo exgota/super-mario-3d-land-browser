@@ -7,9 +7,63 @@ const status = document.querySelector('#capture-status');
 const error = document.querySelector('#capture-error');
 const soundButton = document.querySelector('#play-recorded-sound');
 const soundStatus = document.querySelector('#sound-status');
+const liveButton = document.querySelector('#hold-a');
+const liveHelp = document.querySelector('#live-button-help');
 let configuration;
 let session;
 let completedAudio;
+const heldSources = new Set();
+
+function publishButtonState() {
+    if (!session?.buttonReady) return;
+    const held = heldSources.size ? 1 : 0;
+    if (session.buttonHeld === held) return;
+    session.buttonHeld = held;
+    liveButton.setAttribute('aria-pressed', String(held !== 0));
+    session.worker.postMessage({schema_version: 1, type: 'set_button_held_state',
+        capture_identifier: session.identifier, sequence: session.buttonSequence++, held});
+}
+
+function releaseButton() {
+    heldSources.clear();
+    publishButtonState();
+}
+
+function hideButton() {
+    releaseButton();
+    if (session) session.buttonReady = false;
+    liveButton.hidden = liveHelp.hidden = true;
+    liveButton.disabled = true;
+    liveButton.setAttribute('aria-pressed', 'false');
+}
+
+liveButton.addEventListener('pointerdown', event => {
+    if (event.button !== 0 || !session?.buttonReady) return;
+    liveButton.setPointerCapture(event.pointerId);
+    heldSources.add(`pointer:${event.pointerId}`);
+    publishButtonState();
+});
+for (const name of ['pointerup', 'pointercancel', 'lostpointercapture'])
+    liveButton.addEventListener(name, event => {
+        heldSources.delete(`pointer:${event.pointerId}`);
+        publishButtonState();
+    });
+liveButton.addEventListener('keydown', event => {
+    if (!['Space', 'Enter'].includes(event.code) || !session?.buttonReady) return;
+    event.preventDefault();
+    heldSources.add(`key:${event.code}`);
+    publishButtonState();
+});
+liveButton.addEventListener('keyup', event => {
+    if (!['Space', 'Enter'].includes(event.code)) return;
+    event.preventDefault();
+    heldSources.delete(`key:${event.code}`);
+    publishButtonState();
+});
+liveButton.addEventListener('blur', releaseButton);
+window.addEventListener('blur', releaseButton);
+window.addEventListener('pagehide', releaseButton);
+document.addEventListener('visibilitychange', () => { if (document.hidden) releaseButton(); });
 
 export function capturedAudio() { return completedAudio; }
 
@@ -39,6 +93,7 @@ function requireCondition(condition, message) {
 }
 
 function reportFailure(message) {
+    hideButton();
     discardAudio();
     if (session) {
         clearTimeout(session.watchdog);
@@ -81,11 +136,31 @@ async function receive(active, message) {
     requireCondition(message.schema_version === 1 && message.capture_identifier === active.identifier,
                      'The preview worker returned an invalid session.');
     if (message.type === 'capture_started') {
-        status.textContent = 'Running the recorded startup…';
+        status.textContent = configuration.options.live_button_capture ?
+            'Running the live input capture…' : 'Running the recorded startup…';
         document.body.dataset.captureState = 'running';
     }
+    else if (message.type === 'button_capture_progress') {
+        requireCondition(configuration.options.live_button_capture &&
+            [0, 1].includes(message.active) && Number.isSafeInteger(message.poll_count) &&
+            message.poll_count >= 0 && Number.isSafeInteger(message.sampled_renderer_frame) &&
+            message.sampled_renderer_frame >= 0, 'The live button progress is invalid.');
+        document.body.dataset.sampledRendererFrame = String(message.sampled_renderer_frame);
+        document.body.dataset.buttonPollCount = String(message.poll_count);
+        active.buttonReady = message.active === 1 && message.poll_count > 0;
+        liveButton.disabled = !active.buttonReady;
+        liveButton.hidden = liveHelp.hidden = false;
+    }
+    else if (message.type === 'button_request_status') {
+        requireCondition(configuration.options.live_button_capture && Number.isSafeInteger(message.sequence) &&
+            typeof message.accepted === 'boolean', 'The live button response is invalid.');
+        document.body.dataset.buttonRequestSequence = String(message.sequence);
+        document.body.dataset.buttonRequestAccepted = String(message.accepted);
+    }
+    else if (message.type === 'button_capture_ended') hideButton();
     else if (message.type === 'capture_failed') throw new Error(message.message);
     else if (message.type === 'capture_manifest') {
+        hideButton();
         requireCondition(!active.manifest, 'The capture manifest was repeated.');
         active.manifest = message;
         if (configuration.options.audio_capture) {
@@ -155,7 +230,9 @@ async function receive(active, message) {
         clearTimeout(active.watchdog);
         active.worker.terminate();
         session = undefined;
-        status.textContent = active.screens ? 'Captured startup frame. Preview complete.' : 'Startup capture complete.';
+        status.textContent = configuration.options.live_button_capture ?
+            'Captured the live input frame. Preview complete.' :
+            active.screens ? 'Captured startup frame. Preview complete.' : 'Startup capture complete.';
         button.textContent = 'Run preview';
         input.disabled = false;
         button.disabled = false;
@@ -165,6 +242,7 @@ async function receive(active, message) {
 }
 
 input.addEventListener('change', () => {
+    hideButton();
     discardAudio();
     error.hidden = true;
     button.disabled = !configuration || input.files.length !== 1;
@@ -177,6 +255,7 @@ form.addEventListener('submit', async event => {
     let active;
     try {
         discardAudio();
+        hideButton();
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
         requireCondition(file.size === configuration.inputs.dump.expected_bytes,
@@ -188,11 +267,13 @@ form.addEventListener('submit', async event => {
         status.textContent = 'Loading the local replay…';
         document.body.dataset.captureState = 'loading';
         delete document.body.dataset.captureIdentifier;
+        for (const key of ['sampledRendererFrame', 'buttonPollCount', 'buttonRequestSequence', 'buttonRequestAccepted'])
+            delete document.body.dataset[key];
         for (const canvas of document.querySelectorAll('canvas')) canvas.hidden = true;
         document.querySelector('.screen-placeholder').hidden = false;
         document.querySelector('.preview').classList.remove('has-frame');
         const identifier = `capture_${crypto.randomUUID().replaceAll('-', '')}`;
-        active = {identifier, abort: new AbortController()};
+        active = {identifier, abort: new AbortController(), buttonSequence: 0, buttonHeld: 0, buttonReady: false};
         session = active;
         active.watchdog = setTimeout(() => { if (session === active)
             reportFailure('The preview timed out. Run it again or check the local capture logs.'); },
@@ -245,7 +326,9 @@ try {
     requireCondition(response.ok, 'The local preview configuration could not be loaded.');
     configuration = await response.json();
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
-    if (configuration.options.presentation_limit === null)
+    if (configuration.options.live_button_capture)
+        document.querySelector('#preview-note').textContent = 'Hold A during this finite input capture. The screens and recorded sound arrive when it ends. Continuous gameplay is still in progress.';
+    else if (configuration.options.presentation_limit === null)
         document.querySelector('#preview-note').textContent = 'This startup check captures the first GPU submission. Use the frame preview to see the game screens.';
     else if (configuration.options.audio_capture)
         document.querySelector('#preview-note').textContent = 'This preview replays recorded menu input and stops at a captured frame. You can then play its recorded sound. Live controls and continuous sound are still in progress.';

@@ -87,7 +87,9 @@ def main():
         protected[str(original_root / relative)] = expected
     entry_source = ROOT / "runtime/port/browser/BrowserExecutionEntry.cpp"
     identity_source = ROOT / "runtime/port/browser/BrowserInputIdentity.cpp"
-    for source in (entry_source, identity_source, Path(__file__).resolve()):
+    button_source = ROOT / "runtime/port/browser/BrowserButtonInput.cpp"
+    button_header = ROOT / "runtime/port/browser/BrowserButtonInput.h"
+    for source in (entry_source, identity_source, button_source, button_header, Path(__file__).resolve()):
         protected[str(source)] = digest(source)
     for name, expected in manifest["licenses"].items():
         notice = platform / "licenses" / name
@@ -155,9 +157,12 @@ def main():
     main_object = output / "AzaharCompiledExecution.o"
     entry_object = output / "BrowserExecutionEntry.o"
     identity_object = output / "BrowserInputIdentity.o"
+    button_object = output / "BrowserButtonInput.o"
     run([compiler, *flags, "-Dmain=RunStaticCompiledExecution",
          "-c", ROOT / "runtime/port/AzaharCompiledExecution.cpp", "-o", main_object])
     run([compiler, *flags, "-c", entry_source, "-o", entry_object])
+    button_flags = [flag for flag in flags if flag != "-w"]
+    run([compiler, *button_flags, "-Wall", "-Wextra", "-Werror", "-c", button_source, "-o", button_object])
     identity_flags = [flag for flag in flags if flag != "-w"]
     run([compiler, *identity_flags, "-Wall", "-Wextra", "-Werror",
          f"-I{platform / 'azahar_source/externals/libressl/include'}", f"-I{build / 'include'}",
@@ -175,15 +180,17 @@ def main():
             path = Path(token)
             token = str((path if path.is_absolute() else link_directory / path).resolve())
         browser_link.append(token)
-    browser_link += [str(main_object), str(entry_object), str(identity_object),
+    browser_link += [str(main_object), str(entry_object), str(identity_object), str(button_object),
                      "-sENVIRONMENT=worker", "-sMODULARIZE=1", "-sEXPORT_ES6=1",
                      "-sEXPORT_NAME=createStaticPortModule", "-sINVOKE_RUN=0", "-sFILESYSTEM=1",
-                     "-lworkerfs.js", "-sEXPORTED_FUNCTIONS=['_main','_BrowserInputIdentityValidateSha256']",
+                     "-lworkerfs.js", "-sEXPORTED_FUNCTIONS=['_main','_BrowserInputIdentityValidateSha256',"
+                     "'_BrowserButtonInputSetHeldState','_BrowserButtonInputIsActive',"
+                     "'_BrowserButtonInputPollCount','_BrowserButtonInputRendererFrame']",
                      "-sEXPORTED_RUNTIME_METHODS=['FS','WORKERFS','ENV','callMain','ccall']",
                      "-sINCOMING_MODULE_JS_API=['noInitialRun','preRun','locateFile','print','printErr','onExit','onAbort','thisProgram']",
                      "-o", str(module)]
     # The main and identity objects must precede their static providers.
-    objects = [str(main_object), str(entry_object), str(identity_object)]
+    objects = [str(main_object), str(entry_object), str(identity_object), str(button_object)]
     browser_link = [browser_link[0], *objects, *[token for token in browser_link[1:] if token not in objects]]
     run(browser_link)
     notices = output / "licenses"
@@ -201,6 +208,7 @@ def main():
                "reproduced_platform_wasm_sha256": digest(reproduced_wasm),
                "browser_entry_source_sha256": digest(entry_source),
                "input_identity_source_sha256": digest(identity_source), "protected_inputs": protected,
+               "button_input_source_sha256": digest(button_source), "button_input_header_sha256": digest(button_header),
                "licenses": manifest["licenses"],
                "commands": commands, "module": str(module), "module_sha256": digest(module),
                "wasm": str(wasm), "wasm_sha256": digest(wasm), "wasm_bytes": wasm.stat().st_size,
