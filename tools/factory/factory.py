@@ -61,10 +61,15 @@ CANDIDATE_BRANCH = "integration-candidate"
 BUILD_INPUTS = ("Game", "lib", "data/config.json")
 EASTERN = datetime.timezone(datetime.timedelta(hours=-4))
 
+# A miss moves a job to its tier's "next"; with none, the job fails and becomes a GPT-6 Pro packet.
 TIERS = {
-    1: {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60},
-    2: {"model": "gpt-6.1-sol", "effort": "xhigh", "attempts": 8, "timeout": 15 * 60},
+    1: {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60, "next": 2},
+    2: {"model": "gpt-6.1-sol", "effort": "xhigh", "attempts": 8, "timeout": 15 * 60, "next": None},
+    # Functions of 256 to 511 bytes (owner, 2026-10-02), in their own reserved slot.
+    3: {"model": "gpt-6.1-sol", "effort": "xhigh", "attempts": 8, "timeout": 20 * 60, "next": None},
 }
+BAND_TIER = 3
+BAND_BYTES = (256, 512)
 # Model settings for single-function trials. A trial never escalates or fails a job; misses go back to the queue.
 TRIAL_SETTINGS = {
     "sol-high": {"model": "gpt-6.1-sol", "effort": "high", "attempts": 5, "timeout": 10 * 60},
@@ -72,10 +77,11 @@ TRIAL_SETTINGS = {
     "luna-max": {"model": "gpt-6-luna", "effort": "max", "attempts": 5, "timeout": 10 * 60},
 }
 SIZE_BUCKETS = ((0, 32), (32, 64), (64, 128), (128, 256))
-# Brief rule 12 allows 8 lanes, compiles included: 4 worker slots, the integrator's own builds, the root with one
-# subagent, and the Pro relay.
-MAXIMUM_SLOTS = 4
+# Worker slots are not capped by brief rule 12 (owner, 2026-10-02): the swap guard runs as many as the Mac holds.
+SLOT_THREADS = 10
+STARTING_SLOTS = 4
 SWAP_PAGES_PER_FIVE_MINUTES = 2048
+QUIET_SECONDS_BEFORE_ADDING_A_SLOT = 15 * 60
 NO_MATCH_HALT_RUNS = 50
 MAXIMUM_PERIODIC_DEMOTIONS = 5
 MINIMUM_FREE_DISK_BYTES = 5 * 1024 ** 3
@@ -87,6 +93,10 @@ SUBMISSIONS = INTEGRATOR_EXCHANGE / "submissions"
 SUBMISSION_RESULTS = INTEGRATOR_EXCHANGE / "results"
 PRO_QUEUE = INTEGRATOR_EXCHANGE / "pro_queue"
 PRO_ANSWERS = INTEGRATOR_EXCHANGE / "pro_answers"
+PORT_STATUS = INTEGRATOR_EXCHANGE / "port_status.json"
+PORT_MILESTONES = (
+    "Static recompiler builds natively and reaches the first frame's GPU command stream, matching Azahar",
+    "Rendering", "Input", "Audio", "World 1-1", "Browser build")
 SUBMISSION_PREFIXES = ("root/", "dot/", "integrator/")
 # The oracle (brief rule 2): a lane's change to these waits for the operator's review.
 ORACLE_PATHS = ("tools/check.py", "tools/diff.py", "tools/progress.py", "tools/low/", "tools/asm-differ")
@@ -733,7 +743,7 @@ class Supervisor:
     """slot_specs: {name: {"index": n, "tiers": [..], "kinds": [..] or None, "buckets": [(low, high)] or None,
     "settings": TIERS override or None, "trial": label or None, "trial_queue": queue.Queue or None}}."""
 
-    def __init__(self, slot_specs):
+    def __init__(self, slot_specs, starting_slots=0):
         self.database = connect()
         self.slot_specs = slot_specs
         self.integration_queue = queue.Queue()
@@ -748,8 +758,8 @@ class Supervisor:
         self.last_pushed = remote_target()
         self.last_checked = None
         self.consecutive_misses = 0
-        self.maximum_slots = len([s for s in slot_specs.values() if not s.get("trial")]) or len(slot_specs)
-        self.allowed_slots = self.maximum_slots
+        self.maximum_slots = len(slot_specs)
+        self.allowed_slots = min(self.maximum_slots, starting_slots or self.maximum_slots)
         self.swap_samples = []
         self.last_slot_change = time.time()
 
@@ -797,6 +807,10 @@ class Supervisor:
                 if spec.get("buckets"):
                     query += " AND (" + " OR ".join("(body_bytes >= ? AND body_bytes < ?)" for _ in spec["buckets"]) + ")"
                     parameters += [bound for bucket in spec["buckets"] for bound in bucket]
+                if spec.get("leave_small_singles"):
+                    # Those tier 1 jobs belong to the Luna slot; they reach Sol only after Luna misses (tier 2).
+                    query += " AND NOT (tier = 1 AND kind = 'single' AND body_bytes < ?)"
+                    parameters.append(spec["leave_small_singles"])
                 candidates = self.database.execute(query + " ORDER BY priority DESC LIMIT 50", parameters).fetchall()
                 for job in candidates:
                     addresses = [int(a, 16) for a in job["addresses"].split(",")]
@@ -826,6 +840,8 @@ class Supervisor:
             log_event(self.database, "error", f"{slot}: workspace setup failed: {error}")
             return
         while not self.stopping and not self.halted:
+            if spec.get("trial_queue") is not None and spec["trial_queue"].empty():
+                break
             if spec["index"] >= self.allowed_slots:
                 time.sleep(30)
                 continue
@@ -918,9 +934,9 @@ class Supervisor:
         elif (job["note"] or "").startswith("pro:"):
             execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=?, note='pro tried' WHERE id=?",
                     (remaining_text, time.time(), job["id"]))
-        elif job["tier"] < max(TIERS):
+        elif TIERS[job["tier"]]["next"]:
             execute(self.database, "UPDATE jobs SET status='open', tier=?, addresses=?, leased_by=NULL WHERE id=?",
-                    (job["tier"] + 1, remaining_text, job["id"]))
+                    (TIERS[job["tier"]]["next"], remaining_text, job["id"]))
         else:
             execute(self.database, "UPDATE jobs SET status='failed', addresses=?, finished_at=? WHERE id=?",
                     (remaining_text, time.time(), job["id"]))
@@ -982,8 +998,9 @@ class Supervisor:
                 job = self.database.execute("SELECT * FROM jobs WHERE status='failed' AND addresses LIKE ? AND note != 'pro tried'",
                                             (f"{match[1]}%",)).fetchone()
             if job:
+                tier = BAND_TIER if job["body_bytes"] >= BAND_BYTES[0] else 2
                 execute(self.database, "UPDATE jobs SET status='open', tier=?, priority=9000000, note=? WHERE id=?",
-                        (max(TIERS), f"pro:{kept}", job["id"]))
+                        (tier, f"pro:{kept}", job["id"]))
                 log_event(self.database, "pro", f"job {job['id']} reopened with Pro's answer {answer.name}")
 
     # integration ---------------------------------------------------------
@@ -1190,13 +1207,15 @@ class Supervisor:
         unknown = [claim for claim, address in addresses.items() if address is None or "f" not in rows[address]["type"]]
         if unknown:
             return {"outcome": "rejected", "reason": f"not function symbols in map.csv: {unknown[:10]}"}
-        flips = {addresses[claim]: ("M", claim) for claim in claims + nonmatching if rows[addresses[claim]]["rank"] != "O"}
+        # Rows enter the build at M; rows already at M or O need nothing.
+        flips = {addresses[claim]: ("M", claim) for claim in claims + nonmatching
+                 if rows[addresses[claim]]["rank"] not in ("O", "M")}
         if flips:
             set_map_rows(INTEGRATION, flips)
             git(INTEGRATION, "add", "--", str(MAP))
             git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate ranks for submission {name}, not verified")
         checked = git(INTEGRATION, "rev-parse", "HEAD")
-        if build_inputs_equal(base_main, checked) and str(MAP) not in changed and not flips:
+        if build_inputs_equal(base_main, checked) and str(MAP) not in changed and not flips and not claims:
             if not self.move(merged, base_main, f"factory: accept submission {name} (no build input changes)"):
                 return {"outcome": "rejected", "reason": "main moved outside the integrator"}
             return {"outcome": "accepted", "main": merged, "matched": [], "matched_bytes": 0, "checked": "no build inputs changed"}
@@ -1224,6 +1243,12 @@ class Supervisor:
         matched_bytes = sum(rows[addresses[claim]]["end"] - rows[addresses[claim]]["start"] for claim in matched)
         git(INTEGRATION, "add", "--", str(MAP), "project/ledger.csv")
         git(INTEGRATION, "reset", "-q", "--soft", merged)
+        if subprocess.run(["git", "-C", str(INTEGRATION), "diff", "--cached", "--quiet"]).returncode == 0:
+            # Nothing to record: no claims or non-matching rows. The checked merge itself is the final commit.
+            git(INTEGRATION, "reset", "-q", "--hard", merged)
+            if not self.move(merged, base_main, f"factory: accept submission {name}"):
+                return {"outcome": "rejected", "reason": "main moved outside the integrator"}
+            return {"outcome": "accepted", "main": merged, "matched": [], "matched_bytes": 0}
         git(INTEGRATION, "commit", "-q", "-m",
             f"Accept submission {name} from {branch}: {len(matched)} exact, {len(nonmatching)} non-matching\n\n"
             + "".join(f"- {s}\n" for s in matched) + (f"\n{request.get('summary', '')}\n" if request.get("summary") else "")
@@ -1309,7 +1334,7 @@ class Supervisor:
 
     # main loop -----------------------------------------------------------
     def adjust_slots(self):
-        """Run as many slots as the Mac holds without swapping: drop one on swap-outs, add one back after 30 quiet minutes."""
+        """Run as many slots as the Mac holds without swapping: drop one on swap-outs, add one after 15 quiet minutes."""
         now = time.time()
         self.swap_samples = [(t, o) for t, o in self.swap_samples if t >= now - 1800] + [(now, swap_outs())]
         recent = [o for t, o in self.swap_samples if t >= now - 300]
@@ -1317,11 +1342,11 @@ class Supervisor:
             self.allowed_slots -= 1
             self.last_slot_change = now
             log_event(self.database, "slots", f"swapping ({recent[-1] - recent[0]} pages in 5 min); allowed slots now {self.allowed_slots}")
-        elif (self.allowed_slots < self.maximum_slots and now - self.last_slot_change > 1800
-              and self.swap_samples[-1][1] - self.swap_samples[0][1] == 0):
+        elif (self.allowed_slots < self.maximum_slots and now - self.last_slot_change > QUIET_SECONDS_BEFORE_ADDING_A_SLOT
+              and self.swap_samples[-1][1] - min(o for t, o in self.swap_samples if t >= now - QUIET_SECONDS_BEFORE_ADDING_A_SLOT) == 0):
             self.allowed_slots += 1
             self.last_slot_change = now
-            log_event(self.database, "slots", f"no swapping for 30 min; allowed slots now {self.allowed_slots}")
+            log_event(self.database, "slots", f"no swapping for 15 min; allowed slots now {self.allowed_slots}")
 
     def run(self, until_idle=False):
         STOP_FILE.unlink(missing_ok=True)
@@ -1478,7 +1503,7 @@ def write_status(supervisor=None):
     if supervisor:
         for name, spec in sorted(supervisor.slot_specs.items(), key=lambda item: item[1]["index"]):
             info = supervisor.active.get(name)
-            slots.append({"slot": name, "enabled": spec["index"] < supervisor.allowed_slots,
+            slots.append({"slot": name, "role": spec.get("role") or spec.get("trial") or "", "enabled": spec["index"] < supervisor.allowed_slots,
                           "job": info["job"] if info else None, "model": info["model"] if info else None,
                           "effort": info["effort"] if info else None, "functions": info["count"] if info else None,
                           "bytes": info["bytes"] if info else None,
@@ -1496,6 +1521,7 @@ def write_status(supervisor=None):
         "alerts": [{"time": clock(e["time"]), "kind": e["kind"], "text": e["text"]} for e in alerts],
         "events": [{"time": clock(e["time"]), "kind": e["kind"], "text": e["text"]} for e in events],
         "halt_all": HALT_ALL_FILE.read_text().strip() if HALT_ALL_FILE.exists() else "",
+        "port": port_status(total),
     }
     STATUS_JSON.write_text(json.dumps(status, indent=1) + "\n")
     lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", "",
@@ -1521,6 +1547,77 @@ def write_status(supervisor=None):
     lines += ["", "## Recent events", ""] + [f"- {clock(e['time'])} {e['kind']}: {e['text']}" for e in events]
     STATUS_FILE.write_text("\n".join(lines) + "\n")
     return STATUS_FILE.read_text()
+
+
+def port_status(total_code_bytes):
+    """Port milestones and recompiled share, from the file root keeps in .integrator/port_status.json."""
+    reported = {}
+    try:
+        reported = json.loads(PORT_STATUS.read_text())
+    except (OSError, ValueError):
+        pass
+    states = {m.get("number"): m for m in reported.get("milestones", []) if isinstance(m, dict)}
+    milestones = [{"number": n, "name": name, "state": states.get(n, {}).get("state", "not started"),
+                   "evidence": states.get(n, {}).get("evidence", "")} for n, name in enumerate(PORT_MILESTONES, start=1)]
+    recompiled = reported.get("recompiled_bytes", 0) or 0
+    return {"milestones": milestones, "recompiled_bytes": recompiled,
+            "percent_recompiled": round(recompiled / total_code_bytes * 100, 3) if total_code_bytes else 0,
+            "updated": reported.get("updated", "")}
+
+
+def command_extend(arguments):
+    """Add jobs for unmatched functions in a size band that the queue does not cover yet."""
+    database = connect()
+    code = read_code()
+    rows = target_rows()
+    queued = set()
+    for (addresses,) in database.execute("SELECT addresses FROM jobs").fetchall():
+        queued |= {int(a, 16) for a in addresses.split(",") if a}
+    members_by_body = collections.defaultdict(list)
+    for row in rows:
+        size = row["end"] - row["start"]
+        if row["type"] == "f" and arguments.minimum <= size < arguments.maximum:
+            members_by_body[normalized_body(code, row)].append(row)
+    jobs = []
+    for members in members_by_body.values():
+        open_members = [r for r in members if r["rank"] == "U" and r["start"] not in queued]
+        if not open_members:
+            continue
+        matched = [r for r in members if r["rank"] == "O"]
+        size = members[0]["end"] - members[0]["start"]
+        sibling = default_name(matched[0]) if matched else ""
+        for i in range(0, len(open_members), GROUP_CHUNK):
+            chunk = open_members[i:i + GROUP_CHUNK]
+            kind = "group" if len(chunk) > 1 else "single"
+            total = size * len(chunk)
+            priority = 3_000_000 + total if sibling else (2_000_000 + total if kind == "group" else 1_000_000 - size)
+            jobs.append((kind, ",".join("%08X" % r["start"] for r in chunk), size, total, arguments.tier, priority, sibling))
+    with DATABASE_LOCK:
+        database.executemany(
+            "INSERT INTO jobs (kind, addresses, body_bytes, total_bytes, tier, priority, status, sibling)"
+            " VALUES (?,?,?,?,?,?,'open',?)", jobs)
+        database.commit()
+    print(f"{len(jobs)} jobs covering {sum(len(j[1].split(',')) for j in jobs)} functions, {sum(j[3] for j in jobs)} bytes,"
+          f" tier {arguments.tier}; {dict(collections.Counter(j[0] for j in jobs))}")
+
+
+def production_slot_specs(count, luna_single_bytes, group_only):
+    """s1 is reserved for the 256-511 byte band; then Sol on the small queue, one Sol slot that prefers tier 2,
+    one Luna slot for small singles, and further Sol slots. The swap guard pauses the highest-numbered slots first."""
+    kinds = ["group"] if group_only else None
+    roles = ["band", "tier1", "tier2", "luna" if luna_single_bytes and not group_only else "tier1"]
+    roles += ["tier1"] * max(0, count - len(roles))
+    specs = {}
+    for index, role in enumerate(roles[:count]):
+        if role == "band":
+            spec = {"tiers": [BAND_TIER], "kinds": kinds}
+        elif role == "luna":
+            spec = {"tiers": [1], "kinds": ["single"], "buckets": [(0, luna_single_bytes)],
+                    "settings": TRIAL_SETTINGS["luna-medium"]}
+        else:
+            spec = {"tiers": [2, 1] if role == "tier2" else [1, 2], "kinds": kinds, "leave_small_singles": luna_single_bytes}
+        specs[f"s{index + 1}"] = dict(spec, index=index, role=role)
+    return specs
 
 
 def command_submit(arguments):
@@ -1559,9 +1656,15 @@ def main():
     init = commands.add_parser("init")
     init.add_argument("--force", action="store_true")
     run = commands.add_parser("run")
-    run.add_argument("--slots", type=int, default=MAXIMUM_SLOTS, help="worker slots, at most MAXIMUM_SLOTS")
-    run.add_argument("--tier-two-slots", type=int, default=1, help="slots that take tier 2 jobs before tier 1")
+    run.add_argument("--slots", type=int, default=SLOT_THREADS, help="slot threads; the swap guard decides how many run")
+    run.add_argument("--start-slots", type=int, default=STARTING_SLOTS, help="slots allowed at start")
     run.add_argument("--group-only", action="store_true", help="never lease single-function jobs")
+    run.add_argument("--luna-single-bytes", type=int, default=0,
+                     help="give tier 1 single-function jobs under this size to one Luna medium slot (0: no Luna)")
+    extend = commands.add_parser("extend")
+    extend.add_argument("--minimum", type=int, default=BAND_BYTES[0])
+    extend.add_argument("--maximum", type=int, default=BAND_BYTES[1])
+    extend.add_argument("--tier", type=int, default=BAND_TIER)
     trial = commands.add_parser("trial")
     trial.add_argument("--plan", required=True, help="label:jobs:maximum_bytes,... with labels from TRIAL_SETTINGS")
     trial.add_argument("--slots-per-label", type=int, default=2)
@@ -1590,11 +1693,10 @@ def main():
     if arguments.command == "init":
         command_init(arguments)
     elif arguments.command == "run":
-        count = min(arguments.slots, MAXIMUM_SLOTS)
-        kinds = ["group"] if arguments.group_only else None
-        specs = {f"s{i + 1}": {"index": i, "tiers": [2, 1] if i < arguments.tier_two_slots else [1, 2], "kinds": kinds}
-                 for i in range(count)}
-        Supervisor(specs).run()
+        specs = production_slot_specs(arguments.slots, arguments.luna_single_bytes, arguments.group_only)
+        Supervisor(specs, starting_slots=arguments.start_slots).run()
+    elif arguments.command == "extend":
+        command_extend(arguments)
     elif arguments.command == "trial":
         command_trial(arguments)
     elif arguments.command == "trial-report":
