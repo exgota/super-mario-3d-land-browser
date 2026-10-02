@@ -6077,7 +6077,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00211F48,0x00212084,0x0021209C,          ,U,f,__mathlib_rredf2,
 0x0021209C,0x002120A8,0x002120AC,          ,U,f,__mathlib_flt_underflow,
 0x002120AC,          ,0x002120D8,          ,U,f,__ARM_fpclassifyf,
-0x002120D8,          ,0x002120E8,          ,U,f,__read_errno,
+0x002120D8,          ,0x002120E8,          ,O,f,__read_errno,
 0x002120E8,          ,0x002120FC,          ,U,f,__set_errno,
 0x002120FC,          ,0x00212104,          ,U,f,,
 0x00212104,          ,0x0021215C,          ,U,f,,
