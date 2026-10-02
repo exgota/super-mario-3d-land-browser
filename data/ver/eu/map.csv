@@ -189,7 +189,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001054BC,0x00105660,0x00105670,          ,U,f,_ZN2nn2fs3CTR6MPCore6detail7OpenRomEPPNS3_8IArchiveEjjPvjb,
 0x00105670,0x0010567C,0x00105680,          ,U,f,_ZN2nn2fs6detail28RegisterGlobalFileSystemBaseERNS1_14FileSystemBaseE,
 0x00105680,          ,0x0010568C,          ,U,f,_ZN2nn2gr3CTR6Vertex9AttrConstC2Ev,
-0x0010568C,          ,0x00105698,          ,U,f,_ZN2nn2gr3CTR6Vertex9LoadArrayC2Ev,
+0x0010568C,          ,0x00105698,          ,O,f,_ZN2nn2gr3CTR6Vertex9LoadArrayC2Ev,
 0x00105698,          ,0x0010569C,          ,U,f,_ZN2nn2gr3CTR8Combiner5StageC2Ev,
 0x0010569C,          ,0x001056A0,          ,O,f,_ZN2nn3cfg3CTR6detail9GetConfigEPvjj,
 0x001056A0,0x001056E0,0x001056E8,          ,U,f,,
