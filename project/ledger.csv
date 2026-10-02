@@ -730,3 +730,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-01T18:56:07-04:00,0x00156758,_ZN15BeatBlockHolder4initERKN2al13ActorInitInfoE,abandoned,6,8.0195
 2026-10-02T00:11:52.904631+00:00,0x001217E8,_ZN10RailDotEnd4initERKN2al13ActorInitInfoE,matched,2,4.564399
 2026-10-02T00:11:52.904631+00:00,0x00313464,_ZN7RailDot4initERKN2al13ActorInitInfoE,matched,2,4.576599
+2026-10-02T00:11:52.904631+00:00,0x00369744,_ZNK2al19NrvRailMoveMovement23RailMoveMovementNrvMove7executeEPNS_11NerveKeeperE,matched,3,4.729965
