@@ -5,6 +5,7 @@
 #include <vector>
 #include "core/arm/arm_interface.h"
 #include "GuestMemoryTrace.h"
+#include "NativeBlockSchedule.h"
 #include "recomp.h"
 
 namespace Kernel { class SVCContext; }
@@ -40,7 +41,7 @@ public:
     void PrepareReschedule() override;
     bool HasSingleInstructionBreakAccuracy() override { return false; }
     void ChargeBlock(u32 address, u32 instructions, u64 ticks);
-    u64 InstructionsExecuted() const { return instructions_executed; }
+    u64 InstructionsExecuted() const { return schedule->Instructions(); }
 protected:
     std::shared_ptr<Memory::PageTable> GetPageTable() const override;
 private:
@@ -65,8 +66,7 @@ private:
     u32 fpscr = 0, fpexc = 0, cpsr_control = 0x10;
     bool reschedule = false;
     std::vector<u8*> callback_pages;
-    u64 instructions_executed = 0;
-    u64 supervisor_ticks = 0;
+    std::unique_ptr<NativeBlockSchedule> schedule;
     u32 current_instruction = 0;
     std::shared_ptr<GuestMemoryTrace> trace;
     static const Host callbacks;

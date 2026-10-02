@@ -1,15 +1,23 @@
-# Root Azahar floating-point control lane state
+# Root port runtime state
 
-Owner priority: browser demo, then 100% byte exact. Root works only on port runtime, with at most one subagent. Only the integrator changes main, ranks and ledger. All game data, generated translations, captures and downloaded tools stay ignored.
+Owner priority is the browser demo, then byte exact. Root works only on port runtime and has one helper maximum. Only the integrator moves main/ranks/ledger. Generated code, timing tables, captures and tools stay ignored.
 
-This branch, root/azahar-floating-point-control, starts at main 3d176287. Root owns the source-only Azahar ARM64 guest-to-host floating-point control correction and its reproduction/evidence documents. The single helper verifies it against original ARM execution and stable first-swap captures. It must leave the settled shared oracle source and historical captures intact.
+## Current ownership and submissions
 
-Accepted source families: heap layout 8126842; runtime draw order ab98515; static recompiler 8ad4868; Azahar reference 6c30c2d; floating-point helpers a8cb16ae. No matching credit is added by these port families. Calendar section proposal was rejected because the constructor is not exact.
+This root/native-block-scheduling family starts from main 00986a9698620c3e92aa62d3ccda72907552928f. It owns the generation-time block schedule, native scheduling adapter, bounded stock/native observation tools and platform evidence. No matching build input changes or exact-function claims. The finished family is submitted under root/native-block-scheduling with no claims. Check .integrator/results/ for its verdict and never resubmit while pending.
 
-Native platform checkpoint root-azahar-static-platform-8ddc8cad4 is submitted and pending. Do not resubmit it. It reaches the first top-screen swap through compiled C, 226,970,847 guest instructions, zero interpreter/JIT fallbacks, 2,437,712 linked translated bytes. Strict comparison remains false: 18 PICA words and event ticks differ.
+Root/azahar-static-platform was accepted at c1b16b46. Root/azahar-floating-point-control was accepted at 00bbfb2f. Both have zero matching credit. The earlier calendar placement proposal was rejected because the constructor claim was not exact; root is now port-only. Main moves solely through the integrator.
 
-The rounding discrepancy is now isolated to pinned Dynarmic's ARM64 host FPSCR propagation. The diagnostic stock run produces the differing viewport values under the same guest FPSCR as native, with raw capture strictly equal to the historical stock reference. A controlled sequence changing guest rounding within one Run preserves the old host mode; a fresh Run uses the requested mode and agrees with original Unicorn. The candidate public-source correction updates host FPCR when guest VMSR updates the guest control register.
+## Observed checkpoint
 
-The final published probe and parent verifier pass all 96 corrected cases with zero result/status/host-control differences and zero fallback. Two corrected stock replays match strictly; every native PICA byte now matches. The full audit measured 16 historical word differences, correcting the prior 18 estimate. Exactly 473 native event tick values still differ.
+Port milestone 1 passes: two fresh native replays match all 528 reference events including ticks, all eight PICA lists/79,936 bytes, complete first top-screen swap and zero Movie errors. Native CPU0 executes 226,978,430 instructions; CPU1 executes zero; neither has interpreter/JIT fallback. Linked coverage remains 2,437,712 original function instruction bytes. Seven independent stock scheduling controls and startup/2,048 integer/4,105 priority/88,064 floating-point controls pass. See project/native_block_scheduling_evidence.md and ignored build/scheduled_capture_2_comparison.json, scheduled_capture_3_comparison.json and scheduled_capture_final_repeat_comparison.json in this worktree.
 
-Next: submit this verified correction family with no claims. Keep historical reference data and failures. Then resolve basic-block scheduling and proceed to rendering. Milestone 1 remains in progress; 2 through 6 are not started. No owner question blocks this evidence-backed runtime correction.
+The boundary is startup through SetBufferSwap, not a visibly presented frame. Rendering, input, audio, World 1-1 and browser milestones remain unverified. Only the clean priority source is registered natively; other rank-O bindings are incomplete. Logical cache visitation and the atomic priority scheduling adapter have explicit limits.
+
+## Next three tasks
+
+1. Submit this finished family, then capture and compare native/reference rendered framebuffers at a meaningful present boundary. Begin milestone 2 on root/<topic> from main.
+2. Build accepted-source guest-address lowering and a fail-closed per-address binding inventory. Pro's native-decompiled-function-abi answer is a proposal, not a verified compiler implementation.
+3. Advance input, audio, World 1-1 differential replay and the browser runtime in milestone order. Keep .integrator/port_status.json current with rerunnable evidence. Preserve failed captures and clean only root-owned scratch.
+
+No owner question blocks the work. One helper audited metadata and investigates public rendering APIs. Acceptance/merge-gate duties remain with the integrator. No accepted matching bytes are attributed to these port-only families.

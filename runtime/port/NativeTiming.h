@@ -7,6 +7,7 @@ extern "C" {
 #endif
 typedef void (*NativeBlockTimingCallback)(Context*, uint32_t, uint32_t, uint64_t);
 extern RECOMP_EXPORT NativeBlockTimingCallback native_block_timing_callback;
+extern RECOMP_EXPORT const uint32_t native_timing_revision;
 #ifdef __cplusplus
 }
 #endif
@@ -42,7 +43,10 @@ static inline uint64_t NativeConditionalTicks(const Context* context, uint32_t c
     if (UNLIKELY(ctx->budget < (int32_t)(count))) { \
         ctx->r[15] = (address); ctx->exit = EXIT_BUDGET; return; \
     } \
+    if (native_block_timing_callback) { \
+        native_block_timing_callback(ctx, (address), (count), (ticks)); \
+        if (UNLIKELY(ctx->exit != EXIT_NONE)) return; \
+    } \
     ctx->budget -= (count); \
-    if (native_block_timing_callback) native_block_timing_callback(ctx, (address), (count), (ticks)); \
 } while (0)
 #endif
