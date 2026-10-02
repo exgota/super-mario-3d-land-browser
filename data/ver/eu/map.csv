@@ -8529,7 +8529,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026B204,          ,0x0026B230,          ,O,f,_ZN4sead10ReadStream6readU8ERh,
 0x0026B230,          ,0x0026B25C,          ,O,f,_ZN4sead10ReadStream6readS8ERa,
 0x0026B25C,0x0026B410,0x0026B42C,          ,U,f,,
-0x0026B42C,          ,0x0026B434,          ,U,f,,
+0x0026B42C,          ,0x0026B434,          ,O,f,fn_0026B42C,
 0x0026B434,          ,0x0026B494,          ,U,f,,
 0x0026B494,          ,0x0026B4C0,          ,U,f,,
 0x0026B4C0,          ,0x0026B4CC,          ,U,f,,
