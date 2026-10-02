@@ -1,0 +1,2082 @@
+{
+  "started": "2026-10-02T00:00:21.782759+00:00",
+  "frozen_base": "b16e2a0cc32e0cdacac5ba94feabe67432433391",
+  "baseline_checkout": "/workspace/scratch/73cdb2c524af/mario-tree-b16-family",
+  "baseline_head": "1454120a760becbea77c2629f160f807355669c7",
+  "candidate_checkout": "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck",
+  "candidate_source_head": "f0dc655ebd39f80b7fa6a71c5054574395317613",
+  "map_sha256": "e77614ca3a67b34978ecbeb88fcaf668b5b0a181c0af62baec2bf5f3925faee5",
+  "target_sha256": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+  "phases": {
+    "baseline": {
+      "objects": [
+        {
+          "object": "build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+          "object_sha256": "6a3c31a3be9ac98a995ba26446d3d4733650665e2bafaa4c7e2a649e9f3b36b0",
+          "dependency_sha256": "ca7bc72a0cca7cb073e69e79d7194f69753f45cfc2a99ed0f7503d909ab134c3",
+          "provenance_sha256": "ce446b9fd9fcf9fdf111454caf1dc2fc6edd16d134bc972219327517260edffc",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-tree-b16-family/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alCollisionUtil.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/build/eu/obj/lib/al/src/Collision/alCollisionUtil.d",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/al/src/Collision/alCollisionUtil.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Audio/alAudioKeeper.h",
+              "sha256": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "e27c39d1a354b904fde1257f0a70816a1b8e878802f8e51c1f898dc7a44e9f9f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollisionUtil.h",
+              "sha256": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Effect/alEffectKeeper.h",
+              "sha256": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActor.h",
+              "sha256": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFlag.h",
+              "sha256": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveKeeper.h",
+              "sha256": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Stage/alStageSwitchKeeper.h",
+              "sha256": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/src/Collision/alCollisionUtil.cpp",
+              "sha256": "67452aa63eddc5f693dae9b2b5ddbf328d8db1117a81c276fb851769ace0c28a",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadMatrix.h",
+              "sha256": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadQuat.h",
+              "sha256": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": [
+            "_ZN2al16isCollidedGroundEPKNS_9LiveActorE"
+          ]
+        },
+        {
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "object_sha256": "c5aef93b04ea4fe969cddd36db9cca1c637a5fce93a0ff09962bcb72835f4350",
+          "dependency_sha256": "4ebf7cb5713b0d51185a9259991e5a82611e3d5ae200032e7e5abcb9dcc21278",
+          "provenance_sha256": "b7fe58be0d0b07b76efb00fecb57f43ffc14b0e11832baebbde6e2eee55e3db5",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-tree-b16-family/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alLiveActor.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/build/eu/obj/lib/al/src/LiveActor/alLiveActor.d",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/al/src/LiveActor/alLiveActor.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Audio/alAudioKeeper.h",
+              "sha256": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "e27c39d1a354b904fde1257f0a70816a1b8e878802f8e51c1f898dc7a44e9f9f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollisionUtil.h",
+              "sha256": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Effect/alEffectKeeper.h",
+              "sha256": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteDirector.h",
+              "sha256": "9ad974aec48501d135b4766b9c519d98b0782367bb4a39c0102d0ebfa4f84848",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteTableHolder.h",
+              "sha256": "c372ee57ac4eec0b75e212eaf8b2897cf890c3aedd5fc1627bd0c07db435d7d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Functor/alFunctorBase.h",
+              "sha256": "148e911b94f9e70f2dca871827f4215f761bdeb2a8b8bb00852d6554fe848fed",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alHitSensor.h",
+              "sha256": "6e6f511cd27862fbff798abf3240d70bb71f6aaaf19fdc8de0041a2426060f8f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alSensorType.h",
+              "sha256": "6d314743059ec2edff82cbeddfc8a5095b5816a5f7c75355fb95974339cbea30",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorExecuteInfo.h",
+              "sha256": "2d0f34fd737f83553f844f0dcc9c5e267b76744052d9ba1de358eef8ea70354c",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorInitInfo.h",
+              "sha256": "85f4e76719327e5ae1e33b69f06c0fee443613f397bd04bb232467450be9dac9",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorPoseKeeper.h",
+              "sha256": "b7ae48418c39def43ff701ca81857fd7279759d11f289fbde42ea9fc53c982af",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alHitSensorKeeper.h",
+              "sha256": "8cbea99a91ae271a286093ab3a0bdde0c72d5a280b1ff40213b614578cf48e58",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActor.h",
+              "sha256": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFlag.h",
+              "sha256": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFunction.h",
+              "sha256": "d572d752bebc4c5f37571bd1f7a96a8f3e2f5dc7d27721abee641fbd78518233",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorGroup.h",
+              "sha256": "84d0a4c05650bb8209efac90c3164dc59be7de344cb1869a99751fffaaa223d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorKit.h",
+              "sha256": "4ab8281c6b5b83640150ca850fd9d6f922b741ab9092c524bdc9dda2e6ccb74c",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alSubActorFunction.h",
+              "sha256": "49446ccaa10de75db185c3b6aff0af89cee5805d04dd919cb22e31903d1c7a33",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alModelKeeper.h",
+              "sha256": "ae11c07ff61d6c372da372e055650504a2a9c8ba88849cf599197bbc1cf96dbe",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveKeeper.h",
+              "sha256": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Placement/alPlacementInfo.h",
+              "sha256": "654fc0b4e0df90e6320615cd2de35a785e455270a2449b9b649bca92103c73af",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Rail/alRailKeeper.h",
+              "sha256": "b4d841aaf278d6d8b44b8e2a65cede6635d5c4bc0c2e78197edace976258135e",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Stage/alStageSwitchKeeper.h",
+              "sha256": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Yaml/alByamlIter.h",
+              "sha256": "3ceeca89571abeb56431268928af2c13cf412debf7bc751a0b46ffeeabf6a4c4",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/src/LiveActor/alLiveActor.cpp",
+              "sha256": "2cc35623b9312a462ae13a9b744f6488f09dbab9e5521fa5cda0524a8a4aaa5a",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/container/seadPtrArray.h",
+              "sha256": "2c3f93c561da6f13edefd2a44ec318d035885cbeb62bf3c1e8f4bc204f7ab632",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadMatrix.h",
+              "sha256": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadQuat.h",
+              "sha256": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/prim/seadSafeString.h",
+              "sha256": "e1a13277a1e5c3278d9811cd92e7d737caca4d7ae1bc9b604b99a45e3bbd1da7",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": [
+            "_ZN2al9LiveActor10endClippedEv",
+            "_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_",
+            "_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_",
+            "_ZN2al9LiveActor12startClippedEv",
+            "_ZN2al9LiveActor13makeActorDeadEv",
+            "_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE",
+            "_ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE",
+            "_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE",
+            "_ZN2al9LiveActor17makeActorAppearedEv",
+            "_ZN2al9LiveActor18initAfterPlacementEv",
+            "_ZN2al9LiveActor4initERKNS_13ActorInitInfoE",
+            "_ZN2al9LiveActor4killEv",
+            "_ZN2al9LiveActor6appearEv",
+            "_ZN2al9LiveActor7controlEv",
+            "_ZN2al9LiveActor8calcAnimEv",
+            "_ZN2al9LiveActor8movementEv",
+            "_ZN2al9LiveActorC1EPKc",
+            "_ZNK2al9LiveActor10getBaseMtxEv",
+            "_ZNK2al9LiveActor14getAudioKeeperEv",
+            "_ZNK2al9LiveActor14getNerveKeeperEv",
+            "_ZNK2al9LiveActor15getEffectKeeperEv",
+            "_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv",
+            "_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv",
+            "_ZThn4_NK2al9LiveActor15getEffectKeeperEv",
+            "_ZThn8_NK2al9LiveActor14getAudioKeeperEv"
+          ]
+        },
+        {
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "object_sha256": "dede60478c6f0fbc1d0fb2c0e74cb568c6ac2477ecdcaaf46f201698f85b4bf2",
+          "dependency_sha256": "5a640c4a26b093ade8387f40bb829ed303f59e6486ff0aeea5d79b080462a804",
+          "provenance_sha256": "a44c36841813f2d620717e96d5afa7267645e46f2fbe5a580390c569393f48e9",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-tree-b16-family/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alLiveActorFunction.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.d",
+            "/workspace/scratch/73cdb2c524af/mario-tree-b16-family/lib/al/src/LiveActor/alLiveActorFunction.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Audio/alAudioKeeper.h",
+              "sha256": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Clipping/alClippingActorHolder.h",
+              "sha256": "4c1d53cd2eba2918545dd98a6f883062c4eec5f778d12ff2141485eb30f0c8bf",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Clipping/alClippingDirector.h",
+              "sha256": "1931de3ecde3427f9d87c8a08397c6ff367c6017cce095dc8e4621fbeda62b84",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "e27c39d1a354b904fde1257f0a70816a1b8e878802f8e51c1f898dc7a44e9f9f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollisionUtil.h",
+              "sha256": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Effect/alEffectKeeper.h",
+              "sha256": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteDirector.h",
+              "sha256": "9ad974aec48501d135b4766b9c519d98b0782367bb4a39c0102d0ebfa4f84848",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteTableHolder.h",
+              "sha256": "c372ee57ac4eec0b75e212eaf8b2897cf890c3aedd5fc1627bd0c07db435d7d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Functor/alFunctorBase.h",
+              "sha256": "148e911b94f9e70f2dca871827f4215f761bdeb2a8b8bb00852d6554fe848fed",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alHitSensor.h",
+              "sha256": "6e6f511cd27862fbff798abf3240d70bb71f6aaaf19fdc8de0041a2426060f8f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alSensorType.h",
+              "sha256": "6d314743059ec2edff82cbeddfc8a5095b5816a5f7c75355fb95974339cbea30",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorActionKeeper.h",
+              "sha256": "4deeada74186225f74d1ccbcaa29ee983be20a713ebcebcaa051000864a1508e",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorPoseFunction.h",
+              "sha256": "54306d9e34290505c3e54b792740cf5c10ae982e576c7b1d778c1042c0ef4c64",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorPoseKeeper.h",
+              "sha256": "b7ae48418c39def43ff701ca81857fd7279759d11f289fbde42ea9fc53c982af",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alHitSensorKeeper.h",
+              "sha256": "8cbea99a91ae271a286093ab3a0bdde0c72d5a280b1ff40213b614578cf48e58",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActor.h",
+              "sha256": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFlag.h",
+              "sha256": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFunction.h",
+              "sha256": "d572d752bebc4c5f37571bd1f7a96a8f3e2f5dc7d27721abee641fbd78518233",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorKit.h",
+              "sha256": "4ab8281c6b5b83640150ca850fd9d6f922b741ab9092c524bdc9dda2e6ccb74c",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alSensorFunction.h",
+              "sha256": "d34a2c03ddb04a87ae743498f0d3ea0e851c8a6089a3ffe8a442e1c7f565a337",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alSubActorFunction.h",
+              "sha256": "49446ccaa10de75db185c3b6aff0af89cee5805d04dd919cb22e31903d1c7a33",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Math/alMtxUtil.h",
+              "sha256": "b516b0a06e3fb840c9d073a1ffaad246d31260af708b37d4640bdb5bf4f3d1fc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alAnimPlayerSimple.h",
+              "sha256": "bfdb89b64b3ca8bbb268918e387997adf1233b0ec3e20bf82dde38dac523c07a",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alModelCtr.h",
+              "sha256": "f56f567125bf6d454f2e38eed0758321f8670fa4d1810ef8ab5ce43dbbd5cfab",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alModelKeeper.h",
+              "sha256": "ae11c07ff61d6c372da372e055650504a2a9c8ba88849cf599197bbc1cf96dbe",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerve.h",
+              "sha256": "131fc15b422681d47eccb569de9e24f3990b7ad6721d9fafa30be6c791a27ec0",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveActionCtrl.h",
+              "sha256": "04742c3b612755e2757870fcfbd7cabfdaab439234a44fbfb68618db9485f875",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveExecutor.h",
+              "sha256": "7b0b79c632956a3697160a53f5102c6634238473b2313212919d2937a0100d5f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveFunction.h",
+              "sha256": "cc7b91a20cf27d2f1f9fb86e0472cb90ebee5609ea7d15fb623b43c2ee1cd267",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveKeeper.h",
+              "sha256": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveStateBase.h",
+              "sha256": "115f8687977cdb0d075d335f02b8c958ec85682418e84e15df5d2ecd392ae953",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Stage/alStageSwitchKeeper.h",
+              "sha256": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/src/LiveActor/alLiveActorFunction.cpp",
+              "sha256": "14e9bcbcba140106a4a4b584ad026d3edf2e191eac567be284dc7a89cc73221e",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/container/seadPtrArray.h",
+              "sha256": "2c3f93c561da6f13edefd2a44ec318d035885cbeb62bf3c1e8f4bc204f7ab632",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadMatrix.h",
+              "sha256": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadQuat.h",
+              "sha256": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/prim/seadSafeString.h",
+              "sha256": "e1a13277a1e5c3278d9811cd92e7d737caca4d7ae1bc9b604b99a45e3bbd1da7",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": [
+            "_ZN2al10offCollideEPNS_9LiveActorE",
+            "_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc",
+            "_ZN2al12getHitSensorEPKNS_9LiveActorEPKc",
+            "_ZN2al14onDrawClippingEPNS_9LiveActorE",
+            "_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc",
+            "_ZN2al16validateClippingEPNS_9LiveActorE",
+            "_ZN2al18invalidateClippingEPNS_9LiveActorE",
+            "_ZN2al7isAliveEPKNS_9LiveActorE",
+            "_ZN2al9onCollideEPNS_9LiveActorE"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "symbol": "_ZN2al16isCollidedGroundEPKNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor10endClippedEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor12startClippedEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor13makeActorDeadEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor17makeActorAppearedEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor18initAfterPlacementEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor4initERKNS_13ActorInitInfoE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor4killEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor6appearEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor7controlEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor8calcAnimEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor8movementEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActorC1EPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor10getBaseMtxEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor14getAudioKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor14getNerveKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor15getEffectKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn4_NK2al9LiveActor15getEffectKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn8_NK2al9LiveActor14getAudioKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al10offCollideEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al12getHitSensorEPKNS_9LiveActorEPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al14onDrawClippingEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al16validateClippingEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al18invalidateClippingEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al7isAliveEPKNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9onCollideEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        }
+      ],
+      "started": "2026-10-02T00:00:22.946393+00:00",
+      "tool_inputs": {
+        "development_environment.sh": "fe6f7ee539817c9c0a4f12d5346b4fa35dbac6b252d8787dc2a126eb1cc243a1",
+        "make.py": "1d5ba9628e78a4aaa23d6bbbea40131101a46ee41ca43e3df124eaa97d55241a",
+        "tools/acceptance_batch.py": "63014a5993b2281221d0ea9bd67de2ce8a39bc1a5f69e43fcc9e4d95a0f384df",
+        "tools/check.py": "e177e0abe130e645e75c5f0dc24abb19dbe83310de55f1f099ec8fc385e07317",
+        "tools/checkGameCompiler.py": "1f9e5cf5041a418136b87907e600f0e2a2b3a8996a351755c3b967690f960d31",
+        "tools/diff.py": "b365cd4efca912dabf4b71dbc28d638bc9624cff5bd0669e11d794aa367831fc",
+        "tools/full_image_diagnostic.py": "ca0f3f12e9d7620880e5b30b191aa56b3f57b2345fd62467d700f2e138c42d29",
+        "tools/listsyms.py": "d71b18243c22560ebfbc1d84c461b1577861ebae6e2061f82e452544e9eb3e32",
+        "tools/low/buildProvenance.py": "343d1a0954aba9a4805e71420be9a99d91185db4c8b329d1363d11efcee53529",
+        "tools/low/callAsmdiff.py": "8f3489070196faafc8f97560ebf6339c949e7e80ec778bca73ca49fde13c6776",
+        "tools/low/cfg.py": "b19248345f77132d7f259d7a1ff356757723f4c9525c6159a6bd1f5c1675b4f0",
+        "tools/low/checkExactBytes.py": "aef81a3a21c49bb17b8a19f139d02607899257e04dbe461ece2992cc726fc2e2",
+        "tools/low/chooser.py": "375bc0e068ca24d8e9bcf08161ba0c727fbd115f82fbd73300ef0e3855c2b84b",
+        "tools/low/convBinToElf.py": "2a1df9092776eddd3b2b9a3ce063c9825323ab40bb274ab15de16169c4e6d493",
+        "tools/low/genComcom.py": "bef90318dd6d126a66b12881fc665afff2818c21b05020e51ba9cd15ba530df8",
+        "tools/low/genContext.py": "bae8a506e078f3fd58568fa138d6ac270c0a85a70fbc20df2e941879b03c054b",
+        "tools/low/genObjdiff.py": "b2627bad72f96ead04f14bd9111ab51a1676e2ae19e01b2c7d85dd335a1335d7",
+        "tools/low/genScatter.py": "a8ff9eaba736ab43cf50c00e37b6e49c3b96a97b612ad4b639e091fa48b4f906",
+        "tools/low/getAssembly.py": "fc4f43fa52f8f56112d01dbec3dd40a52577167f086d90a1f3b56f743c842fe1",
+        "tools/low/getSection.py": "80d5d7b66eb2f3137d003de3dca36c7e5939c31a1a6d635ae3c065748369c8f9",
+        "tools/low/getSymFile.py": "343d7029ef52b471ddd0a9df049533164521f0926ef9535d66899d1828addec6",
+        "tools/low/glob.py": "ce01e76d545c028d958e0b2569e3a401b6b11c2bfa4a956889cf6095656431b6",
+        "tools/low/readElfMap.py": "aa1a56101e27a415988ba6ea2b81b1bcf27e4dd9efab8e6d18372a12f0ae40bc",
+        "tools/low/readElfSym.py": "2aa0e53f24ca4e049e4e9f465d2ddbf4703b75d0eade64fc4bddc399aba6408b",
+        "tools/low/readHeader.py": "727937f03f11abe44f9d670bf8f242d8911e9e9e49b9fd74d01a98bba2360371",
+        "tools/low/readSymMap.py": "c8592056f34af5bc3adb71c8b396e1bfe13884b3662cc5b462761347eb682d7b",
+        "tools/low/updateMap.py": "80bb0ccac77b1f939851fbb491802cc182f58100f8114e6926726039591f4b1d",
+        "tools/low/utilsPrint.py": "4adfc55f8cc3974349ffa6a59e87b4923826df62fe347303d09cd26fa6079967",
+        "tools/low/utilsVersion.py": "4e74a5238c702d806074fd191e9435e436d65d7aa53141906e14b85cd99f2a79",
+        "tools/progress.py": "b3a50336b6df7bc63e984bfdc6034675dcc19b3e2adb79d86ad51920bfb5e292",
+        "tools/pypstem/_utils.py": "a27b180c94f49d4f431b5070a6c0ba0006e2902086e699e0037035738c4fb64d",
+        "tools/pypstem/callProcess.py": "14c756f0649eab1ae65ea184febc914c3f942436557fb185fdf6b8e51de66623",
+        "tools/pypstem/defaultFlags.py": "6167825c47ca7ad8f6ba4c27568aab4e85703b1ef0d8fa4c3f18417d53694548",
+        "tools/pypstem/main.py": "cb7a3c49b937eb350b57ae39ec52d18c91bbe931f6cc696c131a7c79094552cd",
+        "tools/pypstem/manSetup.py": "1f16c5b5fb214a1bdaef2273e71a0138ce55eae9807bda2b9bb942a0b7fe5aed",
+        "tools/pypstem/stepBuild.py": "b7be5977a0a1afc339eb4c9087b447cdc25b1c42daa3fe23af4b765008b0aac0",
+        "tools/pypstem/stepCheck.py": "53c83bd0d9a3292108a4946c58cdba6ca543ae99147ee5690783abc3712c92a4",
+        "tools/pypstem/stepExport.py": "c2429b0ea8fa3f260f29b5e42e6d9163fc6baebc594860924cf9a54bacbd393d",
+        "tools/pypstem/stepLink.py": "2d5abfefb6d8150d1ea4309353442375b80f7acbd6a66a848e6a9c5e5285c877",
+        "tools/pypstem/stepSplit.py": "64396e0207f2c2971cf6fabbf109ec852dbe0ae9b7dc5624b4a533a08af30093",
+        "tools/pypstem/user/initMap.py": "9ed8043394b7f384204c584087a585d793bae249aa05db0dd8e30df306f598e6",
+        "tools/render_progress_image.py": "9982c7a31170f58ad3f031b84e4ea8f594880c4a19bfb55579e3f33eadbe8e9d",
+        "tools/romfs.py": "ed09302743a1b1c4f0e25030fba057cd7cc6fcf3e5bf9af6777078df319dbcd5",
+        "tools/splector/_utils.py": "d25711f4f74b87aa4f6665006b6047c57e9592fef166bf8f36e060d4ea8bf23c",
+        "tools/splector/check.py": "bcd90ffd6af94df57728e011b7d50923ed2e0e8381aa21a596e182a7572e49a7",
+        "tools/splector/init.py": "3c3ef492b68aa636002ef777f551f8613f4eace39365f100c6a22bfffd726fc2",
+        "tools/splector/split.py": "b0f21b5a167e45552de4115cc0499952b738adbc80cc909637a201b5917d04e7"
+      },
+      "seconds": 28.205603556001734,
+      "ended": "2026-10-02T00:00:51.333043+00:00",
+      "map_restored": true,
+      "passes": 35,
+      "checks_count": 35,
+      "canonical_intervals": {
+        "_ZN2al16isCollidedGroundEPKNS_9LiveActorE": {
+          "start": "0x262ba4",
+          "end": "0x262bc8",
+          "complete_size": 36,
+          "retail_size": 36,
+          "candidate_sha256": "6cf95be804831b23cfdcd60b71a6247949816278529fbd82789e1ab0c775e2c1",
+          "retail_sha256": "6cf95be804831b23cfdcd60b71a6247949816278529fbd82789e1ab0c775e2c1",
+          "different_bytes": 0,
+          "size_delta": 0,
+          "axf_sha256": "d04131cc8f0254e8e7064c46ed4eb80be0da849bff312644382ce30382e41c03"
+        }
+      }
+    },
+    "candidate": {
+      "objects": [
+        {
+          "object": "build/eu/obj/lib/al/src/Collision/alCollider.o",
+          "object_sha256": "c47439103afae917ce78b21958fbbe7b3e2ebf92e9921b5b647fabf3a308c254",
+          "dependency_sha256": "af482b8cb829e8dbcf7455da2955332f549ea7f155b674a954a534fea5887e54",
+          "provenance_sha256": "bbcff4e541c8d0f6c171fc611ebdf450939bcf689a04e242f96956761d3aada0",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alCollider.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/Collision/alCollider.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/Collision/alCollider.d",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/src/Collision/alCollider.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "bab9d41db4e27648f3cdd354eed67a3e4c752d3b137c7c5ca0e1732de5267cd5",
+              "reference": "22b76f7"
+            },
+            {
+              "path": "lib/al/src/Collision/alCollider.cpp",
+              "sha256": "91475d777b132897405e77dbffa3f33bac80b4b21cb40dd2a3da04fd2ccff7b1",
+              "reference": "22b76f7"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": []
+        },
+        {
+          "object": "build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+          "object_sha256": "4468520eb3bc3a3f2610b848225f3040e73a154474ac95ffcc1049f55ed60d45",
+          "dependency_sha256": "7e48d7750d55543b470882870be354c5f913647b064554fb2be852655b0e190d",
+          "provenance_sha256": "72739b0dc49701fa23a84ca5d214608a29e3ddfc23bb72da682341621b627265",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alCollisionUtil.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/Collision/alCollisionUtil.d",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/src/Collision/alCollisionUtil.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Audio/alAudioKeeper.h",
+              "sha256": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "bab9d41db4e27648f3cdd354eed67a3e4c752d3b137c7c5ca0e1732de5267cd5",
+              "reference": "22b76f7"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollisionUtil.h",
+              "sha256": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Effect/alEffectKeeper.h",
+              "sha256": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActor.h",
+              "sha256": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFlag.h",
+              "sha256": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveKeeper.h",
+              "sha256": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Stage/alStageSwitchKeeper.h",
+              "sha256": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/src/Collision/alCollisionUtil.cpp",
+              "sha256": "67452aa63eddc5f693dae9b2b5ddbf328d8db1117a81c276fb851769ace0c28a",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadMatrix.h",
+              "sha256": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadQuat.h",
+              "sha256": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": [
+            "_ZN2al16isCollidedGroundEPKNS_9LiveActorE"
+          ]
+        },
+        {
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "object_sha256": "3a46348560a6643226a0c1f11090915c90991330dc842a204647e7ffc4b5154e",
+          "dependency_sha256": "0f6f07713388de2c20a7536037eed738014188bd6185925788d23f7160cd1495",
+          "provenance_sha256": "3eb3a1add280e54f94223931e3ea72bfba33122c3a620ca2b0cd41d9e0537184",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alLiveActor.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/LiveActor/alLiveActor.d",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/src/LiveActor/alLiveActor.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Audio/alAudioKeeper.h",
+              "sha256": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "bab9d41db4e27648f3cdd354eed67a3e4c752d3b137c7c5ca0e1732de5267cd5",
+              "reference": "22b76f7"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollisionUtil.h",
+              "sha256": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Effect/alEffectKeeper.h",
+              "sha256": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteDirector.h",
+              "sha256": "9ad974aec48501d135b4766b9c519d98b0782367bb4a39c0102d0ebfa4f84848",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteTableHolder.h",
+              "sha256": "c372ee57ac4eec0b75e212eaf8b2897cf890c3aedd5fc1627bd0c07db435d7d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Functor/alFunctorBase.h",
+              "sha256": "148e911b94f9e70f2dca871827f4215f761bdeb2a8b8bb00852d6554fe848fed",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alHitSensor.h",
+              "sha256": "6e6f511cd27862fbff798abf3240d70bb71f6aaaf19fdc8de0041a2426060f8f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alSensorType.h",
+              "sha256": "6d314743059ec2edff82cbeddfc8a5095b5816a5f7c75355fb95974339cbea30",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorExecuteInfo.h",
+              "sha256": "2d0f34fd737f83553f844f0dcc9c5e267b76744052d9ba1de358eef8ea70354c",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorInitInfo.h",
+              "sha256": "85f4e76719327e5ae1e33b69f06c0fee443613f397bd04bb232467450be9dac9",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorPoseKeeper.h",
+              "sha256": "b7ae48418c39def43ff701ca81857fd7279759d11f289fbde42ea9fc53c982af",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alHitSensorKeeper.h",
+              "sha256": "8cbea99a91ae271a286093ab3a0bdde0c72d5a280b1ff40213b614578cf48e58",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActor.h",
+              "sha256": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFlag.h",
+              "sha256": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFunction.h",
+              "sha256": "d572d752bebc4c5f37571bd1f7a96a8f3e2f5dc7d27721abee641fbd78518233",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorGroup.h",
+              "sha256": "84d0a4c05650bb8209efac90c3164dc59be7de344cb1869a99751fffaaa223d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorKit.h",
+              "sha256": "4ab8281c6b5b83640150ca850fd9d6f922b741ab9092c524bdc9dda2e6ccb74c",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alSubActorFunction.h",
+              "sha256": "49446ccaa10de75db185c3b6aff0af89cee5805d04dd919cb22e31903d1c7a33",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alModelKeeper.h",
+              "sha256": "ae11c07ff61d6c372da372e055650504a2a9c8ba88849cf599197bbc1cf96dbe",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveKeeper.h",
+              "sha256": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Placement/alPlacementInfo.h",
+              "sha256": "654fc0b4e0df90e6320615cd2de35a785e455270a2449b9b649bca92103c73af",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Rail/alRailKeeper.h",
+              "sha256": "b4d841aaf278d6d8b44b8e2a65cede6635d5c4bc0c2e78197edace976258135e",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Stage/alStageSwitchKeeper.h",
+              "sha256": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Yaml/alByamlIter.h",
+              "sha256": "3ceeca89571abeb56431268928af2c13cf412debf7bc751a0b46ffeeabf6a4c4",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/src/LiveActor/alLiveActor.cpp",
+              "sha256": "2cc35623b9312a462ae13a9b744f6488f09dbab9e5521fa5cda0524a8a4aaa5a",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/container/seadPtrArray.h",
+              "sha256": "2c3f93c561da6f13edefd2a44ec318d035885cbeb62bf3c1e8f4bc204f7ab632",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadMatrix.h",
+              "sha256": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadQuat.h",
+              "sha256": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/prim/seadSafeString.h",
+              "sha256": "e1a13277a1e5c3278d9811cd92e7d737caca4d7ae1bc9b604b99a45e3bbd1da7",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": [
+            "_ZN2al9LiveActor10endClippedEv",
+            "_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_",
+            "_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_",
+            "_ZN2al9LiveActor12startClippedEv",
+            "_ZN2al9LiveActor13makeActorDeadEv",
+            "_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE",
+            "_ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE",
+            "_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE",
+            "_ZN2al9LiveActor17makeActorAppearedEv",
+            "_ZN2al9LiveActor18initAfterPlacementEv",
+            "_ZN2al9LiveActor4initERKNS_13ActorInitInfoE",
+            "_ZN2al9LiveActor4killEv",
+            "_ZN2al9LiveActor6appearEv",
+            "_ZN2al9LiveActor7controlEv",
+            "_ZN2al9LiveActor8calcAnimEv",
+            "_ZN2al9LiveActor8movementEv",
+            "_ZN2al9LiveActorC1EPKc",
+            "_ZNK2al9LiveActor10getBaseMtxEv",
+            "_ZNK2al9LiveActor14getAudioKeeperEv",
+            "_ZNK2al9LiveActor14getNerveKeeperEv",
+            "_ZNK2al9LiveActor15getEffectKeeperEv",
+            "_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv",
+            "_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv",
+            "_ZThn4_NK2al9LiveActor15getEffectKeeperEv",
+            "_ZThn8_NK2al9LiveActor14getAudioKeeperEv"
+          ]
+        },
+        {
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "object_sha256": "8268524d7f2436eaebe783db1337074a801aaa321556e1e0c7d59003b9d972be",
+          "dependency_sha256": "cea605528a4afbf1b15933af0bf4cc64299deaea45793a750f233a011c54f056",
+          "provenance_sha256": "fd86fc3c402f0af676da8ef747af89ac699ed2cc71c2993a24164dfcfa502de4",
+          "compiler": "data/compilers/4.1/791/bin/armcc.exe",
+          "compiler_sha256": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+          "command": [
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/wibo",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/data/compilers/4.1/791/bin/armcc.exe",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/backup/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/CtrSDK/include",
+            "-I/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/sead/include",
+            "-DVERSION=EU",
+            "-DNN_SWITCH_DISABLE_ASSERT_WARNING_FOR_SDK=1",
+            "-DNN_SWITCH_DISABLE_DEBUG_PRINT_FOR_SDK=1",
+            "-DNON_MATCHING=1",
+            "--cpu=MPCore",
+            "--fpmode=fast",
+            "--apcs=/interwork",
+            "--depend_format=unix_quoted",
+            "--diag_suppress=1608",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--arm_only",
+            "--no_exceptions",
+            "--diag_style=gnu",
+            "--signed_chars",
+            "--dollar",
+            "--force_new_nothrow",
+            "--no_rtti",
+            "--no_debug_macros",
+            "--no_depend_system_headers",
+            "-O3",
+            "-Otime",
+            "--gnu",
+            "--split_sections",
+            "--force_new_nothrow",
+            "--multibyte_chars",
+            "--enum_is_int",
+            "--signed_chars",
+            "--no_rtti_data",
+            "--forceinline",
+            "--remove_unneeded_entities",
+            "--no_debug",
+            "--preinclude=/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/Game/project_globals.h",
+            "--sys_include",
+            "-c",
+            "-D__BASE_FILE_NAME__=\"alLiveActorFunction.cpp\"",
+            "-o",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+            "--depend",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.d",
+            "/workspace/scratch/73cdb2c524af/mario-collider-b16-recheck/lib/al/src/LiveActor/alLiveActorFunction.cpp"
+          ],
+          "inputs": [
+            {
+              "path": "Game/project_globals.h",
+              "sha256": "6c0b7103d61651e77e1a5db8bb1f5bdf509ad3d64c419c4ba22cadaed6a933d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "data/config.json",
+              "sha256": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/CtrSDK/include/nn/types.h",
+              "sha256": "40aa4e5ee7d8980e077963ee87bc6bdeb8908249603c073b5980aed937d5e0bc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Audio/alAudioKeeper.h",
+              "sha256": "69a1a49e3aa18ed22c79592ff78c73a974a3022acf05048365e347bedb7c4a4d",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Clipping/alClippingActorHolder.h",
+              "sha256": "4c1d53cd2eba2918545dd98a6f883062c4eec5f778d12ff2141485eb30f0c8bf",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Clipping/alClippingDirector.h",
+              "sha256": "1931de3ecde3427f9d87c8a08397c6ff367c6017cce095dc8e4621fbeda62b84",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollider.h",
+              "sha256": "bab9d41db4e27648f3cdd354eed67a3e4c752d3b137c7c5ca0e1732de5267cd5",
+              "reference": "22b76f7"
+            },
+            {
+              "path": "lib/al/include/Collision/alCollisionUtil.h",
+              "sha256": "bfe26de48b1ad713db43428fd66e56b77fb6482294e550a683123b68b1b60896",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Effect/alEffectKeeper.h",
+              "sha256": "6d29cbb16f52fb8f3cc14374d3784e261d19309b3475456170a7bbc66a073451",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteDirector.h",
+              "sha256": "9ad974aec48501d135b4766b9c519d98b0782367bb4a39c0102d0ebfa4f84848",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Execute/alExecuteTableHolder.h",
+              "sha256": "c372ee57ac4eec0b75e212eaf8b2897cf890c3aedd5fc1627bd0c07db435d7d1",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Functor/alFunctorBase.h",
+              "sha256": "148e911b94f9e70f2dca871827f4215f761bdeb2a8b8bb00852d6554fe848fed",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alHitSensor.h",
+              "sha256": "6e6f511cd27862fbff798abf3240d70bb71f6aaaf19fdc8de0041a2426060f8f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/HitSensor/alSensorType.h",
+              "sha256": "6d314743059ec2edff82cbeddfc8a5095b5816a5f7c75355fb95974339cbea30",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorActionKeeper.h",
+              "sha256": "4deeada74186225f74d1ccbcaa29ee983be20a713ebcebcaa051000864a1508e",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorPoseFunction.h",
+              "sha256": "54306d9e34290505c3e54b792740cf5c10ae982e576c7b1d778c1042c0ef4c64",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alActorPoseKeeper.h",
+              "sha256": "b7ae48418c39def43ff701ca81857fd7279759d11f289fbde42ea9fc53c982af",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alHitSensorKeeper.h",
+              "sha256": "8cbea99a91ae271a286093ab3a0bdde0c72d5a280b1ff40213b614578cf48e58",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActor.h",
+              "sha256": "472992d0d1a423b4de484c00ffe79fb556dfdd111b84b859518142d5d5b48f34",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFlag.h",
+              "sha256": "bc855adbda47baffa6061c368ea907c0ee22d9b4009a2e638cbb9af0b8a85c8b",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorFunction.h",
+              "sha256": "d572d752bebc4c5f37571bd1f7a96a8f3e2f5dc7d27721abee641fbd78518233",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alLiveActorKit.h",
+              "sha256": "4ab8281c6b5b83640150ca850fd9d6f922b741ab9092c524bdc9dda2e6ccb74c",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alSensorFunction.h",
+              "sha256": "d34a2c03ddb04a87ae743498f0d3ea0e851c8a6089a3ffe8a442e1c7f565a337",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/LiveActor/alSubActorFunction.h",
+              "sha256": "49446ccaa10de75db185c3b6aff0af89cee5805d04dd919cb22e31903d1c7a33",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Math/alMtxUtil.h",
+              "sha256": "b516b0a06e3fb840c9d073a1ffaad246d31260af708b37d4640bdb5bf4f3d1fc",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alAnimPlayerSimple.h",
+              "sha256": "bfdb89b64b3ca8bbb268918e387997adf1233b0ec3e20bf82dde38dac523c07a",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alModelCtr.h",
+              "sha256": "f56f567125bf6d454f2e38eed0758321f8670fa4d1810ef8ab5ce43dbbd5cfab",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Model/alModelKeeper.h",
+              "sha256": "ae11c07ff61d6c372da372e055650504a2a9c8ba88849cf599197bbc1cf96dbe",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerve.h",
+              "sha256": "131fc15b422681d47eccb569de9e24f3990b7ad6721d9fafa30be6c791a27ec0",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveActionCtrl.h",
+              "sha256": "04742c3b612755e2757870fcfbd7cabfdaab439234a44fbfb68618db9485f875",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveExecutor.h",
+              "sha256": "7b0b79c632956a3697160a53f5102c6634238473b2313212919d2937a0100d5f",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveFunction.h",
+              "sha256": "cc7b91a20cf27d2f1f9fb86e0472cb90ebee5609ea7d15fb623b43c2ee1cd267",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveKeeper.h",
+              "sha256": "28065b7f6feb35d8a0ab88de3bb9596758dd816d3084e037dfd2f129eb16fb46",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Nerve/alNerveStateBase.h",
+              "sha256": "115f8687977cdb0d075d335f02b8c958ec85682418e84e15df5d2ecd392ae953",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/include/Stage/alStageSwitchKeeper.h",
+              "sha256": "58e83a38a685cdca5d47900c75f5618049aec86b9f16bbf2876807ab7d625287",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/al/src/LiveActor/alLiveActorFunction.cpp",
+              "sha256": "14e9bcbcba140106a4a4b584ad026d3edf2e191eac567be284dc7a89cc73221e",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/container/seadPtrArray.h",
+              "sha256": "2c3f93c561da6f13edefd2a44ec318d035885cbeb62bf3c1e8f4bc204f7ab632",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadMatrix.h",
+              "sha256": "c4ecd6d6b98b4851e81d9fd144de80b51ca13f4370fb2baf5982a42f6e69d914",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadQuat.h",
+              "sha256": "84b3de2e49e5f0505d26ae1e9f5acf782b446507254c6b0e94657350cd1355be",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/math/seadVector.h",
+              "sha256": "1416056d4201ee62fdc2d2c06b5bd418f3195f8154a74b122869ff8c5f517169",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            },
+            {
+              "path": "lib/sead/include/prim/seadSafeString.h",
+              "sha256": "e1a13277a1e5c3278d9811cd92e7d737caca4d7ae1bc9b604b99a45e3bbd1da7",
+              "reference": "b16e2a0cc32e0cdacac5ba94feabe67432433391"
+            }
+          ],
+          "accepted_definitions": [
+            "_ZN2al10offCollideEPNS_9LiveActorE",
+            "_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc",
+            "_ZN2al12getHitSensorEPKNS_9LiveActorEPKc",
+            "_ZN2al14onDrawClippingEPNS_9LiveActorE",
+            "_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc",
+            "_ZN2al16validateClippingEPNS_9LiveActorE",
+            "_ZN2al18invalidateClippingEPNS_9LiveActorE",
+            "_ZN2al7isAliveEPKNS_9LiveActorE",
+            "_ZN2al9onCollideEPNS_9LiveActorE"
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "symbol": "_ZN2al16isCollidedGroundEPKNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/Collision/alCollisionUtil.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor10endClippedEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor10receiveMsgEjPNS_9HitSensorES2_",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor12attackSensorEPNS_9HitSensorES2_",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor12startClippedEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor13makeActorDeadEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor14initPoseKeeperEPNS_19ActorPoseKeeperBaseE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor14initRailKeeperERKNS_13ActorInitInfoE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor15initNerveKeeperEPNS_11NerveKeeperE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor17makeActorAppearedEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor18initAfterPlacementEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor4initERKNS_13ActorInitInfoE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor4killEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor6appearEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor7controlEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor8calcAnimEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActor8movementEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9LiveActorC1EPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor10getBaseMtxEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor14getAudioKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor14getNerveKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZNK2al9LiveActor15getEffectKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn12_N2al9LiveActor21initStageSwitchKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn12_NK2al9LiveActor20getStageSwitchKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn4_NK2al9LiveActor15getEffectKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZThn8_NK2al9LiveActor14getAudioKeeperEv",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActor.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al10offCollideEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al12calcJointPosEPN4sead7Vector3IfEEPKNS_9LiveActorEPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al12getHitSensorEPKNS_9LiveActorEPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al14onDrawClippingEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al15getSensorRadiusEPKNS_9LiveActorEPKc",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al16validateClippingEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al18invalidateClippingEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al7isAliveEPKNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        },
+        {
+          "symbol": "_ZN2al9onCollideEPNS_9LiveActorE",
+          "object": "build/eu/obj/lib/al/src/LiveActor/alLiveActorFunction.o",
+          "exit": 0,
+          "output": "\u001b[38;5;221mO -> O: The complete source-generated function interval matches byte for byte.\u001b[0m\u001b[K\n"
+        }
+      ],
+      "started": "2026-10-02T00:00:52.670219+00:00",
+      "tool_inputs": {
+        "development_environment.sh": "fe6f7ee539817c9c0a4f12d5346b4fa35dbac6b252d8787dc2a126eb1cc243a1",
+        "make.py": "1d5ba9628e78a4aaa23d6bbbea40131101a46ee41ca43e3df124eaa97d55241a",
+        "tools/acceptance_batch.py": "63014a5993b2281221d0ea9bd67de2ce8a39bc1a5f69e43fcc9e4d95a0f384df",
+        "tools/check.py": "e177e0abe130e645e75c5f0dc24abb19dbe83310de55f1f099ec8fc385e07317",
+        "tools/checkGameCompiler.py": "1f9e5cf5041a418136b87907e600f0e2a2b3a8996a351755c3b967690f960d31",
+        "tools/diff.py": "b365cd4efca912dabf4b71dbc28d638bc9624cff5bd0669e11d794aa367831fc",
+        "tools/full_image_diagnostic.py": "ca0f3f12e9d7620880e5b30b191aa56b3f57b2345fd62467d700f2e138c42d29",
+        "tools/listsyms.py": "d71b18243c22560ebfbc1d84c461b1577861ebae6e2061f82e452544e9eb3e32",
+        "tools/low/buildProvenance.py": "343d1a0954aba9a4805e71420be9a99d91185db4c8b329d1363d11efcee53529",
+        "tools/low/callAsmdiff.py": "8f3489070196faafc8f97560ebf6339c949e7e80ec778bca73ca49fde13c6776",
+        "tools/low/cfg.py": "b19248345f77132d7f259d7a1ff356757723f4c9525c6159a6bd1f5c1675b4f0",
+        "tools/low/checkExactBytes.py": "aef81a3a21c49bb17b8a19f139d02607899257e04dbe461ece2992cc726fc2e2",
+        "tools/low/chooser.py": "375bc0e068ca24d8e9bcf08161ba0c727fbd115f82fbd73300ef0e3855c2b84b",
+        "tools/low/convBinToElf.py": "2a1df9092776eddd3b2b9a3ce063c9825323ab40bb274ab15de16169c4e6d493",
+        "tools/low/genComcom.py": "bef90318dd6d126a66b12881fc665afff2818c21b05020e51ba9cd15ba530df8",
+        "tools/low/genContext.py": "bae8a506e078f3fd58568fa138d6ac270c0a85a70fbc20df2e941879b03c054b",
+        "tools/low/genObjdiff.py": "b2627bad72f96ead04f14bd9111ab51a1676e2ae19e01b2c7d85dd335a1335d7",
+        "tools/low/genScatter.py": "a8ff9eaba736ab43cf50c00e37b6e49c3b96a97b612ad4b639e091fa48b4f906",
+        "tools/low/getAssembly.py": "fc4f43fa52f8f56112d01dbec3dd40a52577167f086d90a1f3b56f743c842fe1",
+        "tools/low/getSection.py": "80d5d7b66eb2f3137d003de3dca36c7e5939c31a1a6d635ae3c065748369c8f9",
+        "tools/low/getSymFile.py": "343d7029ef52b471ddd0a9df049533164521f0926ef9535d66899d1828addec6",
+        "tools/low/glob.py": "ce01e76d545c028d958e0b2569e3a401b6b11c2bfa4a956889cf6095656431b6",
+        "tools/low/readElfMap.py": "aa1a56101e27a415988ba6ea2b81b1bcf27e4dd9efab8e6d18372a12f0ae40bc",
+        "tools/low/readElfSym.py": "2aa0e53f24ca4e049e4e9f465d2ddbf4703b75d0eade64fc4bddc399aba6408b",
+        "tools/low/readHeader.py": "727937f03f11abe44f9d670bf8f242d8911e9e9e49b9fd74d01a98bba2360371",
+        "tools/low/readSymMap.py": "c8592056f34af5bc3adb71c8b396e1bfe13884b3662cc5b462761347eb682d7b",
+        "tools/low/updateMap.py": "80bb0ccac77b1f939851fbb491802cc182f58100f8114e6926726039591f4b1d",
+        "tools/low/utilsPrint.py": "4adfc55f8cc3974349ffa6a59e87b4923826df62fe347303d09cd26fa6079967",
+        "tools/low/utilsVersion.py": "4e74a5238c702d806074fd191e9435e436d65d7aa53141906e14b85cd99f2a79",
+        "tools/progress.py": "b3a50336b6df7bc63e984bfdc6034675dcc19b3e2adb79d86ad51920bfb5e292",
+        "tools/pypstem/_utils.py": "a27b180c94f49d4f431b5070a6c0ba0006e2902086e699e0037035738c4fb64d",
+        "tools/pypstem/callProcess.py": "14c756f0649eab1ae65ea184febc914c3f942436557fb185fdf6b8e51de66623",
+        "tools/pypstem/defaultFlags.py": "6167825c47ca7ad8f6ba4c27568aab4e85703b1ef0d8fa4c3f18417d53694548",
+        "tools/pypstem/main.py": "cb7a3c49b937eb350b57ae39ec52d18c91bbe931f6cc696c131a7c79094552cd",
+        "tools/pypstem/manSetup.py": "1f16c5b5fb214a1bdaef2273e71a0138ce55eae9807bda2b9bb942a0b7fe5aed",
+        "tools/pypstem/stepBuild.py": "b7be5977a0a1afc339eb4c9087b447cdc25b1c42daa3fe23af4b765008b0aac0",
+        "tools/pypstem/stepCheck.py": "53c83bd0d9a3292108a4946c58cdba6ca543ae99147ee5690783abc3712c92a4",
+        "tools/pypstem/stepExport.py": "c2429b0ea8fa3f260f29b5e42e6d9163fc6baebc594860924cf9a54bacbd393d",
+        "tools/pypstem/stepLink.py": "2d5abfefb6d8150d1ea4309353442375b80f7acbd6a66a848e6a9c5e5285c877",
+        "tools/pypstem/stepSplit.py": "64396e0207f2c2971cf6fabbf109ec852dbe0ae9b7dc5624b4a533a08af30093",
+        "tools/pypstem/user/initMap.py": "9ed8043394b7f384204c584087a585d793bae249aa05db0dd8e30df306f598e6",
+        "tools/render_progress_image.py": "9982c7a31170f58ad3f031b84e4ea8f594880c4a19bfb55579e3f33eadbe8e9d",
+        "tools/romfs.py": "ed09302743a1b1c4f0e25030fba057cd7cc6fcf3e5bf9af6777078df319dbcd5",
+        "tools/splector/_utils.py": "d25711f4f74b87aa4f6665006b6047c57e9592fef166bf8f36e060d4ea8bf23c",
+        "tools/splector/check.py": "bcd90ffd6af94df57728e011b7d50923ed2e0e8381aa21a596e182a7572e49a7",
+        "tools/splector/init.py": "3c3ef492b68aa636002ef777f551f8613f4eace39365f100c6a22bfffd726fc2",
+        "tools/splector/split.py": "b0f21b5a167e45552de4115cc0499952b738adbc80cc909637a201b5917d04e7"
+      },
+      "target_check": {
+        "symbol": "_ZN2al8Collider12onInvalidateEv",
+        "object": "build/eu/obj/lib/al/src/Collision/alCollider.o",
+        "exit": 1,
+        "output": "\u001b[38;5;221mU -> m: The linked candidate differs from the unchanged original interval.\u001b[0m\u001b[K\n"
+      },
+      "seconds": 33.102813908000826,
+      "ended": "2026-10-02T00:01:25.979164+00:00",
+      "map_restored": true,
+      "passes": 35,
+      "checks_count": 35,
+      "canonical_intervals": {
+        "_ZN2al16isCollidedGroundEPKNS_9LiveActorE": {
+          "start": "0x262ba4",
+          "end": "0x262bc8",
+          "complete_size": 36,
+          "retail_size": 36,
+          "candidate_sha256": "6cf95be804831b23cfdcd60b71a6247949816278529fbd82789e1ab0c775e2c1",
+          "retail_sha256": "6cf95be804831b23cfdcd60b71a6247949816278529fbd82789e1ab0c775e2c1",
+          "different_bytes": 0,
+          "size_delta": 0,
+          "axf_sha256": "ef01e2bd524646e6caaf4860439b37b3828366684cdfb6fe7497de3b5e12570c"
+        },
+        "_ZN2al8Collider12onInvalidateEv": {
+          "start": "0x24c9ec",
+          "end": "0x24ca44",
+          "complete_size": 88,
+          "retail_size": 88,
+          "candidate_sha256": "6ac301dadcd4eac8ca50c924d1dd8bc560709f49c9db4e5d8e24382636221486",
+          "retail_sha256": "5a272a14661478a6257f4874ce7a541a6f20993effd102d8dc31cc8a15363f40",
+          "different_bytes": 8,
+          "size_delta": 0,
+          "axf_sha256": "62fe784842f868c55badc82f2f153e2dc96cb4a55bdcb02bb27b35272182f895"
+        }
+      }
+    }
+  },
+  "ended": "2026-10-02T00:01:26.016786+00:00",
+  "seconds": 64.23403116599366,
+  "build": {
+    "command": ". ./development_environment.sh; export DEVKITARM=/usr TMP=/tmp; python make.py eu -ca",
+    "clean_build_exit": 0,
+    "fresh_candidate_build_directory": true,
+    "sources": {
+      "Game": 44,
+      "al": 129,
+      "SDK": 1
+    },
+    "log_sha256": "e2c4534380f93e4c0807a92b86e82532039a84a8871160dde414a56a5657784b",
+    "end_from_log_mtime_utc": "2026-10-01T23:59:02.941838+00:00",
+    "elapsed_seconds": "not separately timed"
+  },
+  "frozen_source_ref": "22b76f7a1df175170a24fe835e5a0f33172390c7",
+  "frozen_source_files": {
+    "lib/al/include/Collision/alCollider.h": "bab9d41db4e27648f3cdd354eed67a3e4c752d3b137c7c5ca0e1732de5267cd5",
+    "lib/al/src/Collision/alCollider.cpp": "91475d777b132897405e77dbffa3f33bac80b4b21cb40dd2a3da04fd2ccff7b1"
+  },
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "wibo_sha256": "aee836280b3d7c80c2031410219c907c9824c11be6b128d0744655de0f22280b",
+    "executables": {
+      "data/compilers/4.1/791/bin/armlink.exe": "b9cffb71d7b58f3fd33fa8c4c8af884b75689bb5a9e9014309a08146bba676dc",
+      "data/compilers/4.1/791/bin/armar.exe": "68088194227d542623663a0a675a5d04edab06ae51117f42e6c5b60e65d01f45",
+      "data/compilers/4.1/791/bin/armasm.exe": "ab285c75f243b2c923b11b8016aab5ede28faee795c55e849affe813b872c140",
+      "data/compilers/4.1/791/bin/armcc.exe": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+      "data/compilers/4.0/902/bin/armlink.exe": "f511d2d087fe0cad6f604ff774b4d75476a7d4949c100ea082eac03a368e967d",
+      "data/compilers/4.0/902/bin/armar.exe": "167e21f8978742de70171cb44fde79f0e39f3521620de20a97eb16de9606a393",
+      "data/compilers/4.0/902/bin/armasm.exe": "88642b6d32bee786079c99c0ef95074c8171cdad43ab10d8d8f730a15a372e69",
+      "data/compilers/4.0/902/bin/armcc.exe": "e6aca4ebc280a54065406bcc3a0ae3d9f4d0ac5a4032c3a193adb836c72e70fe"
+    },
+    "config_overrides_absent": [
+      "data/config.user.json",
+      "data/ver/eu/config.json"
+    ]
+  },
+  "complete_preserved_bytes": 2500,
+  "old_packet_sha256": "8d7e1ddd2091c7fd42827417cc430bec136af59f4d10f1e15f4e02e1b73e277d",
+  "script_sha256": "7261e0f5fc1883b51c31abd333660255d4728504efeae9839cb5c6710d89caa4",
+  "eight_current_pro_reservations_untouched": [
+    "001E37D8",
+    "0030E678",
+    "001D1DA0",
+    "0016A11C",
+    "0024F344",
+    "00268EB0",
+    "001EA220",
+    "00252B1C"
+  ],
+  "scope": "Frozen proposal verification only; no new forms, target credit, shared ownership, metadata edits, paired-894 rerun, semantic replay rerun, or full 667-root audit."
+}
