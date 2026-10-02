@@ -733,3 +733,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T00:11:52.904631+00:00,0x00369744,_ZNK2al19NrvRailMoveMovement23RailMoveMovementNrvMove7executeEPNS_11NerveKeeperE,matched,3,4.729965
 2026-10-02T00:11:52.904631+00:00,0x00100D50,_ZN2al9SystemKit16createFileLoaderEi,matched,4,6.686064
 2026-10-02T00:11:52.904631+00:00,0x001010F0,_ZN2al9SystemKit20createSaveDataSystemEji,matched,4,6.686064
+2026-10-02T00:11:52.904631+00:00,0x001BCA74,_ZN2al10RailKeeperC1ERKNS_9ByamlIterE,matched,2,7.438813
