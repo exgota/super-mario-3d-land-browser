@@ -2,7 +2,7 @@
 
 Canonical result: one exact function, 516 bytes including its literal pool.
 Branch: `dot/root-187ab8`; integrator acceptance pending.
-Base: `eeaca9ad7a606674b428b29630da497031ff913d`.
+Original pinned base: `eeaca9ad7a606674b428b29630da497031ff913d`.
 Final source commit: `f5ba872fe7b1dc53d5a9de73c2e2640e322204c7`.
 Source: `Game/backup/src/Layout/CounterCollectCoin.cpp`.
 Source SHA256: `f447b0165bd2187b9abd6db43c8c732ed2048e887e5c03719396740ec7115e26`.
@@ -73,9 +73,19 @@ forms merged their common call tail. No padding, register or volatile tricks wer
 Two compile-only corrections fixed an abstract imported declaration and an editing
 syntax error; the latter's stale-object check correctly rejected changed source.
 
-For independent checking, name the root row `_ZN18CounterCollectCoin7collectEi`
+For reproduction on the original pinned base only, name the root row `_ZN18CounterCollectCoin7collectEi`
 and temporarily mark M. Name existing data row `003B7AB0`
 `.constdata.CounterCollectCoin.cpp`, keeping its rank U and its 20-byte extent unchanged.
+These original-base scratch names are not missing prerequisites on the named base below.
 The other imported function/data address names resolve through existing rows.
 Only the checker set O. The entire map was restored after verification.
 The delivery changes only this source and this report; no exact credit is committed.
+
+## Named-base readiness, 2026-10-02
+
+Identical frozen family files from `8794700e38a1b227283de011d4844cc5b7ef0d39` were checked in local verification snapshot `94f97ef04ce620deffe8ec7aec4d7b67b08d3d57`, based on main `adf0c83ef211ec89162d6578804bf2b4d1bbe357`.
+One normal `python make.py eu` build linked and exported successfully; this root passed its targeted canonical `tools/check.py --object` check for all 516 bytes (exit 0).
+The checker printed `M -> O: The complete source-generated function interval matches byte for byte.`
+That base already supplies the root name and `.constdata.CounterCollectCoin.cpp` identity at the unchanged 20-byte `[003B7AB0,003B7AC4)` row. No identity changes were required.
+Only target M enrollment was temporary; the complete map was restored. No full-map audit was performed.
+This addendum changes notes only. Source/header bytes remain identical to the frozen proposal; integrator acceptance is still pending.
