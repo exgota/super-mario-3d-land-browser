@@ -8,7 +8,6 @@ Nine large candidates were initially parked as unverified fragments. The remaini
 |---|---|---|---|
 | 0x0024F344 | _ZN2al12MemorySystem23createSceneResourceHeapEPKc | Canonical320-byte heap root remains rank m; bounded380 returning and30 fault pairs agree under explicit models. | Independent retail callee/data identity and layout evidence establish all inputs. |
 | 0x00274EF0 | _ZN2al16initPlacementMapEPNS_5SceneEPKNS_8ResourceERKNS_13ActorInitInfoEPKc | Canonical344-byte root differs by33 bytes;76 modeled-contract pairs agree. | Independent retail callee/data identity and layout evidence establish all inputs. |
-| 0x0016A11C | _ZN10CourseList4initEPKN2al8ResourceE | Canonical compiled404 bytes differ from408-byte target; behavior unverified. | Independent retail callee/data identity and layout evidence establish all inputs. |
 | 0x00325B44 | _ZN10CourseList5WorldC1EPKN2al9ByamlIterE | Canonical compiled692 bytes differ from700-byte target; behavior unverified. | Independent retail callee/data identity and layout evidence establish all inputs. |
 
 ByamlHashIter::findPair at0x00331350 stops at eight recorded iterations, including one compiler invocation that failed because its system-header environment was missing. The final C++ expresses the verified sorted24-bit-key binary search. Its116-byte section has the correct operations but different registers and conditional-instruction order. It remains guarded by NON_MATCHING, rank m. Revisit with a new compiler/data-flow hypothesis, rather than another unchanged build.
@@ -76,7 +75,6 @@ No functional NonMatching claim or production source intake follows from these s
 | 0x001CD794 | fn_001CD794 | Seven valid structures plus one failed compile consume eight steps; 80-byte best differs five bytes. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
 | 0x00218B18 | fn_00218B18 | Companion 80-byte identifier predicate differs five bytes after the same capped shared search. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/001CD794.md. |
 | 0x0024AD94 | fn_0024AD94 | Two ordinary 32-byte source forms stall at two zero-register differences; return ABI remains unresolved. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/0024AD94.md. |
-| 0x00268EB0 | _ZNK2al12ActorFactory10getCreatorEPKc | Six source structures stall at nine setup-register bytes in 264; helper closure grows to 280. | A grounded ABI/data-flow proposal passes the canonical gate; see pro_requests/00268EB0.md. |
 
 | 0x0027C23C | Matrix33CalcCtr<float>::inverse | Three ordinary structures emit308/288 plus36 data/316 bytes versus260. Early structural stall. No evidenced helper entry. Packet project/pro_requests/0027C23C.md; dot-owned. |
 
@@ -90,12 +88,10 @@ No functional NonMatching claim or production source intake follows from these s
 
 | 0x00278C6C | fn_00278C6C | Four float-component forms miss copy/register/scheduling bytes. No NonMatching claim. Family packet project/pro_requests/002253C8.md; dot-owned. |
 
-| 0x002F2AD4 | _ZN4sead8TreeNode14pushFrontChildEPS0_ | Early stack-mask/inlining stall across64/104/144-byte contexts; original caller-stack contract unknown. Packet: pro_requests/002F2AD4.md. Requeue after other work and dot-overlap check. |
 
 
 | 0x00171334 | fn_00171334 | Four structures emit640 versus644; omitted branch/registration ordering remain, six earlier definitions preserve. Packet: pro_requests/00171334.md. Requeue after other work and dot-overlap check. |
 
-| 0x001E37D8 | _ZN2al24ExecuteTableHolderUpdate4initEPKNS_12ExecuteOrderEi | Four structures emit924/900/912/912 versus908; constructor lifetime/suffix merging and historical header uncertainty remain. Packet: pro_requests/001E37D8.md. Requeue after other work and dot-overlap check. |
 
 | 0x00274990 | _ZN2al12LiveActorKit7endInitEv | Early structural stall: kit+30 operation and reload after placement callbacks remain unresolved; both compilers emit232/236. | Independent pointee identity and live-loop alias contract. Packet: project/pro_requests/00274990.md. |
 

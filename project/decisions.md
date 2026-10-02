@@ -941,3 +941,9 @@ Replace only the two anonymous U/dc rows 003D274C..003D27E4 and 003D27E4..003D28
 ## 2026-10-02: remove two measured mechanical preparation limits
 
 Archive callbacks are independently evidenced but unnamed in their frozen map, while Draw's valid new include is absent from its old dependency closure. Both cannot use the current preparer without returning to hand-written packaging. Byaml lane exclusively owns prepare_family_handoff.py at556bc41/current828eb0bf to support explicit evidenced whole-row target names and additional hashed unchanged Git-base headers. Source/header proposals remain complete files; unowned header bytes must remain equal to frozen Git and current inputs. Names remain separate unapplied proposals for independent human acceptance. The tool must not infer ABI/ownership, rescue objects or change flags/checkers/provenance. New translation-unit bootstrap remains outside this bounded change. Root requires actual historical/new-input replays and meaningful refusal controls before intake.
+
+## Current blocked inventory and Sky successor ownership, 2026-10-02
+
+Removed 4 active blocked table rows whose whole intervals are now O. Historical packets, trials and ledger records remain; checker acceptance is the authority and this cleanup adds no credit.
+
+Assign actor_lifecycle only existing lib/al/src/Npc/alSky.cpp at0fff25a/source6146ea06, unchanged headers, before implementation. Screening finds11actual definitions and no current dot/local overlap. Remaining init72 raw instructions agree but unresolved imports prevent exact credit. Estimate0.90acceptance/25minutes=155.52bytes/hour, downstream0. Neutral28-byte accessor26CCD0 needs independent original provider/consumer evidence. Historical failed nerve forms lower that alternative's expected yield.
