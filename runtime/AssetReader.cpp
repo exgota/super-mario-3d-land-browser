@@ -2162,6 +2162,128 @@ CpuInlineAttributeConstruction readCpuInlineAttributeConstruction(
     return constructed;
 }
 
+struct CpuFixedAttributeUploadInput {
+    std::vector<std::uint32_t> commandWords;
+};
+
+struct CpuFixedAttributeHistorySlot {
+    std::optional<std::array<std::uint32_t, 4>> encodedWords;
+    std::optional<std::array<std::uint32_t, 6>> commandWords;
+    std::optional<std::size_t> lastUploadIndex;
+};
+
+struct CpuFixedAttributeHistory {
+    std::string status = "unavailable_supplied_fixed_attribute_history";
+    std::size_t suppliedUploadCount = 0;
+    std::uint16_t knownAttributeMask = 0;
+    std::array<CpuFixedAttributeHistorySlot, 12> logicalAttributes{};
+};
+
+struct CpuResolvedFixedAttribute {
+    std::uint32_t logicalAttributeNumber = 0;
+    std::uint8_t shaderInputRegister = 0;
+    std::string status = "unavailable_caller_fixed_attribute_value";
+    std::optional<std::array<std::uint32_t, 4>> encodedWords;
+    std::optional<std::size_t> lastUploadIndex;
+};
+
+struct CpuFixedAttributeResolution {
+    std::string status;
+    std::string suppliedHistoryStatus = "missing_supplied_fixed_attribute_history";
+    std::vector<CpuResolvedFixedAttribute> missingAttributes;
+};
+
+bool isCpuCompleteFixedAttributeUpload(std::span<const std::uint32_t> words) {
+    return words.size() == 6 && words[0] < 12 && words[1] == 0x803F0232 && words[5] == 0;
+}
+
+std::array<std::uint32_t, 4> readCpuFixedAttributeUploadWords(
+        std::span<const std::uint32_t> words) {
+    require(isCpuCompleteFixedAttributeUpload(words), "Fixed upload is incomplete or unsupported");
+    return {words[4] & 0xFFFFFF, ((words[4] >> 24) | (words[3] << 8)) & 0xFFFFFF,
+            ((words[3] >> 16) | (words[2] << 16)) & 0xFFFFFF, words[2] >> 8};
+}
+
+// Explicit supplied writes are the only source of known encoded values.
+// This records packet history, without asserting scene submission or GPU intake.
+CpuFixedAttributeHistory readCpuFixedAttributeHistory(
+        std::span<const CpuFixedAttributeUploadInput> uploads) {
+    require(uploads.size() <= 65536, "Fixed upload history exceeds its supported extent");
+    CpuFixedAttributeHistory result;
+    result.suppliedUploadCount = uploads.size();
+    if (uploads.empty())
+        return result;
+    result.status = "unsupported_fixed_attribute_history_packet";
+    for (const auto& upload : uploads)
+        if (!isCpuCompleteFixedAttributeUpload(upload.commandWords))
+            return result;
+    for (std::size_t index = 0; index < uploads.size(); ++index) {
+        const auto& words = uploads[index].commandWords;
+        auto& slot = result.logicalAttributes[words[0]];
+        slot.encodedWords = readCpuFixedAttributeUploadWords(words);
+        std::array<std::uint32_t, 6> retained{};
+        std::copy(words.begin(), words.end(), retained.begin());
+        slot.commandWords = retained;
+        slot.lastUploadIndex = index;
+        result.knownAttributeMask |= std::uint16_t(1u << words[0]);
+    }
+    result.status = "validated_supplied_fixed_attribute_history";
+    return result;
+}
+
+CpuFixedAttributeResolution resolveCpuMissingFixedAttributes(
+        const CpuInlineAttributeConstruction& construction,
+        const CpuFixedAttributeHistory* history) {
+    CpuFixedAttributeResolution result;
+    result.status = construction.status;
+    if (history)
+        result.suppliedHistoryStatus = history->status;
+    if (construction.status != "resource_local_inline_attribute_construction")
+        return result;
+    require(construction.vertexInputCount >= 1 && construction.vertexInputCount <= 12 &&
+            std::popcount(construction.vertexInputMask) == int(construction.vertexInputCount) &&
+            !(construction.fixedAttributeMask >> construction.vertexInputCount) &&
+            !(construction.attributePermutation >> (4 * construction.vertexInputCount)),
+            "Fixed resolution input count is inconsistent");
+    const bool available = history && history->status == "validated_supplied_fixed_attribute_history";
+    if (available) {
+        require(history->suppliedUploadCount >= 1 && history->suppliedUploadCount <= 65536 &&
+                !(history->knownAttributeMask & 0xF000), "Fixed history metadata is inconsistent");
+        for (std::size_t number = 0; number < 12; ++number) {
+            const auto& slot = history->logicalAttributes[number];
+            const bool known = history->knownAttributeMask & (1u << number);
+            require(slot.encodedWords.has_value() == known && slot.commandWords.has_value() == known &&
+                    slot.lastUploadIndex.has_value() == known, "Fixed history availability is inconsistent");
+            if (known) {
+                require((*slot.commandWords)[0] == number && *slot.lastUploadIndex < history->suppliedUploadCount &&
+                        isCpuCompleteFixedAttributeUpload(*slot.commandWords) &&
+                        readCpuFixedAttributeUploadWords(*slot.commandWords) == *slot.encodedWords,
+                        "Fixed history retained packet is inconsistent");
+            }
+        }
+    }
+    std::uint16_t seen = 0;
+    for (const CpuMissingFixedAttribute& missing : construction.missingFixedAttributes) {
+        const std::uint32_t number = missing.logicalAttributeNumber;
+        require(number < construction.vertexInputCount && missing.shaderInputRegister < 12 &&
+                !(seen & (1u << number)) && (construction.fixedAttributeMask & (1u << number)) &&
+                ((construction.attributePermutation >> (4 * number)) & 15) == missing.shaderInputRegister,
+                "Fixed resolution attribute identity is inconsistent");
+        seen |= std::uint16_t(1u << number);
+        CpuResolvedFixedAttribute value;
+        value.logicalAttributeNumber = number;
+        value.shaderInputRegister = missing.shaderInputRegister;
+        if (available && (history->knownAttributeMask & (1u << number))) {
+            value.status = "available_supplied_fixed_attribute_value";
+            value.encodedWords = history->logicalAttributes[number].encodedWords;
+            value.lastUploadIndex = history->logicalAttributes[number].lastUploadIndex;
+        }
+        result.missingAttributes.push_back(std::move(value));
+    }
+    result.status = "resource_local_fixed_attribute_resolution";
+    return result;
+}
+
 std::string hexadecimal(const std::string& value) {
     const char* digits = "0123456789abcdef";
     std::string result;
