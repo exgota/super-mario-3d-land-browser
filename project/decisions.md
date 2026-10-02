@@ -969,3 +969,7 @@ Four new meaningful forms stop at paired1028/7 residual register-selection bytes
 ## Archive callback neutral identities, 2026-10-02
 
 Five blank whole U function rows receive only address-spelled identities from separately corroborated original constructor/dispatch/providers and external callers. All intervals, pools, types and ranks stay unchanged; raw table words are never copied or partitioned. Directory close forwards the full32-bit slot2C result with handle+14, independently confirmed by accepted caller2229F4. Root verifies1313 proposal paths and23 independent peer paths. The ordinary source-only weak8-byte accessor receives no retail identity and must disappear under normal canonical inlineclosure; scratch equality292 adds no credit. Public names/inheritance/backend/tableextent remain unknown. Prior frozen FileDevice seal keeps its disclosed3440duplicatecount/3452actualrecords mismatch.
+
+## Archive ledger timestamp correction, 2026-10-02
+
+The five abandoned rows initially used an approximate03:09 timestamp. Replace only those timestamps with the exact recorded seal endpoint2026-10-02T03:06:43.671934UTC from handoff_manifest.json. Attempts and the shared30.274227-minute window are unchanged. No byte/rank/source credit changes.
