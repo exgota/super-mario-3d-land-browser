@@ -791,3 +791,4 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T02:06:36.245006+00:00,0x00251D60,_ZN4sead12PtrArrayImpl4sortEPFiPKvS2_E,matched,3,13.574625
 2026-10-02T02:06:36.245006+00:00,0x00275828,_ZN10ItemHolderC1Ebbi,matched,10,17.638344
 2026-10-02T02:06:36.245006+00:00,0x002229F4,_ZN4sead10FileDevice17tryCloseDirectoryEPNS_15DirectoryHandleE,matched,2,24.003573
+2026-10-02T02:06:36.245006+00:00,0x00222A54,_ZN4sead10FileDevice16tryReadDirectoryEPjPNS_15DirectoryHandleEPNS_14DirectoryEntryEj,matched,2,24.003573
