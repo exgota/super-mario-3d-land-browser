@@ -1,0 +1,90 @@
+{
+  "updated": "2026-10-02T09:32:37.541354+00:00",
+  "source_commit": "662d412123305a9f4be94dd3dc73ddf91a18c55e",
+  "patches": {
+    "azahar_capture.patch": {
+      "bytes": 23876,
+      "sha256": "2d584b8eea6fa523b7197c34f260d6f0f6dd5db464f530d63ebea6b12f8b8e02"
+    },
+    "azahar_deterministic_io.patch": {
+      "bytes": 796,
+      "sha256": "21bbcb7150ef850c29401f1575aa8dd19614c21175cbe9234e90ea0d6e8e5fc9"
+    }
+  },
+  "patch_applies_to_pinned_source": true,
+  "patch_check": [
+    {
+      "patch": "azahar_capture.patch",
+      "exit_code": 0,
+      "output": "",
+      "method": "git apply --check against clean pinned official source mirror"
+    },
+    {
+      "patch": "azahar_deterministic_io.patch",
+      "exit_code": 0,
+      "output": "",
+      "method": "git apply --check against clean pinned official source mirror"
+    }
+  ],
+  "executable_sha256": "6357489b13fc2ae1b944896b68640e605143c92d52b8e230728b887e60881071",
+  "source_files": {
+    "CMakeLists.txt": "dc1b4487cb06f1d87b5b6ae773b80ea767782c79e596a4ac57a3e0ce7841d284",
+    "src/CMakeLists.txt": "3526a1e83fb4b9502a9b39964a1e89e0d57382bc0457568a5028836f1bdeedb5",
+    "src/core/core.cpp": "f5bdfb9fdc5474551ea938f32db85322fd0177f52f1a9306ebd24d07ad13a29f",
+    "src/video_core/gpu.cpp": "bbec2944f274afa8f2202ecb9b506326b84e816a648f611895052691d780060a",
+    "src/video_core/pica/pica_core.cpp": "2dc754f6b16e5f9a4d95a512878fec3e811ce0465c84c7523821121d08b47bb8",
+    "src/root_port_capture/CMakeLists.txt": "10776a767424c88dc290043305c79803ed5a63268a9fb98278dd290f6afec63f",
+    "src/root_port_capture/cpu_backend_factory.cpp": "8087c84a8908d7fa0bee7b18c31fc6833d70abbb943953bd0883efceeee36ca5",
+    "src/root_port_capture/cpu_backend_factory.h": "cb0231f7aebb84d82d83b85378636fe42ce16b7da4be0dad6642cdbd863e82b6",
+    "src/root_port_capture/gpu_command_capture.cpp": "9e9b6e10e8943676e6500e6b4a86c10744654976e4d2613acdf76dec874f14b9",
+    "src/root_port_capture/gpu_command_capture.h": "dae919840f7570117c47f5db49656c695154c513c39f3f6a31a44c81a6e57930",
+    "src/root_port_capture/headless_capture.cpp": "ce7fc90e5978cfe513f39af7e0c007761913465ddb9204f55e6ddec4acda179a",
+    "src/root_port_capture/headless_capture.h": "cfe3500e574c7965daf78b5070e6b54e8a6c6927d1ff8946f2ad05a3b3c7bdcf",
+    "src/core/hle/service/fs/file.cpp": "8832c91d0caf3d0aa1a02a6244e272e2d89959e022c7291abb4300f0b7910331"
+  },
+  "upstream_repository": "https://github.com/azahar-emu/azahar",
+  "license": "GPL-2.0-or-later",
+  "capture_instrumentation_origin": "Project-authored instrumentation against pinned public community Azahar source",
+  "deterministic_io_correction": "In deterministic async mode, use the existing simulated read delay instead of subtracting measured host wall time.",
+  "observed_host": {
+    "os": "macOS 27.0 26A428",
+    "architecture": "arm64",
+    "compiler": "AppleClang 21.0.0",
+    "fmt": "12.2.0",
+    "openssl": "3.6.4",
+    "cmake": "3.31.10",
+    "compile_jobs": 1
+  },
+  "observed_reference": {
+    "recording": "Ignored local reference_fixed_io_0",
+    "playbacks": [
+      "Ignored local reference_fixed_io_1",
+      "Ignored local reference_fixed_io_2"
+    ],
+    "all_events_and_payloads_equal": true,
+    "events": 528,
+    "gsp_commands": 348,
+    "pica_lists": 8,
+    "pica_payload_bytes": 79936,
+    "vblanks": 102,
+    "direct_gpu_register_writes": 68,
+    "top_screen_swaps": 1,
+    "movie_errors": 0,
+    "event_sha256": "ed7a39625518e559be6c0bc8f5a50d05f088161bc9256b6a8a169eab114f9859",
+    "frame_convention": "Complete startup prefix from process load through first top-screen GPU::SetBufferSwap",
+    "no_game_payload_in_package": true
+  },
+  "unverified": [
+    "Static CPU reaches the first top-screen swap",
+    "Static/reference GPU event and payload equality",
+    "Whole-program CPU state equivalence",
+    "Actually followed chained PICA list capture",
+    "Visible rendered frame",
+    "Input-driven gameplay",
+    "Audio",
+    "World 1-1",
+    "Browser execution",
+    "Independent machine reproduction",
+    "Later-frame comparable state snapshots"
+  ]
+}
