@@ -1,0 +1,6 @@
+{
+  "recorded_at": "2026-10-02T07:58:51.926186+00:00",
+  "script_sha256": "30983ed0299e2af985bc99ad9f34fa9daa1d92cf04b4cf0159b4deb752135ebf",
+  "failure": "AssertionError: $a at name-keyed symbol comparison",
+  "cause": "Repeated ELF mapping symbols were overwritten in a dictionary keyed only by symbol name. The repaired audit compares the full symbol identities with multiplicity. No project checker or source changes."
+}

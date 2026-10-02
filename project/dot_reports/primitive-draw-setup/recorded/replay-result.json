@@ -1,0 +1,1211 @@
+{
+  "cases": [
+    {
+      "fixture": {
+        "group": "baseline"
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": false,
+        "move": false,
+        "clobber": false,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": false,
+        "move": false,
+        "clobber": true,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": false,
+        "move": true,
+        "clobber": false,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 44,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": false,
+        "move": true,
+        "clobber": true,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 44,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": true,
+        "move": false,
+        "clobber": false,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        86134,
+        86109
+      ],
+      "allocation_count": 42,
+      "call_count": 2902
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": true,
+        "move": false,
+        "clobber": true,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        86134,
+        86109
+      ],
+      "allocation_count": 42,
+      "call_count": 2902
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": true,
+        "move": true,
+        "clobber": false,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        86134,
+        86109
+      ],
+      "allocation_count": 44,
+      "call_count": 2902
+    },
+    {
+      "fixture": {
+        "group": "allocator_modes",
+        "null_heap": true,
+        "move": true,
+        "clobber": true,
+        "fill": 150
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        86134,
+        86109
+      ],
+      "allocation_count": 44,
+      "call_count": 2902
+    },
+    {
+      "fixture": {
+        "group": "shader_commands",
+        "commands": 1,
+        "suffix": true,
+        "fill": 1
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85548,
+        85529
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "shader_commands",
+        "commands": 3,
+        "suffix": true,
+        "fill": 3
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85548,
+        85529
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "shader_commands",
+        "commands": 8,
+        "suffix": true,
+        "fill": 8
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85548,
+        85529
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "shader_commands",
+        "commands": 16,
+        "suffix": true,
+        "fill": 16
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85578,
+        85559
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "shader_commands",
+        "commands": 31,
+        "suffix": true,
+        "fill": 31
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85620,
+        85601
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "floating_modes",
+        "fpscr": 4194304,
+        "fill": 204
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85486,
+        85467
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "floating_modes",
+        "fpscr": 8388608,
+        "fill": 204
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85543,
+        85524
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "floating_modes",
+        "fpscr": 12582912,
+        "fill": 204
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85531,
+        85512
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "floating_modes",
+        "fpscr": 16777216,
+        "fill": 204
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "floating_modes",
+        "fpscr": 33554432,
+        "fill": 204
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "floating_modes",
+        "fpscr": 62914560,
+        "fill": 204
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85531,
+        85512
+      ],
+      "allocation_count": 42,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "receiver_alignment",
+        "shift": 4,
+        "arena_shift": 4,
+        "move": true,
+        "clobber": true
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 44,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "receiver_alignment",
+        "shift": 3840,
+        "arena_shift": 3840,
+        "move": true,
+        "clobber": true
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 44,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "receiver_alignment",
+        "shift": 7936,
+        "arena_shift": 7936,
+        "move": true,
+        "clobber": true
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 44,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "receiver_alignment",
+        "shift": 32768,
+        "arena_shift": 32768,
+        "move": true,
+        "clobber": true
+      },
+      "returned": true,
+      "fault": null,
+      "steps": [
+        85576,
+        85557
+      ],
+      "allocation_count": 44,
+      "call_count": 2814
+    },
+    {
+      "fixture": {
+        "group": "fault_control",
+        "null_receiver": true,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        19,
+        12,
+        1
+      ],
+      "steps": [
+        527,
+        529
+      ],
+      "allocation_count": 1,
+      "call_count": 6
+    },
+    {
+      "fixture": {
+        "group": "fault_control",
+        "null_shader": true,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        19,
+        4,
+        4
+      ],
+      "steps": [
+        111,
+        113
+      ],
+      "allocation_count": 1,
+      "call_count": 3
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 0,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        8,
+        1
+      ],
+      "steps": [
+        35,
+        35
+      ],
+      "allocation_count": 0,
+      "call_count": 2
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 1,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        3060,
+        3063
+      ],
+      "allocation_count": 1,
+      "call_count": 70
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 2,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        7111,
+        7115
+      ],
+      "allocation_count": 2,
+      "call_count": 156
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 3,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        8172,
+        8177
+      ],
+      "allocation_count": 3,
+      "call_count": 185
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 7,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        8858,
+        8863
+      ],
+      "allocation_count": 7,
+      "call_count": 220
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 18,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        18362,
+        18360
+      ],
+      "allocation_count": 18,
+      "call_count": 588
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 35,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        69847,
+        69831
+      ],
+      "allocation_count": 35,
+      "call_count": 2305
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 39,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        81484,
+        81467
+      ],
+      "allocation_count": 39,
+      "call_count": 2661
+    },
+    {
+      "fixture": {
+        "group": "allocation_failure",
+        "fail_alloc": 40,
+        "expected_fault": true
+      },
+      "returned": false,
+      "fault": [
+        20,
+        0,
+        4
+      ],
+      "steps": [
+        81970,
+        81953
+      ],
+      "allocation_count": 40,
+      "call_count": 2728
+    }
+  ],
+  "fixture_count": 35,
+  "returned": 24,
+  "equal_faults": 11,
+  "all_equal": true,
+  "seconds": 3.2484163839999383,
+  "root_instruction_addresses": [
+    "0x2e0d2c",
+    "0x2e0d30",
+    "0x2e0d34",
+    "0x2e0d38",
+    "0x2e0d3c",
+    "0x2e0d40",
+    "0x2e0d44",
+    "0x2e0d48",
+    "0x2e0d4c",
+    "0x2e0d50",
+    "0x2e0d54",
+    "0x2e0d58",
+    "0x2e0d5c",
+    "0x2e0d60",
+    "0x2e0d64",
+    "0x2e0d68",
+    "0x2e0d6c",
+    "0x2e0d70",
+    "0x2e0d74",
+    "0x2e0d78",
+    "0x2e0d7c",
+    "0x2e0d80",
+    "0x2e0d84",
+    "0x2e0d88",
+    "0x2e0d8c",
+    "0x2e0d90",
+    "0x2e0d94",
+    "0x2e0d98",
+    "0x2e0d9c",
+    "0x2e0da0",
+    "0x2e0da4",
+    "0x2e0da8",
+    "0x2e0dac",
+    "0x2e0db0",
+    "0x2e0db4",
+    "0x2e0db8",
+    "0x2e0dbc",
+    "0x2e0dc0",
+    "0x2e0dc4",
+    "0x2e0dc8",
+    "0x2e0dcc",
+    "0x2e0dd0",
+    "0x2e0dd4",
+    "0x2e0dd8",
+    "0x2e0ddc",
+    "0x2e0de0",
+    "0x2e0de4",
+    "0x2e0de8",
+    "0x2e0dec",
+    "0x2e0df0",
+    "0x2e0df4",
+    "0x2e0df8",
+    "0x2e0dfc",
+    "0x2e0e00",
+    "0x2e0e04",
+    "0x2e0e08",
+    "0x2e0e0c",
+    "0x2e0e10",
+    "0x2e0e14",
+    "0x2e0e18",
+    "0x2e0e1c",
+    "0x2e0e20",
+    "0x2e0e24",
+    "0x2e0e28",
+    "0x2e0e2c",
+    "0x2e0e30",
+    "0x2e0e34",
+    "0x2e0e38",
+    "0x2e0e3c",
+    "0x2e0e40",
+    "0x2e0e44",
+    "0x2e0e48",
+    "0x2e0e4c",
+    "0x2e0e50",
+    "0x2e0e54",
+    "0x2e0e58",
+    "0x2e0e5c",
+    "0x2e0e60",
+    "0x2e0e64",
+    "0x2e0e68",
+    "0x2e0e6c",
+    "0x2e0e70",
+    "0x2e0e74",
+    "0x2e0e78",
+    "0x2e0e7c",
+    "0x2e0e80",
+    "0x2e0e84",
+    "0x2e0e88",
+    "0x2e0e8c",
+    "0x2e0e90",
+    "0x2e0e94",
+    "0x2e0e98",
+    "0x2e0e9c",
+    "0x2e0ea0",
+    "0x2e0ea4",
+    "0x2e0ea8",
+    "0x2e0eac",
+    "0x2e0eb0",
+    "0x2e0eb4",
+    "0x2e0eb8",
+    "0x2e0ebc",
+    "0x2e0ec0",
+    "0x2e0ec4",
+    "0x2e0ec8",
+    "0x2e0ecc",
+    "0x2e0ed0",
+    "0x2e0ed4",
+    "0x2e0ed8",
+    "0x2e0edc",
+    "0x2e0ee0",
+    "0x2e0ee4",
+    "0x2e0ee8",
+    "0x2e0eec",
+    "0x2e0ef0",
+    "0x2e0ef4",
+    "0x2e0ef8",
+    "0x2e0efc",
+    "0x2e0f00",
+    "0x2e0f04",
+    "0x2e0f08",
+    "0x2e0f0c",
+    "0x2e0f10",
+    "0x2e0f14",
+    "0x2e0f18",
+    "0x2e0f1c",
+    "0x2e0f20",
+    "0x2e0f24",
+    "0x2e0f28",
+    "0x2e0f2c",
+    "0x2e0f30",
+    "0x2e0f34",
+    "0x2e0f38",
+    "0x2e0f3c",
+    "0x2e0f40",
+    "0x2e0f44",
+    "0x2e0f48",
+    "0x2e0f4c",
+    "0x2e0f50",
+    "0x2e0f54",
+    "0x2e0f58",
+    "0x2e0f5c",
+    "0x2e0f60",
+    "0x2e0f64",
+    "0x2e0f68",
+    "0x2e0f6c",
+    "0x2e0f70",
+    "0x2e0f74",
+    "0x2e0f78",
+    "0x2e0f7c",
+    "0x2e0f80",
+    "0x2e0f84",
+    "0x2e0f88",
+    "0x2e0f8c",
+    "0x2e0f90",
+    "0x2e0f94",
+    "0x2e0f98",
+    "0x2e0f9c",
+    "0x2e0fa0",
+    "0x2e0fa4",
+    "0x2e0fa8",
+    "0x2e0fac",
+    "0x2e0fb0",
+    "0x2e0fb4",
+    "0x2e0fb8",
+    "0x2e0fbc",
+    "0x2e0fc0",
+    "0x2e0fc4",
+    "0x2e0fc8",
+    "0x2e0fcc",
+    "0x2e0fd0",
+    "0x2e0fd4",
+    "0x2e0fd8",
+    "0x2e0fdc",
+    "0x2e0fe0",
+    "0x2e0fe4",
+    "0x2e0fe8",
+    "0x2e0fec",
+    "0x2e0ff0",
+    "0x2e0ff4",
+    "0x2e0ff8",
+    "0x2e0ffc",
+    "0x2e1000",
+    "0x2e1004",
+    "0x2e1008",
+    "0x2e100c",
+    "0x2e1010",
+    "0x2e1014",
+    "0x2e1018",
+    "0x2e101c",
+    "0x2e1020",
+    "0x2e1024",
+    "0x2e1028",
+    "0x2e102c",
+    "0x2e1030",
+    "0x2e1034",
+    "0x2e1038",
+    "0x2e103c",
+    "0x2e1040",
+    "0x2e1044",
+    "0x2e1048",
+    "0x2e104c",
+    "0x2e1050",
+    "0x2e1054",
+    "0x2e1058",
+    "0x2e105c",
+    "0x2e1060",
+    "0x2e1064",
+    "0x2e1068",
+    "0x2e106c",
+    "0x2e1070",
+    "0x2e1074",
+    "0x2e1078",
+    "0x2e107c",
+    "0x2e1080",
+    "0x2e1084",
+    "0x2e1088",
+    "0x2e108c",
+    "0x2e1090",
+    "0x2e1094",
+    "0x2e1098",
+    "0x2e109c",
+    "0x2e10a0",
+    "0x2e10a4",
+    "0x2e10a8",
+    "0x2e10ac",
+    "0x2e10b0",
+    "0x2e10b4",
+    "0x2e10b8",
+    "0x2e10bc",
+    "0x2e10c0",
+    "0x2e10c4",
+    "0x2e10c8",
+    "0x2e10cc",
+    "0x2e10d0",
+    "0x2e10d4",
+    "0x2e10d8",
+    "0x2e10dc",
+    "0x2e10e0",
+    "0x2e10e4",
+    "0x2e10e8",
+    "0x2e10ec",
+    "0x2e10f0",
+    "0x2e10f4",
+    "0x2e10f8",
+    "0x2e10fc",
+    "0x2e1100",
+    "0x2e1104",
+    "0x2e1108",
+    "0x2e110c",
+    "0x2e1110",
+    "0x2e1114",
+    "0x2e1118",
+    "0x2e111c",
+    "0x2e1120",
+    "0x2e1194",
+    "0x2e1198",
+    "0x2e119c",
+    "0x2e11a0",
+    "0x2e11a4",
+    "0x2e11a8",
+    "0x2e11ac",
+    "0x2e11b0",
+    "0x2e11b4",
+    "0x2e11b8",
+    "0x2e11bc",
+    "0x2e11c0",
+    "0x2e11c4",
+    "0x2e11c8",
+    "0x2e11cc",
+    "0x2e11d0",
+    "0x2e11d4",
+    "0x2e11d8",
+    "0x2e11dc",
+    "0x2e11e0",
+    "0x2e11e4",
+    "0x2e11e8",
+    "0x2e11ec",
+    "0x2e11f0",
+    "0x2e11f4",
+    "0x2e11f8",
+    "0x2e11fc",
+    "0x2e1200",
+    "0x2e1204",
+    "0x2e1208",
+    "0x2e120c",
+    "0x2e1210",
+    "0x2e1214",
+    "0x2e1218",
+    "0x2e121c",
+    "0x2e1220",
+    "0x2e1224",
+    "0x2e1228",
+    "0x2e122c",
+    "0x2e1230",
+    "0x2e1234",
+    "0x2e1238",
+    "0x2e123c",
+    "0x2e1240",
+    "0x2e1244",
+    "0x2e1248",
+    "0x2e124c",
+    "0x2e1250",
+    "0x2e1254",
+    "0x2e1258",
+    "0x2e125c",
+    "0x2e1260",
+    "0x2e1264",
+    "0x2e1268",
+    "0x2e126c",
+    "0x2e1270",
+    "0x2e1274",
+    "0x2e1278",
+    "0x2e127c",
+    "0x2e1280",
+    "0x2e1284",
+    "0x2e1288",
+    "0x2e128c",
+    "0x2e1290",
+    "0x2e1294",
+    "0x2e1298",
+    "0x2e129c",
+    "0x2e12a0",
+    "0x2e12a4",
+    "0x2e12a8",
+    "0x2e12ac",
+    "0x2e12b0",
+    "0x2e12b4",
+    "0x2e12b8",
+    "0x2e12bc",
+    "0x2e12c0",
+    "0x2e12c4",
+    "0x2e12c8",
+    "0x2e12cc",
+    "0x2e12d0",
+    "0x2e12d4",
+    "0x2e12d8",
+    "0x2e12dc",
+    "0x2e12e0",
+    "0x2e12e4",
+    "0x2e12e8",
+    "0x2e12ec",
+    "0x2e12f0",
+    "0x2e12f4",
+    "0x2e12f8",
+    "0x2e12fc",
+    "0x2e1300",
+    "0x2e1304",
+    "0x2e1308",
+    "0x2e130c",
+    "0x2e1310",
+    "0x2e1314",
+    "0x2e1318",
+    "0x2e131c",
+    "0x2e1320",
+    "0x2e1324",
+    "0x2e1328",
+    "0x2e132c",
+    "0x2e1330",
+    "0x2e1334",
+    "0x2e1338",
+    "0x2e133c",
+    "0x2e1340",
+    "0x2e1344",
+    "0x2e1348",
+    "0x2e134c",
+    "0x2e1350",
+    "0x2e1354",
+    "0x2e1358",
+    "0x2e135c",
+    "0x2e1360",
+    "0x2e1364",
+    "0x2e1368",
+    "0x2e136c",
+    "0x2e1370",
+    "0x2e1374",
+    "0x2e1378",
+    "0x2e137c",
+    "0x2e1380",
+    "0x2e1384",
+    "0x2e1388",
+    "0x2e138c",
+    "0x2e1390",
+    "0x2e1394",
+    "0x2e1398",
+    "0x2e139c",
+    "0x2e13a0",
+    "0x2e13a4",
+    "0x2e13a8",
+    "0x2e13ac",
+    "0x2e13b0",
+    "0x2e13b4",
+    "0x2e13b8",
+    "0x2e13bc",
+    "0x2e13c0",
+    "0x2e13c4",
+    "0x2e13c8",
+    "0x2e13cc",
+    "0x2e13d0",
+    "0x2e13d4",
+    "0x2e13d8",
+    "0x2e13dc",
+    "0x2e13e0",
+    "0x2e13e4",
+    "0x2e13e8",
+    "0x2e13ec",
+    "0x2e13f0",
+    "0x2e13f4",
+    "0x2e13f8",
+    "0x2e13fc",
+    "0x2e1400",
+    "0x2e1404",
+    "0x2e1408",
+    "0x2e140c",
+    "0x2e1410",
+    "0x2e1414",
+    "0x2e1418",
+    "0x2e141c",
+    "0x2e1420",
+    "0x2e1424",
+    "0x2e1428",
+    "0x2e142c",
+    "0x2e1430",
+    "0x2e1434",
+    "0x2e1438",
+    "0x2e143c",
+    "0x2e1440",
+    "0x2e1444",
+    "0x2e1448",
+    "0x2e144c",
+    "0x2e1450",
+    "0x2e1454",
+    "0x2e1458",
+    "0x2e145c",
+    "0x2e1460",
+    "0x2e1464",
+    "0x2e1468",
+    "0x2e146c",
+    "0x2e1470",
+    "0x2e1474",
+    "0x2e1478",
+    "0x2e147c",
+    "0x2e1480",
+    "0x2e1484",
+    "0x2e1488",
+    "0x2e148c",
+    "0x2e1490",
+    "0x2e1494",
+    "0x2e1498",
+    "0x2e149c",
+    "0x2e14a0",
+    "0x2e14a4",
+    "0x2e14a8",
+    "0x2e14ac",
+    "0x2e14b0",
+    "0x2e14b4",
+    "0x2e14b8",
+    "0x2e14bc",
+    "0x2e14c0",
+    "0x2e14c4",
+    "0x2e14c8",
+    "0x2e14cc",
+    "0x2e14d0",
+    "0x2e14d4",
+    "0x2e14d8",
+    "0x2e14dc",
+    "0x2e14e0",
+    "0x2e14e4",
+    "0x2e14e8",
+    "0x2e14ec",
+    "0x2e14f0",
+    "0x2e14f4",
+    "0x2e14f8",
+    "0x2e14fc",
+    "0x2e1500",
+    "0x2e1504",
+    "0x2e1508",
+    "0x2e150c",
+    "0x2e1510",
+    "0x2e1514",
+    "0x2e1518",
+    "0x2e151c",
+    "0x2e1520",
+    "0x2e1524",
+    "0x2e1528",
+    "0x2e152c"
+  ],
+  "calls": [
+    {
+      "2692068": 35,
+      "2231524": 34,
+      "2231248": 66,
+      "2029200": 64,
+      "2026408": 64,
+      "2230892": 599,
+      "2695512": 598,
+      "2277488": 3145,
+      "2230312": 63,
+      "2028984": 63,
+      "2189008": 182,
+      "2683040": 334,
+      "2232068": 249,
+      "2700240": 1078,
+      "2681532": 712,
+      "3779304": 8842,
+      "3779300": 8742,
+      "3023476": 12774,
+      "3021728": 30,
+      "2664856": 58,
+      "2698528": 344,
+      "2696020": 115,
+      "2229984": 220,
+      "2711624": 860,
+      "1094332": 1054,
+      "1094336": 1054,
+      "2231744": 729,
+      "2029612": 729,
+      "3017660": 29,
+      "3020904": 28,
+      "3022072": 55,
+      "2652424": 8504,
+      "2652880": 8504,
+      "2171052": 324,
+      "2656012": 15976,
+      "3021448": 54,
+      "3022908": 53,
+      "2030116": 24,
+      "2030196": 24,
+      "2573228": 24,
+      "2681080": 24,
+      "2699400": 176,
+      "2674508": 176
+    },
+    {
+      "2692068": 35,
+      "2231524": 34,
+      "2231248": 66,
+      "2029200": 64,
+      "2026408": 64,
+      "2230892": 599,
+      "2695512": 598,
+      "2277488": 3145,
+      "2230312": 63,
+      "2028984": 63,
+      "2189008": 182,
+      "2683040": 334,
+      "2232068": 249,
+      "2700240": 1078,
+      "2681532": 712,
+      "3779304": 8842,
+      "3779300": 8742,
+      "3023476": 12774,
+      "3021728": 30,
+      "2664856": 58,
+      "2698528": 344,
+      "2696020": 115,
+      "2229984": 220,
+      "2711624": 860,
+      "1094332": 1054,
+      "1094336": 1054,
+      "2231744": 729,
+      "2029612": 729,
+      "3017660": 29,
+      "3020904": 28,
+      "3022072": 55,
+      "2652424": 8504,
+      "2652880": 8504,
+      "2171052": 324,
+      "2656012": 15976,
+      "3021448": 54,
+      "3022908": 53,
+      "2030116": 24,
+      "2030196": 24,
+      "2573228": 24,
+      "2681080": 24,
+      "2699400": 176,
+      "2674508": 176
+    }
+  ],
+  "models": [
+    {
+      "7340288": 1176,
+      "7340300": 63,
+      "7340296": 61,
+      "2711624": 860,
+      "2681080": 24,
+      "7340292": 24,
+      "2674508": 176
+    },
+    {
+      "7340288": 1176,
+      "7340300": 63,
+      "7340296": 61,
+      "2711624": 860,
+      "2681080": 24,
+      "7340292": 24,
+      "2674508": 176
+    }
+  ],
+  "models_description": [
+    "Heap allocate,free,resize and largest-block vtable dispatch",
+    "TLS read 0028CF4C",
+    "heap-owner query 0028E8F8",
+    "cache flush 00296048"
+  ],
+  "instruction_limit": 2000000
+}

@@ -1,0 +1,220 @@
+{
+  "exact": false,
+  "reason": "The complete compiled section, including its literal pool, has a different size from the original interval.",
+  "evidence": {
+    "symbol": "fn_002E0D2C",
+    "object": "build/eu/obj/lib/al/src/Graphics/retail_PrimitiveDrawSetup.o",
+    "version": "eu",
+    "compiler": "4.1/791",
+    "original_start": 3018028,
+    "original_end": 3020100,
+    "original_size": 2072,
+    "map_sha256": "02807b10b8e4a845a5a0f0eca19b16a04ea023f59914a1860ad8b0979d5c00e2",
+    "object_sha256": "898e30e6db4c63acaa17690b245f9cb498bf3d9b5f624921cc6d338ce88f4c4a",
+    "output_directory": "/workspace/scratch/73cdb2c524af/mario-particle-shader-setup/build/exact_checks/eu/function_002E0D2C_unocahob",
+    "compiled_section": "i.fn_002E0D2C",
+    "compiled_section_size": 1968,
+    "compiled_section_sha256": "9afd2b982c129178a7e5ed13ed181efddcf870d6d145c2da68efc577c6cead4e",
+    "isolated_object_sha256": "58a3a7a755617f13af035fcc1caed21a300757c1cf6280f4d9479c104dbd1a35",
+    "imports": [
+      {
+        "symbol": "_ZN4sead17PrimitiveDrawUtil13setDiskVertexEPNS0_6VertexEPti",
+        "address": 3021448,
+        "kind": "A",
+        "map_symbol": "_ZN4sead17PrimitiveDrawUtil13setDiskVertexEPNS0_6VertexEPti",
+        "map_start": 3021448,
+        "map_end": 3021728,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "_ZN4sead17PrimitiveDrawUtil15setSphereVertexEPNS0_6VertexEPtii",
+        "address": 3022072,
+        "kind": "A",
+        "map_symbol": "_ZN4sead17PrimitiveDrawUtil15setSphereVertexEPNS0_6VertexEPtii",
+        "map_start": 3022072,
+        "map_end": 3022908,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "_ZN4sead17PrimitiveDrawUtil17setCylinderVertexEPNS0_6VertexEPti",
+        "address": 3022908,
+        "kind": "A",
+        "map_symbol": "_ZN4sead17PrimitiveDrawUtil17setCylinderVertexEPNS0_6VertexEPti",
+        "map_start": 3022908,
+        "map_end": 3023476,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "_ZN4sead19PrimitiveDrawMgrCtr15loadLineVertex_EPNS_4HeapE",
+        "address": 3017660,
+        "kind": "A",
+        "map_symbol": "_ZN4sead19PrimitiveDrawMgrCtr15loadLineVertex_EPNS_4HeapE",
+        "map_start": 3017660,
+        "map_end": 3017940,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "address": 2229984,
+        "kind": "A",
+        "map_symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "map_start": 2229984,
+        "map_end": 2230312,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "_ZdlPv",
+        "address": 2573228,
+        "kind": "A",
+        "map_symbol": "_ZdlPv",
+        "map_start": 2573228,
+        "map_end": 2573296,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "_ZnajPN4sead4HeapEi",
+        "address": 2700240,
+        "kind": "A",
+        "map_symbol": "_ZnajPN4sead4HeapEi",
+        "map_start": 2700240,
+        "map_end": 2700312,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "address": 2681532,
+        "kind": "A",
+        "map_symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "map_start": 2681532,
+        "map_end": 2681596,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "dat_003E23B8",
+        "address": 4072376,
+        "kind": "D",
+        "map_symbol": "dat_003E23B8",
+        "map_start": 4072376,
+        "map_end": 4072388,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_001EFA24",
+        "address": 2030116,
+        "kind": "A",
+        "map_symbol": "fn_001EFA24",
+        "map_start": 2030116,
+        "map_end": 2030196,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_001EFA74",
+        "address": 2030196,
+        "kind": "A",
+        "map_symbol": "fn_001EFA74",
+        "map_start": 2030196,
+        "map_end": 2030288,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_00220828",
+        "address": 2230312,
+        "kind": "A",
+        "map_symbol": "fn_00220828",
+        "map_start": 2230312,
+        "map_end": 2230892,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_00220A6C",
+        "address": 2230892,
+        "kind": "A",
+        "map_symbol": "fn_00220A6C",
+        "map_start": 2230892,
+        "map_end": 2231248,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_00220BD0",
+        "address": 2231248,
+        "kind": "A",
+        "map_symbol": "fn_00220BD0",
+        "map_start": 2231248,
+        "map_end": 2231524,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_00220CE4",
+        "address": 2231524,
+        "kind": "A",
+        "map_symbol": "fn_00220CE4",
+        "map_start": 2231524,
+        "map_end": 2231604,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_00220F04",
+        "address": 2232068,
+        "kind": "A",
+        "map_symbol": "fn_00220F04",
+        "map_start": 2232068,
+        "map_end": 2232232,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_002913E4",
+        "address": 2692068,
+        "kind": "A",
+        "map_symbol": "fn_002913E4",
+        "map_start": 2692068,
+        "map_end": 2692140,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_00293088",
+        "address": 2699400,
+        "kind": "A",
+        "map_symbol": "fn_00293088",
+        "map_start": 2699400,
+        "map_end": 2699432,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_002E1868",
+        "address": 3020904,
+        "kind": "A",
+        "map_symbol": "fn_002E1868",
+        "map_start": 3020904,
+        "map_end": 3021448,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_002E1BA0",
+        "address": 3021728,
+        "kind": "A",
+        "map_symbol": "fn_002E1BA0",
+        "map_start": 3021728,
+        "map_end": 3022072,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "fn_002E2274",
+        "address": 3023476,
+        "kind": "A",
+        "map_symbol": "fn_002E2274",
+        "map_start": 3023476,
+        "map_end": 3023528,
+        "defined_in_input": false
+      },
+      {
+        "symbol": "nngxGetPhysicalAddr",
+        "address": 1094332,
+        "kind": "A",
+        "map_symbol": "nngxGetPhysicalAddr",
+        "map_start": 1094332,
+        "map_end": 1094336,
+        "defined_in_input": false
+      }
+    ]
+  }
+}

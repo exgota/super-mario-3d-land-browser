@@ -1,0 +1,9 @@
+{
+  "recovered_on": "2026-10-02",
+  "source_unchanged": true,
+  "first_audit_failure": "Name-keyed symbol dictionary overwrote repeated $a mapping symbols.",
+  "second_audit_failure": "Name-keyed relocation-section dictionary overwrote repeated .rel.debug_frame sections.",
+  "third_audit_failure": "After retaining all sections, raw numeric debug-frame group names differed when 13 generated function placeholders were inserted.",
+  "correction": "Full symbol identities and relocation records retain multiplicity. Debug-frame self-group names are normalized only after checking that the symbol section index equals that exact relocation target section. Frame bytes and referenced code identities remain in the comparison. No project oracle or reconstruction was modified.",
+  "scope": "These are diagnostic audit failures, not candidate semantic failures or additional source forms."
+}

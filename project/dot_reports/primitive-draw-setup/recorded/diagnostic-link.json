@@ -1,0 +1,154 @@
+{
+  "command": [
+    "data/compilers/wibo",
+    "data/compilers/4.1/791/bin/armlink.exe",
+    "--scatter",
+    "build/primitive-draw-setup/behavior.sct",
+    "--entry",
+    "fn_002E0D2C",
+    "--no_scanlib",
+    "--output",
+    "build/primitive-draw-setup/behavior.axf",
+    "--map",
+    "--list",
+    "build/primitive-draw-setup/behavior.map",
+    "build/eu/obj/lib/al/src/Graphics/retail_PrimitiveDrawSetup.o",
+    "build/primitive-draw-setup/imports.sym"
+  ],
+  "imports": [
+    {
+      "symbol": "_ZN4sead17PrimitiveDrawUtil13setDiskVertexEPNS0_6VertexEPti",
+      "address": 3021448,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZN4sead17PrimitiveDrawUtil15setSphereVertexEPNS0_6VertexEPtii",
+      "address": 3022072,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZN4sead17PrimitiveDrawUtil17setCylinderVertexEPNS0_6VertexEPti",
+      "address": 3022908,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZN4sead19PrimitiveDrawMgrCtr15loadLineVertex_EPNS_4HeapE",
+      "address": 3017660,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+      "address": 2229984,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZdlPv",
+      "address": 2573228,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "_ZnajPN4sead4HeapEi",
+      "address": 2700240,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+      "address": 2681532,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "dat_003E23B8",
+      "address": 4072376,
+      "kind": "D",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_001EFA24",
+      "address": 2030116,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_001EFA74",
+      "address": 2030196,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00220828",
+      "address": 2230312,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00220A6C",
+      "address": 2230892,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00220BD0",
+      "address": 2231248,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00220CE4",
+      "address": 2231524,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00220F04",
+      "address": 2232068,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_002913E4",
+      "address": 2692068,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_00293088",
+      "address": 2699400,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_002E1868",
+      "address": 3020904,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_002E1BA0",
+      "address": 3021728,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "fn_002E2274",
+      "address": 3023476,
+      "kind": "A",
+      "missing_map": false
+    },
+    {
+      "symbol": "nngxGetPhysicalAddr",
+      "address": 1094332,
+      "kind": "A",
+      "missing_map": false
+    }
+  ],
+  "status": 0,
+  "credit": "behavior diagnostic only; no object editing or canonical metadata change"
+}

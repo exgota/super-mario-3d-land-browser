@@ -1,0 +1,1166 @@
+{
+  "source_hash": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+  "root_map": {
+    "Start": "0x002E0D2C",
+    "Pool": "0x002E1124",
+    "End": "0x002E1544",
+    "Section": "",
+    "Rank": "U",
+    "Type": "f",
+    "Symbol": "",
+    "SectionName": ""
+  },
+  "executable_ranges": [
+    [
+      "0x2e0d2c",
+      "0x2e1124"
+    ],
+    [
+      "0x2e1194",
+      "0x2e1530"
+    ]
+  ],
+  "literal_islands": [
+    [
+      "0x002E1124",
+      "0x002E1194"
+    ],
+    [
+      "0x002E1530",
+      "0x002E1544"
+    ]
+  ],
+  "direct_and_indirect_calls": [
+    {
+      "address": "0x2e0d48",
+      "mnemonic": "bl",
+      "target": "#0x2913e4",
+      "map_row": {
+        "Start": "0x002913E4",
+        "Pool": "0x00291428",
+        "End": "0x0029142C",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0d50",
+      "mnemonic": "blne",
+      "target": "#0x220ce4",
+      "map_row": {
+        "Start": "0x00220CE4",
+        "Pool": "",
+        "End": "0x00220D34",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0d64",
+      "mnemonic": "bl",
+      "target": "#0x220bd0",
+      "map_row": {
+        "Start": "0x00220BD0",
+        "Pool": "",
+        "End": "0x00220CE4",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0d74",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0d84",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0d94",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0da4",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0db4",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0dc4",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0dd4",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0de4",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0df4",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0e08",
+      "mnemonic": "bl",
+      "target": "#0x293088",
+      "map_row": {
+        "Start": "0x00293088",
+        "Pool": "0x002930A4",
+        "End": "0x002930A8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0e20",
+      "mnemonic": "blx",
+      "target": "r2"
+    },
+    {
+      "address": "0x2e0e38",
+      "mnemonic": "blx",
+      "target": "r3"
+    },
+    {
+      "address": "0x2e0e48",
+      "mnemonic": "bl",
+      "target": "#0x220828",
+      "map_row": {
+        "Start": "0x00220828",
+        "Pool": "0x00220A40",
+        "End": "0x00220A6C",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0e58",
+      "mnemonic": "bleq",
+      "target": "#0x293088",
+      "map_row": {
+        "Start": "0x00293088",
+        "Pool": "0x002930A4",
+        "End": "0x002930A8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0e78",
+      "mnemonic": "blx",
+      "target": "r3"
+    },
+    {
+      "address": "0x2e0e90",
+      "mnemonic": "bl",
+      "target": "#0x220bd0",
+      "map_row": {
+        "Start": "0x00220BD0",
+        "Pool": "",
+        "End": "0x00220CE4",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0ea0",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0eb0",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0ec0",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0ed0",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0ee0",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0ef0",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f00",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f10",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f20",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f30",
+      "mnemonic": "bl",
+      "target": "#0x220a6c",
+      "map_row": {
+        "Start": "0x00220A6C",
+        "Pool": "",
+        "End": "0x00220BD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f44",
+      "mnemonic": "bl",
+      "target": "#0x293088",
+      "map_row": {
+        "Start": "0x00293088",
+        "Pool": "0x002930A4",
+        "End": "0x002930A8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f5c",
+      "mnemonic": "blx",
+      "target": "r2"
+    },
+    {
+      "address": "0x2e0f74",
+      "mnemonic": "blx",
+      "target": "r3"
+    },
+    {
+      "address": "0x2e0f84",
+      "mnemonic": "bl",
+      "target": "#0x220828",
+      "map_row": {
+        "Start": "0x00220828",
+        "Pool": "0x00220A40",
+        "End": "0x00220A6C",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0f94",
+      "mnemonic": "bleq",
+      "target": "#0x293088",
+      "map_row": {
+        "Start": "0x00293088",
+        "Pool": "0x002930A4",
+        "End": "0x002930A8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0fb4",
+      "mnemonic": "blx",
+      "target": "r3"
+    },
+    {
+      "address": "0x2e0fd4",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0fe8",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e0ff4",
+      "mnemonic": "bl",
+      "target": "#0x2e1ba0",
+      "map_row": {
+        "Start": "0x002E1BA0",
+        "Pool": "0x002E1CDC",
+        "End": "0x002E1CF8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1010",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e101c",
+      "mnemonic": "bl",
+      "target": "#0x2e0bbc",
+      "map_row": {
+        "Start": "0x002E0BBC",
+        "Pool": "0x002E0CC4",
+        "End": "0x002E0CD4",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr15loadLineVertex_EPNS_4HeapE",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e102c",
+      "mnemonic": "bl",
+      "target": "#0x2933d0",
+      "map_row": {
+        "Start": "0x002933D0",
+        "Pool": "0x00293414",
+        "End": "0x00293418",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZnajPN4sead4HeapEi",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1078",
+      "mnemonic": "bl",
+      "target": "#0x10b2bc",
+      "map_row": {
+        "Start": "0x0010B2BC",
+        "Pool": "",
+        "End": "0x0010B2C0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "nngxGetPhysicalAddr",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e10bc",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e10d0",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e10e0",
+      "mnemonic": "bl",
+      "target": "#0x2e1868",
+      "map_row": {
+        "Start": "0x002E1868",
+        "Pool": "0x002E1A60",
+        "End": "0x002E1A88",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e10f8",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e11a0",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e11b4",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e11cc",
+      "mnemonic": "bl",
+      "target": "#0x2e1cf8",
+      "map_row": {
+        "Start": "0x002E1CF8",
+        "Pool": "0x002E2024",
+        "End": "0x002E203C",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead17PrimitiveDrawUtil15setSphereVertexEPNS0_6VertexEPtii",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e11e4",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1218",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e122c",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1244",
+      "mnemonic": "bl",
+      "target": "#0x2e1cf8",
+      "map_row": {
+        "Start": "0x002E1CF8",
+        "Pool": "0x002E2024",
+        "End": "0x002E203C",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead17PrimitiveDrawUtil15setSphereVertexEPNS0_6VertexEPtii",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e125c",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1288",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e129c",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e12b0",
+      "mnemonic": "bl",
+      "target": "#0x2e1a88",
+      "map_row": {
+        "Start": "0x002E1A88",
+        "Pool": "0x002E1B90",
+        "End": "0x002E1BA0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead17PrimitiveDrawUtil13setDiskVertexEPNS0_6VertexEPti",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e12c8",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e12f0",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1308",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e131c",
+      "mnemonic": "bl",
+      "target": "#0x2e1a88",
+      "map_row": {
+        "Start": "0x002E1A88",
+        "Pool": "0x002E1B90",
+        "End": "0x002E1BA0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead17PrimitiveDrawUtil13setDiskVertexEPNS0_6VertexEPti",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1334",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1350",
+      "mnemonic": "bl",
+      "target": "#0x2933d0",
+      "map_row": {
+        "Start": "0x002933D0",
+        "Pool": "0x00293414",
+        "End": "0x00293418",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZnajPN4sead4HeapEi",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1388",
+      "mnemonic": "blt",
+      "target": "#0x2e1360",
+      "map_row": null
+    },
+    {
+      "address": "0x2e139c",
+      "mnemonic": "bl",
+      "target": "#0x10b2bc",
+      "map_row": {
+        "Start": "0x0010B2BC",
+        "Pool": "",
+        "End": "0x0010B2C0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "nngxGetPhysicalAddr",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e13c0",
+      "mnemonic": "bl",
+      "target": "#0x2933d0",
+      "map_row": {
+        "Start": "0x002933D0",
+        "Pool": "0x00293414",
+        "End": "0x00293418",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZnajPN4sead4HeapEi",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e13f8",
+      "mnemonic": "blt",
+      "target": "#0x2e13d0",
+      "map_row": null
+    },
+    {
+      "address": "0x2e140c",
+      "mnemonic": "bl",
+      "target": "#0x10b2bc",
+      "map_row": {
+        "Start": "0x0010B2BC",
+        "Pool": "",
+        "End": "0x0010B2C0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "nngxGetPhysicalAddr",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1444",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1458",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e146c",
+      "mnemonic": "bl",
+      "target": "#0x2e203c",
+      "map_row": {
+        "Start": "0x002E203C",
+        "Pool": "0x002E2260",
+        "End": "0x002E2274",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead17PrimitiveDrawUtil17setCylinderVertexEPNS0_6VertexEPti",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1484",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e14ac",
+      "mnemonic": "bl",
+      "target": "#0x220f04",
+      "map_row": {
+        "Start": "0x00220F04",
+        "Pool": "0x00220FA0",
+        "End": "0x00220FA8",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e14c4",
+      "mnemonic": "bl",
+      "target": "#0x28eabc",
+      "map_row": {
+        "Start": "0x0028EABC",
+        "Pool": "",
+        "End": "0x0028EAFC",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "__aeabi_vec_ctor_nocookie_nodtor",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e14d8",
+      "mnemonic": "bl",
+      "target": "#0x2e203c",
+      "map_row": {
+        "Start": "0x002E203C",
+        "Pool": "0x002E2260",
+        "End": "0x002E2274",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead17PrimitiveDrawUtil17setCylinderVertexEPNS0_6VertexEPti",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e14f0",
+      "mnemonic": "bl",
+      "target": "#0x2206e0",
+      "map_row": {
+        "Start": "0x002206E0",
+        "Pool": "",
+        "End": "0x00220828",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZN4sead19PrimitiveDrawMgrCtr16copyAndSetupVtx_EPNS0_5ShapeEPKNS_17PrimitiveDrawUtil6VertexEjj",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e1510",
+      "mnemonic": "bl",
+      "target": "#0x1efa24",
+      "map_row": {
+        "Start": "0x001EFA24",
+        "Pool": "",
+        "End": "0x001EFA74",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e151c",
+      "mnemonic": "bl",
+      "target": "#0x1efa74",
+      "map_row": {
+        "Start": "0x001EFA74",
+        "Pool": "",
+        "End": "0x001EFAD0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "",
+        "SectionName": ""
+      }
+    },
+    {
+      "address": "0x2e152c",
+      "mnemonic": "b",
+      "target": "#0x2743ac",
+      "map_row": {
+        "Start": "0x002743AC",
+        "Pool": "0x002743EC",
+        "End": "0x002743F0",
+        "Section": "",
+        "Rank": "U",
+        "Type": "f",
+        "Symbol": "_ZdlPv",
+        "SectionName": ""
+      }
+    }
+  ],
+  "references": [
+    {
+      "address": "0x1019e0",
+      "target": "0x10349c",
+      "kind": "branch"
+    },
+    {
+      "address": "0x3da3b4",
+      "target": "0x2e0d2c",
+      "kind": "word_reference"
+    },
+    {
+      "address": "0x103734",
+      "target": "0x3da3b4",
+      "kind": "word_reference"
+    }
+  ],
+  "heap_vtable_offsets": {
+    "allocate": 20,
+    "resize": 32,
+    "largest_block": 56
+  },
+  "minimum_receiver_extent_from_caller": 18668,
+  "temporary_shader_allocation": 76008
+}
