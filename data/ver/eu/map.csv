@@ -9348,7 +9348,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0027DF38,          ,0x0027DF40,          ,U,f,,
 0x0027DF40,          ,0x0027DF88,          ,U,f,,
 0x0027DF88,          ,0x0027DFA0,          ,U,f,,
-0x0027DFA0,          ,0x0027DFA8,          ,U,f,,
+0x0027DFA0,          ,0x0027DFA8,          ,O,f,fn_0027DFA0,
 0x0027DFA8,          ,0x0027DFE8,          ,U,f,,
 0x0027DFE8,          ,0x0027DFEC,          ,U,f,,
 0x0027DFEC,          ,0x0027E004,          ,U,f,,
