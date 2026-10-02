@@ -1,0 +1,385 @@
+{
+  "attempts": [
+    {
+      "canonical": {
+        "elapsed_seconds": 0.5720653579919599,
+        "map_sha256": "350611b6caf9bdba44895628edcf7955b53964976f621613198589760d9217e4",
+        "returncode": 1,
+        "stderr": "",
+        "stdout": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n"
+      },
+      "commit": "1a354ef",
+      "compiled_bytes": 2160,
+      "replay_cases": 5987
+    },
+    {
+      "canonical": {
+        "elapsed_seconds": 0.7140303719934309,
+        "map_sha256": "350611b6caf9bdba44895628edcf7955b53964976f621613198589760d9217e4",
+        "returncode": 1,
+        "stderr": "",
+        "stdout": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n"
+      },
+      "commit": "ee81bda",
+      "compiled_bytes": 2236,
+      "replay_cases": 9616
+    }
+  ],
+  "base": "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c",
+  "canonical_exact_credit": 0,
+  "complete_original_bytes": 2208,
+  "diagnostic_link": {
+    "imports": [
+      {
+        "address": 2656012,
+        "kind": "A",
+        "name": "__aeabi_idivmod"
+      },
+      {
+        "address": 4134189,
+        "kind": "D",
+        "name": "dat_003F152D"
+      },
+      {
+        "address": 2181416,
+        "kind": "A",
+        "name": "fn_00214928"
+      },
+      {
+        "address": 2264212,
+        "kind": "A",
+        "name": "fn_00228C94"
+      },
+      {
+        "address": 2264360,
+        "kind": "A",
+        "name": "fn_00228D28"
+      },
+      {
+        "address": 2405828,
+        "kind": "A",
+        "name": "fn_0024B5C4"
+      },
+      {
+        "address": 2893840,
+        "kind": "A",
+        "name": "fn_002C2810"
+      },
+      {
+        "address": 2894312,
+        "kind": "A",
+        "name": "fn_002C29E8"
+      },
+      {
+        "address": 2894496,
+        "kind": "A",
+        "name": "fn_002C2AA0"
+      },
+      {
+        "address": 2894820,
+        "kind": "A",
+        "name": "fn_002C2BE4"
+      },
+      {
+        "address": 2895648,
+        "kind": "A",
+        "name": "fn_002C2F20"
+      },
+      {
+        "address": 2909000,
+        "kind": "A",
+        "name": "fn_002C6348"
+      },
+      {
+        "address": 2909840,
+        "kind": "A",
+        "name": "fn_002C6690"
+      }
+    ],
+    "object_sha256": "fab485d30b29bacc7671857c2f63bb8bed4031eb4a3503c03ae8e4f880826cde",
+    "original_bytes": 2208,
+    "qualification": "Diagnostic link of unchanged compiler object at original address; strict checker rejects whole section size.",
+    "replay_bytes": 2236,
+    "replay_sha256": "6293a37da463556aea461353423b0c7e0a2d53d6affef969f6b36a4f027ced4b",
+    "section_bytes": 2236,
+    "source_sha256": "f428d3e9d6da80da4a44b5f220d429fe40d15123f6dfbc55ceb45f35f1edd69a",
+    "strict_credit": false
+  },
+  "final_check": {
+    "elapsed_seconds": 1.033095204998972,
+    "map_sha256": "350611b6caf9bdba44895628edcf7955b53964976f621613198589760d9217e4",
+    "returncode": 1,
+    "stderr": "",
+    "stdout": "\u001b[38;5;221mU -> M: The complete compiled section, including its literal pool, has a different size from the original interval.\u001b[0m\u001b[K\n"
+  },
+  "final_clean_build": {
+    "elapsed_seconds": 42.609021626994945,
+    "returncode": 0
+  },
+  "frozen_session_window_utc": [
+    "2026-10-02T04:33:07Z",
+    "2026-10-02T04:51:19Z"
+  ],
+  "meaningful_source_forms": 2,
+  "negative_controls": [
+    {
+      "candidate_error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+      "candidate_fault": [
+        [
+          19,
+          9437376,
+          4
+        ]
+      ],
+      "case": {
+        "bad_track": true,
+        "op": 129
+      },
+      "compared": [
+        "error",
+        "fault",
+        "heap",
+        "globals"
+      ],
+      "original_error": "Invalid memory read (UC_ERR_READ_UNMAPPED)",
+      "original_fault": [
+        [
+          19,
+          9437376,
+          4
+        ]
+      ],
+      "same": true
+    },
+    {
+      "candidate_error": "Invalid memory write (UC_ERR_WRITE_UNMAPPED)",
+      "candidate_fault": [
+        [
+          20,
+          9437298,
+          1
+        ]
+      ],
+      "case": {
+        "bad_owner": true,
+        "op": 176
+      },
+      "compared": [
+        "error",
+        "fault",
+        "heap",
+        "globals"
+      ],
+      "original_error": "Invalid memory write (UC_ERR_WRITE_UNMAPPED)",
+      "original_fault": [
+        [
+          20,
+          9437298,
+          1
+        ]
+      ],
+      "same": true
+    },
+    {
+      "candidate_error": "Invalid memory write (UC_ERR_WRITE_UNMAPPED)",
+      "candidate_fault": [
+        [
+          20,
+          9437384,
+          2
+        ]
+      ],
+      "case": {
+        "arg": 0,
+        "bad_owner": true,
+        "op": 61568
+      },
+      "compared": [
+        "error",
+        "fault",
+        "heap",
+        "globals"
+      ],
+      "original_error": "Invalid memory write (UC_ERR_WRITE_UNMAPPED)",
+      "original_fault": [
+        [
+          20,
+          9437384,
+          2
+        ]
+      ],
+      "same": true
+    },
+    {
+      "candidate_error": "instruction budget",
+      "candidate_fault": [],
+      "case": {
+        "arg": 3,
+        "cycle": true,
+        "limit": 3000,
+        "op": 221,
+        "voices": true
+      },
+      "compared": [
+        "error",
+        "fault",
+        "heap",
+        "globals"
+      ],
+      "original_error": "instruction budget",
+      "original_fault": [],
+      "same": true
+    }
+  ],
+  "original_executable_bytes": 2032,
+  "original_inline_data_bytes": 176,
+  "preservation": {
+    "added_objects": [
+      "build/eu/obj/lib/al/src/Audio/SoundTrackInterpreter.o"
+    ],
+    "base": "bc5b236802b0300bc6b00f0ac55cf5ae5749c55c",
+    "baseline_actual_definitions": 772,
+    "baseline_clean_build_returncode": 0,
+    "baseline_elapsed_seconds": 609.803394764007,
+    "baseline_report_sha256": "faf671be7c53bc783dd4a09301a1b9eae3f38034f900e357d2357d91f92bed4f",
+    "baseline_roots": 752,
+    "canonical_objects_compared": 179,
+    "input_differences": [],
+    "input_hashes_compared": 372,
+    "normalized_STT_FILE_workspace_prefixes": 179,
+    "object_differences": [],
+    "second_772_check_run": false,
+    "tracked_blob_files_compared": 470,
+    "tracked_differences": [],
+    "unchanged_gitlinks": [
+      "tools/asm-differ"
+    ]
+  },
+  "replay": {
+    "candidate_sha256": "6293a37da463556aea461353423b0c7e0a2d53d6affef969f6b36a4f027ced4b",
+    "cases": 9616,
+    "completed": 9616,
+    "elapsed_seconds": 206.15812759299297,
+    "executable_instructions": 508,
+    "limits": [
+      "Compiled ARM outputs, not portable C++ proof; shift counts cover every low-eight-bit value in both directions and signed-16 extremes; ramp denominator is nonzero whenever elapsed<duration in normal object states; caller-derived widths for arithmetic operands",
+      "Owner, track and secondary track are distinct objects; pointer aliasing outside those identities is unproven",
+      "Actual original direct callees and internal dependencies execute; external callback is modeled, with verified descriptor ABI and observed state mutation",
+      "Void R0 and caller-saved registers are intentionally not compared; no sound hardware or complete sequence playback claim",
+      "Instruction coverage is fetched-instruction coverage, including condition-failed ARM instructions"
+    ],
+    "max_stack": [
+      120,
+      120
+    ],
+    "mismatches": [],
+    "modeled_entries": {
+      "0x700100": 6
+    },
+    "original_entries": {
+      "0x214928": 2262,
+      "0x228c94": 4715,
+      "0x228d28": 6,
+      "0x229300": 2,
+      "0x22937c": 34,
+      "0x229434": 21,
+      "0x229744": 36,
+      "0x24b5c4": 175,
+      "0x28870c": 302,
+      "0x288768": 12,
+      "0x288798": 12,
+      "0x2887cc": 32,
+      "0x2887f0": 32,
+      "0x288814": 32,
+      "0x2c2810": 6,
+      "0x2c29e8": 14,
+      "0x2c2aa0": 14,
+      "0x2c2be4": 6,
+      "0x2c2f20": 8,
+      "0x2c6348": 8,
+      "0x2c6690": 13
+    },
+    "original_fetched_instructions": 505,
+    "source_sha256": "f428d3e9d6da80da4a44b5f220d429fe40d15123f6dfbc55ceb45f35f1edd69a",
+    "uncovered": [
+      "0x340aec",
+      "0x340b3c",
+      "0x340b94"
+    ]
+  },
+  "reproducible_notes": {
+    "extracted_payloads_match_tested_scripts": true,
+    "path": "project/dot_reports/sound-track-interpreter-reproduction.md",
+    "script_sha256": {
+      "prepare.py": "f72a273f350bb0d625b990cd01437e57974f4650aa8e3c1725b034c7b7664448",
+      "preservation.py": "a76157b84f06322af217fd84a468329adb6a3f57bcc43e867934b4f9ae49e34b",
+      "replay.py": "86b148cd8dd8cd8c13c5c58142144dcbbc1178db5d8a0588131d20c2ce008b74",
+      "run-check.py": "88e21c98c84efdad04595cb1077c43d3372d39a3b0188befb409543232fce03e",
+      "snapshot.py": "2d17d888a9502300154011a90cf4e16e7dd4fb11bdc8a88d550c23225d4d8e2a"
+    },
+    "sha256": "95585dd5c45aca3430bbb3090d616427828baab9066256151b42682aaa640dc7",
+    "source_and_object_unchanged": true,
+    "verification_scope": "Five note payloads extracted and compared byte-for-byte with the frozen tested scripts; no replay/build/check rerun for this notes-only publication fix."
+  },
+  "root_interval": [
+    "0x003409fc",
+    "0x0034129c"
+  ],
+  "scope": "Nonmatching source proposal only. New TU and notes; no shared declarations, canonical map, ledger, tools, configuration or binaries.",
+  "sha256": {
+    "build/dot-sound-track/baseline-snapshot.json": "7d3a9b92a533d54d1d75a264f2a7710ca444c4af1b7cc7e0242a793d9214290d",
+    "build/dot-sound-track/candidate.axf": "0d9c212d2d8c993251dd8aa82751e01d7c49328970fa4864ca12a6d906363e5d",
+    "build/dot-sound-track/candidate.bin": "6293a37da463556aea461353423b0c7e0a2d53d6affef969f6b36a4f027ced4b",
+    "build/dot-sound-track/candidate.txt": "aad8fcbeee31bb397c5c4eba4eaec69eef8216ef06fd39148ec871aa26939205",
+    "build/dot-sound-track/final-check.json": "f50103039d254b3d2a90d05f4880e59ca770d0109fb21ffe3c7f3113e1394b73",
+    "build/dot-sound-track/final-check.log": "f8ff6a75281202afd35b60a0bd26fa6ade1285bc69e30bdda330a6ef183d607a",
+    "build/dot-sound-track/final-clean-build.json": "3cbc009c164bd4497b4b1c9cb47951d145bb0450cb05a81136e5bf1dd459aa97",
+    "build/dot-sound-track/final-clean-build.log": "3ca259db33e5fe9b798e747fda6513da2f8cd37b498cb46a0573ad37f1e2d889",
+    "build/dot-sound-track/final-prepare.json": "a4e070d8aa868f950a84b24caa0d8e0da08f86eb7505b2d392767088bf6a9561",
+    "build/dot-sound-track/final-snapshot.json": "867d723e9cb2c6c4ab056d29d0b636cda25eab3ea4a6a3b25b2a1969a17cef9f",
+    "build/dot-sound-track/final.bin": "6293a37da463556aea461353423b0c7e0a2d53d6affef969f6b36a4f027ced4b",
+    "build/dot-sound-track/form1-build.log": "3ca259db33e5fe9b798e747fda6513da2f8cd37b498cb46a0573ad37f1e2d889",
+    "build/dot-sound-track/form1-check.json": "622d8ce0e74e2de6f0332c3d8d2f8f443067ed78e8d579dc9abde0b79f3ba431",
+    "build/dot-sound-track/form1-check.log": "f8ff6a75281202afd35b60a0bd26fa6ade1285bc69e30bdda330a6ef183d607a",
+    "build/dot-sound-track/form1-object.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/dot-sound-track/form1-prepare.json": "8a757bfb53e39d92c3d4b5317aedf6a962f2d76b81472ebb054c6628e16396b0",
+    "build/dot-sound-track/form1-replay.json": "0af4d3a814fed0c50b6de5265f9ab1975a3275770637814e17f433b8469670c4",
+    "build/dot-sound-track/form1-replay.log": "8a3cf5ff6ad56e4a7da4e010c68777bb0ac9d111ffa51a342e1a0c685e97e444",
+    "build/dot-sound-track/form1-snapshot.json": "0d2efc577e137865efef44c91007219d736dc620b72a2530cccdfc1c2a18f392",
+    "build/dot-sound-track/form1.bin": "34519e29a7beea2297a6a35ba9cb07cb60abe7f0691172439abcb101cba8d738",
+    "build/dot-sound-track/form1.cpp": "4737a7401a05db964057d39285d1b8dc864e17a9966c57a84a28084627866c85",
+    "build/dot-sound-track/form2-build.log": "e442f92bca4e08afb753ab0d25d40a97d0e35bda203ea13e25666d83fcc36800",
+    "build/dot-sound-track/form2-check.json": "2086743e2ad94d72c507269b5b4df3fac3f5b9bad978c25bbea3133d44dbe82f",
+    "build/dot-sound-track/form2-check.log": "f8ff6a75281202afd35b60a0bd26fa6ade1285bc69e30bdda330a6ef183d607a",
+    "build/dot-sound-track/form2-prepare.json": "a4e070d8aa868f950a84b24caa0d8e0da08f86eb7505b2d392767088bf6a9561",
+    "build/dot-sound-track/form2.bin": "6293a37da463556aea461353423b0c7e0a2d53d6affef969f6b36a4f027ced4b",
+    "build/dot-sound-track/original.txt": "0a8e0d4bfc53a6017bef4984f777cde5ec343f41becff64eaffb262e9fcf81a1",
+    "build/dot-sound-track/prepare.py": "f72a273f350bb0d625b990cd01437e57974f4650aa8e3c1725b034c7b7664448",
+    "build/dot-sound-track/preservation.json": "f447f6f7e8aba524b05b82e622156a82a78eb148a5b72f8664385dc023354acb",
+    "build/dot-sound-track/preservation.py": "a76157b84f06322af217fd84a468329adb6a3f57bcc43e867934b4f9ae49e34b",
+    "build/dot-sound-track/replay.json": "e66c9b90ca5764520238f3a63867519544f1b3dd01ceb9c3a56c0a6dd1153104",
+    "build/dot-sound-track/replay.log": "6aab8e11356a1142632a37ccf92f856217be30f040f06cb625f02ddcaf79dddd",
+    "build/dot-sound-track/replay.py": "86b148cd8dd8cd8c13c5c58142144dcbbc1178db5d8a0588131d20c2ce008b74",
+    "build/dot-sound-track/replay.sct": "467fb68a02ca49e478a79a43960855fd46d77c859f22f147a304f888b6fc03a8",
+    "build/dot-sound-track/replay.sym": "b18bc9462e4db32a962b7496b021f277a1441791a8cb12fe3e5aa0bbbaf5efa4",
+    "build/dot-sound-track/run-check.py": "88e21c98c84efdad04595cb1077c43d3372d39a3b0188befb409543232fce03e",
+    "build/dot-sound-track/snapshot.py": "2d17d888a9502300154011a90cf4e16e7dd4fb11bdc8a88d550c23225d4d8e2a",
+    "build/eu/obj/lib/al/src/Audio/SoundTrackInterpreter.o": "fab485d30b29bacc7671857c2f63bb8bed4031eb4a3503c03ae8e4f880826cde",
+    "build/eu/obj/lib/al/src/Audio/SoundTrackInterpreter.provenance.json": "11073ae40e0988b2130eea78d4118c642164140b6402524a5f5361af7529f9c0",
+    "data/compilers/4.1/791/bin/armcc.exe": "d1f328ae28aa231877604b0f9ce73a8f00fc817fb08bb6f823cca21518f0d13d",
+    "data/compilers/4.1/791/bin/armlink.exe": "b9cffb71d7b58f3fd33fa8c4c8af884b75689bb5a9e9014309a08146bba676dc",
+    "data/compilers/wibo": "aee836280b3d7c80c2031410219c907c9824c11be6b128d0744655de0f22280b",
+    "data/config.json": "5d41e617eb5b26374ed60b5383a0940ce0ce7d046344f7f815b7564144822c45",
+    "data/ver/eu/code.bin": "e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64",
+    "data/ver/eu/map.csv": "350611b6caf9bdba44895628edcf7955b53964976f621613198589760d9217e4",
+    "lib/al/src/Audio/SoundTrackInterpreter.cpp": "f428d3e9d6da80da4a44b5f220d429fe40d15123f6dfbc55ceb45f35f1edd69a",
+    "make.py": "1d5ba9628e78a4aaa23d6bbbea40131101a46ee41ca43e3df124eaa97d55241a",
+    "tools/check.py": "e177e0abe130e645e75c5f0dc24abb19dbe83310de55f1f099ec8fc385e07317",
+    "tools/low/buildProvenance.py": "343d1a0954aba9a4805e71420be9a99d91185db4c8b329d1363d11efcee53529",
+    "tools/low/checkExactBytes.py": "aef81a3a21c49bb17b8a19f139d02607899257e04dbe461ece2992cc726fc2e2",
+    "tools/pypstem/stepBuild.py": "b7be5977a0a1afc339eb4c9087b447cdc25b1c42daa3fe23af4b765008b0aac0"
+  },
+  "source_commit": "ee81bda172172b51508f825b0923a2c0abb13087",
+  "source_file": "lib/al/src/Audio/SoundTrackInterpreter.cpp",
+  "window_seconds": 1092
+}
