@@ -1339,3 +1339,7 @@ Bug, flowers and Hammer touch nineteen disjoint source files, all unchanged from
 ## 2026-10-02: Bound project browser lifecycle
 
 The owner asked whether the project could avoid accumulating Chrome windows and then requested: “can u handoff and add that to specs somewhere in that main run?” The handoff refers to headless tests by default, at most one visible project preview, cleanup on success/failure/timeout, removal of abandoned project-owned sessions before another starts, and separation from personal Chrome. The canonical browser-test-lifecycle paragraph records those requirements. The runtime lane retains its active touch test and owns the enforcement change. Existing process cleanup requires fresh ownership and activity evidence. Policy acceptance alone does not establish enforcement or claim cleanup has happened.
+
+## Complete Vector3 unit-X BSS identity, 2026-10-02
+
+Add only the twelve-byte ex row at004305C8 after independently rerunning the registered original vector initializer. Its three float stores, adjacent ey/ez objects, and accepted public Vector3 declaration establish the complete identity; the stripped executable does not recover debug-symbol spelling. Preserve every existing map line and U status. This is a separate prerequisite proposal for report-only root316014, with zero function credit. Evidence: project/evidence/vector3_unit_x_identity.md.
