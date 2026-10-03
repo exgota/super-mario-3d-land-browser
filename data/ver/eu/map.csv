@@ -7272,7 +7272,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00249CAC,          ,0x00249CC0,          ,U,f,,
 0x00249CC0,          ,0x00249CD0,          ,U,f,,
 0x00249CD0,          ,0x00249CD8,          ,U,f,,
-0x00249CD8,          ,0x00249CE4,          ,U,f,,
+0x00249CD8,          ,0x00249CE4,          ,O,f,fn_00249CD8,
 0x00249CE4,          ,0x00249F1C,          ,U,f,,
 0x00249F1C,0x0024A0DC,0x0024A0E0,          ,U,f,,
 0x0024A0E0,          ,0x0024A19C,          ,U,f,,
