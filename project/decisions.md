@@ -1391,3 +1391,7 @@ Name only the four existing unnamed PackunFlower/Tenten function rows documented
 ## Shared interface cleanup batch, 2026-10-02
 
 The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d877732056c65d166f04` and actor-distance source `444b007a68bba2126e10aaf69b6c691a93c65de2` on frozen main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. All eleven final source/header files are byte-identical to the independently checked families. One acceptance pass avoids repeated full regression work. The standalone evidence retains each original ABI observation and its uncertainty. This is source contract maintenance with zero new matching credit.
+
+## 2026-10-03: Plant initializer name at 0x002F9060
+
+Name the unchanged 612-byte function row `_ZN5Plant4initERKN2al13ActorInitInfoE`. The primary vtable at 0x003D26B4 points to it in init slot +4. Constructor 0x002F92C4 calls the accepted MapObjActor constructor and installs that vtable; it initializes quaternion +0x60, actor/state pointers +0x70/+0x74, and integer fields +0x78/+0x7C. Plant remains an explicitly inferred class name from the initializer's archive and item-prefix strings, not an independently recovered factory identity. No extent, rank, data row, or helper identity changes.
