@@ -3531,3 +3531,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-02T22:36:41-04:00,0x0033F8F8,fn_0033F8F8,matched,1,0.8652
 2026-10-02T22:41:42-04:00,0x00100750,_ZN2nn2os16GetAppMemorySizeEv,matched,1,1.3669
 2026-10-02T22:41:42-04:00,0x0032A00C,fn_0032A00C,matched,1,1.3669
+2026-10-02T22:44:58-04:00,0x00105670,_ZN2nn2fs6detail28RegisterGlobalFileSystemBaseERNS1_14FileSystemBaseE,matched,2,1.5765
+2026-10-02T22:44:58-04:00,0x002B8370,fn_002B8370,matched,2,1.5765
