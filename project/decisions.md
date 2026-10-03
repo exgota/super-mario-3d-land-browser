@@ -1356,3 +1356,6 @@ Add only `dat_00430A88`, a 48-byte Matrix34 identity ending at 0x00430AB8, with 
 ## 2026-10-02: Add the independently initialized unit-Y vector identity
 
 Add only the twelve-byte BSS row004305D4..004305E0 for the accepted public Vector3<float>::ey declaration. The driver independently reproduced the registered original initializer and its ex/ey/ez neighbors; ey is(0,1,0). Existing map lines remain byte-identical and the new row staysU/db with blankPool. Correct the prior low-confidence zero association in facts/00268048. Five report-only branches name this prerequisite, but their2724target bytes are not source or exact credit. Missing ex and independent interface blockers stay separate. See project/evidence/vector3_unit_y_identity.md.
+## Complete Vector3 unit-X BSS identity, 2026-10-02
+
+Add only the twelve-byte ex row at004305C8 after independently rerunning the registered original vector initializer. Its three float stores, adjacent ey/ez objects, and accepted public Vector3 declaration establish the complete identity; the stripped executable does not recover debug-symbol spelling. Preserve every existing map line and U status. This is a separate prerequisite proposal for report-only root316014, with zero function credit. Evidence: project/evidence/vector3_unit_x_identity.md.

@@ -28062,6 +28062,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0042FA14,          ,0x0042FA34,          ,U,db,,
 0x0042FB10,          ,0x0042FC0C,          ,U,db,dat_0042FB10,.bss.Togezo.cpp
 0x00430500,          ,0x00430510,          ,U,db,_ZN4sead4QuatIfE4unitE,
+0x004305C8,          ,0x004305D4,          ,U,db,_ZN4sead7Vector3IfE2exE,
 0x004305D4,          ,0x004305E0,          ,U,db,_ZN4sead7Vector3IfE2eyE,
 0x004305E0,          ,0x004305EC,          ,U,db,_ZN4sead7Vector3IfE2ezE,
 0x004305EC,          ,0x004305F8,          ,U,db,_ZN4sead7Vector3IfE4onesE,
