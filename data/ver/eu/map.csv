@@ -1196,7 +1196,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00138CE4,0x00138D38,0x00138D3C,          ,U,f,,
 0x00138D3C,0x00138D68,0x00138D6C,          ,U,f,,
 0x00138D6C,          ,0x00138D9C,          ,U,f,,
-0x00138D9C,          ,0x00138DA8,          ,U,f,,
+0x00138D9C,          ,0x00138DA8,          ,O,f,fn_00138D9C,
 0x00138DA8,          ,0x00138E08,          ,U,f,,
 0x00138E08,          ,0x00138E7C,          ,U,f,,
 0x00138E7C,          ,0x00138E98,          ,U,f,,
