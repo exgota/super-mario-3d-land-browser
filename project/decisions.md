@@ -1359,3 +1359,7 @@ Add only the twelve-byte BSS row004305D4..004305E0 for the accepted public Vecto
 ## Complete Vector3 unit-X BSS identity, 2026-10-02
 
 Add only the twelve-byte ex row at004305C8 after independently rerunning the registered original vector initializer. Its three float stores, adjacent ey/ez objects, and accepted public Vector3 declaration establish the complete identity; the stripped executable does not recover debug-symbol spelling. Preserve every existing map line and U status. This is a separate prerequisite proposal for report-only root316014, with zero function credit. Evidence: project/evidence/vector3_unit_x_identity.md.
+
+## Shared interface cleanup batch, 2026-10-02
+
+The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d877732056c65d166f04` and actor-distance source `444b007a68bba2126e10aaf69b6c691a93c65de2` on frozen main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. All eleven final source/header files are byte-identical to the independently checked families. One acceptance pass avoids repeated full regression work. The standalone evidence retains each original ABI observation and its uncertainty. This is source contract maintenance with zero new matching credit.
