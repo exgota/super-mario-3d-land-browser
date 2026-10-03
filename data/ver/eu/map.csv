@@ -12007,7 +12007,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002F8D2C,0x002F8D68,0x002F8D6C,          ,U,f,,
 0x002F8D6C,0x002F8FF4,0x002F9000,          ,U,f,,
 0x002F9000,0x002F9058,0x002F9060,          ,U,f,,
-0x002F9060,0x002F9270,0x002F92C4,          ,U,f,_ZN5Plant4initERKN2al13ActorInitInfoE,
+0x002F9060,0x002F9270,0x002F92C4,          ,O,f,_ZN5Plant4initERKN2al13ActorInitInfoE,
 0x002F92C4,0x002F9318,0x002F9320,          ,U,f,,
 0x002F9320,0x002F9518,0x002F9538,          ,U,f,,
 0x002F9538,0x002F9684,0x002F96A0,          ,U,f,,
