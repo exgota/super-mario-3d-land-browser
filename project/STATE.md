@@ -1,6 +1,6 @@
 # Root audio-runtime state
 
-Branch `root/audio-stream-output` freezes integrator accepted main `ec5515d1946b941d1303c72879a4d3b5c2940a26`. Origin/main has not published that merge yet; its current35cb8a76 was verified read-only. The branch uses the integrator's recorded accepted snapshot without moving or checking out main. Only the integrator moves/pushes main, ranks and the ledger. Root changes only port runtime/tools/docs, never Game/lib/config/map/Factory/ledger. No matching claims. Recompiled bytes remain2437712.
+Branch `root/audio-stream-output` freezes integrator accepted main `ec5515d1946b941d1303c72879a4d3b5c2940a26`. At branch creation, origin/main still pointed to35cb8a76 and had not published that merge. The branch uses the integrator's recorded accepted snapshot without moving or checking out main. Only the integrator moves/pushes main, ranks and the ledger. Root changes only port runtime/tools/docs, never Game/lib/config/map/Factory/ledger. No matching claims. Recompiled bytes remain 2437712.
 
 Owner steering, effective now: “Next work is milestone 4 (audio), then 5 (World 1 1). Browser harness polish and process lifecycle work stop unless a milestone needs it.” “No reviewer subagents.” This supersedes prior harness follow-through. All former reviewers are complete, none runs. No more Impeccable finish/documenter or reviewer delegation. At most one implementation helper remains allowed. Layout questions go to Pro; root does not reconstruct game classes. Factory/frog keep their lanes.
 
@@ -12,9 +12,11 @@ Before implementation, root owns the original-audio delivery bridge, browser wor
 
 The same implementation helper now prepares a later native World1-1 input recording command and standard-library receipt script in ignored build/world_one_preparation only. It cannot execute a guest or recover class layouts. Root owns the actual command, execution, comparison and publication.
 
-Next3 tasks:
-1. Final-source audio tests are running. The131077-frame independent real worklet control passed, including ring wrap/backpressure/eight malformed refusals and pending append/drain cancellation. The first complete natural game stream and strict raw comparison passed; a prior button-state failure was corrected and retained. Final natural/cancellation checks must pass before submission. Native providers, original PCM/ticks and strict comparers remain unchanged.
-2. Implement and demonstrate audio delivery during execution, bounded underrun/overflow/Stop/failure handling, original PCM/tick parity and unchanged GPU/input/framebuffer output. Use accepted owned-session cleanup only where the audio milestone needs browser execution. No harness polish or reviewer runs. Submit one complete root branch with no claims and report its verdict.
-3. Move to World1-1 replay. Treat the Pro player-root answer as a proposal, verify live identity/lifecycle and completed-update sampling, and route missing layouts through Pro. Keep progressing independently of unanswered questions.
+Final implementation 3d9e7b26 is pushed. Natural final-source, consumed-source Stop, independent stereo/ring/cancellation and default preservation all pass. project/browser_audio_stream_evidence.md records exact source/result/cleanup hashes, original strict comparisons and preserved failures. Final source supplies every original 216000 stereo frame, with 105 packets delivered before SDK exit. Large counted startup/underrun gaps remain. No physical speaker or continuous synchronization claim.
 
-Actual finite source order is demonstrated on the first successful natural run, but final source checks and acceptance are pending. No physical speaker/content fidelity, continuous synchronization, sustained browser performance, physical mobile, persistent saves, World1-1 completion or full rank-O adapter coverage is claimed. No required owner question is pending.
+Next3 tasks:
+1. Commit final audio evidence/state, push and submit this unchanged port branch with no claims. Await its actual verdict without resubmitting. Only the integrator may accept/land it.
+2. Move to root/world-one-entry from a frozen current main snapshot. Inspect and run the prepared later natural stock menu continuation, preserving the same initial state/clock and all failures. Entry remains unverified until actual output identifies World1-1.
+3. Replay that movie on the native static backend, preserve strict original GPU/input/audio/pixels, and advance Section7 observations. Layout/controlled-player questions go to Pro; no invented semantic field offsets or completed-update claim.
+
+Actual finite source order and final source checks pass; integrator acceptance is pending. No physical speaker/content fidelity, continuous synchronization, sustained browser performance, physical mobile, persistent saves, World1-1 completion or full rank-O adapter coverage is claimed. No required owner question is pending.
