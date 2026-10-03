@@ -11602,7 +11602,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002DF508,0x002DF548,0x002DF54C,          ,U,f,,
 0x002DF54C,          ,0x002DF5DC,          ,U,f,,
 0x002DF5DC,          ,0x002DF754,          ,U,f,,
-0x002DF754,          ,0x002DF75C,          ,U,f,,
+0x002DF754,          ,0x002DF75C,          ,O,f,fn_002DF754,
 0x002DF75C,0x002DF7C0,0x002DF7C8,          ,U,f,,
 0x002DF7C8,          ,0x002DF7CC,          ,O,f,fn_002DF7C8,
 0x002DF7CC,0x002DF814,0x002DF818,          ,U,f,_ZN4sead21ControllerWrapperBaseD1Ev,
