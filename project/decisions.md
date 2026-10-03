@@ -1391,3 +1391,13 @@ Name only the four existing unnamed PackunFlower/Tenten function rows documented
 ## Shared interface cleanup batch, 2026-10-02
 
 The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d877732056c65d166f04` and actor-distance source `444b007a68bba2126e10aaf69b6c691a93c65de2` on frozen main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. All eleven final source/header files are byte-identical to the independently checked families. One acceptance pass avoids repeated full regression work. The standalone evidence retains each original ABI observation and its uncertainty. This is source contract maintenance with zero new matching credit.
+
+## Dot Nokonoko-family message address evidence
+- 00315C6C: neutral entry fn_00315C6C, primary vtable003D4018 slot+0x34 at003D404C; constructor3165D4/creator39887C establish ordinary MapObjActor base and0x88 extent. Predecessor returns315C28 before pool.
+- 0027A5FC: neutral imported step<=threshold query fn_0027A5FC, call315D10 uses real IUseNerve and threshold8.
+- 0031CD28: neutral shell activation fn_0031CD28, call315D50 passes shell+64, ordinary position/quaternion references and0.0f; constructor27ABF4 confirms shell actor base.
+- 003F2288: existing4-byte nerve row dat_003F2288; static constructor380F00 installs table003BBEE4.
+- 003F228C: existing4-byte nerve row dat_003F228C; static constructor380F0C installs table003BBEF4.
+- 003F2290: existing4-byte nerve row dat_003F2290; static constructor380F18 installs table003BBF04.
+- 003F2294: existing4-byte nerve row dat_003F2294; static constructor380F24 installs table003BBF14.
+Only missing names change; all ranks/types/pools/boundaries stay unchanged. No nerve table/body is reconstructed by these imports.
