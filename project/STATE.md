@@ -1,20 +1,52 @@
-# Root natural World 1 map navigation state
+# Root port runtime state
 
-Root owns root/world-one-navigation, frozen origin/main 947c8fe7faef58756c8d97fee5c8619475acd7ae. Ownership before work: ignored original stock producer/private controller script, own replay controller/captures, project/world_one_navigation_evidence.md, daily and STATE. No Game/lib/config/map/ranks/Factory/ledger/oracle, original dump/source/provider/module/schedule changes. Root works only on port runtime; class layouts go to Pro. Only integrator moves/pushes main or writes ranks/ledger. Matching claims/new translated bytes 0; linked recompiled bytes 2437712. One existing implementation helper is on the separate execution-observation family, no reviewers or unrelated browser/harness/process work. Aquinas remains archived. Effort ultra, next actual relay xhigh still unverified.
+Root owns finished `root/world-one-navigation`, frozen origin/main
+947c8fe7faef58756c8d97fee5c8619475acd7ae, ownership e1a6e445.
+Scope: evidence/daily/STATE, explicitly empty implementation patch.
+Claims/nonmatching additions/new bytes0, linked recompiled2437712.
+Only integrator moves/pushes main, ranks and ledger. No matching inputs,
+oracle/provider/module/scheduler change. Layouts go only to Pro.
+Aquinas archived. Effort ultra; next actual relay xhigh unverified.
 
-Separate root/world-one-level-entry d9c1d4548 is accepted at bc177f86827b4f22591f394f3cb209c585146599, with no claims and an explicitly empty implementation patch. Its1200/1800 saved-profile boot movies both pass unchanged full input/GPU/PICA/pixel/framebuffer/audio/tick comparisons and whole-original/provider seals, zero fallback. Actual1800 endpoint is opening cinematic; no loaded-progress/level claim. Actual verdict primary .integrator/results/root-world-one-level-entry-d9c1d4548.json reports accepted, no matching build input changed; never resubmit.
+Original/native7200 navigation records complete0. Full comparison
+fd9baf69eda3b48bc0eaccc0062af93044aecab3b4d99e099e6f9f764321ee32 passes723888GPUrecords,
+636129PICA lists/1902688096bytes,28554HIDpolls,3957440stereo frames,
+both screens/framebuffers and ticks. CPU03446565846, CPU10, fallbacks0.
+Final original/provider seal 790f3804914ec7d192b159f38798d6a806778274a006d2dea883343f5de3451a passes.
+All636181 original files and20-file snapshot remain equal. Own movie
+b5dcf4ad/clock1504081560. No cross-record prefix claim. Actual paired pixels
+show World1-1 start card/four lives, no playable control/update/goal.
+See project/world_one_navigation_evidence.md for full immutable evidence.
 
-Accepted bounds835148bc3 atda265cc6 proves a complete7200 pair, full913c7dc7 comparison and9e86b557 whole-original seal. Actual pixels put Mario on the starting-arrow node before stage1. Proposed routine input diagnosis: retain the previously observed input prefix, then move right and press A near the later map endpoint. Root chooses the exact finite script before execution, preserves the old script/movie/profile/source, and credits only actual complete observed results. No scripted RAM, save editing or inferred level state.
+Initial128MiB GPU-log failure71c11328 remains excluded. Original inputs
+preserved; closed raw retirement2c3ef12c retains failed streams/movie/
+snapshot/profile/source/receipt. Fresh final256MiB controllers retain old
+revisions. Caps:7200presentations,1800/1860sec,2GiB PICA,2560MiB total,
+720000files,256MiB/file,15GiB floor,two-second poll. Finite monitored ceilings.
 
-Owner cleanupde23be3b retires542674 finished files, keeps41470 retained files and active original inputs. Additional65034a12 retires516908 accepted finished native7200 raw outputs, preserving34 retained capture files and four sealed receipts; manifestb647af6a seals every retired file before deletion. Current free23.64GiB after cleanup. Original stock7200/profile, owner dump, sources/receipts/hashes/movies/snapshots, current providers/module/schedule and saved-profile originals remain. That retired native raw comparison requires regeneration. No factory restart/settings changes.
+Separate execution-observation60e1762b accepted at9f12ba709, result primary
+.integrator/results/root-guest-execution-observation-60e1762b3.json.
+Three canonical360 full comparisons/seals and14controls pass, fallbacks0.
+Selected49-entry/43-callback history matches189original code samples and
+connected producer/getter/store/read/use boundaries. No retirement/player/
+completed-update claim. Pro question945ddcae queued privately, answer pending.
+No retrospective join to independent old writer recording.
+
+Four owner-authorized scratch retirements preserve source/receipts/hashes/
+owner dump/current references/movies/snapshots/profiles/events/PNGs.
+Free before current native retirement:15471280128bytes.
+Retired raw needs regeneration before comparisons rerun. No factory restart
+or settings change. Restore at least20GBfree by sealing/retiring only own
+finished native payload after acceptance.
 
 Next three tasks:
-1. Read this worktree's full BRIEF and newest daily, preserve all original dependencies, prepare a root-authored finite right/A script and explicit bounded stock run. No helper guest execution. Select wall/PICA/output/files/perfile limits and a15GiB free-floor so this new capture cannot trigger HALT_ALL at5GiB.
-2. Inspect actual terminal pixels and complete outcomes. Independently replay its own original movie/snapshot with unchanged full comparisons, zero fallback and whole-original/source/provider seals. Failed/incomplete runs earn no credit.
-3. Finish execution observer separately and queue the smallest connected natural history to Pro. Establish controlled World1-1 gameplay, completed-update state, goal and whole Section7 suite before milestone5done. Milestone6, continuous audio/performance/save reloads/complete rank-O address adapters remain open. Keep ignored port_status and disk evidence current. No owner question now.
-
-The first right/A stock recording stopped with SIGXFSZ (-25) after its GPU JSON stream reached the selected 134217728-byte single-file ceiling. Failure receipt SHA256 71c113288dece5ab816203258655f9b5d90f5620d4f286aec833aed9bd496665 remains; original/provider/script/private-profile identities preserve. No complete footer or replay/entry credit. The frozen producer8e4e0abc and replay9c4e1605 remain unchanged. Closed failed raw payloads were individually sealed and retired under owner cleanup authority, receipt SHA256 2c3ef12c6c2670201acb1b93654679b682d35b06049d2a88fdc2de815560b6eb: 525575 files, 1615746816 logical bytes, 3304038400 allocated bytes; all46 retained files/four sealed receipts preserve. Failed GPU/input/audio event logs, movie/snapshot/private-profile/controller/source and original inputs remain. No complete reference or active capture was deleted.
-
-Fresh producer daa31a661594847fff5345d9c812cd5039cfc26a4a922d0d2e72ad5d6eb8ca90 and replay def9d9780aa0e17c64b7d5b9951b5544a53639c07f98d3dab399cbc2abe53a74 raise only the finite per-file ceiling to256MiB. New stock run reference_world_one_navigation_7200_stream_extent is active with the same root script abb7286b: exact63-state prefix thenRight6960/release6992 andA7020/release7024. Bounds remain7200presentations,1800/1860sec child/outer,2GiB PICA,2560MiB monitored total,720000files,15GiB free-floor. Polling thresholds are not filesystem quotas. Snapshot/profile are ordinary private on-disk copies, no save decoding or RAM injection. Native replay/full comparison have not started. Actual free disk at this update 22.58GiB.
-
-Separate execution-observer build stopped at its compile-time capacity assertion: clean provider CP15_REGISTER_COUNT is84, proposed snapshot was64. Failed isolated build preserves every original input. The one existing helper is correcting only the source-derived capacity/type guard and preparing a fresh isolated build, leaving all failed receipts/builds/old controllers unchanged. Runtime/trace/replay evidence remains unverified.
+1. Submit navigation without claims; report actual verdict, never resubmit
+   waiting work. Retire its sealed own finished native raw afterward.
+2. Separate root/stage-capture-range, frozen cded24cc, ownership effbfb7d,
+   extends only finite isolated GPU/Headless patch to8400/3GiB and loader
+   index8399. One existing implementation helper prepares source/builder;
+   root independently reviews/builds. Strict comparison policy stays intact.
+3. Record natural neutral continuation/replay its own movie/snapshot. Use Pro
+   proposals for layout-dependent probes. Milestone5/6, Section7, playable
+   update/goal, continuous sound/performance/saves/O-adapters remain open.
+   No new reviewer or unrelated harness work.
