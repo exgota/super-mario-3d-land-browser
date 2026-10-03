@@ -1303,7 +1303,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0013DFA8,          ,0x0013E024,          ,U,f,,
 0x0013E024,          ,0x0013E034,          ,O,f,fn_0013E024,
 0x0013E034,          ,0x0013E044,          ,U,f,,
-0x0013E044,          ,0x0013E050,          ,U,f,,
+0x0013E044,          ,0x0013E050,          ,O,f,fn_0013E044,
 0x0013E050,          ,0x0013E070,          ,U,f,,
 0x0013E070,0x0013E0B4,0x0013E0B8,          ,U,f,,
 0x0013E0B8,0x0013E198,0x0013E1A4,          ,U,f,,
