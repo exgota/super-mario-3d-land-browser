@@ -7,7 +7,8 @@ Factory/protected checker edits. Implementation patch expected empty.
 Matching claims/new translated bytes0; linked recompiled bytes2,437,712.
 Root only port. Layout/type/update questions go to Pro. One existing helper,
 no reviewers or unrelated harness work. Aquinas absent/closed. Requested
-xhigh change remains unverified until next actual relay send.
+xhigh was requested for this newly delivered owner turn. No account setting
+change is claimed.
 
 Scope: another finite natural raw input recording, its own-movie native replay,
 strict declared-window/full-input/audio/pixel comparison and exact input seals.
@@ -46,19 +47,41 @@ predicate gaps. Actual translated-return snapshots match; accepted hook
 invalidate=false. Existing false reports remain unchanged. Exit-boundary packet e4a30ef4 queued byte-identically after14file pins/6source
 excerpts/17+4+6raw-record and complete snapshot checks. Existingfalse stays.
 New entry-gap answer supports only opaque sampled initialization facts.
-One helper extracts the minimum sealed original bodies for the next Pro question.
+The original-body question2f675f4d is queued. Root rechecked16original/13new
+file pins,1,072original words/4unchangedmap rows and37verbatim exitrecords.
+The metadata-shape read failure was retained; source/capture/reports unchanged.
+The one existing helper is finishing its previously assigned passive tick
+selector in a separate family, then stopping. Its source review/build is parked.
 Pro entry-gap packet11315d00 is queued. No layouts or actor/update claims.
 
-## Next three tasks
+## Ordered delivery work
 
-1. Original bridge8400..9000 is running. Controller2906ca24/input4273022b,
-   78states with unchanged72prefix. Preparation preserved all original inputs.
-   Inspect complete
-   footers, actual pixels and source/profile/copy preservation.
-2. Replay only its own original movie/snapshot and compare exact observations,
-   then rehash all declared original inputs and both new captures.
-3. Check/queue the helper original-body question and use Pro proposals to ground
-   typed current-player/completed-update fields, then advance toward goal.
+Owner target: browser World 1-1 start to goal by Wednesday, October 7, 2026,
+Eastern. Cutoff time unspecified. See project/browser_world_one_delivery_plan.md.
+Browser pixels are already drawn by the in-browser WebAssembly software PICA
+renderer and displayed by Canvas 2D. The local server does not render them.
+WebGPU is not implemented; sustained playable performance is unverified.
+
+1. Finish the active bridge own-movie native replay, strict comparison and
+   post-preservation, then submit this family. Estimate 20–60 minutes.
+2. Full-level browser session/required controls/bounded recording and actual
+   CPU/render/frame-delivery measurement. Estimate 6–12 hours.
+3. Browser WebGPU PICA rendering and measured performance fixes. Estimate
+   24–48 hours, highest uncertainty.
+4. Natural complete World 1-1 reference route and port replay. Estimate 8–16 hours.
+5. Grounded Section 7 player/camera/RNG/timer/coins comparisons using Pro
+   proposals, whole-level suite. Estimate 12–24 hours, answer-dependent.
+6. Browser goal/controls/sound regression and runnable handoff. Estimate 6–12 hours.
+
+Total estimated 57–113 hours, not a promise. WebGPU coverage and browser CPU
+speed are the largest schedule risks. Existing source replacement interface
+remains by address; complete current rank-O adapter coverage remains open.
+
+Original bridge8400..9000 completed0, receiptd9af0ef9, all footers and
+source/private profile preserved. Actual image: first bridge wooden crates,
+timer464/coins0/lives4. Native is still running. No typed jump/update/goal claim.
+The exit-boundary Pro answer is available and remains a conditional proposal;
+it preserves the old false validator and does not prove construction ancestry.
 
 Milestones1..4 retain accepted finite scope.5/6 remain in progress. Typed
 controlled player/lifetime/completed-update position/velocity/state/camera/
@@ -66,4 +89,4 @@ RNG/timer/coins, goal and whole-level replay remain open. Browser sustained
 performance, physical mobile, synchronized continuous sound, saves and all
 rank-O address replacement adapters remain open. Matching throughput0.
 
-Current measured free bytes 23689428992 at 2026-10-03T15:11:09.991668+00:00.
+Current measured free bytes 22364463104 at 2026-10-03T16:07:15.111069+00:00.
