@@ -1,0 +1,18 @@
+--- a/src/root_port_capture/CMakeLists.txt
++++ b/src/root_port_capture/CMakeLists.txt
+@@ -23,6 +23,7 @@
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/StaticArmBackend.cpp
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/TranslatedFunctionModule.cpp
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/GuestMemoryTrace.cpp
++        ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/GuestWriteObservation.cpp
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/NativeBlockSchedule.cpp
+         ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/AzaharStaticExecution.cpp)
+     target_include_directories(azahar_static_execution PRIVATE
+@@ -33,6 +34,7 @@
+             ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/StaticArmBackend.cpp
+             ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/TranslatedFunctionModule.cpp
+             ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/GuestMemoryTrace.cpp
++            ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/GuestWriteObservation.cpp
+             ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/NativeBlockSchedule.cpp
+             ${ROOT_PORT_SOURCE_DIRECTORY}/runtime/port/AzaharCompiledExecution.cpp)
+         target_compile_definitions(azahar_compiled_execution PRIVATE ROOT_PORT_STATIC_MODULE_ONLY=1)

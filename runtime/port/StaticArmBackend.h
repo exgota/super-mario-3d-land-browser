@@ -5,6 +5,7 @@
 #include <vector>
 #include "core/arm/arm_interface.h"
 #include "GuestMemoryTrace.h"
+#include "GuestWriteObservation.h"
 #include "NativeBlockSchedule.h"
 #include "TranslatedFunctionModule.h"
 #include "recomp.h"
@@ -17,11 +18,13 @@ class StaticArmBackend final : public Core::ARM_Interface {
 public:
     StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
                      std::shared_ptr<Core::Timing::Timer> timer, const std::filesystem::path& library,
-                     std::shared_ptr<GuestMemoryTrace> trace = nullptr);
+                     std::shared_ptr<GuestMemoryTrace> trace = nullptr,
+                     std::shared_ptr<GuestWriteObservation> write_observation = nullptr);
     StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
                      std::shared_ptr<Core::Timing::Timer> timer, const TranslatedFunctionModule& module,
                      const std::filesystem::path& schedule_path,
-                     std::shared_ptr<GuestMemoryTrace> trace = nullptr);
+                     std::shared_ptr<GuestMemoryTrace> trace = nullptr,
+                     std::shared_ptr<GuestWriteObservation> write_observation = nullptr);
     ~StaticArmBackend() override;
     void Run() override;
     void Step() override;
@@ -61,6 +64,9 @@ private:
     static void RefuseInterpretation(Context*, u32, u32);
     static Code Lookup(Context*, u32);
     Code FindCode(u32 address) const;
+    GuestWriteObservation::MachineContext ObservationContext() const;
+    template<class WriteOperation> void ObserveWrite(Context* callback_context, u32 address, u32 width,
+                                                    u32 value, WriteOperation&& operation);
     Memory::MemorySystem& memory;
     std::unique_ptr<Kernel::SVCContext> svc;
     std::shared_ptr<Memory::PageTable> page_table;
@@ -76,6 +82,8 @@ private:
     std::unique_ptr<NativeBlockSchedule> schedule;
     u32 current_instruction = 0;
     std::shared_ptr<GuestMemoryTrace> trace;
+    std::shared_ptr<GuestWriteObservation> write_observation;
+    GuestWriteObservation::InstructionContext instruction_context;
     static const Host callbacks;
 };
 }

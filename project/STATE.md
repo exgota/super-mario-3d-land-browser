@@ -1,27 +1,24 @@
-# Shared interface cleanup batch
+# Root port runtime state
 
-Owner: Codex driver on `cleanup/shared-interface-imports`. Frozen integrator main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. The actor source intake has been accepted. This batch combines the independently reviewed and locally checked vector-operation family and actor-distance import correction, without changing their final source bytes.
+Root owns root/guest-write-observation, frozen origin/main6c0c41d954b9a8f0b923067d94cc3e27182f48d9. Only integrator moves/pushes main, sets ranks or edits ledger. This family changes port runtime and separate provider build documentation only. No Game/lib/config/map/rank/Factory/ledger, original executable, scheduling or oracle/comparer changes. Current-family matching claims and accepted matching bytes/hour are0; newly translated bytes0. Existing linked recompiled bytes2437712. Owner priority is browser demo, then byte exact, with root only on port. Root effort remains ultra until a verified next relay send uses xhigh.
 
-Owned paths:
-- `Game/backup/src/Factory/fn_00171BE0.cpp`
-- `Game/backup/src/Factory/fn_00173698.cpp`
-- `Game/backup/src/Factory/fn_001BAD90.cpp`
-- `Game/backup/src/Factory/fn_00355820.cpp`
-- `Game/backup/src/Factory/group_0011D7A8.cpp`
-- `Game/backup/src/Factory/group_002438D4.cpp`
-- `lib/CtrSDK/include/nn/math/math_Vector3.h`
-- `lib/al/include/Math/alVectorNormalizationImports.h`
-- `lib/sead/include/math/seadVectorCalcCtr.h`
-- `Game/backup/src/Factory/fn_0021E1D8.cpp`
-- `lib/al/include/LiveActor/alActorDistanceImports.h`
-- `docs/facts/0021E1D8.md`
-- `docs/facts/00173698.md`
+Aquinas completed its earlier policy review and its exact app thread is archived. One implementation helper maximum; audio_stream_consumer completed the optional observer implementation and ignored builder handoff. No active helper, reviewer, browser/harness or process polish work.
 
-No new function implementation or exact-byte claim is made. The map, ledger, build configuration, compiler flags and oracle remain untouched. Root retains port runtime and browser lifecycle enforcement.
+Accepted immutable families: root-audio-stream-output-2e84df41c at96e8ba32, and root-world-one-entry-f75e7a5bc at6acd64ac. Their verdicts are in primary .integrator/results/. Audio remains bounded with counted silence gaps. The accepted3600 replay remains a cinematic with full raw input/GPU/audio/pixel preservation and zero CPU fallback, no gameplay. Never resubmit those branches.
 
-Checked source `06cbdce218a7a3d8307c440eeca50ae63b4f40aa` passes the normal build and all 32 complete affected intervals, preserving 2,068 prior bytes. All eleven final source hashes equal the standalone checked families. Actual definitions and header dependencies cover exactly seven translation units, with zero global duplicate definitions. The scratch map is restored. Final source and detailed limits are in `project/evidence/shared_interface_imports.md`.
+Current family: optional passive Write8/16/32 witness, externally selected root/slot, no game address in public source. Checks actual direct RAM page validity without guest/read/MMIO/rasterizer callbacks. It preserves the actual memory write, distinct charge/callback/post contexts, before/after root/slot and mapping validity, original instruction candidate and incomplete/complete bounded footer. Existing GuestMemoryTrace API and unset write semantics preserve. No classes, allocation ancestry, player identity or update boundary inferred.
 
-Next tasks:
-1. Hold this finished cleanup while the ready PackunFlower/Tenten dot intake is verified and accepted.
-2. Submit this branch with no claims after higher-priority source work clears, then inspect its integrator verdict.
-3. Continue source prerequisite and identity review while root completes browser lifecycle enforcement and the port demo.
+Actual isolated native build completes0 in5.728786708sec and preserves3376 recorded input identities/2229 installed alias records, with19sealed outputs. Receipt build/guest_write_provider/build_receipt.json SHA91c1278d814661cce745ded7f48494ab675ce1e1c2604a32f5e5e54f19e5b397. Three changed/new objects compile; six unaffected objects and sealed bounds archives reuse read-only. Original providers, module and schedule remain unchanged. No compiled-module target or hermetic implicit system/framework closure proof.
+
+Three actual360-presentation native replays, unset, current-root selection and unreadable aligned root, pass the unchanged full movie comparison. Every original input/reference file preserves. Each CPU0393977876instructions, CPU1zero, both fallback0. Comparison SHA20455827, ed202262,711a1f62; full paths/hashes in project/guest_write_observation_evidence.md. Unset creates no stream. Enabled complete output has2natural writes and56571307callbacks. One original four-byte current-root slot store has coherent valid before/after root/slot, matching source/address/registers, original bytes and committed destination bytes. No full instruction completion or atomic freeze is implied. Root-unavailable/slot-unavailable and HLE/direct/alias gaps remain explicit.
+
+Twelve real controls pass:10configuration/output refusals before capture; natural event/byte limits return1 with incomplete footers and omitted records, no partial replay credit. Existing fixtures/links and declared original inputs preserve; full original movie/reference/snapshot seals pass after controls. Read-unavailable case counts all56571307callbacks unavailable, emits0events and retains exact full replay. Unexercised partial overlap, same-value, wrapping, readable cross-page, exclusive-store and remapping branches remain unverified.
+
+Separate root/gameplay-capture-bounds is not submitted. Its five-line two-source bound extension builds isolated7200/2GiB providers, preserves2133 inputs, passes former-range360 stock/native full comparisons and four old/new upper-refusal behavior comparisons. First7200 stock failed at400000-file monitor, renderer6233, receipt d399a8b7 retained/excluded. All405337failed PICA files were individually hashed then pruned, manifest860642d9, preserving every other failed file and all accepted proofs. Retry with only720000-file monitor change completes0 in1373.300610667sec,516947files/1776587206bytes, all protected inputs preserved. Receipt02c49f8f; all63controller script states observed. Final renderer7301shows actual World1 map with Mario at start, no entered World1-1. Native replay of this stock run's own original movie/snapshot now runs under1800/1860sec,2GiB PICA/2560MiBtotal,720000files,128MiBper-file and5GiB free floor. Exact longer native comparison remains unverified.
+
+Pro connected-body answer f35c417f established bounded own-body closure but no slot writer. Root now queued coherent natural original writer evidence at primary .integrator/pro_queue/layout/world-one-application-slot-natural-writer.md SHA50aa0fcc. Treat answer as proposal; root reconstructs no class layouts and does not match the small factory-owned writer interval. Questions needing owner go to project/QUESTIONS.md; none now.
+
+Next three tasks:
+1. Commit/push/submit this fully checked optional runtime observer family with no claims; report its actual verdict and never resubmit pending work.
+2. Finish the separate longer7200 native replay, unchanged full comparison and whole original capture preservation. Submit bounds family only with actual outcomes and explicit gaps, then continue natural level entry.
+3. Follow Pro's minimum next layout/provenance request. Establish controlled-player and completed-update state semantics independently; record and pass the full level suite and goal before milestone5done. Milestone6continuous gameplay, performance, physical/mobile, saves, synchronized continuous audio and complete address replacements remain open. Keep private port_status current; all data/tools/generated modules/PCM/images remain ignored.
