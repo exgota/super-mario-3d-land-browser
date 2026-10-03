@@ -12872,7 +12872,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00326C14,          ,0x00326C30,          ,U,f,,
 0x00326C30,          ,0x00326C4C,          ,U,f,,
 0x00326C4C,          ,0x00326C54,          ,O,f,fn_00326C4C,
-0x00326C54,          ,0x00326C5C,          ,U,f,,
+0x00326C54,          ,0x00326C5C,          ,O,f,fn_00326C54,
 0x00326C5C,          ,0x00326C70,          ,U,f,,
 0x00326C70,          ,0x00326C78,          ,U,f,,
 0x00326C78,          ,0x00326C80,          ,U,f,,
