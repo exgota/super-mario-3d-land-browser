@@ -39,6 +39,7 @@ def main():
     parser.add_argument("--first-swap", action="store_true")
     parser.add_argument("--observe-input", action="store_true", help="capture movie-delivered HID observations")
     parser.add_argument("--observe-audio", action="store_true", help="capture HLE PCM and movie-delivered HID observations")
+    parser.add_argument("--stream-audio", action="store_true", help="offer explicit streamed playback of original observed PCM")
     parser.add_argument("--live-button", action="store_true", help="record live browser A input from the reference initial state")
     parser.add_argument("--live-circle-pad", action="store_true", help="record browser circle-pad input from the reference initial state")
     parser.add_argument("--live-touch", action="store_true", help="record bottom-screen pointer touch with frame output")
@@ -54,7 +55,7 @@ def main():
         raise ValueError("Invalid approved dump identity")
     if not 1 <= args.presentation_limit <= 3600 or not 1 <= args.wall_time_seconds <= 3600:
         raise ValueError("Invalid finite capture bound")
-    if args.first_swap and (args.observe_input or args.observe_audio or args.live_button or args.live_circle_pad or args.live_touch or args.frame_output):
+    if args.first_swap and (args.observe_input or args.observe_audio or args.stream_audio or args.live_button or args.live_circle_pad or args.live_touch or args.frame_output):
         raise ValueError("Input/audio observation needs a software-presentation boundary")
     if args.live_touch and not args.frame_output:
         raise ValueError("Live touch needs frame output for its visible target")
@@ -99,8 +100,10 @@ def main():
                      "options": {"presentation_limit": None if args.first_swap else args.presentation_limit,
                                  "wall_time_seconds": args.wall_time_seconds,
                                  "pica_payload_limit_bytes": 256 * 1024 * 1024,
-                                 "input_capture": args.observe_input or args.observe_audio or args.live_button or args.live_circle_pad or args.live_touch,
-                                 "audio_capture": args.observe_audio or args.live_button or args.live_circle_pad or args.live_touch}}
+                                 "input_capture": args.observe_input or args.observe_audio or args.stream_audio or args.live_button or args.live_circle_pad or args.live_touch,
+                                 "audio_capture": args.observe_audio or args.stream_audio or args.live_button or args.live_circle_pad or args.live_touch}}
+    if args.stream_audio:
+        configuration["options"]["stream_audio_output"] = True
     if args.frame_output:
         configuration["options"]["frame_output"] = True
     if args.live_button or args.live_circle_pad or args.live_touch:

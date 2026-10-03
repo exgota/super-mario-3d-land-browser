@@ -27,12 +27,18 @@ def main():
     parser.add_argument("--first-swap", action="store_true")
     parser.add_argument("--observe-input", action="store_true", help="require strict recorded HID parity")
     parser.add_argument("--observe-audio", action="store_true", help="require strict PCM/input parity and real WebAudio play/stop")
+    parser.add_argument("--stream-audio", action="store_true", help="verify original streamed source against actual AudioWorklet output")
+    parser.add_argument("--stop-stream-after-frames", type=int, help="cancel actual preview sound after this consumed source count")
     parser.add_argument("--movie", type=Path, help="original recorded movie when the reference is a replay directory")
     parser.add_argument("--headed", action="store_true")
     parser.add_argument("--keep-open", action="store_true", help="refused by mandatory browser lifecycle policy")
     parser.add_argument("--exercise-controls", action="store_true", help="verify file rejection, cancellation and recovery before the real capture")
     parser.add_argument("--timeout-seconds", type=int, default=360)
     args = parser.parse_args()
+    if args.stream_audio and not args.observe_audio:
+        raise ValueError("Stream verification requires original audio observation")
+    if args.stop_stream_after_frames is not None and (not args.stream_audio or not 1 <= args.stop_stream_after_frames <= 1048576):
+        raise ValueError("Audio cancellation needs a bounded streamed source count")
     reject_keep_open(getattr(args, "keep_open", False))
     url = urlsplit(args.url)
     output, server_output = args.output.resolve(), args.server_output.resolve()
@@ -44,6 +50,8 @@ def main():
     if not 1 <= args.timeout_seconds <= 7200:
         raise ValueError("Invalid external browser deadline")
     configuration = json.loads((server_output / "configuration.json").read_text())
+    if bool(configuration["options"].get("stream_audio_output")) != args.stream_audio:
+        raise ValueError("Server stream profile differs from the requested verification")
     if (bool(configuration["options"].get("audio_capture")) != args.observe_audio or
         bool(configuration["options"].get("input_capture")) != (args.observe_input or args.observe_audio) or
         (configuration["options"]["presentation_limit"] is None) != args.first_swap):
@@ -91,6 +99,26 @@ def main():
         action += "await page.getByLabel('Game file', {exact: true}).setInputFiles(" + json.dumps(str(dump)) + "); "
         action += "await page.getByRole('button', {name: 'Run preview', exact: true}).click(); }"
         run(["run-code", action])
+        stream_start = {}
+        stream_stop = {}
+        if args.stream_audio:
+            run(["run-code", "async (page) => { await page.waitForFunction(() => document.body.dataset.captureState === 'running', null, {timeout: 60000}); }"])
+            stream_start = evaluate("async () => { const player = (await import('./BrowserCapturePage.mjs')).streamedAudio(); "
+                "if (!player || player.context || player.state !== 'idle') throw new Error('Stream started without gesture'); "
+                "player.enableObservation(1048576); window.rootAudioStreamVerifierPlayer = player; return player.statistics(); }")
+            run(["run-code", "async (page) => { await page.getByRole('button', {name: 'Play preview sound', exact: true}).click(); "
+                 "await page.waitForFunction(() => document.body.dataset.audioState === 'running', null, {timeout: 30000}); }"])
+            if args.stop_stream_after_frames is not None:
+                run(["run-code", "async (page) => { await page.waitForFunction(() => "
+                    "window.rootAudioStreamVerifierPlayer.statistics().consumed_source_frames >= " + str(args.stop_stream_after_frames) + ", null, {timeout: 120000}); "
+                    "await page.getByRole('button', {name: 'Stop sound', exact: true}).click(); "
+                    "await page.waitForFunction(() => window.rootAudioStreamVerifierPlayer.state === 'stopped' && "
+                    "window.rootAudioStreamVerifierPlayer.context.state === 'closed'); }"], timeout=150)
+                stream_stop = evaluate("async () => ({capture_state: document.body.dataset.captureState, "
+                    "statistics: (await import('./BrowserCapturePage.mjs')).streamedAudio().statistics()})")
+                if (stream_stop["capture_state"] != "running" or
+                    stream_stop["statistics"]["consumed_source_frames"] < args.stop_stream_after_frames):
+                    raise RuntimeError("Sound cancellation did not occur during actual guest capture")
         started = time.monotonic()
         states = []
         while True:
@@ -158,6 +186,7 @@ def main():
             raise RuntimeError("Actual browser differential comparison refused")
         pixels = {}
         audio = {}
+        audio_stream = {}
         capture_viewports = {}
         if not args.first_swap:
             pixels = evaluate("async () => { const result = {}; for (const name of ['top-screen', 'bottom-screen']) { "
@@ -193,6 +222,56 @@ def main():
                     audio["rendered_frames"] != len(pcm) // 4 or audio["rendered_channels"] != 2 or
                     not audio["initial_context_absent"] or not audio["initial_source_absent"]):
                     raise RuntimeError("Actual WebAudio conversion/offline output differs from the completed browser PCM")
+                if args.stream_audio and args.stop_stream_after_frames is None:
+                    audio_stream = evaluate("async () => { const player = (await import('./BrowserCapturePage.mjs')).streamedAudio(); "
+                        "const witness = player?.outputObservation; if (!witness || player.state !== 'ended' || player.context.state !== 'closed') "
+                        "throw new Error('Original stream did not drain its actual worklet output'); "
+                        "const bytes = new ArrayBuffer(witness.interleaved_samples.length * 4); const view = new DataView(bytes); "
+                        "for (let index = 0; index < witness.interleaved_samples.length; ++index) view.setFloat32(index * 4, witness.interleaved_samples[index], true); "
+                        "const hash = [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(value => value.toString(16).padStart(2, '0')).join(''); "
+                        "return {statistics: player.statistics(), receipt: player.receipt, output_frames: witness.sample_frames, "
+                        "output_float32le_sha256: hash, events: player.events}; }")
+                    from hashlib import sha256
+                    normalized = sha256()
+                    for samples in struct.iter_unpack("<hh", pcm):
+                        normalized.update(struct.pack("<ff", *(sample / 32768 for sample in samples)))
+                    observation = manifest["observations"]["audio_stream"]
+                    if (not observation.get("enabled") or observation.get("state") != "completed" or
+                        observation["sample_frames"] != len(pcm) // 4 or observation["payload_bytes"] != len(pcm) or
+                        audio_stream["output_frames"] != len(pcm) // 4 or
+                        audio_stream["output_float32le_sha256"] != normalized.hexdigest() or
+                        observation["consumer"] != audio_stream["receipt"] or
+                        audio_stream["statistics"]["consumed_source_frames"] != len(pcm) // 4):
+                        raise RuntimeError("Actual worklet output differs from the original PCM source")
+                    offset = 0
+                    for sequence, packet in enumerate(observation["packets"]):
+                        length = packet["sample_frames"] * 4
+                        if (packet["sequence"] != sequence or packet["first_sample_frame"] * 4 != offset or
+                            not 0 < length <= 8192 or packet["source_extent_bytes"] < offset + length or
+                            sha256(pcm[offset:offset + length]).hexdigest() != packet["pcm_sha256"]):
+                            raise RuntimeError("Original stream packet identity or ordering differs")
+                        offset += length
+                    running = [report for report in observation["consumption_reports"] if report["native_phase"] == "running"]
+                    running_packets = [packet for packet in observation["packets"]
+                                       if packet["native_phase_before_delivery"] == packet["native_phase_after_delivery"] == "running"]
+                    if offset != len(pcm) or not running or not running_packets or not any(
+                        report["sample_frames"] > 0 and report["source_extent_bytes"] < len(pcm) for report in running):
+                        raise RuntimeError("No actual source consumption while the original producer was still growing")
+                    audio_stream.update({"initial": stream_start, "observation": observation,
+                        "expected_output_float32le_sha256": normalized.hexdigest(),
+                        "running_consumption_reports": len(running), "running_packets": len(running_packets),
+                        "scope": "Every original stereo pair reaches actual worklet output once and in order; production continues after first consumption. Gaps are counted. Device output and synchronization unverified."})
+                elif args.stream_audio:
+                    observation = manifest["observations"]["audio_stream"]
+                    final = evaluate("async () => { const player = (await import('./BrowserCapturePage.mjs')).streamedAudio(); "
+                        "return {statistics: player.statistics(), witness_absent: player.outputObservation === null, node_absent: !player.node}; }")
+                    if (not observation.get("enabled") or observation.get("state") != "stopped" or
+                        "consumer" in observation or observation["sample_frames"] >= len(pcm) // 4 or
+                        final["statistics"]["state"] != "stopped" or final["statistics"]["context_state"] != "closed" or
+                        not final["witness_absent"] or not final["node_absent"]):
+                        raise RuntimeError("Stopped audio stream claimed completion or retained its graph")
+                    audio_stream = {"initial": stream_start, "stopped_during_guest": stream_stop, "final": final,
+                        "observation": observation, "scope": "Explicit sound cancellation closes the owned graph; the original guest capture and completed-clip playback still pass unchanged."}
                 # The observed menu is dual mono. A separate, channel-distinct
                 # signal checks byte order and channel assignment on the real graph.
                 fixture_samples = [(0, -32768), (32767, -12345), (-257, 513), (12345, -1)]
@@ -242,6 +321,7 @@ def main():
                   "states": states, "pixels": pixels, "capture_viewports": capture_viewports,
                   "control_states": controls, "protected_dump": protected_dump,
                   "audio": audio,
+                  "audio_stream": audio_stream,
                   "snapshot_identity": snapshot_identity,
                   "capture_receipt_sha256": digest(receipt_path), "capture_manifest_sha256": digest(manifest_path),
                   "comparison_command": comparison_command, "comparison_sha256": digest(comparison_path),

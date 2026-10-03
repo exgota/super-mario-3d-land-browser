@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 import {CapturedAudioPlayback} from './BrowserCapturedAudio.mjs';
+import {StreamedAudioPlayback} from './BrowserStreamedAudio.mjs';
 const form = document.querySelector('#preview-form');
 const input = document.querySelector('#game-file');
 const button = document.querySelector('#run-preview');
@@ -23,6 +24,7 @@ const arrowDirections = {ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', Arrow
 let configuration;
 let session;
 let completedAudio;
+let streamedAudioPlayer;
 let latestPreviewFrame;
 const heldSources = new Set();
 
@@ -276,6 +278,7 @@ window.addEventListener('pagehide', releaseButton);
 document.addEventListener('visibilitychange', () => { if (document.hidden) releaseButton(); });
 
 export function capturedAudio() { return completedAudio; }
+export function streamedAudio() { return streamedAudioPlayer; }
 export function previewFrameObservation() { return latestPreviewFrame && structuredClone(latestPreviewFrame); }
 
 function drawScreens(screens, preview = false) {
@@ -296,6 +299,9 @@ function drawScreens(screens, preview = false) {
 }
 
 function discardAudio() {
+    const stream = streamedAudioPlayer;
+    streamedAudioPlayer = undefined;
+    if (stream) void stream.dispose().catch(() => {});
     const previous = completedAudio;
     completedAudio = undefined;
     previous?.dispose();
@@ -314,6 +320,32 @@ function audioChanged() {
     soundButton.textContent = completedAudio.source ? 'Stop sound' : 'Play recorded sound';
     soundStatus.textContent = completedAudio.source ? 'Playing the recorded sound.' : 'Recorded sound is ready.';
     document.body.dataset.audioState = completedAudio.source ? 'playing' : 'ready';
+}
+
+function stopStreamedAudio(active) {
+    if (session !== active || active.audioStreamStopped) return;
+    active.audioStreamStopped = true;
+    active.worker.postMessage({schema_version: 1, type: 'stop_audio_stream', capture_identifier: active.identifier});
+}
+
+function streamChanged(active, player) {
+    if (session !== active || streamedAudioPlayer !== player) return;
+    const statistics = player.statistics();
+    const running = ['running', 'finishing'].includes(statistics.state);
+    soundButton.textContent = running ? 'Stop sound' : 'Play preview sound';
+    soundButton.disabled = !['idle', 'running', 'finishing'].includes(statistics.state);
+    soundStatus.textContent = statistics.state === 'idle' ? 'Sound is available during this run.' :
+        statistics.state === 'starting' ? 'Starting preview sound.' :
+        running ? 'Playing preview sound.' : statistics.state === 'ended' ? 'Preview sound finished.' :
+        statistics.state === 'failed' ? (player.error ?? 'Preview sound stopped.') : 'Preview sound stopped.';
+    document.body.dataset.audioState = statistics.state;
+    if (statistics.state === 'failed') stopStreamedAudio(active);
+    if (active.audioStreamEnabled && !active.audioStreamStopped &&
+        statistics.consumed_source_frames > (active.audioConsumedFrames ?? 0)) {
+        active.audioConsumedFrames = statistics.consumed_source_frames;
+        active.worker.postMessage({schema_version: 1, type: 'audio_stream_consumption',
+            capture_identifier: active.identifier, sample_frames: statistics.consumed_source_frames});
+    }
 }
 
 function requireCondition(condition, message) {
@@ -369,6 +401,54 @@ async function receive(active, message) {
         status.textContent = recording() ?
             'Running the live input capture…' : 'Running the recorded startup…';
         document.body.dataset.captureState = 'running';
+        if (configuration.options.stream_audio_output) {
+            requireCondition(!streamedAudioPlayer, 'Preview sound was initialized twice.');
+            const player = new StreamedAudioPlayback({capture_identifier: active.identifier,
+                sample_rate: 32728, channels: 2}, () => streamChanged(active, player));
+            streamedAudioPlayer = player;
+            active.audioPlayer = player;
+            soundButton.hidden = soundStatus.hidden = false;
+            streamChanged(active, player);
+        }
+    }
+    else if (message.type === 'audio_stream_source_ended') {
+        requireCondition(configuration.options.stream_audio_output, 'Unexpected sound source closure.');
+        active.audioSourceEnded = true;
+        if (!active.audioStreamEnabled) {
+            soundButton.disabled = true;
+            soundStatus.textContent = 'Preview sound was not started. Recorded sound will be ready shortly.';
+        }
+    }
+    else if (message.type === 'audio_stream_unavailable') {
+        requireCondition(configuration.options.stream_audio_output, 'Unexpected sound availability response.');
+        active.audioStreamStopped = true;
+        await active.audioPlayer.stop();
+    }
+    else if (message.type === 'audio_stream_packet') {
+        requireCondition(configuration.options.stream_audio_output && active.audioStreamEnabled &&
+            active.audioPlayer === streamedAudioPlayer && message.pcm instanceof ArrayBuffer && !active.manifest,
+            'The preview sound stream is unavailable.');
+        if (active.audioStreamStopped) return;
+        const player = active.audioPlayer;
+        try {
+            await player.append({capture_identifier: message.capture_identifier, sequence: message.sequence,
+                first_sample_frame: message.first_sample_frame, sample_frames: message.sample_frames,
+                sample_rate: message.sample_rate, channels: message.channels, pcm: new Uint8Array(message.pcm)});
+        } catch (problem) { if (!active.audioStreamStopped) throw problem; else return; }
+        if (session !== active || active.audioStreamStopped) return;
+        active.worker.postMessage({schema_version: 1, type: 'acknowledge_audio_packet',
+            capture_identifier: active.identifier, sequence: message.sequence});
+    }
+    else if (message.type === 'audio_stream_end') {
+        requireCondition(configuration.options.stream_audio_output && active.audioStreamEnabled &&
+            active.audioPlayer === streamedAudioPlayer && !active.manifest, 'The sound drain is unavailable.');
+        if (active.audioStreamStopped) return;
+        let receipt;
+        try { receipt = await active.audioPlayer.finish(message.sample_frames); }
+        catch (problem) { if (!active.audioStreamStopped) throw problem; else return; }
+        if (session !== active || active.audioStreamStopped) return;
+        active.worker.postMessage({schema_version: 1, type: 'acknowledge_audio_end',
+            capture_identifier: active.identifier, receipt});
     }
     else if (message.type === 'button_capture_progress') {
         requireCondition(configuration.options.live_button_capture &&
@@ -516,6 +596,7 @@ async function receive(active, message) {
                              'The recorded sound did not finish transferring.');
             completedAudio = new CapturedAudioPlayback(active.audio.metadata, active.audio.pcm, audioChanged);
             soundButton.hidden = false;
+            soundButton.disabled = false;
             soundStatus.hidden = false;
             audioChanged();
         }
@@ -610,6 +691,33 @@ form.addEventListener('submit', async event => {
 });
 
 soundButton.addEventListener('click', async () => {
+    if (session?.audioPlayer) {
+        const active = session;
+        const player = active.audioPlayer;
+        if (['running', 'finishing'].includes(player.state)) {
+            stopStreamedAudio(active);
+            await player.stop();
+            return;
+        }
+        if (player.state !== 'idle' || active.audioSourceEnded || active.manifest) return;
+        soundButton.disabled = true;
+        try {
+            await player.start();
+            if (session !== active || active.audioStreamStopped || active.audioSourceEnded) {
+                await player.stop();
+                return;
+            }
+            active.audioStreamEnabled = true;
+            active.worker.postMessage({schema_version: 1, type: 'enable_audio_stream', capture_identifier: active.identifier});
+            streamChanged(active, player);
+        } catch (problem) {
+            if (session === active) {
+                stopStreamedAudio(active);
+                soundStatus.textContent = problem.message;
+            }
+        }
+        return;
+    }
     const audio = completedAudio;
     if (!audio) return;
     if (audio.source) return audio.stop();
@@ -629,7 +737,9 @@ try {
     requireCondition(response.ok, 'The local preview configuration could not be loaded.');
     configuration = await response.json();
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
-    if (configuration.options.frame_output)
+    if (configuration.options.stream_audio_output)
+        document.querySelector('#preview-note').textContent = 'Preview sound is available during this finite run. Start it with Play preview sound. The complete recorded sound is also available when the run ends.';
+    else if (configuration.options.frame_output)
         document.querySelector('#preview-note').textContent = configuration.options.live_touch_capture ?
             'Sampled game frames appear during this finite run. Touch the bottom screen to send input. Recorded sound is ready when the run ends.' : configuration.options.live_circle_pad_capture ?
             'Sampled game frames appear during this finite run. Hold a direction to send input. Recorded sound is ready when the run ends.' : configuration.options.live_button_capture ?
