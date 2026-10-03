@@ -1499,7 +1499,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001440D0,0x0014411C,0x0014414C,          ,U,f,,
 0x0014414C,0x00144500,0x00144B3C,          ,U,f,,
 0x00144B3C,          ,0x00144B60,          ,U,f,,
-0x00144B60,          ,0x00144B80,          ,U,f,,
+0x00144B60,          ,0x00144B80,          ,O,f,fn_00144B60,
 0x00144B80,0x00144DCC,0x00144DFC,          ,U,f,,
 0x00144DFC,0x00144E38,0x00144E3C,          ,U,f,,
 0x00144E3C,0x00144E90,0x00144E98,          ,U,f,,
