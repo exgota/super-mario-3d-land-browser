@@ -2478,7 +2478,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001757AC,          ,0x001757C8,          ,U,f,,
 0x001757C8,          ,0x001757DC,          ,U,f,,
 0x001757DC,0x001758EC,0x001758FC,          ,U,f,,
-0x001758FC,          ,0x00175908,          ,U,f,,
+0x001758FC,          ,0x00175908,          ,O,f,fn_001758FC,
 0x00175908,          ,0x00175918,          ,U,f,,
 0x00175918,0x00175B74,0x00175BB0,          ,U,f,,
 0x00175BB0,          ,0x00175BD4,          ,U,f,,
