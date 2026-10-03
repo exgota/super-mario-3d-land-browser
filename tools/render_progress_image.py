@@ -125,13 +125,13 @@ def main():
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="Decompilation progress: {percent:.2f}% of code bytes matched, {matched} of {len(functions)} functions">
 <style>
   .surface {{ fill: #ffffff; }} .title {{ fill: #1f2328; }} .muted {{ fill: #59636e; }}
-  .empty, .nonmatching {{ fill: #d5dbd5; }} .matched {{ fill: #0ca30c; }}
+  .empty {{ fill: #d5dbd5; }} .matched {{ fill: #0ca30c; }} .nonmatching {{ fill: #b86e00; }}
   #treemap rect {{ stroke: #ffffff; stroke-width: 0.25; }}
   text {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }}
   .figure {{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }}
   @media (prefers-color-scheme: dark) {{
     .surface {{ fill: #0d1117; }} .title {{ fill: #e6edf3; }} .muted {{ fill: #9198a1; }}
-    .empty, .nonmatching {{ fill: #30363d; }} .matched {{ fill: #2ea043; }}
+    .empty {{ fill: #30363d; }} .matched {{ fill: #2ea043; }} .nonmatching {{ fill: #e3b341; }}
     #treemap rect {{ stroke: #0d1117; }}
   }}
 </style>
