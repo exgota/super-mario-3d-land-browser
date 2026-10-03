@@ -1,27 +1,18 @@
-# Shared interface cleanup batch
+# Root World 1-1 entry state
 
-Owner: Codex driver on `cleanup/shared-interface-imports`. Frozen integrator main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. The actor source intake has been accepted. This batch combines the independently reviewed and locally checked vector-operation family and actor-distance import correction, without changing their final source bytes.
+Root owns root/world-one-level-entry, frozen origin/main187f8bfcee80b7897807467f6bb6ee76aba44176. This family owns its ignored natural stock producer, controller script and sealed profile copy, plus project/world_one_level_entry_evidence.md, daily and STATE. No Game/lib/config/map/rank/Factory/ledger, oracle, original executable or existing provider changes. Only integrator moves/pushes main or sets ranks. Root works only on port runtime and sends layouts to Pro. Matching claims and new translated bytes0; linked recompiled bytes2437712. Current family accepted matching throughput0. Effort remains ultra until a verified next actual relay send uses xhigh. Aquinas is completed and archived; no reviewers or browser/harness/process polish.
 
-Owned paths:
-- `Game/backup/src/Factory/fn_00171BE0.cpp`
-- `Game/backup/src/Factory/fn_00173698.cpp`
-- `Game/backup/src/Factory/fn_001BAD90.cpp`
-- `Game/backup/src/Factory/fn_00355820.cpp`
-- `Game/backup/src/Factory/group_0011D7A8.cpp`
-- `Game/backup/src/Factory/group_002438D4.cpp`
-- `lib/CtrSDK/include/nn/math/math_Vector3.h`
-- `lib/al/include/Math/alVectorNormalizationImports.h`
-- `lib/sead/include/math/seadVectorCalcCtr.h`
-- `Game/backup/src/Factory/fn_0021E1D8.cpp`
-- `lib/al/include/LiveActor/alActorDistanceImports.h`
-- `docs/facts/0021E1D8.md`
-- `docs/facts/00173698.md`
+Accepted passive observer root-guest-write-observation-5f69f41d6 at08b5b8fc, verdict primary .integrator/results/root-guest-write-observation-5f69f41d6.json. Build3376inputs/2229aliases preserve. Unset, configured-current-slot and unreadable-root360 native captures pass unchanged full movie comparison with zero CPU fallback;12real refusal/limit controls pass. One original sample-coherent current-root slot four-byte0→nonzero store is mechanically validated. It proves no player identity, lifetime or update completion. Earlier audio stream2e84df41c and cinematic f75e7a5bc remain accepted and immutable. Browser continuous sound gaps remain open.
 
-No new function implementation or exact-byte claim is made. The map, ledger, build configuration, compiler flags and oracle remain untouched. Root retains port runtime and browser lifecycle enforcement.
+Separate root/gameplay-capture-bounds at36d9816e remains unsubmitted while actual7200 native replay runs. Its minimal five-line7200/2GiB support extension preserves original guest/default behavior and passed former360 stock/native comparisons. First7200 stock failed on400000files, retained/excluded;405337failed PICA payloads individually sealed then pruned, all other failed/original/accepted data preserve. Retry changing only monitored file ceiling to720000 completes0 in1373.300610667sec, original inputs preserve. Stock receipt primary build/root_gameplay_capture_bounds/build/gameplay_capture_preparation/reference_gameplay_continuation_7200_file_extent/execution_receipt.json SHA02c49f8faada354af24681258388fa1cf12dc3d9bd9f05ddd2cb90144eb55d1d. All63script states observed. Final renderer7301actual pixels show World1map with Mario at starting node, no entered level1.598803GPUevents/516903PICA lists/1611203488bytes,28554HIDpolls and3957440stereoframes, complete outcomes. Native replay uses this capture's own original movie/snapshot, no input injection; complete/native comparison still unverified.
 
-Checked source `06cbdce218a7a3d8307c440eeca50ae63b4f40aa` passes the normal build and all 32 complete affected intervals, preserving 2,068 prior bytes. All eleven final source hashes equal the standalone checked families. Actual definitions and header dependencies cover exactly seven translation units, with zero global duplicate definitions. The scratch map is restored. Final source and detailed limits are in `project/evidence/shared_interface_imports.md`.
+Purpose of this new family: take an ordinary ignored copy of the original stock capture's completed on-disk user profile, whose GameData.bin is18444bytes, and cold-boot a new stock recording from it. Do not edit or decode save/game data, inject RAM, manufacture initialization or claim RAM continuation. Record the full profile identities before/after and copy provenance. Use an explicit root-authored controller script and existing natural input/movie interfaces only. Initial/capture movies, owner dump, provider/source/library/schedule and accepted proofs remain read-only. Actual cold-boot/menu/level phase must be observed, never inferred from the presence of a save file.
 
-Next tasks:
-1. Hold this finished cleanup while the ready PackunFlower/Tenten dot intake is verified and accepted.
-2. Submit this branch with no claims after higher-priority source work clears, then inspect its integrator verdict.
-3. Continue source prerequisite and identity review while root completes browser lifecycle enforcement and the port demo.
+One implementation helper maximum may prepare one ignored standard-library producer from the existing bounded record wrapper. Root alone reviews, executes guests and evaluates pixels/complete outcomes. All outputs must be absent ignored owned children, with explicit7200-or-smaller presentation selection, bounded time/PICA/output/file extent and5GiB free floor. No build, source or playback oracle change is needed to prepare this family. The bounds provider has its actual sealed isolated build even while branch acceptance is pending; declare that dependency in evidence.
+
+Pro natural-writer answer is now returned at primary .integrator/pro_answers/layout/world-one-application-slot-natural-writer.md. It accepts only the supplied sample-coherent committed-byte witness and computes the direct target0028e688. Minimum next evidence is the target's original body/literals, a natural wrapper-entry/call/return connection, stored-value producer/lifetime, an informative current-slot consumer/control binding, and one actual completed-update path. Pro did not rerun source/receipts. Root reconstructs no layouts or small factory-owned function. Actor/player, World1-1entry and Section7 player/camera/RNG/timer/coin/update semantics remain open. Questions requiring owner go to project/QUESTIONS.md; none now.
+
+Next three tasks:
+1. Prepare and independently validate the saved-profile cold-boot producer and explicit input script without executing it in a helper. Root executes a bounded stock capture, inspects actual pixels and preserves all original/copy identities.
+2. Finish and submit separate bounds family after actual native7200 comparison. Independently replay every successful new original movie/snapshot with complete unchanged input/GPU/PICA/pixel/audio/tick checks and zero fallback.
+3. Supply Pro's smallest connected original/context/consumer packets, then establish controlled gameplay and completed-update semantics. Reach World1-1goal and pass the whole differential level suite before milestone5done. Continuous browser gameplay, synchronized audio, save reload behavior, physical/mobile performance and complete address replacements remain open. Keep ignored port_status current.
