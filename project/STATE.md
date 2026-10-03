@@ -19,4 +19,9 @@ Owned paths:
 
 No new function implementation or exact-byte claim is made. The map, ledger, build configuration, compiler flags and oracle remain untouched. Root retains port runtime and browser lifecycle enforcement.
 
-Next: import the exact committed families, run the normal project build and all 32 complete affected intervals (2,068 prior accepted bytes), audit actual definitions and header dependencies, then submit one finished cleanup after higher-priority ready dot work clears.
+Checked source `06cbdce218a7a3d8307c440eeca50ae63b4f40aa` passes the normal build and all 32 complete affected intervals, preserving 2,068 prior bytes. All eleven final source hashes equal the standalone checked families. Actual definitions and header dependencies cover exactly seven translation units, with zero global duplicate definitions. The scratch map is restored. Final source and detailed limits are in `project/evidence/shared_interface_imports.md`.
+
+Next tasks:
+1. Hold this finished cleanup while the ready PackunFlower/Tenten dot intake is verified and accepted.
+2. Submit this branch with no claims after higher-priority source work clears, then inspect its integrator verdict.
+3. Continue source prerequisite and identity review while root completes browser lifecycle enforcement and the port demo.
