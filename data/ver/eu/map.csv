@@ -1712,7 +1712,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0014E9C0,          ,0x0014EA78,          ,U,f,,
 0x0014EA78,          ,0x0014EAC8,          ,U,f,,
 0x0014EAC8,          ,0x0014EB0C,          ,U,f,,
-0x0014EB0C,          ,0x0014EB18,          ,U,f,,
+0x0014EB0C,          ,0x0014EB18,          ,O,f,fn_0014EB0C,
 0x0014EB18,0x0014EB44,0x0014EB4C,          ,O,f,fn_0014EB18,
 0x0014EB4C,          ,0x0014EB5C,          ,U,f,,
 0x0014EB5C,0x0014EC30,0x0014ECF0,          ,U,f,,
