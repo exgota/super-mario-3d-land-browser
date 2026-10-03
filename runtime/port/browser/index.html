@@ -19,6 +19,10 @@
       </figure>
       <figure class="screen bottom-screen">
         <canvas id="bottom-screen" width="320" height="240" aria-label="Bottom game screen" hidden></canvas>
+        <svg id="touch-position" viewBox="0 0 24 24" aria-hidden="true" hidden>
+          <path class="touch-position-ground" d="M12 2v20M2 12h20"/>
+          <path class="touch-position-ink" d="M12 2v20M2 12h20"/>
+        </svg>
         <figcaption>Bottom screen</figcaption>
       </figure>
     </section>
@@ -53,6 +57,7 @@
         <button id="play-recorded-sound" type="button" hidden>Play recorded sound</button>
         <p id="sound-status" role="status" aria-live="polite" hidden></p>
       </div>
+      <p id="touch-help" hidden>Touch the bottom screen. With it focused, use arrow keys to choose a point, then hold Space or Enter.</p>
       <p class="preview-note" id="preview-note">This preview runs a recorded startup and stops at a captured frame. Playable controls and sound are still in progress.</p>
     </section>
   </main>

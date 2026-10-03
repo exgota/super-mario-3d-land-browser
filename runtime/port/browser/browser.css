@@ -68,6 +68,12 @@ button:disabled { cursor: default; background: #d5d9d1; color: #5d6459; }
 .circle-directions button[aria-pressed="true"] { color: #fff; background: var(--control); }
 #circle-pad:disabled button { color: #5d6459; background: #d5d9d1; border-color: #d5d9d1; }
 #circle-pad-help { margin: 8px 0 0; font-size: 12px; color: var(--secondary); }
+#touch-help { margin: 16px 0 0; font-size: 12px; color: var(--secondary); }
+#bottom-screen.touch-enabled { touch-action: none; cursor: crosshair; }
+#touch-position { position: absolute; width: 24px; height: 24px; transform: translate(-50%, -50%); pointer-events: none; }
+#touch-position path { fill: none; stroke-linecap: square; }
+.touch-position-ground { stroke: #171c18; stroke-width: 4; }
+.touch-position-ink { stroke: #fff; stroke-width: 2; }
 .preview.has-frame { animation: frame-arrival 240ms cubic-bezier(0.16, 1, 0.3, 1); }
 @keyframes frame-arrival { from { filter: brightness(.92); } to { filter: brightness(1); } }
 @media (max-width: 820px) {

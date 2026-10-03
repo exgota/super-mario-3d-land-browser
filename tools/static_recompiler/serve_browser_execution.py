@@ -41,6 +41,7 @@ def main():
     parser.add_argument("--observe-audio", action="store_true", help="capture HLE PCM and movie-delivered HID observations")
     parser.add_argument("--live-button", action="store_true", help="record live browser A input from the reference initial state")
     parser.add_argument("--live-circle-pad", action="store_true", help="record browser circle-pad input from the reference initial state")
+    parser.add_argument("--live-touch", action="store_true", help="record bottom-screen pointer touch with frame output")
     parser.add_argument("--frame-output", action="store_true", help="show bounded completed-screen samples during execution")
     parser.add_argument("--presentation-limit", type=int, default=60)
     parser.add_argument("--wall-time-seconds", type=int, default=180)
@@ -53,8 +54,10 @@ def main():
         raise ValueError("Invalid approved dump identity")
     if not 1 <= args.presentation_limit <= 3600 or not 1 <= args.wall_time_seconds <= 3600:
         raise ValueError("Invalid finite capture bound")
-    if args.first_swap and (args.observe_input or args.observe_audio or args.live_button or args.live_circle_pad or args.frame_output):
+    if args.first_swap and (args.observe_input or args.observe_audio or args.live_button or args.live_circle_pad or args.live_touch or args.frame_output):
         raise ValueError("Input/audio observation needs a software-presentation boundary")
+    if args.live_touch and not args.frame_output:
+        raise ValueError("Live touch needs frame output for its visible target")
     manifest = json.loads((module / "build_manifest.json").read_text())
     if manifest.get("passed") is not True:
         raise ValueError("Browser module did not link successfully")
@@ -96,11 +99,11 @@ def main():
                      "options": {"presentation_limit": None if args.first_swap else args.presentation_limit,
                                  "wall_time_seconds": args.wall_time_seconds,
                                  "pica_payload_limit_bytes": 256 * 1024 * 1024,
-                                 "input_capture": args.observe_input or args.observe_audio or args.live_button or args.live_circle_pad,
-                                 "audio_capture": args.observe_audio or args.live_button or args.live_circle_pad}}
+                                 "input_capture": args.observe_input or args.observe_audio or args.live_button or args.live_circle_pad or args.live_touch,
+                                 "audio_capture": args.observe_audio or args.live_button or args.live_circle_pad or args.live_touch}}
     if args.frame_output:
         configuration["options"]["frame_output"] = True
-    if args.live_button or args.live_circle_pad:
+    if args.live_button or args.live_circle_pad or args.live_touch:
         movie = load_movie(args.reference / "input_movie.ctm")
         if not 0 <= movie["base_ticks"] <= 2 ** 53 - 1:
             raise ValueError("Recording clock exceeds the exact browser observation range")
@@ -109,6 +112,8 @@ def main():
         configuration["options"]["live_button_capture"] = True
     if args.live_circle_pad:
         configuration["options"]["live_circle_pad_capture"] = True
+    if args.live_touch:
+        configuration["options"]["live_touch_capture"] = True
     protected = {str(path): digest(path) for path in {*assets.values(), *sidecars.values(),
                                                    module / "build_manifest.json"}}
     output.mkdir(parents=True)
