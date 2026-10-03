@@ -1335,3 +1335,7 @@ This separate evidence commit carries forward the same nine flower identities fr
 ## 2026-10-02: batch disjoint prepared initializer families
 
 Bug, flowers and Hammer touch nineteen disjoint source files, all unchanged from their individually checked final snapshots. Combining them shares the costly full-preservation cycle without source assembly by the integrator or any weaker gate. Final committed source passes all 87 targeted complete intervals; the five new roots total 2668 bytes and remain unaccepted until the integrator verdict. Preserve the three replaced source request payloads and hashes only after the replacement is queued. Their independent naming proposals remain unchanged. If the combined gate fails, investigate its actual evidence before deciding whether to split the batch.
+
+## 2026-10-02: Bound project browser lifecycle
+
+The owner asked whether the project could avoid accumulating Chrome windows and then requested: “can u handoff and add that to specs somewhere in that main run?” The handoff refers to headless tests by default, at most one visible project preview, cleanup on success/failure/timeout, removal of abandoned project-owned sessions before another starts, and separation from personal Chrome. The canonical browser-test-lifecycle paragraph records those requirements. The runtime lane retains its active touch test and owns the enforcement change. Existing process cleanup requires fresh ownership and activity evidence. Policy acceptance alone does not establish enforcement or claim cleanup has happened.
