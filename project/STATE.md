@@ -1,104 +1,106 @@
-# Root browser gameplay session ownership
+# Root browser gameplay session state
 
-Root owns `root/browser-gameplay-session`, frozen origin/main `96773182c9a4b23005dc39b9a661580619c841f2`.
-Ownership precedes implementation. Only the integrator moves main, ranks and
-ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
+Root owns `root/browser-gameplay-session`, frozen origin/main
+`96773182c9a4b23005dc39b9a661580619c841f2`. Only the integrator moves main,
+ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
 Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 
 Owner target: browser World 1-1 start to goal by Wednesday, October 7, 2026,
-Eastern. Cutoff time unspecified. The ordered plan is in
-project/browser_world_one_delivery_plan.md on accepted bridge commit de8c5810.
-Estimates are 57–113 hours total, not a promise. Work proceeds in that order.
+Eastern. Cutoff unspecified. Ordered estimates in
+project/browser_world_one_delivery_plan.md are estimates, not promises.
+Step1 bridge evidence submitted and accepted. Step2 remains active. No reorder.
 
-The actual browser runs statically recompiled ARM CPU/HLE/software PICA in
-WebAssembly. Canvas2D displays browser-generated RGBA. The local server serves
-files/sidecars and receives evidence; it does not render a pixel feed or serve
-the owner's dump. WebGPU is not implemented. Sustained playable speed is unknown.
+## Actual rendering boundary
 
-## Current source family
+The browser executes the static ARM CPU/HLE/software PICA renderer in WebAssembly.
+Canvas2D displays its own generated RGBA. The local server serves files/sidecars
+and receives exports; it does not render game pixels or serve the owner's dump.
+Fresh module exists and actual browser execution passed below. WebGPU is absent.
+Sustained playable speed, complete level and synchronized audio remain unverified.
 
-Step 2: full-level browser sessions, required controls, bounded recording and
-actual CPU/render/frame-delivery measurements, estimated 6–12 hours.
-Root owns the browser runtime source and focused build/serve integration, plus
-an optional normal-session frontend outside decompiled game files. Keep the
-accepted capture profile unchanged and compare its default execution against
-the original. Normal play must avoid per-command capture files, retain bounded
-wall/memory/output policies, permit explicit Stop and use ordinary HID/movie
-recording. No synthetic pixels, native renderer feed, RAM injection or game data
-in git. Session completion is distinct from complete replay or goal credit.
+## Completed step2 checks
 
-Selected implementation: optional session dispatches before existing GPU
-capture bodies, no per-command files, natural presentation/Stop boundary and
-one final screen/framebuffer pair. Fully unset capture bodies remain untouched.
-The helper implements only this observer. Root integrates the frontend/browser.
+Retired archive closure reconstructed from preserved recorded recipes:
+23 archives/1327 platform objects, Node main object, seven browser objects,
+full Node/browser wasm byte-identical to historical hashes. Public recovery
+receipt86fe74de and frontend recovery2b49b5b3 preserve all source/provider inputs.
+Final module dedf5b6d87089194a3aa1fa62c4c581d987c5619262f1ea4e57d367b08402feb,
+152434537 bytes. All16commands pass; only GPU/headless/audio observer members
+change. Original CPU provider and address replacement interface preserved.
+Complete current-main rank-O adapter coverage remains unverified.
 
-The browser archive closure was retired as finished compiler scratch. Preserved
-compile inventories contain1357commands, all source files present. Private
-recover_browser_link_inputs_revision_2.py reconstructs needed archives/objects from
-recorded commands in absent baseline_recovery. Require original archive/object
-SHA and full Node/browser wasm byte identity, then original source preservation.
-Limits: one compiler,300sec per compile,7200sec total,4GiB additional monitored
-disk and16GiB free floor. First preflight refused before output/compile: the touch-final wasm is also
-retired. A full browser-build scan found zero retained wasm files. Old browser
-execution was verified, but no fresh runnable browser module is on disk now.
-Revision2 binds regenerated wasm to the historical accepted SHA rather than
-claiming an absent file was preserved. Preserve the old refusal/script.
-Recovery completed with byte-identical23archives, standalone Node main object,
-full Node wasm and full browser wasm63e495ab. All1327platform objects and seven
-browser frontend objects rebuilt from preserved recipes. Initial browser link
-refusal (retired frontend objects) remains sealed. Final recovery receipt
-2b49b5b370370624 below earns closure recovery only, no new runtime execution credit.
-Isolated module revision4 links successfully,152434537wasm bytes,
-dedf5b6d87089194a3aa1fa62c4c581d987c5619262f1ea4e57d367b08402feb.
-Archive member evidence: only GPU/headless/audio observers changed. All old
-providers/source preserved. Actual browser/default equality still pending.
-Do not edit the parked helper's GuestExecutionObservation/StaticArmBackend
-family or any accepted provider/build/recipe. Build into absent ignored paths
-using preserved dependencies. Measure loading, CPU, rasterization and frame
-copy costs separately. Preserve the address-based source replacement interface;
-complete current rank-O adapter coverage remains unverified.
+Actual default360 replay passed strict full GPU/PICA/HID/PCM/software pixel and
+framebuffer comparisons, file/snapshot preservation, actual Canvas and WebAudio,
+desktop/mobile screenshots and owned-browser closure. Result30c0d844,
+comparison792df528. Total observed100.99sec includes loading/export.
 
-## Accepted prerequisite and active inputs
+Selected normal360 replay passed exact original HID/PCM/final RGBA/framebuffer,
+movie delivery and snapshots without GPU/PICA files. CPU0 393977876 instructions,
+CPU1zero, both fallbacks0. Actual AudioWorklet output hash and every source packet
+match original stereo PCM, source grows after consumption starts. Postcheckd26d92bf.
+359 presentation intervals41.223sec, about8.7presentations/sec for startup only;
+first eligible frame51.141sec, final export0.850ms. No playable speed claim.
 
-Bridge e431761ab is accepted at de8c5810ae96f694cdad35ffc03af6a7c8b338e4.
-Verdict .integrator/results/root-world-one-bridge-continuation-e431761ab.json:
-no build inputs changed, matched [], matched bytes zero. Original d9af0ef9,
-native add80b7f, strict f7a7b3ca and post632111b0 complete/pass. All 58580 GPU
-window records,51972PICA/265527584bytes,35594HID,30888audio blocks/19768320PCM
-bytes and both screens/framebuffers match. CPU0 4313017982,CPU1zero, fallbacks0.
-Actual image: Mario beside first river bridge crates, timer464/coins0/lives4.
-No goal, typed jump/control/player/update or full-prefix GPU claim.
+Actual normal record/Stop passed all12 standard button bits pressed/released,
+four circle directions, pointer/keyboard buttons, focus release, touch, complete
+ordinary HID movie, neutral final poll, native accepted Stop/natural final export,
+actual Canvas and cleanup.527HID polls, CPU0 336382126, CPU1zero, fallbacks0.
+Result2e2387f9. Initial test failed only a delayed transient Stopping UI assertion;
+its completed capture remains sealed and corrected actual test passed.
 
-All original data, accepted providers/module/schedule/canonical360 raw,
-profiles/movies/snapshots/pixels/PCM/framebuffers/metadata and sealed evidence
-remain private and preserved. Both bridge runs are complete, no capture active.
-Ten own finished scratch retirements remove5127185sealed files/40817074176
-measured allocated bytes, not net disk gain; each selected scope has zero files.
-Historical retired raw requires regeneration. No factory restart/settings.
+Kernel UID inventory resolves historical nodePID10204 reused by root ssh.
+No unrelated process touched. Existing lifecycle controls passed success/failure/
+timeout/owner death/partial launch/recovery/one visible admission and preservation,
+resultbe8eb818. Linux path unchanged. Required empty registry directories retained.
+Browser paths now allow bounded internal ASCII spaces so ordinary saved profile
+`sdmc/Nintendo 3DS` loads unchanged. Traversal/absolute/empty/prototype paths refused.
 
-The one existing helper completed the parked optional passive minimum-tick
-source patch in build/root_guest_execution_tick_selection. Receipt134b702e
-and diff28290f35 preserve nine runtime inputs. No build/execution/commit/submission
-of that patch. Review it only at the state-comparison step. The same helper
-completed only GameplaySession.h/.cpp, receipt5d7cb771. The same one helper
-now owns scoped BrowserCaptureWorker/Page and HTML/CSS controls integration;
-root owns C++/build, selected audio bound and actual verification. No reviewers.
-Aquinas is absent/archived. No new reviewers or unrelated harness work.
-Pro handles all layout/type/control/update proposals. Exit-boundary answer is
-conditional, preserves the old false validator and lacks construction ancestry.
-Original-body question2f675f4d remains queued. Do not join independent cold boots.
+## Active execution and limits
 
-## Next three tasks
+Fresh browser replay9000 from original bridge initial_user_state/movie runs in
+build/browser_world_one_verification_9000 against browser_world_one_server_9000.
+Movief2d7574c, unchanged ordinary user state. No RAM continuation or pointer join.
+Private verifier/build/browser_session_preparation/verify_browser_world_one_9000.py.
+Observe and resume it before any new capture. Final bridge pixels/input/PCM equality,
+actual World1-1 image and full output counters are pending. No goal credit.
 
-1. Implement/build the bounded normal browser session and full required HID
-   controls, preserving accepted default capture behavior. Measure actual costs.
-2. Browser WebGPU PICA rendering and measured performance fixes, estimated
-   24–48 hours with greatest uncertainty. Then complete natural start-to-goal
-   original input route and port replay, estimated 8–16 hours.
-3. Grounded Section7 player/camera/RNG/timer/coins suite with Pro,12–24 hours,
-   then whole-level browser goal/controls/sound handoff,6–12 hours.
+Normal controls/session <=60000 presentations, wall<=3600sec, audio<=256MiB,
+final screens<=160MiB, export<=2GiB. Request/frame histories bounded; complete
+HID/movie/PCM retained. Stop waits for the next natural frame and joins the runtime.
+Selected path writes no per-command PICA/GPU files. Default capture remains separate.
 
-Milestones1..4 retain accepted finite scopes.5/6 remain in progress. Whole-level
-Section7/goal, synchronized continuous audio, saves, physical mobile, sustained
-browser performance and complete rank-O source adapters remain unverified.
-Matching throughput zero. Current free bytes 20516163584.
+Byte-identical active-module function index symbol map recovered by a bounded link,
+receipt35d67e7e. Duplicate wasm retired,8.53MB symbol map retained. This supplies
+names for profiling only. Separate CPU/rasterization/frame-copy costs still pending.
+
+## Evidence and retention
+
+Bridge e431761ab accepted at de8c5810, originald9af0ef9/nativeadd80b7f,
+strictf7a7b3ca/post632111b0. Native duplicate51972PICA payloads retired after hashes,
+original reference raw retained; rerunning native raw equality needs regeneration.
+Both bridge screens/input/PCM exact, CPU0 4313017982/CPU1zero/fallbacks0. No goal,
+typed player/control/update or full-prefix GPU equality credit.
+
+Own completed compiler duplicates/profiles retired only after source/hash and
+closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PCM,
+active9000 inputs/profile, accepted providers and all sealed receipts preserved.
+Free disk measured below. No factory restart/settings. Aquinas absent/archived.
+One existing implementation helper completed/idle. No reviewers or unrelated work.
+
+Pro handles layout/type/update proposals. Exit-boundary answer is conditional,
+construction ancestry unproved; original-return/dispatch question remains queued.
+Passive minimum-tick observer family parked until state comparison step.
+
+## Next tasks, in order
+
+1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
+   document finite controls/session reruns, push and submit this family with no claims.
+2. Browser WebGPU PICA rendering/performance,24–48h highest uncertainty; then
+   natural original start-to-goal route and port replay,8–16h.
+3. Grounded Section7 player/camera/RNG/timer/coins with Pro,12–24h; final whole-level
+   browser goal/live controls/sound/runnable handoff,6–12h.
+
+Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
+Section7, sustained speed, synchronized audio, saves, physical mobile and complete
+rank-O adapter coverage remain unverified. Matching throughput zero.
+Current free bytes 19807289344.

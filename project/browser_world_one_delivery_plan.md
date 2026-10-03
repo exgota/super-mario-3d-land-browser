@@ -13,11 +13,13 @@ its actual generated RGBA, and the page displays those pixels with Canvas 2D.
 The local server serves runtime files and comparison sidecars and receives
 exported evidence. It does not render game pixels or serve the owner's dump.
 Azahar runs separately as the reference. WebGPU rendering is not implemented.
-A fresh October 3 disk inventory found no retained browser wasm modules: finished
-compiler outputs were retired during scratch cleanup. Source, JavaScript and
-sealed execution/build hashes remain. Rebuild and byte-identity recovery are now
-required before a fresh runnable browser session. The rendering location was
-verified in the earlier execution; current on-disk module availability is absent.
+The retired compiler closure has now been reconstructed with historical byte
+identity. A fresh module exists. Actual default360 replay and normal360 replay
+passed original input/PCM/pixels/framebuffers; default also passed the full GPU
+stream comparison. All12 standard buttons and natural Stop passed actual browser
+HID/movie delivery. A capped9000presentation browser World1-1 replay is active.
+The measured normal startup presentation rate is about8.7/sec after first frame,
+well below playable speed; separate execution-cost measurements remain pending.
 
 The accepted finite browser execution result remains available at
 `build/root_browser_execution/build/browser_submission_recovery/result.json`,

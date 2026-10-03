@@ -9,6 +9,10 @@ const MaximumEvents = 2000000;
 const MaximumLogBytes = 16 * 1024 * 1024;
 const MaximumLineBytes = 64 * 1024;
 const MaximumAudioBytes = 64 * 1024 * 1024;
+const MaximumGameplayAudioBytes = 256 * 1024 * 1024;
+const MaximumGameplayRequests = 65536;
+const MaximumGameplayPreviewFrames = 65536;
+const MaximumGameplayPreviewReceipts = 64;
 const TransferTimeoutMilliseconds = 30000;
 const UInt32Maximum = 0xffffffff;
 const encoder = new TextEncoder();
@@ -44,12 +48,31 @@ let pendingFrame;
 let frameControls;
 const frameReceipts = [];
 const MaximumPreviewFrames = 8192;
+let gameplayTimer;
+let gameplayProgress;
+let gameplayButtonSequence = 0;
+let gameplayPreviewCount = 0;
+let gameplayStopRequested = false;
+let gameplayStopAccepted = false;
+let gameplayControlsObserved = false;
+const gameplayButtonRequests = [];
+let gameplayStopRelease;
+
+function gameplay() { return descriptor?.options?.gameplay_session_presentations !== undefined; }
+function maximumAudioBytes() { return gameplay() ? MaximumGameplayAudioBytes : MaximumAudioBytes; }
+function maximumRequests() { return gameplay() ? MaximumGameplayRequests : 4096; }
+function previewCount() { return gameplay() ? gameplayPreviewCount : frameReceipts.length; }
+function retainRequest(destination, response) {
+    destination.push(response);
+    if (gameplay() && destination.length > 128) destination.shift();
+}
 
 function requireCondition(condition, message) {
     if (!condition) throw new Error(message);
 }
 
 function recording() {
+    if (gameplay()) return descriptor.options.gameplay_input_mode === 'record';
     return descriptor.options.live_button_capture || descriptor.options.live_circle_pad_capture || descriptor.options.live_touch_capture;
 }
 
@@ -80,7 +103,7 @@ function record(value, keys) {
 
 function relativePath(value) {
     requireCondition(typeof value === 'string' && value.length > 0 && value.length <= 2048 &&
-        value.split('/').every(part => /^[A-Za-z0-9_.-]+$/.test(part) &&
+        value.split('/').every(part => /^[A-Za-z0-9_.-](?:[A-Za-z0-9_. -]*[A-Za-z0-9_.-])?$/.test(part) &&
                                       part !== '.' && part !== '..' && part !== '__proto__'), 'Invalid relative path');
     return value;
 }
@@ -104,7 +127,14 @@ function validateStart(value) {
     const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'live_circle_pad_capture', 'live_touch_capture',
                              'record_base_ticks', 'frame_output', 'stream_audio_output']
         .filter(key => Object.hasOwn(value.options, key));
-    record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
+    const selected = Object.hasOwn(value.options, 'gameplay_session_presentations');
+    record(value.options, ['presentation_limit', 'wall_time_seconds', ...(selected ?
+        ['gameplay_session_presentations', 'gameplay_input_mode'] : ['pica_payload_limit_bytes']), ...observationKeys]);
+    if (selected) {
+        integer(value.options.gameplay_session_presentations, 60000, 1);
+        requireCondition(value.options.presentation_limit === null &&
+            ['record', 'replay'].includes(value.options.gameplay_input_mode), 'Invalid gameplay session selection');
+    }
     const inputCapture = Object.hasOwn(value.options, 'input_capture') ? value.options.input_capture : false;
     const audioCapture = Object.hasOwn(value.options, 'audio_capture') ? value.options.audio_capture : false;
     const liveButtonCapture = Object.hasOwn(value.options, 'live_button_capture') ? value.options.live_button_capture : false;
@@ -115,19 +145,23 @@ function validateStart(value) {
     requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
         typeof liveButtonCapture === 'boolean' && typeof liveCirclePadCapture === 'boolean' && typeof liveTouchCapture === 'boolean' && typeof frameOutput === 'boolean' &&
         typeof streamAudio === 'boolean' && (!streamAudio || audioCapture) &&
-        (!frameOutput || value.options.presentation_limit !== null) &&
+        (!frameOutput || selected || value.options.presentation_limit !== null) &&
         (!liveButtonCapture || (inputCapture && audioCapture)) &&
         (!liveCirclePadCapture || (inputCapture && audioCapture)) &&
         (!liveTouchCapture || (inputCapture && audioCapture && frameOutput)) &&
         (!audioCapture || inputCapture) &&
-        (!(inputCapture || audioCapture) || value.options.presentation_limit !== null), 'Invalid observation profile');
+        (!(inputCapture || audioCapture) || selected || value.options.presentation_limit !== null), 'Invalid observation profile');
+    if (selected) requireCondition(inputCapture && audioCapture && frameOutput &&
+        (value.options.gameplay_input_mode === 'record' ?
+            liveButtonCapture && liveCirclePadCapture && liveTouchCapture :
+            !liveButtonCapture && !liveCirclePadCapture && !liveTouchCapture), 'Invalid gameplay input profile');
     requireCondition((liveButtonCapture || liveCirclePadCapture || liveTouchCapture) ? typeof value.options.record_base_ticks === 'string' &&
         /^(0|[1-9][0-9]{0,18})$/.test(value.options.record_base_ticks) &&
         BigInt(value.options.record_base_ticks) <= BigInt(Number.MAX_SAFE_INTEGER) :
         !Object.hasOwn(value.options, 'record_base_ticks'), 'Invalid recording clock');
     if (value.options.presentation_limit !== null) integer(value.options.presentation_limit, 3600, 1);
     integer(value.options.wall_time_seconds, 3600, 1);
-    integer(value.options.pica_payload_limit_bytes, 1024 ** 3, 1);
+    if (!selected) integer(value.options.pica_payload_limit_bytes, 1024 ** 3, 1);
     const inputs = [inputRecord(value.inputs.dump, 'dump.3ds'),
                     inputRecord(value.inputs.block_schedule, 'block_schedule.bin'),
                     inputRecord(value.inputs.movie, 'input_movie.ctm')];
@@ -181,6 +215,7 @@ function fail(error) {
     const failedPhase = phase;
     phase = 'failed';
     clearInterval(buttonTimer);
+    clearInterval(gameplayTimer);
     clearInterval(circleTimer);
     clearInterval(touchTimer);
     clearInterval(frameTimer);
@@ -281,8 +316,8 @@ function copyPreviewFrame() {
         const view = new DataView(words.buffer);
         const fields = Array.from({length:12}, (_, index) => view.getUint32(index * 4, true));
         sequence = fields[1];
-        requireCondition(fields[0] === 1 && sequence === frameReceipts.length + 1 &&
-            sequence <= MaximumPreviewFrames, 'Preview publication order changed');
+        requireCondition(fields[0] === 1 && sequence === previewCount() + 1 &&
+            sequence <= (gameplay() ? MaximumGameplayPreviewFrames : MaximumPreviewFrames), 'Preview publication order changed');
         const wide = (low, high) => ((BigInt(high) << 32n) | BigInt(low)).toString();
         const rendererFrame = wide(fields[2], fields[3]);
         const sampledTicks = wide(fields[4], fields[5]);
@@ -325,6 +360,10 @@ async function transferPreviewFrame(frame) {
         sampled_ticks: frame.sampled_ticks, screens: screens.map(({rgba, ...screen}) =>
             ({...screen, bytes: rgba.byteLength}))};
     frameReceipts.push(receipt);
+    if (gameplay()) {
+        ++gameplayPreviewCount;
+        if (frameReceipts.length > MaximumGameplayPreviewReceipts) frameReceipts.shift();
+    }
     await new Promise((resolve, reject) => {
         const timer = setTimeout(() => { pendingFrame = undefined;
             reject(new Error('Preview acknowledgment timed out')); }, TransferTimeoutMilliseconds);
@@ -335,7 +374,7 @@ async function transferPreviewFrame(frame) {
 
 function previewObservations() {
     const lines = stderr.filter(line => line.startsWith('browser frame output '));
-    requireCondition(lines.length === 1 && frameControls && frameReceipts.length > 0,
+    requireCondition(lines.length === 1 && (gameplay() || (frameControls && frameReceipts.length > 0)),
                      'Preview producer or real lease controls are absent');
     const totals = parseRecord(lines[0].slice('browser frame output '.length));
     record(totals, ['unique_frames','published','full_drops','unavailable','duplicate_polls','frame_gaps','geometry_errors']);
@@ -343,10 +382,15 @@ function previewObservations() {
         /^(0|[1-9][0-9]*)$/.test(value) && BigInt(value) <= BigInt(MaximumEvents), 'Invalid preview producer total');
     requireCondition(totals.geometry_errors === '0' &&
         BigInt(totals.unique_frames) === BigInt(totals.published) + BigInt(totals.full_drops) + BigInt(totals.unavailable) &&
-        BigInt(totals.published) >= BigInt(frameReceipts.length), 'Preview producer totals do not reconcile');
-    return {producer: totals, copied_and_acknowledged: frameReceipts.length,
-        unconsumed_publications: Number(BigInt(totals.published) - BigInt(frameReceipts.length)),
-        lease_controls: frameControls, frames: frameReceipts};
+        BigInt(totals.published) >= BigInt(previewCount()), 'Preview producer totals do not reconcile');
+    return {producer: totals, copied_and_acknowledged: previewCount(),
+        unconsumed_publications: Number(BigInt(totals.published) - BigInt(previewCount())),
+        lease_controls: frameControls, frames: frameReceipts, ...(gameplay() ? {
+            frame_receipt_scope: 'last_64_acknowledged_samples',
+            evicted_frame_receipts: previewCount() - frameReceipts.length,
+            maximum_acknowledged_samples: MaximumGameplayPreviewFrames,
+            lease_control_scope: frameControls ? 'observed_on_first_copied_frame' : 'unavailable_no_frame_copied_before_shutdown',
+            exact_gpu_replay_accepted: false} : {})};
 }
 
 function enumerateCapture() {
@@ -523,6 +567,85 @@ function validateEvents(files) {
     return {outcome, presentation, entries};
 }
 
+function validateGameplaySession(files) {
+    const entries = new Map(files.map(file => [file.relative_path, file]));
+    requireCondition(!entries.has('gpu_events.jsonl') && !entries.has('gpu_window_events.jsonl') &&
+        !files.some(file => /^pica_command_list_.*\.bin$/.test(file.relative_path)),
+        'A normal gameplay session must not contain GPU trace or PICA capture files');
+    const configurationFile = entries.get('gameplay_session_configuration.json');
+    const outcomeFile = entries.get('gameplay_session_outcome.json');
+    requireCondition(configurationFile && outcomeFile, 'Gameplay session metadata is absent');
+    const configuration = parseRecord(readText('/capture/gameplay_session_configuration.json', configurationFile.size, 4096));
+    record(configuration, ['type', 'version', 'mode', 'presentation_limit', 'maximum_presentations', 'presentation_scope',
+        'gpu_trace_absent', 'pica_payload_files_absent', 'final_frame_only', 'maximum_rgba_bytes_per_screen',
+        'maximum_framebuffer_bytes_per_screen', 'maximum_final_payload_bytes', 'maximum_configuration_bytes',
+        'maximum_outcome_bytes', 'wall_deadline_owner', 'input_audio_scope', 'exact_replay_accepted',
+        'section_7_accepted', 'goal_accepted', 'host_timing_scope']);
+    requireCondition(configuration.type === 'gameplay_session_configuration' && configuration.version === 1 &&
+        configuration.mode === 'normal_gameplay_session' && configuration.presentation_limit === descriptor.options.gameplay_session_presentations &&
+        configuration.maximum_presentations === 60000 && configuration.presentation_scope === 'natural_presentations_after_first_top_screen_submission' &&
+        configuration.gpu_trace_absent === true && configuration.pica_payload_files_absent === true &&
+        configuration.final_frame_only === true && configuration.maximum_rgba_bytes_per_screen === 67108864 &&
+        configuration.maximum_framebuffer_bytes_per_screen === 16777216 && configuration.maximum_final_payload_bytes === 167772160 &&
+        configuration.maximum_configuration_bytes === 4096 && configuration.maximum_outcome_bytes === 16384 &&
+        configuration.wall_deadline_owner === 'frontend_explicit_at_most_3600_seconds' &&
+        configuration.input_audio_scope === 'frontend_owned' && configuration.exact_replay_accepted === false &&
+        configuration.section_7_accepted === false && configuration.goal_accepted === false &&
+        configuration.host_timing_scope === 'aggregate_presentation_intervals_and_final_export_including_io',
+        'Gameplay configuration disagrees with the selected bounded session');
+    const outcome = parseRecord(readText('/capture/gameplay_session_outcome.json', outcomeFile.size, 16384));
+    record(outcome, ['type', 'version', 'outcome', 'endpoint', 'complete', 'failure_reason', 'presentation_limit',
+        'presentations', 'presentation_callbacks', 'top_screen_submitted', 'submission_ticks', 'last_eligible_presentation_ticks',
+        'finish_ticks', 'stop_pending_at_finish', 'stop_observed_at_final_presentation', 'limit_reached_at_final_presentation',
+        'final_frame_exported', 'payload_files_written', 'payload_bytes_written', 'final_presentation', 'screens', 'counts',
+        'host_diagnostics', 'gpu_trace_absent', 'pica_payload_files_absent', 'exact_replay_accepted', 'section_7_accepted', 'goal_accepted']);
+    requireCondition(outcome.type === 'gameplay_session_outcome' && outcome.version === 1 && outcome.complete === true &&
+        outcome.failure_reason === null && ['presentation_limit', 'requested_stop'].includes(outcome.outcome) &&
+        outcome.endpoint === outcome.outcome && outcome.presentation_limit === configuration.presentation_limit &&
+        outcome.top_screen_submitted === true && outcome.final_frame_exported === true && outcome.payload_files_written === 4 &&
+        outcome.gpu_trace_absent === true && outcome.pica_payload_files_absent === true &&
+        outcome.exact_replay_accepted === false && outcome.section_7_accepted === false && outcome.goal_accepted === false,
+        'Gameplay session did not finish its natural endpoint and final export');
+    integer(outcome.presentations, configuration.presentation_limit, 1);
+    integer(outcome.presentation_callbacks, Number.MAX_SAFE_INTEGER, outcome.presentations);
+    requireCondition(typeof outcome.stop_pending_at_finish === 'boolean' &&
+        outcome.stop_observed_at_final_presentation === (outcome.outcome === 'requested_stop') &&
+        outcome.limit_reached_at_final_presentation === (outcome.presentations === configuration.presentation_limit) &&
+        (outcome.outcome !== 'presentation_limit' || outcome.limit_reached_at_final_presentation) &&
+        (outcome.outcome !== 'requested_stop' || gameplayStopAccepted), 'Gameplay Stop or limit outcome disagrees');
+    record(outcome.final_presentation, ['presentation_index', 'renderer_frame', 'ticks', 'vblank_index']);
+    const final = outcome.final_presentation;
+    integer(final.renderer_frame, Number.MAX_SAFE_INTEGER, 1);
+    integer(final.ticks); integer(outcome.submission_ticks); integer(outcome.last_eligible_presentation_ticks); integer(outcome.finish_ticks);
+    requireCondition(final.presentation_index === outcome.presentations - 1 && outcome.submission_ticks <= final.ticks &&
+        outcome.last_eligible_presentation_ticks === final.ticks && final.ticks <= outcome.finish_ticks, 'Gameplay final boundary disagrees');
+    record(outcome.counts, ['gsp_commands', 'pica_lists', 'pica_bytes_observed_without_export', 'buffer_swaps',
+        'vblanks', 'hardware_register_writes', 'color_fills']);
+    for (const value of Object.values(outcome.counts)) integer(value);
+    requireCondition(outcome.counts.buffer_swaps > 0 && outcome.counts.vblanks > 0 &&
+        final.vblank_index === outcome.counts.vblanks - 1, 'Gameplay aggregate counters disagree');
+    record(outcome.host_diagnostics, ['elapsed_ns', 'first_eligible_presentation_elapsed_ns', 'presentation_interval_samples',
+        'presentation_interval_total_ns', 'presentation_interval_min_ns', 'presentation_interval_max_ns', 'final_export_elapsed_ns']);
+    const timing = outcome.host_diagnostics;
+    for (const key of ['elapsed_ns', 'first_eligible_presentation_elapsed_ns', 'presentation_interval_samples',
+                       'presentation_interval_total_ns', 'final_export_elapsed_ns']) integer(timing[key]);
+    requireCondition(timing.presentation_interval_samples === outcome.presentations - 1 &&
+        timing.first_eligible_presentation_elapsed_ns <= timing.elapsed_ns && timing.final_export_elapsed_ns <= timing.elapsed_ns,
+        'Gameplay host timing diagnostics disagree');
+    if (timing.presentation_interval_samples) {
+        integer(timing.presentation_interval_min_ns); integer(timing.presentation_interval_max_ns);
+        requireCondition(timing.presentation_interval_min_ns <= timing.presentation_interval_max_ns,
+            'Gameplay host interval range disagrees');
+    } else requireCondition(timing.presentation_interval_min_ns === null && timing.presentation_interval_max_ns === null &&
+        timing.presentation_interval_total_ns === 0, 'Unexpected single-presentation timing interval');
+    const presentation = {...final, submission_ticks: outcome.submission_ticks, screens: outcome.screens};
+    const screens = softwareScreens(presentation, entries);
+    requireCondition(outcome.payload_bytes_written === screens.reduce((sum, screen) =>
+        sum + screen.metadata.rgba_bytes + screen.metadata.framebuffer_bytes, 0) &&
+        outcome.payload_bytes_written <= configuration.maximum_final_payload_bytes, 'Gameplay final payload count disagrees');
+    return {outcome, presentation, entries, screens, configuration};
+}
+
 function softwareScreens(presentation, entries) {
     if (!presentation) return [];
     requireCondition(Array.isArray(presentation.screens) && presentation.screens.length === 2,
@@ -567,7 +690,7 @@ function softwareScreens(presentation, entries) {
 }
 
 function observationRecords(entry, accept) {
-    requireCondition(entry && entry.size > 0 && entry.size <= MaximumAudioBytes, 'Observation extent is invalid');
+    requireCondition(entry && entry.size > 0 && entry.size <= maximumAudioBytes(), 'Observation extent is invalid');
     const decoder = new TextDecoder('utf-8', {fatal: true});
     let pending = '';
     let count = 0;
@@ -630,7 +753,7 @@ function validateObservations(presentation, entries) {
         if (event.kind === 'audio_outcome') {
             record(event, ['sequence', 'kind', 'blocks', 'sample_frames', 'payload_bytes', 'complete']);
             requireCondition(integer(event.sequence) === blocks && integer(event.blocks, MaximumEvents, 1) === blocks &&
-                integer(event.sample_frames) === blocks * 160 && integer(event.payload_bytes, MaximumAudioBytes, 1) === blocks * 640 &&
+                integer(event.sample_frames) === blocks * 160 && integer(event.payload_bytes, maximumAudioBytes(), 1) === blocks * 640 &&
                 event.complete === true, 'Audio observation is incomplete');
             audioOutcome = event;
             return;
@@ -646,7 +769,7 @@ function validateObservations(presentation, entries) {
         requireCondition(ticks >= previousTicks && frame >= previousFrame && ticks <= presentation.ticks &&
             frame <= presentation.renderer_frame, 'Audio timing exceeds its presentation boundary');
         previousTicks = ticks; previousFrame = frame;
-        requireCondition(++blocks * 640 <= MaximumAudioBytes, 'Audio payload exceeds bound');
+        requireCondition(++blocks * 640 <= maximumAudioBytes(), 'Audio payload exceeds bound');
     });
     const pcm = entries.get('audio_pcm_s16le.bin');
     requireCondition(audioOutcome && pcm && pcm.size === audioOutcome.payload_bytes, 'Audio PCM extent disagrees');
@@ -743,16 +866,19 @@ async function finish(status) {
     clearInterval(buttonTimer);
     clearInterval(circleTimer);
     clearInterval(touchTimer);
+    clearInterval(gameplayTimer);
     // Any already copied ordinary frame can finish its page acknowledgment.
     // Native exports are forbidden here because SDK exitRuntime has run.
     await frameTask;
     const audioObservation = await completeAudio();
     requireCondition(phase === 'validating', 'Preview failure prevents capture completion');
-    if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
+    if (gameplay()) send({type: 'gameplay_session_ended'});
+    else if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
     if (descriptor.options.live_circle_pad_capture) send({type: 'circle_pad_capture_ended'});
     if (descriptor.options.live_touch_capture) send({type: 'touch_capture_ended'});
     const {files, directories} = enumerateCapture();
-    const {outcome, presentation, entries} = validateEvents(files);
+    const validation = gameplay() ? validateGameplaySession(files) : validateEvents(files);
+    const {outcome, presentation, entries} = validation;
     const observations = validateObservations(presentation, entries);
     if (audioObservation) {
         requireCondition(!audioObservation.enabled || audioObservation.state === 'stopped' ||
@@ -771,10 +897,25 @@ async function finish(status) {
     });
     requireCondition(counters.length > 0 && counters.every(counter => counter.fallbacks === '0') &&
         new Set(counters.map(counter => counter.cpu_identifier)).size === counters.length, 'Invalid CPU counters');
-    const screens = softwareScreens(presentation, entries);
+    if (gameplay()) requireCondition(counters.length === 2 && counters.some(counter => counter.cpu_identifier === '0') &&
+        counters.some(counter => counter.cpu_identifier === '1'), 'Both gameplay CPU zero-fallback reports are required');
+    const screens = validation.screens ?? softwareScreens(presentation, entries);
     phase = 'exporting';
     const manifest = {type: 'capture_manifest', files, directories, outcome, stdout, stderr, counters, observations};
-    if (descriptor.options.live_button_capture) {
+    if (gameplay()) {
+        observations.gameplay_session = {mode: descriptor.options.gameplay_input_mode,
+            configuration: validation.configuration, aggregate_gpu_counts_only: true,
+            gpu_trace_absent: true, pica_capture_files_absent: true,
+            exact_gpu_replay_accepted: false, section_7_accepted: false, goal_accepted: false,
+            controller_request_scope: 'last_128_requests_per_device; delivered_input_movie_retains_all_polls',
+            button_request_count: gameplayButtonSequence, circle_request_count: circleSequence,
+            touch_request_count: touchSequence, stop_requested: gameplayStopRequested,
+            stop_accepted_by_native_bridge: gameplayStopAccepted, stop_release: gameplayStopRelease ?? null,
+            live_control_bridge_observed: gameplayControlsObserved,
+            control_delivery_scope: 'only_actual_HID_movie_polls; setter_acceptance_is_not_delivery'};
+        manifest.gameplay_progress = gameplayProgress ?? null;
+        manifest.gameplay_button_requests = gameplayButtonRequests;
+    } else if (descriptor.options.live_button_capture) {
         requireCondition(buttonProgress?.poll_count > 0 && entries.get('input_movie.ctm')?.size > 256,
                          'Live input device or recorded movie is absent');
         manifest.button_requests = buttonRequests;
@@ -785,11 +926,11 @@ async function finish(status) {
             const match = /^browser circle pad closed after ([0-9]+) device polls; profile restored$/.exec(line);
             return match ? [Number(match[1])] : [];
         });
-        requireCondition(circleProgress?.poll_count > 0 && circleControls?.active &&
+        requireCondition((gameplay() || (circleProgress?.poll_count > 0 && circleControls?.active)) &&
             closure.length === 1 && closure[0] === observations.input.polls &&
             entries.get('input_movie.ctm')?.size > 256, 'Circle-pad device, cleanup or recorded movie is absent');
         manifest.circle_pad_requests = circleRequests;
-        manifest.circle_pad_progress = circleProgress;
+        manifest.circle_pad_progress = circleProgress ?? null;
         manifest.circle_pad_controls = circleControls;
         manifest.circle_pad_closed_polls = closure[0];
     }
@@ -798,11 +939,11 @@ async function finish(status) {
             const match = /^browser touch closed after ([0-9]+) device polls; profile restored$/.exec(line);
             return match ? [Number(match[1])] : [];
         });
-        requireCondition(touchProgress?.poll_count > 0 && touchControls?.active &&
+        requireCondition((gameplay() || (touchProgress?.poll_count > 0 && touchControls?.active)) &&
             closure.length === 1 && closure[0] === observations.input.polls &&
             entries.get('input_movie.ctm')?.size > 256, 'Touch device, cleanup or recorded movie is absent');
         manifest.touch_requests = touchRequests;
-        manifest.touch_progress = touchProgress;
+        manifest.touch_progress = touchProgress ?? null;
         manifest.touch_controls = touchControls;
         manifest.touch_closed_polls = closure[0];
     }
@@ -852,9 +993,13 @@ async function start(value) {
                     parent = child;
                 }
             }
+            if (gameplay()) {
+                for (const name of Object.keys(instance.ENV)) if (name.startsWith('ROOT_PORT_')) delete instance.ENV[name];
+                instance.ENV.ROOT_PORT_GAMEPLAY_SESSION_PRESENTATIONS = String(descriptor.options.gameplay_session_presentations);
+            }
             instance.ENV.ROOT_PORT_CAPTURE_WALL_SECONDS = String(descriptor.options.wall_time_seconds);
-            instance.ENV.ROOT_PORT_CAPTURE_PICA_BYTES = String(descriptor.options.pica_payload_limit_bytes);
-            if (descriptor.options.presentation_limit !== null)
+            if (!gameplay()) instance.ENV.ROOT_PORT_CAPTURE_PICA_BYTES = String(descriptor.options.pica_payload_limit_bytes);
+            if (!gameplay() && descriptor.options.presentation_limit !== null)
                 instance.ENV.ROOT_PORT_CAPTURE_PRESENTATION = String(descriptor.options.presentation_limit);
             else delete instance.ENV.ROOT_PORT_CAPTURE_PRESENTATION;
             for (const [option, name] of [['input_capture', 'ROOT_PORT_CAPTURE_INPUTS'], ['audio_capture', 'ROOT_PORT_CAPTURE_AUDIO']]) {
@@ -911,9 +1056,14 @@ async function start(value) {
             touchControls.before_install.active === 0,
             'Inactive touch controls failed');
     }
-    if (descriptor.options.stream_audio_output)
-        audioStream = new AudioFileStream(module.FS, descriptor.capture_identifier, packet =>
-            audioAcknowledged('audio_stream_packet', {...packet, pcm: packet.pcm.buffer}, [packet.pcm.buffer]), () => phase);
+    if (gameplay()) for (const name of ['BrowserGameplaySessionRequestStop', 'BrowserGameplaySessionIsActive',
+        'BrowserButtonInputSetButtonMask', 'BrowserButtonInputHeldButtonMask', 'BrowserButtonInputHasGameplayControls'])
+        requireCondition(typeof module[`_${name}`] === 'function', `Gameplay runtime export is absent: ${name}`);
+    if (descriptor.options.stream_audio_output) {
+        const deliver = packet => audioAcknowledged('audio_stream_packet', {...packet, pcm: packet.pcm.buffer}, [packet.pcm.buffer]);
+        audioStream = gameplay() ? new AudioFileStream(module.FS, descriptor.capture_identifier, deliver, () => phase, MaximumGameplayAudioBytes) :
+            new AudioFileStream(module.FS, descriptor.capture_identifier, deliver, () => phase);
+    }
     send({type: 'capture_started'});
     phase = 'running';
     // In the pinned SDK this launches the proxy pthread. It is not completion.
@@ -933,7 +1083,28 @@ async function start(value) {
             if (frame) frameTask = transferPreviewFrame(frame).catch(fail).finally(() => { frameTask = undefined; });
         } catch (error) { fail(error); }
     }, 25);
-    if (descriptor.options.live_button_capture) buttonTimer = setInterval(() => {
+    if (gameplay()) gameplayTimer = setInterval(() => {
+        if (phase !== 'running') return;
+        try {
+            gameplayProgress = {active: module._BrowserGameplaySessionIsActive(),
+                input_active: module._BrowserButtonInputIsActive(),
+                has_gameplay_controls: module._BrowserButtonInputHasGameplayControls(),
+                requested_button_mask: module._BrowserButtonInputHeldButtonMask(),
+                poll_count: module._BrowserButtonInputPollCount(),
+                sampled_renderer_frame: module._BrowserButtonInputRendererFrame()};
+            for (const key of ['active', 'input_active', 'has_gameplay_controls']) integer(gameplayProgress[key], 1);
+            integer(gameplayProgress.requested_button_mask, 0x0fff);
+            integer(gameplayProgress.poll_count, UInt32Maximum); integer(gameplayProgress.sampled_renderer_frame, UInt32Maximum);
+            if (gameplayProgress.input_active && gameplayProgress.has_gameplay_controls && gameplayProgress.poll_count)
+                gameplayControlsObserved = true;
+            requireCondition(recording() || (gameplayProgress.input_active === 0 && gameplayProgress.has_gameplay_controls === 0),
+                'Read-only gameplay replay enabled live HID controls');
+            if (gameplayStopRequested && !gameplayStopAccepted && gameplayProgress.active) applyGameplayStop();
+            send({type: 'gameplay_session_progress', ...gameplayProgress, stop_requested: gameplayStopRequested,
+                stop_accepted: gameplayStopAccepted});
+        } catch (error) { fail(error); }
+    }, 25);
+    if (!gameplay() && descriptor.options.live_button_capture) buttonTimer = setInterval(() => {
         if (phase !== 'running') return;
         // The CPU samples its renderer during HID polling. These exports read
         // only our atomics, not Core or the renderer on this outer thread.
@@ -1028,29 +1199,69 @@ function setButton(value) {
 function setCirclePad(value) {
     record(value, ['schema_version', 'type', 'capture_identifier', 'sequence', 'x', 'y']);
     requireCondition(value.schema_version === 1 && descriptor?.options.live_circle_pad_capture &&
-        value.capture_identifier === descriptor.capture_identifier && integer(value.sequence, 4095) === circleSequence,
+        value.capture_identifier === descriptor.capture_identifier && integer(value.sequence, maximumRequests() - 1) === circleSequence,
         'Invalid circle-pad request');
     circlePosition(value.x, value.y);
     ++circleSequence;
-    const status = phase === 'running' ? module._BrowserCirclePadInputSetPosition(value.x, value.y) : 2;
+    const status = phase === 'running' && (!gameplay() || !gameplayStopRequested || (value.x === 0 && value.y === 0)) ?
+        module._BrowserCirclePadInputSetPosition(value.x, value.y) : 2;
     const response = {sequence: value.sequence, x: value.x, y: value.y, status,
         accepted: status === 0, phase, ...(circleProgress ?? {})};
-    circleRequests.push(response);
+    retainRequest(circleRequests, response);
     send({type: 'circle_pad_request_status', ...response});
 }
 
 function setTouch(value) {
     record(value, ['schema_version', 'type', 'capture_identifier', 'sequence', 'x', 'y', 'pressed']);
     requireCondition(value.schema_version === 1 && descriptor?.options.live_touch_capture &&
-        value.capture_identifier === descriptor.capture_identifier && integer(value.sequence, 4095) === touchSequence,
+        value.capture_identifier === descriptor.capture_identifier && integer(value.sequence, maximumRequests() - 1) === touchSequence,
         'Invalid touch request');
     touchState(value.x, value.y, value.pressed);
     ++touchSequence;
-    const status = phase === 'running' ? module._BrowserTouchInputSetState(value.x, value.y, value.pressed) : 2;
+    const status = phase === 'running' && (!gameplay() || !gameplayStopRequested || value.pressed === 0) ?
+        module._BrowserTouchInputSetState(value.x, value.y, value.pressed) : 2;
     const response = {sequence:value.sequence, x:value.x, y:value.y, pressed:value.pressed, status,
         accepted:status === 0, phase, ...(touchProgress ?? {})};
-    touchRequests.push(response);
+    retainRequest(touchRequests, response);
     send({type:'touch_request_status', ...response});
+}
+
+function applyGameplayStop() {
+    // Atomics only. A Stop request does not terminate the proxy CPU or invent a frame.
+    if (recording()) gameplayStopRelease = {
+        buttons: module._BrowserButtonInputSetButtonMask(0),
+        circle: module._BrowserCirclePadInputSetPosition(0, 0),
+        touch: module._BrowserTouchInputSetState(0, 0, 0)};
+    const status = module._BrowserGameplaySessionRequestStop();
+    requireCondition(status === 0 || status === 2, 'Gameplay Stop bridge returned an invalid status');
+    gameplayStopAccepted = status === 0;
+    send({type: 'gameplay_stop_status', status, pending_activation: status === 2 && phase === 'running',
+        accepted: gameplayStopAccepted});
+}
+
+function requestGameplayStop(value) {
+    record(value, ['schema_version', 'type', 'capture_identifier']);
+    requireCondition(value.schema_version === 1 && gameplay() && value.capture_identifier === descriptor.capture_identifier,
+        'Invalid gameplay Stop request');
+    gameplayStopRequested = true;
+    if (phase === 'running' && module._BrowserGameplaySessionIsActive()) applyGameplayStop();
+    else send({type: 'gameplay_stop_status', status: null, accepted: false,
+        pending_activation: ['initializing', 'identifying', 'running'].includes(phase)});
+}
+
+function setGameplayButtons(value) {
+    record(value, ['schema_version', 'type', 'capture_identifier', 'sequence', 'buttons']);
+    requireCondition(value.schema_version === 1 && gameplay() && recording() &&
+        value.capture_identifier === descriptor.capture_identifier &&
+        integer(value.sequence, MaximumGameplayRequests - 1) === gameplayButtonSequence++, 'Invalid gameplay button request');
+    integer(value.buttons, 0x0fff);
+    const status = phase === 'running' && (!gameplayStopRequested || value.buttons === 0) ?
+        module._BrowserButtonInputSetButtonMask(value.buttons) : 2;
+    requireCondition([0, 1, 2, 3].includes(status), 'Gameplay button bridge returned an invalid status');
+    const response = {sequence: value.sequence, buttons: value.buttons, status, accepted: status === 0,
+        phase, ...(gameplayProgress ?? {})};
+    retainRequest(gameplayButtonRequests, response);
+    send({type: 'gameplay_button_status', ...response});
 }
 
 self.onmessage = event => {
@@ -1110,6 +1321,10 @@ self.onmessage = event => {
             const pending = pendingTransfer;
             pendingTransfer = undefined;
             clearTimeout(pending.timer); pending.resolve();
+        } else if (event.data?.type === 'request_gameplay_stop') {
+            requestGameplayStop(event.data);
+        } else if (event.data?.type === 'set_gameplay_button_mask') {
+            setGameplayButtons(event.data);
         } else if (event.data?.type === 'set_button_held_state') {
             setButton(event.data);
         } else if (event.data?.type === 'set_touch_state') {

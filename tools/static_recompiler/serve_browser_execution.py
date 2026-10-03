@@ -22,7 +22,7 @@ MAXIMUM_CAPTURE = 2 ** 31
 def relative_path(value):
     if not isinstance(value, str) or not value or len(value) > 2048:
         raise ValueError("Invalid relative path")
-    if not all(re.fullmatch(r"[A-Za-z0-9_.-]+", part) and part not in (".", "..", "__proto__")
+    if not all(re.fullmatch(r"[A-Za-z0-9_.-](?:[A-Za-z0-9_. -]*[A-Za-z0-9_.-])?", part) and part not in (".", "..", "__proto__")
                for part in value.split("/")):
         raise ValueError("Invalid relative path")
     return value

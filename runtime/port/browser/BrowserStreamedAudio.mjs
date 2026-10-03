@@ -5,6 +5,7 @@ const CHANNELS = 2;
 const CAPACITY_FRAMES = 65536;
 const MAXIMUM_PACKET_FRAMES = 2048;
 const MAXIMUM_SOURCE_FRAMES = 64 * 1024 * 1024 / 4;
+const MAXIMUM_GAMEPLAY_SOURCE_FRAMES = 256 * 1024 * 1024 / 4;
 const MAXIMUM_OBSERVATION_FRAMES = 1048576;
 const DEADLINE_MILLISECONDS = 30000;
 const TERMINAL_STATES = new Set(['ended', 'stopped', 'disposed', 'failed']);
@@ -29,13 +30,16 @@ function deferred() {
 }
 
 export class StreamedAudioPlayback {
-    constructor(metadata, changed) {
+    constructor(metadata, changed, maximumSourceFrames = MAXIMUM_SOURCE_FRAMES) {
         if (!exactFields(metadata, ['capture_identifier', 'sample_rate', 'channels']) ||
             typeof metadata.capture_identifier !== 'string' || !metadata.capture_identifier.length ||
             metadata.sample_rate !== SOURCE_RATE || metadata.channels !== CHANNELS)
             throw new Error('The streamed sound has invalid capture metadata.');
         if (changed !== undefined && typeof changed !== 'function')
             throw new Error('The sound change callback must be a function.');
+        if (maximumSourceFrames !== MAXIMUM_SOURCE_FRAMES && maximumSourceFrames !== MAXIMUM_GAMEPLAY_SOURCE_FRAMES)
+            throw new Error('The streamed sound source limit is invalid.');
+        this.maximumSourceFrames = maximumSourceFrames;
         this.metadata = Object.freeze({...metadata});
         this.changed = changed;
         this.state = 'idle';
@@ -73,7 +77,7 @@ export class StreamedAudioPlayback {
             accepted_packet_count: this.acceptedPacketCount,
             buffered_source_frames: TERMINAL_STATES.has(this.state) ? 0 : this.workletStatistics.buffered_source_frames,
             last_observed_buffered_source_frames: this.workletStatistics.buffered_source_frames,
-            capacity_frames: CAPACITY_FRAMES, maximum_source_frames: MAXIMUM_SOURCE_FRAMES,
+            capacity_frames: CAPACITY_FRAMES, maximum_source_frames: this.maximumSourceFrames,
             source_rate: SOURCE_RATE, channels: CHANNELS,
             context_state: this.context?.state ?? null,
             context_time: this.context?.currentTime ?? null,
@@ -161,7 +165,9 @@ export class StreamedAudioPlayback {
         this.node = new AudioWorkletNode(this.context, 'original-streamed-audio', {
             numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [CHANNELS],
             channelCount: CHANNELS, channelCountMode: 'explicit', channelInterpretation: 'discrete',
-            processorOptions: {...this.metadata, observation_maximum_frames: this.observationMaximumFrames}
+            processorOptions: {...this.metadata, observation_maximum_frames: this.observationMaximumFrames,
+                ...(this.maximumSourceFrames !== MAXIMUM_SOURCE_FRAMES ?
+                    {maximum_source_frames:this.maximumSourceFrames} : {})}
         });
         this.node.port.onmessage = event => {
             if (lifecycle !== this.lifecycle || TERMINAL_STATES.has(this.state)) return;
@@ -186,7 +192,7 @@ export class StreamedAudioPlayback {
             !Number.isSafeInteger(packet.sample_frames) || packet.sample_frames < 1 ||
             packet.sample_frames > MAXIMUM_PACKET_FRAMES || !(packet.pcm instanceof Uint8Array) ||
             packet.pcm.byteLength !== packet.sample_frames * CHANNELS * 2 ||
-            this.acceptedSourceFrames + packet.sample_frames > MAXIMUM_SOURCE_FRAMES)
+            this.acceptedSourceFrames + packet.sample_frames > this.maximumSourceFrames)
             throw new Error('The streamed sound packet has invalid identity, order, format or extent.');
         if (this.state !== 'running') throw new Error('Start sound before appending source frames.');
         if (this.pendingAppend) throw new Error('Only one streamed sound append may be pending.');
@@ -249,7 +255,7 @@ export class StreamedAudioPlayback {
             'startup_silence_frames', 'underrun_frames', 'silence_frames', 'accepted_packet_count'];
         if (counters.some(name => !nonnegativeInteger(message[name]) || message[name] < previous[name]) ||
             !nonnegativeInteger(message.buffered_source_frames) ||
-            message.accepted_source_frames > MAXIMUM_SOURCE_FRAMES ||
+            message.accepted_source_frames > this.maximumSourceFrames ||
             message.consumed_source_frames > message.accepted_source_frames ||
             message.buffered_source_frames !== message.accepted_source_frames - message.consumed_source_frames ||
             message.buffered_source_frames > CAPACITY_FRAMES ||

@@ -29,3 +29,15 @@ Root retired116815288logical bytes from three own failed module attempts after
 sealing inventories. Logs, failed manifests, successful recovered baseline and
 active module remain. Selected retired scope has zero files. Free disk20.50GB.
 No factory change, main move, rank/ledger/Game/lib/config/map edit or new claim.
+
+Actual October3 default360 strict replay passed, result30c0d844/comparison792df528.
+Normal360 exact HID/PCM/final pixels/framebuffers and real AudioWorklet source
+output passed, postd26d92bf; no GPU trace or whole-level credit. Measured359warm
+startup presentation intervals41.223sec (~8.7/sec), final export0.850ms.
+All12 button bits/four circle directions/touch/focus release/natural Stop passed
+actual browser HID/movie, result2e2387f9. Reused system PID exposed ownership
+inventory issue: kernel UID scope excludes unrelated owners, full lifecycle
+controlsbe8eb818 pass. No personal/system process touched. Ordinary saved
+Nintendo3DS folder names now accepted unchanged with bounded internal spaces.
+Actual browser9000 replay from original bridge user state/movie is running;
+World1-1 final equality, goal and separate cost attribution remain pending.

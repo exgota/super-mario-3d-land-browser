@@ -13,6 +13,16 @@ const liveHelp = document.querySelector('#live-button-help');
 const touchScreen = document.querySelector('#bottom-screen');
 const touchHelp = document.querySelector('#touch-help');
 const touchPosition = document.querySelector('#touch-position');
+const modeSelection = document.querySelector('#session-mode');
+const gameplaySelection = document.querySelector('#gameplay-selection');
+const gameplayInputMode = document.querySelector('#gameplay-input-mode');
+const gameplayPresentations = document.querySelector('#gameplay-presentations');
+const gameplayWallSeconds = document.querySelector('#gameplay-wall-seconds');
+const gameplayButtons = document.querySelector('#gameplay-buttons');
+const gameplayButtonControls = [...gameplayButtons.querySelectorAll('button')];
+const gameplayButtonSources = new Map();
+const gameplayKeys = {KeyZ:0, KeyX:1, ShiftLeft:2, ShiftRight:2, Enter:3,
+    KeyL:4, KeyJ:5, KeyI:6, KeyK:7, KeyW:8, KeyQ:9, KeyS:10, KeyA:11};
 let touchPointer;
 let touchPoint = {x:160, y:120};
 const touchKeys = new Set();
@@ -26,18 +36,149 @@ let session;
 let completedAudio;
 let streamedAudioPlayer;
 let latestPreviewFrame;
+let captureNote;
 const heldSources = new Set();
 
+function runOptions() { return session?.options ?? configuration?.options; }
+function gameplay() { return runOptions()?.gameplay_session_presentations !== undefined; }
+function maximumAudioBytes() { return gameplay() ? 256 * 1024 * 1024 : 64 * 1024 * 1024; }
+function maximumRequests() { return gameplay() ? 65536 : 4096; }
+
 function recording() {
-    return configuration?.options.live_button_capture || configuration?.options.live_circle_pad_capture || configuration?.options.live_touch_capture;
+    const options = runOptions();
+    return gameplay() ? options.gameplay_input_mode === 'record' :
+        options?.live_button_capture || options?.live_circle_pad_capture || options?.live_touch_capture;
 }
+
+function selectedInteger(control, maximum, description) {
+    requireCondition(/^[0-9]+$/.test(control.value), `${description} must be a positive whole number.`);
+    const value = Number(control.value);
+    requireCondition(Number.isSafeInteger(value) && value >= 1 && value <= maximum,
+        `${description} must be between 1 and ${maximum}.`);
+    return value;
+}
+
+function selectedOptions() {
+    if (modeSelection.value === 'capture') {
+        requireCondition(runOptions().gameplay_session_presentations === undefined,
+            'This server selected gameplay sessions. Restart it with the short capture profile to run that check.');
+        return {...configuration.options};
+    }
+    const record = gameplayInputMode.value === 'record';
+    requireCondition(record || gameplayInputMode.value === 'replay', 'Choose record or replay input.');
+    return {presentation_limit:null, gameplay_session_presentations:selectedInteger(gameplayPresentations, 60000, 'Presentations'),
+        gameplay_input_mode:gameplayInputMode.value, wall_time_seconds:selectedInteger(gameplayWallSeconds, 3600, 'Time limit'),
+        input_capture:true, audio_capture:true, frame_output:true, stream_audio_output:true,
+        live_button_capture:record, live_circle_pad_capture:record, live_touch_capture:record,
+        ...(record && runOptions().record_base_ticks !== undefined ?
+            {record_base_ticks:runOptions().record_base_ticks} : {})};
+}
+
+function setupAvailability(enabled) {
+    for (const control of [modeSelection, gameplayInputMode, gameplayPresentations, gameplayWallSeconds]) control.disabled = !enabled;
+    gameplaySelection.disabled = !enabled || modeSelection.value !== 'gameplay';
+}
+
+function selectionChanged() {
+    gameplaySelection.hidden = modeSelection.value !== 'gameplay';
+    gameplaySelection.disabled = !!session || modeSelection.value !== 'gameplay';
+    if (session) return;
+    button.textContent = modeSelection.value === 'gameplay' ? 'Run session' : 'Run preview';
+    if (modeSelection.value === 'gameplay') document.querySelector('#preview-note').textContent =
+        'Live screens and sound come from this browser run. Stop saves the final screens at the next game frame. Reaching the session limit does not verify the level goal.';
+    else if (captureNote) document.querySelector('#preview-note').textContent = captureNote;
+}
+modeSelection.addEventListener('change', selectionChanged);
+
+function publishGameplayButtons() {
+    let mask = 0;
+    for (const bit of gameplayButtonSources.values()) mask |= 1 << bit;
+    if (session?.gameplayReady && session.gameplayButtonSequence >= 65535) {
+        mask = 0; gameplayButtonSources.clear(); session.gameplayInputExhausted = true;
+    }
+    for (const control of gameplayButtonControls) control.setAttribute('aria-pressed', String((mask & (1 << Number(control.dataset.hidBit))) !== 0));
+    if (!session?.gameplayReady) return;
+    if (session.gameplayButtonMask !== mask) {
+        session.gameplayButtonMask = mask;
+        session.worker.postMessage({schema_version:1, type:'set_gameplay_button_mask', capture_identifier:session.identifier,
+            sequence:session.gameplayButtonSequence++, buttons:mask});
+    }
+    if (session.gameplayInputExhausted) {
+        session.gameplayReady = false; gameplayButtons.disabled = true;
+        document.querySelector('#gameplay-buttons-help').textContent = 'Controller requests reached this session’s limit. Stop the session or let it finish.';
+    }
+}
+
+function releaseGameplayButtons() { gameplayButtonSources.clear(); publishGameplayButtons(); }
+function hideGameplayButtons() {
+    releaseGameplayButtons();
+    if (session) session.gameplayReady = false;
+    gameplayButtons.hidden = gameplayButtons.disabled = true;
+    document.querySelector('#top-screen').tabIndex = -1;
+}
+
+function requestGameplayStop(active) {
+    if (session !== active || active.stopRequested) return;
+    releaseGameplayButtons(); releaseCirclePad(); releaseTouch();
+    active.stopRequested = true;
+    active.gameplayReady = active.circleReady = active.touchReady = false;
+    gameplayButtons.disabled = circlePad.disabled = true;
+    button.textContent = 'Stopping session…'; button.disabled = true;
+    status.textContent = 'Stop requested. Waiting for a natural presentation, then saving the final screens.';
+    if (active.worker) active.worker.postMessage({schema_version:1, type:'request_gameplay_stop', capture_identifier:active.identifier});
+}
+
+for (const control of gameplayButtonControls) {
+    control.addEventListener('pointerdown', event => {
+        if (event.button !== 0 || !session?.gameplayReady) return;
+        control.setPointerCapture(event.pointerId);
+        gameplayButtonSources.set(`pointer:${event.pointerId}`, Number(control.dataset.hidBit)); publishGameplayButtons();
+    });
+    for (const name of ['pointerup', 'pointercancel', 'lostpointercapture']) control.addEventListener(name, event => {
+        gameplayButtonSources.delete(`pointer:${event.pointerId}`); publishGameplayButtons();
+    });
+    control.addEventListener('keydown', event => {
+        if (!['Space','Enter'].includes(event.code) || !session?.gameplayReady) return;
+        event.preventDefault(); gameplayButtonSources.set(`key:${event.code}`, Number(control.dataset.hidBit)); publishGameplayButtons();
+    });
+    control.addEventListener('keyup', event => {
+        if (!['Space','Enter'].includes(event.code)) return;
+        event.preventDefault(); gameplayButtonSources.delete(`key:${event.code}`); publishGameplayButtons();
+    });
+}
+
+function gameplayKeyboardTarget(target) {
+    return target instanceof Element && (target.matches('canvas') || gameplayButtons.contains(target) || circlePad.contains(target));
+}
+window.addEventListener('keydown', event => {
+    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey ||
+        !gameplayKeyboardTarget(event.target) || !session?.gameplayReady) return;
+    if (Object.hasOwn(gameplayKeys, event.code)) {
+        event.preventDefault(); gameplayButtonSources.set(`key:${event.code}`, gameplayKeys[event.code]); publishGameplayButtons();
+    } else if (Object.hasOwn(arrowDirections, event.code) && session.circleReady) {
+        event.preventDefault(); circleSources.set(`gameplay-key:${event.code}`, arrowDirections[event.code]); publishCirclePosition();
+    }
+});
+window.addEventListener('keyup', event => {
+    if (!session || !gameplay()) return;
+    if (gameplayButtonSources.delete(`key:${event.code}`)) { event.preventDefault(); publishGameplayButtons(); }
+    if (circleSources.delete(`gameplay-key:${event.code}`)) { event.preventDefault(); publishCirclePosition(); }
+});
+document.addEventListener('focusout', event => {
+    if (gameplayKeyboardTarget(event.target) && !gameplayKeyboardTarget(event.relatedTarget)) {
+        releaseGameplayButtons(); if (gameplay()) releaseCirclePad();
+    }
+});
+window.addEventListener('blur', releaseGameplayButtons);
+window.addEventListener('pagehide', releaseGameplayButtons);
+document.addEventListener('visibilitychange', () => { if (document.hidden) releaseGameplayButtons(); });
 
 function publishTouchState() {
     if (!session?.touchReady) return;
     let pressed = touchPointer !== undefined || touchKeys.size ? 1 : 0;
     let x = pressed ? touchPoint.x : 0, y = pressed ? touchPoint.y : 0;
     // Reserve the final bounded request for release, then finish this capture.
-    if (session.touchSequence >= 4095) {
+    if (session.touchSequence >= maximumRequests() - 1) {
         session.touchExhausted = true;
         pressed = x = y = 0;
         touchPointer = undefined;
@@ -80,10 +221,10 @@ function releaseTouchPointer() {
 }
 
 function touchAvailability() {
-    if (!configuration?.options.live_touch_capture || !session) return;
+    if (!runOptions()?.live_touch_capture || !session) return;
     const completeTarget = !touchScreen.hidden && touchScreen.width === 320 && touchScreen.height === 240;
     if (!completeTarget && session.touchReady && !session.touchExhausted) releaseTouch();
-    session.touchReady = session.touchPolled && completeTarget && !session.touchExhausted;
+    session.touchReady = session.touchPolled && completeTarget && !session.touchExhausted && !session.stopRequested;
     touchHelp.hidden = false;
     touchHelp.textContent = session.touchExhausted ?
         'Touch input reached this preview’s limit. Let the capture finish, then run it again.' : !completeTarget ?
@@ -173,12 +314,21 @@ function publishCirclePosition() {
     const horizontal = Number(directions.has('right')) - Number(directions.has('left'));
     const vertical = Number(directions.has('up')) - Number(directions.has('down'));
     const extent = horizontal && vertical ? 108 : 154;
-    const x = horizontal * extent, y = vertical * extent;
+    let x = horizontal * extent, y = vertical * extent;
+    if (gameplay() && session.circleSequence >= 65535) {
+        x = y = 0; circleSources.clear(); session.circleExhausted = true;
+    }
+    if (session.circleExhausted) {
+        for (const control of circleButtons) control.setAttribute('aria-pressed', 'false');
+        circlePad.disabled = true;
+        document.querySelector('#circle-pad-help').textContent = 'Circle-pad requests reached this session’s limit. Stop the session or let it finish.';
+    }
     if (session.circleX === x && session.circleY === y) return;
     session.circleX = x;
     session.circleY = y;
     session.worker.postMessage({schema_version:1, type:'set_circle_pad_position',
         capture_identifier:session.identifier, sequence:session.circleSequence++, x, y});
+    if (session.circleExhausted) session.circleReady = false;
 }
 
 function releaseCirclePad() {
@@ -353,6 +503,8 @@ function requireCondition(condition, message) {
 }
 
 function reportFailure(message) {
+    const selected = gameplay();
+    hideGameplayButtons();
     hideButton();
     hideCirclePad();
     hideTouch();
@@ -365,9 +517,10 @@ function reportFailure(message) {
     }
     error.textContent = message;
     error.hidden = false;
-    status.textContent = 'Preview stopped.';
-    button.textContent = 'Run preview';
+    status.textContent = selected ? 'Session stopped before completion.' : 'Preview stopped.';
+    button.textContent = modeSelection.value === 'gameplay' ? 'Run session' : 'Run preview';
     input.disabled = false;
+    setupAvailability(true);
     button.disabled = !configuration || input.files.length !== 1;
     document.body.dataset.captureState = 'failed';
 }
@@ -398,13 +551,17 @@ async function receive(active, message) {
     requireCondition(message.schema_version === 1 && message.capture_identifier === active.identifier,
                      'The preview worker returned an invalid session.');
     if (message.type === 'capture_started') {
-        status.textContent = recording() ?
+        status.textContent = gameplay() && active.stopRequested ? 'Stop requested. Waiting for a natural presentation.' :
+            gameplay() ? recording() ? 'Running the gameplay session. Controls are starting…' :
+            'Running the gameplay movie. Live controls are off.' : recording() ?
             'Running the live input capture…' : 'Running the recorded startup…';
         document.body.dataset.captureState = 'running';
-        if (configuration.options.stream_audio_output) {
+        if (runOptions().stream_audio_output) {
             requireCondition(!streamedAudioPlayer, 'Preview sound was initialized twice.');
-            const player = new StreamedAudioPlayback({capture_identifier: active.identifier,
-                sample_rate: 32728, channels: 2}, () => streamChanged(active, player));
+            const metadata = {capture_identifier: active.identifier, sample_rate: 32728, channels: 2};
+            const changed = () => streamChanged(active, player);
+            const player = gameplay() ? new StreamedAudioPlayback(metadata, changed, maximumAudioBytes() / 4) :
+                new StreamedAudioPlayback(metadata, changed);
             streamedAudioPlayer = player;
             active.audioPlayer = player;
             soundButton.hidden = soundStatus.hidden = false;
@@ -412,20 +569,21 @@ async function receive(active, message) {
         }
     }
     else if (message.type === 'audio_stream_source_ended') {
-        requireCondition(configuration.options.stream_audio_output, 'Unexpected sound source closure.');
+        requireCondition(runOptions().stream_audio_output, 'Unexpected sound source closure.');
         active.audioSourceEnded = true;
         if (!active.audioStreamEnabled) {
             soundButton.disabled = true;
-            soundStatus.textContent = 'Preview sound was not started. Recorded sound will be ready shortly.';
+            soundStatus.textContent = gameplay() ? 'Preview sound was not started.' :
+                'Preview sound was not started. Recorded sound will be ready shortly.';
         }
     }
     else if (message.type === 'audio_stream_unavailable') {
-        requireCondition(configuration.options.stream_audio_output, 'Unexpected sound availability response.');
+        requireCondition(runOptions().stream_audio_output, 'Unexpected sound availability response.');
         active.audioStreamStopped = true;
         await active.audioPlayer.stop();
     }
     else if (message.type === 'audio_stream_packet') {
-        requireCondition(configuration.options.stream_audio_output && active.audioStreamEnabled &&
+        requireCondition(runOptions().stream_audio_output && active.audioStreamEnabled &&
             active.audioPlayer === streamedAudioPlayer && message.pcm instanceof ArrayBuffer && !active.manifest,
             'The preview sound stream is unavailable.');
         if (active.audioStreamStopped) return;
@@ -440,7 +598,7 @@ async function receive(active, message) {
             capture_identifier: active.identifier, sequence: message.sequence});
     }
     else if (message.type === 'audio_stream_end') {
-        requireCondition(configuration.options.stream_audio_output && active.audioStreamEnabled &&
+        requireCondition(runOptions().stream_audio_output && active.audioStreamEnabled &&
             active.audioPlayer === streamedAudioPlayer && !active.manifest, 'The sound drain is unavailable.');
         if (active.audioStreamStopped) return;
         let receipt;
@@ -450,8 +608,45 @@ async function receive(active, message) {
         active.worker.postMessage({schema_version: 1, type: 'acknowledge_audio_end',
             capture_identifier: active.identifier, receipt});
     }
+    else if (message.type === 'gameplay_session_progress') {
+        requireCondition(gameplay() && [0,1].includes(message.active) && [0,1].includes(message.input_active) &&
+            [0,1].includes(message.has_gameplay_controls) && Number.isSafeInteger(message.requested_button_mask) &&
+            message.requested_button_mask >= 0 && message.requested_button_mask <= 0x0fff &&
+            Number.isSafeInteger(message.poll_count) && message.poll_count >= 0 &&
+            Number.isSafeInteger(message.sampled_renderer_frame) && message.sampled_renderer_frame >= 0 &&
+            typeof message.stop_requested === 'boolean' && typeof message.stop_accepted === 'boolean',
+            'The gameplay controller progress is invalid.');
+        requireCondition(recording() || (message.input_active === 0 && message.has_gameplay_controls === 0),
+            'Replay unexpectedly enabled live controls.');
+        active.gameplayReady = recording() && message.active === 1 && message.input_active === 1 &&
+            message.has_gameplay_controls === 1 && message.poll_count > 0 && !active.stopRequested && !active.gameplayInputExhausted;
+        gameplayButtons.hidden = !recording(); gameplayButtons.disabled = !active.gameplayReady;
+        document.querySelector('#top-screen').tabIndex = active.gameplayReady ? 0 : -1;
+        document.body.dataset.gameplayActive = String(message.active);
+        document.body.dataset.gameplayRequestedMask = String(message.requested_button_mask);
+        document.body.dataset.buttonPollCount = String(message.poll_count);
+        document.body.dataset.sampledRendererFrame = String(message.sampled_renderer_frame);
+    }
+    else if (message.type === 'gameplay_button_status') {
+        requireCondition(gameplay() && recording() && Number.isSafeInteger(message.sequence) &&
+            message.sequence >= 0 && message.sequence < 65536 && [0,1,2,3].includes(message.status) &&
+            message.accepted === (message.status === 0), 'The gameplay controller response is invalid.');
+        document.body.dataset.buttonRequestSequence = String(message.sequence);
+        document.body.dataset.buttonRequestAccepted = String(message.accepted);
+    }
+    else if (message.type === 'gameplay_stop_status') {
+        requireCondition(gameplay() && active.stopRequested && [null,0,2].includes(message.status) &&
+            message.accepted === (message.status === 0) && typeof message.pending_activation === 'boolean',
+            'The gameplay Stop response is invalid.');
+        active.stopAccepted = message.accepted;
+        document.body.dataset.gameplayStopAccepted = String(message.accepted);
+        status.textContent = message.accepted ? 'Stop accepted. Waiting for a natural presentation, then saving the final screens.' :
+            message.pending_activation ? 'Stop requested. Waiting for the session to reach a natural presentation.' :
+            'The session reached its endpoint before Stop was accepted. Saving its actual result.';
+    }
+    else if (message.type === 'gameplay_session_ended') hideGameplayButtons();
     else if (message.type === 'button_capture_progress') {
-        requireCondition(configuration.options.live_button_capture &&
+        requireCondition(runOptions().live_button_capture &&
             [0, 1].includes(message.active) && Number.isSafeInteger(message.poll_count) &&
             message.poll_count >= 0 && Number.isSafeInteger(message.sampled_renderer_frame) &&
             message.sampled_renderer_frame >= 0, 'The live button progress is invalid.');
@@ -462,20 +657,20 @@ async function receive(active, message) {
         liveButton.hidden = liveHelp.hidden = false;
     }
     else if (message.type === 'button_request_status') {
-        requireCondition(configuration.options.live_button_capture && Number.isSafeInteger(message.sequence) &&
+        requireCondition(runOptions().live_button_capture && Number.isSafeInteger(message.sequence) &&
             typeof message.accepted === 'boolean', 'The live button response is invalid.');
         document.body.dataset.buttonRequestSequence = String(message.sequence);
         document.body.dataset.buttonRequestAccepted = String(message.accepted);
     }
     else if (message.type === 'button_capture_ended') hideButton();
     else if (message.type === 'circle_pad_capture_progress') {
-        requireCondition(configuration.options.live_circle_pad_capture && [0,1].includes(message.active) &&
+        requireCondition(runOptions().live_circle_pad_capture && [0,1].includes(message.active) &&
             Number.isSafeInteger(message.poll_count) && message.poll_count >= 0 &&
             Number.isSafeInteger(message.sampled_renderer_frame) && message.sampled_renderer_frame >= 0 &&
             Number.isSafeInteger(message.sampled_requested_x) && Number.isSafeInteger(message.sampled_requested_y) &&
             message.sampled_requested_x ** 2 + message.sampled_requested_y ** 2 <= 154 ** 2,
             'The circle pad progress is invalid.');
-        active.circleReady = message.active === 1 && message.poll_count > 0;
+        active.circleReady = message.active === 1 && message.poll_count > 0 && !active.stopRequested && !active.circleExhausted;
         circlePad.hidden = false;
         circlePad.disabled = !active.circleReady;
         document.body.dataset.circlePollCount = String(message.poll_count);
@@ -484,14 +679,14 @@ async function receive(active, message) {
         document.body.dataset.sampledRendererFrame = String(message.sampled_renderer_frame);
     }
     else if (message.type === 'circle_pad_request_status') {
-        requireCondition(configuration.options.live_circle_pad_capture && Number.isSafeInteger(message.sequence) &&
+        requireCondition(runOptions().live_circle_pad_capture && Number.isSafeInteger(message.sequence) &&
             [0,1,2].includes(message.status), 'The circle pad response is invalid.');
         document.body.dataset.circleRequestSequence = String(message.sequence);
         document.body.dataset.circleRequestAccepted = String(message.status === 0);
     }
     else if (message.type === 'circle_pad_capture_ended') hideCirclePad();
     else if (message.type === 'touch_capture_progress') {
-        requireCondition(configuration.options.live_touch_capture && [0,1].includes(message.active) &&
+        requireCondition(runOptions().live_touch_capture && [0,1].includes(message.active) &&
             Number.isSafeInteger(message.poll_count) && message.poll_count >= 0 &&
             Number.isSafeInteger(message.sampled_requested_x) && message.sampled_requested_x >= 0 && message.sampled_requested_x <= 319 &&
             Number.isSafeInteger(message.sampled_requested_y) && message.sampled_requested_y >= 0 && message.sampled_requested_y <= 239 &&
@@ -506,14 +701,14 @@ async function receive(active, message) {
         touchAvailability();
     }
     else if (message.type === 'touch_request_status') {
-        requireCondition(configuration.options.live_touch_capture && Number.isSafeInteger(message.sequence) &&
+        requireCondition(runOptions().live_touch_capture && Number.isSafeInteger(message.sequence) &&
             [0,1,2].includes(message.status), 'The touch response is invalid.');
         document.body.dataset.touchRequestSequence = String(message.sequence);
         document.body.dataset.touchRequestAccepted = String(message.status === 0);
     }
     else if (message.type === 'touch_capture_ended') hideTouch();
     else if (message.type === 'preview_screens') {
-        requireCondition(configuration.options.frame_output && !active.manifest &&
+        requireCondition(runOptions().frame_output && !active.manifest &&
             Number.isSafeInteger(message.sequence) && message.sequence === (active.previewCount ?? 0) + 1 &&
             typeof message.renderer_frame === 'string' && /^(0|[1-9][0-9]*)$/.test(message.renderer_frame) &&
             typeof message.sampled_ticks === 'string' && /^(0|[1-9][0-9]*)$/.test(message.sampled_ticks) &&
@@ -530,36 +725,48 @@ async function receive(active, message) {
                 ({...screen, bytes: rgba.byteLength}))};
         document.body.dataset.previewFrameCount = String(active.previewCount);
         document.body.dataset.previewRendererFrame = message.renderer_frame;
-        status.textContent = configuration.options.live_touch_capture ?
+        status.textContent = gameplay() ? active.stopRequested ?
+            'Stop requested. Waiting for a natural presentation, then saving the final screens.' : recording() ?
+            'Showing live browser frames. Focus a screen or controller to play.' :
+            'Showing live browser frames from the selected movie. Controls are read-only.' : runOptions().live_touch_capture ?
             active.touchExhausted ? 'Showing sampled frames. Touch input has reached this preview’s limit.' :
             active.touchReady ? 'Showing sampled frames. Touch the bottom screen to send input.' :
-            'Showing sampled frames. Touch will be available when the full bottom screen appears.' : configuration.options.live_circle_pad_capture ?
-            'Showing sampled frames. Hold a direction to send input.' : configuration.options.live_button_capture ?
+            'Showing sampled frames. Touch will be available when the full bottom screen appears.' : runOptions().live_circle_pad_capture ?
+            'Showing sampled frames. Hold a direction to send input.' : runOptions().live_button_capture ?
             'Showing sampled frames. Hold A to send input.' : 'Showing sampled frames from the recorded startup…';
         active.worker.postMessage({schema_version:1, type:'acknowledge_preview',
             capture_identifier:active.identifier, sequence:message.sequence});
     }
     else if (message.type === 'capture_failed') throw new Error(message.message);
     else if (message.type === 'capture_manifest') {
+        hideGameplayButtons();
         hideButton();
         hideCirclePad();
         hideTouch();
         requireCondition(!active.manifest, 'The capture manifest was repeated.');
         active.manifest = message;
-        if (configuration.options.audio_capture) {
+        if (runOptions().audio_capture) {
             const metadata = message.observations?.audio;
             requireCondition(metadata?.relative_path === 'audio_pcm_s16le.bin' && metadata.channels === 2 &&
                 metadata.sample_rate === 32728 && Number.isSafeInteger(metadata.sample_frames) && metadata.sample_frames > 0 &&
                 Number.isSafeInteger(metadata.payload_bytes) && metadata.payload_bytes === metadata.sample_frames * 4 &&
-                metadata.payload_bytes <= 64 * 1024 * 1024, 'The recorded sound metadata is incomplete.');
+                metadata.payload_bytes <= maximumAudioBytes(), 'The recorded sound metadata is incomplete.');
             const fileIndex = message.files.findIndex(file => file.relative_path === metadata.relative_path);
             requireCondition(fileIndex !== -1 && message.files[fileIndex].size === metadata.payload_bytes,
                              'The recorded sound file extent changed.');
-            active.audio = {metadata, fileIndex, offset: 0, pcm: new Uint8Array(metadata.payload_bytes)};
+            if (!gameplay()) active.audio = {metadata, fileIndex, offset: 0, pcm: new Uint8Array(metadata.payload_bytes)};
+            else active.recordedAudio = metadata;
         }
+        if (gameplay()) requireCondition(message.outcome?.complete === true &&
+            ['presentation_limit','requested_stop'].includes(message.outcome.outcome) &&
+            message.observations?.gameplay_session?.gpu_trace_absent === true &&
+            message.observations.gameplay_session.exact_gpu_replay_accepted === false &&
+            message.observations.gameplay_session.goal_accepted === false &&
+            message.observations.gameplay_session.section_7_accepted === false,
+            'The normal session outcome is incomplete.');
         await preserve(active, 'manifest', JSON.stringify(message));
         if (session !== active) return;
-        status.textContent = 'Saving the captured frame…';
+        status.textContent = gameplay() ? 'Saving the final session screens and recorded input/sound…' : 'Saving the captured frame…';
         acknowledge(active, message);
     } else if (message.type === 'software_screens') {
         requireCondition(active.manifest && !active.screens && message.screens.length === 2,
@@ -583,7 +790,7 @@ async function receive(active, message) {
         }
         acknowledge(active, message);
     } else if (message.type === 'capture_completed') {
-        requireCondition(active.manifest && (!configuration.options.presentation_limit || active.screens),
+        requireCondition(active.manifest && (!(gameplay() || runOptions().presentation_limit) || active.screens),
                          'The capture did not include its screens.');
         await preserve(active, 'complete', JSON.stringify(message));
         if (session !== active) return;
@@ -591,7 +798,7 @@ async function receive(active, message) {
         acknowledge(active, message);
     } else if (message.type === 'shutdown_complete') {
         requireCondition(active.completed, 'The worker closed before the capture was saved.');
-        if (configuration.options.audio_capture) {
+        if (runOptions().audio_capture && !gameplay()) {
             requireCondition(active.audio && active.audio.offset === active.audio.pcm.byteLength,
                              'The recorded sound did not finish transferring.');
             completedAudio = new CapturedAudioPlayback(active.audio.metadata, active.audio.pcm, audioChanged);
@@ -602,12 +809,20 @@ async function receive(active, message) {
         }
         clearTimeout(active.watchdog);
         active.worker.terminate();
+        const normalSession = gameplay();
         session = undefined;
-        status.textContent = recording() ?
+        status.textContent = normalSession ? active.manifest.outcome.outcome === 'requested_stop' ?
+            'Session stopped at a natural presentation. Final screens and recorded input/sound saved.' :
+            'Session reached its presentation limit. Final screens and recorded input/sound saved.' : recording() ?
             'Captured the live input frame. Preview complete.' :
             active.screens ? 'Captured startup frame. Preview complete.' : 'Startup capture complete.';
-        button.textContent = 'Run preview';
+        if (normalSession && active.recordedAudio && !active.audioStreamEnabled) {
+            soundButton.hidden = true; soundStatus.hidden = false;
+            soundStatus.textContent = 'Recorded sound was saved. Live sound was not started.';
+        }
+        button.textContent = modeSelection.value === 'gameplay' ? 'Run session' : 'Run preview';
         input.disabled = false;
+        setupAvailability(true);
         button.disabled = false;
         document.body.dataset.captureState = 'complete';
         document.body.dataset.captureIdentifier = active.identifier;
@@ -615,6 +830,7 @@ async function receive(active, message) {
 }
 
 input.addEventListener('change', () => {
+    hideGameplayButtons();
     hideButton();
     hideCirclePad();
     hideTouch();
@@ -626,10 +842,12 @@ input.addEventListener('change', () => {
 
 form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (session) return reportFailure('The preview was stopped. Run it again to start a new capture.');
+    if (session) return gameplay() ? requestGameplayStop(session) :
+        reportFailure('The preview was stopped. Run it again to start a new capture.');
     let active;
     try {
         discardAudio();
+        hideGameplayButtons();
         hideButton();
         hideCirclePad();
         hideTouch();
@@ -637,11 +855,13 @@ form.addEventListener('submit', async event => {
         latestPreviewFrame = undefined;
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
+        const options = selectedOptions();
         requireCondition(file.size === configuration.inputs.dump.expected_bytes,
                          'This file has a different size. Choose the approved EU .3ds dump.');
         error.hidden = true;
         input.disabled = true;
-        button.textContent = 'Stop preview';
+        setupAvailability(false);
+        button.textContent = options.gameplay_session_presentations !== undefined ? 'Stop session' : 'Stop preview';
         button.disabled = false;
         status.textContent = 'Loading the local replay…';
         document.body.dataset.captureState = 'loading';
@@ -649,25 +869,35 @@ form.addEventListener('submit', async event => {
         for (const key of ['sampledRendererFrame', 'buttonPollCount', 'buttonRequestSequence', 'buttonRequestAccepted',
                            'circlePollCount', 'circleRequestedX', 'circleRequestedY', 'circleRequestSequence', 'circleRequestAccepted',
                            'touchPollCount','touchRequestedX','touchRequestedY','touchRequestedPressed','touchRequestSequence','touchRequestAccepted',
-                           'previewFrameCount', 'previewRendererFrame'])
+                           'previewFrameCount', 'previewRendererFrame', 'gameplayActive', 'gameplayRequestedMask', 'gameplayStopAccepted'])
             delete document.body.dataset[key];
         for (const canvas of document.querySelectorAll('canvas')) canvas.hidden = true;
         document.querySelector('.screen-placeholder').hidden = false;
         document.querySelector('.preview').classList.remove('has-frame');
         const identifier = `capture_${crypto.randomUUID().replaceAll('-', '')}`;
-        active = {identifier, abort: new AbortController(), buttonSequence: 0, buttonHeld: 0, buttonReady: false,
+        active = {identifier, options, abort: new AbortController(), buttonSequence: 0, buttonHeld: 0, buttonReady: false,
+                  gameplayButtonSequence:0, gameplayButtonMask:0, gameplayReady:false, gameplayInputExhausted:false,
                   circleSequence:0, circleX:0, circleY:0, circleReady:false,
                   touchSequence:0, touchX:0, touchY:0, touchPressed:0, touchReady:false, touchPolled:false, touchExhausted:false};
         session = active;
         active.watchdog = setTimeout(() => { if (session === active)
             reportFailure('The preview timed out. Run it again or check the local capture logs.'); },
-            (configuration.options.wall_time_seconds + 180) * 1000);
+            (options.wall_time_seconds + 180) * 1000);
         const inputs = configuration.inputs;
         const [blockSchedule, movie, initial] = await Promise.all([
             sidecar(inputs.block_schedule, active.abort.signal), sidecar(inputs.movie, active.abort.signal),
             Promise.all(inputs.initial_user_files.map(async item =>
                 ({relative_path: item.relative_path, ...await sidecar(item, active.abort.signal)})))
         ]);
+        if (session !== active) return;
+        if (gameplay() && recording() && options.record_base_ticks === undefined) {
+            const bytes = new Uint8Array(await movie.file.slice(0, 100).arrayBuffer());
+            requireCondition(bytes.length === 100 && bytes[0] === 0x43 && bytes[1] === 0x54 && bytes[2] === 0x4d && bytes[3] === 0x1b,
+                'The selected movie does not contain a recording clock.');
+            const ticks = new DataView(bytes.buffer).getBigInt64(92, true);
+            requireCondition(ticks >= 0n && ticks <= BigInt(Number.MAX_SAFE_INTEGER), 'The selected movie clock exceeds this browser’s bound.');
+            options.record_base_ticks = ticks.toString();
+        }
         if (session !== active) return;
         const workerUrl = new URL('BrowserCaptureWorker.mjs', location.href);
         workerUrl.searchParams.set('module_url', configuration.module_url);
@@ -681,12 +911,13 @@ form.addEventListener('submit', async event => {
         worker.onmessageerror = () => { if (session === active)
             reportFailure('The preview worker could not transfer its output.'); };
         status.textContent = 'Starting the runtime and checking your file…';
-        button.textContent = 'Stop preview';
-        button.disabled = false;
+        button.textContent = active.stopRequested ? 'Stopping session…' : gameplay() ? 'Stop session' : 'Stop preview';
+        button.disabled = !!active.stopRequested;
         worker.postMessage({schema_version: 1, type: 'start_capture', capture_identifier: identifier,
             inputs: {dump: {file, ...inputs.dump}, block_schedule: blockSchedule, movie,
                      initial_user_files: initial, initial_user_directories: inputs.initial_user_directories},
-            options: configuration.options});
+            options});
+        if (active.stopRequested) worker.postMessage({schema_version:1, type:'request_gameplay_stop', capture_identifier:identifier});
     } catch (problem) { if (!active || session === active) reportFailure(problem.message); }
 });
 
@@ -737,24 +968,32 @@ try {
     requireCondition(response.ok, 'The local preview configuration could not be loaded.');
     configuration = await response.json();
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
-    if (configuration.options.stream_audio_output)
+    if (runOptions().stream_audio_output)
         document.querySelector('#preview-note').textContent = 'Preview sound is available during this finite run. Start it with Play preview sound. The complete recorded sound is also available when the run ends.';
-    else if (configuration.options.frame_output)
-        document.querySelector('#preview-note').textContent = configuration.options.live_touch_capture ?
-            'Sampled game frames appear during this finite run. Touch the bottom screen to send input. Recorded sound is ready when the run ends.' : configuration.options.live_circle_pad_capture ?
-            'Sampled game frames appear during this finite run. Hold a direction to send input. Recorded sound is ready when the run ends.' : configuration.options.live_button_capture ?
+    else if (runOptions().frame_output)
+        document.querySelector('#preview-note').textContent = runOptions().live_touch_capture ?
+            'Sampled game frames appear during this finite run. Touch the bottom screen to send input. Recorded sound is ready when the run ends.' : runOptions().live_circle_pad_capture ?
+            'Sampled game frames appear during this finite run. Hold a direction to send input. Recorded sound is ready when the run ends.' : runOptions().live_button_capture ?
             'Sampled game frames appear during this finite run. Hold A to send input. Recorded sound is ready when the run ends.' :
             'Sampled game frames appear during the recorded startup. The final frame and recorded sound arrive when the run ends.';
-    else if (configuration.options.live_circle_pad_capture)
+    else if (runOptions().live_circle_pad_capture)
         document.querySelector('#preview-note').textContent = 'Hold a direction during this finite input capture. The screens and recorded sound arrive when it ends. Continuous gameplay is still in progress.';
-    else if (configuration.options.live_button_capture)
+    else if (runOptions().live_button_capture)
         document.querySelector('#preview-note').textContent = 'Hold A during this finite input capture. The screens and recorded sound arrive when it ends. Continuous gameplay is still in progress.';
-    else if (configuration.options.presentation_limit === null)
+    else if (runOptions().presentation_limit === null)
         document.querySelector('#preview-note').textContent = 'This startup check captures the first GPU submission. Use the frame preview to see the game screens.';
-    else if (configuration.options.audio_capture)
+    else if (runOptions().audio_capture)
         document.querySelector('#preview-note').textContent = 'This preview replays recorded menu input and stops at a captured frame. You can then play its recorded sound. Live controls and continuous sound are still in progress.';
-    else if (configuration.options.input_capture)
+    else if (runOptions().input_capture)
         document.querySelector('#preview-note').textContent = 'This preview replays recorded menu input and stops at a captured frame. Live controls and sound are still in progress.';
+    captureNote = document.querySelector('#preview-note').textContent;
+    if (configuration.options.gameplay_session_presentations !== undefined) {
+        modeSelection.value = 'gameplay';
+        gameplayPresentations.value = String(configuration.options.gameplay_session_presentations);
+        gameplayWallSeconds.value = String(configuration.options.wall_time_seconds);
+        gameplayInputMode.value = configuration.options.gameplay_input_mode;
+    }
+    selectionChanged();
     status.textContent = 'Choose your game file to begin.';
     document.body.dataset.captureState = 'ready';
     button.disabled = input.files.length !== 1;

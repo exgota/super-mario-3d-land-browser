@@ -5,12 +5,12 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
  #include "root_port_capture/gpu_command_capture.h"
  #include "root_port_capture/state_capture.h"
 +#include "GameplaySession.h"
- 
+
  #include <array>
  #include <cstring>
 @@ -46,6 +47,7 @@
  }
- 
+
  void Initialize(const std::filesystem::path& directory, u64 pica_payload_limit_bytes) {
 +    if (Port::InitializeGameplaySession(directory)) return;
      if (pica_payload_limit_bytes == 0 || pica_payload_limit_bytes > 1024ull * 1024 * 1024)
@@ -18,14 +18,14 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
      maximum_payload_bytes = pica_payload_limit_bytes;
 @@ -73,6 +75,7 @@
  }
- 
+
  void RecordGspCommand(const Service::GSP::Command& command, u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) { Port::RecordGameplayGspCommand(); return; }
      if (complete || !event_stream.is_open()) {
          return;
      }
 @@ -90,6 +93,7 @@
- 
+
  void RecordPicaCommandList(PAddr address, const u8* bytes, u32 size, bool chained,
                             bool ignored, u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) { Port::RecordGameplayPicaCommandList(size); return; }
@@ -34,7 +34,7 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
      }
 @@ -117,6 +121,10 @@
  }
- 
+
  bool RecordBufferSwap(u32 screen_id, const Service::GSP::FrameBufferInfo& info, u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) {
 +        Port::RecordGameplayBufferSwap(screen_id, ticks);
@@ -45,7 +45,7 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
      }
 @@ -140,6 +148,7 @@
  }
- 
+
  void RecordVBlank(u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) { Port::RecordGameplayVBlank(); return; }
      if (complete || !event_stream.is_open()) {
@@ -54,14 +54,14 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
 @@ -148,11 +157,15 @@
      EndEvent();
  }
- 
+
 -bool CapturesPresentation() { return presentation_limit != 0; }
 -u32 PresentationLimit() { return presentation_limit; }
 +bool CapturesPresentation() { return Port::GameplaySessionEnabled() || presentation_limit != 0; }
 +u32 PresentationLimit() {
 +    return Port::GameplaySessionEnabled() ? Port::GameplaySessionPresentationLimit() : presentation_limit;
 +}
- 
+
  bool RecordPresentation(const VideoCore::RendererBase& renderer, const Pica::PicaCore& pica,
                          Memory::MemorySystem& memory, u64 ticks) {
 +    if (Port::GameplaySessionEnabled())
@@ -71,12 +71,12 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
      if (!presentation_limit || !top_screen_submitted) return false;
 @@ -213,10 +226,12 @@
  }
- 
+
  bool IsComplete() {
 +    if (Port::GameplaySessionEnabled()) return Port::GameplaySessionComplete();
      return complete;
  }
- 
+
  void RecordHardwareRegisterWrite(VAddr address, u32 value, u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) { Port::RecordGameplayHardwareRegisterWrite(); return; }
      if (complete || !event_stream.is_open()) {
@@ -84,7 +84,7 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
      }
 @@ -226,6 +241,7 @@
  }
- 
+
  void RecordColorFill(u32 value, u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) { Port::RecordGameplayColorFill(); return; }
      if (complete || !event_stream.is_open()) {
@@ -92,7 +92,7 @@ diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_captu
      }
 @@ -235,6 +251,7 @@
  }
- 
+
  void Finish(const std::string& outcome, u64 ticks) {
 +    if (Port::GameplaySessionEnabled()) { Port::FinishGameplaySession(outcome, ticks); return; }
      BeginEvent("capture_outcome", ticks);
@@ -106,7 +106,7 @@ diff --git a/src/root_port_capture/headless_capture.cpp b/src/root_port_capture/
  #include "root_port_capture/headless_capture.h"
  #include "root_port_capture/cpu_backend_factory.h"
 +#include "GameplaySession.h"
- 
+
  namespace {
  class HeadlessCaptureWindow final : public Frontend::EmuWindow {
 @@ -219,14 +220,16 @@
@@ -137,7 +137,7 @@ diff --git a/src/root_port_capture/headless_capture.cpp b/src/root_port_capture/
 +        (RootPortCapture::CapturesPresentation() ? "software_presentation" : "first_top_screen_swap");
      return complete && outcome == expected ? 0 : 1;
  }
- 
+
 diff --git a/src/root_port_capture/audio_capture.cpp b/src/root_port_capture/audio_capture.cpp
 --- a/src/root_port_capture/audio_capture.cpp
 +++ b/src/root_port_capture/audio_capture.cpp
@@ -146,7 +146,7 @@ diff --git a/src/root_port_capture/audio_capture.cpp b/src/root_port_capture/aud
  #include "audio_core/audio_types.h"
  #include "root_port_capture/gpu_command_capture.h"
 +#include "GameplaySession.h"
- 
+
  namespace RootPortCapture {
  namespace {
 @@ -15,6 +16,7 @@
@@ -155,7 +155,7 @@ diff --git a/src/root_port_capture/audio_capture.cpp b/src/root_port_capture/aud
  constexpr u64 maximum_payload_bytes = 64 * 1024 * 1024;
 +constexpr u64 maximum_gameplay_payload_bytes = 256 * 1024 * 1024;
  }
- 
+
  void InitializeAudio(const std::filesystem::path& output) {
 @@ -35,7 +37,8 @@
  void RecordAudio(std::span<const std::array<s16, 2>> samples, u64 ticks, u64 renderer_frame) {

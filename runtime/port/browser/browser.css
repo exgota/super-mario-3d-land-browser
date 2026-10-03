@@ -42,6 +42,19 @@ input { width: 100%; font: inherit; font-size: 13px; padding: 12px 0; color: var
 input::file-selector-button { font: inherit; color: var(--ink); padding: 8px 12px; margin-right: 12px; background: transparent; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; }
 input::file-selector-button:hover { background: #e8eae2; }
 #file-help { font-size: 12px; color: var(--secondary); margin: 10px 0 24px; }
+select { width: 100%; min-height: 44px; padding: 8px 10px; margin: 0 0 18px; font: inherit; font-size: 14px; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 4px; }
+#gameplay-selection, #gameplay-buttons { padding: 0; margin: 0 0 18px; border: 0; min-width: 0; }
+#gameplay-selection legend, #gameplay-buttons legend { padding: 0; margin-bottom: 10px; font-size: 14px; font-weight: 600; }
+.session-limits { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.session-limits label { font-size: 12px; font-weight: 400; }
+.session-limits input { padding: 8px; min-height: 44px; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; caret-color: var(--control); }
+#gameplay-selection-help, #gameplay-buttons-help { margin: 10px 0 0; font-size: 12px; color: var(--secondary); }
+#gameplay-buttons { margin: 14px 0 0; }
+.gameplay-button-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.gameplay-button-grid button { touch-action: none; color: var(--control); background: transparent; border: 1px solid var(--control); }
+.gameplay-button-grid button:hover { background: #e8eae2; }
+.gameplay-button-grid button[aria-pressed="true"] { color: #fff; background: var(--control); }
+#gameplay-buttons:disabled button { color: #5d6459; background: #d5d9d1; border-color: #d5d9d1; }
 button { width: 100%; min-height: 48px; font: inherit; font-size: 14px; font-weight: 600; color: #fff; background: var(--control); border: 0; border-radius: 4px; cursor: pointer; transition: background 160ms ease-out; }
 button:hover { background: #263e30; }
 button:disabled { cursor: default; background: #d5d9d1; color: #5d6459; }
