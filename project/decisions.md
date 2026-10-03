@@ -1327,3 +1327,7 @@ The source proposed by `dot/root-14aedc` at 57f41a5a8 defines a void operation-s
 ## 2026-10-02: observe applicable actor references in production
 
 Job 3108 delivered two source-grounded actor references in a live packet. Independent original-table word checks and the committed facts confirm both. The worker advanced before an atomic copy, so no full-packet hash is claimed. This closes the live-delivery observation left open in project/packet_reference_deployment.md without a production change or throughput attribution.
+
+## 2026-10-02: Ground three delivered actor-family identities
+
+Seven existing symbol fields receive reconstruction names for the delivered ActorTimer, WoodBox and WarpDoor proposals. Independent constructor, allocation and dispatch checks are recorded in `project/evidence/actor_source_intake_names.md`. ActorTimer is expressly descriptive; registry spellings do not establish original C++ names. The WarpDoor table-base spelling names its existing ABI-prefix row without merging data rows. No rank, pool, boundary or other map field changes. The source and its canonical checks follow in separate commits.
