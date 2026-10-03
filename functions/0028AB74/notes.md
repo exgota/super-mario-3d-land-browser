@@ -1,10 +1,12 @@
-Claims: none. fn_0028AB74 is an unfinished unsigned64-bit divmod candidate.
-One source form, committed on238bbbec; normal build/check still pending.
-Algorithm uses derived reciprocal seed expressions, unsigned refinements and
-quotient/remainder corrections; short bit-distance uses subtract/shift division.
-Four-word __value_in_regs result follows independently proven register ABI.
-Open question: natural compiler table placement and complete canonical closure.
-No table row, forced section, assembly, library bytes or alternate compiler.
-Next: finish normal build, canonical check and full-section asm-differ; cap on
-unsupported emission without an independently grounded correction.
-Old unaccepted395114 quotient-only import requires future ABI reconciliation.
+Claims: none. fn_0028AB74 is capped at one ordinary C++ form.
+Normal build succeeded on 238bbbec; source 28c78f4, tested head 6071bb3.
+Complete input section: 908 bytes versus 752 original; 904 is code-symbol size only.
+The derived 64-byte seed table emits separately. Canonical closure rejects __aeabi_llsl.
+Strict full-diff refuses unresolved __aeabi_ldiv0 identity after its call became a nop.
+An actual raw linked-section diagnostic covers all 188 original and 227 candidate words.
+Object provenance, archive identity, nonrelocation bytes and 12 relocations verify;
+one relocation identity remains unresolved. This does not establish canonical closure.
+Differences include the larger frame, generated shift-helper calls and table placement.
+Next idea: none without new independent evidence; preserve this one-form cap.
+No fake rows, forced sections, byte/library stand-ins, flags or compiler rescue.
+The old unaccepted 00395114 quotient-only import needs future ABI reconciliation.
