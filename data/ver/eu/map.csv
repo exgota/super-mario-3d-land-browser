@@ -424,7 +424,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0010D960,          ,0x0010DA50,          ,U,f,CFL_NetInfo2StoreData,
 0x0010DA50,0x0010DB4C,0x0010DB50,          ,U,f,CFL_SetMtxPosNrm,
 0x0010DB50,0x0010DCDC,0x0010DCE0,          ,U,f,CFL_SetProgramContext,
-0x0010DCE0,          ,0x0010DD00,          ,U,f,CFL_SetReceivedPacket,
+0x0010DCE0,          ,0x0010DD00,          ,O,f,CFL_SetReceivedPacket,
 0x0010DD00,          ,0x0010DE1C,          ,U,f,CFL_SetToNetPacket,
 0x0010DE1C,          ,0x0010DE48,          ,U,f,CFLi_AddRecentDBCharInfo,
 0x0010DE48,0x0010E1F8,0x0010E200,          ,U,f,CFLi_AddRecentDBData,
