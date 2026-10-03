@@ -5574,7 +5574,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001EFE4C,          ,0x001EFE74,          ,U,f,,
 0x001EFE74,0x001EFECC,0x001EFED0,          ,U,f,,
 0x001EFED0,0x001EFEF8,0x001EFEFC,          ,U,f,,
-0x001EFEFC,          ,0x001EFF08,          ,U,f,,
+0x001EFEFC,          ,0x001EFF08,          ,O,f,fn_001EFEFC,
 0x001EFF08,0x001EFFE8,0x001EFFF4,          ,U,f,,
 0x001EFFF4,0x001F00B4,0x001F00C0,          ,U,f,,
 0x001F00C0,          ,0x001F010C,          ,U,f,,
