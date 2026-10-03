@@ -11467,7 +11467,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002DB2AC,          ,0x002DB2B0,          ,O,f,fn_002DB2AC,
 0x002DB2B0,          ,0x002DB2DC,          ,U,f,,
 0x002DB2DC,          ,0x002DB344,          ,U,f,_ZN4sead13FaderTaskBase14attachCalcImplEv,
-0x002DB344,          ,0x002DB34C,          ,U,f,,
+0x002DB344,          ,0x002DB34C,          ,O,f,fn_002DB344,
 0x002DB34C,0x002DB424,0x002DB428,          ,U,f,,
 0x002DB428,          ,0x002DB43C,          ,U,f,,
 0x002DB43C,0x002DB550,0x002DB558,          ,U,f,,
