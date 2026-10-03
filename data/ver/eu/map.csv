@@ -8108,7 +8108,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00260510,          ,0x00260520,          ,O,f,fn_00260510,
 0x00260520,          ,0x00260554,          ,U,f,,
 0x00260554,0x002605E0,0x00260600,          ,U,f,_ZN4sead11QuatCalcCtrIfE18makeVectorRotationERN2nn4math4QUATERKNS3_4VEC3ES8_,
-0x00260600,0x00260618,0x00260620,          ,U,f,fn_00260600,
+0x00260600,0x00260618,0x00260620,          ,O,f,fn_00260600,
 0x00260620,0x00260638,0x00260640,          ,U,f,fn_00260620,
 0x00260640,0x00260648,0x0026064C,          ,O,f,fn_00260640,
 0x0026064C,0x00260664,0x00260670,          ,U,f,,
