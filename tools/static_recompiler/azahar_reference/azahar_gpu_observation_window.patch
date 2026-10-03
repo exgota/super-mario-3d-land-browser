@@ -1,0 +1,331 @@
+diff --git a/src/root_port_capture/gpu_command_capture.cpp b/src/root_port_capture/gpu_command_capture.cpp
+--- a/src/root_port_capture/gpu_command_capture.cpp
++++ b/src/root_port_capture/gpu_command_capture.cpp
+@@ -30,6 +30,28 @@
+ bool top_screen_submitted{};
+ u64 submission_ticks{};
+ u64 maximum_payload_bytes = 128 * 1024 * 1024;
++bool window_mode{};
++bool window_armed{};
++bool window_closed{};
++u32 window_begin_presentation{};
++u64 window_arming_ticks{};
++u64 window_closing_ticks{};
++u64 window_observed_pica_bytes{};
++u64 window_observed_buffer_swaps{};
++u64 window_observed_register_writes{};
++u64 window_observed_color_fills{};
++
++struct WindowCounters {
++    u64 gsp_commands{};
++    u64 pica_lists{};
++    u64 pica_payload_bytes{};
++    u64 buffer_swaps{};
++    u64 vblanks{};
++    u64 hardware_register_writes{};
++    u64 color_fills{};
++};
++WindowCounters window_prefix_counters;
++WindowCounters window_recorded_counters;
+ 
+ void BeginEvent(const char* kind, u64 ticks) {
+     event_stream << "{\"sequence\":" << event_sequence++ << ",\"kind\":\"" << kind
+@@ -42,6 +64,39 @@
+     if (!event_stream) {
+         throw std::runtime_error("Cannot write GPU capture event stream");
+     }
++}
++
++WindowCounters ObservedWindowCounters() {
++    return {gsp_command_count, pica_list_count, window_observed_pica_bytes,
++            window_observed_buffer_swaps, vblank_count, window_observed_register_writes,
++            window_observed_color_fills};
++}
++
++void WriteWindowCounters(const char* name, const WindowCounters& counters) {
++    event_stream << ",\"" << name << "\":{\"gsp_commands\":" << counters.gsp_commands
++                 << ",\"pica_lists\":" << counters.pica_lists
++                 << ",\"pica_payload_bytes\":" << counters.pica_payload_bytes
++                 << ",\"buffer_swaps\":" << counters.buffer_swaps
++                 << ",\"vblanks\":" << counters.vblanks
++                 << ",\"hardware_register_writes\":" << counters.hardware_register_writes
++                 << ",\"color_fills\":" << counters.color_fills << '}';
++}
++
++void ArmWindow(u64 ticks, u64 renderer_frame, bool initially) {
++    window_armed = true;
++    window_arming_ticks = ticks;
++    window_prefix_counters = ObservedWindowCounters();
++    BeginEvent("gpu_observation_window_arm", ticks);
++    event_stream << ",\"after_presentation\":" << presentation_count
++                 << ",\"before_guest_load\":" << (initially ? "true" : "false")
++                 << ",\"arming_ticks\":";
++    if (initially) event_stream << "null";
++    else event_stream << ticks;
++    event_stream << ",\"renderer_frame\":";
++    if (initially) event_stream << "null";
++    else event_stream << renderer_frame;
++    WriteWindowCounters("unexported_prefix_observed", window_prefix_counters);
++    EndEvent();
+ }
+ }
+ 
+@@ -51,7 +106,9 @@
+     maximum_payload_bytes = pica_payload_limit_bytes;
+     output_directory = directory;
+     std::filesystem::create_directories(output_directory);
+-    event_stream.open(output_directory / "gpu_events.jsonl", std::ios::out | std::ios::trunc);
++    window_mode = std::getenv("ROOT_PORT_CAPTURE_BEGIN_PRESENTATION") != nullptr;
++    event_stream.open(output_directory / (window_mode ? "gpu_window_events.jsonl" : "gpu_events.jsonl"),
++                      std::ios::out | std::ios::trunc);
+     if (!event_stream) {
+         throw std::runtime_error("Cannot open GPU capture event stream");
+     }
+@@ -61,19 +118,51 @@
+     top_screen_submitted = false;
+     submission_ticks = 0;
+     presentation_limit = 0;
++    window_armed = window_closed = false;
++    window_begin_presentation = 0;
++    window_arming_ticks = window_closing_ticks = 0;
++    window_observed_pica_bytes = window_observed_buffer_swaps = 0;
++    window_observed_register_writes = window_observed_color_fills = 0;
++    window_prefix_counters = window_recorded_counters = {};
+     if (const auto* requested = std::getenv("ROOT_PORT_CAPTURE_PRESENTATION")) {
+         const std::string value(requested);
+         if (value.empty() || value.find_first_not_of("0123456789") != std::string::npos)
+             throw std::runtime_error("Presentation selection must be a positive decimal count");
+         const auto count = std::stoull(value);
+-        if (count == 0 || count > 8400)
++        if (count == 0 || count > (window_mode ? 18000u : 8400u))
+             throw std::runtime_error("Presentation selection is outside the bounded capture range");
+         presentation_limit = static_cast<u32>(count);
+     }
++    if (window_mode) {
++        if (!presentation_limit || !std::getenv("ROOT_PORT_CAPTURE_WALL_SECONDS") ||
++            !std::getenv("ROOT_PORT_CAPTURE_PICA_BYTES"))
++            throw std::runtime_error("GPU window requires explicit presentation, wall and PICA bounds");
++        const std::string value(std::getenv("ROOT_PORT_CAPTURE_BEGIN_PRESENTATION"));
++        if (value.empty() || value.find_first_not_of("0123456789") != std::string::npos)
++            throw std::runtime_error("GPU window beginning must be a positive decimal count");
++        const auto count = std::stoull(value);
++        if (count == 0 || count > presentation_limit)
++            throw std::runtime_error("GPU window beginning is outside the selected presentation range");
++        window_begin_presentation = static_cast<u32>(count);
++        BeginEvent("gpu_observation_window", 0);
++        event_stream << ",\"schema_version\":1,\"begin_presentation\":" << window_begin_presentation
++                     << ",\"end_presentation\":" << presentation_limit
++                     << ",\"unobserved_prefix\":" << (window_begin_presentation > 1 ? "true" : "false")
++                     << ",\"gpu_scope\":\"declared presentation window only\""
++                        ",\"indices\":\"absolute command/list/VBlank counters; local window event sequence\""
++                        ",\"payload_scope\":\"exported window only\""
++                        ",\"input_audio_scope\":\"full execution to final presentation when enabled\"";
++        EndEvent();
++        if (window_begin_presentation == 1) ArmWindow(0, 0, true);
++    }
+ }
+ 
+ void RecordGspCommand(const Service::GSP::Command& command, u64 ticks) {
+     if (complete || !event_stream.is_open()) {
++        return;
++    }
++    if (window_mode && !window_armed) {
++        ++gsp_command_count;
+         return;
+     }
+     std::array<u32, sizeof(command) / sizeof(u32)> words{};
+@@ -86,12 +175,23 @@
+     }
+     event_stream << "]";
+     EndEvent();
++    if (window_mode) ++window_recorded_counters.gsp_commands;
+ }
+ 
+ void RecordPicaCommandList(PAddr address, const u8* bytes, u32 size, bool chained,
+                            bool ignored, u64 ticks) {
+     if (complete || !event_stream.is_open()) {
+         return;
++    }
++    if (window_mode) {
++        if (bytes == nullptr || size % sizeof(u32) != 0 ||
++            size > std::numeric_limits<u64>::max() - window_observed_pica_bytes)
++            throw std::runtime_error("Invalid or overflowing observed PICA command extent");
++        window_observed_pica_bytes += size;
++        if (!window_armed) {
++            ++pica_list_count;
++            return;
++        }
+     }
+     if (bytes == nullptr || size % sizeof(u32) != 0 ||
+         size > maximum_payload_bytes - total_payload_bytes) {
+@@ -114,11 +214,25 @@
+                  << (ignored ? "true" : "false") << ",\"payload\":\"" << filename.str()
+                  << "\",\"gsp_command_index\":" << (gsp_command_count ? gsp_command_count - 1 : 0);
+     EndEvent();
++    if (window_mode) {
++        ++window_recorded_counters.pica_lists;
++        window_recorded_counters.pica_payload_bytes += size;
++    }
+ }
+ 
+ bool RecordBufferSwap(u32 screen_id, const Service::GSP::FrameBufferInfo& info, u64 ticks) {
+     if (complete || !event_stream.is_open()) {
+         return false;
++    }
++    if (window_mode) {
++        ++window_observed_buffer_swaps;
++        if (!window_armed) {
++            if (screen_id == 0) {
++                if (!top_screen_submitted) submission_ticks = ticks;
++                top_screen_submitted = true;
++            }
++            return false;
++        }
+     }
+     std::array<u32, sizeof(info) / sizeof(u32)> words{};
+     std::memcpy(words.data(), &info, sizeof(info));
+@@ -129,6 +243,7 @@
+     }
+     event_stream << "]";
+     EndEvent();
++    if (window_mode) ++window_recorded_counters.buffer_swaps;
+     if (screen_id == 0) {
+         if (!top_screen_submitted) submission_ticks = ticks;
+         top_screen_submitted = true;
+@@ -143,9 +258,14 @@
+     if (complete || !event_stream.is_open()) {
+         return;
+     }
++    if (window_mode && !window_armed) {
++        ++vblank_count;
++        return;
++    }
+     BeginEvent("vblank", ticks);
+     event_stream << ",\"vblank_index\":" << vblank_count++;
+     EndEvent();
++    if (window_mode) ++window_recorded_counters.vblanks;
+ }
+ 
+ bool CapturesPresentation() { return presentation_limit != 0; }
+@@ -156,7 +276,10 @@
+     if (complete || !event_stream.is_open()) return false;
+     RecordState(memory, renderer.GetCurrentFrame(), ticks, vblank_count ? vblank_count - 1 : 0);
+     if (!presentation_limit || !top_screen_submitted) return false;
+-    if (++presentation_count < presentation_limit) return false;
++    ++presentation_count;
++    if (window_mode && !window_armed && presentation_count == window_begin_presentation - 1)
++        ArmWindow(ticks, renderer.GetCurrentFrame(), false);
++    if (presentation_count < presentation_limit) return false;
+     const auto* software = dynamic_cast<const SwRenderer::RendererSoftware*>(&renderer);
+     if (!software) throw std::runtime_error("Rendering capture requires the software renderer");
+     BeginEvent("frame_presentation", ticks);
+@@ -208,6 +331,16 @@
+     }
+     event_stream << ']';
+     EndEvent();
++    if (window_mode) {
++        window_closing_ticks = ticks;
++        BeginEvent("gpu_observation_window_close", ticks);
++        event_stream << ",\"after_presentation\":" << presentation_count
++                     << ",\"closing_ticks\":" << ticks;
++        WriteWindowCounters("recorded", window_recorded_counters);
++        WriteWindowCounters("total_observed", ObservedWindowCounters());
++        EndEvent();
++        window_closed = true;
++    }
+     complete = true;
+     return true;
+ }
+@@ -220,27 +353,60 @@
+     if (complete || !event_stream.is_open()) {
+         return;
+     }
++    if (window_mode) {
++        ++window_observed_register_writes;
++        if (!window_armed) return;
++    }
+     BeginEvent("hardware_register_write", ticks);
+     event_stream << ",\"address\":" << address << ",\"value\":" << value;
+     EndEvent();
++    if (window_mode) ++window_recorded_counters.hardware_register_writes;
+ }
+ 
+ void RecordColorFill(u32 value, u64 ticks) {
+     if (complete || !event_stream.is_open()) {
+         return;
++    }
++    if (window_mode) {
++        ++window_observed_color_fills;
++        if (!window_armed) return;
+     }
+     BeginEvent("color_fill", ticks);
+     event_stream << ",\"value\":" << value;
+     EndEvent();
++    if (window_mode) ++window_recorded_counters.color_fills;
+ }
+ 
+ void Finish(const std::string& outcome, u64 ticks) {
+     BeginEvent("capture_outcome", ticks);
+     event_stream << ",\"outcome\":\"" << outcome << "\",\"complete\":"
+-                 << (complete ? "true" : "false") << ",\"gsp_commands\":" << gsp_command_count
++                 << ((window_mode ? complete && window_armed && window_closed &&
++                      outcome == "software_presentation" : complete) ? "true" : "false")
++                 << ",\"gsp_commands\":" << gsp_command_count
+                  << ",\"pica_lists\":" << pica_list_count << ",\"payload_bytes\":"
+                  << total_payload_bytes << ",\"vblanks\":" << vblank_count;
++    if (window_mode) {
++        event_stream << ",\"gpu_scope\":\"declared presentation window only\""
++                     << ",\"begin_presentation\":" << window_begin_presentation
++                     << ",\"end_presentation\":" << presentation_limit
++                     << ",\"presentations_observed\":" << presentation_count
++                     << ",\"unobserved_prefix\":" << (window_begin_presentation > 1 ? "true" : "false")
++                     << ",\"window_armed\":" << (window_armed ? "true" : "false")
++                     << ",\"window_closed\":" << (window_closed ? "true" : "false")
++                     << ",\"arming_ticks\":";
++        if (!window_armed || window_begin_presentation == 1) event_stream << "null";
++        else event_stream << window_arming_ticks;
++        event_stream << ",\"closing_ticks\":";
++        if (window_closed) event_stream << window_closing_ticks;
++        else event_stream << "null";
++        event_stream << ",\"first_top_screen_submission_ticks\":" << submission_ticks;
++        WriteWindowCounters("unexported_prefix_observed",
++                            window_armed ? window_prefix_counters : ObservedWindowCounters());
++        WriteWindowCounters("recorded", window_recorded_counters);
++        WriteWindowCounters("total_observed", ObservedWindowCounters());
++    }
+     EndEvent();
+     event_stream.close();
+-}
+-}
++    if (window_mode && !event_stream) throw std::runtime_error("Cannot finish GPU window event stream");
++}
++}
+diff --git a/src/root_port_capture/headless_capture.cpp b/src/root_port_capture/headless_capture.cpp
+--- a/src/root_port_capture/headless_capture.cpp
++++ b/src/root_port_capture/headless_capture.cpp
+@@ -169,9 +169,24 @@
+                      "\"presentation_limit\":" << RootPortCapture::PresentationLimit() << ","
+                      "\"wall_time_seconds\":" << wall_time_seconds << ","
+                      "\"pica_payload_limit_bytes\":" << pica_payload_limit_bytes << ","
+-                     "\"init_time\":" << movie.GetOverrideInitTime()
++                     "\"init_time\":" << movie.GetOverrideInitTime();
++    if (const auto* beginning = std::getenv("ROOT_PORT_CAPTURE_BEGIN_PRESENTATION")) {
++        configuration << ",\"gpu_observation_scope\":\"presentation_window\""
++                      << ",\"gpu_window_begin_presentation\":" << std::stoull(beginning)
++                      << ",\"gpu_window_end_presentation\":" << RootPortCapture::PresentationLimit()
++                      << ",\"gpu_event_file\":\"gpu_window_events.jsonl\""
++                         ",\"input_audio_scope\":\"full execution to final presentation when enabled\"";
++    }
++    configuration
+                   << ",\"base_ticks\":" << movie.GetOverrideBaseTicks() << "}\n";
+     configuration.close();
++    if (std::getenv("ROOT_PORT_CAPTURE_BEGIN_PRESENTATION") && !configuration) {
++        RootPortCapture::Finish("window_configuration_error", 0);
++        RootPortCapture::FinishInput(false);
++        RootPortCapture::FinishAudio(false);
++        RootPortCapture::FinishState(false);
++        return 1;
++    }
+     HeadlessCaptureWindow window;
+     Core::System::ResultStatus load_status;
+     try {
