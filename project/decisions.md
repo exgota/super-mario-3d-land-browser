@@ -1363,3 +1363,7 @@ Add only the twelve-byte ex row at004305C8 after independently rerunning the reg
 ## Tenten initialization base class, 2026-10-02
 
 The driver independently reads the owned EU constructor at 0030A37C. Its direct call at 0030A380 targets 00280428, already accepted as `al::MapObjActor::MapObjActor(const sead::SafeString&)`. The supplier header and report call that base LiveActor. Correct the new header to MapObjActor, which adds no fields or virtual methods, and explicitly label the 0x74-byte view as an observed initialization prefix. This preserves the supplied init body and matches the directly observed constructor chain. Complete allocation extent and original class spelling remain qualified separately. Rebuild this committed header and repeat its complete canonical interval before submission.
+
+## Enemy initializer identities, 2026-10-02
+
+Name only the four existing unnamed PackunFlower/Tenten function rows documented in `project/evidence/enemy_initializer_identities.md`. Original allocation/call/dispatch evidence distinguishes the roots and two imported constructors. The descriptive reconstruction names are not claimed as recovered original C++ spelling. Ranks and all intervals remain unchanged; no function credit follows.
