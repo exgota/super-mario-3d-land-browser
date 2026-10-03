@@ -9,6 +9,7 @@
 #include <iostream>
 #include <limits>
 #include <stdexcept>
+#include <type_traits>
 #include "core/hle/kernel/svc.h"
 #include "core/memory.h"
 
@@ -288,7 +289,7 @@ GuestWriteObservation::MachineContext StaticArmBackend::ObservationContext() con
 GuestExecutionObservation::Snapshot StaticArmBackend::ExecutionContext(Context* callback) const {
     GuestExecutionObservation::Snapshot result;
     result.machine = ObservationContext();
-    static_assert(CP15_REGISTER_COUNT <= 64);
+    static_assert(std::is_same_v<decltype(coprocessor_registers), decltype(result.coprocessor_registers)>);
     std::copy(coprocessor_registers.begin(), coprocessor_registers.end(), result.coprocessor_registers.begin());
     result.coprocessor_count = CP15_REGISTER_COUNT;
     result.cpsr_control = cpsr_control;

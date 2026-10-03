@@ -9,13 +9,14 @@
 #include <string>
 #include <vector>
 #include "GuestWriteObservation.h"
+#include "core/arm/skyeye_common/arm_regformat.h"
 
 namespace Port {
 class GuestExecutionObservation {
 public:
     struct Snapshot {
         GuestWriteObservation::MachineContext machine;
-        std::array<std::uint32_t, 64> coprocessor_registers{};
+        std::array<std::uint32_t, CP15_REGISTER_COUNT> coprocessor_registers{};
         std::uint32_t coprocessor_count = 0, cpsr_control = 0;
         std::array<std::uint8_t, 7> condition_fields{};
         std::int32_t budget = 0;
