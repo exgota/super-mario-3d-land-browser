@@ -34,9 +34,11 @@ const Host StaticArmBackend::callbacks{Read8, Read16, Read32, Write8, Write16, W
 
 StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& memory_, u32 id,
                                  std::shared_ptr<Core::Timing::Timer> timer_, const std::filesystem::path& path,
-                                 std::shared_ptr<GuestMemoryTrace> trace_)
+                                 std::shared_ptr<GuestMemoryTrace> trace_,
+                                 std::shared_ptr<GuestWriteObservation> write_observation_)
     : ARM_Interface(id, std::move(timer_)), memory(memory_),
-      callback_pages(1 << 20, nullptr), trace(std::move(trace_)) {
+      callback_pages(1 << 20, nullptr), trace(std::move(trace_)),
+      write_observation(std::move(write_observation_)) {
 #ifdef ROOT_PORT_STATIC_MODULE_ONLY
     (void)system;
     (void)path;
@@ -63,9 +65,11 @@ StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& m
 StaticArmBackend::StaticArmBackend(Core::System& system, Memory::MemorySystem& memory_, u32 id,
                                  std::shared_ptr<Core::Timing::Timer> timer_, const TranslatedFunctionModule& module,
                                  const std::filesystem::path& schedule_path,
-                                 std::shared_ptr<GuestMemoryTrace> trace_)
+                                 std::shared_ptr<GuestMemoryTrace> trace_,
+                                 std::shared_ptr<GuestWriteObservation> write_observation_)
     : ARM_Interface(id, std::move(timer_)), memory(memory_),
-      callback_pages(1 << 20, nullptr), trace(std::move(trace_)) {
+      callback_pages(1 << 20, nullptr), trace(std::move(trace_)),
+      write_observation(std::move(write_observation_)) {
     InitializeModule(system, module, schedule_path);
 }
 
@@ -82,6 +86,7 @@ void StaticArmBackend::InitializeModule(Core::System& system, const TranslatedFu
     context.vfp = floating_registers.data();
     context.fpscr = &fpscr;
     page_table = memory.GetCurrentPageTable();
+    if (write_observation) instruction_context.context_identity = write_observation->RegisterContext();
     *module.timing_callback = chargeBlock;
 }
 StaticArmBackend::~StaticArmBackend() {
@@ -92,6 +97,7 @@ StaticArmBackend::~StaticArmBackend() {
 }
 
 void StaticArmBackend::Run() {
+    if (write_observation) instruction_context.valid = false;
     if (break_flag || timer->GetDowncount() <= 0) return;
     if (cpsr_control & 0x0600FE00u)
         throw std::runtime_error("native scheduling does not support CPSR IT or big-endian state");
@@ -113,6 +119,7 @@ void StaticArmBackend::Run() {
         context.depth = 0;
         code(&context);
         if (context.exit == EXIT_SVC) {
+            if (write_observation) instruction_context.valid = false;
             timer->AddTicks(schedule->TakePendingTicks());
             svc->CallSVC(context.svc);
             if (!schedule->Complete(context, context.r[15] | context.thumb, timer->GetDowncount(), reschedule)) {
@@ -132,10 +139,24 @@ void StaticArmBackend::Run() {
 void StaticArmBackend::Step() { throw std::runtime_error("static CPU cannot single-step a translated basic block"); }
 void StaticArmBackend::ChargeBlock(u32 address, u32 instructions, u64) {
     current_instruction = address;
+    if (write_observation) {
+        instruction_context.valid = false;
+        instruction_context.address = address;
+        instruction_context.span = instructions;
+        instruction_context.callback_ordinal = 0;
+        ++instruction_context.generation;
+        instruction_context.entry = ObservationContext();
+        instruction_context.table = memory.GetCurrentPageTable();
+        instruction_context.backend_table_matches = instruction_context.table == page_table;
+    }
     if (instructions > 1 && address == 0x0010766C)
         schedule->ChargePriorityReplacement(context, instructions, timer->GetDowncount(), reschedule);
-    else
-        schedule->BeforeInstruction(context, address, instructions, timer->GetDowncount(), reschedule);
+    else {
+        const bool admitted = schedule->BeforeInstruction(context, address, instructions, timer->GetDowncount(), reschedule);
+        if (write_observation) instruction_context.valid = admitted;
+        return;
+    }
+    if (write_observation) instruction_context.valid = instructions != 0;
 }
 void StaticArmBackend::ClearInstructionCache() { schedule->ClearVisited(); }
 void StaticArmBackend::InvalidateCacheRange(u32, std::size_t) {
@@ -145,7 +166,10 @@ void StaticArmBackend::InvalidateCacheRange(u32, std::size_t) {
 void StaticArmBackend::ClearExclusiveState() { context.exclusive = 0; }
 void StaticArmBackend::SetPageTable(const std::shared_ptr<Memory::PageTable>& table) { page_table = table; }
 std::shared_ptr<Memory::PageTable> StaticArmBackend::GetPageTable() const { return page_table; }
-void StaticArmBackend::SetPC(u32 value) { context.r[15] = value; }
+void StaticArmBackend::SetPC(u32 value) {
+    if (write_observation) instruction_context.valid = false;
+    context.r[15] = value;
+}
 u32 StaticArmBackend::GetPC() const { return context.r[15]; }
 u32 StaticArmBackend::GetReg(int index) const { return context.r[index]; }
 void StaticArmBackend::SetReg(int index, u32 value) { context.r[index] = value; }
@@ -182,6 +206,7 @@ void StaticArmBackend::SaveContext(ThreadContext& output) {
     output.fpscr = fpscr; output.fpexc = fpexc;
 }
 void StaticArmBackend::LoadContext(const ThreadContext& input) {
+    if (write_observation) instruction_context.valid = false;
     std::copy_n(input.cpu_registers.begin(), 16, context.r);
     SetCPSR(input.cpsr); floating_registers = input.fpu_registers;
     fpscr = input.fpscr; fpexc = input.fpexc;
@@ -191,12 +216,61 @@ void StaticArmBackend::PrepareReschedule() { reschedule = true; context.budget =
 u8 StaticArmBackend::Read8(Context* c, u32 a) { return backend(c).memory.Read8(a); }
 u16 StaticArmBackend::Read16(Context* c, u32 a) { return backend(c).memory.Read16(a); }
 u32 StaticArmBackend::Read32(Context* c, u32 a) { return backend(c).memory.Read32(a); }
-void StaticArmBackend::Write8(Context* c, u32 a, u8 v) { backend(c).memory.Write8(a, v); }
-void StaticArmBackend::Write16(Context* c, u32 a, u16 v) { backend(c).memory.Write16(a, v); }
+GuestWriteObservation::MachineContext StaticArmBackend::ObservationContext() const {
+    GuestWriteObservation::MachineContext result;
+    std::copy_n(context.r, 16, result.registers.begin());
+    result.floating_registers = floating_registers;
+    result.cpsr = GetCPSR(); result.fpscr = fpscr; result.fpexc = fpexc;
+    result.tls = context.tls; result.exclusive = context.exclusive;
+    result.exclusive_address = context.exclusive_address;
+    result.timer_ticks = timer->GetTicks(); result.timer_downcount = timer->GetDowncount();
+    result.scheduled_instructions = InstructionsExecuted();
+    return result;
+}
+template<class WriteOperation> void StaticArmBackend::ObserveWrite(
+    Context* callback_context, u32 address, u32 width, u32 value, WriteOperation&& operation) {
+    if (!write_observation) { operation(); return; }
+    ++instruction_context.callback_ordinal;
+    const auto instruction = instruction_context;
+    const auto callback_entry = ObservationContext();
+    const auto actual_table = memory.GetCurrentPageTable();
+    const auto pending = write_observation->BeginWrite(actual_table, address, width, value,
+                                                      instruction, actual_table == page_table);
+    if (!pending.relevant) { operation(); return; }
+    const auto matches = [&] {
+        return callback_context == &context && instruction.valid && instruction_context.valid &&
+               instruction.generation == instruction_context.generation &&
+               instruction.callback_ordinal == instruction_context.callback_ordinal &&
+               instruction.address == current_instruction;
+    };
+    try {
+        operation();
+    } catch (...) {
+        const auto after_store = ObservationContext();
+        const auto after_table = memory.GetCurrentPageTable();
+        try {
+            write_observation->CompleteWrite(pending, after_table, GetID(), instruction, matches(),
+                                              callback_entry, after_store, false, after_table == page_table);
+        } catch (...) {}
+        throw;
+    }
+    const auto after_store = ObservationContext();
+    const auto after_table = memory.GetCurrentPageTable();
+    write_observation->CompleteWrite(pending, after_table, GetID(), instruction, matches(),
+                                      callback_entry, after_store, true, after_table == page_table);
+}
+void StaticArmBackend::Write8(Context* c, u32 a, u8 v) {
+    auto& cpu = backend(c);
+    cpu.ObserveWrite(c, a, 1, v, [&] { cpu.memory.Write8(a, v); });
+}
+void StaticArmBackend::Write16(Context* c, u32 a, u16 v) {
+    auto& cpu = backend(c);
+    cpu.ObserveWrite(c, a, 2, v, [&] { cpu.memory.Write16(a, v); });
+}
 void StaticArmBackend::Write32(Context* c, u32 a, u32 v) {
     auto& cpu = backend(c);
     if (cpu.trace) cpu.trace->RecordWrite(cpu.GetID(), cpu.current_instruction, a, v, *c);
-    cpu.memory.Write32(a, v);
+    cpu.ObserveWrite(c, a, 4, v, [&] { cpu.memory.Write32(a, v); });
 }
 void StaticArmBackend::RefuseInterpretation(Context*, u32 address, u32 opcode) {
     throw std::runtime_error("static CPU interpreter fallback refused at " + std::to_string(address) + " opcode " + std::to_string(opcode));
