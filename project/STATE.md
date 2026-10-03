@@ -43,17 +43,21 @@ Canonical360 entry and separate exit Pro witnesses full/post/mechanical pass.
 Entry123ae668 lacks exit/resumption/store. Exit0c62e9c4 has actual return/store/
 first-word-read but missing construction ancestry and conservative boundary
 predicate gaps. Actual translated-return snapshots match; accepted hook
-invalidate=false. Existing false reports remain unchanged. One helper
-prepares a private source/17-record packet; root reads/checks and queues it.
+invalidate=false. Existing false reports remain unchanged. Exit-boundary packet e4a30ef4 queued byte-identically after14file pins/6source
+excerpts/17+4+6raw-record and complete snapshot checks. Existingfalse stays.
+New entry-gap answer supports only opaque sampled initialization facts.
+One helper extracts the minimum sealed original bodies for the next Pro question.
 Pro entry-gap packet11315d00 is queued. No layouts or actor/update claims.
 
 ## Next three tasks
 
-1. Prepare and launch bounded original bridge input capture. Inspect complete
+1. Original bridge8400..9000 is running. Controller2906ca24/input4273022b,
+   78states with unchanged72prefix. Preparation preserved all original inputs.
+   Inspect complete
    footers, actual pixels and source/profile/copy preservation.
 2. Replay only its own original movie/snapshot and compare exact observations,
    then rehash all declared original inputs and both new captures.
-3. Queue the separate exit-boundary evidence and use Pro proposals to ground
+3. Check/queue the helper original-body question and use Pro proposals to ground
    typed current-player/completed-update fields, then advance toward goal.
 
 Milestones1..4 retain accepted finite scope.5/6 remain in progress. Typed
@@ -61,3 +65,5 @@ controlled player/lifetime/completed-update position/velocity/state/camera/
 RNG/timer/coins, goal and whole-level replay remain open. Browser sustained
 performance, physical mobile, synchronized continuous sound, saves and all
 rank-O address replacement adapters remain open. Matching throughput0.
+
+Current measured free bytes 23689428992 at 2026-10-03T15:11:09.991668+00:00.
