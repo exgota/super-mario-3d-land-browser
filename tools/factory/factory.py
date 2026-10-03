@@ -910,7 +910,8 @@ def attempt_in(worktree, job, final=False, commit=False):
     status, output = tool(worktree, "make.py", "eu")
     if status != 0:
         tail = "\n".join(output.splitlines()[-60:])
-        return {a: {"symbol": s, "rank": "build-failed", "detail": "BUILD FAILED:\n" + tail if not final else ""}
+        return {a: {"symbol": s, "rank": "build-failed", "detail": "BUILD FAILED:\n" + tail if not final else "",
+                    "diff": "", "score": None}
                 for a, s in zip(job["addresses"], job["symbols"])}
     results = {}
     for address, symbol in zip(job["addresses"], job["symbols"]):

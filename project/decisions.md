@@ -1372,3 +1372,12 @@ The 64-to-255-byte phase produced zero matches across four starts: job 6865 (run
 The trial's run 625 also exposed `KeyError: 'score'` after failed builds. Production worker logs independently contain the same `factory.py attempt` traceback through `record_best_drafts`: 214 command-output exceptions in 152 run logs at inspection. That production defect warrants a separate candidate fix and the existing reference-safety procedure; no oracle or matching standard changes.
 
 The exact scratch clone `workspaces/space_bunny_replay_20261002` was removed after verifying no active replay process or process working directory. Trial manifests, per-job source and checker output, interrupted output, scratch metadata and a cleanup receipt remain under the factory's local `logs/space_bunny_replay_20261002/`. No trial source or game data is published.
+
+
+## 2026-10-02: Preserve the result schema after worker build failures
+
+Production worker logs confirmed 214 `KeyError: 'score'` exceptions across 152 runs. `attempt_in` returned a shorter dictionary when the build failed, then `record_best_drafts` and `attempt_stalled` expected the omitted score. Failed-build results now include `diff: ""` and `score: None`, the existing representation for no measurable progress. A failed build cannot save a best draft, receives the normal stall-limit treatment, and never claims an exact match. No checker, target, rank standard or integrator implementation changes.
+
+The candidate passed direct command-path checks for repeated failed builds, unchanged stall limits, final empty exact lists, absence of saved drafts and absence of checker/differ calls after failure. All three isolated reference-safety checks passed: a 24/25 proposal left the reference unchanged; a 25/25 proposal moved it exactly once after checking; and altered build inputs after a 25/25 check prevented movement. The candidate was deployed 65 seconds after the test result and the supervisor restarted through its normal script, preserving the production command and six-slot maximum.
+
+Deployed factory SHA-256: `0f491b3295ccbe997903bd7d411591ddcbbce690c5b29a94811cabb0e046ba88`. Production evidence, direct checks, reference-safety results and deployment receipt remain in the factory's local `logs/attempt_build_failure_*.json`. The public factory mirror contains the same two added result fields. No throughput gain is inferred from this repair.
