@@ -3593,3 +3593,5 @@ timestamp,address,symbol,outcome,attempts,minutes
 2026-10-03T00:01:31-04:00,0x002877F4,fn_002877F4,matched,2,1.2489
 2026-10-03T00:01:31-04:00,0x0028E9E0,nndbgPanic,matched,2,1.2489
 2026-10-03T00:01:31-04:00,0x00377DA4,__cxa_pure_virtual,matched,2,1.2489
+2026-10-03T00:28:36-04:00,0x0013D41C,_ZN12PackunFlower4initERKN2al13ActorInitInfoE,matched,1,0
+2026-10-03T00:28:36-04:00,0x0030A070,_ZN6Tenten4initERKN2al13ActorInitInfoE,matched,1,0
