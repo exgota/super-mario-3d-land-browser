@@ -11702,7 +11702,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002E2FB8,          ,0x002E2FC8,          ,U,f,,
 0x002E2FC8,          ,0x002E2FCC,          ,O,f,fn_002E2FC8,
 0x002E2FCC,          ,0x002E2FD4,          ,O,f,fn_002E2FCC,
-0x002E2FD4,          ,0x002E2FDC,          ,U,f,,
+0x002E2FD4,          ,0x002E2FDC,          ,O,f,fn_002E2FD4,
 0x002E2FDC,          ,0x002E2FE8,          ,U,f,,
 0x002E2FE8,          ,0x002E3144,          ,U,f,,
 0x002E3144,0x002E3544,0x002E3648,          ,U,f,_ZN4sead23DualScreenMethodTreeMgrC1Ev,
