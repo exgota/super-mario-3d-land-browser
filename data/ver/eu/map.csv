@@ -12311,7 +12311,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0030A3CC,0x0030A558,0x0030A570,          ,U,f,,
 0x0030A570,0x0030A6C8,0x0030A6F4,          ,U,f,,
 0x0030A6F4,          ,0x0030A714,          ,U,f,,
-0x0030A714,0x0030A8EC,0x0030A934,          ,U,f,_ZN6Teresa4initERKN2al13ActorInitInfoE,
+0x0030A714,0x0030A8EC,0x0030A934,          ,O,f,_ZN6Teresa4initERKN2al13ActorInitInfoE,
 0x0030A934,0x0030A9F4,0x0030AA08,          ,U,f,,
 0x0030AA08,0x0030AA38,0x0030AA44,          ,U,f,,
 0x0030AA44,          ,0x0030AA58,          ,U,f,,
