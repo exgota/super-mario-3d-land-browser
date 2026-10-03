@@ -4200,7 +4200,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001C2F0C,          ,0x001C2F1C,          ,O,f,fn_001C2F0C,
 0x001C2F1C,0x001C2F48,0x001C2F4C,          ,U,f,,
 0x001C2F4C,          ,0x001C2FD4,          ,U,f,,
-0x001C2FD4,          ,0x001C30BC,          ,U,f,,
+0x001C2FD4,          ,0x001C30BC,          ,O,f,fn_001C2FD4,
 0x001C30BC,0x001C310C,0x001C3110,          ,U,f,,
 0x001C3110,0x001C323C,0x001C325C,          ,U,f,,
 0x001C325C,          ,0x001C32A8,          ,U,f,,
