@@ -1,10 +1,10 @@
+#include <MapObj/FlowerInitNerve.h>
+
 namespace al { struct IUseNerve; struct Nerve; struct LiveActor; }
 namespace {
 using al::IUseNerve; using al::Nerve; using al::LiveActor;
 extern "C" unsigned char dat_003F334C;
 extern "C" unsigned char dat_003F3358;
-extern "C" unsigned char dat_003F16EC;
-extern "C" unsigned char dat_003F1700;
 extern "C" unsigned char dat_003F18B4;
 extern "C" unsigned char dat_003F32B0;
 extern "C" unsigned char dat_003F32EC;
@@ -21,10 +21,10 @@ void startAction(LiveActor*, const char*);
 #define WRAP_SET(name, data) extern "C" void name(void*, void** p) { al::setNerve(reinterpret_cast<IUseNerve*>(*p), reinterpret_cast<const Nerve*>(&data)); }
 WRAP_UPDATE(fn_00363114, dat_003F334C)
 WRAP_UPDATE(fn_00363178, dat_003F3358)
-WRAP_UPDATE(fn_0036482C, dat_003F16EC)
-WRAP_UPDATE(fn_0036483C, dat_003F1700)
-WRAP_UPDATE(fn_0036484C, dat_003F1700)
-WRAP_UPDATE(fn_0036485C, dat_003F1700)
+extern "C" void fn_0036482C(void*, void** p) { al::updateNerveStateAndNextNerve(reinterpret_cast<IUseNerve*>(*p), &dat_003F16EC); }
+extern "C" void fn_0036483C(void*, void** p) { al::updateNerveStateAndNextNerve(reinterpret_cast<IUseNerve*>(*p), &dat_003F1700); }
+extern "C" void fn_0036484C(void*, void** p) { al::updateNerveStateAndNextNerve(reinterpret_cast<IUseNerve*>(*p), &dat_003F1700); }
+extern "C" void fn_0036485C(void*, void** p) { al::updateNerveStateAndNextNerve(reinterpret_cast<IUseNerve*>(*p), &dat_003F1700); }
 WRAP_SET(fn_003654AC, dat_003F18B4)
 WRAP_UPDATE(fn_003663CC, dat_003F32B0)
 WRAP_UPDATE(fn_003663DC, dat_003F32B0)

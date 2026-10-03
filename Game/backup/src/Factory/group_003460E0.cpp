@@ -16,8 +16,6 @@ extern const al::Nerve dat_003F16E8;
 extern const al::Nerve dat_003F16D0;
 extern const al::Nerve dat_003F1714;
 extern const al::Nerve dat_003F15A4;
-extern const al::Nerve dat_003F15D0;
-extern const al::Nerve dat_003F15E4;
 extern const al::Nerve dat_003F2094;
 extern const al::Nerve dat_003F2084;
 extern const al::Nerve dat_003F1624;
@@ -36,10 +34,6 @@ THUNK(fn_0034F710, dat_003F16E8)
 THUNK(fn_0034F8B8, dat_003F1714)
 THUNK(fn_00350918, dat_003F15A4)
 THUNK(fn_00350930, dat_003F15A4)
-THUNK(fn_00351070, dat_003F15D0)
-THUNK(fn_00351080, dat_003F15E4)
-THUNK(fn_00351090, dat_003F15E4)
-THUNK(fn_003510A0, dat_003F15E4)
 THUNK(fn_0035129C, dat_003F2094)
 THUNK(fn_00351694, dat_003F2084)
 THUNK(fn_00356744, dat_003F1624)

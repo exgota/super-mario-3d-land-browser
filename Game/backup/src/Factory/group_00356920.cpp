@@ -1,3 +1,5 @@
+#include <MapObj/FlowerInitNerve.h>
+
 #include <stdint.h>
 
 namespace {
@@ -49,16 +51,12 @@ extern "C" void fn_0035C724(void*, void** p) { _ZN2al8setNerveEPNS_9IUseNerveEPK
 extern "C" uint32_t dat_003F1904;
 extern "C" void fn_0035CE18(void*, void** p) { _ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE(*p, &dat_003F1904); }
 
-extern "C" uint32_t dat_003F15A8;
 extern "C" void fn_0035E1A0(void*, void** p) { _ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE(*p, &dat_003F15A8); }
 
-extern "C" uint32_t dat_003F15BC;
 extern "C" void fn_0035E1B0(void*, void** p) { _ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE(*p, &dat_003F15BC); }
 
-extern "C" uint32_t dat_003F15BC;
 extern "C" void fn_0035E1C0(void*, void** p) { _ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE(*p, &dat_003F15BC); }
 
-extern "C" uint32_t dat_003F15BC;
 extern "C" void fn_0035E1D0(void*, void** p) { _ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE(*p, &dat_003F15BC); }
 
 extern "C" uint32_t dat_003F2E5C;
