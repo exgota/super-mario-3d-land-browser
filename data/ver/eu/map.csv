@@ -7180,7 +7180,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00244934,0x00244A04,0x00244A08,          ,U,f,,
 0x00244A08,          ,0x00244A24,          ,U,f,,
 0x00244A24,          ,0x00244A30,          ,O,f,fn_00244A24,
-0x00244A30,          ,0x00244A3C,          ,U,f,,
+0x00244A30,          ,0x00244A3C,          ,O,f,fn_00244A30,
 0x00244A3C,          ,0x00244AA0,          ,U,f,,
 0x00244AA0,          ,0x00244ACC,          ,U,f,,
 0x00244ACC,0x00244B0C,0x00244B10,          ,U,f,,
