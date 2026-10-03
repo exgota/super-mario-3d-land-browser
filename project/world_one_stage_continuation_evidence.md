@@ -1,29 +1,44 @@
 # World 1-1 finite stage continuation evidence
 
-Current state: original complete, native replay running, checked 2026-10-03T11:50:25.262148+00:00. Root owns `root/world-one-stage-continuation`, frozen origin/main `e2cc84bacc2c86fa41fbebae985dc702856a6922`, ownership `bac799b3`. The implementation patch is explicitly empty. Claims/new bytes zero; linked recompiled bytes2,437,712. No matching build input/rank/ledger/Game/lib/Factory, backend, observer, scheduler, translated module or block schedule edits. Only the integrator moves main.
+Completed capture/comparison, checked 2026-10-03T12:35:26.808818+00:00. Root owns `root/world-one-stage-continuation`, frozen origin/main `e2cc84bacc2c86fa41fbebae985dc702856a6922`, ownership `bac799b3`. The implementation patch is explicitly empty. Matching claims/new translated bytes zero; linked recompiled bytes 2,437,712. No matching input, rank, ledger, Game/lib/Factory, observer, backend, scheduler, translated module or block schedule changes. Only the integrator moves main.
 
-The accepted stage range8015c358a is at4612d371, documentation correction3ad02710a at218b098e. Their result files say no build inputs changed. This distinct recording uses that prior owned worktree's immutable isolated providera35e26b5:3373inputs/34outputs/19commandreceipts preserved. Both canonical360 full comparisons/postseals and six actual compiled range controls pass. The remote main snapshot may lag locally accepted integrator main. No rank changes are imported.
+## Original and native result
 
-## Actual finite selections
+The accepted stage range `8015c358a` is at `4612d371`; documentation correction `3ad02710a` is at `218b098e`. This family uses that prior owned worktree's immutable isolated provider, receipt `a35e26b55ba30abedaa7939a3ad6325da0608d6c5ab13280935d2c94f5fff847`. Its 3,373 inputs/34 outputs/19 commands, two canonical360 full/post comparisons and six compiled range controls were preserved. No rank changes are imported from another branch.
 
-The new original and prospective native replay select7800presentations,2400provider/2460outerseconds,3221225472PICAbytes,3758096384monitoredtotalbytes,900000monitoredfiles,268435456perfilebytes,16106127360freebytes and2secondpoll. Aggregate thresholds are monitored, not filesystem quotas. Per-file size has an OS limit; core files are disabled. A crossed bound stops only the directly owned child and excludes partial output. Protected hashing precedes/follows the child interval with separate elapsed cost.
+The original records its own 7,800-presentation movie and initial snapshot from an ordinary copy of the previously completed stock7200 final disk profile. The existing 67-state navigation script remains byte-identical and neutral after renderer frame7024. No save decoding, RAM continuation, injected state or borrowed movie prefix. The old source raw was held through its last new-original consumer and sealed, then retired. Its profile/movie/snapshot/receipts/hashes remain. This native replay uses the new original's own movie/snapshot and does not consume retired old raw.
 
-The source is only the complete old bounds original7200 recording's ordinary final disk profile. Its raw tree was preserved through completion of the new original, then retired only after that last consumer completed and sealed it. Its profile/movie/snapshot/logs/receipt/hashes and historic executable identity/bounds remain intact. Current native replay consumes its own new original, not the retired old raw tree. The new stage provider is separately pinned. The existing67-state navigation input remains byte-identical and neutral after7024. No save decoding, RAM continuation, injected game state or borrowed prefix movie. This new original records its own movie/initial snapshot. Original completion and actual World1-1 stage pixels are observed. Saved-profile interpretation, independent native comparison, controlled-player/update/goal and Section7 state remain unverified.
+Both original and native finish at presentation7799, renderer frame7901, final GPU footer ticks38670861000. The full comparison passes all777652 GPU records/ticks,70741 GSP commands,683341 PICA lists/2148204384 bytes,7901 VBlanks,30900 HID polls,26786 audio blocks/4285760 stereo frames/17143040 PCM bytes, both691200 RGBA bytes and345600 framebuffer bytes. PICA exceeds the previous2GiB ceiling by720736 bytes and stays within the selected3GiB limit.
 
-| Private recipe | SHA-256 |
+The native CPU0 executes3693917823 guest instructions. CPU1 executes zero. Both report zero interpreter/JIT fallback. Original protected inputs/private profile and native protected inputs preserve. Final post-comparison rehash preserves the current original tree, provider/source/module/schedule/dump, own movie/snapshot and completed original receipt. The old source7200 preservation remains its earlier completed seal before retirement.
+
+Original elapsed1879.8565162089653 seconds; native1938.2622380409157 seconds. These controller intervals include finishing identity work and are not production performance measurements. Host filesystem export and diagnostics remain material costs.
+
+Actual original and native pixels were inspected. Mario stands on World1-1's starting circle, coins0/timer491, with the arrow sign and castle background. Native raw top SHA-256 `b86e5ed1b7f2e4b619b356a911f2c47c9305beb9e2fe55cc8ddee1ec12c88b60`; bottom `24071e8dacfff3a7a137cc6d20078904359186d5bb3b66816fccb133ec9bb9a7`. Native top PNG `947c8422684f09d9c23f556f7dc319ff091e74429b8d2823d51b87b90a2fef46`. The unchanged renderer writes lossless PNGs outside capture trees. Pixels/audio/assets stay private and ignored.
+
+| Completed proof, under this worktree's `build/stage_continuation_preparation` | SHA-256 |
+| --- | --- |
+| `reference_world_one_stage_continuation_7800/execution_receipt.json` | `bfd10c61c54a23d0456ebb310ad40d8d72c69dff682a6111f4e76586557d13b9` |
+| `native_world_one_stage_continuation_7800/execution_receipt.json` | `120af613111768ab178354bd7d69e24eb7dd9ddfa7de7c513be4c919daf187b8` |
+| `native_world_one_stage_continuation_7800/full_movie_comparison.json` | `f18c93f4c3ecd02f605b67fa03cd35096c6fcc9b35121c54cc434b6ffc0fa1dd` |
+| `native_world_one_stage_continuation_7800/post_comparison_original_preservation.json` | `3ed0a74d7f8a08ab5ca59b58868a7cbabf469de20486480e09cc1c91c2a1b571` |
+
+Own movie536400 bytes SHA-256 `a300af236f9191cd7f7860f8ebd09bf81335ed45fa3bdc62d1f6dc8f1862bb52`; own20-file snapshot manifest `aaead5db45ab4b6825ebd393b1db32bccb72ee096a9805364ce6a5f2e8573d4f`.
+
+## Finite selections and recipes
+
+Both captures select7800 presentations,2400 provider/2460 outer seconds,3221225472 PICA bytes,3758096384 monitored output bytes,900000 files,268435456 per-file bytes,16106127360 free-space floor and2-second polling. Aggregate thresholds are monitored ceilings, not filesystem quotas. Per-file size has an OS limit and core files are disabled. Crossing a bound stops only the directly owned child and excludes partial output. Protected hashing is outside the child interval. Comparison/report generation has separate filesystem cost; no claim that its exports are inside the child output budget.
+
+| Frozen private recipe | SHA-256 |
 | --- | --- |
 | `build/stage_continuation_preparation/record_world_one_stage_continuation.py` | `15794b812d5eae466c060d9e334fe073d5c2887f8eb8a67f1ad606a8cd641036` |
 | `build/stage_continuation_preparation/world_one_stage_continuation_input.txt` | `abb7286b758eb40c6778bbf025be9da8e3d8a02369ea249fe0348e9aee9e9467` |
 | `build/replay_world_one_stage_movie.py` | `3c1ae86af8312e3aa316b64cf5cf148a4d3afc2116c37aa669161f7e51d5591c` |
 | `build/verify_world_one_stage_preservation.py` | `df2257d1718a3698065bfc78f9f88ae5f2ab795316ef98a0138c71b4530f026e` |
 
-## Completed original and active native replay
+The first full-comparison call refused a cross-worktree report path before comparison. Its780-byte failure log remains. The corrected call used an absent ignored report/preview location in the immutable stage-range comparer's own worktree. Its successful report was copied byte-for-byte into this completed case for the frozen post-verifier. Both copies and the success stdout had the same hash `f18c93f4...`; no captured evidence or validator was rewritten. Exact duplicate exports are eligible finished scratch, while the canonical case report remains.
 
-The original7800 receipt `bfd10c61c54a23d0456ebb310ad40d8d72c69dff682a6111f4e76586557d13b9` completes with return0, all three footers complete, protected inputs/private profile preserved, elapsed1879.8565162089653seconds. It records777652GPU records including70741GSPcommands,683341PICA lists/2148204384bytes,7901vblanks,30900HIDpolls,26786audio blocks/4285760stereo frames/17143040PCMbytes. Final presentation7799, renderer7901, footer ticks38670861000. This exceeds the old2GiB PICA ceiling by720736bytes and remains within the selected3GiB ceiling.
-
-Own movie536400bytes SHA-256 `a300af236f9191cd7f7860f8ebd09bf81335ed45fa3bdc62d1f6dc8f1862bb52`; own20-file snapshot manifest `aaead5db45ab4b6825ebd393b1db32bccb72ee096a9805364ce6a5f2e8573d4f`. The unchanged renderer converted original raw pixels to ignored PNGs outside the capture tree. Actual inspected top PNG `947c8422684f09d9c23f556f7dc319ff091e74429b8d2823d51b87b90a2fef46` shows Mario at the World1-1 starting circle, coins0/timer491, arrow sign/castle background. Original raw top SHA-256 `b86e5ed1b7f2e4b619b356a911f2c47c9305beb9e2fe55cc8ddee1ec12c88b60`. No typed/control/goal claim.
-
-Native replay is running under the final pinned controller above. Its protected set now includes the completed original7800 receipt. Final comparison and post-seal are pending. Old source7200 preservation is its original's completed historical seal before retirement. Current post-seal covers the retained provider/runtime/own movie/snapshot/current original, without claiming the retired tree still exists.
+After sourcing the primary development environment, run the unchanged `build/root_stage_capture_range/tools/static_recompiler/compare_movie_replay.py ORIGINAL REPLAY --movie MOVIE --report REPORT --preview-directory PREVIEWS`. REPORT/PREVIEWS must be absent paths under that comparer's own ignored build. Copy the successful report bytes, without modification, to the new case's expected `full_movie_comparison.json`, then run `build/root_world_one_stage_continuation/build/verify_world_one_stage_preservation.py CASE`. Existing outputs refuse overwrite. Each execution receipt retains actual frontend arguments/environment/bounds. Retired historical raw must first be regenerated before a comparison/controller that consumes it can rerun.
 
 ## Independent upstream producer observation
 
@@ -43,25 +58,17 @@ The self-contained Pro construction packet is `world-one-upstream-producer-const
 
 The new Pro answer arrived at `.integrator/pro_answers/layout/world-one-upstream-producer-construction.md`, SHA-256 `f632010bfc1bee8399693084c91c750aa8de311b51638e7f91540b4f1bc0ea96`. It supports only an image-keyed constructor/layout signature proposal and static initialization-argument relationship. A same-invocation allocation-like call, candidate entry/return and producer-cell store still need a connected natural runtime witness. No source-level type, selected/controlled player, lifetime or completed-update contract is established. Root treats this as a proposal, without reconstructing layouts.
 
+
 ## Finished scratch retirement
 
-Eight owner-authorized passes retired3760501 completed own-scratch files, measured31863750656allocatedbytes before removal. Each removed file was SHA-256 sealed to a flushed manifest, then inode/device/mtime/size checked before unlink. All selected files are gone, all retained files and sealed receipts preserved. The eighth pass retired only516908 old original7200 raw files/3286183936allocatedbytes after the new original7800 completed and sealed its last use. It preserved36retained files/all sealed receipts. Owner dump/source, current stock/native7800, canonical360 raw, movies/snapshots/profiles/logs/PNGs and active inputs remain intact. Historical retired raw requires regeneration before its old comparison/controller can rerun. No factory restart/settings change.
+Eight earlier owner-authorized passes sealed/retired3760501 own files/31863750656 measured allocated bytes. The eighth receipt `3335e112af68a58c5abddcc84a81666321a26b147fb40766ba428423e6bc13b6` retired only old stock7200 raw after its last new-original consumer completed and sealed it. All retained files and sealed receipts preserved. Free after that pass23229943808 bytes. Owner dump/source/tools, source/profile/movie/snapshot/receipts/hashes, canonical360 raw and active7800 inputs remained intact. No factory restart/settings change.
 
-Free disk after the eighth pass:23229943808bytes. Current free21536641024bytes at2026-10-03T11:50:25.262148+00:00, during bounded native replay. Live free-space checks remain authoritative. The running original/native capture selections are finite and identical as stated above.
+Ninth pass `build/root_scratch_reclamation/completed_stage_native_retirement/reclamation_receipt.json`, SHA-256 `cf82a917224828267dd9399f9887d525f5293dba59f2b873961894e49ebd556f`, completes after the full comparison/post-seal. It individually SHA-256 seals/unlinks683341 finished native PICA files and two144880097-byte exact duplicate report exports,683343 files total/4621545472 measured allocated bytes. All54 retained case files and sealed receipts preserve; selected files remaining zero. Native metadata/PCM/RGBA/framebuffers, canonical case report, original7800/reference/profile and all source/recipes remain. Manifest275217288 bytes is retained. Source `retire_completed_stage_native_payloads.py` SHA-256 `bd6f1a04246dfa1a105ce7362e102dd60b3a6441b8e771e32235eaff9d9966cd` uses the same flushed manifest plus inode/device/mtime/size guards. Removed native PICA requires regeneration for its historical full comparison.
 
-| Reclamation receipt, relative to `build/root_scratch_reclamation` | SHA-256 |
-| --- | --- |
-| `completed_bounds_source_retirement/reclamation_receipt.json` | `3335e112af68a58c5abddcc84a81666321a26b147fb40766ba428423e6bc13b6` |
-| `completed_stage_prerequisite_retirement/reclamation_receipt.json` | `a5bc8a874c13ebf193ea792eab0c22fcf61204fdf1bbed46de8aa8445f0a71b0` |
-| `earlier_replay_retirement/reclamation_receipt.json` | `617cf47a67eabc74af03dcca769d121ffdb900595b488687addc6075aede11fa` |
-| `entry_native_retirement/reclamation_receipt.json` | `6e28a13419f90ed5770f5d2cfe2d8f3175d266072f99d0fad54967295380ebc6` |
-| `failed_navigation_retirement/reclamation_receipt.json` | `2c3ef12c6c2670201acb1b93654679b682d35b06049d2a88fdc2de815560b6eb` |
-| `native_7200_retirement/reclamation_receipt.json` | `65034a1228134ffb21481d92bfcbc4cd5425b31180f222560dfd87fb29acff22` |
-| `navigation_native_retirement/reclamation_receipt.json` | `e0f1a386f21f2c77d4c0af7cb42a30beceea44858ebe62b8cb6f051595d622e7` |
-| `reclamation_receipt.json` | `de23be3b73bcfa775326b2116973dfb191dd01019846fe895beaf2c57a378d0d` |
+Nine passes total4443844 files/36485296128 measured allocated bytes. Ninth post-cleanup free21223632896 bytes; current21196255232 bytes at2026-10-03T12:41:10.906649+00:00, above20GB target. All owner dump/source, original7800/canonical360 raw, movies/snapshots/profiles/logs/receipts/hashes/pixels/audio and active inputs remain. No factory restart/settings change.
 
-## Remaining checks and rerun commands
+## Remaining scope
 
-Original7800 footers/protected/private-profile preservation and actual pixels pass. Finish its own movie/snapshot native replay, require both CPU reports/zero fallback, unchanged strict full comparison and final current-original/provider/movie/snapshot seal. Milestones5/6 remain in progress. Playable control, controlled actor, update boundary/whole Section7, goal pole, sustained browser/audio/performance/physical mobile/saves and complete rank-O replacement adapters remain open.
+Milestones5/6 remain in progress. This is actual stage imagery and exact finite platform replay. Typed/controlled player, lifetime, completed-update boundaries, comparable Section7 position/velocity/state/camera/RNG/timer/coins, goal pole and the whole level replay suite remain unverified. Browser sustained performance, physical mobile, continuous synchronized audio, saves and all rank-O replacement adapters remain open.
 
-After sourcing the primary development_environment.sh, use `python build/root_stage_capture_range/tools/static_recompiler/compare_movie_replay.py ORIGINAL REPLAY --movie MOVIE --report REPORT --preview-directory PREVIEWS`. Report/preview outputs must be absent and ignored. Then `python build/root_world_one_stage_continuation/build/verify_world_one_stage_preservation.py CASE` writes the fixed post-comparison receipt. Each execution receipt retains actual frontend arguments/environment/resource bounds.
+Next separate family `root/stage-capture-window` executes the full guest path while exporting a declared partial GPU interval. It earns no missing-prefix or Section7 credit. One existing implementation helper prepares only the necessary private controller; root builds/checks independently. No new reviewers or unrelated harness work. Planned raw control inputs remain unexecuted.
