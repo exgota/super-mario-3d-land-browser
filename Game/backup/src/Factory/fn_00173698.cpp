@@ -1,11 +1,11 @@
+#include "Math/alVectorNormalizationImports.h"
+
 namespace {
-struct VecStorage {
-    float x, y, z;
-};
-struct Vec3 : VecStorage {
+struct Vec3 {
+    nn::math::VEC3 components;
     Vec3& operator=(const Vec3& rhs)
     {
-        static_cast<VecStorage&>(*this) = rhs;
+        components = rhs.components;
         return *this;
     }
     Vec3 operator*(float) const;
@@ -19,6 +19,11 @@ struct Motion {
     char unknown30[60];
     Vec3 acceleration;
 };
+typedef char Vector3WrapperSizeCheck[sizeof(Vec3) == 12 ? 1 : -1];
+typedef char MotionFieldOffsetCheck[
+    offsetof(Motion, direction) == 12 && offsetof(Motion, position) == 24 &&
+    offsetof(Motion, velocity) == 36 && offsetof(Motion, acceleration) == 108 &&
+    sizeof(Motion) == 120 ? 1 : -1];
 struct MotionState {
     virtual void slot0() = 0;
     virtual void slot1() = 0;
@@ -41,7 +46,6 @@ struct MotionControl {
 extern "C" void fn_0026E1DC(Motion*);
 extern "C" void fn_0027306C(Vec3*, const Vec3*, const Vec3*);
 extern "C" bool fn_0026F71C(const Vec3*, float);
-extern "C" void fn_00279ABC(Vec3*);
 extern "C" void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vec3&, const Vec3&, float);
 extern "C" void _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(Vec3&, const Vec3&, const Vec3&);
 
@@ -66,16 +70,16 @@ extern "C" void fn_00173698(Motion* self, MotionState* state, MotionControl* con
         Vec3 direction;
         fn_0027306C(&direction, &self->position, &self->velocity);
         if (!fn_0026F71C(&direction, 0.001f)) {
-            fn_00279ABC(&direction);
+            fn_00279ABC(direction.components);
             self->direction = direction;
         }
     }
     if (!state->active()) {
-        self->velocity.x = 0.0f;
-        self->velocity.y = 0.0f;
-        self->velocity.z = 0.0f;
+        self->velocity.components.x = 0.0f;
+        self->velocity.components.y = 0.0f;
+        self->velocity.components.z = 0.0f;
     } else if (control->stopVertical()) {
-        self->velocity.y = 0.0f;
+        self->velocity.components.y = 0.0f;
     }
     Vec3& velocity = self->velocity;
     velocity.operator+=(self->acceleration.operator*(dt));

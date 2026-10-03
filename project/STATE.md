@@ -1,20 +1,27 @@
-# Root World 1-1 runtime state
+# Shared interface cleanup batch
 
-Root/world-one-entry freezes origin/main1ecf645ef2f06b17cd47cddae2c15f763ae1f2e3. Only the integrator moves/pushes main, sets ranks or writes ledger. Root owns port runtime/tools/evidence only. No Game/lib/config/map/Factory/ledger or oracle edits. Recompiled bytes remain2437712; this family adds zero matching/translated bytes and zero matching throughput.
+Owner: Codex driver on `cleanup/shared-interface-imports`. Frozen integrator main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. The actor source intake has been accepted. This batch combines the independently reviewed and locally checked vector-operation family and actor-distance import correction, without changing their final source bytes.
 
-Owner priority: audio4, then World1-1 milestone5. No reviewer subagents, Impeccable finish/documenter or browser/process polish. One implementation helper maximum, currently completed. Layout questions go to Pro; root does not reconstruct game classes. The factory/frog continue independently. Effort change remains unverified until the next relay send uses xhigh. Aquinas was confirmed completed and archived:true by the app for01a0fbc1-b91a-73e2-970b-66e355a36846; ignored aquinas_archive_receipt.json retains the results.
+Owned paths:
+- `Game/backup/src/Factory/fn_00171BE0.cpp`
+- `Game/backup/src/Factory/fn_00173698.cpp`
+- `Game/backup/src/Factory/fn_001BAD90.cpp`
+- `Game/backup/src/Factory/fn_00355820.cpp`
+- `Game/backup/src/Factory/group_0011D7A8.cpp`
+- `Game/backup/src/Factory/group_002438D4.cpp`
+- `lib/CtrSDK/include/nn/math/math_Vector3.h`
+- `lib/al/include/Math/alVectorNormalizationImports.h`
+- `lib/sead/include/math/seadVectorCalcCtr.h`
+- `Game/backup/src/Factory/fn_0021E1D8.cpp`
+- `lib/al/include/LiveActor/alActorDistanceImports.h`
+- `docs/facts/0021E1D8.md`
+- `docs/facts/00173698.md`
 
-Audio root-audio-stream-output-2e84df41c is accepted at96e8ba32e2b2a5801baec6730817eb0a2e225482, immutable. Its natural216000-frame stream,4096-consumed-frame Stop,131077-frame independent stereo/ring/cancellation and default replay pass. Every original PCM frame reaches the actual worklet once/in order; full audio/input/GPU/pixels preserve. Large counted silence gaps remain. No continuous synchronized sound or speaker claim. Verdict .integrator/results/root-audio-stream-output-2e84df41c.json records no build inputs/matched_bytes0. Browser policy2ec58357b was accepted atec5515d1.
+No new function implementation or exact-byte claim is made. The map, ledger, build configuration, compiler flags and oracle remain untouched. Root retains port runtime and browser lifecycle enforcement.
 
-The completed World continuation and native replay select3600natural presentations at renderer3701. Both exit0, stock504.75seconds/native620.66seconds. Strict unchanged movie comparer passes14474HIDpolls,187129GPU events/ticks,151067PICA files/592409936bytes,691200RGBA/345600framebuffer bytes,12427audio blocks/1988320stereo frames/7953280PCM bytes. Native CPU0 executes1420529816instructions, CPU1zero, both zero interpreter/JIT fallback. All151108original capture files/649166376bytes preserve before/after. Original movie/snapshot, provider/library/schedule/comparer identities preserve.
+Checked source `06cbdce218a7a3d8307c440eeca50ae63b4f40aa` passes the normal build and all 32 complete affected intervals, preserving 2,068 prior bytes. All eleven final source hashes equal the standalone checked families. Actual definitions and header dependencies cover exactly seven translation units, with zero global duplicate definitions. The scratch map is restored. Final source and detailed limits are in `project/evidence/shared_interface_imports.md`.
 
-Root viewed actual original final pixels: Mario/Toads at the tree in the opening cinematic; bottom black. World1-1 has not loaded. No controlled-player identity/update/goal or Section7 acceptance. Public project/world_one_cinematic_replay_evidence.md records final hashes, authored inputs, exact commands and limits. Full receipts live under primary build/root_world_one_entry/build/world_one_preparation. Earlier100000-file and512MiB PICA failures remain excluded and retained. Successful bounds: existing1GiB PICA,1280MiB monitored total,200000files,64MiB per file,900/960seconds,5GiB free floor. No provider/source cap change in this branch.
-
-Pro answer world-one-application-player-slot-publication.md SHAe6b5983a8eb033feacdccd0148ab158851d332550b9fbb711ec2be6e1d578df8 remains a bounded proposal, with no direct slot-publication or controlled-player conclusion. Root independently checked the requested92-byte original body and all printed words, then queued world-one-application-slot-connected-body.md SHAd21614d0d8cb98ffd9ced37a786eb8ed9cf3f5ac1db57851017d72364b1fe2be. Boundary metadata stays byte-equal to frozen base. Answer pending; no class layout adopted.
-
-Next three tasks:
-1. Submit this finished no-claims evidence family once and report its actual integrator verdict. No new ARMCC/full-map or compiler-build claim. Preserve the immutable source/capture evidence and failures.
-2. On a new root branch frozen from main, extend the bounded capture beyond3600presentations, which demonstrably ends during the cinematic. Keep guest timing, scheduling, execution, services and comparers unchanged. Build isolated provider outputs and verify old replay preservation and actual extended reference/native output before accepting a limit change.
-3. Continue natural World1-1 entry/controlled actor and Section7 replay. Route missing layouts, root/receiver/lifetime and completed-update evidence to Pro. No guessed offsets, injected calls or synthetic state. A readable pointer cannot identify a controlled player or update phase.
-
-Browser sustained performance, physical mobile, continuous audio, saves and complete rank-O adapters remain open. Root asks no owner question; the current capture ceiling is a known implementation task, not a halt.
+Next tasks:
+1. Hold this finished cleanup while the ready PackunFlower/Tenten dot intake is verified and accepted.
+2. Submit this branch with no claims after higher-priority source work clears, then inspect its integrator verdict.
+3. Continue source prerequisite and identity review while root completes browser lifecycle enforcement and the port demo.

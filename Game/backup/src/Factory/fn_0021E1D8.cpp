@@ -1,3 +1,5 @@
+#include "LiveActor/alActorDistanceImports.h"
+
 namespace {
 struct Vector4 {
     float x, y, z, w;
@@ -41,7 +43,7 @@ void draw(int index, const void* context, const Vector4& vector)
     getDrawing(index)->draw(context, vector);
 }
 
-extern "C" inline void fn_0021E2D0(int index, const void* context, const Vector4& vector)
+inline void drawAlternate(int index, const void* context, const Vector4& vector)
 {
     getDrawing(index)->drawAlternate(context, vector);
 }
@@ -56,6 +58,6 @@ extern "C" void fn_0021E1D8(int index, const void* context, const Vector4& vecto
         fn_002783BC(&copy, &copy, 60.0f);
         draw(index, context, copy);
     } else {
-        return fn_0021E2D0(index, context, vector);
+        return drawAlternate(index, context, vector);
     }
 }

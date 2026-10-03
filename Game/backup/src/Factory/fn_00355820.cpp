@@ -1,6 +1,8 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 struct Vector3 {
-    float x, y, z;
+    nn::math::VEC3 components;
     Vector3 operator-(const Vector3&) const;
     Vector3 operator*(float) const;
 };
@@ -10,6 +12,10 @@ struct Actor {
     char padding74[0x10];
     Vector3 destination;
 };
+typedef char VectorStorageSizeCheck[sizeof(Vector3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vector3, components) == 0 ? 1 : -1];
+typedef char ActorVectorOffsetCheck[
+    offsetof(Actor, speed) == 0x70 && offsetof(Actor, destination) == 0x84 ? 1 : -1];
 struct Spine {
     Actor* actor;
 };
@@ -20,7 +26,6 @@ extern "C" {
 bool _ZN2al11isFirstStepEPKNS_9IUseNerveE(const Actor*);
 void _ZN2al11startActionEPNS_9LiveActorEPKc(Actor*, const char*);
 const Vector3& _ZN2al8getTransEPKNS_9LiveActorE(const Actor*);
-void _ZN4sead14Vector3CalcCtrIfE3subERN2nn4math4VEC3ERKS4_S7_(Vector3&, const Vector3&, const Vector3&);
 bool fn_0027D5C4(Vector3&);
 void _ZN2al15setVelocityZeroEPNS_9LiveActorE(Actor*);
 void fn_0027C0C8(Actor*, const Vector3&);
@@ -36,7 +41,7 @@ extern const Nerve dat_003F1EA4;
 namespace {
 inline Vector3 Vector3::operator-(const Vector3& other) const {
     Vector3 result;
-    _ZN4sead14Vector3CalcCtrIfE3subERN2nn4math4VEC3ERKS4_S7_(result, *this, other);
+    sead::Vector3CalcCtr<float>::sub(result.components, components, other.components);
     return result;
 }
 inline Vector3 Vector3::operator*(float scale) const {

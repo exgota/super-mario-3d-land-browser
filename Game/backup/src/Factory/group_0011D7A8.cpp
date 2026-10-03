@@ -1,6 +1,8 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 struct Vector3 {
-    float x, y, z;
+    nn::math::VEC3 components;
 };
 
 struct Actor {
@@ -11,6 +13,12 @@ struct Actor {
     int duration;
     int wait;
 };
+typedef char VectorStorageSizeCheck[sizeof(Vector3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vector3, components) == 0 ? 1 : -1];
+typedef char ActorVectorOffsetCheck[
+    offsetof(Actor, base) == 0x64 && offsetof(Actor, direction) == 0x70 &&
+    offsetof(Actor, start) == 0x7C && offsetof(Actor, duration) == 0x80 &&
+    offsetof(Actor, wait) == 0x84 ? 1 : -1];
 
 struct SafeString {
     const void* vtable;
@@ -35,7 +43,6 @@ float fn_00279CF0(Actor*, int, float, float);
 float fn_00279C8C(Actor*, int, int);
 float fn_00287908(float);
 Vector3* _ZN2al11getTransPtrEPNS_9LiveActorE(Actor*);
-void _ZN4sead14Vector3CalcCtrIfE13multScalarAddERN2nn4math4VEC3EfRKS4_S7_(Vector3&, float, const Vector3&, const Vector3&);
 bool _ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi(const Actor*, int);
 void _ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE(Actor*, const void*);
 }
@@ -60,7 +67,7 @@ extern "C" void fn_0011D7A8(Actor* actor) {
     Vector3* trans = _ZN2al11getTransPtrEPNS_9LiveActorE(actor);
     const Vector3& direction = actor->direction;
     const Vector3& origin = actor->base;
-    _ZN4sead14Vector3CalcCtrIfE13multScalarAddERN2nn4math4VEC3EfRKS4_S7_(*trans, base + wave, direction, origin);
+    sead::Vector3CalcCtr<float>::multScalarAdd(trans->components, base + wave, direction.components, origin.components);
     if (_ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi(actor, actor->start + actor->duration + actor->wait)) {
         if (!_ZN2al11isFirstStepEPKNS_9IUseNerveE(actor)) {
             SafeString name(dat_003C0954);
@@ -85,7 +92,7 @@ extern "C" void fn_00307F90(Actor* actor) {
     Vector3* trans = _ZN2al11getTransPtrEPNS_9LiveActorE(actor);
     const Vector3& direction = actor->direction;
     const Vector3& origin = actor->base;
-    _ZN4sead14Vector3CalcCtrIfE13multScalarAddERN2nn4math4VEC3EfRKS4_S7_(*trans, base + wave, direction, origin);
+    sead::Vector3CalcCtr<float>::multScalarAdd(trans->components, base + wave, direction.components, origin.components);
     if (_ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi(actor, actor->start + actor->duration + actor->wait)) {
         if (!_ZN2al11isFirstStepEPKNS_9IUseNerveE(actor)) {
             SafeString name(dat_003BB8A8);

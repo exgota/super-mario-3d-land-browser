@@ -1388,3 +1388,6 @@ The driver independently reads the owned EU constructor at 0030A37C. Its direct 
 ## Enemy initializer identities, 2026-10-02
 
 Name only the four existing unnamed PackunFlower/Tenten function rows documented in `project/evidence/enemy_initializer_identities.md`. Original allocation/call/dispatch evidence distinguishes the roots and two imported constructors. The descriptive reconstruction names are not claimed as recovered original C++ spelling. Ranks and all intervals remain unchanged; no function credit follows.
+## Shared interface cleanup batch, 2026-10-02
+
+The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d877732056c65d166f04` and actor-distance source `444b007a68bba2126e10aaf69b6c691a93c65de2` on frozen main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. All eleven final source/header files are byte-identical to the independently checked families. One acceptance pass avoids repeated full regression work. The standalone evidence retains each original ABI observation and its uncertainty. This is source contract maintenance with zero new matching credit.
