@@ -2055,7 +2055,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0015F9B8,0x0015FCC8,0x0015FD04,          ,U,f,,
 0x0015FD04,0x0015FDC4,0x0015FDD0,          ,U,f,,
 0x0015FDD0,          ,0x0015FDEC,          ,U,f,,
-0x0015FDEC,          ,0x0015FDF8,          ,U,f,,
+0x0015FDEC,          ,0x0015FDF8,          ,O,f,fn_0015FDEC,
 0x0015FDF8,0x0015FE84,0x0015FEA8,          ,U,f,,
 0x0015FEA8,          ,0x0015FEB0,          ,O,f,fn_0015FEA8,
 0x0015FEB0,0x0016009C,0x001600C4,          ,U,f,,
