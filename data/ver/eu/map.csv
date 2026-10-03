@@ -6406,7 +6406,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0021D854,0x0021D8F0,0x0021D908,          ,U,f,,
 0x0021D908,          ,0x0021D970,          ,U,f,,
 0x0021D970,          ,0x0021D980,          ,O,f,fn_0021D970,
-0x0021D980,          ,0x0021D98C,          ,U,f,,
+0x0021D980,          ,0x0021D98C,          ,O,f,fn_0021D980,
 0x0021D98C,0x0021DB04,0x0021DB08,          ,U,f,,
 0x0021DB08,          ,0x0021DBA4,          ,U,f,,
 0x0021DBA4,          ,0x0021DCD0,          ,U,f,,
