@@ -15,3 +15,5 @@ Milestone6 browser remains in progress; milestone5 World1-1 remains open. Unboun
 ## Driver intake ownership, 2026-10-02
 
 The driver owns dot/actor-source-intake from frozen integrator main b275e09b1a9d41b48b1c57c2ec9854c61a04254b. This intake owns the seven new ActorTimer, WoodBox and WarpDoor source/header paths supplied by dot/root-1bfe60, dot/root-314430 and dot/root-3195f0. Existing source families remain read-only. Names receive a separate evidence commit before source import. The integrator alone accepts claims and changes ranks, the ledger and main. Port runtime work retains its independent owner.
+
+Driver intake update: source b683e4e36de330614f1ba1e44d1fae05adac2eb7 passes four complete canonical intervals/1808proposed bytes plus the unchanged48-byte LiveActorFlag constructor. Final normal link succeeds; global duplicate definitions are zero. All seven supplier files remain byte-identical. The integrator gate is pending. See project/evidence/actor_source_intake.md.

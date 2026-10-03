@@ -1331,3 +1331,7 @@ Job 3108 delivered two source-grounded actor references in a live packet. Indepe
 ## 2026-10-02: Ground three delivered actor-family identities
 
 Seven existing symbol fields receive reconstruction names for the delivered ActorTimer, WoodBox and WarpDoor proposals. Independent constructor, allocation and dispatch checks are recorded in `project/evidence/actor_source_intake_names.md`. ActorTimer is expressly descriptive; registry spellings do not establish original C++ names. The WarpDoor table-base spelling names its existing ABI-prefix row without merging data rows. No rank, pool, boundary or other map field changes. The source and its canonical checks follow in separate commits.
+
+## 2026-10-02: Preserve unchanged supplier actor source and claim the checked constructor
+
+The driver imports seven unchanged files from dot/root-1bfe60, dot/root-314430 and dot/root-3195f0, using their fetched tips rather than unavailable report-named local source commits. All three reported roots pass the canonical checker; the additional emitted WarpDoor constructor also passes its complete136-byte interval. The submission claims1808bytes across four roots, pending integrator acceptance. Final normal linking, a48-byte existing dependency check and the global zero-duplicate audit are recorded in project/evidence/actor_source_intake.md. Genuine class tables and inlined flag readers add no separate exact credit.
