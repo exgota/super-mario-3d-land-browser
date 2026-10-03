@@ -10669,7 +10669,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002C2B68,          ,0x002C2BE4,          ,U,f,,
 0x002C2BE4,          ,0x002C2C00,          ,U,f,,
 0x002C2C00,0x002C2F08,0x002C2F18,          ,U,f,,
-0x002C2F18,          ,0x002C2F20,          ,U,f,,
+0x002C2F18,          ,0x002C2F20,          ,O,f,fn_002C2F18,
 0x002C2F20,          ,0x002C2FF8,          ,U,f,,
 0x002C2FF8,          ,0x002C3000,          ,U,f,,
 0x002C3000,0x002C3140,0x002C3148,          ,U,f,,
