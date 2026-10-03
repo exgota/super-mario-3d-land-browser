@@ -2,7 +2,7 @@
 
 This surface runs the actual static ARM port in a dedicated ES-module worker. It mounts the owner's approved dump, timing schedule, movie and complete initial user tree as readonly WORKERFS input. The existing compiled CPU/HLE/PICA/software renderer runs on the SDK's proxy pthread. The page receives real captured RGBA screens, not packaged game images. Every output file and directory is exported to the local server for the unchanged differential comparators.
 
-This is a finite capture. The default profile replays a recorded movie. The optional input/audio profile observes delivered movie input and original HLE PCM, then offers explicit playback of that completed browser-generated sound. Optional live-button and circle-pad profiles record browser input through normal HID. Optional frame output shows completed screen samples while the run executes. Unbounded interactive sessions, sustained frame rate, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
+This is a finite capture. The default profile replays a recorded movie. The optional input/audio profile observes delivered movie input and original HLE PCM, then offers explicit playback of that completed browser-generated sound. Optional live-button, circle-pad and touch profiles record browser input through normal HID. Optional frame output shows completed screen samples while the run executes. Unbounded interactive sessions, sustained frame rate, synchronized audio streaming, persistent saves, World 1-1 semantic replay and complete rank-O source adapter coverage remain separate work. The verified priority source adapter and the existing address-based replacement interface remain unchanged.
 
 ## Build
 
@@ -128,9 +128,39 @@ HID retains its normal scale, rounding, three-sample average and derived directi
 
 Replay the new `capture_<identifier>/input_movie.ctm` and `initial_user_state` with unchanged stock Azahar at the same finite boundary, then run the existing `compare_movie_replay.py`. Browser recording alone earns no stock parity or game-state claim. `project/browser_circle_pad_evidence.md` records the bounded actual executions, refusal controls and strict stock comparisons. Arbitrary clock endpoints, old calls across reinstall, foreign factory-name collisions, physical mobile performance and player movement are outside that evidence.
 
+## Bottom-screen touch recording
+
+Add `--live-touch --frame-output` to a finite server command. The optional version-one `live_touch_capture` boolean defaults to false. Touch uses the same identified recording clock and complete starting tree as the other live profiles. It requires input/audio observations and a finite presentation. Touch-only mode keeps A and circle setters inactive; those profiles require their explicit flags. Positional movie playback cannot enable live injection.
+
+```sh
+python tools/static_recompiler/serve_browser_execution.py \
+  build/browser_touch_module_final build/browser_touch_server \
+  --block-schedule /absolute/ignored/block_schedule.bin \
+  --reference /absolute/ignored/recorded_reference \
+  --dump-sha256 c83f9175208b3d60898d3a6d60451bee3108521e409cace362f63b46dda8c976 \
+  --dump-bytes 536870912 --presentation-limit 480 \
+  --live-touch --frame-output --port 8800
+python tools/static_recompiler/verify_browser_touch_capture.py \
+  http://127.0.0.1:8800 build/browser_touch_capture \
+  --server-output build/browser_touch_server \
+  --dump /absolute/ignored/owner_dump.3ds --sampled-frame 360 --screenshots
+```
+
+The verifier defaults to headless Chrome and closes its own test session. `--headed` requests a visible project preview explicitly. Keep at most one visible project preview, preserve active tests, and leave personal Chrome separate, as required by the browser lifecycle policy in `project/BRIEF.md`.
+
+Touch becomes available only after actual CPU polls and a displayed bottom canvas of320×240. Startup can briefly produce shorter images; they keep rendering while touch waits for the complete target. Losing the full target releases a held contact before disabling input. Mouse/touch pointer coordinates map through the current owned canvas rectangle to integer x0..319/y0..239. Initial contacts outside the half-open target refuse. Captured drags clamp to its edges. Positive x is right, positive y is down. The owned canvas has no border, padding or transform; arbitrary external styling is outside that mapping contract.
+
+One pointer owns a contact. Focused arrow keys select a point in eight-pixel steps. Space and Enter hold it, and one held source survives another source's release. Pointer up/cancel/lost capture, key up, canvas/window blur, hidden document, missing target and session completion release their respective sources. A focused crosshair marks the chosen point without changing game pixels. The finite4096-request budget reserves its final sequence for canonical release, disables further touch and lets the capture finish with a retry message.
+
+The public `Input::TouchDevice` returns `(float,float,bool)`. One lock-free atomic word publishes x/y/pressed/lifecycle together. Pressed pixels map to normalized centers `(x+0.5)/320`, `(y+0.5)/240`; unchanged HID scales and truncates them. Release is exactly `(0,0,false)`. Invalid coordinates, pressed values and nonzero released coordinates refuse before mutation. Installation saves/restores `touch_device`, `use_touch_from_button` and `use_touchpad`, disabling both ordinary fallback sources for this explicit input owner. The CPU getter reads atomics only. It accesses no renderer, Core or guest layout. Cleanup prints the final device-poll receipt before normal SDK exit; the worker does not call exports after `onExit`.
+
+The actual-browser verifier requires original HID/movie delivery for all four corners, interior points, a captured outside drag, mixed pointer/keyboard holds, partial keyboard release and focus loss. Each plateau must appear in the saved original poll interval, independently of request acknowledgment. It reconciles every CTM pad/touch record, native closure polls, exported files/directories and unchanged input seals, then requires both completed canvas dimensions/hashes. Desktop/mobile screenshots remain private. A resized desktop viewport does not prove physical mobile behavior.
+
+Replay the new movie and exported `initial_user_state` with unchanged stock Azahar at the same clock and finite boundary. Invoke unchanged `compare_movie_replay.py` with that new movie explicitly. Exact replay is required separately from recording. Arbitrary clock endpoints, factory-name collisions, calls across reinstall, unbounded sessions and semantic gameplay remain outside this family's proof. `project/browser_touch_input_evidence.md` records executed evidence and preserved failed attempts.
+
 ## Sampled frames during execution
 
-Add --frame-output to a finite software-presentation server profile. The optional version-one boolean frame_output defaults to false and rejects a GPU-only first-swap profile. It can accompany movie playback or live-button/circle-pad recording. During playback, a neutral public input device supplies the CPU sampling callback; the original movie still supplies every delivered HID value, and the live setter remains inactive.
+Add --frame-output to a finite software-presentation server profile. The optional version-one boolean frame_output defaults to false and rejects a GPU-only first-swap profile. It can accompany movie playback or live-button/circle-pad/touch recording. During playback, a neutral public input device supplies the CPU sampling callback; the original movie still supplies every delivered HID value, and the live setter remains inactive.
 
 BrowserFrameOutput uses public RendererSoftware::Screen data on the application's ordinary HID callback after completed SwapBuffers. Top-left screen 0 and bottom screen 2 are copied as one pair. Software bytes already have landscape row-major orientation: display width is ScreenInfo.height, display height is ScreenInfo.width. Frame and sample ticks retain uint64 identity through low/high metadata words and decimal strings. Sample ticks describe the later HID observation, not the preceding presentation tick.
 

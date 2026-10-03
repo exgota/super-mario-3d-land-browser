@@ -29,6 +29,11 @@ let circleSequence = 0;
 let circleProgress;
 let circleControls;
 const circleRequests = [];
+let touchTimer;
+let touchSequence = 0;
+let touchProgress;
+let touchControls;
+const touchRequests = [];
 let frameTimer;
 let frameTask;
 let pendingFrame;
@@ -41,13 +46,18 @@ function requireCondition(condition, message) {
 }
 
 function recording() {
-    return descriptor.options.live_button_capture || descriptor.options.live_circle_pad_capture;
+    return descriptor.options.live_button_capture || descriptor.options.live_circle_pad_capture || descriptor.options.live_touch_capture;
 }
 
 function circlePosition(x, y) {
     requireCondition(Number.isSafeInteger(x) && Number.isSafeInteger(y) &&
         x >= -154 && x <= 154 && y >= -154 && y <= 154 && x * x + y * y <= 154 * 154,
         'Invalid circle-pad position');
+}
+
+function touchState(x, y, pressed) {
+    integer(x, 319); integer(y, 239); integer(pressed, 1);
+    requireCondition(pressed === 1 || (x === 0 && y === 0), 'Invalid released touch position');
 }
 
 function integer(value, maximum = Number.MAX_SAFE_INTEGER, minimum = 0) {
@@ -87,7 +97,7 @@ function validateStart(value) {
         typeof value.capture_identifier === 'string' &&
         /^[A-Za-z0-9_-]{1,64}$/.test(value.capture_identifier), 'Invalid start descriptor');
     record(value.inputs, ['dump', 'block_schedule', 'movie', 'initial_user_files', 'initial_user_directories']);
-    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'live_circle_pad_capture',
+    const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'live_circle_pad_capture', 'live_touch_capture',
                              'record_base_ticks', 'frame_output']
         .filter(key => Object.hasOwn(value.options, key));
     record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
@@ -95,15 +105,17 @@ function validateStart(value) {
     const audioCapture = Object.hasOwn(value.options, 'audio_capture') ? value.options.audio_capture : false;
     const liveButtonCapture = Object.hasOwn(value.options, 'live_button_capture') ? value.options.live_button_capture : false;
     const liveCirclePadCapture = Object.hasOwn(value.options, 'live_circle_pad_capture') ? value.options.live_circle_pad_capture : false;
+    const liveTouchCapture = Object.hasOwn(value.options, 'live_touch_capture') ? value.options.live_touch_capture : false;
     const frameOutput = Object.hasOwn(value.options, 'frame_output') ? value.options.frame_output : false;
     requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
-        typeof liveButtonCapture === 'boolean' && typeof liveCirclePadCapture === 'boolean' && typeof frameOutput === 'boolean' &&
+        typeof liveButtonCapture === 'boolean' && typeof liveCirclePadCapture === 'boolean' && typeof liveTouchCapture === 'boolean' && typeof frameOutput === 'boolean' &&
         (!frameOutput || value.options.presentation_limit !== null) &&
         (!liveButtonCapture || (inputCapture && audioCapture)) &&
         (!liveCirclePadCapture || (inputCapture && audioCapture)) &&
+        (!liveTouchCapture || (inputCapture && audioCapture && frameOutput)) &&
         (!audioCapture || inputCapture) &&
         (!(inputCapture || audioCapture) || value.options.presentation_limit !== null), 'Invalid observation profile');
-    requireCondition((liveButtonCapture || liveCirclePadCapture) ? typeof value.options.record_base_ticks === 'string' &&
+    requireCondition((liveButtonCapture || liveCirclePadCapture || liveTouchCapture) ? typeof value.options.record_base_ticks === 'string' &&
         /^(0|[1-9][0-9]{0,18})$/.test(value.options.record_base_ticks) &&
         BigInt(value.options.record_base_ticks) <= BigInt(Number.MAX_SAFE_INTEGER) :
         !Object.hasOwn(value.options, 'record_base_ticks'), 'Invalid recording clock');
@@ -148,7 +160,7 @@ function validateStart(value) {
     requireCondition(inputs.reduce((sum, input) => sum + input.expected_bytes, 0) <= MaximumOutputBytes,
                      'Input extent exceeds the finite worker bound');
     return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture,
-                               live_button_capture: liveButtonCapture, live_circle_pad_capture: liveCirclePadCapture,
+                               live_button_capture: liveButtonCapture, live_circle_pad_capture: liveCirclePadCapture, live_touch_capture: liveTouchCapture,
                                frame_output: frameOutput},
             validated_inputs: inputs};
 }
@@ -164,6 +176,7 @@ function fail(error) {
     phase = 'failed';
     clearInterval(buttonTimer);
     clearInterval(circleTimer);
+    clearInterval(touchTimer);
     clearInterval(frameTimer);
     if (pendingFrame) {
         clearTimeout(pendingFrame.timer);
@@ -683,12 +696,14 @@ async function finish(status) {
     phase = 'validating';
     clearInterval(buttonTimer);
     clearInterval(circleTimer);
+    clearInterval(touchTimer);
     // Any already copied ordinary frame can finish its page acknowledgment.
     // Native exports are forbidden here because SDK exitRuntime has run.
     await frameTask;
     requireCondition(phase === 'validating', 'Preview failure prevents capture completion');
     if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
     if (descriptor.options.live_circle_pad_capture) send({type: 'circle_pad_capture_ended'});
+    if (descriptor.options.live_touch_capture) send({type: 'touch_capture_ended'});
     const {files, directories} = enumerateCapture();
     const {outcome, presentation, entries} = validateEvents(files);
     const observations = validateObservations(presentation, entries);
@@ -724,6 +739,19 @@ async function finish(status) {
         manifest.circle_pad_progress = circleProgress;
         manifest.circle_pad_controls = circleControls;
         manifest.circle_pad_closed_polls = closure[0];
+    }
+    if (descriptor.options.live_touch_capture) {
+        const closure = stderr.flatMap(line => {
+            const match = /^browser touch closed after ([0-9]+) device polls; profile restored$/.exec(line);
+            return match ? [Number(match[1])] : [];
+        });
+        requireCondition(touchProgress?.poll_count > 0 && touchControls?.active &&
+            closure.length === 1 && closure[0] === observations.input.polls &&
+            entries.get('input_movie.ctm')?.size > 256, 'Touch device, cleanup or recorded movie is absent');
+        manifest.touch_requests = touchRequests;
+        manifest.touch_progress = touchProgress;
+        manifest.touch_controls = touchControls;
+        manifest.touch_closed_polls = closure[0];
     }
     requireCondition(encoder.encode(JSON.stringify({schema_version: 1,
         capture_identifier: descriptor.capture_identifier, transfer_identifier: nextTransferIdentifier,
@@ -782,13 +810,14 @@ async function start(value) {
             }
             for (const name of ['ROOT_PORT_BROWSER_BUTTON_CAPTURE', 'ROOT_PORT_RECORD_INITIAL_USER_STATE',
                                 'ROOT_PORT_RECORD_BASE_TICKS', 'ROOT_PORT_BROWSER_FRAME_OUTPUT',
-                                'ROOT_PORT_BROWSER_CIRCLE_PAD_CAPTURE']) delete instance.ENV[name];
+                                'ROOT_PORT_BROWSER_CIRCLE_PAD_CAPTURE', 'ROOT_PORT_BROWSER_TOUCH_CAPTURE']) delete instance.ENV[name];
             if (descriptor.options.frame_output) instance.ENV.ROOT_PORT_BROWSER_FRAME_OUTPUT = '1';
             if (descriptor.options.live_button_capture) {
                 instance.ENV.ROOT_PORT_BROWSER_BUTTON_CAPTURE = '1';
             }
             if (descriptor.options.live_circle_pad_capture)
                 instance.ENV.ROOT_PORT_BROWSER_CIRCLE_PAD_CAPTURE = '1';
+            if (descriptor.options.live_touch_capture) instance.ENV.ROOT_PORT_BROWSER_TOUCH_CAPTURE = '1';
             if (recording()) {
                 instance.ENV.ROOT_PORT_RECORD_INITIAL_USER_STATE = '/owned/initial_user_state';
                 instance.ENV.ROOT_PORT_RECORD_BASE_TICKS = descriptor.options.record_base_ticks;
@@ -815,6 +844,19 @@ async function start(value) {
         requireCondition(circleControls.before_install.neutral === 2 && circleControls.before_install.out_of_range === 1 &&
             circleControls.before_install.outside_disk === 1 && circleControls.before_install.active === 0,
             'Inactive circle-pad controls failed');
+    }
+    if (descriptor.options.live_touch_capture) {
+        touchControls = {before_install: {
+            neutral: module._BrowserTouchInputSetState(0, 0, 0),
+            out_of_range: module._BrowserTouchInputSetState(320, 0, 1),
+            invalid_pressed: module._BrowserTouchInputSetState(0, 0, 2),
+            noncanonical_release: module._BrowserTouchInputSetState(1, 0, 0),
+            active: module._BrowserTouchInputIsActive()
+        }};
+        requireCondition(touchControls.before_install.neutral === 2 && touchControls.before_install.out_of_range === 1 &&
+            touchControls.before_install.invalid_pressed === 1 && touchControls.before_install.noncanonical_release === 1 &&
+            touchControls.before_install.active === 0,
+            'Inactive touch controls failed');
     }
     send({type: 'capture_started'});
     phase = 'running';
@@ -868,6 +910,44 @@ async function start(value) {
             send({type: 'circle_pad_capture_progress', ...circleProgress});
         } catch (error) { fail(error); }
     }, 25);
+    if (descriptor.options.live_touch_capture) touchTimer = setInterval(() => {
+        if (phase !== 'running') return;
+        try {
+            const active = module._BrowserTouchInputIsActive();
+            const pollCount = module._BrowserTouchInputPollCount();
+            const packed = module._BrowserTouchInputSampledState();
+            const x = packed & 0x1ff;
+            const y = (packed >>> 9) & 0xff;
+            const pressed = (packed >>> 17) & 1;
+            touchState(x, y, pressed);
+            if (active && !touchControls.active) {
+                touchControls.active = {
+                    negative_coordinate: module._BrowserTouchInputSetState(-1, 0, 1),
+                    outside_screen: module._BrowserTouchInputSetState(319, 240, 1),
+                    invalid_pressed: module._BrowserTouchInputSetState(0, 0, 2),
+                    noncanonical_release: module._BrowserTouchInputSetState(0, 1, 0)
+                };
+                requireCondition(Object.values(touchControls.active).every(status => status === 1),
+                    'Active touch controls failed');
+                if (!descriptor.options.live_button_capture) {
+                    touchControls.active.button_input_active = module._BrowserButtonInputIsActive();
+                    touchControls.active.button_setter_refused = module._BrowserButtonInputSetHeldState(1);
+                    requireCondition(touchControls.active.button_input_active === 0 &&
+                        touchControls.active.button_setter_refused === 2, 'Touch-only capture enabled A input');
+                }
+                if (!descriptor.options.live_circle_pad_capture) {
+                    touchControls.active.circle_input_active = module._BrowserCirclePadInputIsActive();
+                    touchControls.active.circle_setter_refused = module._BrowserCirclePadInputSetPosition(0, 0);
+                    requireCondition(touchControls.active.circle_input_active === 0 &&
+                        touchControls.active.circle_setter_refused === 2, 'Touch-only capture enabled circle input');
+                }
+            }
+            touchProgress = {active, poll_count:pollCount, sampled_requested_x:x, sampled_requested_y:y,
+                sampled_requested_pressed:pressed, sampled_renderer_frame:module._BrowserButtonInputRendererFrame()};
+            send({type:'touch_capture_progress', ...touchProgress});
+        } catch (error) { fail(error); }
+    }, 25);
+
 }
 
 function setButton(value) {
@@ -899,6 +979,20 @@ function setCirclePad(value) {
     send({type: 'circle_pad_request_status', ...response});
 }
 
+function setTouch(value) {
+    record(value, ['schema_version', 'type', 'capture_identifier', 'sequence', 'x', 'y', 'pressed']);
+    requireCondition(value.schema_version === 1 && descriptor?.options.live_touch_capture &&
+        value.capture_identifier === descriptor.capture_identifier && integer(value.sequence, 4095) === touchSequence,
+        'Invalid touch request');
+    touchState(value.x, value.y, value.pressed);
+    ++touchSequence;
+    const status = phase === 'running' ? module._BrowserTouchInputSetState(value.x, value.y, value.pressed) : 2;
+    const response = {sequence:value.sequence, x:value.x, y:value.y, pressed:value.pressed, status,
+        accepted:status === 0, phase, ...(touchProgress ?? {})};
+    touchRequests.push(response);
+    send({type:'touch_request_status', ...response});
+}
+
 self.onmessage = event => {
     try {
         if (event.data?.type === 'acknowledge_preview') {
@@ -921,6 +1015,8 @@ self.onmessage = event => {
             clearTimeout(pending.timer); pending.resolve();
         } else if (event.data?.type === 'set_button_held_state') {
             setButton(event.data);
+        } else if (event.data?.type === 'set_touch_state') {
+            setTouch(event.data);
         } else if (event.data?.type === 'set_circle_pad_position') {
             setCirclePad(event.data);
         } else {

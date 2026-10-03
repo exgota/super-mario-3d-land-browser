@@ -9,6 +9,13 @@ const soundButton = document.querySelector('#play-recorded-sound');
 const soundStatus = document.querySelector('#sound-status');
 const liveButton = document.querySelector('#hold-a');
 const liveHelp = document.querySelector('#live-button-help');
+const touchScreen = document.querySelector('#bottom-screen');
+const touchHelp = document.querySelector('#touch-help');
+const touchPosition = document.querySelector('#touch-position');
+let touchPointer;
+let touchPoint = {x:160, y:120};
+const touchKeys = new Set();
+let touchAnimation;
 const circlePad = document.querySelector('#circle-pad');
 const circleButtons = [...circlePad.querySelectorAll('button')];
 const circleSources = new Map();
@@ -20,8 +27,141 @@ let latestPreviewFrame;
 const heldSources = new Set();
 
 function recording() {
-    return configuration?.options.live_button_capture || configuration?.options.live_circle_pad_capture;
+    return configuration?.options.live_button_capture || configuration?.options.live_circle_pad_capture || configuration?.options.live_touch_capture;
 }
+
+function publishTouchState() {
+    if (!session?.touchReady) return;
+    let pressed = touchPointer !== undefined || touchKeys.size ? 1 : 0;
+    let x = pressed ? touchPoint.x : 0, y = pressed ? touchPoint.y : 0;
+    // Reserve the final bounded request for release, then finish this capture.
+    if (session.touchSequence >= 4095) {
+        session.touchExhausted = true;
+        pressed = x = y = 0;
+        touchPointer = undefined;
+        touchKeys.clear();
+        if (touchAnimation !== undefined) cancelAnimationFrame(touchAnimation);
+        touchAnimation = undefined;
+    }
+    touchScreen.setAttribute('aria-pressed', String(pressed !== 0));
+    if (session.touchX === x && session.touchY === y && session.touchPressed === pressed) {
+        if (session.touchExhausted) touchAvailability();
+        return;
+    }
+    session.touchX = x; session.touchY = y; session.touchPressed = pressed;
+    session.worker.postMessage({schema_version:1, type:'set_touch_state',capture_identifier:session.identifier,
+        sequence:session.touchSequence++, x, y, pressed});
+    if (session.touchExhausted) touchAvailability();
+}
+
+function positionTouchCursor() {
+    touchPosition.style.left = `${(touchPoint.x + 0.5) / 320 * 100}%`;
+    touchPosition.style.top = `${(touchPoint.y + 0.5) / 240 * 100}%`;
+    touchPosition.toggleAttribute('hidden', !session?.touchReady || document.activeElement !== touchScreen);
+}
+
+function releaseTouch() {
+    if (touchAnimation !== undefined) cancelAnimationFrame(touchAnimation);
+    touchAnimation = undefined;
+    touchPointer = undefined;
+    touchKeys.clear();
+    publishTouchState();
+    positionTouchCursor();
+}
+
+function releaseTouchPointer() {
+    if (touchAnimation !== undefined) cancelAnimationFrame(touchAnimation);
+    touchAnimation = undefined;
+    touchPointer = undefined;
+    publishTouchState();
+    positionTouchCursor();
+}
+
+function touchAvailability() {
+    if (!configuration?.options.live_touch_capture || !session) return;
+    const completeTarget = !touchScreen.hidden && touchScreen.width === 320 && touchScreen.height === 240;
+    if (!completeTarget && session.touchReady && !session.touchExhausted) releaseTouch();
+    session.touchReady = session.touchPolled && completeTarget && !session.touchExhausted;
+    touchHelp.hidden = false;
+    touchHelp.textContent = session.touchExhausted ?
+        'Touch input reached this preview’s limit. Let the capture finish, then run it again.' : !completeTarget ?
+        'Touch will be available when the full bottom screen appears.' :
+        'Touch the bottom screen. With it focused, use arrow keys to choose a point, then hold Space or Enter.';
+    touchScreen.classList.toggle('touch-enabled', session.touchReady);
+    touchScreen.tabIndex = session.touchReady ? 0 : -1;
+    touchScreen.setAttribute('role', 'button');
+    touchScreen.setAttribute('aria-label','Touch bottom game screen');
+    touchScreen.setAttribute('aria-describedby','touch-help');
+    touchScreen.setAttribute('aria-disabled',String(!session.touchReady));
+    touchScreen.setAttribute('aria-pressed',String(session.touchPressed !== 0));
+    positionTouchCursor();
+}
+
+function hideTouch() {
+    releaseTouch();
+    if (session) session.touchReady = session.touchPolled = false;
+    touchPosition.setAttribute('hidden', '');
+    touchHelp.hidden = true;
+    touchScreen.classList.remove('touch-enabled');
+    touchScreen.tabIndex = -1;
+    touchScreen.setAttribute('aria-label','Bottom game screen');
+    for (const name of ['role','aria-describedby','aria-disabled','aria-pressed']) touchScreen.removeAttribute(name);
+}
+
+function pointerTouchPoint(event, captured = false) {
+    const rectangle = touchScreen.getBoundingClientRect();
+    if (rectangle.width <= 0 || rectangle.height <= 0 || touchScreen.hidden ||
+        !Number.isFinite(event.clientX) || !Number.isFinite(event.clientY) ||
+        (!captured && (event.clientX < rectangle.left || event.clientX >= rectangle.right ||
+        event.clientY < rectangle.top || event.clientY >= rectangle.bottom))) return undefined;
+    return {x:Math.max(0, Math.min(319, Math.floor((event.clientX - rectangle.left) * 320 / rectangle.width))),
+            y:Math.max(0, Math.min(239, Math.floor((event.clientY - rectangle.top) * 240 / rectangle.height)))};
+}
+
+touchScreen.addEventListener('pointerdown',event => {
+    if (event.button !== 0 || !session?.touchReady || touchPointer !== undefined) return;
+    const point = pointerTouchPoint(event);
+    if (!point) return;
+    touchPoint = point;
+    touchPointer = event.pointerId;
+    touchScreen.setPointerCapture(event.pointerId);
+    touchScreen.focus({preventScroll:true});
+    positionTouchCursor();
+    publishTouchState();
+});
+touchScreen.addEventListener('pointermove',event => {
+    if (event.pointerId !== touchPointer || !session?.touchReady) return;
+    const point = pointerTouchPoint(event, true);
+    if (!point) return releaseTouchPointer();
+    touchPoint = point;
+    positionTouchCursor();
+    if (touchAnimation === undefined) touchAnimation = requestAnimationFrame(() => {
+        touchAnimation = undefined;
+        publishTouchState();
+    });
+});
+for (const name of ['pointerup','pointercancel','lostpointercapture'])
+    touchScreen.addEventListener(name,event => { if (event.pointerId === touchPointer) releaseTouchPointer(); });
+touchScreen.addEventListener('keydown',event => {
+    if (!session?.touchReady) return;
+    if (['Space','Enter'].includes(event.code)) {
+        event.preventDefault(); touchKeys.add(event.code); publishTouchState();
+    } else if (Object.hasOwn(arrowDirections,event.code)) {
+        event.preventDefault();
+        touchPoint.x = Math.max(0,Math.min(319,touchPoint.x + (event.code==='ArrowRight' ? 8 : event.code==='ArrowLeft' ? -8 : 0)));
+        touchPoint.y = Math.max(0,Math.min(239,touchPoint.y + (event.code==='ArrowDown' ? 8 : event.code==='ArrowUp' ? -8 : 0)));
+        positionTouchCursor(); publishTouchState();
+    }
+});
+touchScreen.addEventListener('keyup',event => {
+    if (!['Space','Enter'].includes(event.code)) return;
+    event.preventDefault(); touchKeys.delete(event.code); publishTouchState();
+});
+touchScreen.addEventListener('focus',positionTouchCursor);
+touchScreen.addEventListener('blur',releaseTouch);
+window.addEventListener('blur',releaseTouch);
+window.addEventListener('pagehide',releaseTouch);
+document.addEventListener('visibilitychange',()=>{if(document.hidden) releaseTouch();});
 
 function publishCirclePosition() {
     const directions = new Set(circleSources.values());
@@ -183,6 +323,7 @@ function requireCondition(condition, message) {
 function reportFailure(message) {
     hideButton();
     hideCirclePad();
+    hideTouch();
     discardAudio();
     if (session) {
         clearTimeout(session.watchdog);
@@ -269,6 +410,28 @@ async function receive(active, message) {
         document.body.dataset.circleRequestAccepted = String(message.status === 0);
     }
     else if (message.type === 'circle_pad_capture_ended') hideCirclePad();
+    else if (message.type === 'touch_capture_progress') {
+        requireCondition(configuration.options.live_touch_capture && [0,1].includes(message.active) &&
+            Number.isSafeInteger(message.poll_count) && message.poll_count >= 0 &&
+            Number.isSafeInteger(message.sampled_requested_x) && message.sampled_requested_x >= 0 && message.sampled_requested_x <= 319 &&
+            Number.isSafeInteger(message.sampled_requested_y) && message.sampled_requested_y >= 0 && message.sampled_requested_y <= 239 &&
+            [0,1].includes(message.sampled_requested_pressed) && Number.isSafeInteger(message.sampled_renderer_frame) &&
+            message.sampled_renderer_frame >= 0, 'The touch progress is invalid.');
+        active.touchPolled = message.active === 1 && message.poll_count > 0;
+        document.body.dataset.touchPollCount = String(message.poll_count);
+        document.body.dataset.touchRequestedX = String(message.sampled_requested_x);
+        document.body.dataset.touchRequestedY = String(message.sampled_requested_y);
+        document.body.dataset.touchRequestedPressed = String(message.sampled_requested_pressed);
+        document.body.dataset.sampledRendererFrame = String(message.sampled_renderer_frame);
+        touchAvailability();
+    }
+    else if (message.type === 'touch_request_status') {
+        requireCondition(configuration.options.live_touch_capture && Number.isSafeInteger(message.sequence) &&
+            [0,1,2].includes(message.status), 'The touch response is invalid.');
+        document.body.dataset.touchRequestSequence = String(message.sequence);
+        document.body.dataset.touchRequestAccepted = String(message.status === 0);
+    }
+    else if (message.type === 'touch_capture_ended') hideTouch();
     else if (message.type === 'preview_screens') {
         requireCondition(configuration.options.frame_output && !active.manifest &&
             Number.isSafeInteger(message.sequence) && message.sequence === (active.previewCount ?? 0) + 1 &&
@@ -280,13 +443,17 @@ async function receive(active, message) {
             (!latestPreviewFrame || BigInt(message.renderer_frame) > BigInt(latestPreviewFrame.renderer_frame)),
             'The preview frame order changed.');
         drawScreens(message.screens, true);
+        touchAvailability();
         active.previewCount = message.sequence;
         latestPreviewFrame = {sequence: message.sequence, renderer_frame: message.renderer_frame,
             sampled_ticks: message.sampled_ticks, screens: message.screens.map(({rgba, ...screen}) =>
                 ({...screen, bytes: rgba.byteLength}))};
         document.body.dataset.previewFrameCount = String(active.previewCount);
         document.body.dataset.previewRendererFrame = message.renderer_frame;
-        status.textContent = configuration.options.live_circle_pad_capture ?
+        status.textContent = configuration.options.live_touch_capture ?
+            active.touchExhausted ? 'Showing sampled frames. Touch input has reached this preview’s limit.' :
+            active.touchReady ? 'Showing sampled frames. Touch the bottom screen to send input.' :
+            'Showing sampled frames. Touch will be available when the full bottom screen appears.' : configuration.options.live_circle_pad_capture ?
             'Showing sampled frames. Hold a direction to send input.' : configuration.options.live_button_capture ?
             'Showing sampled frames. Hold A to send input.' : 'Showing sampled frames from the recorded startup…';
         active.worker.postMessage({schema_version:1, type:'acknowledge_preview',
@@ -296,6 +463,7 @@ async function receive(active, message) {
     else if (message.type === 'capture_manifest') {
         hideButton();
         hideCirclePad();
+        hideTouch();
         requireCondition(!active.manifest, 'The capture manifest was repeated.');
         active.manifest = message;
         if (configuration.options.audio_capture) {
@@ -368,6 +536,7 @@ async function receive(active, message) {
 input.addEventListener('change', () => {
     hideButton();
     hideCirclePad();
+    hideTouch();
     discardAudio();
     error.hidden = true;
     button.disabled = !configuration || input.files.length !== 1;
@@ -382,6 +551,8 @@ form.addEventListener('submit', async event => {
         discardAudio();
         hideButton();
         hideCirclePad();
+        hideTouch();
+        touchPoint = {x:160, y:120};
         latestPreviewFrame = undefined;
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
@@ -396,6 +567,7 @@ form.addEventListener('submit', async event => {
         delete document.body.dataset.captureIdentifier;
         for (const key of ['sampledRendererFrame', 'buttonPollCount', 'buttonRequestSequence', 'buttonRequestAccepted',
                            'circlePollCount', 'circleRequestedX', 'circleRequestedY', 'circleRequestSequence', 'circleRequestAccepted',
+                           'touchPollCount','touchRequestedX','touchRequestedY','touchRequestedPressed','touchRequestSequence','touchRequestAccepted',
                            'previewFrameCount', 'previewRendererFrame'])
             delete document.body.dataset[key];
         for (const canvas of document.querySelectorAll('canvas')) canvas.hidden = true;
@@ -403,7 +575,8 @@ form.addEventListener('submit', async event => {
         document.querySelector('.preview').classList.remove('has-frame');
         const identifier = `capture_${crypto.randomUUID().replaceAll('-', '')}`;
         active = {identifier, abort: new AbortController(), buttonSequence: 0, buttonHeld: 0, buttonReady: false,
-                  circleSequence:0, circleX:0, circleY:0, circleReady:false};
+                  circleSequence:0, circleX:0, circleY:0, circleReady:false,
+                  touchSequence:0, touchX:0, touchY:0, touchPressed:0, touchReady:false, touchPolled:false, touchExhausted:false};
         session = active;
         active.watchdog = setTimeout(() => { if (session === active)
             reportFailure('The preview timed out. Run it again or check the local capture logs.'); },
@@ -457,7 +630,8 @@ try {
     configuration = await response.json();
     requireCondition(configuration.schema_version === 1, 'The local preview configuration is incompatible.');
     if (configuration.options.frame_output)
-        document.querySelector('#preview-note').textContent = configuration.options.live_circle_pad_capture ?
+        document.querySelector('#preview-note').textContent = configuration.options.live_touch_capture ?
+            'Sampled game frames appear during this finite run. Touch the bottom screen to send input. Recorded sound is ready when the run ends.' : configuration.options.live_circle_pad_capture ?
             'Sampled game frames appear during this finite run. Hold a direction to send input. Recorded sound is ready when the run ends.' : configuration.options.live_button_capture ?
             'Sampled game frames appear during this finite run. Hold A to send input. Recorded sound is ready when the run ends.' :
             'Sampled game frames appear during the recorded startup. The final frame and recorded sound arrive when the run ends.';
