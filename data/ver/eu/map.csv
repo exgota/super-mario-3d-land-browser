@@ -6137,7 +6137,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00213950,          ,0x00213958,          ,O,f,fn_00213950,
 0x00213958,0x00213A50,0x00213A60,          ,U,f,,
 0x00213A60,0x00213B70,0x00213B74,          ,U,f,,
-0x00213B74,0x00213C5C,0x00213C64,          ,U,f,,
+0x00213B74,0x00213C5C,0x00213C64,          ,O,f,fn_00213B74,
 0x00213C64,0x00213E9C,0x00213EB0,          ,U,f,,
 0x00213EB0,0x00213ED4,0x00213EDC,          ,U,f,,
 0x00213EDC,          ,0x00213F2C,          ,U,f,,
