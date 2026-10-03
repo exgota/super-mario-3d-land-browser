@@ -27,7 +27,31 @@ wall/memory/output policies, permit explicit Stop and use ordinary HID/movie
 recording. No synthetic pixels, native renderer feed, RAM injection or game data
 in git. Session completion is distinct from complete replay or goal credit.
 
-Inspect source/dependency closure before choosing the smallest implementation.
+Selected implementation: optional session dispatches before existing GPU
+capture bodies, no per-command files, natural presentation/Stop boundary and
+one final screen/framebuffer pair. Fully unset capture bodies remain untouched.
+The helper implements only this observer. Root integrates the frontend/browser.
+
+The browser archive closure was retired as finished compiler scratch. Preserved
+compile inventories contain1357commands, all source files present. Private
+recover_browser_link_inputs_revision_2.py reconstructs needed archives/objects from
+recorded commands in absent baseline_recovery. Require original archive/object
+SHA and full Node/browser wasm byte identity, then original source preservation.
+Limits: one compiler,300sec per compile,7200sec total,4GiB additional monitored
+disk and16GiB free floor. First preflight refused before output/compile: the touch-final wasm is also
+retired. A full browser-build scan found zero retained wasm files. Old browser
+execution was verified, but no fresh runnable browser module is on disk now.
+Revision2 binds regenerated wasm to the historical accepted SHA rather than
+claiming an absent file was preserved. Preserve the old refusal/script.
+Recovery completed with byte-identical23archives, standalone Node main object,
+full Node wasm and full browser wasm63e495ab. All1327platform objects and seven
+browser frontend objects rebuilt from preserved recipes. Initial browser link
+refusal (retired frontend objects) remains sealed. Final recovery receipt
+2b49b5b370370624 below earns closure recovery only, no new runtime execution credit.
+Isolated module revision4 links successfully,152434537wasm bytes,
+dedf5b6d87089194a3aa1fa62c4c581d987c5619262f1ea4e57d367b08402feb.
+Archive member evidence: only GPU/headless/audio observers changed. All old
+providers/source preserved. Actual browser/default equality still pending.
 Do not edit the parked helper's GuestExecutionObservation/StaticArmBackend
 family or any accepted provider/build/recipe. Build into absent ignored paths
 using preserved dependencies. Measure loading, CPU, rasterization and frame
@@ -55,7 +79,10 @@ Historical retired raw requires regeneration. No factory restart/settings.
 The one existing helper completed the parked optional passive minimum-tick
 source patch in build/root_guest_execution_tick_selection. Receipt134b702e
 and diff28290f35 preserve nine runtime inputs. No build/execution/commit/submission
-of that patch. Review it only at the state-comparison step. No helper is active.
+of that patch. Review it only at the state-comparison step. The same helper
+completed only GameplaySession.h/.cpp, receipt5d7cb771. The same one helper
+now owns scoped BrowserCaptureWorker/Page and HTML/CSS controls integration;
+root owns C++/build, selected audio bound and actual verification. No reviewers.
 Aquinas is absent/archived. No new reviewers or unrelated harness work.
 Pro handles all layout/type/control/update proposals. Exit-boundary answer is
 conditional, preserves the old false validator and lacks construction ancestry.
@@ -74,4 +101,4 @@ Original-body question2f675f4d remains queued. Do not join independent cold boot
 Milestones1..4 retain accepted finite scopes.5/6 remain in progress. Whole-level
 Section7/goal, synchronized continuous audio, saves, physical mobile, sustained
 browser performance and complete rank-O source adapters remain unverified.
-Matching throughput zero. Current free bytes 21750730752.
+Matching throughput zero. Current free bytes 20516163584.

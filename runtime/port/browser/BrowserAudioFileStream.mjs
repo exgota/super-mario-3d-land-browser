@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-// Read the unchanged audio observer's append-only file. Never alter its writer.
+// Read the audio observer's append-only file. Never alter its writer.
 const MaximumAudioBytes = 64 * 1024 * 1024;
+const MaximumGameplayAudioBytes = 256 * 1024 * 1024;
 const MaximumPacketBytes = 8192;
-const MaximumPackets = MaximumAudioBytes / MaximumPacketBytes;
 const AudioPath = '/capture/audio_pcm_s16le.bin';
 
 function requireCondition(condition, message) {
@@ -15,11 +15,15 @@ async function sha256(bytes) {
 }
 
 export class AudioFileStream {
-    constructor(fileSystem, captureIdentifier, deliver, nativePhase) {
+    constructor(fileSystem, captureIdentifier, deliver, nativePhase, maximumAudioBytes = MaximumAudioBytes) {
         requireCondition(fileSystem && typeof fileSystem.read === 'function' &&
             typeof fileSystem.analyzePath === 'function' && typeof deliver === 'function' &&
             typeof nativePhase === 'function' && typeof captureIdentifier === 'string' &&
             /^[A-Za-z0-9_-]{1,64}$/.test(captureIdentifier), 'Invalid audio observer stream');
+        requireCondition(maximumAudioBytes === MaximumAudioBytes || maximumAudioBytes === MaximumGameplayAudioBytes,
+            'Invalid bounded audio stream profile');
+        this.maximumAudioBytes = maximumAudioBytes;
+        this.maximumPackets = maximumAudioBytes / MaximumPacketBytes;
         this.fileSystem = fileSystem;
         this.captureIdentifier = captureIdentifier;
         this.deliver = deliver;
@@ -45,7 +49,7 @@ export class AudioFileStream {
         const information = this.fileSystem.stat(AudioPath);
         requireCondition(this.fileSystem.isFile(information.mode) &&
             Number.isSafeInteger(information.size) && information.size >= this.largestExtent &&
-            information.size <= MaximumAudioBytes, 'Audio observer file type or extent changed');
+            information.size <= this.maximumAudioBytes, 'Audio observer file type or extent changed');
         this.largestExtent = information.size;
         requireCondition(!final || information.size % 4 === 0, 'Completed audio observer has a partial stereo pair');
         return information.size - information.size % 4;
@@ -55,7 +59,7 @@ export class AudioFileStream {
         const extent = this.extent(final);
         requireCondition(extent >= this.position, 'Audio observer stream moved backwards');
         if (extent === this.position || (!final && extent - this.position < MaximumPacketBytes)) return false;
-        requireCondition(this.records.length < MaximumPackets, 'Audio stream packet budget exceeded');
+        requireCondition(this.records.length < this.maximumPackets, 'Audio stream packet budget exceeded');
         const bytes = new Uint8Array(Math.min(MaximumPacketBytes, extent - this.position));
         const source = this.fileSystem.open(AudioPath, 'r');
         try {
@@ -95,7 +99,7 @@ export class AudioFileStream {
         if (sampleFrames === previous) return;
         // Retain progress only at packet-sized intervals and at the first frame.
         if (this.consumptionReports.length && sampleFrames - previous < MaximumPacketBytes / 4) return;
-        requireCondition(this.consumptionReports.length < MaximumPackets + 1,
+        requireCondition(this.consumptionReports.length < this.maximumPackets + 1,
             'Audio consumption report budget exceeded');
         this.consumptionReports.push({sample_frames: sampleFrames, native_phase: this.nativePhase(),
             source_extent_bytes: this.extent(false)});

@@ -46,6 +46,9 @@ def main():
     parser.add_argument("--frame-output", action="store_true", help="show bounded completed-screen samples during execution")
     parser.add_argument("--presentation-limit", type=int, default=60)
     parser.add_argument("--wall-time-seconds", type=int, default=180)
+    parser.add_argument("--gameplay-session-presentations", type=int,
+                        help="normal gameplay session without per-command GPU files, up to 60000 presentations")
+    parser.add_argument("--gameplay-input-mode", choices=("record", "replay"), default="record")
     parser.add_argument("--port", type=int, default=8765)
     args = parser.parse_args()
     module, output = args.module.resolve(), args.output.resolve()
@@ -55,6 +58,11 @@ def main():
         raise ValueError("Invalid approved dump identity")
     if not 1 <= args.presentation_limit <= 3600 or not 1 <= args.wall_time_seconds <= 3600:
         raise ValueError("Invalid finite capture bound")
+    gameplay = args.gameplay_session_presentations is not None
+    if gameplay and (not 1 <= args.gameplay_session_presentations <= 60000 or args.first_swap):
+        raise ValueError("Invalid bounded gameplay session")
+    if gameplay and args.gameplay_input_mode == "replay" and (args.live_button or args.live_circle_pad or args.live_touch):
+        raise ValueError("Gameplay replay cannot override recorded input")
     if args.first_swap and (args.observe_input or args.observe_audio or args.stream_audio or args.live_button or args.live_circle_pad or args.live_touch or args.frame_output):
         raise ValueError("Input/audio observation needs a software-presentation boundary")
     if args.live_touch and not args.frame_output:
@@ -62,6 +70,8 @@ def main():
     manifest = json.loads((module / "build_manifest.json").read_text())
     if manifest.get("passed") is not True:
         raise ValueError("Browser module did not link successfully")
+    if gameplay and manifest.get("gameplay_session_supported") is not True:
+        raise ValueError("Browser module does not include the selected gameplay frontend")
     assets = {"/": ROOT / "runtime/port/browser/index.html"}
     for path in (ROOT / "runtime/port/browser").iterdir():
         if path.suffix in (".html", ".css", ".mjs"):
@@ -117,6 +127,21 @@ def main():
         configuration["options"]["live_circle_pad_capture"] = True
     if args.live_touch:
         configuration["options"]["live_touch_capture"] = True
+    if gameplay:
+        options = configuration["options"]
+        options.update({"gameplay_session_presentations": args.gameplay_session_presentations,
+                        "gameplay_input_mode": args.gameplay_input_mode,
+                        "presentation_limit": None, "input_capture": True, "audio_capture": True,
+                        "frame_output": True})
+        del options["pica_payload_limit_bytes"]
+        for key in ("live_button_capture", "live_circle_pad_capture", "live_touch_capture", "record_base_ticks"):
+            options.pop(key, None)
+        if args.gameplay_input_mode == "record":
+            movie = load_movie(args.reference / "input_movie.ctm")
+            if not 0 <= movie["base_ticks"] <= 2**53 - 1:
+                raise ValueError("Recording clock exceeds the exact browser range")
+            options.update({"record_base_ticks": str(movie["base_ticks"]), "live_button_capture": True,
+                            "live_circle_pad_capture": True, "live_touch_capture": True})
     protected = {str(path): digest(path) for path in {*assets.values(), *sidecars.values(),
                                                    module / "build_manifest.json"}}
     output.mkdir(parents=True)

@@ -34,6 +34,11 @@ private:
 }
 
 int main(int argc, char** argv) {
+    const char* gameplay = std::getenv("ROOT_PORT_GAMEPLAY_SESSION_PRESENTATIONS");
+    if (gameplay && (argc != 4 && argc != 6)) {
+        std::cerr << "Browser gameplay requires a bounded recording or read-only replay\n";
+        return 2;
+    }
     const char* requested = std::getenv("ROOT_PORT_BROWSER_BUTTON_CAPTURE");
     if (requested && (std::strcmp(requested, "1") != 0 || argc != 4)) {
         std::cerr << "Browser button recording requires value 1 and no playback movie\n";
@@ -55,14 +60,17 @@ int main(int argc, char** argv) {
         return 2;
     }
     if (frames) Port::StartBrowserFrameOutput();
-    if (requested || frames || circle || touch) Port::InstallBrowserButtonInput(requested != nullptr);
+    const bool gameplay_recording = gameplay && argc == 4;
+    const bool button_device = requested || frames || circle || touch || gameplay_recording;
+    if (button_device)
+        Port::InstallBrowserButtonInput(requested != nullptr || gameplay_recording, gameplay_recording);
     int status;
     {
         CirclePadInputScope circle_scope(circle != nullptr);
         TouchInputScope touch_scope(touch != nullptr);
         status = circle_scope.Valid() && touch_scope.Valid() ? RunStaticCompiledExecution(argc, argv) : 2;
     }
-    if (requested || frames || circle || touch) Port::UninstallBrowserButtonInput();
+    if (button_device) Port::UninstallBrowserButtonInput();
     if (frames) Port::StopBrowserFrameOutput();
     // Join and flush while the outer runtime worker can still service the
     // logger's synchronous file operations, before Emscripten starts exit.
