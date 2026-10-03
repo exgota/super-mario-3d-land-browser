@@ -3436,7 +3436,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0019D2A0,          ,0x0019D2DC,          ,U,f,,
 0x0019D2DC,0x0019D310,0x0019D314,          ,U,f,,
 0x0019D314,          ,0x0019D31C,          ,O,f,fn_0019D314,
-0x0019D31C,0x0019D3F4,0x0019D404,          ,U,f,,
+0x0019D31C,0x0019D3F4,0x0019D404,          ,O,f,fn_0019D31C,
 0x0019D404,          ,0x0019D40C,          ,O,f,fn_0019D404,
 0x0019D40C,0x0019D558,0x0019D570,          ,U,f,,
 0x0019D570,0x0019D624,0x0019D6A0,          ,U,f,,
