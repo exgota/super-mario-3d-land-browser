@@ -1,5 +1,5 @@
+#include <LiveActor/alActorInitializationImports.h>
 namespace {
-struct ActorInitInfo;
 struct Nerve { unsigned int vtable; };
 struct NothrowTag {};
 struct Helper;
@@ -29,23 +29,21 @@ struct Actor {
 };
 extern "C" {
 void _ZN2al17initActorPoseTQSVEPNS_9LiveActorE(Actor*);
-void fn_0028058C(Actor*, const ActorInitInfo*);
+void fn_0028058C(Actor*, const al::ActorInitInfo*);
 void _ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi(Actor*, const Nerve*, int);
 void* _ZnwjRKSt9nothrow_t(unsigned int, const NothrowTag&);
 Helper* fn_00147ADC(void*);
 void fn_0026D5E0(Actor*, Joint**, const char*);
 const Quaternion* _ZN2al7getQuatEPKNS_9LiveActorE(const Actor*);
-void fn_00280538(unsigned int*, const ActorInitInfo*);
-void fn_0027FCBC(unsigned int*, const ActorInitInfo*);
-void fn_0026EDDC(unsigned int*, const ActorInitInfo*);
-Switch* fn_0026D51C(Actor*, const ActorInitInfo*);
-Switch* fn_0026D49C(Actor*, const ActorInitInfo*);
-void fn_0027FAB8(Actor*);
+void fn_0027FCBC(unsigned int*, const al::ActorInitInfo*);
+void fn_0026EDDC(unsigned int*, const al::ActorInitInfo*);
+Switch* fn_0026D51C(Actor*, const al::ActorInitInfo*);
+Switch* fn_0026D49C(Actor*, const al::ActorInitInfo*);
 extern const Nerve dat_003F25F0;
 }
 }
 
-extern "C" void fn_001794C0(Actor* actor, const ActorInitInfo* info) {
+extern "C" void fn_001794C0(Actor* actor, const al::ActorInitInfo* info) {
     _ZN2al17initActorPoseTQSVEPNS_9LiveActorE(actor);
     fn_0028058C(actor, info);
     _ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi(actor, &dat_003F25F0, 0);
@@ -54,10 +52,10 @@ extern "C" void fn_001794C0(Actor* actor, const ActorInitInfo* info) {
     fn_0026D5E0(actor, &actor->wheelL, "WheelL");
     fn_0026D5E0(actor, &actor->wheelR, "WheelR");
     actor->initialQuaternion = *_ZN2al7getQuatEPKNS_9LiveActorE(actor);
-    fn_00280538(&actor->configuration, info);
+    fn_00280538(reinterpret_cast<al::IUseStageSwitch*>(&actor->configuration), *info);
     fn_0027FCBC(&actor->configuration, info);
     fn_0026EDDC(&actor->configuration, info);
     actor->switchA = fn_0026D51C(actor, info);
     actor->switchB = fn_0026D49C(actor, info);
-    fn_0027FAB8(actor);
+    fn_0027FAB8(reinterpret_cast<al::LiveActor*>(actor));
 }

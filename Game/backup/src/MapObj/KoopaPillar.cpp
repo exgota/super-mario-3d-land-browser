@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include <MapObj/KoopaPillar.h>
 
 #include <LiveActor/alActorInitUtil.h>
@@ -63,7 +64,6 @@ public:
 };
 
 extern "C" const KoopaPillarInitialNerve dat_003F2934;
-extern "C" bool fn_002794F8( int* out, const al::ActorInitInfo& info );
 extern "C" void fn_0027B51C( al::LiveActor*, const al::ActorInitInfo&, int );
 extern "C" void fn_00277E5C( al::LiveActor*, const al::ActorInitInfo&, int );
 extern "C" void fn_00226C98( al::LiveActor*, const al::ActorInitInfo& );

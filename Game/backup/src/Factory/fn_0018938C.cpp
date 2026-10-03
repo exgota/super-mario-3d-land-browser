@@ -1,5 +1,4 @@
-namespace al { class ActorInitInfo; }
-
+#include <LiveActor/alActorInitializationImports.h>
 namespace {
 struct Actor {
     char base[0x60];
@@ -19,11 +18,8 @@ void fn_0026F56C(Actor*, const al::ActorInitInfo*, int);
 void fn_00277de0(Actor*, const al::ActorInitInfo*);
 void* _ZnwjRKSt9nothrow_t(unsigned int, const void*);
 void* fn_0025A840(void*, Actor*, const al::ActorInitInfo*, const char*, int);
-bool fn_002794F8(int*, const al::ActorInitInfo&);
 void fn_0027D1DC(int*, const al::ActorInitInfo*);
 void fn_0027D180(float*, const al::ActorInitInfo*);
-void fn_00280538(void*, const al::ActorInitInfo*);
-void fn_0027FAB8(Actor*);
 void _ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi(Actor*, const Nerve*, int);
 extern Nerve dat_003F1DA8;
 extern Nerve dat_003F1DB0;
@@ -42,8 +38,8 @@ extern "C" void fn_0018938C(Actor* actor, const al::ActorInitInfo* info) {
     fn_002794F8(&actor->arg0, *info);
     fn_0027D1DC(&actor->arg1, info);
     fn_0027D180(&actor->arg2, info);
-    fn_00280538(reinterpret_cast<char*>(actor) + 12, info);
-    fn_0027FAB8(actor);
+    fn_00280538(reinterpret_cast<al::IUseStageSwitch*>(reinterpret_cast<char*>(actor) + 12), *info);
+    fn_0027FAB8(reinterpret_cast<al::LiveActor*>(actor));
     if (actor->arg1 > 0)
         _ZN2al9initNerveEPNS_9LiveActorEPKNS_5NerveEi(actor, &dat_003F1DA8, 0);
     else
