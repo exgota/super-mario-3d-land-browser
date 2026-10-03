@@ -11,3 +11,5 @@ No maps, ranks, ledger edits, game binaries, disassembly, tool output or binary 
 After a workspace reset, restore this branch before resuming unfinished source work.
 
 Restore one family against a freshly checked main tree; these separate drafts may propose overlapping headers.
+
+A filesystem discontinuity at 2026-10-03 23:17 UTC made the then-current local build evidence unavailable. Remote source backup survived. New recovered drafts preserve observed results as historical narrative; source restoration does not restore original objects, logs, or final sealing state.
