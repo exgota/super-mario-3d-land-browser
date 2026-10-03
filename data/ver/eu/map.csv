@@ -14472,7 +14472,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00343AB8,          ,0x00343AC8,          ,U,f,,
 0x00343AC8,          ,0x00343B00,          ,U,f,,
 0x00343B00,          ,0x00343C28,          ,U,f,,
-0x00343C28,          ,0x00343C30,          ,U,f,,
+0x00343C28,          ,0x00343C30,          ,O,f,fn_00343C28,
 0x00343C30,          ,0x00343C40,          ,U,f,,
 0x00343C40,          ,0x00343C50,          ,U,f,,
 0x00343C50,          ,0x00343C5C,          ,U,f,,
