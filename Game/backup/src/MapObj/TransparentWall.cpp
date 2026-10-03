@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include "MapObj/TransparentWall.h"
 
 #include <LiveActor/alActorInitUtil.h>
@@ -5,8 +6,6 @@
 #include <Placement/alPlacementFunction.h>
 #include <Stage/alStageSwitchKeeper.h>
 
-extern "C" void fn_00280538( al::IUseStageSwitch* receiver, const al::ActorInitInfo& info );
-extern "C" bool fn_0027FAB8( al::LiveActor* actor );
 extern "C" void fn_00270724( al::IUseStageSwitch* receiver, const al::ActorInitInfo& info );
 extern "C" void fn_0027AE3C( al::LiveActor* actor );
 

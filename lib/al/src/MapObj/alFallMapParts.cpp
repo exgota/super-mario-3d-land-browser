@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include <LiveActor/alActorInitInfo.h>
 #include <LiveActor/alActorInitUtil.h>
 #include <LiveActor/alActorPoseKeeper.h>
@@ -24,9 +25,6 @@ extern "C" void fn_0026FB1C( al::LiveActor* );
 
 extern "C" void fn_001C96B8( al::LiveActor* );
 extern "C" void fn_0028058C( al::LiveActor*, const al::ActorInitInfo& );
-extern "C" bool fn_002794F8( int*, const al::ActorInitInfo& );
-extern "C" void fn_00280538( al::IUseStageSwitch*, const al::ActorInitInfo& );
-extern "C" void fn_0027FAB8( al::LiveActor* );
 
 namespace al
 {

@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include "MapObj/AquariumSwimDebris.h"
 
 #include <LiveActor/alActorActionKeeper.h>
@@ -9,8 +10,6 @@
 #include <Stage/alStageSwitchKeeper.h>
 
 extern "C" const char dat_003BCDFC[];
-extern "C" void fn_00280538( al::IUseStageSwitch* receiver, const al::ActorInitInfo& info );
-extern "C" bool fn_0027FAB8( al::LiveActor* actor );
 
 namespace NrvAquariumSwimDebris
 {

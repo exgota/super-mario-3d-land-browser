@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include <File/alFileFunction.h>
 #include <LiveActor/alActorInitUtil.h>
 #include <LiveActor/alActorPoseKeeper.h>
@@ -26,7 +27,6 @@ struct EffectArchivePathBuffer
 extern "C" const sead::SafeString& fn_0028CB38( EffectArchivePathBuffer& path, const char* format, ... );
 extern "C" bool fn_0032F3C8( const sead::SafeString& archive );
 extern "C" void fn_001EBDDC( al::LiveActor* actor, const al::ActorInitInfo& info, const char* objectName );
-extern "C" bool fn_0027FAB8( al::LiveActor* actor );
 extern "C" const char dat_003B142C[];
 extern "C" const char dat_003B1440[];
 

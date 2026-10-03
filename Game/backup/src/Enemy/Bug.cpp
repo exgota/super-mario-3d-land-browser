@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include "Enemy/Bug.h"
 #include "Enemy/EnemyStateBlowDown.h"
 #include "Enemy/EnemyStateHipDropDown.h"
@@ -28,7 +29,6 @@ extern "C" void fn_00270FC4( al::LiveActor* actor, float amount, int direction )
 extern "C" const char* fn_0026C984( const al::LiveActor* actor, const char* action );
 extern "C" void fn_0027CF20( al::LiveActor* actor, const al::ActorInitInfo& info, int mode );
 extern "C" void fn_002535C8( al::LiveActor* actor, bool enabled );
-extern "C" bool fn_002794F8( int* value, const al::ActorInitInfo& info );
 extern "C" const sead::Vector3f& fn_00273DE0( const al::LiveActor* actor, int index );
 extern "C" void fn_00273BD4( al::LiveActor* actor, const sead::Vector3f& offset, int index );
 

@@ -1,3 +1,4 @@
+#include <LiveActor/alActorInitializationImports.h>
 #include <Camera/alCamera.h>
 #include <LiveActor/alActorInitUtil.h>
 #include <LiveActor/alActorPoseKeeper.h>
@@ -6,8 +7,6 @@
 #include <Stage/alStageSwitchKeeper.h>
 
 extern "C" const sead::Vector3f* fn_0026CCD0();
-extern "C" void fn_00280538( al::IUseStageSwitch* receiver, const al::ActorInitInfo& info );
-extern "C" bool fn_0027FAB8( al::LiveActor* actor );
 
 namespace al
 {
