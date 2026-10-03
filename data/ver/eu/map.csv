@@ -464,7 +464,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0010F9EC,0x0010FBC8,0x0010FBE0,          ,U,f,CFLi_ReplaceProhibitedCharInfo,
 0x0010FBE0,0x0010FC64,0x0010FC6C,          ,U,f,,
 0x0010FC6C,0x0010FCD4,0x0010FCD8,          ,U,f,,
-0x0010FCD8,0x0010FCF4,0x0010FCF8,          ,U,f,CFLi_SetIconDrawDoneCallback,
+0x0010FCD8,0x0010FCF4,0x0010FCF8,          ,O,f,CFLi_SetIconDrawDoneCallback,
 0x0010FCF8,          ,0x0010FD0C,          ,U,f,CFLi_SetModelDrawDoneCallback,
 0x0010FD0C,0x001100B4,0x001100B8,          ,U,f,CFLi_SetReceivedPacketAsync,
 0x001100B8,          ,0x001100CC,          ,U,f,CFLi_SetWorking,
