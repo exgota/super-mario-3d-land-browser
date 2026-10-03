@@ -1,26 +1,71 @@
-# Root connected guest execution observation state
+# Root port runtime state
 
-Root owns root/guest-execution-observation, frozen origin/main80c334855e991839cd1f4ca69d30babe5b73f74e. Ownership c9df36ac precedes implementation16fd5a89. Runtime scope: GuestExecutionObservation header/source, StaticArmBackend header/source, native AzaharStaticExecution frontend, separate source-only CMake patch, usage/evidence/daily/STATE. Only integrator moves/pushes main/ranks/ledger. No Game/lib/config/map/ranks/Factory/ledger/protected matching-tool or scheduler changes. Matching claims/newly translated bytes0, existing linked recompiled2437712. One existing helper has completed the source-only capacity correction and frozen isolated builder; no new reviewers/unrelated browser/harness work. Aquinas remains archived. Current effort ultra; next actual relay xhigh remains unverified.
+Root owns `root/guest-execution-observation`, frozen `origin/main`
+`80c334855e991839cd1f4ca69d30babe5b73f74e`. Ownership `c9df36ac` precedes
+implementation. Only integrator moves/pushes main or writes ranks/ledger.
+No Game/lib/config/map/Factory/ledger/protected matching-tool, scheduler,
+translated module or oracle changes. Matching claims/new translated bytes: 0.
+Existing linked recompiled bytes: 2437712. Root works only on port runtime;
+layout questions go to Pro. The one implementation helper is completed.
+Aquinas is archived. Effort remains ultra; next actual relay must use xhigh.
+No verified effort change, new reviewer or unrelated harness work.
 
-Purpose is finite passive charge-entry/callback history for Pro to connect the natural writer caller, getter call/read/return, byte store and observed successor. No class/player/lifetime/update/architectural retirement claim. Original RAM instruction candidates are sampled without guest/MMIO reads. Actual memory operations run exactly once. All observation options unset retain the old no-observer path. CPU/context/charge/ordinal/mapping/admission ordering and explicit gaps remain in every record. Prehistory, windows, records, bytes and internal storage are bounded; incomplete/error paths must fail honestly. No game address/opcode constants in public runtime source. Layouts and factory-owned small functions remain with Pro/factory.
+Finished family, awaiting submission verdict:
 
-The first isolated build failed compile_StaticArmBackend because clean CP15_REGISTER_COUNT is84 and proposed snapshot capacity was64. Its receipt build/guest_execution_provider/build_receipt.json SHA25640196bac6890d9fc739d3f3cd9b8dbe01f1e4b118d40abb9a4a43df2d4f0de4c preserves all original inputs, failed outputs and old handoff/builder. Source correction derives capacity from the clean enum, checks exact array type/extent equality, and documents84slots. Existing observation logic and serialization remain unchanged. Root independently read the final source diff, full fresh builder diff and handoff and verified every final/preserved/artifact/header identity. No old failed object is reused.
+The optional passive window records bounded charge-entry history, actual
+callbacks and explicit discontinuities around an externally supplied address.
+No game address/opcode constants or class assumptions. Actual memory operations
+execute once. Diagnostic samples use checked direct ordinary RAM, without
+extra guest/MMIO operations. Coverage/context/table/admission gaps stay explicit.
+No architectural-retirement, player, lifetime or completed-update claim.
 
-Fresh builder build/build_isolated_guest_execution_provider_revision_1.py SHA2568535171d907ca509a6734fd44f4aa2f896f33d3a787d94ef5332471ab34ec42b completed0. Receipt build/guest_execution_provider_revision_1/build_receipt.json SHA2562a8d01e22e38532a7b93c8a25e9353295787aa07c7866fae059e77abaaacf487 records11successful stages in5.881077sec,3430sealed inputs and22outputs; inputs/aliases preserve. It compiles changed backend/frontend plus new observer, reuses unchanged writer and six original objects, retains exact accepted archive links. Isolated native executable31833944bytes SHA2560d5ebb49a6e64bfce6aebea2013d627986f8def3472884b3f317de0aec18805f. Native only; compiled-module frontend/implicit framework/linker closure unverified. Builder prerequisites/initial identity audit precede its measured build clock.
+Final isolated build `53677a86` passes 11 stages, preserves 3457 inputs and seals
+22 outputs. Native executable `cdc7bbd7`. Initial CP15 assertion failure and
+revision 1 stale-association failure remain retained. Final capacity follows
+clean 84-slot enum/type. First invalidating boundary ends current association;
+later outside-charge events remain gaps. No limits/memory/scheduler change.
 
-Actual canonical360 original reference/movie/snapshot are independently pinned, including the separately recorded audio reference and its earlier identical input-movie pair. Root-authored ignored replay controller build/replay_guest_execution_movie.py SHA25614287eb5926aec8a0dc1a147a9bccdc8bb1edcce398a4b2adef08420aef88281 strips inherited ROOT_PORT selections, uses only that original360pair, strong15GiB floor and finite output/time caps. Disabled native360 is running at120/180sec child/outer and128MiB PICA/perfile; enabled observation/full strict comparisons and post-comparison original seals remain unverified. Trigger provenance/context/history, limits/refusals, actual memory ordering and cost remain unverified. All source/provider/module/schedule/dump/original captures/snapshots are read-only. No matching credit or milestone5done.
+Three actual canonical 360 native runs pass unchanged full input/GPU/PICA/
+pixel/framebuffer/audio/tick comparisons and post-comparison original/provider
+seals: disabled `e60d98ce`, selected `b129c8c1`, unmapped `8461c315`.
+CPU 0: 393977876 instructions; CPU 1: zero; both fallbacks zero.
+Selected stream: 49 entries, 43 callbacks, one completed window, no loss.
+Original-code proof `6b2e9dd0` checks 189 valid samples and connected observed
+producer/getter/store/read/use successors. Zero-window negative passes honestly.
+Fourteen real refusal/limit controls `98b96e9f` pass with original preservation.
+Disabled/selected/unmapped diagnostic intervals: 54.28/273.29/462.49 seconds.
+Source closure, complete hashes, failed attempts and reproduction paths:
+`project/guest_execution_observation_evidence.md`.
 
-Separate accepted root-world-one-level-entry-d9c1d4548.json atbc177f86827b4f22591f394f3cb209c585146599 proves original1200/1800 saved-profile full comparisons and preservation, zero fallback; actual1800 is opening cinematic. Accepted bounds835148bc3 atda265cc6 proves full7200pair913c7dc7/whole-original9e86b557, World1map starting arrow only. Separate root/world-one-navigation owns fresh same-prefix Right6960/A7020 original7200 record; previous stock failed at128MiB GPU-log SIGXFSZ with original identities preserved and no credit. Fresh producer daa31a66 uses256MiB perfile,7200frames/1800+60sec/2GiB PICA/2560MiB total/720000files/15GiB floor. Original source7200/profile remain protected; current fresh record active, native replay not started.
+Connected question queued privately to Pro:
+`.integrator/pro_queue/layout/world-one-connected-application-slot-window.md`,
+SHA256 `945ddcae616e6dfe54a342eba16d9224eef39b3ccb23cd8d127ddc0390a130a5`.
+Root reconstructs no layout. No retrospective join to older writer recording.
 
-Owner cleanup receipts primary build/root_scratch_reclamation/reclamation_receipt.json de23be3b, native_7200_retirement/reclamation_receipt.json65034a12 and failed_navigation_retirement/reclamation_receipt.json2c3ef12c seal every retired file. Removed own inactive browser profiles, duplicate compiled/intermediate outputs, old complete3600/native7200 raw outputs and closed failed navigation raw payloads. Retained source/receipts/hashes/movies/snapshots/events/PNGs/original dump and every active comparison input. Failed navigation retirement alone525575files,1615746816logical/3304038400allocated bytes;46retained files/four protected receipts preserve. Free after that cleanup22.85GiB; active finite captures may consume space afterward. No factory restart/settings change.
+World 1-1 and owner-authorized disk cleanup:
+
+Accepted saved-profile `d9c1d4548` at `bc177f868`: exact 1200/1800 pairs,
+actual opening cinematic. Accepted bounds `835148bc3` at `da265cc6`: exact
+7200 pair, World 1 starting arrow. Neither establishes playable World 1-1.
+Separate `root/world-one-navigation` has complete original/native 7200 right/A
+replays, zero fallback. Actual pixels show World 1-1 start card with four lives.
+Full comparison/final original seal are running. No control/update/goal credit.
+
+Four cleanup receipts under primary `build/root_scratch_reclamation/` seal
+retired inactive browser profiles, duplicate intermediates, old complete 3600/
+native 7200/native 1200/1800 raw outputs and one closed failed navigation run.
+Source, receipts/hashes, owner dump, original stock references, movies/snapshots/
+profiles/events/PNGs and active inputs remain. Retired native raw needs
+regeneration before rerun. Free reached over 20 GiB; latest captures leave
+about 15.75 GiB. New World 1 capture limits: 7200 presentations, 1800/1860 seconds,
+2 GiB PICA, 2560 MiB total, 256 MiB/file, 720000 files, 15 GiB free floor,
+two-second poll. No factory restart/settings changes.
 
 Next three tasks:
-1. Finish disabled original360, unchanged full movie comparison and post-comparison original/provider seal. Then actual bounded enabled trace at externally selected original entry, same full comparison/zero fallback, actual refusal/limit controls and final source evidence. Measure per-charge pre-trigger cost before any optimization.
-2. Validate the actual connected natural trace against original code/map and CPU/context/admission/mapping identities. Submit only the self-contained dynamic question to Pro. Old writer witness is independent and cannot be retrospectively joined to a new recording. No saved-register ancestry or completed-update inference.
-3. Continue natural World1-1 entry/control/update/goal and whole Section7 suite through the separate navigation family. Milestone5/6, continuous audio/performance/save reloads and complete rank-O address replacements remain open. Keep private port_status/disk evidence current, submit finished branches without claims, report actual verdicts. No owner question now.
-
-Revision2 ends context.current after recording its first explicitly invalidating boundary. The configured history/window still owns that old charge. Later outside-current callbacks/boundaries stay counted gaps; callback straddles remain incomplete, no memory/scheduler/cap change. CPP SHA256 de28f8fb34ba6e99bc9c2f51b6971819996dcf40066ed1ed82df4e5251fb8850, usage af11d7bf, fresh builder c6880a10/handoff274d3638. Root independently reviewed exact source/builder diffs and all final/preserved/header/43retained artifacts. Fresh build53677a86 completes0,11stages/3457inputs/22outputs preserve in7.472301sec. Native31833944bytes cdc7bbd777d5dd35b9c6638456c29c3f1b5d5a224a8c1a6dc8c634a7882c36c9, no old failed/revision1 object reused. Native only and implicit system closure still limited.
-
-Revision2 disabled original360 completes0 in54.284196sec; unchanged full e60d98ce0d481e6288f796d5b352bb3eabc4268c21e43bea1bf379bbf16486e4 and post-comparison a4a4d9a635c928feab1629bb4b17d180cec03556a5235ffa2ce889e0c383fd90 pass, CPU0393977876 and both fallback0. Actual14 configuration/limit/existing-output/symbolic-link-parent controls complete, receipt98b96e9fbdd1f1579516e0190594e3bf5426d0c4173f98960b0a607b63033068. Every actual child refused with its intended reason within10sec; exhausted event/byte limits have false/incomplete footers. Protected provider/library/schedule/dump/movie/script/marker inputs preserve. Earlier private control script collision at its alias/case name remains a preserved failed partial11-case run, not14-case credit. Current controller fixes the collision in new ignored output paths, no original overwrite.
-
-Actual enabled natural writer-entry original360 is now running in native_enabled_writer_entry_revision_2_360, externally selected PC00276870/pre16/post32/windows1/events20000/16MiB observation stream,600/660sec child/outer,128MiB PICA/perfile/2560MiB total/720000files/15GiB floor. Fresh canonical controller cf7db84c and post-comparison verifier c7b4cd96 preserve old controllers. No trigger/connected history/full comparison/retirement/gameplay/cost credit yet. Previous failed tracea6441f24 had all original inputs preserved and no selected window. Match claims/new translated bytes remain0.
+1. Submit this finished family with no claims, report the actual verdict.
+   Never resubmit a waiting branch.
+2. Finish/submit the separate strict start-card comparison/seal. Retire only
+   sealed finished native scratch afterward, restoring at least 20 GB free.
+3. Continue natural playable World 1-1 control/update/goal, using Pro proposals
+   for layout-dependent state probes. Milestones 5/6, whole Section 7 suite,
+   continuous sound/performance/saves/complete rank-O adapters remain open.
