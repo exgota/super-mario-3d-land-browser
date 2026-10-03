@@ -1391,3 +1391,7 @@ Name only the four existing unnamed PackunFlower/Tenten function rows documented
 ## Shared interface cleanup batch, 2026-10-02
 
 The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d877732056c65d166f04` and actor-distance source `444b007a68bba2126e10aaf69b6c691a93c65de2` on frozen main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. All eleven final source/header files are byte-identical to the independently checked families. One acceptance pass avoids repeated full regression work. The standalone evidence retains each original ABI observation and its uncertainty. This is source contract maintenance with zero new matching credit.
+
+## 2026-10-03: BalanceTruck movement-power helper identity
+
+Name only the unchanged 536-byte U row at 0x0026D6C0 as `_ZN12BalanceTruck15updateMovePowerEv`. The class identity is supported by the BalanceTruck factory and constructor 0x00135420, which calls MapObjActor and installs 0x003C6BDC. Creator 0x003966DC allocates 0xB4 at 0x003966E8 and calls that constructor at 0x00396704. Callers 0x00134364, 0x00134E0C and 0x001351C0 agree on the receiver and fields at 0x88/0x8C, 0x90/0x94 and 0xB0. The method name is descriptive reconstruction, not recovered original C++ spelling. No rank, boundary, data row or helper identity changes. This refreshes the already published dot/root-26d6c0 proposal without claiming another matched root.
