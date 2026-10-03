@@ -12887,7 +12887,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00326CCC,          ,0x00326CD4,          ,O,f,fn_00326CCC,
 0x00326CD4,          ,0x00326CDC,          ,O,f,fn_00326CD4,
 0x00326CDC,          ,0x00326CE4,          ,O,f,fn_00326CDC,
-0x00326CE4,          ,0x00326CEC,          ,U,f,,
+0x00326CE4,          ,0x00326CEC,          ,O,f,fn_00326CE4,
 0x00326CEC,          ,0x00326CF4,          ,U,f,,
 0x00326CF4,          ,0x00326CFC,          ,U,f,,
 0x00326CFC,          ,0x00326D04,          ,O,f,fn_00326CFC,
