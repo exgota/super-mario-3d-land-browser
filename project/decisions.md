@@ -1395,3 +1395,12 @@ The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d87773
 ## 2026-10-03: Plant initializer name at 0x002F9060
 
 Name the unchanged 612-byte function row `_ZN5Plant4initERKN2al13ActorInitInfoE`. The primary vtable at 0x003D26B4 points to it in init slot +4. Constructor 0x002F92C4 calls the accepted MapObjActor constructor and installs that vtable; it initializes quaternion +0x60, actor/state pointers +0x70/+0x74, and integer fields +0x78/+0x7C. Plant remains an explicitly inferred class name from the initializer's archive and item-prefix strings, not an independently recovered factory identity. No extent, rank, data row, or helper identity changes.
+## Dot Nokonoko-family message address evidence
+- 00315C6C: neutral entry fn_00315C6C, primary vtable003D4018 slot+0x34 at003D404C; constructor3165D4/creator39887C establish ordinary MapObjActor base and0x88 extent. Predecessor returns315C28 before pool.
+- 0027A5FC: neutral imported step<=threshold query fn_0027A5FC, call315D10 uses real IUseNerve and threshold8.
+- 0031CD28: neutral shell activation fn_0031CD28, call315D50 passes shell+64, ordinary position/quaternion references and0.0f; constructor27ABF4 confirms shell actor base.
+- 003F2288: existing4-byte nerve row dat_003F2288; static constructor380F00 installs table003BBEE4.
+- 003F228C: existing4-byte nerve row dat_003F228C; static constructor380F0C installs table003BBEF4.
+- 003F2290: existing4-byte nerve row dat_003F2290; static constructor380F18 installs table003BBF04.
+- 003F2294: existing4-byte nerve row dat_003F2294; static constructor380F24 installs table003BBF14.
+Only missing names change; all ranks/types/pools/boundaries stay unchanged. No nerve table/body is reconstructed by these imports.
