@@ -1,26 +1,71 @@
-# Root saved-profile replay state
+# Root port runtime state
 
-Root owns root/world-one-level-entry, frozen origin/main 187f8bfcee80b7897807467f6bb6ee76aba44176. Ownership was committed in eee40e66 before work. This finished family proposes SAVED_PROFILE_REPLAY.md, project/world_one_level_entry_evidence.md, daily and this STATE. Its implementation patch is explicitly empty. Matching claims, new nonmatching game functions and new translated bytes are 0; linked recompiled bytes remain 2437712. No Game/lib/config/map/ranks/Factory/ledger/oracle changes. Only the integrator moves/pushes main or writes ranks/ledger. Submit once, inspect the actual verdict, never resubmit waiting or accepted work.
+Root owns `root/guest-execution-observation`, frozen `origin/main`
+`80c334855e991839cd1f4ca69d30babe5b73f74e`. Ownership `c9df36ac` precedes
+implementation. Only integrator moves/pushes main or writes ranks/ledger.
+No Game/lib/config/map/Factory/ledger/protected matching-tool, scheduler,
+translated module or oracle changes. Matching claims/new translated bytes: 0.
+Existing linked recompiled bytes: 2437712. Root works only on port runtime;
+layout questions go to Pro. The one implementation helper is completed.
+Aquinas is archived. Effort remains ultra; next actual relay must use xhigh.
+No verified effort change, new reviewer or unrelated harness work.
 
-Both saved-profile original/native cold boots complete and pass unchanged full movie comparison. At 1200, all 64127 GPU events/ticks, 50729 PICA files/230905872 bytes, 5088 HID polls, 675360 stereo frames and final screen metadata/RGBA/raw framebuffers match. Stock/native receipts 07dc34e6/070803af; comparison c182075f; post-comparison whole-original/provider/snapshot seal 63814e72 passes. Native CPU0 executes 825068608 instructions, both CPU fallbacks 0. Stock/native controller wall 337.302507417/284.947491999948 seconds includes provenance hashing. Actual pixels show a dark transition and black lower screen.
+Finished family, awaiting submission verdict:
 
-At 1800, all 117019 GPU events/ticks, 97621 PICA files/404399856 bytes, 7434 HID polls, 1003680 stereo frames and both screen/framebuffer streams match. Stock/native receipts 68984de9/9cfc660e; comparison 9a0ee24d; post-comparison seal 1072a80d passes. Native CPU0 executes 1045162125 instructions, both CPU fallbacks 0. Stock/native controller wall 481.458708250/361.479538874933 seconds. Actual stock/native pixels show the opening cinematic. No entered World 1-1 or saved-progress-load claim. All four guests are finished. The independent movie clocks differ; each native replay uses its own original movie/snapshot, never an inferred cross-recording prefix.
+The optional passive window records bounded charge-entry history, actual
+callbacks and explicit discontinuities around an externally supplied address.
+No game address/opcode constants or class assumptions. Actual memory operations
+execute once. Diagnostic samples use checked direct ordinary RAM, without
+extra guest/MMIO operations. Coverage/context/table/admission gaps stay explicit.
+No architectural-retirement, player, lifetime or completed-update claim.
 
-The profile is an ordinary copy of the completed stock7200 final user directory. Its 20-file manifest 38990e24 and 18444-byte GameData.bin SHA 44658bb7 preserve. No save decoding or editing, RAM continuation or manufactured game state. Both private profiles, whole original captures/snapshots and declared provider/module/schedule/source/archive/object/movie inputs preserve. Producer 49f5e27c and replay controller fdf6c96d remain ignored frozen source. The explicit root-authored 13-state A-only menu script f8603cc7 reaches every actual selected HID state. Class layouts go to Pro.
+Final isolated build `53677a86` passes 11 stages, preserves 3457 inputs and seals
+22 outputs. Native executable `cdc7bbd7`. Initial CP15 assertion failure and
+revision 1 stale-association failure remain retained. Final capacity follows
+clean 84-slot enum/type. First invalidating boundary ends current association;
+later outside-charge events remain gaps. No limits/memory/scheduler change.
 
-Actual capture bounds: 1200 or 1800 presentations; child/outer 360/420 or 540/600 seconds; 512 MiB PICA; 1 GiB monitored output; 720000 files; 128 MiB per file; 5 GiB free-space floor; two-second polling. These monitored thresholds are not filesystem quotas. All children return 0 with complete GPU/input/audio footers and unchanged full comparers. Required provider dependency has its actual isolated 12-stage build with 2133 sealed inputs and 24 outputs preserved. This is not a hermetic implicit operating-system linker closure. Accepted bounds result: root-gameplay-capture-bounds-835148bc3 at da265cc6567f0cad77a3f4edd5aa759c233e6220, no matching build input changed.
+Three actual canonical 360 native runs pass unchanged full input/GPU/PICA/
+pixel/framebuffer/audio/tick comparisons and post-comparison original/provider
+seals: disabled `e60d98ce`, selected `b129c8c1`, unmapped `8461c315`.
+CPU 0: 393977876 instructions; CPU 1: zero; both fallbacks zero.
+Selected stream: 49 entries, 43 callbacks, one completed window, no loss.
+Original-code proof `6b2e9dd0` checks 189 valid samples and connected observed
+producer/getter/store/read/use successors. Zero-window negative passes honestly.
+Fourteen real refusal/limit controls `98b96e9f` pass with original preservation.
+Disabled/selected/unmapped diagnostic intervals: 54.28/273.29/462.49 seconds.
+Source closure, complete hashes, failed attempts and reproduction paths:
+`project/guest_execution_observation_evidence.md`.
 
-Accepted immutable bounds7200 comparison 913c7dc7 matches 598803 GPU events/ticks, 516903 PICA payloads/1611203488 bytes, 28554 HID polls, 3957440 stereo frames and both screens/framebuffers, zero fallback. Whole-original preservation 9e86b557 passes. Actual map image puts Mario on the starting-arrow node, before stage 1. Next test: move right and press A near that endpoint, a diagnosis from observed position. Old file-limit failure and previous3599 rendered-index refusal remain retained. Never edit/resubmit that finished branch.
+Connected question queued privately to Pro:
+`.integrator/pro_queue/layout/world-one-connected-application-slot-window.md`,
+SHA256 `945ddcae616e6dfe54a342eba16d9224eef39b3ccb23cd8d127ddc0390a130a5`.
+Root reconstructs no layout. No retrospective join to older writer recording.
 
-Owner cleanup de23be3b individually seals then retires 542674 finished files: 31 inactive browser profiles, duplicate compiler outputs and old3600 raw payloads. All 41470 retained files and protected receipts preserve; initial free disk 22.8 GiB. Additional 65034a12 retirement removes only 516908 accepted finished native7200 PICA/PCM/RGBA/framebuffer files, 1628070048 logical/3286183936 allocated bytes. All 34 retained capture files and four sealed receipts preserve, selected files remaining 0. Manifest b647af6a holds each individual hash/extent, fsynced before deletion. Free afterward 25383178240 bytes, 23.64 GiB. Retired native raw comparison requires regeneration. Stock7200/profile, owner dump, current source/providers/module/schedule and saved-profile original inputs remain. No factory restart/settings changes.
+World 1-1 and owner-authorized disk cleanup:
 
-Accepted writer observer 5f69f41d6 at 08b5b8fc has three original360 comparisons and 12 real refusal/limit controls, zero fallback and all originals preserved. It proves one particular sample-coherent committed current-root slot store, no class/player/lifetime/completed-update identity. Pro natural-writer answer 8a293fe5 and getter answer e310b27c request connected natural entry/call/read/return/store/consumer evidence. Static getter deductions do not prove event ancestry. Root reconstructs no layout or factory-owned small function.
+Accepted saved-profile `d9c1d4548` at `bc177f868`: exact 1200/1800 pairs,
+actual opening cinematic. Accepted bounds `835148bc3` at `da265cc6`: exact
+7200 pair, World 1 starting arrow. Neither establishes playable World 1-1.
+Separate `root/world-one-navigation` has complete original/native 7200 right/A
+replays, zero fallback. Actual pixels show World 1-1 start card with four lives.
+Full comparison/final original seal are running. No control/update/goal credit.
 
-Separate root/guest-execution-observation owns generic passive bounded history, frozen origin/main 80c334855e991839cd1f4ca69d30babe5b73f74e, ownership c9df36ac. One existing implementation helper prepares only permitted runtime files, two native CMake source-list additions and documentation. Root independently reviews, builds isolated affected objects and checks actual disabled/enabled original movies and real refusal/limit controls. No new reviewers or unrelated browser/harness/process work. Aquinas is completed and archived. Effort remains ultra until the next actual relay send verifies xhigh; no setting change claimed.
+Four cleanup receipts under primary `build/root_scratch_reclamation/` seal
+retired inactive browser profiles, duplicate intermediates, old complete 3600/
+native 7200/native 1200/1800 raw outputs and one closed failed navigation run.
+Source, receipts/hashes, owner dump, original stock references, movies/snapshots/
+profiles/events/PNGs and active inputs remain. Retired native raw needs
+regeneration before rerun. Free reached over 20 GiB; latest captures leave
+about 15.75 GiB. New World 1 capture limits: 7200 presentations, 1800/1860 seconds,
+2 GiB PICA, 2560 MiB total, 256 MiB/file, 720000 files, 15 GiB free floor,
+two-second poll. No factory restart/settings changes.
 
 Next three tasks:
-1. Commit/push/submit this finished documentation family with no claims. Inspect and report its actual verdict. Continue port work while it verifies.
-2. On a new root branch, record finite natural right/A map navigation, preserving source profile and original evidence. Replay its own original movie/snapshot with complete unchanged channel/tick/payload checks and zero fallback. Keep finite wall/PICA/output/file/free limits explicit.
-3. Finish the separate execution observer and send the smallest connected packet to Pro. Establish controlled World 1-1 gameplay, completed-update state, goal and the whole Section 7 suite before milestone 5 done. Browser performance, synchronized continuous audio, save reloads, physical/mobile behavior and complete rank-O replacements remain open. Keep ignored port_status current.
-
-This family adds 0 matching bytes and 0 newly translated bytes during its measured preparation/capture/comparison/preservation interval. Runtime evidence is not exact-byte throughput. No owner question is needed now. Milestones 5/6 remain in progress.
+1. Submit this finished family with no claims, report the actual verdict.
+   Never resubmit a waiting branch.
+2. Finish/submit the separate strict start-card comparison/seal. Retire only
+   sealed finished native scratch afterward, restoring at least 20 GB free.
+3. Continue natural playable World 1-1 control/update/goal, using Pro proposals
+   for layout-dependent state probes. Milestones 5/6, whole Section 7 suite,
+   continuous sound/performance/saves/complete rank-O adapters remain open.
