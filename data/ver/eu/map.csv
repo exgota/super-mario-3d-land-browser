@@ -286,7 +286,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001082E0,0x0010841C,0x00108428,          ,U,f,_ZN4sead6ThreadC2ERKNS_14SafeStringBaseIcEEPNS_4HeapEiNS_12MessageQueue9BlockTypeEiii,
 0x00108428,          ,0x00108484,          ,U,f,_ZN4sead7ExpHeap9tryCreateEPvmRKNS_14SafeStringBaseIcEEb,
 0x00108484,0x00108660,0x00108684,          ,U,f,_ZNK2nn2gr3CTR11RenderState11MakeCommandEPjb,
-0x00108684,          ,0x00108690,          ,U,f,__fbv_initializeFBValidator,
+0x00108684,          ,0x00108690,          ,O,f,__fbv_initializeFBValidator,
 0x00108690,0x00108E70,0x00108F74,          ,U,f,__shv_initializeShaderValidator,
 0x00108F74,0x00109038,0x0010904C,          ,U,f,__txv_initializeTextureValidator,
 0x0010904C,          ,0x001090CC,          ,U,f,_ZN2nn2os10LockPolicy6ObjectINS0_15CriticalSectionEE10ScopedLockC1ERKNS4_10LockObjectE,
