@@ -7,7 +7,7 @@ zero; linked translated bytes 2,437,712. Only the integrator moves main.
 No Game/lib/config/map/rank/ledger/Factory or protected matching-tool changes.
 Root supplies runtime observations; Pro owns layout/type questions.
 
-## Completed original, native replay pending
+## Completed original and native replay
 
 Accepted stage continuation `029182727` is at `625280f8`. Accepted finite-window
 source `5b96cc61b` is at `864138d9`, with verdicts in `.integrator/results/`.
@@ -55,8 +55,25 @@ Original direct-child time1577.1098457920598 seconds; total including sealing
 1593.4958618329838. This diagnostic interval is not production performance.
 
 The native uses only this original's own movie/snapshot, with identical bounds.
-Its replay, strict separate-window comparison and post-comparison seal are
-pending. No native World1-1 control equality is claimed yet.
+It completes0 and matches all58,668 exported GPU records/ticks,52,060PICA
+payloads/263,115,680bytes,33,247HIDpolls,28,837audio blocks/18,455,680PCM bytes,
+691,200RGBA and345,600framebuffer bytes. Root inspected both final native
+screens. They match the original path/bridge image, timer478/coins0.
+CPU0 executes3,986,590,328 guest instructions/CPU1zero, both fallback zero.
+Direct child1855.395827875007 seconds;1901.006284083007 including sealing.
+The strict separate-window report and post-comparison preservation pass.
+Own movie583,643bytes has SHA-256
+`33306485c273671258cfd7266954d457f85c0cfb110515c5dabd5aa775e44b0e`.
+
+| Completed proof, under `native_world_one_control_7800_8400_revision_3` | SHA-256 |
+| --- | --- |
+| `execution_receipt.json` | `e2d61c861a4a7461ac5aaf803f090a0ce016869a2f9cd0ac4ebd2d581ad7e5cc` |
+| `window_comparison.json` | `0d61b734b18c77d0005a89f382e04362527eb377f5df9fd0404e518fe8b0d2d0` |
+| `post_comparison_preservation.json` | `64805bbc24625bfb4be09e3ba1507d4750fd3fda1faa6d5ac45ce85b80c06913` |
+
+The seal rehashes each original protected manifest and both capture trees,
+provider/source/profile/module/schedule/dump, own movie/snapshot and original
+receipt. Comparison and seal retain false full-prefix/Section7 scope flags.
 
 ## Private recipes and retained failures
 
@@ -79,13 +96,22 @@ remain byte-identical. Native case is
 option refused before launch; polling is fixed at2 seconds in the controller.
 A first PNG metadata-key lookup failed before any pixels/source were changed.
 
+Revision3 post-verification refused its35,209,716-byte native receipt at the
+private32MiB metadata reader bound, before writing a proof. The failure note
+remains and the successful comparison is unchanged. Separate verifier
+`verify_world_one_control_window_revision_4.py` SHA-256
+`4f7ee0c970a55bf382b28f6ef9db2b4492b9625994bd644335445fd14d11ecb9`
+reads completed receipt metadata under an explicit64MiB cap and pins the
+immutable native revision3 producer. All exact manifest/preservation gates
+remain. Its actual post-seal passes without editing captures/reports/oracles.
+
 After sourcing the primary development environment, use the immutable
 revision2 `record` and revision3 `replay` recipes with their declared explicit
 paths/bounds and absent output directories. Execution receipts retain full
 actual arguments/environment. Use the unchanged
 `build/comparison_sources/compare_window_movie_replay.py ORIGINAL/capture
 NATIVE/capture --movie ABSOLUTE_MOVIE --report NATIVE/window_comparison.json
---preview-directory NATIVE/pixel_previews`, then revision3 `verify --execute`
+--preview-directory NATIVE/pixel_previews`, then revision4 `verify --execute`
 with the matching case/report and absent post-seal JSON. Comparison receives
 the original movie's absolute path. No trace or report normalization.
 
@@ -122,8 +148,17 @@ is queued under ignored `.integrator/pro_queue/layout`. Pro answers remain
 proposals. Source-only4096-posthistory/96MiB preparation stops without execution
 or creating a second validator because accepted limits are512/64MiB. No
 provider expansion. A separate proposed exit0x00276a78/pre256/post512 canonical
-probe is running with the same finite selections. Local exit-to-store evidence
-and every missing entry/ancestry/type/phase obligation remain separate.
+probe completes0 with the same finite selections. Whole movie comparison
+`373ef7bb3f53303c9bd9ce51156884a6bc384a3ad89b41bedd93b8ba85e8c21f`,
+post-seal `e15a36a15b55c21f7ac344260591fa6529c844427120004d87a54592baa1c6d6`
+and mechanical report
+`0c62e9c495982da95d2141abc633a2b8525c1f51912169132128cb8f3ec2a0ba`
+pass. Exit, resumed r0, producer store and later actual first-word read are
+observed; construction ancestry/entry remains missing. The unchanged validator
+keeps local continuity unproven because its predicate rejects a translated
+return boundary. Actual full snapshots match and the accepted hook passes
+invalidate=false. A separate Pro packet preserves both facts; no report is
+rewritten and no type/lifetime/update claim follows.
 
 ## Finished scratch retirement and remaining scope
 
@@ -146,7 +181,9 @@ SHA-256 `265157445ac7290897956a54227459f14f8eab4d1221340c809063674c9f3555`,
 measures24,425,062,400 free bytes after the new active replay starts. Target20GB
 is met. It records exact retirement receipt identities and active capture caps.
 
-Milestones5/6 stay in progress. Native control equality, typed/controlled player,
+Final measured free23,814,406,144 bytes at2026-10-03T14:48:04.138010UTC.
+
+Milestones5/6 stay in progress. Typed/controlled player,
 lifetime, completed-update position/velocity/state/camera/RNG/timer/coins,
 goal pole and whole level replay suite remain unverified. Continuous synchronized
 sound, sustained browser performance, physical mobile, saves and complete
