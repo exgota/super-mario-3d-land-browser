@@ -1,52 +1,40 @@
 # Root World 1-1 finite stage continuation
 
-Root owns `root/world-one-stage-continuation`, frozen origin/main `e2cc84bacc2c86fa41fbebae985dc702856a6922`.
-Ownership precedes preparation. Only the integrator moves/pushes main.
-Scope: one new original stock recording and its own native movie replay,
-strict comparison/preservation evidence and project state/daily documentation.
-Implementation patch is explicitly empty. No matching build input, ranks,
-ledger, Factory, backend, observer, scheduler or translated module changes.
+Root owns root/world-one-stage-continuation, frozen origin/main e2cc84bacc2c86fa41fbebae985dc702856a6922.
+Only the integrator moves/pushes main. Implementation patch explicitly empty.
+Scope: one original7800 recording, its own native replay and strict evidence.
+No matching input/rank/ledger/Factory/backend/observer/scheduler/module edits.
 Claims/new bytes zero; linked recompiled bytes2437712.
+Accepted stage range8015c358a at4612d371; command correction3ad02710a at218b098e.
+Frozen isolated provider a35e26b5, canonical360 full/post checks and6controls pass.
 
-Accepted range family root/stage-capture-range8015c358a is at4612d371;
-use its frozen isolated provider and comparer in the prior owned worktree.
-The origin snapshot can lag integrator main. No rank merge/cherry-pick needed.
-Its build a35e26b5, both canonical360 full/post checks and six actual controls pass.
-Original navigation7200 ended on World1-1 start card/four lives, no playable credit.
+Actual original7800 completes0, receiptbfd10c61, protected/private-profile preserved.
+777652GPUrecords/683341PICA lists/2148204384bytes/30900HIDpolls,
+4285760stereo frames. Actual inspected pixels show Mario/World1-1/timer491.
+Native own movie/snapshot replay is running, child97617; compare/postseal pending.
+Finite7800presentations/2400provider+60outerseconds/3GiBPICA/3584MiBtotal,
+900000files/256MiBperfile/15GiBfreefloor/2secondpoll. Bounds are monitored,
+not filesystem quotas. No stage control, update, goal or whole Section7 credit.
 
-Source is only the unchanged bounds original7200 final ordinary disk profile,
-with its complete receipt/raw tree held. New capture records its own initial
-snapshot/movie. The existing67-state navigation script ends neutral at7024.
-No extra input, injected game state, save decoding or borrowed movie prefix.
-New selections:7800presentations,2400provider/2460outerseconds,3GiBPICA,
-3584MiB monitored total,900000monitoredfiles,256MiBperfile,15GiBfreefloor,
-2secondpoll. These are finite monitored ceilings, not filesystem quotas.
-Reserve enough actual disk for both stock/native before launch.
+Eight cleanup receipts individually seal/retire3760501files/31863750656allocatedbytes.
+Latest3335e112 removes old stock7200 raw only after its last7800 consumer sealed it.
+All owner dump/source/current7800/canonical360 raw/active inputs/receipts/hashes,
+movies/snapshots/profiles/logs/PNGs held. Retired historical raw requires regeneration.
+Post-cleanup23229943808freebytes, current21536641024bytes at2026-10-03T11:50:25.262148+00:00.
+No factory restart/settings changes. Aquinas archived; one implementation helper
+works only on isolated partial GPU window root/stage-capture-window. No reviewers.
+Effort remains ultra; next actual relay uses xhigh, unverified this turn.
 
-Owner cleanup seals unused finished original menu/navigation raw. All movies,
-snapshots/profiles/source/receipts/hashes/PNGs held, old bounds source and
-canonical360 raw untouched. No factory restart/settings or new reviewers.
-Aquinas archived; no running helper. Effort ultra, next relay xhigh unverified.
-Pro answer accepts connected invocation-local opaque dataflow as a proposal.
-Player/root type, lifetime, controlled actor and completed update remain open.
-
-Actual original7800 is running after source/provider/profile provenance checks.
-Stock child29380; receipt/driver under stage_continuation_preparation.
-Seven owner cleanup passes total3243593 files sealed/retired; originals/source
-and active inputs held. Latest a5bc8a87 preserves141 retained files/all receipts.
-Post-cleanup free25156579328bytes; active capture now consumes bounded space.
-Historical retired payloads require regeneration before comparison reruns.
-Upstream writer canonical360 d271aece/full820dbfdc/post5b9bc775/codef7758c79
-pass. Two real writes, no typed/lifetime/update/retirement claim.
-Pro construction questiond3f7db9f queued. No layout reconstruction by root.
-Range rerun-command correction3ad02710a accepted at218b098e, provider unchanged.
-See world_one_stage_continuation_evidence.md for exact scope/hashes/limits.
+Upstream writer360 full820dbfdc/post5b9bc775/codef7758c79 pass, zero fallback.
+Pro construction answer SHAf632010bfc1bee8399693084c91c750aa8de311b51638e7f91540b4f1bc0ea96 is a proposal.
+Signature/static initialization relationship only; natural invocation binding,
+typed player/lifetime/control/completed-update remain open. Root does no layouts.
 
 Next three tasks:
-1. Finish original7800 and its full footers/protected/private-profile seals;
-   inspect actual final stage pixels.
-2. Replay its own movie/snapshot natively, full strict comparison/postseals;
-   submit completed unchanged-source evidence with zero claims.
-3. Use Pro upstream identity proposals and natural runtime/update/control
-   evidence for Section7. No root layout reconstruction.
-Milestones5/6 remain in progress. No stage/update/goal completion claim.
+1. Finish native7800, strict full comparison/postseal; inspect actual native pixels.
+2. Submit completed unchanged-source evidence root/world-one-stage-continuation,
+   zero claims. Report integrator verdict while continuing port work.
+3. Independently build/check finite GPU observation window, then use verified
+   windows for natural World1-1 control/goal; Pro owns semantic layout questions.
+See world_one_stage_continuation_evidence.md for exact hashes/bounds/gaps.
+Milestones5/6 remain in progress.
