@@ -3713,7 +3713,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001A8050,          ,0x001A81AC,          ,U,f,,
 0x001A81AC,0x001A81C0,0x001A81C4,          ,U,f,,
 0x001A81C4,          ,0x001A8214,          ,U,f,,
-0x001A8214,          ,0x001A8220,          ,U,f,,
+0x001A8214,          ,0x001A8220,          ,O,f,fn_001A8214,
 0x001A8220,          ,0x001A822C,          ,O,f,fn_001A8220,
 0x001A822C,          ,0x001A823C,          ,U,f,,
 0x001A823C,          ,0x001A8248,          ,U,f,,
