@@ -1359,3 +1359,16 @@ Add only the twelve-byte BSS row004305D4..004305E0 for the accepted public Vecto
 ## Complete Vector3 unit-X BSS identity, 2026-10-02
 
 Add only the twelve-byte ex row at004305C8 after independently rerunning the registered original vector initializer. Its three float stores, adjacent ey/ez objects, and accepted public Vector3 declaration establish the complete identity; the stripped executable does not recover debug-symbol spelling. Preserve every existing map line and U status. This is a separate prerequisite proposal for report-only root316014, with zero function credit. Evidence: project/evidence/vector3_unit_x_identity.md.
+
+
+## 2026-10-02: Tried and dropped: Space Bunny matching trial
+
+The owner closed the trial and dropped `opencode/space-bunny-free` from matching. Keep the existing Luna/Sol production allocation. Space Bunny was an isolated replay experiment and never became a production tier. Do not reopen this experiment without a new owner instruction.
+
+All five Luna single-function replays below 32 bytes matched: job 5464 (original run 83), job 1435 (run 102), job 7854 (run 34), job 5085 (run 232), and job 56 (run 148). Their median elapsed time was 1.43 minutes against 0.96 recorded minutes, about 49% slower, rounded to 50%.
+
+The 64-to-255-byte phase produced zero matches across four starts: job 6865 (run 840, timeout), job 3743 (run 58, miss), job 6637 (run 625, timeout), and job 926 (run 694, interrupted by the owner). Three jobs completed and were scored 0/3; the interrupted fourth is unscored. Thus the owner's 0/4 summary describes four starts with no matches, not four completed failures. Seventeen of the planned 25 jobs were not completed. These small samples and uncontrolled host load/cache histories do not establish general model quality.
+
+The trial's run 625 also exposed `KeyError: 'score'` after failed builds. Production worker logs independently contain the same `factory.py attempt` traceback through `record_best_drafts`: 214 command-output exceptions in 152 run logs at inspection. That production defect warrants a separate candidate fix and the existing reference-safety procedure; no oracle or matching standard changes.
+
+The exact scratch clone `workspaces/space_bunny_replay_20261002` was removed after verifying no active replay process or process working directory. Trial manifests, per-job source and checker output, interrupted output, scratch metadata and a cleanup receipt remain under the factory's local `logs/space_bunny_replay_20261002/`. No trial source or game data is published.
