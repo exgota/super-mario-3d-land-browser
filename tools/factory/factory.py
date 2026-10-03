@@ -1339,7 +1339,7 @@ class Supervisor:
         if spec.get("class_mode") and ((self.class_proposal and self.class_proposal.exists())
                                        or (self.class_pending and self.class_pending.exists())):
             # One class job at a time: while one waits to land, this slot does regular Sol work.
-            spec = {"tiers": [1, LUNA_GROUP_MISS_TIER, 2], "ranges": [(64, 256), (32, 64)], "largest_first": True}
+            spec = {"tiers": [1, LUNA_GROUP_MISS_TIER, 2], "ranges": [(32, 256)], "smallest_first": True}
         elif spec.get("class_mode"):
             with DATABASE_LOCK:
                 job = self.database.execute("SELECT * FROM jobs WHERE status='open' AND kind='class' ORDER BY priority DESC, id LIMIT 1").fetchone()
@@ -1356,8 +1356,8 @@ class Supervisor:
         except Exception:
             pass
         with DATABASE_LOCK:
-            # Tier 1 work goes by size range in the slot's order, largest first within a range when the slot says so;
-            # escalated work (tier 2 and up) goes by priority at any size.
+            # Tier 1 Sol work starts at 32 bytes and increases by body size, independent of job priority.
+            # Escalated work (tier 2 and up) retains its priority order at any size.
             plan = []
             for tier in spec["tiers"]:
                 if tier == 1 and spec.get("ranges"):
@@ -1372,7 +1372,7 @@ class Supervisor:
                 if low is not None:
                     query += " AND body_bytes >= ? AND body_bytes < ?"
                     parameters += [low, high]
-                order = " ORDER BY body_bytes DESC, priority DESC" if spec.get("largest_first") and low is not None else " ORDER BY priority DESC"
+                order = " ORDER BY body_bytes ASC, priority DESC, id" if spec.get("smallest_first") and low is not None else " ORDER BY priority DESC"
                 candidates = self.database.execute(query + order + " LIMIT 50", parameters).fetchall()
                 for job in candidates:
                     addresses = [int(a, 16) for a in job["addresses"].split(",")]
@@ -2793,7 +2793,8 @@ def command_extend(arguments):
 
 def production_slot_specs(count, luna_single_bytes, group_only):
     """s1 is reserved for the 256-511 byte band; s2 runs class mode; s3 is Luna; then Sol slots (s4 prefers tier 2). Luna alone takes
-    every tier 1 job under 32 bytes; Sol takes 64 to 255 bytes, largest first, then 32 to 63 (owner, 2026-10-02).
+    every tier 1 job under 32 bytes; Sol takes 32 to 255 bytes by ascending body size (owner, 2026-10-03).
+    Tier 1 jobs of 192 to 255 bytes wait until smaller eligible jobs have been leased or exhausted.
     The swap guard pauses the highest-numbered slots first."""
     kinds = ["group"] if group_only else None
     small = luna_single_bytes or 32
@@ -2810,7 +2811,7 @@ def production_slot_specs(count, luna_single_bytes, group_only):
                     "settings": TRIAL_SETTINGS["luna-medium"], "fallback_kinds": ["facts"]}
         else:
             spec = {"tiers": [2, LUNA_GROUP_MISS_TIER, 1] if role == "tier2" else [1, LUNA_GROUP_MISS_TIER, 2], "kinds": kinds,
-                    "ranges": [(64, 256), (small, 64)], "largest_first": True}
+                    "ranges": [(small, 256)], "smallest_first": True}
         if index == hard_end_sol_slot:
             spec = dict(spec, hard_end_first=True)
         elif index == hard_end_sol_slot + 1:
