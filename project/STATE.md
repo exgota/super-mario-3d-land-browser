@@ -42,17 +42,18 @@ files/36,485,296,128 measured allocated bytes, retaining source/dump/receipts/
 hashes/profiles/movies/snapshots/pixels/audio and active inputs. More than20GB
 free remains. Tenth pass seals accepted stock7800 PICA only, outside the new
 controller's profile/metadata input closure, to retain capture headroom.
-Its first recipe stopped before deletion on a receipt dictionary-shape error;
-separate corrected recipe is running. Preserve retained files and sealed
+Two earlier recipes stopped before deletion on nested receipt dictionary shapes;
+Corrected recipe8dd7db6d completes. Receipt e02cc80c retires683,341PICA
+files/4,331,778,048 allocated bytes, retains78files/all sealed receipts and
+leaves zero selected files. Final free25,090,351,104bytes, source/profile intact. Preserve retained files and sealed
 receipts; historical retired raw requires regeneration. No factory changes.
 
 ## Next three tasks
 
-1. Finish the stock7800 PICA-only retirement and verify retained evidence,
-   metadata/profile/source inputs and measured free disk.
-2. Record the prepared72 raw input states from an ordinary private copy of
-   stock7800 final disk profile, then replay only that recording's own original
-   movie/snapshot and compare actual exported bytes/ticks/full input/audio.
+1. Complete the running original recording and verify actual window/input/audio
+   footers, protected source/profile/copies and finite bounds.
+2. Replay only its own original movie/snapshot, then compare actual exported
+   bytes/ticks/full input/audio and post-seal every original input/capture.
 3. Inspect actual pixels, send newly grounded type/update questions to Pro,
    and continue natural control/goal and Section7 completed-update replay.
 
@@ -64,3 +65,20 @@ performance, physical mobile, saves and complete rank-O adapters remain open.
 Runtime evidence adds zero matching bytes, so matching throughput is zero.
 Completed Aquinas is absent from the live agent list. Effort change remains
 unverified until the next actual relay send with xhigh.
+
+Private controllerba2bad35 derives from frozen window910042bf. Five accepted
+comparers are copied byte-identically to ignored build/comparison_sources, so
+report/preview outputs use this owned worktree. Origin/main lags the integrator
+local accepted window commit; root never moves main or resubmits its source.
+Raw72-state input6ad80274 is now being recorded under every declared bound. Source-only first
+controller preparation found missing accepted files on the frozen remote base;
+its private recipe is retained, with no guest launched.
+
+The independent Pro-requested constructor witness uses the unchanged accepted
+execution observer with canonical360 movie/snapshot, trigger0x002768ac,
+prehistory256/posthistory512/one window/20,000events/16MiB diagnostics and
+1,200provider/1,260outer seconds. Native is running, comparison/postseal and
+connected allocation/constructor-return/store witness are pending. This
+separate cold boot is never joined to the control recording by addresses. One
+existing implementation helper prepares mechanical validation source only;
+root verifies actual outputs and sends class/type/update questions to Pro.
