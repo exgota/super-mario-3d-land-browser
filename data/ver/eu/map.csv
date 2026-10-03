@@ -893,7 +893,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00128A64,          ,0x00128A6C,          ,U,f,,
 0x00128A6C,0x00128CCC,0x00128CE4,          ,U,f,,
 0x00128CE4,0x00128D6C,0x00128D7C,          ,U,f,,
-0x00128D7C,          ,0x00128D88,          ,U,f,,
+0x00128D7C,          ,0x00128D88,          ,O,f,fn_00128D7C,
 0x00128D88,0x00128DE0,0x00128DE8,          ,U,f,,
 0x00128DE8,          ,0x00128E38,          ,U,f,fn_00128DE8,
 0x00128E38,          ,0x00128E88,          ,U,f,,
