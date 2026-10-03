@@ -345,6 +345,7 @@ void GuestExecutionObservation::Boundary(std::uint64_t identity, const char* rea
     record.context = identity; record.charge = context.current->identity; record.segment = context.segment; record.before = sealed;
     record.instruction_before = ReadInstruction(state.actual_table, context.current->address, context.current->records.front().before);
     Add(context.current, std::move(record));
+    if (invalidate) context.current.reset();
 }
 std::string GuestExecutionObservation::Serialize(const Record& record, const Charge& charge, const char* scope) const {
     std::ostringstream stream;
