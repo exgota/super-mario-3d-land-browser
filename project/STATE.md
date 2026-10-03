@@ -1,71 +1,52 @@
 # Root port runtime state
 
-Root owns `root/guest-execution-observation`, frozen `origin/main`
-`80c334855e991839cd1f4ca69d30babe5b73f74e`. Ownership `c9df36ac` precedes
-implementation. Only integrator moves/pushes main or writes ranks/ledger.
-No Game/lib/config/map/Factory/ledger/protected matching-tool, scheduler,
-translated module or oracle changes. Matching claims/new translated bytes: 0.
-Existing linked recompiled bytes: 2437712. Root works only on port runtime;
-layout questions go to Pro. The one implementation helper is completed.
-Aquinas is archived. Effort remains ultra; next actual relay must use xhigh.
-No verified effort change, new reviewer or unrelated harness work.
+Root owns finished `root/world-one-navigation`, frozen origin/main
+947c8fe7faef58756c8d97fee5c8619475acd7ae, ownership e1a6e445.
+Scope: evidence/daily/STATE, explicitly empty implementation patch.
+Claims/nonmatching additions/new bytes0, linked recompiled2437712.
+Only integrator moves/pushes main, ranks and ledger. No matching inputs,
+oracle/provider/module/scheduler change. Layouts go only to Pro.
+Aquinas archived. Effort ultra; next actual relay xhigh unverified.
 
-Finished family, awaiting submission verdict:
+Original/native7200 navigation records complete0. Full comparison
+fd9baf69eda3b48bc0eaccc0062af93044aecab3b4d99e099e6f9f764321ee32 passes723888GPUrecords,
+636129PICA lists/1902688096bytes,28554HIDpolls,3957440stereo frames,
+both screens/framebuffers and ticks. CPU03446565846, CPU10, fallbacks0.
+Final original/provider seal 790f3804914ec7d192b159f38798d6a806778274a006d2dea883343f5de3451a passes.
+All636181 original files and20-file snapshot remain equal. Own movie
+b5dcf4ad/clock1504081560. No cross-record prefix claim. Actual paired pixels
+show World1-1 start card/four lives, no playable control/update/goal.
+See project/world_one_navigation_evidence.md for full immutable evidence.
 
-The optional passive window records bounded charge-entry history, actual
-callbacks and explicit discontinuities around an externally supplied address.
-No game address/opcode constants or class assumptions. Actual memory operations
-execute once. Diagnostic samples use checked direct ordinary RAM, without
-extra guest/MMIO operations. Coverage/context/table/admission gaps stay explicit.
-No architectural-retirement, player, lifetime or completed-update claim.
+Initial128MiB GPU-log failure71c11328 remains excluded. Original inputs
+preserved; closed raw retirement2c3ef12c retains failed streams/movie/
+snapshot/profile/source/receipt. Fresh final256MiB controllers retain old
+revisions. Caps:7200presentations,1800/1860sec,2GiB PICA,2560MiB total,
+720000files,256MiB/file,15GiB floor,two-second poll. Finite monitored ceilings.
 
-Final isolated build `53677a86` passes 11 stages, preserves 3457 inputs and seals
-22 outputs. Native executable `cdc7bbd7`. Initial CP15 assertion failure and
-revision 1 stale-association failure remain retained. Final capacity follows
-clean 84-slot enum/type. First invalidating boundary ends current association;
-later outside-charge events remain gaps. No limits/memory/scheduler change.
+Separate execution-observation60e1762b accepted at9f12ba709, result primary
+.integrator/results/root-guest-execution-observation-60e1762b3.json.
+Three canonical360 full comparisons/seals and14controls pass, fallbacks0.
+Selected49-entry/43-callback history matches189original code samples and
+connected producer/getter/store/read/use boundaries. No retirement/player/
+completed-update claim. Pro question945ddcae queued privately, answer pending.
+No retrospective join to independent old writer recording.
 
-Three actual canonical 360 native runs pass unchanged full input/GPU/PICA/
-pixel/framebuffer/audio/tick comparisons and post-comparison original/provider
-seals: disabled `e60d98ce`, selected `b129c8c1`, unmapped `8461c315`.
-CPU 0: 393977876 instructions; CPU 1: zero; both fallbacks zero.
-Selected stream: 49 entries, 43 callbacks, one completed window, no loss.
-Original-code proof `6b2e9dd0` checks 189 valid samples and connected observed
-producer/getter/store/read/use successors. Zero-window negative passes honestly.
-Fourteen real refusal/limit controls `98b96e9f` pass with original preservation.
-Disabled/selected/unmapped diagnostic intervals: 54.28/273.29/462.49 seconds.
-Source closure, complete hashes, failed attempts and reproduction paths:
-`project/guest_execution_observation_evidence.md`.
-
-Connected question queued privately to Pro:
-`.integrator/pro_queue/layout/world-one-connected-application-slot-window.md`,
-SHA256 `945ddcae616e6dfe54a342eba16d9224eef39b3ccb23cd8d127ddc0390a130a5`.
-Root reconstructs no layout. No retrospective join to older writer recording.
-
-World 1-1 and owner-authorized disk cleanup:
-
-Accepted saved-profile `d9c1d4548` at `bc177f868`: exact 1200/1800 pairs,
-actual opening cinematic. Accepted bounds `835148bc3` at `da265cc6`: exact
-7200 pair, World 1 starting arrow. Neither establishes playable World 1-1.
-Separate `root/world-one-navigation` has complete original/native 7200 right/A
-replays, zero fallback. Actual pixels show World 1-1 start card with four lives.
-Full comparison/final original seal are running. No control/update/goal credit.
-
-Four cleanup receipts under primary `build/root_scratch_reclamation/` seal
-retired inactive browser profiles, duplicate intermediates, old complete 3600/
-native 7200/native 1200/1800 raw outputs and one closed failed navigation run.
-Source, receipts/hashes, owner dump, original stock references, movies/snapshots/
-profiles/events/PNGs and active inputs remain. Retired native raw needs
-regeneration before rerun. Free reached over 20 GiB; latest captures leave
-about 15.75 GiB. New World 1 capture limits: 7200 presentations, 1800/1860 seconds,
-2 GiB PICA, 2560 MiB total, 256 MiB/file, 720000 files, 15 GiB free floor,
-two-second poll. No factory restart/settings changes.
+Four owner-authorized scratch retirements preserve source/receipts/hashes/
+owner dump/current references/movies/snapshots/profiles/events/PNGs.
+Free before current native retirement:15471280128bytes.
+Retired raw needs regeneration before comparisons rerun. No factory restart
+or settings change. Restore at least20GBfree by sealing/retiring only own
+finished native payload after acceptance.
 
 Next three tasks:
-1. Submit this finished family with no claims, report the actual verdict.
-   Never resubmit a waiting branch.
-2. Finish/submit the separate strict start-card comparison/seal. Retire only
-   sealed finished native scratch afterward, restoring at least 20 GB free.
-3. Continue natural playable World 1-1 control/update/goal, using Pro proposals
-   for layout-dependent state probes. Milestones 5/6, whole Section 7 suite,
-   continuous sound/performance/saves/complete rank-O adapters remain open.
+1. Submit navigation without claims; report actual verdict, never resubmit
+   waiting work. Retire its sealed own finished native raw afterward.
+2. Separate root/stage-capture-range, frozen cded24cc, ownership effbfb7d,
+   extends only finite isolated GPU/Headless patch to8400/3GiB and loader
+   index8399. One existing implementation helper prepares source/builder;
+   root independently reviews/builds. Strict comparison policy stays intact.
+3. Record natural neutral continuation/replay its own movie/snapshot. Use Pro
+   proposals for layout-dependent probes. Milestone5/6, Section7, playable
+   update/goal, continuous sound/performance/saves/O-adapters remain open.
+   No new reviewer or unrelated harness work.
