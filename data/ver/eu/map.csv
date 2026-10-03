@@ -2483,7 +2483,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00175918,0x00175B74,0x00175BB0,          ,U,f,,
 0x00175BB0,          ,0x00175BD4,          ,U,f,,
 0x00175BD4,0x00175C88,0x00175CA8,          ,U,f,,
-0x00175CA8,          ,0x00175CB4,          ,U,f,,
+0x00175CA8,          ,0x00175CB4,          ,O,f,fn_00175CA8,
 0x00175CB4,          ,0x00175D00,          ,U,f,,
 0x00175D00,0x00175DD4,0x00175DE8,          ,O,f,fn_00175D00,
 0x00175DE8,0x00175E64,0x00175E78,          ,U,f,,
