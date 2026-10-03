@@ -11642,7 +11642,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x002E02C8,          ,0x002E0300,          ,U,f,,
 0x002E0300,          ,0x002E03CC,          ,U,f,,
 0x002E03CC,          ,0x002E0400,          ,U,f,,
-0x002E0400,          ,0x002E0408,          ,U,f,,
+0x002E0400,          ,0x002E0408,          ,O,f,fn_002E0400,
 0x002E0408,0x002E0454,0x002E045C,          ,U,f,,
 0x002E045C,0x002E0528,0x002E0538,          ,U,f,,
 0x002E0538,0x002E05AC,0x002E05B8,          ,U,f,_ZN4sead19StereoCameraWrapperC2Ev,
