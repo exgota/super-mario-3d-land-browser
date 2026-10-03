@@ -5899,7 +5899,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001FA880,          ,0x001FA8B8,          ,U,f,,
 0x001FA8B8,0x001FA994,0x001FA998,          ,U,f,,
 0x001FA998,0x001FA9D0,0x001FA9D4,          ,U,f,,
-0x001FA9D4,          ,0x001FA9E0,          ,U,f,,
+0x001FA9D4,          ,0x001FA9E0,          ,O,f,fn_001FA9D4,
 0x001FA9E0,0x001FAC8C,0x001FACB0,          ,U,f,,
 0x001FACB0,          ,0x001FACC8,          ,U,f,,
 0x001FACC8,          ,0x001FADFC,          ,U,f,,
