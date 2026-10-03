@@ -28065,3 +28065,4 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x004305E0,          ,0x004305EC,          ,U,db,_ZN4sead7Vector3IfE2ezE,
 0x004305EC,          ,0x004305F8,          ,U,db,_ZN4sead7Vector3IfE4onesE,
 0x004305F8,          ,0x00430604,          ,U,db,_ZN4sead7Vector3IfE4zeroE,
+0x00430A88,          ,0x00430AB8,          ,U,db,dat_00430A88,
