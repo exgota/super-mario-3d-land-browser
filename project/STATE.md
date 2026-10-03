@@ -30,10 +30,23 @@ Aquinas archived; no running helper. Effort ultra, next relay xhigh unverified.
 Pro answer accepts connected invocation-local opaque dataflow as a proposal.
 Player/root type, lifetime, controlled actor and completed update remain open.
 
+Actual original7800 is running after source/provider/profile provenance checks.
+Stock child29380; receipt/driver under stage_continuation_preparation.
+Seven owner cleanup passes total3243593 files sealed/retired; originals/source
+and active inputs held. Latest a5bc8a87 preserves141 retained files/all receipts.
+Post-cleanup free25156579328bytes; active capture now consumes bounded space.
+Historical retired payloads require regeneration before comparison reruns.
+Upstream writer canonical360 d271aece/full820dbfdc/post5b9bc775/codef7758c79
+pass. Two real writes, no typed/lifetime/update/retirement claim.
+Pro construction questiond3f7db9f queued. No layout reconstruction by root.
+Range rerun-command correction3ad02710a accepted at218b098e, provider unchanged.
+See world_one_stage_continuation_evidence.md for exact scope/hashes/limits.
+
 Next three tasks:
-1. Complete authorized finished scratch retirement and measure free reserve;
-   prepare pinned stock controller/new provider closure and explicit bounds.
-2. Run original7800 neutral continuation and inspect its actual final pixels.
-3. Replay its own movie/snapshot natively, full strict comparison/postseals;
-   submit finished evidence and advance identity/update/control via Pro.
-Milestones5/6 remain in progress. No completed stage/update/goal claim yet.
+1. Finish original7800 and its full footers/protected/private-profile seals;
+   inspect actual final stage pixels.
+2. Replay its own movie/snapshot natively, full strict comparison/postseals;
+   submit completed unchanged-source evidence with zero claims.
+3. Use Pro upstream identity proposals and natural runtime/update/control
+   evidence for Section7. No root layout reconstruction.
+Milestones5/6 remain in progress. No stage/update/goal completion claim.
