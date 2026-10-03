@@ -1,7 +1,0 @@
-# Executor initializer neutral identities
-
-The original retail executable establishes eleven outer initializer entry intervals and three retained common base entries. Proposed fn_ADDRESS names identify those whole existing rows by address only. Receiver/name/capacity arguments and returned receiver follow original BL sites, allocation extents, and post-call use in ExecuteTableHolderUpdate and ExecuteTableHolderDraw. Original native source/API class names are unresolved.
-
-The thirteen literal data pointers at 003D6EF4, 003D741C, 003D74B0, 003D74CC, 003D7584, 003D7620, 003D7638, 003D7650, 003D766C, 003D7760, 003D7850, 003D789C and 003D78DC land exactly on existing complete U/dc row starts. Proposed dat_ADDRESS names add neutral original-row imports. No contents, table partition, owner class, byte definition or rank change is proposed. Original whole-row SHA256 values, complete intervals, literal pointer sites and caller/return witnesses are recorded in the ignored frozen family package identity_evidence.json and screening.json.
-
-Only alExecutorActorList.cpp is proposed for source intake at e05e466, with all headers unchanged. Shared ExecutorStorage and FunctorExecutorStorage plus six C native declarations are token-identical to accepted Update. Common bases 00243B94, 002415DC and 001E7518 stay external. The independent metadata changes preserve all existing boundaries, pools, types, ranks and function-row membership.

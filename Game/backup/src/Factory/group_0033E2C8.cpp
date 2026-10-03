@@ -1,9 +1,0 @@
-extern "C" int fn_0033E2C8() { return 0; }
-extern "C" int fn_0036E4C4() { return 0; }
-extern "C" int fn_0036E5FC() { return 0; }
-extern "C" int fn_0036E8DC() { return 0; }
-extern "C" int fn_0036F2F4() { return 0; }
-extern "C" int fn_0037608C() { return 0; }
-extern "C" int fn_00377BA0() { return 0; }
-extern "C" int fn_00377BA8() { return 0; }
-extern "C" int fn_00377BB8() { return 0; }

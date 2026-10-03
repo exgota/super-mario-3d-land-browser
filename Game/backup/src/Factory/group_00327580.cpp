@@ -1,9 +1,0 @@
-extern "C" void* fn_00327580(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_003299E4(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_0032DFAC(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_00334798(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_00334E78(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_003360A4(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_0033691C(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_0036E02C(void* self) { return *(void**)((char*)self + 4); }
-extern "C" void* fn_00376860(void* self) { return *(void**)((char*)self + 4); }
