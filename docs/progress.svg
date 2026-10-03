@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="642" viewBox="0 0 1024 642" role="img" aria-label="Decompilation progress: 5.12% of code bytes matched, 3898 of 18054 functions">
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="642" viewBox="0 0 1024 642" role="img" aria-label="Decompilation progress: 5.12% of code bytes matched, 3902 of 18054 functions">
 <style>
   .surface { fill: #ffffff; } .title { fill: #1f2328; } .muted { fill: #59636e; }
   .empty { fill: #d5dbd5; } .matched { fill: #0ca30c; } .nonmatching { fill: #b86e00; }
@@ -26,8 +26,8 @@
 </defs>
 <rect class="surface" width="1024" height="642" rx="8"/>
 <text class="title" x="16" y="34" font-size="22" font-weight="600"><tspan class="figure">5.12%</tspan> of code bytes matched</text>
-<text class="muted figure" x="1008" y="34" font-size="12" text-anchor="end">141,008 / 2,756,016 bytes</text>
-<text class="muted" x="16" y="56" font-size="13"><tspan class="figure">3,898</tspan> of <tspan class="figure">18,054</tspan> functions byte-exact · EU Rev 2 · 2026-10-03</text>
+<text class="muted figure" x="1008" y="34" font-size="12" text-anchor="end">141,096 / 2,756,016 bytes</text>
+<text class="muted" x="16" y="56" font-size="13"><tspan class="figure">3,902</tspan> of <tspan class="figure">18,054</tspan> functions byte-exact · EU Rev 2 · 2026-10-03</text>
 <rect class="empty" x="16" y="68" width="992" height="6" rx="3"/>
 <rect class="matched" x="16" y="68" width="50.8" height="6" rx="3"/>
 <g id="treemap">
@@ -1415,7 +1415,6 @@
 <rect x="139.474" y="310.419" width="5.759" height="9.875"/>
 <rect x="139.474" y="320.294" width="5.759" height="1.125"/>
 <rect x="145.233" y="310.419" width="6.61" height="10.128"/>
-<rect x="145.233" y="320.547" width="6.61" height="0.872"/>
 <rect x="151.843" y="310.419" width="4.749" height="5.457"/>
 <rect x="156.592" y="310.419" width="3.693" height="5.457"/>
 <rect x="151.843" y="315.876" width="3.377" height="1.706"/>
@@ -3083,7 +3082,6 @@
 <rect x="128.359" y="341.997" width="8.66" height="6.651"/>
 <rect x="137.019" y="341.997" width="2.923" height="1.971"/>
 <rect x="137.019" y="343.968" width="2.923" height="1.724"/>
-<rect x="137.019" y="346.677" width="1.096" height="1.971"/>
 <rect x="138.115" y="346.677" width="1.827" height="1.971"/>
 <rect x="16" y="348.648" width="68.866" height="118.342"/>
 <rect x="87.55" y="348.648" width="2.148" height="2.681"/>
@@ -3098,7 +3096,6 @@
 <rect x="96.678" y="355.26" width="3.701" height="6.613"/>
 <rect x="100.379" y="355.26" width="3.701" height="6.613"/>
 <rect x="104.08" y="350.591" width="3.334" height="1.511"/>
-<rect x="104.08" y="352.102" width="1.112" height="1.944"/>
 <rect x="105.192" y="352.102" width="2.222" height="1.944"/>
 <rect x="107.414" y="348.648" width="2.873" height="2.005"/>
 <rect x="110.287" y="348.648" width="1.795" height="2.005"/>
@@ -8021,7 +8018,6 @@
 <rect x="729.553" y="236.143" width="4.027" height="2.502"/>
 <rect x="733.58" y="230.959" width="2.381" height="3.024"/>
 <rect x="735.961" y="230.959" width="3.333" height="3.024"/>
-<rect x="733.58" y="233.983" width="1.236" height="4.662"/>
 <rect x="734.816" y="233.983" width="4.478" height="1.929"/>
 <rect x="734.816" y="235.912" width="4.478" height="2.733"/>
 <rect x="729.553" y="238.645" width="4.561" height="7.891"/>
@@ -14449,6 +14445,7 @@
 <rect x="195.16" y="292.51" width="6.048" height="0.238"/>
 <rect x="182.766" y="292.748" width="0.273" height="5.267"/>
 <rect x="182.923" y="298.015" width="0.116" height="12.404"/>
+<rect x="145.233" y="320.547" width="6.61" height="0.872"/>
 <rect x="151.843" y="317.582" width="3.377" height="1.279"/>
 <rect x="155.22" y="321.134" width="5.065" height="0.285"/>
 <rect x="139.474" y="333.449" width="2.026" height="2.486"/>
@@ -14885,9 +14882,11 @@
 <rect x="98.281" y="346.519" width="1.691" height="2.129"/>
 <rect x="99.972" y="346.519" width="0.676" height="2.129"/>
 <rect x="137.019" y="345.692" width="2.923" height="0.985"/>
+<rect x="137.019" y="346.677" width="1.096" height="1.971"/>
 <rect x="84.866" y="348.648" width="2.684" height="2.681"/>
 <rect x="104.08" y="348.648" width="2.223" height="1.943"/>
 <rect x="106.303" y="348.648" width="1.111" height="1.943"/>
+<rect x="104.08" y="352.102" width="1.112" height="1.944"/>
 <rect x="110.461" y="354.046" width="1.621" height="1.332"/>
 <rect x="111.542" y="359.208" width="0.54" height="2.665"/>
 <rect x="111.569" y="361.873" width="0.513" height="2.809"/>
@@ -16127,6 +16126,7 @@
 <rect x="680.495" y="248.949" width="0.654" height="1.101"/>
 <rect x="719.623" y="238.912" width="2.391" height="0.602"/>
 <rect x="729.402" y="238.025" width="0.151" height="4.775"/>
+<rect x="733.58" y="233.983" width="1.236" height="4.662"/>
 <rect x="754.988" y="237.071" width="0.339" height="2.129"/>
 <rect x="718.767" y="265.139" width="0.431" height="5.019"/>
 <rect x="723.177" y="265.917" width="2.376" height="2.12"/>
@@ -18093,7 +18093,7 @@
 </g>
 </g>
 <rect class="matched" x="16" y="605" width="10" height="10" rx="2"/>
-<text class="muted" x="32" y="614" font-size="12">Matched <tspan class="figure">3,898</tspan></text>
+<text class="muted" x="32" y="614" font-size="12">Matched <tspan class="figure">3,902</tspan></text>
 <rect class="nonmatching" x="146" y="605" width="10" height="10" rx="2"/>
 <text class="muted" x="162" y="614" font-size="12">Nonmatching <tspan class="figure">8</tspan></text>
 <rect class="empty" x="286" y="605" width="10" height="10" rx="2"/>
