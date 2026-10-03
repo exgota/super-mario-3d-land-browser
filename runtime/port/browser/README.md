@@ -36,7 +36,7 @@ python tools/static_recompiler/serve_browser_execution.py \
 
 Open the printed localhost URL, select the approved owned EU .3ds copy and run the preview. The server binds only 127.0.0.1 and serves isolation headers. It does not serve the dump. Replay sidecars stay local and are fetched as readonly browser Files. For the first GPU swap instead of a screen presentation, use --first-swap and its paired first-swap reference snapshot.
 
-For a mechanical real-browser check, use the pinned official Playwright CLI (0.1.22), available through npx, and an installed Chrome:
+For a mechanical real-browser check, install the pinned official Playwright CLI with `npx @playwright/cli@0.1.22 --help` and use an installed Chrome. The session manager verifies the installed CLI and core source pins before launch:
 
 ```sh
 python tools/static_recompiler/verify_browser_execution.py \
@@ -44,10 +44,10 @@ python tools/static_recompiler/verify_browser_execution.py \
   --dump /Users/exgota/super-mario-3d-land-browser/build/root_port_reference/owned_dump.3ds \
   --server-output build/browser_server \
   --reference /Users/exgota/super-mario-3d-land-browser/build/root_port_rendering/reference_presentation_60 \
-  --exercise-controls --headed --keep-open
+  --exercise-controls
 ```
 
-The verifier selects the actual File, waits for actual shutdown, checks the complete exported tree and unchanged inputs, invokes the existing strict comparator and hashes both displayed canvas buffers against the original RGBA payloads. With --exercise-controls it first rejects a wrong-sized file, stops an active download and verifies a clean new capture. Desktop/mobile screenshots stay ignored; actual PNG dimensions, document geometry and loaded fonts are checked and recorded. The mobile review viewport is 390 × 1200, including the optional sound action, so both screens are captured without a short-viewport scrollbar crop. Use --first-swap in both server and verifier for the GPU-only boundary. The server's first-swap movie/snapshot comes from reference_fixed_io_0; the verifier's corrected floating-point oracle is reference_updated_floating_point_control_0. Each run receives a fresh capture identifier. The verifier closes its own browser unless --keep-open is explicit.
+The verifier selects the actual File, waits for actual shutdown, checks the complete exported tree and unchanged inputs, invokes the existing strict comparator and hashes both displayed canvas buffers against the original RGBA payloads. With --exercise-controls it first rejects a wrong-sized file, stops an active download and verifies a clean new capture. Desktop/mobile screenshots stay ignored; actual PNG dimensions, document geometry and loaded fonts are checked and recorded. The mobile review viewport is 390 × 1200, including the optional sound action, so both screens are captured without a short-viewport scrollbar crop. Use --first-swap in both server and verifier for the GPU-only boundary. The server's first-swap movie/snapshot comes from reference_fixed_io_0; the verifier's corrected floating-point oracle is reference_updated_floating_point_control_0. Each run receives a fresh capture identifier. All six verifiers default to headless Chrome and close their owned test context before writing a passing result. `--headed` explicitly requests the shared single visible preview lease. Historical `--keep-open` requests refuse before launch under the owner lifecycle policy.
 
 ## Recorded input and sound
 
@@ -70,7 +70,7 @@ python tools/static_recompiler/verify_browser_execution.py \
   --server-output build/browser_audio_server \
   --reference /Users/exgota/super-mario-3d-land-browser/build/root_port_audio/reference_scripted_360 \
   --movie /Users/exgota/super-mario-3d-land-browser/build/root_port_input/reference_scripted_360/input_movie.ctm \
-  --observe-audio --exercise-controls --headed --keep-open --timeout-seconds 600
+  --observe-audio --exercise-controls --timeout-seconds 600
 ```
 
 The audio profile invokes unchanged compare_audio_capture.py, including exact HID/movie/render checks and varying PCM. Input-only uses unchanged compare_input_capture.py. These are the existing menu-observation policies; they are not general acceptance policies for every possible silent or single-channel input sequence. A replay directory may lack its own movie, so pass the original --movie explicitly.
@@ -93,7 +93,7 @@ python tools/static_recompiler/serve_browser_execution.py \
 python tools/static_recompiler/verify_browser_button_capture.py \
   http://127.0.0.1:8787 build/browser_button_verification \
   --dump /Users/exgota/super-mario-3d-land-browser/build/root_port_reference/owned_dump.3ds \
-  --server-output build/browser_button_server --input-method pointer --screenshots --keep-open
+  --server-output build/browser_button_server --input-method pointer --screenshots
 ```
 
 Hold A accepts pointer or focused Space/Enter. Releases cover pointer up/cancel/lost capture, key up, button/window focus loss, hidden document and session end. Input becomes available only after the actual registered device has been polled. The outer worker reads only exported atomics; renderer-frame samples originate on the CPU's ordinary HID path. Requests acknowledge queued held state, never delivered game input. Polls and the actual CTM provide delivery evidence. A short pulse can coalesce between polls. Without --frame-output, screens and recorded sound arrive only after the finite run ends.
@@ -146,7 +146,7 @@ python tools/static_recompiler/verify_browser_touch_capture.py \
   --dump /absolute/ignored/owner_dump.3ds --sampled-frame 360 --screenshots
 ```
 
-The verifier defaults to headless Chrome and closes its own test session. `--headed` requests a visible project preview explicitly. Keep at most one visible project preview, preserve active tests, and leave personal Chrome separate, as required by the browser lifecycle policy in `project/BRIEF.md`.
+Touch uses the shared session policy described below. It defaults to headless Chrome and closes its owned test context.
 
 Touch becomes available only after actual CPU polls and a displayed bottom canvas of320×240. Startup can briefly produce shorter images; they keep rendering while touch waits for the complete target. Losing the full target releases a held contact before disabling input. Mouse/touch pointer coordinates map through the current owned canvas rectangle to integer x0..319/y0..239. Initial contacts outside the half-open target refuse. Captured drags clamp to its edges. Positive x is right, positive y is down. The owned canvas has no border, padding or transform; arbitrary external styling is outside that mapping contract.
 
@@ -190,3 +190,23 @@ python tools/static_recompiler/verify_browser_input_identity.py \
 This opens its own browser, mounts tiny synthetic readonly Files, invokes the actual compiled stdio/LibreSSL helper and checks exact/empty files, bad lengths/hashes/paths and denied writes. It loads no owned dump or guest main. Terminating that fixture worker earns no game-capture shutdown claim.
 
 Exports use one acknowledged ordinary buffer at a time, at most 64 KiB, never the shared heap or original input Files. Bounds cover file/directory counts, depth, bytes, logs, event lines and encoded metadata. Output chunks must match the server's exact manifest offsets and sizes. All capture writes are under ignored build/. Byte-exact decompilation credit remains zero for this port family.
+
+## Test browser ownership and cleanup
+
+`tools/static_recompiler/browser_session_policy.py` gives each test a fresh ignored workspace, random session name, owned persistent profile and prospective registration before any browser command. The registry and visible-preview lease live in the Git common directory, shared by this checkout and its worktrees. Ordinary tests stay headless. Only one test can request `--headed`; a second visible request refuses while preserving the first. Headless tests can coexist with an active visible preview.
+
+An independent cleanup supervisor starts before launch and retains the visible lease. It watches a private owner pipe, then closes the exact session on normal completion or owner death, including a partially launched CLI client and detached daemon. Cleanup verifies current UID, PID birth/boot identity and exact registered CLI/profile arguments before sending any fallback signal. Unknown ownership refuses cleanup and new admission. Before launching, the manager recovers registered abandoned sessions and preserves active owners. It retains profiles, command output, persistent metadata and cleanup evidence. A passing verifier result requires a receipt proving absence of live owned client, daemon and browser processes. Personal Chrome and unregistered sessions are outside the cleanup scope.
+
+The manager pins CLI0.1.22 and core1.64.0-alpha-1790635538000. Its child-only `PWTEST_CLI_GLOBAL_CONFIG` setting selects an empty owned configuration directory; inherited Playwright overrides and Node injection settings are removed for that child. This version-specific upstream hook keeps personal CLI settings separate. No environment variable is changed in the parent, no personal profile is used, and no global close/inventory command authorizes cleanup. Frozen manager and OS-reader copies keep a running supervisor tied to its original source.
+
+Commands and source/registration seals stay in each absent output directory. `cleanup.json` records actual process observations and retained metadata. `cleanup_failure.json` records a refused or incomplete cleanup. Such a run cannot publish a passing result. These receipts describe registered project tests on the inspected host, not a machine-wide browser inventory.
+
+To reproduce the actual lifecycle controls, use a second existing worktree of this repository with an ignored `build/` directory. The control opens only owned `about:blank` fixtures and briefly requests one visible fixture. It needs the installed pinned CLI and Chrome, but no game dump:
+
+```sh
+python tools/static_recompiler/verify_browser_session_policy.py \
+  build/session_policy_controls_new \
+  --peer-repository /Users/exgota/super-mario-3d-land-browser/build/root_browser_touch_input
+```
+
+The controls cover normal completion, original failure, an actual command timeout, owner death, death during partial launch, recovery after supervisor and owner death, active visible preservation with concurrent headless admission, and visible replacement after cleanup. Six historical keep-open requests must refuse before creating output. [The evidence note](../../../project/browser_session_policy_evidence.md) separates actual host executions from source review and remaining limits.

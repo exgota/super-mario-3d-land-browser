@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Exercise the real browser C stdio/LibreSSL identity ABI with small readonly fixtures."""
 import argparse
-import atexit
 import json
 from pathlib import Path
 import subprocess
@@ -10,6 +9,7 @@ from urllib.parse import urljoin, urlsplit
 from urllib.request import urlopen
 
 from audit_webassembly_platform import digest
+from browser_session_policy import BrowserSession, reject_keep_open
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKER_SOURCE = r"""
@@ -57,6 +57,7 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--headed", action="store_true")
     args = parser.parse_args()
+    reject_keep_open(getattr(args, "keep_open", False))
     url, output = urlsplit(args.url), args.output.resolve()
     if (url.scheme != "http" or url.hostname != "127.0.0.1" or url.username or url.password
             or url.query or url.fragment or url.path not in ("", "/")):
@@ -74,52 +75,31 @@ def main():
     if configuration["schema_version"] != 1 or urlsplit(module_url).netloc != url.netloc or urlsplit(module_url).scheme != "http":
         raise ValueError("Local module origin/schema differs")
     output.mkdir(parents=True)
-    (output / "worker_source.mjs").write_text(WORKER_SOURCE)
-    commands = []
-    cli = ["npx", "--yes", "--package", "@playwright/cli@0.1.22", "playwright-cli",
-           "-s=root-browser-input-identity-" + output.name.replace("_", "-")]
-
-    def run(arguments):
-        command = [*cli, *arguments]
-        started = time.monotonic()
-        index = len(commands)
-        timed_out = False
-        try:
-            result = subprocess.run(command, cwd=output, capture_output=True, text=True, timeout=75)
-            status, stdout, stderr = result.returncode, result.stdout, result.stderr
-        except subprocess.TimeoutExpired as failure:
-            timed_out, status = True, None
-            def decode(value):
-                return value.decode(errors="replace") if isinstance(value, bytes) else value or ""
-            stdout, stderr = decode(failure.stdout), decode(failure.stderr)
-        (output / f"command_{index}_stdout.log").write_text(stdout)
-        (output / f"command_{index}_stderr.log").write_text(stderr)
-        commands.append({"command": command, "status": status, "timed_out": timed_out,
-                         "elapsed_seconds": time.monotonic() - started})
-        (output / "commands.json").write_text(json.dumps(commands, indent=2) + "\n")
-        if timed_out or status or "### Error" in stdout:
-            raise RuntimeError(f"Actual identity browser command {index} refused")
-        return stdout
-
-    run(["open", args.url, *(["--headed"] if args.headed else [])])
-    atexit.register(lambda: run(["close"]))
-    callback = "async (page) => await page.evaluate(async ({source, module_url}) => { "
-    callback += "if (!crossOriginIsolated) throw new Error('Browser isolation is unavailable'); "
-    callback += "const url = URL.createObjectURL(new Blob([source], {type: 'text/javascript'})); "
-    callback += "const worker = new Worker(url, {type: 'module', name: 'browser-input-identity-verification'}); "
-    callback += "try { return await new Promise((resolve, reject) => { "
-    callback += "const deadline = setTimeout(() => reject(new Error('Identity probe timed out')), 60000); "
-    callback += "worker.onmessage = event => { clearTimeout(deadline); resolve(event.data); }; "
-    callback += "worker.onerror = event => { clearTimeout(deadline); reject(new Error(event.message)); }; "
-    callback += "worker.postMessage({module_url}); }); } finally { worker.terminate(); URL.revokeObjectURL(url); } }, "
-    callback += json.dumps({"source": WORKER_SOURCE, "module_url": module_url}) + ")"
-    text = run(["run-code", callback])
-    result = json.JSONDecoder().raw_decode(text.split("### Result\n", 1)[1].lstrip())[0]
-    if result.get("passed") is not True or digest(source_path) != source_hash:
-        raise RuntimeError("Actual input-identity ABI controls refused or verification source changed")
-    result.update({"module_url": module_url, "source_sha256": source_hash,
-                   "scope": "Actual browser WORKERFS/C stdio/LibreSSL ABI with small synthetic fixtures. "
-                            "No owned dump or guest main is loaded; fixture-worker termination earns no capture-shutdown claim."})
+    with BrowserSession(output, headed=args.headed) as browser:
+        run = browser.run
+        (output / "worker_source.mjs").write_text(WORKER_SOURCE)
+        run(["open", args.url])
+        callback = "async (page) => await page.evaluate(async ({source, module_url}) => { "
+        callback += "if (!crossOriginIsolated) throw new Error('Browser isolation is unavailable'); "
+        callback += "const url = URL.createObjectURL(new Blob([source], {type: 'text/javascript'})); "
+        callback += "const worker = new Worker(url, {type: 'module', name: 'browser-input-identity-verification'}); "
+        callback += "try { return await new Promise((resolve, reject) => { "
+        callback += "const deadline = setTimeout(() => reject(new Error('Identity probe timed out')), 60000); "
+        callback += "worker.onmessage = event => { clearTimeout(deadline); resolve(event.data); }; "
+        callback += "worker.onerror = event => { clearTimeout(deadline); reject(new Error(event.message)); }; "
+        callback += "worker.postMessage({module_url}); }); } finally { worker.terminate(); URL.revokeObjectURL(url); } }, "
+        callback += json.dumps({"source": WORKER_SOURCE, "module_url": module_url}) + ")"
+        text = run(["run-code", callback])
+        result = json.JSONDecoder().raw_decode(text.split("### Result\n", 1)[1].lstrip())[0]
+        if result.get("passed") is not True or digest(source_path) != source_hash:
+            raise RuntimeError("Actual input-identity ABI controls refused or verification source changed")
+        result.update({"module_url": module_url, "source_sha256": source_hash,
+                       "scope": "Actual browser WORKERFS/C stdio/LibreSSL ABI with small synthetic fixtures. "
+                                "No owned dump or guest main is loaded; fixture-worker termination earns no capture-shutdown claim."})
+        cleanup = browser.close()
+        result["browser_session_policy"] = {"passed": cleanup["passed"],
+                                             "cleanup_sha256": digest(output / "cleanup.json"),
+                                             "registration_sha256": digest(output / "registration.json")}
     (output / "result.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result))
 
