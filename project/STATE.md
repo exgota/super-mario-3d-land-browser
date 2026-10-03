@@ -1,82 +1,63 @@
-# Root port lane state
+# Root World 1-1 bridge continuation ownership
 
-Owner priority: browser demo, then 100% byte exact. Root works only on the port.
-Class layouts belong to the Pro relay. One implementation subagent maximum.
-Only the integrator moves main, ranks and ledger. No Factory changes.
+Root owns root/world-one-bridge-continuation, frozen origin/main
+ca0c6b0fd2824b87851e783571cea219ea79e5f0. Ownership precedes implementation.
+Only integrator moves main/ranks/ledger. No matching build input, Game/lib/
+Factory/protected checker edits. Implementation patch expected empty.
+Matching claims/new translated bytes0; linked recompiled bytes2,437,712.
+Root only port. Layout/type/update questions go to Pro. One existing helper,
+no reviewers or unrelated harness work. Aquinas absent/closed. Requested
+xhigh change remains unverified until next actual relay send.
 
-## Ownership and current family
+Scope: another finite natural raw input recording, its own-movie native replay,
+strict declared-window/full-input/audio/pixel comparison and exact input seals.
+Reuse immutable accepted window provider/module/schedule/comparers. Do not
+seek/splice movies, continue RAM, decode saves or join cold boots by pointers.
+Keep the unchanged72-state input prefix; append only explicit raw held states.
+Actual bridge progress, jump/goal and typed completed-update state are unknown.
 
-Root owns root/stage-capture-window, frozen origin/main
-f7889906bf930a073ff523e444e53076368df204, ownership a8469b26.
-Scope: isolated optional native GPU observation window, separate strict
-window movie comparer and documentation. No matching build inputs change.
-Claims/new translated bytes zero. Linked translated bytes 2,437,712.
-Preserve existing providers, source, module, schedule, captures and controllers.
+Accepted current prerequisite: root/world-one-control-window7b8af488d accepted
+849f5fab5c745fb2481edfc630da331e4f210abe, verdict
+.integrator/results/root-world-one-control-window-7b8af488d.json, no build
+inputs/claims/matched bytes. Originalc9240a3b/nativee2d61c86 strict0d61b734/
+post64805bbc pass52,060PICA/263,115,680bytes and all declared raw platform
+observations. Actual W1-1 final path/bridge image timer478/coins0, both
+fallbacks0. Full-prefix GPU and Section7 state are not credited.
 
-The isolated build 15c413a9 completes with 3,417 inputs, 34 outputs,
-2,229 sealed path aliases and 19 successful commands. Both unchanged ordinary
-360-presentation original/native captures pass full movie comparison and
-post-comparison preservation. Default first-swap equality and all three positive windows pass. Ten selector
-refusals and two wall controls pass. Deliberate one-byte PICA exhaustion
-retains the same abort/no-footer behavior as ordinary mode; its actual
-partial trace is rejected, and the original failed expectation stays failed. The public source/comparer hashes remain frozen.
+Selected next bounds: inclusive8400..9000,2400provider/2460outerseconds,
+512MiBPICA/1GiBmonitoredoutput/200000files/256MiBfile/15GiBfreefloor/
+2spoll/core disabled. Aggregate ceilings are monitored, not quotas.
+Use an ordinary private copy of immutable stock7800 final disk profile, as
+in the accepted preceding family. Its metadata/profile remain; old unused
+startup PICA is retired and outside the new input closure. New original
+must record its own movie and initial snapshot. Native replays only those.
 
-Window export omits GPU diagnostics outside an explicitly selected interval.
-The guest still executes the entire natural movie and disk-profile path.
-Absolute callback indices/ticks remain intact. Input/audio span the full run.
-No prefix equality, completed-update or Section 7 credit follows from a window.
+Ten completed own scratch retirements:5,127,185sealed files/40,817,074,176
+measured allocated bytes, not net disk gain. Source/dump/receipts/hashes/
+profiles/movies/snapshots/pixels/PCM/metadata/current providers/module/
+schedule/canonical360 raw and active inputs preserved. Selectedremaining0.
+Fresh receipt verification26515744; free23.8GB after previous full/post pass.
+No factory restart/settings change. Historical retired raw needs regeneration.
 
-One existing implementation helper prepares a private default/refusal controller.
-Root executes actual compiled controls and comparisons independently.
-No new reviewers or unrelated harness work. Completed Aquinas is absent from
-the live agent list. Effort change is unverified until the next xhigh relay send.
-
-## Accepted stage continuation
-
-root/world-one-stage-continuation 029182727 is accepted by result
-.integrator/results/root-world-one-stage-continuation-029182727.json,
-integrator main 625280f86944296bf3e38d77fd1adaf8026fc775, zero claims/bytes.
-Its implementation patch is explicitly empty. The 7,800-presentation native
-replay uses its own original movie/snapshot. Full comparison f18c93f4 and
-post-comparison seal 3ed0a74d pass. Both CPU interpreter/JIT fallbacks are zero.
-Actual original/native pixels show Mario in World 1-1, coins 0 and timer 491.
-Control, goal, typed player and comparable completed-update state remain open.
-
-## Resources and retained evidence
-
-Nine owner-authorized cleanup passes retire 4,443,844 individually sealed own
-files, 36,485,296,128 measured allocated bytes. Receipts, removed-file hashes,
-source, owner dump, current stock7800/canonical360 raw, profiles/movies/snapshots,
-native pixels/audio/metadata and active comparison inputs remain intact.
-Final cleanup cf82a917 preserves all retained files/sealed receipts and leaves
-zero selected files. Free disk 21,157,953,536 bytes at the next-session check.
-Historical removed raw must be regenerated before its old comparison reruns.
-No factory restart or settings change.
-
-Proposed World 1-1 control recording/replay: presentations 7800 through 8400,
-2,400 provider/2,460 outer seconds, 512 MiB PICA, 1 GiB monitored total,
-200,000 files, 256 MiB per file, 15 GiB free floor, two-second polls.
-Aggregate ceilings are monitored, not quotas; direct child has an OS file limit.
-Required short window/default/refusal/incomplete distinctions and preservation
-are now checked. The proposed long control recording is still unexecuted.
+Canonical360 entry and separate exit Pro witnesses full/post/mechanical pass.
+Entry123ae668 lacks exit/resumption/store. Exit0c62e9c4 has actual return/store/
+first-word-read but missing construction ancestry and conservative boundary
+predicate gaps. Actual translated-return snapshots match; accepted hook
+invalidate=false. Existing false reports remain unchanged. One helper
+prepares a private source/17-record packet; root reads/checks and queues it.
+Pro entry-gap packet11315d00 is queued. No layouts or actor/update claims.
 
 ## Next three tasks
 
-1. Push/submit the finished window source family with zero claims and retain
-   source hashes, actual compiled controls and completed comparison receipts.
-2. Continue a new bounded World 1-1 control family while integration runs.
-3. Bind Pro's proposed player/update contracts to natural runtime witnesses;
-   compare Section 7 state at completed updates and reach the goal pole.
+1. Prepare and launch bounded original bridge input capture. Inspect complete
+   footers, actual pixels and source/profile/copy preservation.
+2. Replay only its own original movie/snapshot and compare exact observations,
+   then rehash all declared original inputs and both new captures.
+3. Queue the separate exit-boundary evidence and use Pro proposals to ground
+   typed current-player/completed-update fields, then advance toward goal.
 
-Milestones 1 through 4 retain their accepted finite scopes. Milestones 5 and 6
-remain in progress. World 1-1 control/goal/whole replay suite, continuous
-synchronized audio, browser sustained performance, physical mobile, saves and
-complete address-keyed rank-O adapters remain unverified.
-Runtime-only family adds zero matching bytes. Accepted-byte throughput is zero;
-no source match or new recompiled coverage is claimed by this interval.
-
-Final evidence: project/gpu_observation_window_evidence.md. Strict partial
-GPU/full-input/audio reports61c1bdc5/e0cfab60/d26907b9 and post-seals
-9973cedb/2513f949/2ae3565b pass. All CPU fallbacks zero. Native
-441,604,775 instructions per finite360 path. Incomplete confirmation775c07e2
-preserves the actual fifteen-case evidence, without rewriting its failed case.
+Milestones1..4 retain accepted finite scope.5/6 remain in progress. Typed
+controlled player/lifetime/completed-update position/velocity/state/camera/
+RNG/timer/coins, goal and whole-level replay remain open. Browser sustained
+performance, physical mobile, synchronized continuous sound, saves and all
+rank-O address replacement adapters remain open. Matching throughput0.
