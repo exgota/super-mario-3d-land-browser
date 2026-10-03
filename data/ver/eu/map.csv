@@ -434,7 +434,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0010E2D8,          ,0x0010E320,          ,U,f,CFLi_EndWorkingReason,
 0x0010E320,0x0010E49C,0x0010E4E8,          ,U,f,CFLi_FinalizeDatabase,
 0x0010E4E8,          ,0x0010E4F4,          ,O,f,CFLi_FinalizeDevice,
-0x0010E4F4,0x0010E510,0x0010E514,          ,U,f,CFLi_FinalizeResourceDevice,
+0x0010E4F4,0x0010E510,0x0010E514,          ,O,f,CFLi_FinalizeResourceDevice,
 0x0010E514,          ,0x0010E54C,          ,U,f,CFLi_FlushDevice,
 0x0010E54C,0x0010E924,0x0010E928,          ,U,f,CFLi_GetAdditionalInfo,
 0x0010E928,          ,0x0010E98C,          ,U,f,,
