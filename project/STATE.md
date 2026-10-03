@@ -57,12 +57,16 @@ Browser paths now allow bounded internal ASCII spaces so ordinary saved profile
 
 ## Active execution and limits
 
-Fresh browser replay9000 from original bridge initial_user_state/movie runs in
+Completed browser replay9000 from original bridge initial_user_state/movie is in
 build/browser_world_one_verification_9000 against browser_world_one_server_9000.
 Movief2d7574c, unchanged ordinary user state. No RAM continuation or pointer join.
 Private verifier/build/browser_session_preparation/verify_browser_world_one_9000.py.
-Observe and resume it before any new capture. Final bridge pixels/input/PCM equality,
-actual World1-1 image and full output counters are pending. No goal credit.
+The9000run completed at44,048,217,034ticks/renderer9101; CPU0exact4313017982,
+CPU1zero/fallbacks0. Actual bridge scene observed. HID/audio timing/bottom screen
+exact, top22pixels and1PCM sample differ. Report6ce92d93 records first differences.
+Cause/branch specificity unverified; submission held. Both capture/browser closed.
+One existing helper diagnoses the1-unit PCM portability error in scratch only.
+No matching/main regression established; accepted default360 still passes.
 
 Normal controls/session <=60000 presentations, wall<=3600sec, audio<=256MiB,
 final screens<=160MiB, export<=2GiB. Request/frame histories bounded; complete
@@ -71,7 +75,7 @@ Selected path writes no per-command PICA/GPU files. Default capture remains sepa
 
 Byte-identical active-module function index symbol map recovered by a bounded link,
 receipt35d67e7e. Duplicate wasm retired,8.53MB symbol map retained. This supplies
-names for profiling only. Separate CPU/rasterization/frame-copy costs still pending.
+names for profiling only. First10sec profile sampled startup file reads, not gameplay. Actual steady rendering costs remain pending. The360 profiled replay itself passed.
 
 ## Evidence and retention
 
@@ -83,9 +87,9 @@ typed player/control/update or full-prefix GPU equality credit.
 
 Own completed compiler duplicates/profiles retired only after source/hash and
 closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PCM,
-active9000 inputs/profile, accepted providers and all sealed receipts preserved.
+9000 comparison inputs and raw evidence, accepted providers and all sealed receipts preserved.
 Free disk measured below. No factory restart/settings. Aquinas absent/archived.
-One existing implementation helper completed/idle. No reviewers or unrelated work.
+One existing implementation helper diagnoses numerical graphics portability. No reviewers or unrelated work.
 
 Pro handles layout/type/update proposals. Exit-boundary answer is conditional,
 construction ancestry unproved; original-return/dispatch question remains queued.

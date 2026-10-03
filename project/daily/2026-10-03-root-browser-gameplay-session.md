@@ -41,3 +41,15 @@ controlsbe8eb818 pass. No personal/system process touched. Ordinary saved
 Nintendo3DS folder names now accepted unchanged with bounded internal spaces.
 Actual browser9000 replay from original bridge user state/movie is running;
 World1-1 final equality, goal and separate cost attribution remain pending.
+
+## Wider browser replay, 19:26 UTC
+
+The9000presentation browser movie completed at the bridge crates with exact
+HID/audio timing, CPU04313017982/CPU1zero/fallbacks0 and bottom screen. Top22pixels
+and1PCM channel sample differ. First-difference report6ce92d93 preserves both
+raw captures. No exact World1-1/browser-goal credit; submission held. Average
+presentation rate4.51/sec, first eligible53.17sec. Arithmetic contraction is a
+proven public-audio portability defect in targeted numerical cases; the actual
+1-sample attribution and independent22-pixel cause remain unverified. The actual
+profiled360 replay passed, but its first sampling window selected startup file
+reads, so no gameplay CPU/rasterization split is credited.

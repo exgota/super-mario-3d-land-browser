@@ -17,8 +17,8 @@ The retired compiler closure has now been reconstructed with historical byte
 identity. A fresh module exists. Actual default360 replay and normal360 replay
 passed original input/PCM/pixels/framebuffers; default also passed the full GPU
 stream comparison. All12 standard buttons and natural Stop passed actual browser
-HID/movie delivery. A capped9000presentation browser World1-1 replay is active.
-The measured normal startup presentation rate is about8.7/sec after first frame,
+HID/movie delivery. The capped9000presentation browser World1-1 replay completed at the bridge crates. Input/timing/CPU counts match, but22top pixels and1PCM sample differ. Its exact comparison failed, and this family is held while portability is diagnosed.
+The measured normal startup presentation rate is about8.7/sec after first frame; the9000prefix averages4.51/sec,
 well below playable speed; separate execution-cost measurements remain pending.
 
 The accepted finite browser execution result remains available at
