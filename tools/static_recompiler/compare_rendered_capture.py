@@ -72,7 +72,7 @@ def load_rendered_capture(directory):
         raise RuntimeError("capture needs one final software presentation before its outcome")
     presentation = presentations[0]
     unsigned_integer(presentation.get("renderer_frame"), "renderer frame", maximum=0xFFFFFFFFFFFFFFFF, positive=True)
-    unsigned_integer(presentation.get("presentation_index"), "presentation index", maximum=3599)
+    unsigned_integer(presentation.get("presentation_index"), "presentation index", maximum=7199)
     submission_ticks = unsigned_integer(presentation.get("submission_ticks"), "submission ticks", maximum=0xFFFFFFFFFFFFFFFF)
     vblank_index = unsigned_integer(presentation.get("vblank_index"), "presentation VBlank index", maximum=0xFFFFFFFFFFFFFFFF)
     submissions = [event for event in events[:-2] if event["kind"] == "buffer_swap" and event.get("screen_id") == 0]
