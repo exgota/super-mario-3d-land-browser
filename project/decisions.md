@@ -1404,3 +1404,8 @@ Name the unchanged 612-byte function row `_ZN5Plant4initERKN2al13ActorInitInfoE`
 - 003F2290: existing4-byte nerve row dat_003F2290; static constructor380F18 installs table003BBF04.
 - 003F2294: existing4-byte nerve row dat_003F2294; static constructor380F24 installs table003BBF14.
 Only missing names change; all ranks/types/pools/boundaries stay unchanged. No nerve table/body is reconstructed by these imports.
+
+
+## Observed squat action address intake, 2026-10-03
+
+The operator reviewed the name-only map evidence from dot/root-19df5c. Original caller 0x0019E4D4 passes the same receiver to 0x0019DF5C and ignores its result. The receiver contains an independently allocated eight-byte state record at offset0x18, allocated by constructor0x0019E5D4; virtual predicate calls use slots0x08 and0x24 from service-prefix pointers, and animator queries use the existing interface. The existing complete row0x003B1534..0x003B1540 contains SquatStart and remains imported. Seven neutral fn_/dat_ names change; no ranks, types, pools or boundaries change. Receiver and service types are observed prefixes, not complete original class identities.
