@@ -5,6 +5,7 @@
 #include <vector>
 #include "core/arm/arm_interface.h"
 #include "GuestMemoryTrace.h"
+#include "GuestExecutionObservation.h"
 #include "GuestWriteObservation.h"
 #include "NativeBlockSchedule.h"
 #include "TranslatedFunctionModule.h"
@@ -19,12 +20,14 @@ public:
     StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
                      std::shared_ptr<Core::Timing::Timer> timer, const std::filesystem::path& library,
                      std::shared_ptr<GuestMemoryTrace> trace = nullptr,
-                     std::shared_ptr<GuestWriteObservation> write_observation = nullptr);
+                     std::shared_ptr<GuestWriteObservation> write_observation = nullptr,
+                     std::shared_ptr<GuestExecutionObservation> execution_observation = nullptr);
     StaticArmBackend(Core::System& system, Memory::MemorySystem& memory, u32 id,
                      std::shared_ptr<Core::Timing::Timer> timer, const TranslatedFunctionModule& module,
                      const std::filesystem::path& schedule_path,
                      std::shared_ptr<GuestMemoryTrace> trace = nullptr,
-                     std::shared_ptr<GuestWriteObservation> write_observation = nullptr);
+                     std::shared_ptr<GuestWriteObservation> write_observation = nullptr,
+                     std::shared_ptr<GuestExecutionObservation> execution_observation = nullptr);
     ~StaticArmBackend() override;
     void Run() override;
     void Step() override;
@@ -65,6 +68,11 @@ private:
     static Code Lookup(Context*, u32);
     Code FindCode(u32 address) const;
     GuestWriteObservation::MachineContext ObservationContext() const;
+    GuestExecutionObservation::Snapshot ExecutionContext(Context* callback = nullptr) const;
+    void ExecutionBoundary(const char* reason, bool invalidate = true);
+    template<class ReadOperation> u32 ObserveRead(Context* callback, u32 address, u32 width, ReadOperation&& operation);
+    template<class WriteOperation> void ObserveExecutionWrite(Context* callback, u32 address, u32 width,
+                                                            u32 value, WriteOperation&& operation);
     template<class WriteOperation> void ObserveWrite(Context* callback_context, u32 address, u32 width,
                                                     u32 value, WriteOperation&& operation);
     Memory::MemorySystem& memory;
@@ -84,6 +92,8 @@ private:
     std::shared_ptr<GuestMemoryTrace> trace;
     std::shared_ptr<GuestWriteObservation> write_observation;
     GuestWriteObservation::InstructionContext instruction_context;
+    std::shared_ptr<GuestExecutionObservation> execution_observation;
+    std::uint64_t execution_context_identity = 0;
     static const Host callbacks;
 };
 }
