@@ -1316,7 +1316,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0013E238,0x0013E2A4,0x0013E2B0,          ,U,f,,
 0x0013E2B0,          ,0x0013E2CC,          ,U,f,,
 0x0013E2CC,          ,0x0013E338,          ,U,f,_ZN2al5Scene8movementEv,
-0x0013E338,          ,0x0013E358,          ,U,f,,
+0x0013E338,          ,0x0013E358,          ,O,f,fn_0013E338,
 0x0013E358,0x0013E3E0,0x0013E3F0,          ,U,f,,
 0x0013E3F0,0x0013E500,0x0013E51C,          ,U,f,,
 0x0013E51C,0x0013E554,0x0013E558,          ,U,f,,
