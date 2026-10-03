@@ -8577,7 +8577,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026CC18,0x0026CCC8,0x0026CCD0,          ,U,f,,
 0x0026CCD0,          ,0x0026CCEC,          ,U,f,fn_0026CCD0,
 0x0026CCEC,          ,0x0026CD08,          ,O,f,fn_0026CCEC,
-0x0026CD08,0x0026CDE0,0x0026CDF4,          ,U,f,,
+0x0026CD08,0x0026CDE0,0x0026CDF4,          ,O,f,fn_0026CD08,
 0x0026CDF4,0x0026CE28,0x0026CE30,          ,U,f,,
 0x0026CE30,0x0026CE3C,0x0026CE50,          ,U,f,,
 0x0026CE50,          ,0x0026CE90,          ,U,f,,
