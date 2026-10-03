@@ -1398,3 +1398,17 @@ Name the unchanged 612-byte function row `_ZN5Plant4initERKN2al13ActorInitInfoE`
 ## 2026-10-03: BalanceTruck movement-power helper identity
 
 Name only the unchanged 536-byte U row at 0x0026D6C0 as `_ZN12BalanceTruck15updateMovePowerEv`. The class identity is supported by the BalanceTruck factory and constructor 0x00135420, which calls MapObjActor and installs 0x003C6BDC. Creator 0x003966DC allocates 0xB4 at 0x003966E8 and calls that constructor at 0x00396704. Callers 0x00134364, 0x00134E0C and 0x001351C0 agree on the receiver and fields at 0x88/0x8C, 0x90/0x94 and 0xB0. The method name is descriptive reconstruction, not recovered original C++ spelling. No rank, boundary, data row or helper identity changes. This refreshes the already published dot/root-26d6c0 proposal without claiming another matched root.
+## Dot Nokonoko-family message address evidence
+- 00315C6C: neutral entry fn_00315C6C, primary vtable003D4018 slot+0x34 at003D404C; constructor3165D4/creator39887C establish ordinary MapObjActor base and0x88 extent. Predecessor returns315C28 before pool.
+- 0027A5FC: neutral imported step<=threshold query fn_0027A5FC, call315D10 uses real IUseNerve and threshold8.
+- 0031CD28: neutral shell activation fn_0031CD28, call315D50 passes shell+64, ordinary position/quaternion references and0.0f; constructor27ABF4 confirms shell actor base.
+- 003F2288: existing4-byte nerve row dat_003F2288; static constructor380F00 installs table003BBEE4.
+- 003F228C: existing4-byte nerve row dat_003F228C; static constructor380F0C installs table003BBEF4.
+- 003F2290: existing4-byte nerve row dat_003F2290; static constructor380F18 installs table003BBF04.
+- 003F2294: existing4-byte nerve row dat_003F2294; static constructor380F24 installs table003BBF14.
+Only missing names change; all ranks/types/pools/boundaries stay unchanged. No nerve table/body is reconstructed by these imports.
+
+
+## Observed squat action address intake, 2026-10-03
+
+The operator reviewed the name-only map evidence from dot/root-19df5c. Original caller 0x0019E4D4 passes the same receiver to 0x0019DF5C and ignores its result. The receiver contains an independently allocated eight-byte state record at offset0x18, allocated by constructor0x0019E5D4; virtual predicate calls use slots0x08 and0x24 from service-prefix pointers, and animator queries use the existing interface. The existing complete row0x003B1534..0x003B1540 contains SquatStart and remains imported. Seven neutral fn_/dat_ names change; no ranks, types, pools or boundaries change. Receiver and service types are observed prefixes, not complete original class identities.
