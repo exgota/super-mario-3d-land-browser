@@ -25,3 +25,20 @@ The driver owns this documentation-only update to project/packet_reference_deplo
 The driver owns cleanup/initializer-intake-batch from 4e5fe20cb2ed6ff928aaf1244b74181004b748a0. This combines the already checked, disjoint Bug, flower and Hammer initializer families into one cleanup submission so one mandatory full-preservation check can judge all five new roots. Scope is the same nineteen source files documented in the individual intake evidence. Preserve their final source bytes; keep the eleven previously proposed symbol names in a separate evidence commit. Existing source submissions remain queued until this combined final source is checked and ready. No production setting, acceptance rule, rank or ledger change is authorized by this batching decision.
 
 Final source d0557ac53e037afb8840568f638e6fe2191c42e3 builds normally and passes 87/87 canonical complete intervals in 30.741 seconds: 82 prior roots/1504 bytes preserved and five new roots/2668 bytes proposed. All nineteen source hashes remain identical to the individual family snapshots, and scratch ranks are restored. Evidence: project/evidence/initializer_intake_batch.md. Queue the replacement before retaining the three earlier source requests as superseded; leave independent naming requests alone. Full integrator acceptance remains pending.
+
+## Driver Teresa intake ownership, 2026-10-02
+
+The driver owns cleanup/teresa-initialization-imports from frozen integrator main 56b95336e488d69c16709d8db354f1d22ef8b001, after accepted Bug/initializer batch cf2886000d0c49e12faddf4cd77a1d47372735c8. The twelve source/header paths below form one serialized shared-import and Teresa family. Only fn_002794F8, fn_00280538 and fn_0027FAB8 contracts are reconciled; unrelated placeholder imports stay outside scope. Root keeps port/browser-lifecycle ownership. The integrator alone moves main/ranks/ledger.
+
+- `lib/al/include/LiveActor/alActorInitializationImports.h`
+- `Game/backup/src/Factory/fn_0018938C.cpp`
+- `Game/backup/src/Factory/fn_001794C0.cpp`
+- `Game/backup/src/MapObj/KoopaPillar.cpp`
+- `Game/backup/src/MapObj/TransparentWall.cpp`
+- `Game/backup/src/Npc/AquariumSwimDebris.cpp`
+- `lib/al/src/MapObj/alFallMapParts.cpp`
+- `lib/al/src/Npc/alEffectObj.cpp`
+- `lib/al/src/Npc/alSky.cpp`
+- `Game/backup/src/Enemy/Bug.cpp`
+- `Game/backup/include/Enemy/Teresa.h`
+- `Game/backup/src/Enemy/Teresa.cpp`
