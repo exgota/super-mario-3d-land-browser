@@ -1,26 +1,34 @@
-# Root saved-profile replay state
+# Root bounded stage capture range ownership
 
-Root owns root/world-one-level-entry, frozen origin/main 187f8bfcee80b7897807467f6bb6ee76aba44176. Ownership was committed in eee40e66 before work. This finished family proposes SAVED_PROFILE_REPLAY.md, project/world_one_level_entry_evidence.md, daily and this STATE. Its implementation patch is explicitly empty. Matching claims, new nonmatching game functions and new translated bytes are 0; linked recompiled bytes remain 2437712. No Game/lib/config/map/ranks/Factory/ledger/oracle changes. Only the integrator moves/pushes main or writes ranks/ledger. Submit once, inspect the actual verdict, never resubmit waiting or accepted work.
+Root owns `root/stage-capture-range`, frozen `origin/main` `cded24cc509242a7373aa281c084b63de77bfae0`.
+Ownership is recorded before implementation. Scope: one existing native
+HeadlessCapture finite-range source, its public limits documentation, the
+matching rendered capture loader bound, and evidence/daily/STATE. One existing
+implementation helper may prepare that minimal source patch and an isolated
+ignored builder. Root independently reviews, builds and runs original captures.
+No Game/lib/config/map/ranks/Factory/ledger/protected matching-tool/oracle,
+scheduler, translated module or backend changes. Claims/new bytes zero;
+linked recompiled bytes 2437712. Only integrator moves or pushes main.
 
-Both saved-profile original/native cold boots complete and pass unchanged full movie comparison. At 1200, all 64127 GPU events/ticks, 50729 PICA files/230905872 bytes, 5088 HID polls, 675360 stereo frames and final screen metadata/RGBA/raw framebuffers match. Stock/native receipts 07dc34e6/070803af; comparison c182075f; post-comparison whole-original/provider/snapshot seal 63814e72 passes. Native CPU0 executes 825068608 instructions, both CPU fallbacks 0. Stock/native controller wall 337.302507417/284.947491999948 seconds includes provenance hashing. Actual pixels show a dark transition and black lower screen.
+Need: actual original/native7200 navigation reaches the World1-1 start card,
+with strict comparison fd9baf69 passed and original seal finishing. It does not
+show playable control. Extend only the finite native recording selection to
+8400 presentations, 2400-second wall and 3GiB aggregate PICA; preserve defaults.
+The loader may accept presentation index8399 with all existing validation intact.
+No input changes, semantic state sampling or layout reconstruction in this patch.
+Layouts go to Pro. New selected capture will have separately pinned finite outer,
+output/file/per-file/free-floor bounds and preserve original inputs before runs.
 
-At 1800, all 117019 GPU events/ticks, 97621 PICA files/404399856 bytes, 7434 HID polls, 1003680 stereo frames and both screen/framebuffer streams match. Stock/native receipts 68984de9/9cfc660e; comparison 9a0ee24d; post-comparison seal 1072a80d passes. Native CPU0 executes 1045162125 instructions, both CPU fallbacks 0. Stock/native controller wall 481.458708250/361.479538874933 seconds. Actual stock/native pixels show the opening cinematic. No entered World 1-1 or saved-progress-load claim. All four guests are finished. The independent movie clocks differ; each native replay uses its own original movie/snapshot, never an inferred cross-recording prefix.
-
-The profile is an ordinary copy of the completed stock7200 final user directory. Its 20-file manifest 38990e24 and 18444-byte GameData.bin SHA 44658bb7 preserve. No save decoding or editing, RAM continuation or manufactured game state. Both private profiles, whole original captures/snapshots and declared provider/module/schedule/source/archive/object/movie inputs preserve. Producer 49f5e27c and replay controller fdf6c96d remain ignored frozen source. The explicit root-authored 13-state A-only menu script f8603cc7 reaches every actual selected HID state. Class layouts go to Pro.
-
-Actual capture bounds: 1200 or 1800 presentations; child/outer 360/420 or 540/600 seconds; 512 MiB PICA; 1 GiB monitored output; 720000 files; 128 MiB per file; 5 GiB free-space floor; two-second polling. These monitored thresholds are not filesystem quotas. All children return 0 with complete GPU/input/audio footers and unchanged full comparers. Required provider dependency has its actual isolated 12-stage build with 2133 sealed inputs and 24 outputs preserved. This is not a hermetic implicit operating-system linker closure. Accepted bounds result: root-gameplay-capture-bounds-835148bc3 at da265cc6567f0cad77a3f4edd5aa759c233e6220, no matching build input changed.
-
-Accepted immutable bounds7200 comparison 913c7dc7 matches 598803 GPU events/ticks, 516903 PICA payloads/1611203488 bytes, 28554 HID polls, 3957440 stereo frames and both screens/framebuffers, zero fallback. Whole-original preservation 9e86b557 passes. Actual map image puts Mario on the starting-arrow node, before stage 1. Next test: move right and press A near that endpoint, a diagnosis from observed position. Old file-limit failure and previous3599 rendered-index refusal remain retained. Never edit/resubmit that finished branch.
-
-Owner cleanup de23be3b individually seals then retires 542674 finished files: 31 inactive browser profiles, duplicate compiler outputs and old3600 raw payloads. All 41470 retained files and protected receipts preserve; initial free disk 22.8 GiB. Additional 65034a12 retirement removes only 516908 accepted finished native7200 PICA/PCM/RGBA/framebuffer files, 1628070048 logical/3286183936 allocated bytes. All 34 retained capture files and four sealed receipts preserve, selected files remaining 0. Manifest b647af6a holds each individual hash/extent, fsynced before deletion. Free afterward 25383178240 bytes, 23.64 GiB. Retired native raw comparison requires regeneration. Stock7200/profile, owner dump, current source/providers/module/schedule and saved-profile original inputs remain. No factory restart/settings changes.
-
-Accepted writer observer 5f69f41d6 at 08b5b8fc has three original360 comparisons and 12 real refusal/limit controls, zero fallback and all originals preserved. It proves one particular sample-coherent committed current-root slot store, no class/player/lifetime/completed-update identity. Pro natural-writer answer 8a293fe5 and getter answer e310b27c request connected natural entry/call/read/return/store/consumer evidence. Static getter deductions do not prove event ancestry. Root reconstructs no layout or factory-owned small function.
-
-Separate root/guest-execution-observation owns generic passive bounded history, frozen origin/main 80c334855e991839cd1f4ca69d30babe5b73f74e, ownership c9df36ac. One existing implementation helper prepares only permitted runtime files, two native CMake source-list additions and documentation. Root independently reviews, builds isolated affected objects and checks actual disabled/enabled original movies and real refusal/limit controls. No new reviewers or unrelated browser/harness/process work. Aquinas is completed and archived. Effort remains ultra until the next actual relay send verifies xhigh; no setting change claimed.
+Execution observation60e1762b is accepted at9f12ba709. Three original360 full
+comparisons/seals, fourteen real controls and connected original-code witness
+pass. Its own final source/provider remains immutable. Connected question queued
+to Pro, no player/lifetime/completed-update claim. Aquinas remains archived.
+Effort ultra, next actual relay xhigh unverified. No new reviewer/harness work.
 
 Next three tasks:
-1. Commit/push/submit this finished documentation family with no claims. Inspect and report its actual verdict. Continue port work while it verifies.
-2. On a new root branch, record finite natural right/A map navigation, preserving source profile and original evidence. Replay its own original movie/snapshot with complete unchanged channel/tick/payload checks and zero fallback. Keep finite wall/PICA/output/file/free limits explicit.
-3. Finish the separate execution observer and send the smallest connected packet to Pro. Establish controlled World 1-1 gameplay, completed-update state, goal and the whole Section 7 suite before milestone 5 done. Browser performance, synchronized continuous audio, save reloads, physical/mobile behavior and complete rank-O replacements remain open. Keep ignored port_status current.
-
-This family adds 0 matching bytes and 0 newly translated bytes during its measured preparation/capture/comparison/preservation interval. Runtime evidence is not exact-byte throughput. No owner question is needed now. Milestones 5/6 remain in progress.
+1. Prepare only the required finite stage capture range patch and fresh isolated
+   build recipe, preserving accepted providers and all old source/receipts.
+2. Independently review/build, run canonical original360 unchanged replay, then
+   record a new bounded original neutral continuation to actual stage pixels.
+3. Replay its own movie/snapshot natively with full unchanged comparisons/seals.
+   Milestone5/6 and Section7 remain open until actual control/update/goal evidence.
