@@ -62,8 +62,8 @@ Browser pixels are already drawn by the in-browser WebAssembly software PICA
 renderer and displayed by Canvas 2D. The local server does not render them.
 WebGPU is not implemented; sustained playable performance is unverified.
 
-1. Finish the active bridge own-movie native replay, strict comparison and
-   post-preservation, then submit this family. Estimate 20–60 minutes.
+1. Bridge replay/comparison/post-preservation now pass. Submit this zero-claim
+   evidence family, then watch its verdict while starting the next source family.
 2. Full-level browser session/required controls/bounded recording and actual
    CPU/render/frame-delivery measurement. Estimate 6–12 hours.
 3. Browser WebGPU PICA rendering and measured performance fixes. Estimate
@@ -79,7 +79,9 @@ remains by address; complete current rank-O adapter coverage remains open.
 
 Original bridge8400..9000 completed0, receiptd9af0ef9, all footers and
 source/private profile preserved. Actual image: first bridge wooden crates,
-timer464/coins0/lives4. Native is still running. No typed jump/update/goal claim.
+timer464/coins0/lives4. Native add80b7f/strictf7a7b3ca/post632111b0 pass, all
+declared observations/source preserved and both CPU fallbacks zero. No typed
+jump/update/goal claim. Submission and integrator verdict are pending.
 The exit-boundary Pro answer is available and remains a conditional proposal;
 it preserves the old false validator and does not prove construction ancestry.
 
@@ -89,4 +91,4 @@ RNG/timer/coins, goal and whole-level replay remain open. Browser sustained
 performance, physical mobile, synchronized continuous sound, saves and all
 rank-O address replacement adapters remain open. Matching throughput0.
 
-Current measured free bytes 22364463104 at 2026-10-03T16:07:15.111069+00:00.
+Current measured free bytes 21809340416 at 2026-10-03T16:22:14.322673+00:00.
