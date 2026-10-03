@@ -42,3 +42,5 @@ The driver owns cleanup/teresa-initialization-imports from frozen integrator mai
 - `Game/backup/src/Enemy/Bug.cpp`
 - `Game/backup/include/Enemy/Teresa.h`
 - `Game/backup/src/Enemy/Teresa.cpp`
+
+Teresa intake ready: final committed source b1d4a94a8593766f11513e0cb2f82c9b90f6e790 passes27complete canonical checks/3984bytes, including26prior roots/3440bytes preserved and544new bytes proposed. Three older U definitions retain recorded closure/size failures and no credit. Normal link succeeds, global duplicate definitions are zero, and the named map is restored. Evidence: project/evidence/teresa_initialization_intake.md. Integrator acceptance remains pending.
