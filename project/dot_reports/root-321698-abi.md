@@ -70,3 +70,17 @@ inventing an alternate export. Preserve that exact spelling and leave the
 uppercase Factory declaration untouched. No new match or compilation is claimed
 by this correction. The target may be reopened after current ownership and all
 remaining import checks; this note does not preapprove other unresolved ABIs.
+
+## 2026-10-03 bounded source follow-up
+
+The reopened attempt on main `6b0e2a1385b814b70344023d9816424edcc7d832`
+used the existing lowercase alias and preserved both separate string-row imports.
+Three source forms were attempted; the unsupported combined-string trial was
+discarded and counted. Final committed source `b64523093497f77100025aeb3acfb2dc6cee25ff`
+built, linked and exported normally. Unchanged `tools/check.py` returned exit 1:
+`m -> m: The linked candidate differs from the unchanged original interval.`
+The complete candidate is 540/540 bytes, with 17 differing bytes across seven
+instructions and an equal literal pool. This is not exact or accepted credit.
+The remaining pointer setup and branch order did not justify further variants.
+The NON_MATCHING candidate, object and provenance remain local; this branch
+submits only the corrected status note. Original map bytes were restored.
