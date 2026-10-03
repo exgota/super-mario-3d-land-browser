@@ -4047,7 +4047,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BD130,          ,0x001BD1A8,          ,U,f,,
 0x001BD1A8,          ,0x001BD1AC,          ,O,f,fn_001BD1A8,
 0x001BD1AC,0x001BD200,0x001BD204,          ,U,f,,
-0x001BD204,0x001BD2FC,0x001BD308,          ,U,f,,
+0x001BD204,0x001BD2FC,0x001BD308,          ,O,f,fn_001BD204,
 0x001BD308,0x001BD348,0x001BD350,          ,U,f,,
 0x001BD350,          ,0x001BD370,          ,U,f,,
 0x001BD370,0x001BD3CC,0x001BD3D0,          ,U,f,,
