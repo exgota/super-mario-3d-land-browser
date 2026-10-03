@@ -12963,7 +12963,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00327AD0,          ,0x00327B20,          ,U,f,,
 0x00327B20,          ,0x00327B28,          ,O,f,fn_00327B20,
 0x00327B28,0x00327B30,0x00327B34,          ,O,f,fn_00327B28,
-0x00327B34,          ,0x00327B3C,          ,U,f,,
+0x00327B34,          ,0x00327B3C,          ,O,f,fn_00327B34,
 0x00327B3C,0x00327B68,0x00327B6C,          ,U,f,,
 0x00327B6C,0x00327BA0,0x00327BA4,          ,U,f,,
 0x00327BA4,          ,0x00327BAC,          ,O,f,fn_00327BA4,
