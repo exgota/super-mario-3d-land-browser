@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
+import {AudioFileStream} from './BrowserAudioFileStream.mjs';
 const ChunkBytes = 64 * 1024;
 const MaximumFiles = 16384;
 const MaximumDirectoryEntries = 32768;
@@ -20,6 +21,9 @@ let descriptor;
 let module;
 let nextTransferIdentifier = 0;
 let pendingTransfer;
+let audioStream;
+let audioTimer;
+let pendingAudio;
 let buttonTimer;
 let buttonSequence = 0;
 let buttonProgress;
@@ -98,7 +102,7 @@ function validateStart(value) {
         /^[A-Za-z0-9_-]{1,64}$/.test(value.capture_identifier), 'Invalid start descriptor');
     record(value.inputs, ['dump', 'block_schedule', 'movie', 'initial_user_files', 'initial_user_directories']);
     const observationKeys = ['input_capture', 'audio_capture', 'live_button_capture', 'live_circle_pad_capture', 'live_touch_capture',
-                             'record_base_ticks', 'frame_output']
+                             'record_base_ticks', 'frame_output', 'stream_audio_output']
         .filter(key => Object.hasOwn(value.options, key));
     record(value.options, ['presentation_limit', 'wall_time_seconds', 'pica_payload_limit_bytes', ...observationKeys]);
     const inputCapture = Object.hasOwn(value.options, 'input_capture') ? value.options.input_capture : false;
@@ -107,8 +111,10 @@ function validateStart(value) {
     const liveCirclePadCapture = Object.hasOwn(value.options, 'live_circle_pad_capture') ? value.options.live_circle_pad_capture : false;
     const liveTouchCapture = Object.hasOwn(value.options, 'live_touch_capture') ? value.options.live_touch_capture : false;
     const frameOutput = Object.hasOwn(value.options, 'frame_output') ? value.options.frame_output : false;
+    const streamAudio = Object.hasOwn(value.options, 'stream_audio_output') ? value.options.stream_audio_output : false;
     requireCondition(typeof inputCapture === 'boolean' && typeof audioCapture === 'boolean' &&
         typeof liveButtonCapture === 'boolean' && typeof liveCirclePadCapture === 'boolean' && typeof liveTouchCapture === 'boolean' && typeof frameOutput === 'boolean' &&
+        typeof streamAudio === 'boolean' && (!streamAudio || audioCapture) &&
         (!frameOutput || value.options.presentation_limit !== null) &&
         (!liveButtonCapture || (inputCapture && audioCapture)) &&
         (!liveCirclePadCapture || (inputCapture && audioCapture)) &&
@@ -161,7 +167,7 @@ function validateStart(value) {
                      'Input extent exceeds the finite worker bound');
     return {...value, options: {...value.options, input_capture: inputCapture, audio_capture: audioCapture,
                                live_button_capture: liveButtonCapture, live_circle_pad_capture: liveCirclePadCapture, live_touch_capture: liveTouchCapture,
-                               frame_output: frameOutput},
+                               frame_output: frameOutput, stream_audio_output: streamAudio},
             validated_inputs: inputs};
 }
 
@@ -178,6 +184,7 @@ function fail(error) {
     clearInterval(circleTimer);
     clearInterval(touchTimer);
     clearInterval(frameTimer);
+    stopAudio(error);
     if (pendingFrame) {
         clearTimeout(pendingFrame.timer);
         pendingFrame.reject(error);
@@ -192,6 +199,43 @@ function fail(error) {
           stdout, stderr});
     // The page owns the independent watchdog and abnormal worker disposal.
     // Never label abrupt termination as a successful C++ shutdown.
+}
+
+function stopAudio(error = new Error('Streamed sound was stopped')) {
+    clearInterval(audioTimer);
+    audioStream?.stop();
+    if (pendingAudio) {
+        clearTimeout(pendingAudio.timer);
+        pendingAudio.reject(error);
+        pendingAudio = undefined;
+    }
+}
+
+function audioAcknowledged(type, detail, transfer = []) {
+    requireCondition(!pendingAudio && ['running', 'validating'].includes(phase), 'Invalid audio transfer state');
+    return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+            pendingAudio = undefined;
+            reject(new Error('Streamed sound acknowledgment timed out'));
+        }, TransferTimeoutMilliseconds);
+        pendingAudio = {type, sequence: detail.sequence, resolve, reject, timer};
+        send({type, ...detail}, transfer);
+    });
+}
+
+async function completeAudio() {
+    if (!audioStream) return undefined;
+    try {
+        const observation = await audioStream.finish();
+        if (observation.enabled && observation.state === 'completed') {
+            observation.consumer = await audioAcknowledged('audio_stream_end', {sample_frames: observation.sample_frames});
+            requireCondition(!audioStream.closed, 'Audio stream stopped during final drain');
+        }
+        return observation;
+    } catch (error) {
+        if (audioStream.closed) return audioStream.receipt('stopped');
+        throw error;
+    }
 }
 
 function captureLine(destination, value) {
@@ -692,14 +736,17 @@ async function exportFile(file, fileIndex) {
 
 async function finish(status) {
     clearInterval(frameTimer);
+    clearInterval(audioTimer);
     requireCondition(phase === 'running' && status === 0, `Capture exited with status ${status}`);
     phase = 'validating';
+    if (audioStream) send({type: 'audio_stream_source_ended'});
     clearInterval(buttonTimer);
     clearInterval(circleTimer);
     clearInterval(touchTimer);
     // Any already copied ordinary frame can finish its page acknowledgment.
     // Native exports are forbidden here because SDK exitRuntime has run.
     await frameTask;
+    const audioObservation = await completeAudio();
     requireCondition(phase === 'validating', 'Preview failure prevents capture completion');
     if (descriptor.options.live_button_capture) send({type: 'button_capture_ended'});
     if (descriptor.options.live_circle_pad_capture) send({type: 'circle_pad_capture_ended'});
@@ -707,6 +754,12 @@ async function finish(status) {
     const {files, directories} = enumerateCapture();
     const {outcome, presentation, entries} = validateEvents(files);
     const observations = validateObservations(presentation, entries);
+    if (audioObservation) {
+        requireCondition(!audioObservation.enabled || audioObservation.state === 'stopped' ||
+            audioObservation.sample_frames === observations.audio?.sample_frames,
+            'Streamed sound did not cover the original audio observer');
+        observations.audio_stream = audioObservation;
+    }
     if (recording()) observations.recorded_movie = validateRecordedMovie(entries, observations);
     if (descriptor.options.frame_output) observations.preview_frames = previewObservations();
     const log = entries.get('user/log/reference_capture.log');
@@ -858,6 +911,9 @@ async function start(value) {
             touchControls.before_install.active === 0,
             'Inactive touch controls failed');
     }
+    if (descriptor.options.stream_audio_output)
+        audioStream = new AudioFileStream(module.FS, descriptor.capture_identifier, packet =>
+            audioAcknowledged('audio_stream_packet', {...packet, pcm: packet.pcm.buffer}, [packet.pcm.buffer]), () => phase);
     send({type: 'capture_started'});
     phase = 'running';
     // In the pinned SDK this launches the proxy pthread. It is not completion.
@@ -866,6 +922,10 @@ async function start(value) {
         arguments_.push('/owned/input_movie.ctm', '/owned/initial_user_state');
     const launchStatus = module.callMain(arguments_);
     requireCondition(launchStatus === 0, `CPU pthread launch refused with status ${launchStatus}`);
+    if (audioStream) audioTimer = setInterval(() => {
+        if (phase !== 'running') return;
+        void audioStream.pump().catch(error => { if (!audioStream.closed) fail(error); });
+    }, 25);
     if (descriptor.options.frame_output) frameTimer = setInterval(() => {
         if (phase !== 'running' || frameTask) return;
         try {
@@ -995,7 +1055,44 @@ function setTouch(value) {
 
 self.onmessage = event => {
     try {
-        if (event.data?.type === 'acknowledge_preview') {
+        if (['enable_audio_stream', 'stop_audio_stream'].includes(event.data?.type)) {
+            record(event.data, ['schema_version', 'type', 'capture_identifier']);
+            requireCondition(event.data.schema_version === 1 && audioStream &&
+                event.data.capture_identifier === descriptor.capture_identifier &&
+                ['running', 'validating'].includes(phase), 'Unexpected audio stream action');
+            if (event.data.type === 'stop_audio_stream') stopAudio();
+            else {
+                if (phase === 'running') audioStream.enable();
+                else send({type: 'audio_stream_unavailable'});
+            }
+        } else if (event.data?.type === 'audio_stream_consumption') {
+            record(event.data, ['schema_version', 'type', 'capture_identifier', 'sample_frames']);
+            requireCondition(event.data.schema_version === 1 && audioStream?.enabled &&
+                event.data.capture_identifier === descriptor.capture_identifier &&
+                ['running', 'validating'].includes(phase), 'Unexpected audio consumption observation');
+            if (!audioStream.closed) audioStream.reportConsumption(event.data.sample_frames);
+        } else if (event.data?.type === 'acknowledge_audio_packet') {
+            record(event.data, ['schema_version', 'type', 'capture_identifier', 'sequence']);
+            requireCondition(event.data.schema_version === 1 && !audioStream?.closed &&
+                event.data.capture_identifier === descriptor?.capture_identifier &&
+                pendingAudio?.type === 'audio_stream_packet' && event.data.sequence === pendingAudio.sequence,
+                'Unexpected audio packet acknowledgment');
+            const pending = pendingAudio; pendingAudio = undefined;
+            clearTimeout(pending.timer); pending.resolve();
+        } else if (event.data?.type === 'acknowledge_audio_end') {
+            record(event.data, ['schema_version', 'type', 'capture_identifier', 'receipt']);
+            const receipt = event.data.receipt;
+            requireCondition(event.data.schema_version === 1 && !audioStream?.closed && phase === 'validating' &&
+                event.data.capture_identifier === descriptor?.capture_identifier && pendingAudio?.type === 'audio_stream_end' &&
+                receipt?.capture_identifier === descriptor.capture_identifier && receipt.state === 'ended' &&
+                receipt.accepted_source_frames === audioStream.position / 4 &&
+                receipt.consumed_source_frames === receipt.accepted_source_frames &&
+                receipt.accepted_packet_count === audioStream.records.length && receipt.buffered_source_frames === 0 &&
+                receipt.context_state === 'closed' && receipt.context_rate === 32728 &&
+                encoder.encode(JSON.stringify(receipt)).length <= MaximumLineBytes, 'Unexpected audio drain acknowledgment');
+            const pending = pendingAudio; pendingAudio = undefined;
+            clearTimeout(pending.timer); pending.resolve(receipt);
+        } else if (event.data?.type === 'acknowledge_preview') {
             record(event.data, ['schema_version','type','capture_identifier','sequence']);
             requireCondition(event.data.schema_version === 1 && descriptor?.options.frame_output &&
                 ['running','validating'].includes(phase) && pendingFrame &&
