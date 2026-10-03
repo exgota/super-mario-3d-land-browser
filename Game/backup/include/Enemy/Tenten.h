@@ -1,8 +1,10 @@
 #pragma once
-#include <LiveActor/alLiveActor.h>
+#include <MapObj/alMapObjActor.h>
 class EnemyStateBlowDown;
 class EnemyStateHipDropDown;
-class Tenten : public al::LiveActor {
+// Init-only view. Constructor 0x0030A37C calls MapObjActor at 0x00280428.
+// The observed 0x74-byte prefix does not prove the complete allocation extent.
+class Tenten : public al::MapObjActor {
     float parameter60;
     bool option7;
     bool flag65;
