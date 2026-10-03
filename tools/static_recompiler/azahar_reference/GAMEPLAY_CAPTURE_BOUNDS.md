@@ -7,6 +7,12 @@ the aggregate PICA payload ceiling to 2 GiB. It changes five lines in two captur
 translation units. A larger supported bound does not establish World 1-1 entry,
 controlled-player identity, completed-update alignment or Section 7 replay.
 
+The rendered-capture loader's finite presentation-index maximum also changes
+from 3599 to 7199, matching the zero-based index of this supported interface.
+Its event, tick, PICA, screen, framebuffer and completion requirements remain
+unchanged. The full movie comparer and its input/audio equality rules are
+unchanged. This is a range-contract repair, with no tolerance or exclusions.
+
 ## Existing environment selection
 
 | Existing option | Supported range after this patch | Unset behavior |
@@ -116,20 +122,79 @@ The separate actual old/new preservation result passes at
 SHA-256 `8df26fa33154b96de67ecd6e7d96f673ffa0381fb2ac8352d05b20215fa890df`.
 No capture exception path was changed to make these controls pass.
 
-## Planned isolated verification
+## Longer capture and retained failure
 
-The translated guest library and sibling block schedule remain unchanged.
-Check relevant invalid selections and both PICA validation sites. Record a
-longer natural stock capture and
-replay its own original movie and initial user snapshot independently on native,
-with complete outcomes and unchanged input/GPU/PICA/pixel/audio/tick checks.
+The first actual 7200-presentation recording used the existing 1800-second host
+option, a 1860-second outer limit, 2 GiB PICA, and input/audio recording. Its
+external monitor selected 2560 MiB total output, 400000 files, 128 MiB per child
+output file and a 5 GiB free-disk floor. Checks occur every two seconds and do not
+constitute a filesystem quota. It stopped the direct child at the file extent
+after 1111.045487125 seconds, return code -9, last renderer frame 6233. Final
+partial output had 405376 files and 1438582864 bytes. Its largest file was
+105266119 bytes. All protected original inputs preserved. It has no complete
+footer, native comparison, gameplay entry or replay credit.
 
-The root lane's planned recording selects 7200 presentations, the existing
-1800-second host option, 2 GiB of PICA bytes, and input/audio capture. Planned
-external bounds are 1860 seconds, 2560 MiB total output, 400000 files, 128 MiB per
-child output file and a 5 GiB free-disk floor. These are planned selections and
-monitoring limits, not provider defaults or observed successful results.
-Retain failure receipts and partial outputs without success credit. Inspect the
-actual longer presentation before claiming World 1-1 entry, then establish
-controlled-player and update semantics independently for Section 7. This patch
-claims no milestone completion.
+The immutable failed receipt remains at
+`build/gameplay_capture_preparation/reference_gameplay_continuation_7200/execution_receipt.json`,
+SHA-256 `d399a8b7f2b054bb6bbb11911c1108ac4bdff6c605c903789b353895bb209649`.
+Root individually hashed all 405337 failed PICA files before removing only those
+owned discarded payloads. Their 1307365040 logical bytes occupied 2611175424
+allocated bytes. The JSON Lines identity manifest remains in that same directory
+as `pruned_pica_payload_manifest.jsonl`, SHA-256
+`860642d950ba8b908d1e28a5e438f80fd5d5bd7bf7b1f3bf998614496c3a1066`.
+`pica_payload_pruning_receipt.json` confirms all other failed files preserved and
+zero remaining PICA payloads. No accepted capture, original input or provider
+was pruned. The failed capture is retained as failure metadata and cannot be
+used for replay comparison.
+
+A separate retry completes successfully at
+`build/gameplay_capture_preparation/reference_gameplay_continuation_7200_file_extent`.
+Its wrapper changes only the monitored file ceiling to 720000. All provider,
+script, presentation, time, byte and disk limits remain identical. It uses root's
+63-state controller script, SHA-256
+`d8d82a1e5b858449e814edf7cf3540db57959c03340e4f0088c8812a835baeab`,
+retaining the exact previous 35-state prefix. The additional Start pulse is at
+presentation 3720 with release 3724; A pulses run from 3960 through 6960 every
+240 presentations with release four presentations later. Analog and touch stay
+neutral. These script indices do not establish game phase or player identity.
+
+Stock completes with return code zero in 1373.300610667 seconds, preserving
+every protected input. Its receipt SHA-256 is
+`02c49f8faada354af24681258388fa1cf12dc3d9bd9f05ddd2cb90144eb55d1d`.
+The independent native replay uses only that recording's original movie and
+initial snapshot, without controller-script injection. It completes with return
+code zero in 1288.546525708 seconds, preserving every protected input and every
+original capture/snapshot file. Native CPU0 executes 2922969242 instructions;
+both CPU receipts report zero interpreter/JIT fallback. Its receipt is
+`native_gameplay_continuation_7200/execution_receipt.json`, SHA-256
+`c4ccfa9dac6a11a39b0ef3bcf4afc417d05871f8276b3e0f44abe9c129acd9f8`.
+
+The original full comparison retained a failed validation result at
+`native_gameplay_continuation_7200/full_movie_comparison.json`, SHA-256
+`c7b7f891ad96c51e093b3a7832f0b8aea14e07d5c9aa78a5402e676a603bb90e`.
+Both captures reached presentation index 7199, while the rendered loader still
+required at most 3599. Input and audio matched exactly. That report remains
+failed and unchanged. The one-line loader extension described above admits the
+actual supported range and retains every comparison criterion.
+
+The full supported-range result is
+`native_gameplay_continuation_7200/full_supported_range_comparison.json`, SHA-256
+`913c7dc7980360a3fce50293c09093e5290eee622c31531baa1709dd5e332e2f`.
+It passes with no validation errors: all 598803 GPU events/ticks, 516903 PICA
+payloads/1611203488 bytes, 28554 HID polls, 24734 sound blocks/3957440 stereo
+frames, screen metadata and both RGBA/framebuffer byte streams are exact. All
+63 supplied script states were delivered. No channel-coverage requirement or
+silent-PCM exclusion was changed. The former 360 movie also passes with the final
+loader. Its stock/native report SHA-256 identities are
+`9a15fd1623672fb15fb8a12c09bbad197bc3b58b56e82eef873e3d6ee45d213a`
+and `1b6949424366784c999ab30a80cb7f3189d5061292563f0e8da70fdec3494856`.
+The separate `post_comparison_original_preservation.json` passes, SHA-256
+`9e86b557392cef604aad968b127d572f5edbca3d99c860a57e9650b0156c4d51`.
+It rehashes every protected input, all 516944 original stock capture files and
+the original snapshot after comparison and the owner's finished-scratch cleanup.
+
+The actual final stock and native pixels show the World 1 map, Mario at its
+starting node and four lives. They do not show entry into World 1-1. The
+translated guest library and sibling block schedule remain unchanged. Player
+identity, completed-update alignment, goal completion and the whole Section 7
+level suite remain unverified. This family claims no milestone completion.
