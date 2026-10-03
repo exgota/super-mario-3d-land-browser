@@ -6399,7 +6399,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0021D720,          ,0x0021D738,          ,U,f,,
 0x0021D738,          ,0x0021D750,          ,U,f,,
 0x0021D750,          ,0x0021D760,          ,O,f,fn_0021D750,
-0x0021D760,          ,0x0021D76C,          ,U,f,,
+0x0021D760,          ,0x0021D76C,          ,O,f,fn_0021D760,
 0x0021D76C,          ,0x0021D790,          ,U,f,,
 0x0021D790,          ,0x0021D7A0,          ,U,f,,
 0x0021D7A0,0x0021D83C,0x0021D854,          ,U,f,,
