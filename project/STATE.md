@@ -8,7 +8,8 @@ Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 Owner target: browser World 1-1 start to goal by Wednesday, October 7, 2026,
 Eastern. Cutoff unspecified. Ordered estimates in
 project/browser_world_one_delivery_plan.md are estimates, not promises.
-Step1 bridge evidence submitted and accepted. Step2 remains active. No reorder.
+Step1 bridge evidence submitted and accepted. Step2 paused by owner for Mac restart. No automatic resume. No reorder.
+Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
 
 ## Actual rendering boundary
 
@@ -55,7 +56,7 @@ resultbe8eb818. Linux path unchanged. Required empty registry directories retain
 Browser paths now allow bounded internal ASCII spaces so ordinary saved profile
 `sdmc/Nintendo 3DS` loads unchanged. Traversal/absolute/empty/prototype paths refused.
 
-## Active execution and limits
+## Paused execution and limits
 
 Completed browser replay9000 from original bridge initial_user_state/movie is in
 build/browser_world_one_verification_9000 against browser_world_one_server_9000.
@@ -65,7 +66,7 @@ The9000run completed at44,048,217,034ticks/renderer9101; CPU0exact4313017982,
 CPU1zero/fallbacks0. Actual bridge scene observed. HID/audio timing/bottom screen
 exact, top22pixels and1PCM sample differ. Report6ce92d93 records first differences.
 Cause/branch specificity unverified; submission held. Both capture/browser closed.
-One existing helper diagnoses the1-unit PCM portability error in scratch only.
+Audio numerical candidate sealed; actual failing-block attribution remains unverified.
 No matching/main regression established; accepted default360 still passes.
 
 Normal controls/session <=60000 presentations, wall<=3600sec, audio<=256MiB,
@@ -89,7 +90,7 @@ Own completed compiler duplicates/profiles retired only after source/hash and
 closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PCM,
 9000 comparison inputs and raw evidence, accepted providers and all sealed receipts preserved.
 Free disk measured below. No factory restart/settings. Aquinas absent/archived.
-One existing implementation helper diagnoses numerical graphics portability. No reviewers or unrelated work.
+All helpers idle; graphics diagnosis sealed. No reviewers or unrelated work.
 
 Pro handles layout/type/update proposals. Exit-boundary answer is conditional,
 construction ancestry unproved; original-return/dispatch question remains queued.
@@ -107,4 +108,6 @@ Passive minimum-tick observer family parked until state comparison step.
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
 rank-O adapter coverage remain unverified. Matching throughput zero.
-Current free bytes 19807289344.
+Current free bytes 20802355200. No own active goal. All52 root browser registrations
+inactive;31 older identity-verified own servers stopped, current360server closed.
+Public360final verifier passed13e6104d; gameplay family held and unsubmitted.

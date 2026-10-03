@@ -53,3 +53,12 @@ proven public-audio portability defect in targeted numerical cases; the actual
 1-sample attribution and independent22-pixel cause remain unverified. The actual
 profiled360 replay passed, but its first sampling window selected startup file
 reads, so no gameplay CPU/rasterization split is credited.
+
+## Owner pause, 19:33 UTC
+
+Current public360safe unit completed naturally and passed13e6104d. Root halted
+new work, sealed drafts/parked state/diagnoses, closed current server and31older
+identity-verified own servers.52root browser registrations have no active
+owner/client/daemon/browser. All helpers idle. No new submission, goal or automatic
+resume. Checkpoint project/root_pause_checkpoint_2026-10-03.md records first known
+differences, hashes, exact reproduction commands and next step. Free20.80GB.
