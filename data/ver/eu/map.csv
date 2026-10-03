@@ -3718,7 +3718,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001A822C,          ,0x001A823C,          ,U,f,,
 0x001A823C,          ,0x001A8248,          ,O,f,fn_001A823C,
 0x001A8248,          ,0x001A8254,          ,O,f,fn_001A8248,
-0x001A8254,          ,0x001A8260,          ,U,f,,
+0x001A8254,          ,0x001A8260,          ,O,f,fn_001A8254,
 0x001A8260,          ,0x001A826C,          ,O,f,fn_001A8260,
 0x001A826C,          ,0x001A8278,          ,O,f,fn_001A826C,
 0x001A8278,          ,0x001A828C,          ,U,f,,
