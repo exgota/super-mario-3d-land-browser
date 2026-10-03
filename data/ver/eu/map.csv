@@ -485,7 +485,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00110888,          ,0x001108C4,          ,U,f,LMS_GetLineNum,
 0x001108C4,          ,0x00110900,          ,O,f,LMS_GetRegionWidth,
 0x00110900,          ,0x0011091C,          ,U,f,LMS_GetStyleNum,
-0x0011091C,          ,0x0011093C,          ,U,f,,
+0x0011091C,          ,0x0011093C,          ,O,f,fn_0011091C,
 0x0011093C,          ,0x001109AC,          ,U,f,,
 0x001109AC,          ,0x00110A00,          ,U,f,LMS_GetTextByLabel,
 0x00110A00,          ,0x00110A1C,          ,U,f,LMS_GetTextNum,
