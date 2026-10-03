@@ -8600,7 +8600,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026D620,          ,0x0026D668,          ,U,f,,
 0x0026D668,          ,0x0026D698,          ,O,f,_ZN2al16validateClippingEPNS_9LiveActorE,
 0x0026D698,0x0026D6BC,0x0026D6C0,          ,O,f,_ZN2al10isNearZeroEff,
-0x0026D6C0,0x0026D8A4,0x0026D8D8,          ,U,f,,
+0x0026D6C0,0x0026D8A4,0x0026D8D8,          ,U,f,_ZN12BalanceTruck15updateMovePowerEv,
 0x0026D8D8,          ,0x0026D8F8,          ,U,f,,
 0x0026D8F8,          ,0x0026D934,          ,U,f,,
 0x0026D934,          ,0x0026D944,          ,U,f,,
