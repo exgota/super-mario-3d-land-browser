@@ -1,19 +1,22 @@
-# Root port runtime state
+# Shared interface cleanup batch
 
-Root/browser-circle-pad freezes integrator main4f593070365eb3de481b99553d1f3f44270a4a76. The integrator owns main/ranks/ledger and acceptance. Root owns port runtime only, with at most one helper; Pro owns guest layout questions. No Game/lib/config/map/ledger/Factory or oracle changes, no claims. Recompiled_bytes remains2437712.
+Owner: Codex driver on `cleanup/shared-interface-imports`. Frozen integrator main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. The actor source intake has been accepted. This batch combines the independently reviewed and locally checked vector-operation family and actor-distance import correction, without changing their final source bytes.
 
-The circle-pad family is ready for submission. Implementation cc3661ea adds a public AnalogDevice, coherent atomic pair/lifecycle, finite recording and held pointer/keyboard directions. project/browser_circle_pad_evidence.md records finalsource2272-poll HID/CTM delivery, signed cardinals, both diagonals, ten averaging/release patterns, seven stable direction masks, inactive A/touch, complete initial tree and exact paired canvases. Fresh stock replay exits normally0 and all original HID/audio/GPU/ticks/PICA/framebuffer/RGBA comparisons pass.562 preview samples are acknowledged, with one unconsumed publication and no gaps/geometry errors.15 real prelaunch worker refusals pass. Current builder reproduces the accepted entire Node wasm and protects77 inputs. Zero interpreter/JIT fallbacks.
+Owned paths:
+- `Game/backup/src/Factory/fn_00171BE0.cpp`
+- `Game/backup/src/Factory/fn_00173698.cpp`
+- `Game/backup/src/Factory/fn_001BAD90.cpp`
+- `Game/backup/src/Factory/fn_00355820.cpp`
+- `Game/backup/src/Factory/group_0011D7A8.cpp`
+- `Game/backup/src/Factory/group_002438D4.cpp`
+- `lib/CtrSDK/include/nn/math/math_Vector3.h`
+- `lib/al/include/Math/alVectorNormalizationImports.h`
+- `lib/sead/include/math/seadVectorCalcCtr.h`
+- `Game/backup/src/Factory/fn_0021E1D8.cpp`
+- `lib/al/include/LiveActor/alActorDistanceImports.h`
+- `docs/facts/0021E1D8.md`
+- `docs/facts/00173698.md`
 
-Preservation passes: default title60/file rejection/Stop/retry; standalone A with15 held polls and release plus fresh exact stock replay; readonly circle-movie playback with562 samples and independent running canvases at renderer162/500, plus direct exact stock comparison. The first playback verifier used a stock folder lacking the CTM and correctly failed movie-file validation; it remains preserved without success credit. Historical mobile pointer-resize paint loss remains preserved; settled recapture shows the complete held label/focus ring. Fresh finish review ship and ordinary documenter pass. DESIGN and its sidecar remain unchanged. No public UI edits followed approval.
+No new function implementation or exact-byte claim is made. The map, ledger, build configuration, compiler flags and oracle remain untouched. Root retains port runtime and browser lifecycle enforcement.
 
-Watch .integrator/results/ for this branch's verdict; do not resubmit while it waits. Root/browser-frame-output d62225c1a was accepted at4f593070, result root-browser-frame-output-d62225c1a.json, no build inputs changed and zero matched bytes. Calendar/heap and previous port verdicts are already recorded in prior evidence/state history. This root's matching throughput is0 bytes/hour over the evidence's stated elapsed interval; all current work is port-only.
-
-Next: browser touch input through the pinned public TouchDevice tuple and normal HID/movie path, on a fresh root/browser-touch-input branch from integrator main. Separate paired/pressed/lifecycle publication, viewport-coordinate conversion and actual saved touch records from semantic response. Keep completed circle artifacts immutable. Public touch contracts need no guest-layout reconstruction. Route any guest layout or World1-1 state question to the Pro relay and continue independent runtime work.
-
-Milestone6 browser remains in progress; milestone5 World1-1 remains open. Unbounded sessions, sustained frame rate, synchronized continuous sound, physical mobile performance, speaker content, saves, complete rank-O adapters and Section7 player/camera/RNG/timer/coins entry/goal replay remain unverified. Evidence is limited to approved reference base tick926190305, a fresh single-session module and unique factory ownership. Arbitrary clock endpoints and stale calls across reinstall are unverified. No required owner question is pending.
-
-## Driver intake ownership, 2026-10-02
-
-The driver owns dot/actor-source-intake from frozen integrator main b275e09b1a9d41b48b1c57c2ec9854c61a04254b. This intake owns the seven new ActorTimer, WoodBox and WarpDoor source/header paths supplied by dot/root-1bfe60, dot/root-314430 and dot/root-3195f0. Existing source families remain read-only. Names receive a separate evidence commit before source import. The integrator alone accepts claims and changes ranks, the ledger and main. Port runtime work retains its independent owner.
-
-Driver intake update: source b683e4e36de330614f1ba1e44d1fae05adac2eb7 passes four complete canonical intervals/1808proposed bytes plus the unchanged48-byte LiveActorFlag constructor. Final normal link succeeds; global duplicate definitions are zero. All seven supplier files remain byte-identical. The integrator gate is pending. See project/evidence/actor_source_intake.md.
+Next: import the exact committed families, run the normal project build and all 32 complete affected intervals (2,068 prior accepted bytes), audit actual definitions and header dependencies, then submit one finished cleanup after higher-priority ready dot work clears.
