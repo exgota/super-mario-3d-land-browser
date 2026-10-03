@@ -17295,7 +17295,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0038ADEC,0x0038AE14,0x0038AE24,          ,U,f,,
 0x0038AE24,0x0038AE40,0x0038AE4C,          ,U,f,,
 0x0038AE4C,0x0038AE68,0x0038AE74,          ,U,f,,
-0x0038AE74,0x0038AF14,0x0038AF60,          ,U,f,,
+0x0038AE74,0x0038AF14,0x0038AF60,          ,O,f,fn_0038AE74,
 0x0038AF60,0x0038AF88,0x0038AF98,          ,U,f,,
 0x0038AF98,0x0038B004,0x0038B01C,          ,U,f,,
 0x0038B01C,0x0038B044,0x0038B054,          ,U,f,,
