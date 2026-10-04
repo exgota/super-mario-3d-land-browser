@@ -75,3 +75,11 @@ Own server/browser closed after evidence. This replaces menu-based performance
 inference;8–16/24–48hour estimates need revision after actual World profiling.
 Next: verify stencil permission, capture isolated World state and measure its
 costs before another graphics iteration. GPU branch unfinished and unsubmitted.
+
+Depth/stencil oracle confirms write permission0disables stencil updates; GPU
+ignored it. Independent mask correction passes64browser cases exactly, versus
+15failures initially; receipt62db53db. Unchanged360gate preserves all720GPU
+images/input/PCM/CPU/ownCanvas/audio consumption and21shader logs. Comparison
+7a240f2c. Menu steady49.5436/s,p95/p9944.515/51.855ms,485376underrun frames.
+World impact unverified. All own browser/server/compiler helpers closed. Next
+is isolated complete World framebuffer/draw capture and actual World profiling.

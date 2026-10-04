@@ -180,3 +180,22 @@ fixtures to rotated quaternions, back-facing lights and signed LUT boundaries.
 It can use new ignored fixture/probe files without touching Root's renderer,
 bridge or builders. Estimated overlap saving2–3hours, not a measured promise.
 No second agent has been started or assigned.
+
+## Verified stencil correction
+
+The software oracle confirms that framebuffer depth/stencil write permission0
+prevents both writes;1/2/3allow them. The GPU applied stencil actions even with
+permission0. A one-line mask correction now matches all64isolated browser cases;
+the initial path fails15. All18compile/link records pass,unsupported0. Probe
+receipt62db53db42356052a6326069b52fa8db2c95811c619d1333300dc242106c7daa.
+The selected private module links successfully. Its unchanged360regression gate
+preserves all720specialized GPU images, original HID/timing/PCM, CPU counts,
+own final Canvas, all216000audio source frames and21shader logs. Comparison
+7a240f2c705be28a111f10acd8532c384e593c60cfdc52106dd9c0587e916b24.
+Steady180..36049.5436/s,p95/p9944.515/51.855ms,485376audio underrun frames.
+This is menu performance on a shared host, not a measured World improvement.
+The strict software checker still rejects four approximate GPU visual outputs;
+its input/audio outputs pass. No comparison rule changed. An intermediate live
+streamed-frame read was mistaken for final output; the complete720comparison
+corrects that inference. World impact remains unverified. Next checkpoint:
+`root_webgl_world_entry_checkpoint_2026-10-04.md`. All own helpers are closed.

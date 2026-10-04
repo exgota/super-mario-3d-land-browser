@@ -137,7 +137,7 @@ HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
 Wasm heap growth0;12227328audio underrun frames. World costs not profiled yet.
 Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
 
-1. Verify stencil write permission; capture isolated World draw state and costs.
+1. Stencil permission64cases pass;360gate unchanged. Capture World state/costs.
 2. Fix World rendering, depth/texture coherence and measured60Hz bottlenecks.
 3. Observe original World1-1 movie start-to-goal with Azahar state, frame percentiles,
    heap/pauses, audio underruns and input-to-display latency in the same run.
