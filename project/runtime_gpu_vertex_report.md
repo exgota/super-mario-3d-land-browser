@@ -1,10 +1,10 @@
 # R3 GPU vertex submission handoff
 
-Status: source handoff ready. Candidate gameplay, driver compile/link and rendered correctness are unmeasured. Root owns integration and the next live gates. No R3 browser was admitted.
+Status: the initial raw-vertex integration reached live World 1-1 at 19.035949/s, median 54.9925 ms and p99 111.395 ms. The aligned uniform ring is queued, unmeasured. GPU-only presentation and immutable display-copy sources are ready for Root/R1/R4 integration; their functional driver checks remain separate from a guest World measurement.
 
 ## Selected inputs and common live baseline
 
-The active `build/` was created with `cp -cR` from Root's actual build tree before source changes. The earlier canonical-tree clone is preserved as unused `build_initial_clone`. Local game data/compiler links remain uncommitted. Clone evidence is in ignored `build/runtime_gpu_vertex_preparation/clone_identity.json`.
+The active `build/` was created with `cp -cR` from Root's actual build tree before source changes. The earlier unused canonical-tree clone was removed in the owner-authorized local cleanup. Local game data/compiler links remain uncommitted. Clone evidence is in ignored `build/runtime_gpu_vertex_preparation/clone_identity.json`.
 
 The exact selected input is Root's `build/browser_command_fill_module_candidate`, including its complete manifest and private dependencies. The committed renderer prototype is not that input.
 
@@ -21,10 +21,10 @@ Root confirmed native plain Chrome Guest, World 1-1, stationary Mario, restored 
 
 | Measurement | Common before | R3 after |
 | --- | ---: | --- |
-| Display updates/s | 12.8375927508 | Unmeasured |
-| Conventional display median | 87.1475 ms | Unmeasured |
-| Display p99 | 159.0600 ms | Unmeasured |
-| Display intervals over 33 ms | 74.4792% | Unmeasured |
+| Display updates/s | 12.8375927508 | 19.0359493904 |
+| Conventional display median | 87.1475 ms | 54.9925 ms |
+| Display p99 | 159.0600 ms | 111.3950 ms |
+| Display intervals over 33 ms | 74.4792% | 64.5614% |
 | Same-frame native updates/s | 12.82624244 | Unmeasured |
 | Native median / p99 | 75.2425537 / 186.8901367 ms | Unmeasured |
 
@@ -32,7 +32,7 @@ Actual-window one-minute load samples were 7.8677, 7.4468 and 7.4263, with no ru
 
 ## Owned source and integration boundary
 
-R3 authored only `PicaWebGlVertexShader.mjs`, `PicaWebGlDrawCache.mjs`, `BrowserWebGlVertexSubmission.cpp` and `.h`, plus this report. Root owns bridge, renderer, command/Pica call sites, delay charging, assembler/winding guards, fragment state and candidate build/admission. The implementation is authored independently against the selected PICA header ABI and documented instruction encoding.
+R3 owns `PicaWebGlVertexShader.mjs`, `PicaWebGlDrawCache.mjs`, `BrowserWebGlVertexSubmission.cpp` and `.h`, plus this report. Root extended ownership to `PicaWebGlPresentation.mjs` and `BrowserWebGlPresentation.cpp`/`.h`. Root owns bridge, renderer, command/Pica call sites, delay charging, assembler/winding guards, fragment state and candidate build/admission. The implementation is authored independently against the selected PICA header ABI and documented instruction encoding.
 
 Native entry:
 
@@ -100,11 +100,11 @@ Supported lowering includes observed arithmetic, CMP/MOVA, CALL/CALLC/CALLU, IFU
 
 ## Cache identity and invalidation
 
-Translation lookup uses native hashes only as bucket hints, then compares every instruction and operand word. Static identity includes all input/output mapping, active attribute layout/format, entry, index format, buffer count, clip/input modes and fragment-consumed semantics. Combined program identity includes the exact specialized fragment source. Uniform values and resource addresses remain dynamic.
+Translation lookup uses native hashes only as bucket hints, then compares every instruction and operand word. Static identity includes all input/output mapping, active attribute layout/format, entry, index format, buffer count, clip/input modes and fragment-consumed semantics. Combined program identity includes the exact specialized fragment source. A bounded two-level lookup uses the full immutable translation key and exact fragment string separately, avoiding repeated combined GLSL string construction. Negative compile results and LRU eviction retain the same identity. Raw sampler units are initialized once per program; vertex offsets update only when that program's value changes. Uniform values and resource addresses remain dynamic.
 
 Raw resource identity includes physical address, byte extent and R32UI representation. Every cache hit compares complete guest bytes. Retained bytes are copied; retained Wasm views are forbidden. Changed bytes allocate a new texture, avoiding mutation of an earlier submitted draw. New texture packing is explicitly little endian, including a partial final word. Resources and programs use bounded LRU eviction; current draw resources are protected from self-eviction. Address-range invalidation deletes every overlapping retained resource.
 
-The 1,872-byte std140 UBO contains float uniforms at byte 0, four integer vectors at 1,536, bool mask at 1,600 and default attributes at 1,616. Unchanged bytes skip upload; changed storage is orphaned before upload. VAO and UBO persist across draws.
+The 1,872-byte std140 UBO contains float uniforms at byte 0, four integer vectors at 1,536, bool mask at 1,600 and default attributes at 1,616. Unchanged bytes skip upload and retain the current range. Changed packets append into a 1 MiB ring using the actual WebGL2 offset alignment. The ring is orphaned on wrap, and binding 1 selects only the active 1,872-byte range. VAO and UBO persist across draws.
 
 `resolveConvertedTexture(descriptor, operations)` is an available byte-coherent fragment-texture helper with complete address/extent/format/conversion identity and owner-supplied conversion/upload/destruction. It does not replace Root's existing decoder or texture cache. Root must explicitly attach it if adopted. Current integration can retain the selected fragment texture cache while raw vertex byte textures use this R3 cache.
 
@@ -130,10 +130,47 @@ Source seals and commit are in ignored `build/runtime_gpu_vertex_preparation/sou
 
 An earlier conservative analysis rejected 861 retained draws; it was replaced with correlated control-flow/component liveness. A cleanup then left a stale `required` field reference, caught by the source inventory and corrected before freezing. Both failures remain recorded. The original selected module and software reference are preserved.
 
-## Next gates and specific gaps
+## Live GPU result and remaining costs
 
-Root will integrate this frozen source with its separate bridge/renderer/Pica hook revision. R4's cache after-run retains scheduling priority under Root's executable admission contract. R3 holds no build or browser reservation.
+Root's job `20261004T131750353522_1591068a` measured native plain Chrome World 1-1 with visible geometry and original audio. Ten-second warmup plus thirty-second display window produced 570 intervals. The result includes R2's page-array CPU and the first R3 raw path, before the memo/ring or presentation changes. All 1,264,409 native-eligible draws submitted, zero fallback/invalid/guard rejects, and all 1,011 shader logs passed. Full forty-second audio underrun delta remained 897,536. No M1, human-play or full exactness claim.
 
-Next R3 gates are actual driver compile/link for every encountered variant, explicit fallback/raw-draw counts, a live World image with original geometry and audio, and a matched candidate measurement through the shared collector. Routine 360-frame and byte-exact capture comparisons are parked under the latest Root contract; a bounded reference comparison is appropriate only for an observed rendering regression.
+`build/runtime_gpu_vertex_preparation/gpu_path_cost_profile.json` contains the cost profile. Whole-cold-run counters divided by 7,837 natural presentations give 161.36 draws, 26,377 state-cache calls and 5,816 forwarded changes per presentation. Fragment texture uploads averaged 0.055 and raw uploads 0.146. Readbacks averaged 1.507 and 4.477 ms; draw submission averaged 0.715 ms, excluding prepare/native work and GPU execution. These are cold-run averages, not World-window deltas. Readback timing includes its error query, so overlapping timings cannot be added.
 
-Shader compilation startup cost, GPU re-evaluation, byte comparisons, fallback coverage, driver arithmetic and overall speed are unresolved until that run. There is no measured R3 gain and no M1 claim. Normal Start under two minutes remains a Root entry-calibration question, outside R3's source ownership.
+The largest measured blocking GPU call is the synchronous surface readback. Root made its mandatory error query diagnostic-only and removed the duplicate full draw configuration. GPU-only presentation below removes readback and software pixel materialization from admitted ordinary frames while retaining true guest-read coherence.
+
+## GPU presentation and display-copy interface
+
+```cpp
+BrowserWebGlPresentationResult Port::TryPresentBrowserWebGlFrame(
+    const BrowserWebGlPresentationScreen* screens, std::uint32_t count,
+    std::uint64_t rendererFrame, std::uint64_t sampledTicks);
+```
+
+The eleven screen words are `screenIdentifier`, `surfaceIdentifier`, `sourceX/Y/Width/Height`, `width/height`, `rotationQuarterTurns`, `flags`, `colorFormat`. Source coordinates use the texture's bottom-left origin. Clockwise rotation is followed by source-Y flip in flags bit zero. Output extent must equal the rotated source extent. Formats 0 through 4 are RGBA8/RGB8/RGB565/RGB5A1/RGBA4. Native admission copies numbers and exact uint64 decimal strings into `globalThis.submitBrowserWebGlPresentation`. Result is Unsupported 0, Submitted 1 or Dropped 2. Submitted means ordered transport admission, not completed paint.
+
+```javascript
+const presentation = createPicaWebGlPresentation(renderer, {publishFrame});
+presentation.copyDisplaySurface({sourceSurfaceIdentifier, destinationSurfaceIdentifier,
+    width, height, colorFormat, flipVertically}); // Numeric 0 or 1. Strict boolean flip.
+presentation.present({schemaVersion:1, rendererFrame, sampledTicks, screens}); // Numeric 0/1/2.
+```
+
+Copy supports a full-extent unscaled source and a distinct GPU alias on the same context. It creates/reuses a separate RGBA8 texture/FBO, applies Y flip and destination color quantization on GPU, and inserts an alias into `renderer.surfaces` only after submission. Missing/oversized/scaled/colliding sources and surface-budget failures reject explicitly. There is no bitmap-admission callback on copy. A publisher can be installed later. Alias `readback` starts null; Root allocates CPU storage only for actual guest-read materialization. The renderer owns alias GPU-resource lifetime and native physical-address/format mapping. Root's unsupported transfer path retains the coherent reference.
+
+Presentation publishes one GPU bitmap and screen rectangles. Normal World dimensions observed in the actual outcome are top storage 240x400/display 400x240 and bottom storage 240x320/display 320x240, format 2 and stride 480. A combined 400x480 bitmap places top at `(0,0,400,240)` and bottom at `(40,240,320,240)`. Source crop/rotation comes from Root's address/transfer mapping.
+
+`publishFrame(packet, [packet.bitmap])` receives `{schemaVersion:1,type:'browser_webgl_presentation',sequence,rendererFrame,sampledTicks,width,height,bitmap,screens:[{screenIdentifier,x,y,width,height}]}`. Screen rectangles use the bitmap's top-left origin. Return true after admission transfers bitmap ownership to R1/R4, which close it after paint or downstream drop. Return false before transfer for backpressure; R3 closes it. Unsupported publisher results remain explicit fallback. Neither ordinary presentation nor copy calls `readPixels`, `getBufferSubData` or `getError`.
+
+R1 owns ordered kind9 presentation and kind16 copy transport on the existing GPU owner and one shared Wasm. R4 owns bitmap crop/paint and acknowledgement. Root owns actual transfer eligibility, physical mapping, guest-read barriers and final reference export. `takeShaderDiagnostics()` drains presentation vertex/fragment/link logs without duplication; frame/copy/alias/drop/fallback counters are cumulative.
+
+## Current checks and measurement gap
+
+The presentation native object compiled with selected Wasm32/pthread/exception flags, nice 5, exit zero in 0.45205 seconds. Program-cache checks pass exact-source separation, LRU recompile, cached failed programs, diagnostic drain, bounded lookup disposal and per-program sampler/offset reuse.
+
+Native headless Chrome 154 with ANGLE Metal Apple M4 passed all forty synthetic rotation/flip/color-format cases, including nonmax packed-color values, bitmap transfer ownership, explicit unsupported fallback and backpressure close. Three shader logs passed; context loss, browser process cleanup and helper absence were verified. This is functional GL evidence, not gameplay. Copy-specific driver verification remains pending: the latest attempts stopped before GL during shared browser-process inventory, including `kern_procargs2` errno 22 for a departing process. The source checks pass; no copy-driver success is claimed.
+
+The ring candidate is private `build/browser_vertex_uniform_ring_candidate`, a cache-only relink of the measured raw module with unchanged Wasm, source commit `661bf66b`. Pending job `20261004T142041616072_28b246fc` was updated under `runner.lock` to R4's ordinary twenty-file `map_saved_reference` and `saved_map_world_one_navigation_recipe.json`, including `entry_node_anchor`. Its state is `held` so Root's descriptor-cache GPU/pipeline measurement runs first. R4 observed two fresh functional World entries in 108.4721 and 98.9805 seconds from server admission. These explicitly changed saved inputs do not establish a new speed comparison. Both earlier private-server setup failures occurred before browser admission and remain recorded.
+
+Owner-authorized cleanup removed forty-two obsolete local build directories with no errors, preserving the Ring artifact, selected/native inputs and retained shader inventory. Shared-volume free space increased from 24.3270 to 30.0187 decimal GB during cleanup, a measured 5.6917 GB increase. Root was cleaning the same volume concurrently; that increase cannot be attributed exclusively to R3 or to logical APFS clone sizes. No shared or owner game data was removed.
+
+The remaining acceptance gate is one integrated live World measurement with actual guest transport, framebuffer aliases, original audio and visible geometry. Under 33 ms is a target, not an observed result. Routine full exactness captures remain parked; an observed rendering regression permits a bounded comparison.

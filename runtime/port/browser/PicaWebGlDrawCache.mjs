@@ -27,6 +27,7 @@
             this.maximumCombinedSamplers = context.getParameter(context.MAX_COMBINED_TEXTURE_IMAGE_UNITS);
             this.maximumUniformBlockBytes = context.getParameter(context.MAX_UNIFORM_BLOCK_SIZE);
             this.programs = new Map();
+            this.programEntries = new Map();
             this.translations = new Map();
             this.translationEntries = 0;
             this.fragmentSemantics = new Map();
@@ -82,11 +83,12 @@
             return translation;
         }
         compile(translation, fragmentSource) {
-            // Exact source strings are keys. Uniforms, resource addresses and contents are dynamic.
-            const key = translation.key + '\n' + fragmentSource;
-            let entry = this.programs.get(key);
+            // Separate exact source keys avoid rebuilding a combined GLSL string on every draw.
+            // Translation keys still contain the complete shader words and static layout.
+            let fragments = this.programEntries.get(translation.key);
+            let entry = fragments?.get(fragmentSource);
             if (entry) {
-                this.programs.delete(key); this.programs.set(key, entry);
+                this.programs.delete(entry); this.programs.set(entry, entry);
                 ++this.statistics.programHits;
                 return entry;
             }
@@ -116,18 +118,29 @@
                 }
                 entry = {supported: true, program, uniforms: new Map(), translation,
                     samplerLocations: translation.uniforms.samplers.map(name => gl.getUniformLocation(program, name)),
-                    vertexOffsetLocation: gl.getUniformLocation(program, translation.uniforms.vertexOffset)};
+                    vertexOffsetLocation: gl.getUniformLocation(program, translation.uniforms.vertexOffset),
+                    bindingState: {samplersInitialized: false, vertexOffset: undefined}};
             } catch (error) {
                 gl.deleteProgram(program);
                 entry = {supported: false, diagnostics: [String(error.message ?? error)]};
             } finally {
                 for (const shader of shaders) gl.deleteShader(shader);
             }
-            this.programs.set(key, entry);
+            if (!fragments) {
+                fragments = new Map();
+                this.programEntries.set(translation.key, fragments);
+            }
+            entry.translationKey = translation.key;
+            entry.fragmentSource = fragmentSource;
+            fragments.set(fragmentSource, entry);
+            this.programs.set(entry, entry);
             while (this.programs.size > this.maximumPrograms) {
-                const expiredKey = this.programs.keys().next().value, expired = this.programs.get(expiredKey);
+                const expired = this.programs.keys().next().value;
                 if (expired.program) gl.deleteProgram(expired.program);
-                this.programs.delete(expiredKey);
+                const expiredFragments = this.programEntries.get(expired.translationKey);
+                expiredFragments.delete(expired.fragmentSource);
+                if (!expiredFragments.size) this.programEntries.delete(expired.translationKey);
+                this.programs.delete(expired);
             }
             return entry;
         }
@@ -294,9 +307,14 @@
                 const unit = this.textureUnitBase + index;
                 gl.activeTexture(gl.TEXTURE0 + unit); gl.bindSampler(unit, null);
                 gl.bindTexture(gl.TEXTURE_2D, prepared.resources[index].value);
-                gl.uniform1i(prepared.samplerLocations[index], unit);
+                if (!prepared.bindingState.samplersInitialized)
+                    gl.uniform1i(prepared.samplerLocations[index], unit);
             }
-            gl.uniform1ui(prepared.vertexOffsetLocation, prepared.vertexOffset);
+            prepared.bindingState.samplersInitialized = true;
+            if (prepared.bindingState.vertexOffset !== prepared.vertexOffset) {
+                gl.uniform1ui(prepared.vertexOffsetLocation, prepared.vertexOffset);
+                prepared.bindingState.vertexOffset = prepared.vertexOffset;
+            }
         }
         draw(prepared) {
             this.bind(prepared);
@@ -310,7 +328,8 @@
         dispose() {
             for (const key of this.resources.keys()) this.removeResource(key);
             for (const entry of this.programs.values()) if (entry.program) this.gl.deleteProgram(entry.program);
-            this.programs.clear(); this.translations.clear(); this.fragmentSemantics.clear();
+            this.programs.clear(); this.programEntries.clear();
+            this.translations.clear(); this.fragmentSemantics.clear();
             this.translationEntries = 0;
             this.gl.deleteBuffer(this.uniformBuffer); this.gl.deleteVertexArray(this.vertexArray);
             this.uniformBytes = null;
