@@ -4812,7 +4812,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D9454,0x001D9554,0x001D9558,          ,U,f,,
 0x001D9558,          ,0x001D956C,          ,U,f,,
 0x001D956C,0x001D9784,0x001D9790,          ,U,f,,
-0x001D9790,          ,0x001D979C,          ,U,f,,
+0x001D9790,          ,0x001D979C,          ,O,f,fn_001D9790,
 0x001D979C,          ,0x001D97A8,          ,O,f,fn_001D979C,
 0x001D97A8,0x001D98B4,0x001D98C8,          ,U,f,,
 0x001D98C8,          ,0x001D98F4,          ,U,f,,
