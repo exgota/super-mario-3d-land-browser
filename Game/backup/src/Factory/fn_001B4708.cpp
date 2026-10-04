@@ -1,3 +1,5 @@
+#include <Container/ObservedCountFirstPointerArray.h>
+
 namespace {
 
 struct Entry {
@@ -5,15 +7,7 @@ struct Entry {
     unsigned int second;
 };
 
-struct PointerList {
-    int count;
-    int capacity;
-    Entry** entries;
-
-    PointerList() : count(0), capacity(0), entries(0) {}
-
-    int append(Entry* entry);
-};
+typedef observed_containers::CountFirstPointerArray<Entry> PointerList;
 
 struct Owner {
     PointerList* first;
@@ -23,7 +17,6 @@ struct Owner {
 }
 
 extern "C" float dat_003EFAE0;
-extern "C" void fn_0026AC60(PointerList*, int, void*, int);
 
 extern "C" Owner* fn_001B4708(Owner* self) {
     self->first = new PointerList;
@@ -36,16 +29,3 @@ extern "C" Owner* fn_001B4708(Owner* self) {
     return self;
 }
 
-namespace {
-
-int PointerList::append(Entry* entry) {
-    int limit = capacity;
-    int size = count;
-    if (size < limit) {
-        entries[size] = entry;
-        return ++count;
-    }
-    return size;
-}
-
-}
