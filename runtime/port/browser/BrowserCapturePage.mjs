@@ -37,6 +37,7 @@ let completedAudio;
 let streamedAudioPlayer;
 let latestPreviewFrame;
 let latestInitializationObservation;
+let latestFailureObservation;
 let captureNote;
 const heldSources = new Set();
 
@@ -434,6 +435,9 @@ export function previewFrameObservation() { return latestPreviewFrame && structu
 export function runtimeInitializationObservation() {
     return latestInitializationObservation && structuredClone(latestInitializationObservation);
 }
+export function runtimeFailureObservation() {
+    return latestFailureObservation && structuredClone(latestFailureObservation);
+}
 
 function drawScreens(screens, preview = false) {
     for (const [index, screen] of screens.entries()) {
@@ -809,6 +813,8 @@ async function receive(active, message) {
     }
     else if (message.type === 'capture_failed') {
         latestInitializationObservation = message.runtime_initialization;
+        latestFailureObservation = {phase: message.phase, message: message.message,
+            stdout: message.stdout, stderr: message.stderr};
         throw new Error(message.message);
     }
     else if (message.type === 'capture_manifest') {

@@ -7,6 +7,7 @@
 #include "video_core/pica/pica_core.h"
 #include <array>
 #include <cstdint>
+#include <cstdio>
 #include <limits>
 #include <map>
 #include <stdexcept>
@@ -97,6 +98,17 @@ void Materialize(DisplaySurface& surface) {
 
 bool Port::TransferBrowserWebGlDisplaySurface(Memory::MemorySystem& memory,
     const Pica::DisplayTransferConfig& configuration) {
+    static unsigned diagnostic_transfers = 0;
+    if (diagnostic_transfers++ < 8) std::fprintf(stderr,
+        "browser display transfer enabled=%d input=%08x output=%08x extent=%ux%u:%ux%u format=%u:%u linear=%u swizzle=%u crop=%u block=%u texture=%u scale=%u flip=%u\n",
+        PresentationEnabled(), configuration.GetPhysicalInputAddress(), configuration.GetPhysicalOutputAddress(),
+        unsigned(configuration.input_width.Value()), unsigned(configuration.input_height.Value()),
+        unsigned(configuration.output_width.Value()), unsigned(configuration.output_height.Value()),
+        unsigned(configuration.input_format.Value()), unsigned(configuration.output_format.Value()),
+        unsigned(configuration.input_linear.Value()), unsigned(configuration.dont_swizzle.Value()),
+        unsigned(configuration.crop_input_lines.Value()), unsigned(configuration.block_32.Value()),
+        unsigned(configuration.is_texture_copy.Value()), unsigned(configuration.scaling.Value()),
+        unsigned(configuration.flip_vertically.Value()));
     if (!PresentationEnabled() || configuration.input_linear || configuration.dont_swizzle ||
         configuration.crop_input_lines || configuration.block_32 || configuration.is_texture_copy ||
         configuration.scaling != Pica::DisplayTransferConfig::NoScale ||
@@ -145,6 +157,15 @@ bool Port::PresentBrowserWebGlDisplayFrame(Memory::MemorySystem&, Pica::PicaCore
     if (!PresentationEnabled() || pica.regs_lcd.color_fill_top.is_enabled ||
         pica.regs_lcd.color_fill_bottom.is_enabled) return false;
     std::array<BrowserWebGlPresentationScreen, 2> screens;
+    static unsigned diagnostic_frames = 0;
+    if (diagnostic_frames++ < 8) {
+        for (unsigned index = 0; index < 2; ++index) {
+            const auto& fb = pica.regs.framebuffer_config[index];
+            std::fprintf(stderr, "browser display framebuffer screen=%u active=%u address=%08x:%08x height=%u stride=%u format=%u aliases=%zu\n",
+                index, unsigned(fb.active_fb), unsigned(fb.address_left1), unsigned(fb.address_left2),
+                unsigned(fb.height.Value()), unsigned(fb.stride), unsigned(fb.color_format.Value()), display_surfaces.size());
+        }
+    }
     for (std::uint32_t index = 0; index < 2; ++index) {
         const auto& framebuffer = pica.regs.framebuffer_config[index];
         const auto address = framebuffer.active_fb == 0 ? framebuffer.address_left1 : framebuffer.address_left2;

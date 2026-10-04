@@ -427,6 +427,7 @@ def run_job(job_path):
             browser.run(['run-code', 'async(page)=>{await page.locator("#run-preview").click();await page.waitForFunction(()=>["complete","failed"].includes(document.body.dataset.captureState),null,{timeout:90000});}'], timeout=100)
             job['final_browser_state'] = evaluate(browser, '() => ({state:document.body.dataset.captureState,identifier:document.body.dataset.captureIdentifier,error:document.querySelector("#capture-error").textContent})')
             if job['final_browser_state']['state'] != 'complete':
+                job['runtime_failure'] = evaluate(browser, 'async () => {const page=await import("/BrowserCapturePage.mjs");return page.runtimeFailureObservation?.() ?? null;}')
                 raise RuntimeError('Natural Stop failed: ' + job['final_browser_state']['error'])
         browser_cleanup = json.loads((browser_directory / 'cleanup.json').read_text())
         job['state'] = 'complete'
