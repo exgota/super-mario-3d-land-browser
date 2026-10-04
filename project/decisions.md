@@ -1443,3 +1443,45 @@ The following provenance descriptions paraphrase each pinned repository's own RE
 - [3dsdecomp/RedPepper-Headers](https://github.com/3dsdecomp/RedPepper-Headers/tree/f8329a61dc3b7e1f72127c2b77acac010a58b061), commit `f8329a61dc3b7e1f72127c2b77acac010a58b061`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
 - [3dsdecomp/LibMessageStudio](https://github.com/3dsdecomp/LibMessageStudio/tree/8c4c16e9ab676713f1ddd4632172fa0dd231228e), commit `8c4c16e9ab676713f1ddd4632172fa0dd231228e`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
 - [3dsdecomp/RedPepper](https://github.com/3dsdecomp/RedPepper/tree/6bd828b729f2442d18e7a586b6858a5fc6aeb6cd), commit `6bd828b729f2442d18e7a586b6858a5fc6aeb6cd`: README describes an EU Super Mario 3D Land decompilation and credits open-ead/sead; it gives no further source-provenance account.
+
+
+## 2026-10-03: Measure software rasterizer cost before per-file browser optimization
+
+The owner prioritizes real-time browser World 1-1 play over the parked 21-pixel
+exactness gap. A bounded actual browser profile over presentations 180..360
+measures triangle clipping/rasterization wait at 86.327 ms/frame, 85.738% of
+instrumented main-thread wall time. All seven original 360 outputs and static CPU
+counts pass, comparison d07bc02d. Nested scopes subtract child time. CPU timing
+includes frequent clock calls; later empty-scope calibration estimates about
+3.6 ms/frame overhead and is not a same-load subtraction proof.
+
+The first scanline batching/inline candidate passes the same regression but
+measures a higher 112.898 ms/frame raster cost. It is rejected as a performance
+improvement and remains private. Original scheduling stays in the next candidate.
+
+Under BRIEF rule 4, test O3 only for the public provider's sw_rasterizer.cpp,
+with explicit -ffp-contract=off. The original O1 recipe, provider/archive/source,
+input movie/profile, CPU module and oracle remain sealed. No global flags or
+fast-math change. Pixel arithmetic and native-order FMA corrections are retained.
+Expected 1.75..2.80 overall gain is only the Amdahl scenario for a 2..4 times
+category improvement. Actual speed and original 360 equality must be measured
+before a production overlay is adopted. This is a port-runtime decision and
+claims no matching bytes, World 1-1 goal or Section 7 acceptance.
+## 2026-10-03: Stop software tuning and build an independent WebGL2 play renderer
+
+The owner relayed the advisor's GPU direction under the owner's authorization
+to use time and resources efficiently for a browser playthrough. Short profiling
+puts 85.738% of instrumented wall time in triangle rendering and worker wait.
+The row-batching and per-file O3 experiments passed the unchanged 360 replay but
+showed no measured speed gain. The O3 comparison is d76930cc; its 180-frame
+profile takes 20,503.355 ms versus the baseline's 18,123.695 ms. Host competition
+and timing overhead limit attribution. No candidate replaces the software path.
+
+Root stops software tuning and begins a separate independently authored WebGL2
+play renderer on root/browser-webgl-renderer. This is a hardware-acceleration
+decision grounded in the measured rendering share. Existing software rendering
+remains the exactness reference. GPU acceptance reports per-frame visual error
+and short-replay fps, rather than byte-exact pixels. Images stay ignored/local.
+Azahar is a design reference only for this new renderer; no renderer code is
+copied and Root makes no repository licensing decision. Scope follows observed
+World 1-1 commands. First-frame/full-speed estimates will follow that inventory.

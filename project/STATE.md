@@ -1,6 +1,8 @@
 # Root browser gameplay session state
 
-Root owns `root/browser-gameplay-session`, frozen origin/main
+Root owns `root/browser-frame-performance`; next GPU branch is root/browser-webgl-renderer.
+Gameplay c31443e29 was accepted
+at8f5d2c9d with21pixels disclosed and parked. Implementation baseline origin/main
 `96773182c9a4b23005dc39b9a661580619c841f2`. Only the integrator moves main,
 ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
 Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
@@ -116,14 +118,22 @@ Original recorded window has601VBlanks/top submissions, median4481136ticks;
 measured cadence59.83122493939037/sec of guest time. Physical hardware timing and
 unique frame count are not observed. Current throughput needs about12.87times gain.
 Five-second native process sample cannot name Wasm costs. JavaScript profiler is
-blocked by document policy and absent in workers. Top-three shares pending.
+blocked by document policy and absent in workers. Actual bounded180..360profile
+passes all7original360outputs, comparisond07bc02d. Measured ms/frame: triangle
+clipping/rasterization wait86.327(85.738%), translated execution8.986(8.924%),
+outerCPUdispatch2.510(2.493%). CPU scopes contain estimated3.6ms/frame timing
+overhead; calibration is not a same-load subtraction proof. First scanline batch
+candidate passes360but raster time rises112.898ms/frame; rejected, not shipped.
+Its comparisonb75c09d8 and unpublished drafts remain local. Both browsers/servers
+closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
+d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
+Owner now directs independently written WebGL2 play renderer; software tuning
+stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
 Current order and evidence: project/browser_performance_plan.md.
 
-1. Submit ready work through the integrator with the21pixels recorded and parked.
-2. Profile short runs. Report top three costs/frame, measured shares and expected
-   gain per proposed change. Use unchanged360replay as exactness regression gate.
-3. Optimize port runtime for real-time input/audio on this Mac mini; then observe
-   ordinary browser World1-1 start-to-goal at the measured original cadence.
+1. Inventory preserved World1-1 PICA features, then build independent WebGL2 play.
+2. Measure per-frame visual error and fps against software on short360replay.
+3. Observe live browser World1-1 start-to-goal at original cadence, input/audio.
 4. Grounded Section7 state comparison remains a separate acceptance gap.
 
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
@@ -131,4 +141,4 @@ Section7, sustained speed, synchronized audio, saves, physical mobile and comple
 rank-O adapter coverage remain unverified. Matching throughput zero.
 Pause free bytes20802355200. T3 goal active. All52old browser registrations inactive;
 31older identity-verified own servers stopped.
-Public360final verifier passed13e6104d; gameplay family held and unsubmitted.
+Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
