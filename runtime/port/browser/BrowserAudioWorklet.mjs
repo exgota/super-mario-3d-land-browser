@@ -4,6 +4,7 @@ const SOURCE_RATE = 32728;
 const CHANNELS = 2;
 const CAPACITY_FRAMES = 65536;
 const MAXIMUM_PACKET_FRAMES = 2048;
+const MAXIMUM_STARTUP_BUFFER_FRAMES = CAPACITY_FRAMES - MAXIMUM_PACKET_FRAMES + 1;
 const MAXIMUM_SOURCE_FRAMES = 64 * 1024 * 1024 / 4;
 const MAXIMUM_GAMEPLAY_SOURCE_FRAMES = 256 * 1024 * 1024 / 4;
 const MAXIMUM_OBSERVATION_FRAMES = 1048576;
@@ -18,14 +19,18 @@ class OriginalStreamedAudioProcessor extends AudioWorkletProcessor {
         super();
         const metadata = options.processorOptions;
         const maximumSourceFrames = metadata?.maximum_source_frames ?? MAXIMUM_SOURCE_FRAMES;
+        const startupBufferFrames = metadata?.startup_buffer_frames ?? 0;
         if (!metadata || typeof metadata.capture_identifier !== 'string' || !metadata.capture_identifier.length ||
             metadata.sample_rate !== SOURCE_RATE || metadata.channels !== CHANNELS || sampleRate !== SOURCE_RATE ||
             !nonnegativeInteger(metadata.observation_maximum_frames) ||
             metadata.observation_maximum_frames > MAXIMUM_OBSERVATION_FRAMES ||
+            !nonnegativeInteger(startupBufferFrames) || startupBufferFrames > MAXIMUM_STARTUP_BUFFER_FRAMES ||
             (maximumSourceFrames !== MAXIMUM_SOURCE_FRAMES && maximumSourceFrames !== MAXIMUM_GAMEPLAY_SOURCE_FRAMES))
             throw new Error('The streamed sound processor metadata is invalid.');
         this.captureIdentifier = metadata.capture_identifier;
         this.maximumSourceFrames = maximumSourceFrames;
+        this.startupBufferFrames = startupBufferFrames;
+        this.playbackStarted = startupBufferFrames === 0;
         this.storage = new Int16Array(CAPACITY_FRAMES * CHANNELS);
         this.observationMaximumFrames = metadata.observation_maximum_frames;
         this.observation = this.observationMaximumFrames ?
@@ -143,7 +148,11 @@ class OriginalStreamedAudioProcessor extends AudioWorkletProcessor {
         const left = output[0];
         const right = output[1];
         const outputFrames = left.length;
-        const sourceFrames = Math.min(outputFrames, this.bufferedFrames);
+        // Wait only before the first source frame. Finish releases a short stream;
+        // later starvation remains an underrun, without dropping or stretching PCM.
+        if (!this.playbackStarted && (this.bufferedFrames >= this.startupBufferFrames || this.producerEnded))
+            this.playbackStarted = true;
+        const sourceFrames = this.playbackStarted ? Math.min(outputFrames, this.bufferedFrames) : 0;
         const firstConsumedFrame = this.consumedSourceFrames;
         for (let frame = 0; frame < sourceFrames; ++frame) {
             const position = this.readPosition * CHANNELS;

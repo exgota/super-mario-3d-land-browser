@@ -4,6 +4,8 @@ const SOURCE_RATE = 32728;
 const CHANNELS = 2;
 const CAPACITY_FRAMES = 65536;
 const MAXIMUM_PACKET_FRAMES = 2048;
+// Below the threshold, every legal packet must still fit without consumption.
+const MAXIMUM_STARTUP_BUFFER_FRAMES = CAPACITY_FRAMES - MAXIMUM_PACKET_FRAMES + 1;
 const MAXIMUM_SOURCE_FRAMES = 64 * 1024 * 1024 / 4;
 const MAXIMUM_GAMEPLAY_SOURCE_FRAMES = 256 * 1024 * 1024 / 4;
 const MAXIMUM_OBSERVATION_FRAMES = 1048576;
@@ -49,6 +51,7 @@ export class StreamedAudioPlayback {
         this.disposed = false;
         this.outputObservation = null;
         this.observationMaximumFrames = 0;
+        this.startupBufferFrames = 0;
         this.acceptedSourceFrames = 0;
         this.acceptedPacketCount = 0;
         this.lifecycle = 0;
@@ -69,6 +72,14 @@ export class StreamedAudioPlayback {
         this.observationMaximumFrames = maximumFrames;
     }
 
+    enableStartupBuffer(minimumFrames) {
+        if (this.state !== 'idle' || this.context)
+            throw new Error('Startup buffering must be enabled before starting sound.');
+        if (!Number.isSafeInteger(minimumFrames) || minimumFrames < 1 || minimumFrames > MAXIMUM_STARTUP_BUFFER_FRAMES)
+            throw new Error('The startup sound buffer extent is invalid.');
+        this.startupBufferFrames = minimumFrames;
+    }
+
     statistics() {
         return {...this.workletStatistics, capture_identifier: this.metadata.capture_identifier,
             state: this.state, worklet_state: this.workletStatistics.state,
@@ -83,6 +94,7 @@ export class StreamedAudioPlayback {
             context_time: this.context?.currentTime ?? null,
             context_rate: this.context?.sampleRate ?? null,
             pending_append: Boolean(this.pendingAppend),
+            ...(this.startupBufferFrames ? {startup_buffer_frames: this.startupBufferFrames} : {}),
             observation_maximum_frames: this.observationMaximumFrames};
     }
 
@@ -166,6 +178,7 @@ export class StreamedAudioPlayback {
             numberOfInputs: 0, numberOfOutputs: 1, outputChannelCount: [CHANNELS],
             channelCount: CHANNELS, channelCountMode: 'explicit', channelInterpretation: 'discrete',
             processorOptions: {...this.metadata, observation_maximum_frames: this.observationMaximumFrames,
+                ...(this.startupBufferFrames ? {startup_buffer_frames: this.startupBufferFrames} : {}),
                 ...(this.maximumSourceFrames !== MAXIMUM_SOURCE_FRAMES ?
                     {maximum_source_frames:this.maximumSourceFrames} : {})}
         });
