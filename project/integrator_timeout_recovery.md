@@ -1,0 +1,13 @@
+# Integrator full-check timeout recovery
+
+The October 4 production integrator thread exited when `tools/check.py -q -w` exceeded its 1,800-second limit. The supervisor and workers remained alive, so completed proposals accumulated without integration or pushes. The last completed sync was October 3 at 23:18:51 Eastern. A supervisor PID alone was insufficient health evidence.
+
+The owner authorized recovery with the unchanged six-slot production command, preserving finished proposals, and required the timeout to be recoverable before restarting. The operator first requested STOP so active workers could finish. The dead integrator cannot drain its queue; after the workers finish and their proposals are persisted, only the old supervisor process is terminated. The SQLite database, proposals, pending submissions, source, original data and accepted refs are preserved.
+
+Full-check build, full-image comparison and canonical audit stages now allow 7,200 seconds each. A prior whole check completed in 962 seconds under load; the new incident proves 1,800 seconds can be insufficient. The larger limit provides headroom without changing compiler flags, checks, scheduling, slot caps or load control. A timeout terminates the tool's entire owned process group before recovery, preventing an orphan compiler from writing into a restored candidate.
+
+The integrator catches a full-check timeout, restores its scratch candidate from the accepted target, logs the timeout and schedules a retry after 60 seconds. Pending proposals and submissions remain available. A timeout cannot count as acceptance, move main or advance the last completed sync. Status reports the actual integrator thread's `is_alive()` value and the last completed sync time separately from the latest attempt.
+
+`tools/factory/verify_integrator_timeout_recovery.py` exercises candidate rollback and pending-work preservation in a temporary Git repository, an actual loop timeout followed by retry, real subprocess child cleanup, stage budgets and status timestamps. It is run with `FACTORY_UNDER_TEST` pointing to the candidate source. The existing three-case reference-safety suite separately verifies that a failing function prevents a ref move, an all-exact batch moves the ref once after its last check, and source changes after checking prevent a ref move.
+
+Live recovery requires evidence beyond passing tests: queued proposals must integrate, a full check must report zero demotions, and main must push. Local deployment and verification receipts are retained under the factory's `logs/integrator_timeout_recovery*.json`. The bounded permuter trial remains paused until those checks pass.
