@@ -109,7 +109,7 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         return Object.fromEntries(Object.entries(value).map(([key, field]) => [key, decodeValue(field)]));
     }
     const decodeSection = tag => decodeValue(JSON.parse(
-        new TextDecoder('utf-8', {fatal: true}).decode(command.section(tag))));
+        new TextDecoder('utf-8', {fatal: true}).decode(new Uint8Array(command.section(tag)))));
     function configuration() {
         const value = decodeSection(1);
         if (!(value.registers instanceof Uint32Array) || value.registers.length !== 512 ||
