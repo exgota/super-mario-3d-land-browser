@@ -1,150 +1,89 @@
-# Root browser gameplay session state
+# Root browser runtime state
 
-Root owns `root/browser-webgl-renderer`; performanceca9953f3 accepted53edcf73.
-Gameplay c31443e29 accepted8f5d2c9d with21pixels parked. Baseline origin/main
-`96773182c9a4b23005dc39b9a661580619c841f2`. Only the integrator moves main,
-ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
-Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
+Branch: root/browser-webgl-renderer. Root works only on runtime/port,
+tools/static_recompiler and project notes. No main/rank/ledger/factory changes,
+submission, runtime migration, deployment, subagents or delegated work.
+Existing R1–R4 are independent owner-launched T3 threads.
 
-Owner target: real-time World1-1 desktop browser clip as soon as possible.
-No Wednesday deadline. Shareable build follows Mini M1, then peer and iPhone.
-GPU:browser_webgl_renderer_plan.md; deferred Web/migration work stays outside M1.
-Step1 bridge evidence submitted and accepted. Step2 resumed by the owner in T3
-Code on October 3. No subagents, delegated tasks or Codex relay for Root. No reorder.
-Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
+## Goal and acceptance
 
-## Actual rendering boundary
+Owner wants 60 fps World 1-1 in a browser as soon as possible.
+M1 requires a human Mini Chrome AND Safari start-to-goal playthrough with sound,
+median interval <=16.9 ms, <1% intervals >33 ms after 10 seconds, zero post-load
+underruns, <20 seconds to controllable Mario, peak heap and local recordings.
+Current functional/machine checks are preparation. M1 is not complete.
+Peer follows M1. iPhone, Web persistence/overlay hooks and migration remain deferred.
+Only the integrator moves main. Matching credit from this work is zero.
 
-The browser executes static ARM CPU/HLE in WebAssembly. Selected WebGL2 handles
-fragment rendering; CPU still shades vertices. Software stays the reference path. The local server serves files/sidecars
-and receives exports; it does not render game pixels or serve the owner's dump.
-Fresh module exists and actual browser execution passed below. WebGPU is absent.
-Sustained playable speed, complete level and synchronized audio remain unverified.
+## Current integrated result
 
-## Completed step2 checks
+CPU descriptor cache95da integrated as10e0ad9e. R1 ordered GPU bitmap transport
+abc8a4b7 integrated as9d02873c. R3 GPU presentation/copy/cache efafe5fb integrated
+as3402fbb0. Root display-transfer/guest-read hooks are aee57b21/0601807f.
+Source-only commits. Generated code, Wasm, schedules, game data and images stay local.
 
-Retired archive closure reconstructed from preserved recorded recipes:
-23 archives/1327 platform objects, Node main object, seven browser objects,
-full Node/browser wasm byte-identical to historical hashes. Public recovery
-receipt86fe74de and frontend recovery2b49b5b3 preserve all source/provider inputs.
-Final module dedf5b6d87089194a3aa1fa62c4c581d987c5619262f1ea4e57d367b08402feb,
-152434537 bytes. All16commands pass; only GPU/headless/audio observer members
-change. Original CPU provider and address replacement interface preserved.
-Current-main rank-O adapter coverage remains unverified.
+Actual plain-Chrome World job20261004T145822796727_b709642e completed normally.
+Artifact build/browser_gpu_descriptor_candidate includes descriptor-cache CPU,
+raw GPU/ring and prepared-draw GPU pthread, without bitmap presentation.
+611 display intervals:20.399159/s, median48.01ms, p99119.555ms,
+59.083% over33ms. Actual image retains Mario/ground/trees/blocks/castle/HUD.
+Entry80.664s. Full40s audio458752source frames/849152underruns.
+In-window1minload7.1929/7.6494; functional copy smoke overlaps warmup and other
+host work remains. Diagnostic only, no isolated causal improvement or M1 claim.
+Native same-frame throughput20.3891/s; bimodal intervals remain.
+Heap1GiB. Raw submitted276653draws; fallback/invalid/guard counts zero.
+540shader logs pass, unsupported states empty. These draw totals cover the whole run.
+One result: build/runtime_measurements/20261004T145822796727_b709642e/analysis.json.
+Normal Stop exported final screens/PCM/input. Browser inventories empty, server
+absence observed, measurement reservation released.
 
-Actual default360 replay passed strict full GPU/PICA/HID/PCM/software pixel and
-framebuffer comparisons, file/snapshot preservation, actual Canvas and WebAudio,
-desktop/mobile screenshots and owned-browser closure. Result30c0d844,
-comparison792df528. Total observed100.99sec includes loading/export.
+## Working scene entry
 
-Selected normal360 replay passed exact original HID/PCM/final RGBA/framebuffer,
-movie delivery and snapshots without GPU/PICA files. CPU0 393977876 instructions,
-CPU1zero, both fallbacks0. Actual AudioWorklet output hash and every source packet
-match original stereo PCM, source grows after consumption starts. Postcheckd26d92bf.
-359 presentation intervals41.223sec, about8.7presentations/sec for startup only;
-first eligible frame51.141sec, final export0.850ms. No playable speed claim.
+R4 normal map Save and Quit produced ordinary GameData f260bde9 and entire20file
+user tree, with no save byte edits. Two fresh plain-Chrome boots reached visible
+World1-1 in108.4721s and98.9805s from server admission.
+Reference: /Users/exgota/.t3/worktrees/super-mario-3d-land-browser/root-runtime-startup-audio/build/runtime_startup_audio/map_saved_reference
+Recipe: /Users/exgota/.t3/worktrees/super-mario-3d-land-browser/root-runtime-startup-audio/build/runtime_startup_audio/saved_map_world_one_navigation_recipe.json
+Requires shared tool's entry_node_anchor support. Wait for W1-1 node before A.
+Original movie preserved. Both natural Stop/browser/server cleanup passed.
+Changed initial-save conditions are explicit. No startup-cache causality claimed.
 
-Actual normal record/Stop passed all12 standard button bits pressed/released,
-four circle directions, pointer/keyboard buttons, focus release, touch, complete
-ordinary HID movie, neutral final poll, native accepted Stop/natural final export,
-actual Canvas and cleanup.527HID polls, CPU0 336382126, CPU1zero, fallbacks0.
-Result2e2387f9. Initial test failed only a delayed transient Stopping UI assertion;
-its completed capture remains sealed and corrected actual test passed.
+## In flight and next tasks
 
-Kernel UID inventory resolves historical nodePID10204 reused by root ssh.
-No unrelated process touched. Existing lifecycle controls passed success/failure/
-timeout/owner death/partial launch/recovery/one visible admission and preservation,
-resultbe8eb818. Linux path unchanged. Required empty registry directories retained.
-Browser paths now allow bounded internal ASCII spaces so ordinary saved profile
-`sdmc/Nintendo 3DS` loads unchanged. Traversal/absolute/empty/prototype paths refused.
+1. R3 Ring job20261004T142041616072_28b246fc runs via the shared FIFO with that
+   reference/recipe. No competing Root timing run. Functional work may run nice5.
+2. Root build/browser_gpu_presentation_candidate_revision_2 passed14.3023s build.
+   Includes latest CPU/raw pipeline, GPU display aliases, ordered bitmap compositor,
+   true guest-read materialization, final-screen refresh and lazy readback storage.
+   Actual game transport/orientation/coherence/speed are unverified.
+   R4 owns page/outer-worker crop paint, bitmap close/ack and displayed-frame metadata.
+   Integrate its small commit, then one functional game smoke before World timing.
+3. R1 reduces immutable per-draw packet copies with bounded content-verified resource
+   retention. Root owns CPU proxy wiring. R2 continues measured translated scheduling
+   costs. R3 owns shader/cache/presentation. See project/runtime_lanes.md.
 
-## Paused execution and limits
+GPU presentation supports only complete unscaled tiled-to-linear transfers and
+explicit pixel formats. Unsupported requests take the coherent software path.
+Guest reads/writes materialize aliases through cached-page callbacks. Do not remove
+those barriers to inflate speed. Normal frame readback removal is not proved yet.
+Keep software reference. Routine360 and byte-exact captures are parked; run a
+bounded comparison only if a change actually breaks rendering.
 
-Completed browser replay9000 from original bridge initial_user_state/movie is in
-build/browser_world_one_verification_9000 against browser_world_one_server_9000.
-Movief2d7574c, unchanged ordinary user state. No RAM continuation or pointer join.
-Private verifier/build/browser_session_preparation/verify_browser_world_one_9000.py.
-The9000run completed at44,048,217,034ticks/renderer9101; CPU0exact4313017982,
-CPU1zero/fallbacks0. Actual bridge scene observed. HID/audio timing/bottom screen
-exact, top22pixels and1PCM sample differ. Report6ce92d93 records first differences.
-Cause/branch specificity unverified; submission held. Both capture/browser closed.
-Audio numerical candidate sealed; actual failing-block attribution remains unverified.
-No matching/main regression established; accepted default360 still passes.
+## Other retained evidence and limits
 
-Normal controls/session <=60000 presentations, wall<=3600sec, audio<=256MiB,
-final screens<=160MiB, export<=2GiB. Request/frame histories bounded; complete
-HID/movie/PCM retained. Stop waits for the next natural frame and joins the runtime.
-Selected path writes no per-command PICA/GPU files. Default capture remains separate.
+Previous raw GPU World job20261004T131750353522_1591068a measured19.03595/s,
+median54.9925ms/p99111.395ms under load10.58–11.90. Geometry present.
+R1 real Chrome draw-pthread smoke20261004T141731400030_01de787a passed2671draws,
+zero fallback, shared heap/OffscreenCanvas admission and joined Stop.
+R3 real Chrome presentation/copy smoke42bitmaps/6shader logs passed; no game/FPS.
+Last21software pixels stay parked. Accepted software reference and sealed original
+movie evidence remain. Whole-level goal and Azahar typed-state comparison unproved.
+Initial heap1GiB/max2GiB/pool18. No memory/mobile acceptance.
 
-Byte-identical active-module function index symbol map recovered by a bounded link,
-receipt35d67e7e. Duplicate wasm retired,8.53MB symbol map retained. This supplies
-names for profiling only. First10sec profile sampled startup file reads, not gameplay. Actual steady rendering costs remain pending. The360 profiled replay itself passed.
-
-## Evidence and retention
-
-Bridge e431761ab accepted at de8c5810, originald9af0ef9/nativeadd80b7f,
-strictf7a7b3ca/post632111b0. Native duplicate51972PICA payloads retired after hashes,
-original reference raw retained; rerunning native raw equality needs regeneration.
-Both bridge screens/input/PCM exact, CPU0 4313017982/CPU1zero/fallbacks0. No goal,
-typed player/control/update or full-prefix GPU equality credit.
-
-Own completed compiler duplicates/profiles retired only after source/hash and
-closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PCM,
-9000 comparison inputs and raw evidence, accepted providers and all sealed receipts preserved.
-No factory restart/settings. Aquinas absent/archived; no delegated work.
-
-Pro layout/update proposals remain conditional. Typed state comparison is unproved.
-Passive minimum-tick observer family stays parked.
-## Next tasks, in order
-Owner priority update October 3: "Real-time play now outranks the last pixels."
-The former exactness submission hold is superseded. First submission rejected
-only the add/add delivery-plan merge; latest main merged on Root and plan resolved. Table replaya099324c finished:
-all PCM/HID/audio timing/bottom outputs/CPU counts and Canvas/audio delivery pass;
-top5456cf28 remains the same21pixels. Comparison6e7d56dc. Warm8999intervals
-1935.995sec,4.6483/sec. Browser and identity-verified server closed after exports.
-Public audio/fog/depth3d95c0e0 corrected the PCM sample and one former pixel.
-Private normalization/lighting candidates add no pixel correction. All original
-and failed evidence preserved. Fragment observer/native consumer built, never run,
-and parked. Do not run further full-length exactness replays.
-Submission covers ready gameplay/session tooling and public audio/fog/depth only;
-matching claims zero, residual21pixels disclosed. Goal/Section7 remain unverified.
-Original recorded window has601VBlanks/top submissions, median4481136ticks;
-measured cadence59.83122493939037/sec of guest time. Physical hardware timing and
-unique frame count are not observed. Current throughput needs about12.87times gain.
-Five-second native process sample cannot name Wasm costs. JavaScript profiler is
-blocked by document policy and absent in workers. Actual bounded180..360profile
-passes all7original360outputs, comparisond07bc02d. Measured ms/frame: triangle
-clipping/rasterization wait86.327(85.738%), translated execution8.986(8.924%),
-outerCPUdispatch2.510(2.493%). CPU scopes contain estimated3.6ms/frame timing
-overhead; calibration is not a same-load subtraction proof. First scanline batch rises112.898ms/frame despite360pass, rejected and retained. Per-file rasterizerO3/contract-off passes360, comparison
-d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
-Owner now directs independently written WebGL2 play renderer; software tuning
-stops. Private queue/wait timer parked. No GPL renderer copied.
-GPU lookup-cache360 reaches58.8419/s steady, only menu;720frames unchanged.
-Independent lighting fixes pass128cases exactly; ETC passes5376texels exactly.
-Latest play telemetry360 retains720GPU frames/HID/PCM/CPU and21shader log passes,
-53.6499/s steady, bimodal pacing and497920audio underrun frames. Private drafts.
-Actual original-movie7800 reaches World1-1 but fails visually: blue top/Mario,
-missing level geometry. Late7680..7800only9.3694/s; p95/p99260.25/287.68ms.
-Top RGB MAE140.2144/255,97.91%pixels>8;402shader logs pass,unsupported0.
-HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
-Wasm heap growth0;12227328audio underrun frames. World profile recovered later; see current checkpoint.
-Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
-1. Build/measure GPU-owned draw proxy with R3 cache/ring and R2 CPU candidate.
-2. Wire R1 GPU-owned immutable work and CPU completion barriers after API review.
-3. M1 human1-1 with sound in Mini Chrome/Safari; then M2 peer, then iPhone.
-   No factory submission/migration now. Web contract queued; no playable artifact.
-Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
-Section7, sustained speed, synchronized audio, saves, physical mobile and complete
-rank-O adapter coverage remain unverified. Matching throughput zero.
-Common Chrome before8c862644:12.83759/s,median87.1475ms,p99159.06ms; visibleWorld.
-Audio40s adds1060096underruns; source6195.2/s. Load1min7.426..7.868,diagnostic only.
-1GiB/zero growth, first eligible27.5444s;402shader logs pass. M1 still fails.
-R2 sourceebc92658/R3source8c30b09d run rawGPU19.03595/s, median54.9925/p99111.395ms.
-Zero raw fallbacks/invalid/guards,1011shader logs pass. Load11.8984/10.5791; diagnostic.
-Queuec15997b0 uses normal input/unchanged40s collector.120s entry failed, cleanup passed.
-R4 queue reachesWorld14.4311/s, first eligible12.3644s, lower load; cache integrated.
-Copied6364save/120s still reaches intro; no fast-entry claim. Exact gates exception-only.
-Audio c46e0e8 integrated default-off asd36ce04b; actual game regression pending.
-Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
-Root pipeline smoke 2026-10-04: combined O3/raw GPU/ring/shared-Wasm worker build passes native Chrome functional boot. GPU owner em-pthread-5 submits 2671 draws, no fallback/unsupported states, and natural Stop joins cleanly. Shared JSON decoder fix integrated at 0c0dacb6. Result: build/runtime_measurements/20261004T141731400030_01de787a/receipt.json. World speed remains pending R4 fast entry. Only frame-time runs require exclusivity; functional checks/builds run nice5 without tokens.
+Browser registry stale pointers from deleted, previously cleaned Root failed runs
+were retired under its registry lock. Source322b0843 handles confirmed Darwin
+process-exit races while retaining unknown identity failures. No unrelated signals.
+Source-only private playable migration waits for a verified M1 boundary.
+Estimate remains LOW confidence:6–12h first measured60Chrome,10–20h humanM1.
+The20.40/s combined result leaves substantial GPU/CPU overhead; no subtractive gain
+is inferred. Next checkpoint is actual bitmap-path World cost and image validation.
