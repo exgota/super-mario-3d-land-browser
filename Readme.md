@@ -14,7 +14,7 @@ This repository does not contain game data. Building it requires your own copy o
 
 ## Credit
 
-Built on [RE-Pepper](https://github.com/RE-Pepper/RE-Pepper) by its contributors, which forks [RedPepper](https://github.com/3dsdecomp/RedPepper) by the 3dsdecomp contributors. The build system, tools and map come from RE-Pepper. RE-Pepper's CtrSDK, NintendoWare and sead libraries were removed for provenance reasons.
+Built on [RE-Pepper](https://github.com/RE-Pepper/RE-Pepper) by its contributors, which forks [RedPepper](https://github.com/3dsdecomp/RedPepper) by the 3dsdecomp contributors. The build system, tools and map come from RE-Pepper. Reference sources include RE-Pepper's [CtrSDK](https://github.com/RE-Pepper/ctrsdk), [NintendoWare](https://github.com/RE-Pepper/NintendoWare_ctr) and [sead](https://github.com/RE-Pepper/sead_ctr), and 3dsdecomp's [sead](https://github.com/3dsdecomp/sead), [nnsdk](https://github.com/3dsdecomp/nnsdk), [RedPepper-Headers](https://github.com/3dsdecomp/RedPepper-Headers), [LibMessageStudio](https://github.com/3dsdecomp/LibMessageStudio) and [RedPepper](https://github.com/3dsdecomp/RedPepper). Some derive from leaked material; pinned revisions and each source's stated provenance are recorded in `project/decisions.md`.
 
 Assembly diffing uses [asm-differ](https://github.com/simonlindholm/asm-differ). armcc runs through [wibo](https://github.com/decompals/wibo).
 

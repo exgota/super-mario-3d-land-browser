@@ -1417,3 +1417,29 @@ The operator reviewed the name-only map evidence from dot/root-19df5c. Original 
 ## Texture parameter setter address intake, 2026-10-03
 
 Driver independently reviewed the name-only evidence from dot/root-39053c-exact. Original pool entries at 0039080C and 00390810 point to existing four-byte row003E3154 and eight-byte row003E3180. The function keeps its existing0039053C..00390820 interval and0039080C pool start. Add neutral fn_/dat_ address labels only; no rank, boundary, type or pool changes. Independent allocation/clear paths at0028B290 and0028B1E0 use78hex and1CChex bytes; cleanup at0010705C uses image storage at34hex, while001070A0..001070C8 walks six44hex-byte planes. These observations support the proposal's distinct2D/cube storage extents, not original class names or complete type recovery. Original EU executable SHA256e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64 verified locally.
+
+
+## 2026-10-03: Owner permits previously excluded reference material
+
+The user relayed these owner words verbatim, after the advisor had discussed takedown risk:
+
+> IDK WHY I PUT THAT IN THE BRIEF WTFFFF pls use leaked nintendo material idgaf abt that sorta stuff, i want the world to have this code, inline asm was iffy cuz that just feels like a patch not an actual decomp
+
+> okay it's fine to push! drop 'clean' from the readme and get after it
+
+On preventing duplicate placeholder types:
+
+> okay that's fine, ill go with ur recommendation here! whatever is fastest and most efficient
+
+This supersedes the previous provenance exclusion in BRIEF rule 7. Leaked or unclear-provenance material is allowed as reference and committed source. This decision makes no representation that third-party rights have been transferred. The unchanged assembly prohibition, game-data exclusion, canonical checker and integrator acceptance remain binding. No imported upstream match label is accepted without local verification. These references are initially source-only, outside the build. Restoring libraries must preserve every accepted root, or fall back to coherent type-by-type migrations. Workers must reuse and extend shared headers; the integrator must reject newly introduced translation-unit-local copies of known shared types. Historical decisions remain historical.
+
+The following provenance descriptions paraphrase each pinned repository's own README. Missing disclosure is recorded as unknown, not as a clean-room claim.
+
+- [RE-Pepper/sead_ctr](https://github.com/RE-Pepper/sead_ctr/tree/c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6), commit `c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6`: README says it derives from 3dsdecomp/sead and references libpia_pead.a downloaded from debugging.games; it says SDK origin is uncertain and credits open-ead/sead.
+- [RE-Pepper/ctrsdk](https://github.com/RE-Pepper/ctrsdk/tree/82b1d4e162d69b434afb6aa0c2638eab90d959e1), commit `82b1d4e162d69b434afb6aa0c2638eab90d959e1`: README says it derives from 3dsdecomp/ctrsdk and references a debug binary from a purchased, dumped hard drive discarded by an active game studio.
+- [RE-Pepper/NintendoWare_ctr](https://github.com/RE-Pepper/NintendoWare_ctr/tree/fafdae23115f077f61ba63f5f7f2b4f4f1539ca7), commit `fafdae23115f077f61ba63f5f7f2b4f4f1539ca7`: README says it references a debug binary from a purchased, dumped hard drive discarded by an active game studio.
+- [3dsdecomp/sead](https://github.com/3dsdecomp/sead/tree/67454e68a413dbc37911236322acbb3e517e5291), commit `67454e68a413dbc37911236322acbb3e517e5291`: README credits open-ead/sead and requires sibling 3dsdecomp/nnsdk; it gives no further source-provenance account.
+- [3dsdecomp/nnsdk](https://github.com/3dsdecomp/nnsdk/tree/d50a4b89d13c929d2438abf92e5a48f039efffbf), commit `d50a4b89d13c929d2438abf92e5a48f039efffbf`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
+- [3dsdecomp/RedPepper-Headers](https://github.com/3dsdecomp/RedPepper-Headers/tree/f8329a61dc3b7e1f72127c2b77acac010a58b061), commit `f8329a61dc3b7e1f72127c2b77acac010a58b061`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
+- [3dsdecomp/LibMessageStudio](https://github.com/3dsdecomp/LibMessageStudio/tree/8c4c16e9ab676713f1ddd4632172fa0dd231228e), commit `8c4c16e9ab676713f1ddd4632172fa0dd231228e`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
+- [3dsdecomp/RedPepper](https://github.com/3dsdecomp/RedPepper/tree/6bd828b729f2442d18e7a586b6858a5fc6aeb6cd), commit `6bd828b729f2442d18e7a586b6858a5fc6aeb6cd`: README describes an EU Super Mario 3D Land decompilation and credits open-ead/sead; it gives no further source-provenance account.

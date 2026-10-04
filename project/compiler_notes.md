@@ -30,3 +30,17 @@ Workers append a candidate pattern to their function's `.factory/facts/<ADDRESS>
 - [Bubble identity and diagnostic corrections](https://github.com/exgota/super-mario-3d-land-browser/blob/e2336037d4f709acc082b3322daedadf9500564a/project/evidence/bubble_actor_family_identity.md).
 
 The 41 percent register / 21 percent order failure breakdown from the advisory handoff is not adopted here: its underlying 47-run classification was not located in this review. No matching recipe or success rate is inferred from it.
+
+
+## Owner-approved pinned source references, 2026-10-03
+
+BRIEF rule 7 now permits leaked or unclear-provenance references and committed source. You may read the following local clones and their pinned public URLs. These are reference inputs, not acceptance evidence. Reuse existing shared headers and compare reference layouts with this target; never treat an upstream O label as a local match. Original data, assembly restrictions and the canonical checker remain unchanged. Full provenance: project/reference_sources.json and project/decisions.md.
+
+- `/Users/exgota/super-mario-3d-land-factory/references/re_pepper_sead` at `c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6`: https://github.com/RE-Pepper/sead_ctr/tree/c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6
+- `/Users/exgota/super-mario-3d-land-factory/references/re_pepper_ctrsdk` at `82b1d4e162d69b434afb6aa0c2638eab90d959e1`: https://github.com/RE-Pepper/ctrsdk/tree/82b1d4e162d69b434afb6aa0c2638eab90d959e1
+- `/Users/exgota/super-mario-3d-land-factory/references/re_pepper_nintendo_ware` at `fafdae23115f077f61ba63f5f7f2b4f4f1539ca7`: https://github.com/RE-Pepper/NintendoWare_ctr/tree/fafdae23115f077f61ba63f5f7f2b4f4f1539ca7
+- `/Users/exgota/super-mario-3d-land-factory/references/third_dimension_sead` at `67454e68a413dbc37911236322acbb3e517e5291`: https://github.com/3dsdecomp/sead/tree/67454e68a413dbc37911236322acbb3e517e5291
+- `/Users/exgota/super-mario-3d-land-factory/references/third_dimension_nnsdk` at `d50a4b89d13c929d2438abf92e5a48f039efffbf`: https://github.com/3dsdecomp/nnsdk/tree/d50a4b89d13c929d2438abf92e5a48f039efffbf
+- `/Users/exgota/super-mario-3d-land-factory/references/red_pepper_headers` at `f8329a61dc3b7e1f72127c2b77acac010a58b061`: https://github.com/3dsdecomp/RedPepper-Headers/tree/f8329a61dc3b7e1f72127c2b77acac010a58b061
+- `/Users/exgota/super-mario-3d-land-factory/references/message_studio` at `8c4c16e9ab676713f1ddd4632172fa0dd231228e`: https://github.com/3dsdecomp/LibMessageStudio/tree/8c4c16e9ab676713f1ddd4632172fa0dd231228e
+- `/Users/exgota/super-mario-3d-land-factory/references/red_pepper` at `6bd828b729f2442d18e7a586b6858a5fc6aeb6cd`: https://github.com/3dsdecomp/RedPepper/tree/6bd828b729f2442d18e7a586b6858a5fc6aeb6cd
