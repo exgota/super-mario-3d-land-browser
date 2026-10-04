@@ -452,6 +452,80 @@ function drawScreens(screens, preview = false) {
     document.querySelector('.preview').classList.add('has-frame');
 }
 
+function recordPreviewPaint(active, receipt) {
+    latestPreviewFrame = {...receipt, painted_at_milliseconds: performance.now()};
+    active.displayedPreviewCount = (active.displayedPreviewCount ?? 0) + 1;
+    document.body.dataset.previewFrameCount = String(active.displayedPreviewCount);
+    document.body.dataset.previewRendererFrame = receipt.renderer_frame;
+    touchAvailability();
+    status.textContent = gameplay() ? active.stopRequested ?
+        'Stop requested. Waiting for a natural presentation, then saving the final screens.' : recording() ?
+        'Showing live browser frames. Focus a screen or controller to play.' :
+        'Showing live browser frames from the selected movie. Controls are read-only.' : runOptions().live_touch_capture ?
+        active.touchExhausted ? 'Showing sampled frames. Touch input has reached this preview’s limit.' :
+        active.touchReady ? 'Showing sampled frames. Touch the bottom screen to send input.' :
+        'Showing sampled frames. Touch will be available when the full bottom screen appears.' : runOptions().live_circle_pad_capture ?
+        'Showing sampled frames. Hold a direction to send input.' : runOptions().live_button_capture ?
+        'Showing sampled frames. Hold A to send input.' : 'Showing sampled frames from the recorded startup…';
+}
+
+function receiveWebGlPresentation(active, message) {
+    try {
+        requireCondition(message.bitmap instanceof ImageBitmap, 'The GPU presentation bitmap is unavailable.');
+        if (session !== active) return;
+        const unsignedWord = value => Number.isInteger(value) && value >= 0 && value <= 0xffffffff;
+        const unsignedWideWord = value => typeof value === 'string' && /^(0|[1-9][0-9]*)$/.test(value) &&
+            BigInt(value) <= 0xffffffffffffffffn;
+        requireCondition(message.schema_version === 1 && message.capture_identifier === active.identifier &&
+            message.schemaVersion === 1 && active.options.frame_output &&
+            Number.isInteger(message.sequence) && message.sequence > 0 && message.sequence <= 0x7fffffff &&
+            unsignedWideWord(message.rendererFrame) && unsignedWideWord(message.sampledTicks) &&
+            unsignedWord(message.width) && message.width > 0 && unsignedWord(message.height) && message.height > 0 &&
+            message.width * message.height * 4 <= 16 * 1024 * 1024 &&
+            message.bitmap.width === message.width && message.bitmap.height === message.height &&
+            Array.isArray(message.screens) && message.screens.length >= 1 && message.screens.length <= 2,
+            'The GPU presentation extent changed.');
+        const identifiers = new Set();
+        for (const screen of message.screens) {
+            requireCondition(screen && [0, 2].includes(screen.screenIdentifier) && !identifiers.has(screen.screenIdentifier) &&
+                ['x', 'y', 'width', 'height'].every(field => unsignedWord(screen[field])) &&
+                screen.width > 0 && screen.height > 0 &&
+                screen.x + screen.width <= message.width && screen.y + screen.height <= message.height,
+                'The GPU presentation screen rectangle changed.');
+            identifiers.add(screen.screenIdentifier);
+        }
+        if (active.manifest || message.sequence <= (active.webGlPresentationSequence ?? 0)) return;
+        active.webGlPresentationSequence = message.sequence;
+        if (latestPreviewFrame && BigInt(message.rendererFrame) <= BigInt(latestPreviewFrame.renderer_frame)) return;
+        for (const screen of message.screens) {
+            const canvas = document.querySelector(screen.screenIdentifier === 0 ? '#top-screen' : '#bottom-screen');
+            if (canvas.width !== screen.width) canvas.width = screen.width;
+            if (canvas.height !== screen.height) canvas.height = screen.height;
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, screen.width, screen.height);
+            context.drawImage(message.bitmap, screen.x, screen.y, screen.width, screen.height,
+                0, 0, screen.width, screen.height);
+            canvas.hidden = false;
+        }
+        document.querySelector('.screen-placeholder').hidden = true;
+        document.querySelector('.preview').classList.add('has-frame');
+        recordPreviewPaint(active, {transport: message.type, sequence: message.sequence,
+            renderer_frame: message.rendererFrame, sampled_ticks: message.sampledTicks,
+            bitmap_width: message.width, bitmap_height: message.height,
+            screens: message.screens.map(({screenIdentifier, ...screen}) =>
+                ({screen_identifier: screenIdentifier, ...screen}))});
+    } finally {
+        // The page owns the transferred bitmap. Return credit after both paints
+        // or an explicit drop, including old sessions and malformed rectangles.
+        try { message.bitmap?.close(); }
+        finally {
+            if (Number.isInteger(message.sequence) && message.sequence > 0 && message.sequence <= 0x7fffffff)
+                active.worker.postMessage({schema_version: 1, type: 'acknowledge_browser_webgl_presentation',
+                    capture_identifier: active.identifier, sequence: message.sequence});
+        }
+    }
+}
+
 function discardAudio() {
     const stream = streamedAudioPlayer;
     streamedAudioPlayer = undefined;
@@ -551,6 +625,7 @@ function acknowledge(active, message) {
 }
 
 async function receive(active, message) {
+    if (message?.type === 'browser_webgl_presentation') return receiveWebGlPresentation(active, message);
     if (session !== active) return;
     requireCondition(message.schema_version === 1 && message.capture_identifier === active.identifier,
                      'The preview worker returned an invalid session.');
@@ -719,27 +794,16 @@ async function receive(active, message) {
             typeof message.sampled_ticks === 'string' && /^(0|[1-9][0-9]*)$/.test(message.sampled_ticks) &&
             message.screens?.length === 2 && message.screens[0].screen_identifier === 0 &&
             message.screens[1].screen_identifier === 2 && message.screens.every(screen =>
-                typeof screen.sha256 === 'string' && /^[0-9a-f]{64}$/.test(screen.sha256)) &&
-            (!latestPreviewFrame || BigInt(message.renderer_frame) > BigInt(latestPreviewFrame.renderer_frame)),
+                typeof screen.sha256 === 'string' && /^[0-9a-f]{64}$/.test(screen.sha256)),
             'The preview frame order changed.');
-        drawScreens(message.screens, true);
-        touchAvailability();
         active.previewCount = message.sequence;
         if (message.runtime_initialization) latestInitializationObservation = message.runtime_initialization;
-        latestPreviewFrame = {sequence: message.sequence, renderer_frame: message.renderer_frame,
-            sampled_ticks: message.sampled_ticks, screens: message.screens.map(({rgba, ...screen}) =>
-                ({...screen, bytes: rgba.byteLength}))};
-        document.body.dataset.previewFrameCount = String(active.previewCount);
-        document.body.dataset.previewRendererFrame = message.renderer_frame;
-        status.textContent = gameplay() ? active.stopRequested ?
-            'Stop requested. Waiting for a natural presentation, then saving the final screens.' : recording() ?
-            'Showing live browser frames. Focus a screen or controller to play.' :
-            'Showing live browser frames from the selected movie. Controls are read-only.' : runOptions().live_touch_capture ?
-            active.touchExhausted ? 'Showing sampled frames. Touch input has reached this preview’s limit.' :
-            active.touchReady ? 'Showing sampled frames. Touch the bottom screen to send input.' :
-            'Showing sampled frames. Touch will be available when the full bottom screen appears.' : runOptions().live_circle_pad_capture ?
-            'Showing sampled frames. Hold a direction to send input.' : runOptions().live_button_capture ?
-            'Showing sampled frames. Hold A to send input.' : 'Showing sampled frames from the recorded startup…';
+        if (!latestPreviewFrame || BigInt(message.renderer_frame) > BigInt(latestPreviewFrame.renderer_frame)) {
+            drawScreens(message.screens, true);
+            recordPreviewPaint(active, {sequence: message.sequence, renderer_frame: message.renderer_frame,
+                sampled_ticks: message.sampled_ticks, screens: message.screens.map(({rgba, ...screen}) =>
+                    ({...screen, bytes: rgba.byteLength}))});
+        }
         active.worker.postMessage({schema_version:1, type:'acknowledge_preview',
             capture_identifier:active.identifier, sequence:message.sequence});
     }

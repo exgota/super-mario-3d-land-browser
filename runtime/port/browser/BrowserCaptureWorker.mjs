@@ -52,6 +52,7 @@ let frameTimer;
 let frameTask;
 let pendingFrame;
 let frameControls;
+let webGlPresentationReceiver;
 const frameReceipts = [];
 const MaximumPreviewFrames = 8192;
 let gameplayTimer;
@@ -226,6 +227,7 @@ function fail(error) {
     clearInterval(circleTimer);
     clearInterval(touchTimer);
     clearInterval(frameTimer);
+    webGlPresentationReceiver?.close();
     stopAudio(error);
     if (pendingFrame) {
         clearTimeout(pendingFrame.timer);
@@ -879,6 +881,7 @@ async function exportFile(file, fileIndex) {
 async function finish(status) {
     clearInterval(frameTimer);
     clearInterval(audioTimer);
+    webGlPresentationReceiver?.close();
     requireCondition(phase === 'running' && status === 0, `Capture exited with status ${status}`);
     phase = 'validating';
     if (audioStream) send({type: 'audio_stream_source_ended'});
@@ -908,6 +911,8 @@ async function finish(status) {
     }
     if (recording()) observations.recorded_movie = validateRecordedMovie(entries, observations);
     if (descriptor.options.frame_output) observations.preview_frames = previewObservations();
+    if (webGlPresentationReceiver)
+        observations.webgl_presentation = {...webGlPresentationReceiver.statistics};
     const log = entries.get('user/log/reference_capture.log');
     requireCondition(log && !/\b(?:Input|Movie|Audio|Service\.DSP)(?:\.[A-Za-z0-9_.]+)?\s+<(?:Error|Critical)>/.test(readText('/capture/user/log/reference_capture.log',
         log.size, MaximumLogBytes)), 'Capture log is absent or reports Movie/Audio errors');
@@ -1048,6 +1053,14 @@ async function start(value) {
     });
     module = await initialization.ready;
     requireCondition(phase !== 'failed', 'Module initialization failed');
+    if (typeof globalThis.installBrowserWebGlPresentationReceiver === 'function')
+        webGlPresentationReceiver = globalThis.installBrowserWebGlPresentationReceiver({
+            publishFrame: (packet, transfer) => {
+                if (phase !== 'running' || !descriptor.options.frame_output) return false;
+                send(packet, transfer);
+                return true;
+            }
+        });
     phase = 'identifying';
     initialization.checkpoint('input_identity_started');
     for (const input of descriptor.validated_inputs) {
@@ -1330,6 +1343,15 @@ self.onmessage = event => {
                 encoder.encode(JSON.stringify(receipt)).length <= MaximumLineBytes, 'Unexpected audio drain acknowledgment');
             const pending = pendingAudio; pendingAudio = undefined;
             clearTimeout(pending.timer); pending.resolve(receipt);
+        } else if (event.data?.type === 'acknowledge_browser_webgl_presentation') {
+            record(event.data, ['schema_version','type','capture_identifier','sequence']);
+            requireCondition(event.data.schema_version === 1 && webGlPresentationReceiver &&
+                event.data.capture_identifier === descriptor?.capture_identifier,
+                'Unexpected GPU bitmap acknowledgment');
+            integer(event.data.sequence, 0x7fffffff, 1);
+            // False is a stale/repeated acknowledgment, including Stop teardown.
+            // This path only returns transport credit. It calls no native export.
+            webGlPresentationReceiver.acknowledge(event.data.sequence);
         } else if (event.data?.type === 'acknowledge_preview') {
             record(event.data, ['schema_version','type','capture_identifier','sequence']);
             requireCondition(event.data.schema_version === 1 && descriptor?.options.frame_output &&
