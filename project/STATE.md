@@ -152,3 +152,5 @@ R4 queue reachesWorld14.4311/s, first eligible12.3644s, lower load; cache integr
 Copied6364save/120s still reaches intro; no fast-entry claim. Exact gates exception-only.
 Audio c46e0e8 integrated default-off asd36ce04b; actual game regression pending.
 Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
+
+Root pipeline smoke 2026-10-04: combined O3/raw GPU/ring/shared-Wasm worker build passes native Chrome functional boot. GPU owner em-pthread-5 submits 2671 draws, no fallback/unsupported states, and natural Stop joins cleanly. Shared JSON decoder fix integrated at 0c0dacb6. Result: build/runtime_measurements/20261004T141731400030_01de787a/receipt.json. World speed remains pending R4 fast entry. Only frame-time runs require exclusivity; functional checks/builds run nice5 without tokens.

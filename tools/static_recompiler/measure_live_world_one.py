@@ -252,7 +252,7 @@ def navigation_script(recipe):
   if(recipe.strategy==='smoke') {
    while(!state.cancelled && performance.now()-started<recipe.deadline_seconds*1000) {
     record();
-    if(state.frame){state.stage='first_frame';state.complete=true;break;}
+    if(state.frame && performance.now()-started >= (recipe.minimum_seconds ?? 0)*1000){state.stage='first_frame';state.complete=true;break;}
     if(document.body.dataset.captureState==='failed')throw new Error(document.querySelector('#capture-error').textContent);
     await sleep(50);
    }
@@ -370,7 +370,7 @@ def run_job(job_path):
                     break
                 time.sleep(5)
             job['entry_seconds_from_queue_admission'] = time.monotonic() - started
-            job['entry_under_two_minutes'] = job['entry_seconds_from_queue_admission'] < 120 and state.get('complete') is True
+            job['entry_under_two_minutes'] = job['entry_seconds_from_queue_admission'] < 120 and state.get('complete') is True and state.get('stage') == 'world'
             if not state.get('complete'):
                 browser.run(['run-code', 'async(page)=>{await page.locator("#run-preview").click();await page.waitForFunction(()=>["complete","failed"].includes(document.body.dataset.captureState),null,{timeout:90000});}'], timeout=100)
                 raise RuntimeError(state.get('error', 'World entry did not complete'))
