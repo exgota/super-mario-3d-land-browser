@@ -1412,3 +1412,8 @@ Only missing names change; all ranks/types/pools/boundaries stay unchanged. No n
 ## Observed squat action address intake, 2026-10-03
 
 The operator reviewed the name-only map evidence from dot/root-19df5c. Original caller 0x0019E4D4 passes the same receiver to 0x0019DF5C and ignores its result. The receiver contains an independently allocated eight-byte state record at offset0x18, allocated by constructor0x0019E5D4; virtual predicate calls use slots0x08 and0x24 from service-prefix pointers, and animator queries use the existing interface. The existing complete row0x003B1534..0x003B1540 contains SquatStart and remains imported. Seven neutral fn_/dat_ names change; no ranks, types, pools or boundaries change. Receiver and service types are observed prefixes, not complete original class identities.
+
+
+## Texture parameter setter address intake, 2026-10-03
+
+Driver independently reviewed the name-only evidence from dot/root-39053c-exact. Original pool entries at 0039080C and 00390810 point to existing four-byte row003E3154 and eight-byte row003E3180. The function keeps its existing0039053C..00390820 interval and0039080C pool start. Add neutral fn_/dat_ address labels only; no rank, boundary, type or pool changes. Independent allocation/clear paths at0028B290 and0028B1E0 use78hex and1CChex bytes; cleanup at0010705C uses image storage at34hex, while001070A0..001070C8 walks six44hex-byte planes. These observations support the proposal's distinct2D/cube storage extents, not original class names or complete type recovery. Original EU executable SHA256e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64 verified locally.
