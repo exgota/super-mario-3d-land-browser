@@ -1,7 +1,11 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 struct Vector3Data {
-    float x, y, z;
+    nn::math::VEC3 components;
 };
+typedef char VectorStorageSizeCheck[sizeof(Vector3Data) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vector3Data, components) == 0 ? 1 : -1];
 
 struct Vector3 : Vector3Data {
     Vector3 operator*(float scalar) const;
@@ -11,6 +15,7 @@ struct Vector3 : Vector3Data {
         return *this;
     }
 };
+typedef char VectorWrapperSizeCheck[sizeof(Vector3) == 12 ? 1 : -1];
 
 struct Object {
     unsigned char padding0[0x7c];
@@ -22,20 +27,16 @@ struct Object {
 
 extern "C" float fn_00287AD0(float);
 extern "C" float fn_00287908(float);
-extern "C" void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(
-    Vector3&, const Vector3&, float);
-extern "C" void _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(
-    Vector3&, const Vector3&, const Vector3&);
 
 namespace {
 Vector3 Vector3::operator*(float scalar) const {
     Vector3 result;
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(result, *this, scalar);
+    sead::Vector3CalcCtr<float>::multScalar(result.components, components, scalar);
     return result;
 }
 
 Vector3& Vector3::operator+=(const Vector3& other) {
-    _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(*this, *this, other);
+    sead::Vector3CalcCtr<float>::add(components, components, other.components);
     return *this;
 }
 }
@@ -46,9 +47,9 @@ extern "C" void fn_0032787C(Object* self, Vector3* out, float t) {
         return;
     }
     if (t >= 1.0f) {
-        out->x = -self->first.x;
-        out->y = -self->first.y;
-        out->z = -self->first.z;
+        out->components.x = -self->first.components.x;
+        out->components.y = -self->first.components.y;
+        out->components.z = -self->first.components.z;
         return;
     }
     float angle = t * 1.57079632679489661923f;

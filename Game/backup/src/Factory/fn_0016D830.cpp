@@ -1,10 +1,18 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 struct Vector3 {
-    float x, y, z;
+    nn::math::VEC3 components;
     Vector3() {}
-    Vector3(float a, float b, float c) : x(a), y(b), z(c) {}
+    Vector3(float a, float b, float c) {
+        components.x = a;
+        components.y = b;
+        components.z = c;
+    }
     Vector3 operator+(const Vector3& other) const;
 };
+typedef char VectorStorageSizeCheck[sizeof(Vector3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vector3, components) == 0 ? 1 : -1];
 
 struct SafeString {
     const void* vtable;
@@ -31,7 +39,6 @@ bool _ZN2al11isFirstStepEPKNS_9IUseNerveE(const Actor*);
 void _ZN2al11startActionEPNS_9LiveActorEPKc(Actor*, const char*);
 void fn_0027109C(void*, const SafeString&);
 const Vector3& _ZN2al8getTransEPKNS_9LiveActorE(const Actor*);
-void _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(Vector3&, const Vector3&, const Vector3&);
 void fn_0012ABF8(void*, const Vector3&);
 bool _ZN2al11isActionEndEPKNS_9LiveActorE(const Actor*);
 void _ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE(Actor*, const void*);
@@ -42,7 +49,7 @@ SafeString::SafeString(const char* value) : vtable(_ZTVN4sead14SafeStringBaseIcE
 
 Vector3 Vector3::operator+(const Vector3& other) const {
     Vector3 result;
-    _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(result, *this, other);
+    sead::Vector3CalcCtr<float>::add(result.components, components, other.components);
     return result;
 }
 }

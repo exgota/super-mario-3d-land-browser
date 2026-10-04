@@ -1,24 +1,24 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 
 struct Vec3 {
-    float x;
-    float y;
-    float z;
+    nn::math::VEC3 components;
 
     Vec3() {}
 
     Vec3(const Vec3& rhs)
     {
-        x = rhs.x;
-        y = rhs.y;
-        z = rhs.z;
+        components.x = rhs.components.x;
+        components.y = rhs.components.y;
+        components.z = rhs.components.z;
     }
 
     Vec3& operator=(const Vec3& rhs)
     {
-        x = rhs.x;
-        y = rhs.y;
-        z = rhs.z;
+        components.x = rhs.components.x;
+        components.y = rhs.components.y;
+        components.z = rhs.components.z;
         return *this;
     }
 
@@ -26,6 +26,8 @@ struct Vec3 {
     void setScale(const Vec3&, float);
     Vec3 operator-(const Vec3&) const;
 };
+typedef char VectorStorageSizeCheck[sizeof(Vec3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vec3, components) == 0 ? 1 : -1];
 
 struct CubicCurve {
     Vec3 c0;
@@ -37,22 +39,18 @@ struct CubicCurve {
 
 }
 
-extern "C" void _ZN4sead14Vector3CalcCtrIfE3subERN2nn4math4VEC3ERKS4_S7_(
-    Vec3&, const Vec3&, const Vec3&);
-extern "C" void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(
-    Vec3&, const Vec3&, float);
 extern "C" float fn_00250B70(const CubicCurve*, int, float, float);
 
 namespace {
 
 inline void Vec3::setSub(const Vec3& lhs, const Vec3& rhs)
 {
-    _ZN4sead14Vector3CalcCtrIfE3subERN2nn4math4VEC3ERKS4_S7_(*this, lhs, rhs);
+    sead::Vector3CalcCtr<float>::sub(components, lhs.components, rhs.components);
 }
 
 inline void Vec3::setScale(const Vec3& rhs, float scale)
 {
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(*this, rhs, scale);
+    sead::Vector3CalcCtr<float>::multScalar(components, rhs.components, scale);
 }
 
 inline Vec3 Vec3::operator-(const Vec3& rhs) const

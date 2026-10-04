@@ -26,7 +26,6 @@ struct Limit { LimitVtable* vtable; };
 extern "C" void fn_0027306C(Vec3*, const Vec3*, const Vec3*);
 extern "C" Limit* fn_0026E1DC();
 extern "C" void fn_00173790(State*);
-extern "C" void _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(Vec3&, const Vec3&, const Vec3&);
 
 extern "C" void fn_001BAD90(State* self) {
     Vec3 delta;
@@ -50,7 +49,7 @@ extern "C" void fn_001BAD90(State* self) {
             delta.components.z *= scale;
         }
         Vec3& current = self->holder->body->position;
-        _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(current, current, delta);
+        sead::Vector3CalcCtr<float>::add(current.components, current.components, delta.components);
     }
     fn_00173790(self);
 }

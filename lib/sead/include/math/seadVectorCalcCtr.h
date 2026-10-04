@@ -13,6 +13,11 @@ class Vector3CalcCtr<float>
 {
 public:
     static float normalize(nn::math::VEC3& vector);
+    static void add(nn::math::VEC3& output,
+                    const nn::math::VEC3& left,
+                    const nn::math::VEC3& right);
+    static void multScalar(nn::math::VEC3& output,
+                           const nn::math::VEC3& vector, float scalar);
     static void sub(nn::math::VEC3& output,
                     const nn::math::VEC3& left,
                     const nn::math::VEC3& right);
