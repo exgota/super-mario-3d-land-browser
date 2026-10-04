@@ -25,13 +25,22 @@ T3's actual worker exposes WebGL2 through ANGLE Metal on Apple M4, native ETC1
 and ETC compression, and a16384texture-size limit. Capability is not game speed.
 The initial estimate is8–16hours to a first GPU World1-1 frame and24–48hours to
 verify full-speed play. These are engineering estimates, not measured promises.
-GPU game fps and visual error remain unmeasured. The independently authored
-shaders compile/link in T3. A real8x8GPU triangle readback returns the expected
-red center. The first integrated prototype links in6commands with unchanged
-CPU/audio, Wasm41e08919,152404564bytes. Its actual short360replay is running;
-no execution or visual-equivalence credit yet. Two interface compile failures
+The first actual GPU short360 replay completes in T3 at9.185970796140145 warm
+presentations/second,359intervals39.081334784seconds. First eligible presentation
+takes75.328185088seconds. This startup/menu run is not World1-1 speed. Original
+movie/HID/audio timing and every PCM sample remain equal; CPU0393977876,
+CPU1zero and both fallbacks0. Own Canvas pixels and complete audio consumption
+pass. Final RGB mean absolute error is60.3416/255top and56.1195/255bottom;
+61.22%top and99.999%bottom pixels exceed8RGBchannel error. Geometry appears
+aligned, while background color and bottom-screen shading differ substantially.
+Per-frame visual measurement and visual equivalence remain pending. Comparison
+and final-only visual report remain local inbuild/browser_performance_resume.
+The independently authored shaders compile/link and an8x8GPU triangle readback
+passes. Prototype41e08919 links6commands. Two interface compile failures
 and their independent source snapshots remain local. Color RAM synchronization
 is implemented; depth RAM coherence and shared-depth-target behavior remain open.
+A private diagnostic build samples bridge/JavaScript costs over180..360; it
+preserves prototype arithmetic and scheduling. No GPU performance gain established.
 
 Root owns the draw bridge, independent shaders, render targets, texture cache,
 memory synchronization, browser build and actual replay. Existing CPU vertex

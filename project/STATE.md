@@ -129,8 +129,9 @@ closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
 d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
 Owner now directs independently written WebGL2 play renderer; software tuning
 stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
-GPU41e08919 links6commands; actual short360run at8775is active. Color coherence
-only, depth/shared-target gaps open. Independent shader/triangle probe passes.
+GPU41e08919 actual360finishes9.18597/s, originalHID/PCM/CPUcounts pass. Final RGB
+error60.3416top/56.1195bottom; per-frame pending. Private GPU profile is running.
+Color coherence only; depth/shared-target gaps open. Shader/triangle probe passes.
 Current order/evidence: project/browser_webgl_renderer_plan.md.
 
 1. Inventory preserved World1-1 PICA features, then build independent WebGL2 play.
