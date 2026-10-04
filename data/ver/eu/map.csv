@@ -6240,7 +6240,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00217904,          ,0x00217964,          ,U,f,,
 0x00217964,          ,0x00217994,          ,U,f,,
 0x00217994,          ,0x002179C0,          ,U,f,,
-0x002179C0,          ,0x002179CC,          ,U,f,,
+0x002179C0,          ,0x002179CC,          ,O,f,fn_002179C0,
 0x002179CC,          ,0x002179EC,          ,O,f,fn_002179CC,
 0x002179EC,0x00217AB4,0x00217ABC,          ,U,f,,
 0x00217ABC,          ,0x00217B2C,          ,U,f,,
