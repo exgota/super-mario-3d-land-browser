@@ -2,12 +2,14 @@
 
 2026-10-04 UTC. Claims: none. Skip the blocked roots below pending owner-led interface repair and preservation of affected accepted roots.
 Basis: immutable main `238bbbecba3340df1ad542fc2e2a420a4ff89670`; verified source-only WIP `de16f556de1026b0b516d9fb689a111d3dc23395` (74 files); `CURRENT.md`, `preflight/`, `recovered-preflights/`, and restored function notes.
-This is a source/record consolidation, not a new binary audit or recovered compiler proof. Main declarations were read without modification. Historical lost/unreviewed scope is not exhaustive; absent records do not establish zero prior attempts.
+This is a source/record consolidation, not a new binary audit or recovered compiler proof. Entries without a dated update remain last-observed conflicts and require a fresh screen before edits. Main declarations were read without modification. Historical lost/unreviewed scope is not exhaustive; absent records do not establish zero prior attempts.
 The 780-tier and 00119644/00122144 call observations were recovered from the coordinator's retained findings; their accepted declarations were checked against main. Other call evidence is in the named preflights/notes. `Factory/` below means `Game/backup/src/Factory/`.
 
-## Current status, 2026-10-04 04:11 UTC
+## Current status, 2026-10-04 08:25 UTC
 
-- Vector add/multScalar preservation repair is published at `541fc2ec4d672740ab4e1e12c0a0258e53a52b32` on `dot/vector-import-contracts-delivery-31d93976`: 42 accepted definitions preserved. Main31d93976 still lacks this repair; operator-approved integrator intake is required. The historical contract inventory below remains an intake checklist.
+Owner paused all decompilation, repairs and diagnostic experiments. These are retained findings and proposals, not active work.
+
+- Main `3e8b2608ac46560fc6078ce9b9a851d975861f6b` accepts integrator `39de2af57`/`300fc1f09` vector-interface repair, with an independent 42-definition preservation report. Its source is an integrator adaptation, not the unchanged tree of our published `541fc2ec` proposal. Re-screen complete downstream contracts; no new matched-byte credit.
 - Named real-header reference repositories are now owner-authorized. An available header alone does not clear a conflicting accepted caller; preserve its cohort when proposing a coherent repair.
 - For a direct call with unused result, a qualified reconstructed void declaration is admissible when parameters and side effects are grounded, with no hidden-result ABI or conflicting accepted declaration. Original return spelling remains unknown. The old return-only uncertainty for001C9970 should be re-screened on that basis; unresolved live virtual/callback contracts remain separate.
 
@@ -16,9 +18,9 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
 
 ## Known live declaration conflicts
 
-- **Vector add/multScalar:** roots `001D8D8C`, `0023FEE0`, `0017974C`, `0026BAB0` (780), `00173790` and `002D8F3C` (784).
-  Helpers `0027CB48`/`0027CC64` use accepted literal-mangled C imports over unrelated anonymous Vec3/Vector3 types; `math/seadVectorCalcCtr.h` lacks the ordinary declarations. Adding declarations alone leaves the old contracts conflicting.
-  Repair one coherent vector API and migrate the 15-TU accepted caller union. Owners: Factory `fn_0016D830.cpp`, `fn_00171BE0.cpp`, `fn_00173698.cpp`, `fn_001BAD90.cpp`, `fn_001BD204.cpp`, `fn_00213854.cpp`, `fn_00213B74.cpp`, `fn_0030E468.cpp`, `fn_0032787C.cpp`, `fn_003449B4.cpp`, `fn_0034D9AC.cpp`, `fn_00355820.cpp`, `fn_003600F8.cpp`, `fn_00360DC0.cpp`, `fn_0036844C.cpp`.
+- **Vector add/multScalar, now repaired on main:** dependent roots `001D8D8C`, `0023FEE0`, `0017974C`, `0026BAB0` (780), `00173790` and `002D8F3C` (784).
+  The old `0027CB48`/`0027CC64` private literal-mangled imports are now migrated to ordinary VEC3 declarations. This resolves that specific prerequisite; other private interfaces listed below remain separately qualified.
+  The accepted integrator repair covers this 15-TU caller union. Owners: Factory `fn_0016D830.cpp`, `fn_00171BE0.cpp`, `fn_00173698.cpp`, `fn_001BAD90.cpp`, `fn_001BD204.cpp`, `fn_00213854.cpp`, `fn_00213B74.cpp`, `fn_0030E468.cpp`, `fn_0032787C.cpp`, `fn_003449B4.cpp`, `fn_0034D9AC.cpp`, `fn_00355820.cpp`, `fn_003600F8.cpp`, `fn_00360DC0.cpp`, `fn_0036844C.cpp`.
   Evidence: restored `001D8D8C`/`0023FEE0`/`0017974C` notes; recovered `173790`/`2d8f3c` preflights; retained `26BAB0` finding.
 
 - **Projection/normalization and actor-vector helpers:** roots `0017974C`, `00173790`, and `00137E30`.
@@ -74,14 +76,16 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
   `00158D70`: private Object in Factory `fn_00265C2C.cpp` and DispatchObject returned by `00265E80` in `group_00277674.cpp`; unify actual interfaces and preserve owners. `00229434`: `fn_00229370.cpp` exposes float* for a mixed-layout track and reads float members at +34+4*index; correct the receiver API, not a cast-only adapter.
   Evidence: restored function notes. Ordinary owner-header extraction/correction is not automatically a driver blocker when the matching family can preserve its affected accepted cohort.
 
-- **Spin-attack state constructor:** root `0026C780` (516; three historical forms, no new form).
-  Real-reference/current-source review identifies `al::StringTmp<128>` for `0028CB38`; migrate both private formatting owners in alEffectObj.cpp/KoopaPillar.cpp together, with coherent constructor/map identity. Do not invent another receiver facade.
-  `0026C984` returns numeric payloads for all three Bug fields; a shared const-float-pointer contract is supported. Both fallback rows are40 bytes, so no fixed16-byte record allocation is claimed.
-  `0026CD08` receives the spin state through IUseNerve, not LiveActor; reuse ordinary Nerve/HitSensor contracts and preserve the singleton. Its host actor is at state+0C.
-  Minimum direct scope is4objects/9O definitions; editing alStringUtil.h expands to29objects/144O. Existing sensor-message void/bool declarations in group0027D540 are a separate consistency issue adding1object/2O if explicitly repaired.
-  The collection is now proved to be an existing LiveActorGroup base, with no header change. A bounded five-owner repair is authorized with up to30objects/146O preservation; it is not yet cleared. Sibling singleton3F2E8C's integer thunk remains a separate state-method issue.
+- **Spin-attack state constructor:** root `0026C780` (516; seven total forms) stopped after two consecutive no-closer results. Best form5 is516/516, score1615, canonical nonexact; fresh194-definition/17,728-byte preservation passes.
+  The five-owner shared-interface proposal is published as `beb08ae0497c10b823ed7dc68b68c2c958ac74ac`, preserving146 accepted definitions across30objects/14,812bytes. Existing LiveActorGroup is reused unchanged; StringTmp, float payload and sensor receiver contracts are reconciled locally.
+  Actual guarded intake fails decoding immutable-base KoopaPillar.cpp as UTF-8. Candidate lossless ASCII escapes preserve outputs but cannot fix base decoding; driver must repair that before approved integrator intake. No bypass or main intake claimed.
+  A separately reviewed local table-boundary/identity correction supports the ordinary constructor; its evidence remains separate and unaccepted. Sibling singleton3F2E8C's integer thunk is outside this repair.
 
 - **Scene-service 8 entry:** root `0019C888` (520; two historical forms). Original four-byte wrapper19C884 forwards a live receiver, read at root+0C immediately; accepted `group_00189160.cpp` declares both entries as no-argument unsigned functions. Reconcile actual receiver/wrapper contracts and preserve that owner and separate fallthrough boundary; return spelling remains unproved.
+
+- **Singleton allocator/provider contracts:** `002FF3DC` (548; four historical forms) remains held. Real release at283D70/283D78 requires receiver plus allocation pointer, while group0024C880 forwards one argument; group0010EA24 owns allocator-cell declarations and its void* accessors must remain exact. The two-TU release/storage correction is now published at `57a5d6c802bc914f4a365e842d4ee3bf9d303200`, preserving16accepted definitions/160bytes and all1116objects; actual dot intake rejects Factory edits, operator-approved integration remains pending. Private provider constructors in group002FFA44 and nested record ownership need their own reconciliation before rootform5.
+
+- **Cannon controller/property/animator:** `0013B1D8` (552; one historical form) needs a shared controller dispatch record with proved used-slot contracts, velocity-return repair273094, real setter arguments and PlayerProperty velocity storage, plus animator v_8(SafeString const&) and v_C(float). A bounded10TU/13accepted-definition/1608-byte preservation experiment is authorized but now owner-paused before any source edit; pristine baseline build was interrupted. No preservation or rootform2 claim. Unused slots remain opaque uncalled storage, original controller class identity unrecovered.
 
 ## Unresolved contracts, not established shared-declaration mismatches
 
