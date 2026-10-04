@@ -6,4 +6,4 @@ Current shared-header policy passes. Ordinary dot intake rejects Factory edits; 
 Actual guard checks stopped before merge with refs/HEAD/index/map unchanged.
 Published preservation proposal: dot/vector-import-contracts-delivery-31d93976 at 541fc2ec4d672740ab4e1e12c0a0258e53a52b32; this subtree remains a recovery backup.
 Authorized real API references: RE-Pepper/sead_ctr c0f95fb9 and3dsdecomp/sead67454e68; no license file was found and no license grant is claimed.
-Next: publish the reviewed proposal through the authorized route, then rebase dependent matching work after integration.
+Next: await operator-approved integrator intake, then rebase dependent matching work after integration.

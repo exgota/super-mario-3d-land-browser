@@ -5,6 +5,12 @@ Basis: immutable main `238bbbecba3340df1ad542fc2e2a420a4ff89670`; verified sourc
 This is a source/record consolidation, not a new binary audit or recovered compiler proof. Main declarations were read without modification. Historical lost/unreviewed scope is not exhaustive; absent records do not establish zero prior attempts.
 The 780-tier and 00119644/00122144 call observations were recovered from the coordinator's retained findings; their accepted declarations were checked against main. Other call evidence is in the named preflights/notes. `Factory/` below means `Game/backup/src/Factory/`.
 
+## Current status, 2026-10-04 04:11 UTC
+
+- Vector add/multScalar preservation repair is published at `541fc2ec4d672740ab4e1e12c0a0258e53a52b32` on `dot/vector-import-contracts-delivery-31d93976`: 42 accepted definitions preserved. Main31d93976 still lacks this repair; operator-approved integrator intake is required. The historical contract inventory below remains an intake checklist.
+- Named real-header reference repositories are now owner-authorized. An available header alone does not clear a conflicting accepted caller; preserve its cohort when proposing a coherent repair.
+- For a direct call with unused result, a qualified reconstructed void declaration is admissible when parameters and side effects are grounded, with no hidden-result ABI or conflicting accepted declaration. Original return spelling remains unknown. The old return-only uncertainty for001C9970 should be re-screened on that basis; unresolved live virtual/callback contracts remain separate.
+
 ## Known live declaration conflicts
 
 - **Vector add/multScalar:** roots `001D8D8C`, `0023FEE0`, `0017974C`, `0026BAB0` (780), `00173790` and `002D8F3C` (784).
