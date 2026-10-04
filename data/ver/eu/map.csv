@@ -4471,7 +4471,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001CDA40,          ,0x001CDA48,          ,O,f,fn_001CDA40,
 0x001CDA48,          ,0x001CDAFC,          ,U,f,,
 0x001CDAFC,0x001CDC98,0x001CDC9C,          ,U,f,,
-0x001CDC9C,          ,0x001CDCBC,          ,U,f,,
+0x001CDC9C,          ,0x001CDCBC,          ,O,f,fn_001CDC9C,
 0x001CDCBC,          ,0x001CDCF4,          ,U,f,,
 0x001CDCF4,          ,0x001CDCFC,          ,O,f,fn_001CDCF4,
 0x001CDCFC,          ,0x001CDD1C,          ,O,f,fn_001CDCFC,
