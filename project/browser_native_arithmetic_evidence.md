@@ -131,6 +131,11 @@ lighting/fog enabled at draw commands. The prefix is unobserved and 2,100
 interrupt-stop conditions are unknown, so these are decoded command counts,
 not complete execution counts or actual pixel attribution.
 
+The same read-only window inspection observes procedural textures disabled at
+every decoded draw trigger, receipt
+`9d1e9f8fb29d67e9c56acbe4e4819b3b43611e03670ce20c8a73d72449abce91`.
+Its unknown-prefix/interrupt limits remain; no procedural-texture patch is added.
+
 The depth browser/server closed after exports. A separate private candidate
 adds only the isolated quaternion-normalization order. All three build commands
 pass, with unaffected archive-member and protected-input preservation. Wasm is
@@ -155,6 +160,24 @@ Native reduction sites 0x4d8/0x4dc/0x4fc/0x500/0xa54/0xa60/0xa9c/0xaa4 and
 cross-product sites 0x1e8/0x1f0/0x1f8/0x218/0x220/0x228 establish the orders.
 LUT and distance-attenuation arithmetic and broad lighting-mode equality remain
 outside this fixture's coverage.
+
+A separate broader 1,048,576-case fixture exercises all eight valid lighting
+configurations, six LUT input selections and scales, one/two lights, bump modes,
+shadows and attenuation. Normalized quaternion/view, register and texture input
+digest agrees, `01ad5a7a794ac969`. Preserved native output is `afbb74156b56cd17`.
+The original Wasm object differs in 292 cases, the rotation/reduction candidate
+in 40. Fixture receipt SHA-256 is
+`218b6dd23c7933cde5b11d51f50534eee63abfe6d860317cc9714d0bc7b6fb21`.
+Native sites 0x640/0x6d0/0x1b98 establish distance and LUT interpolation FMA.
+Adding only those two expression orders closes every broader fixture color case,
+receipt SHA-256
+`65b152190e576962d14ae30c2110e26df22b3e926bbcf3a49c8af9766b2b91d1`.
+This later table candidate is unused in the active browser replay. Finite synthetic
+coverage does not establish actual pixel attribution or all parameter combinations.
+Its separate full module builds in three passing commands with unrelated-member
+and protected-input preservation. Wasm is 152,435,097 bytes, SHA-256
+`a099324c477fdd9ac07773a556465cf2f205fe2e08d8584b978fc8c74f8bc8bb`.
+It is unrun.
 
 A private full-module candidate adds this lighting source to the sealed
 normalization module. Three commands pass, preserving every unrelated archive

@@ -136,3 +136,14 @@ in a browser. Adding native-order quaternion cross products/rotation closes all
 d98dc22c,152435067bytes, links in3commands with unrelated-member/input preservation.
 Same9000movie/profile now replays in T3tab_1 through8769, audio started before
 first rendered frame. Actual21-pixel result remains pending. Submission held.
+
+While the unchanged movie runs, a separate1048576-case synthetic lighting fixture
+exercises8valid configurations/6LUT inputs/scales, one/two lights, bump modes,
+shadows and attenuation. Inputdigest01ad5a7a794ac969 agrees. Original Wasm292
+different cases, rotation/reduction40, receipt218b6dd2. Native-object LUT/distance
+FMA at0x640/0x6d0/0x1b98 closes every case, receipt65b15219, outputafbb74156b56cd17.
+This later table candidate is not in the active movie; no actual-pixel credit.
+Its full modulea099324c,152435097bytes, links in3commands with unrelated-member/
+input preservation and is unrun. Read-only native-window inspection observes
+procedural textures disabled at all decoded draw triggers, receipt9d1e9f8f.
+The unobserved-prefix/interrupt limits remain; no procedural-texture patch.

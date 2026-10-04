@@ -131,6 +131,8 @@ Receipt2b14cbfa. New private lighting moduled98dc22c,152435067bytes, links in
 3commands with unrelated-member/input preservation. It replays the unchanged
 9000movie through8769 in T3tab_1; audio started before the first rendered frame.
 All32pause seals unchanged. One browser, no delegates. Actual21-pixel result pending.
+Broader lighting fixture292original/40rotation differences closes with LUT/distance
+FMA, receipt65b15219. Separate table modulea099324c builds in3commands and is unrun.
 
 1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
    document finite controls/session reruns, push and submit this family with no claims.
