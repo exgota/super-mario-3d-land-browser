@@ -65,6 +65,8 @@ TEXT_BASE = 0x100000
 MAX_FUNCTION_BYTES = 256
 GROUP_CHUNK = 25
 SYNC_INTERVAL_SECONDS = 45 * 60
+FULL_CHECK_TIMEOUT_SECONDS = 2 * 60 * 60
+SYNC_RETRY_SECONDS = 60
 # One build and one round of checks takes every queued proposal touching different files, up to these limits.
 MAXIMUM_BATCH_PROPOSALS = 40
 MAXIMUM_BATCH_FUNCTIONS = 400
@@ -449,9 +451,20 @@ def tool(worktree, *arguments, timeout=900):
     environment["DEVKITARM"] = "/opt/homebrew"
     environment["VIRTUAL_ENV"] = str(REPOSITORY / ".venv")
     environment["PATH"] = f"{REPOSITORY / '.venv/bin'}:{environment['PATH']}"
-    result = subprocess.run([str(VENV_PYTHON), *arguments], cwd=worktree, capture_output=True,
-                            text=True, env=environment, timeout=timeout)
-    return result.returncode, ANSI.sub("", result.stdout + result.stderr)
+    command = [str(VENV_PYTHON), *arguments]
+    process = subprocess.Popen(command, cwd=worktree, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               text=True, env=environment, start_new_session=True)
+    try:
+        stdout, stderr = process.communicate(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        # A checker/build can have compiler children. Reap its whole owned group before restoring the candidate.
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+        stdout, stderr = process.communicate()
+        raise subprocess.TimeoutExpired(command, timeout, output=stdout, stderr=stderr)
+    return process.returncode, ANSI.sub("", stdout + stderr)
 
 
 def prepare_worktree(worktree):
@@ -1169,7 +1182,7 @@ def full_image_compare(worktree):
     reach every O row in the worktree's map (it stops before comparing when, for example, a row's size changed)."""
     root = worktree / FULL_IMAGE_OUTPUT
     before = set(root.iterdir()) if root.exists() else set()
-    tool(worktree, "make.py", "eu", "--split", timeout=1800)
+    tool(worktree, "make.py", "eu", "--split", timeout=FULL_CHECK_TIMEOUT_SECONDS)
     created = sorted(set(root.iterdir()) - before) if root.exists() else []
     try:
         comparison = created[-1] / "comparison.json" if len(created) == 1 else None
@@ -1341,6 +1354,9 @@ class Supervisor:
         # A restart soon after a full check waits out the rest of its interval instead of checking again.
         last = self.database.execute("SELECT MAX(time) FROM events WHERE kind='sync'").fetchone()[0]
         self.last_sync = last if last and time.time() - last < SYNC_INTERVAL_SECONDS else 0.0
+        self.last_completed_sync = last
+        self.next_sync_retry_at = 0.0
+        self.integrator_thread = None
         audited = self.database.execute("SELECT MAX(time) FROM events WHERE kind='audit'").fetchone()[0]
         self.last_audit_day = datetime.datetime.fromtimestamp(audited, EASTERN).date() if audited else None
         self.code = read_code()
@@ -1765,10 +1781,27 @@ class Supervisor:
                     return
 
     # integration ---------------------------------------------------------
+    def sync_with_timeout_recovery(self):
+        """A slow full check keeps pending proposals and retries from the accepted target."""
+        previous_sync = self.last_sync
+        try:
+            self.sync()
+        except subprocess.TimeoutExpired as error:
+            self.last_sync = previous_sync
+            self.next_sync_retry_at = time.time() + SYNC_RETRY_SECONDS
+            log_event(self.database, "error", f"full check timed out after {error.timeout} s: {error.cmd};"
+                      f" unverified candidate discarded; retry in {SYNC_RETRY_SECONDS} s")
+            with self.integration_lock:
+                self.restore_integration()
+            return False
+        self.next_sync_retry_at = 0.0
+        return True
+
     def integrator_loop(self):
         while not (self.stopping and self.integration_queue.empty()):
-            if not self.halted and time.time() - self.last_sync > SYNC_INTERVAL_SECONDS:
-                self.sync()
+            if (not self.halted and time.time() - self.last_sync > SYNC_INTERVAL_SECONDS
+                    and time.time() >= self.next_sync_retry_at):
+                self.sync_with_timeout_recovery()
                 continue
             batch = self.collect_batch()
             if self.halted:
@@ -2295,7 +2328,7 @@ class Supervisor:
         The regression pass is the full-image byte compare (owner, 2026-10-02). A row it reports different is
         demoted only when tools/check.py confirms. When the compare cannot reach every O row, and once a day as an
         audit, the full tools/check.py pass decides instead."""
-        status, output = tool(worktree, "make.py", "eu", "-ca", timeout=1800)
+        status, output = tool(worktree, "make.py", "eu", "-ca", timeout=FULL_CHECK_TIMEOUT_SECONDS)
         if status != 0:
             return False, output[-400:], [], set()
         audit = self.last_audit_day != datetime.datetime.now(EASTERN).date()
@@ -2304,7 +2337,7 @@ class Supervisor:
             changes_file = worktree / "data/ver/eu/.changes"
             changes_file.unlink(missing_ok=True)
             started = time.time()
-            tool(worktree, "tools/check.py", "-q", "-w", timeout=1800)
+            tool(worktree, "tools/check.py", "-q", "-w", timeout=FULL_CHECK_TIMEOUT_SECONDS)
             lost, gained = lost_exact(changes_file), set(gained_exact(changes_file))
             if audit:
                 self.record_audit(flagged, lost, int(time.time() - started))
@@ -2518,6 +2551,7 @@ class Supervisor:
             self.reload_symbols()
             self.measure_source_quality(final)
             after = sum(1 for r in self.rows_by_start.values() if r["rank"] == "O")
+            self.last_completed_sync = time.time()
             log_event(self.database, "sync", f"full check in {int(time.time() - started)} s; {after} functions exact;"
                       f" {len(riders)} submissions rode along; {len(lost)} demoted;"
                       f" push {'ok' if push.returncode == 0 else 'failed: ' + push.stderr.strip()[-200:]}")
@@ -2578,7 +2612,8 @@ class Supervisor:
         for session in (CODEX_HOME / "sessions").glob("*/*/*/rollout-*.jsonl"):
             session.unlink(missing_ok=True)
         log_event(self.database, "start", f"slots {sorted(self.slot_specs)}; target {TARGET_BRANCH} at {self.expected_target[:9]}")
-        threads = [threading.Thread(target=self.integrator_loop, daemon=True)]
+        self.integrator_thread = threading.Thread(target=self.integrator_loop, name="factory-integrator", daemon=True)
+        threads = [self.integrator_thread]
         workers = [threading.Thread(target=self.worker_loop, args=(slot,), daemon=True) for slot in self.slot_specs]
         for thread in threads + workers:
             thread.start()
@@ -2606,7 +2641,7 @@ class Supervisor:
                 break
             time.sleep(30)
         if not self.halted:
-            self.sync()
+            self.sync_with_timeout_recovery()
         write_status(self)
         log_event(self.database, "stop", "supervisor exited" + (f" (halted: {self.halted})" if self.halted else ""))
 
@@ -2757,7 +2792,8 @@ def write_status(supervisor=None):
     STATUS_JSON.write_text(json.dumps(status, indent=1) + "\n")
     lines = [f"# Factory status, {datetime.datetime.now(EASTERN):%b %d %H:%M} ET", "",
              f"State: **{state}**. Last full check: "
-             f"{clock(supervisor.last_sync) if supervisor and supervisor.last_sync else 'not yet'}.", "",
+             f"{status['integrator']['last_completed_sync'] or 'not yet'}. "
+             f"Integrator thread alive: {status['integrator']['thread_alive']}.", "",
              f"Whole project on {TARGET_BRANCH}: **{exact_bytes / total * 100:.2f}%** of code bytes"
              f" ({exact_bytes:,} of {total:,}), {len(exact):,} of {len(functions):,} functions exact.", "",
              "Queue: " + ", ".join(f"{q['status']} {q['jobs']} jobs / {q['functions']} functions" for q in status["queue"]), "",
@@ -2824,7 +2860,12 @@ def integrator_queue(supervisor, last_push, now):
         except (OSError, ValueError):
             continue
         riding += bool(request.get("claims") or request.get("nonmatching") or request.get("solo"))
-    return {"proposals_waiting": len(list(PROPOSALS.glob("job_*"))), "submissions_waiting": len(submissions),
+    thread = getattr(supervisor, "integrator_thread", None)
+    completed = getattr(supervisor, "last_completed_sync", None)
+    return {"thread_alive": thread.is_alive() if thread is not None else None,
+            "last_completed_sync": datetime.datetime.fromtimestamp(completed, EASTERN).isoformat(timespec="seconds") if completed else "",
+            "next_sync_retry_at": getattr(supervisor, "next_sync_retry_at", 0.0),
+            "proposals_waiting": len(list(PROPOSALS.glob("job_*"))), "submissions_waiting": len(submissions),
             "submissions_with_claims": riding,
             "last_push": datetime.datetime.fromtimestamp(last_push, EASTERN).isoformat(timespec="seconds") if last_push else "",
             "minutes_since_push": int((now - last_push) / 60) if last_push else None,
