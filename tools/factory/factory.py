@@ -486,15 +486,68 @@ def reset_worktree(worktree, commit):
     shutil.rmtree(worktree / ".factory", ignore_errors=True)
 
 
+def shared_header_path(relative):
+    path = pathlib.PurePosixPath(relative)
+    return (path.suffix in (".h", ".hpp") and "include" in path.parts
+            and path.parts[0] in ("Game", "lib") and ".." not in path.parts)
+
+
+def changed_shared_headers(worktree, base):
+    changed = git(worktree, "diff", "--name-only", base).splitlines()
+    changed += git(worktree, "ls-files", "--others", "--exclude-standard", "--", "Game", "lib").splitlines()
+    return sorted({path for path in changed if shared_header_path(path) and (worktree / path).is_file()})
+
+
+def source_type_definitions(text):
+    # Lexical declaration gate, not a claim of semantic C++ equivalence. Ignore forward declarations,
+    # comments and string literals. Compare names against the actual shared-header inventory.
+    text = re.sub(r'//[^\n]*|/\*.*?\*/|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'', " ", text, flags=re.S)
+    return collections.Counter(match.group(1).split("::")[-1] for match in re.finditer(
+        r"\b(?:class|struct|union)\s+((?:[A-Za-z_]\w*::)*[A-Za-z_]\w*)\s*(?:<[^;{}]*>)?\s*(?:final\s*)?(?::[^;{}]*)?\{", text))
+
+
+def shared_type_violations(worktree, base, proposed):
+    """Reject newly introduced source-local definitions bearing an existing shared type's name.
+
+    Existing accepted local definitions are not retroactively rejected. Candidate headers participate,
+    so adding a header and a second source-local copy in one proposal also fails.
+    """
+    header_paths = git(worktree, "ls-files", "--", "Game", "lib").splitlines()
+    header_paths += [path for path in proposed if shared_header_path(path)]
+    known = collections.defaultdict(list)
+    for relative in sorted(set(header_paths)):
+        if not shared_header_path(relative):
+            continue
+        text = proposed.get(relative)
+        if text is None:
+            path = worktree / relative
+            if not path.is_file():
+                continue
+            text = path.read_text(errors="replace")
+        aliases = re.findall(r"\busing\s+([A-Za-z_]\w*)\s*=", text)
+        aliases += re.findall(r"\btypedef\b[^;{}]*\b([A-Za-z_]\w*)\s*;", text)
+        for name in set(source_type_definitions(text)) | set(aliases):
+            known[name].append(relative)
+    violations = []
+    for relative, text in proposed.items():
+        if pathlib.PurePosixPath(relative).suffix not in (".cpp", ".cc", ".cxx", ".c"):
+            continue
+        previous = git(worktree, "show", f"{base}:{relative}", check=False)
+        added = source_type_definitions(text) - source_type_definitions(previous)
+        for name in sorted(added.keys() & known.keys()):
+            violations.append(f"{relative}: new local {name}; use shared declaration in {known[name][0]}")
+    return violations
+
+
 def changed_tracked_files(worktree, base, class_files=()):
     """Files changed since the job's base commit that the job may not change. Factory jobs may change only the map and
-    the factory directory; class-mode jobs only the map and their class file and header."""
+    the factory directory and shared headers; class-mode jobs only the map and their class file and header."""
     output = subprocess.run(["git", "-C", str(worktree), "diff", "--name-only", base],
                             capture_output=True, text=True, check=True).stdout
     if class_files:
         return [path for path in output.splitlines() if path and path != str(MAP) and path not in class_files]
     allowed = (str(MAP), str(FACTORY_SOURCE_DIRECTORY) + "/")
-    return [path for path in output.splitlines() if path and not (path == allowed[0] or path.startswith(allowed[1]))]
+    return [path for path in output.splitlines() if path and not (path == allowed[0] or path.startswith(allowed[1]) or (shared_header_path(path) and (worktree / path).is_file()))]
 
 
 def new_source_files(worktree, base):
@@ -505,7 +558,7 @@ def new_source_files(worktree, base):
 
 def commit_attempt(worktree, class_files=()):
     """The checker only credits committed source, so each attempt is a throwaway commit in the worker worktree."""
-    git(worktree, "add", "-A", "--", str(FACTORY_SOURCE_DIRECTORY), str(MAP), *class_files)
+    git(worktree, "add", "-A", "--", str(FACTORY_SOURCE_DIRECTORY), str(MAP), *class_files, *changed_shared_headers(worktree, "HEAD"))
     git(worktree, "-c", "user.name=factory", "-c", "user.email=factory@localhost",
         "commit", "-q", "--allow-empty", "--no-verify", "-m", "factory attempt")
 
@@ -517,19 +570,21 @@ The compiler is ARMCC 4.1 build 791 with -O3 -Otime --arm_only --gnu --signed_ch
 Your whole task is in .factory/job.md: write C++ that compiles to exactly the bytes of the listed functions.
 
 Rules:
-1. Write code only in the one new file named in job.md. Never edit, rename or delete any existing file. Never commit.
+1. Write implementations only in the file named in job.md. You may add or extend shared headers under Game/lib include directories when required for this job. Preserve their existing declarations and layouts. Never rename or delete existing files. Never commit.
 2. Use plain C++. No inline assembly, no __asm, no raw bytes, no copied machine code, no pragmas that pin code.
 3. Define each function with the exact symbol given. Unnamed functions are extern "C" functions named fn_XXXXXXXX.
-   For a mangled symbol, declare the class or namespace locally so the definition produces that symbol.
-4. Declare every type you need inside an anonymous namespace in your file. Declare callees and globals as extern
-   with the names job.md gives (fn_XXXXXXXX functions as extern "C"; dat_XXXXXXXX data as extern "C" objects).
+   For a mangled symbol, include its existing shared declaration; extend the owning shared header when necessary.
+4. Search shared headers before defining a type. Reuse and extend the real shared layout, using the pinned
+   references in job.md. Never define a TU-local copy of a type already defined in a shared header. New durable
+   types belong in shared headers. Reuse shared callee declarations. Keep unknown fn_/dat_ imports neutral.
 5. Check your work only with:  . ./development_environment.sh && python {factory} attempt
    It builds, then prints MATCHED or an assembly diff (target on the left) for each function.
    One run takes 30 to 120 seconds. Wait for it to finish; never start a second run while one is going.
    You have {attempts} attempt runs. Stop as soon as everything matches or the runs are used up.{stall_rule}
 6. Before you finish, delete every function that still does not match, so the file holds only matching code.
    If nothing matches, delete the file.
-7. Do not read project/, tools/ or other source files unless job.md points you to them. Keep it short.
+7. Read shared headers under Game/lib include directories and the pinned source references in job.md. Other
+   source files may be read to locate shared declarations and their callers. Do not edit unrelated implementations.
 8. Before you finish, matched or not, complete .factory/facts/<ADDRESS>.md for every function in job.md. Fill in the
    class guess with a confidence and the evidence, the type of each struct offset listed, an inferred C++ signature
    for each callee, and what each data reference is. Only offsets, types, signatures, symbol names and addresses:
@@ -873,7 +928,7 @@ def command_attempt(arguments):
         counter.write_text(str(used + 1))
     changed = changed_tracked_files(worktree, job["base"], job.get("class_files", ()))
     if changed:
-        print("You changed existing files, which is not allowed. Restore them with git checkout:", *changed, sep="\n  ")
+        print("You changed files outside this job and its allowed shared headers. Restore these paths:", *changed, sep="\n  ")
         sys.exit(2)
     results = attempt_in(worktree, job, commit=True)
     matched = [a for a, r in results.items() if r["rank"] == "O"]
@@ -894,6 +949,12 @@ def command_attempt(arguments):
 
 
 def attempt_in(worktree, job, final=False, commit=False):
+    source_paths = new_source_files(worktree, job["base"]) + list(job.get("class_files", ())) + changed_shared_headers(worktree, job["base"])
+    proposed = {path: (worktree / path).read_text(errors="replace") for path in source_paths if (worktree / path).is_file()}
+    violations = shared_type_violations(worktree, job["base"], proposed)
+    if violations:
+        return {a: {"symbol": s, "rank": "build-failed", "detail": "SHARED TYPE POLICY:\n" + "\n".join(violations),
+                    "diff": "", "score": None} for a, s in zip(job["addresses"], job["symbols"])}
     symbols = list(job["symbols"])
     chosen = worktree / ".factory" / "symbols.json"
     if job.get("class_files") and chosen.exists():
@@ -979,7 +1040,7 @@ def record_best_drafts(worktree, job, results, attempt):
     """Keep each function's closest draft so far, with its full residual diff, in .factory/best."""
     best = worktree / ".factory" / "best"
     best.mkdir(exist_ok=True)
-    sources = {path: (worktree / path).read_text(errors="ignore") for path in new_source_files(worktree, job["base"])}
+    sources = {path: (worktree / path).read_text(errors="ignore") for path in new_source_files(worktree, job["base"]) + changed_shared_headers(worktree, job["base"])}
     for address, result in results.items():
         if result["rank"] == "O" or not result["score"] or not sources:
             continue
@@ -1505,7 +1566,11 @@ class Supervisor:
         job_data = json.loads((worktree / ".factory/job.json").read_text())
         class_files = job_data.get("class_files", [])
         bad_edits = changed_tracked_files(worktree, job_data["base"], class_files)
-        files = ([f for f in class_files if git(worktree, "diff", "--name-only", job_data["base"], "--", f)] if class_files
+        if not class_files and changed_shared_headers(worktree, job_data["base"]):
+            class_files = changed_shared_headers(worktree, job_data["base"]) + new_source_files(worktree, job_data["base"])
+            job_data["class_files"] = class_files
+        files = ([f for f in class_files if git(worktree, "diff", "--name-only", job_data["base"], "--", f)
+                  or git(worktree, "ls-files", "--others", "--exclude-standard", "--", f)] if class_files
                  else new_source_files(worktree, job_data["base"]))
         matched = []
         self.stage_facts(worktree, job, settings, outcome)
@@ -1797,6 +1862,12 @@ class Supervisor:
                     log_event(self.database, "reject", f"{proposal.name}: {existing} already exist on {TARGET_BRANCH}")
                     self.retire(proposal, "rejected")
                     continue
+                violations = shared_type_violations(INTEGRATION, base,
+                    {f: (proposal / f).read_text(errors="replace") for f in files})
+                if violations:
+                    log_event(self.database, "reject", f"{proposal.name}: shared type policy: {violations}")
+                    self.retire(proposal, "rejected")
+                    continue
                 functions = sum(len(e["addresses"]) for e in entries)
                 if any(f in taken_files for f in files) or (entries and functions + len(addresses) > MAXIMUM_BATCH_FUNCTIONS):
                     deferred.append(proposal)
@@ -1820,7 +1891,7 @@ class Supervisor:
             git(INTEGRATION, "commit", "-q", "--no-verify", "-m", f"Candidate batch of {len(entries)} proposals, not verified")
             candidate = git(INTEGRATION, "rev-parse", "HEAD")
             started = time.time()
-            job = {"addresses": [a for e in entries for a in e["addresses"]],
+            job = {"base": base, "addresses": [a for e in entries for a in e["addresses"]],
                    "symbols": [e["symbols"][a] for e in entries for a in e["addresses"]]}
             results = attempt_in(INTEGRATION, job, final=True)
             # A proposal may not define a symbol another object already defines (owner, 2026-10-02). When only
@@ -1930,8 +2001,15 @@ class Supervisor:
             class_files, job_base = metadata["class_files"], metadata["base"]
             self.restore_integration()
             base = git(INTEGRATION, "rev-parse", "HEAD")
-            stale = [f for f in class_files if git(INTEGRATION, "rev-parse", f"{base}:{f}", check=False)
-                     != git(INTEGRATION, "rev-parse", f"{job_base}:{f}", check=False)]
+            violations = shared_type_violations(INTEGRATION, base,
+                {f: (proposal / f).read_text(errors="replace") for f in class_files if (proposal / f).is_file()})
+            if violations:
+                log_event(self.database, "reject", f"{proposal.name}: shared type policy: {violations}")
+                execute(self.database, "UPDATE jobs SET status='failed', leased_by=NULL WHERE id=?", (metadata["job"],))
+                self.retire(proposal, "rejected")
+                return
+            stale = [f for f in class_files if git(INTEGRATION, "rev-parse", "--verify", f"{base}:{f}", check=False)
+                     != git(INTEGRATION, "rev-parse", "--verify", f"{job_base}:{f}", check=False)]
             if stale:
                 log_event(self.database, "reject", f"{proposal.name}: class mode: {stale} changed on main since the job started")
                 execute(self.database, "UPDATE jobs SET status='open', leased_by=NULL WHERE id=?", (metadata["job"],))
@@ -1949,6 +2027,7 @@ class Supervisor:
                     "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
             for relative in class_files:
                 if (proposal / relative).exists():
+                    (INTEGRATION / relative).parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(proposal / relative, INTEGRATION / relative)
             git(INTEGRATION, "add", "--", *class_files)
             git(INTEGRATION, "commit", "-q", "-m", f"Write {', '.join(symbols[a] for a in addresses)} in {class_files[-1]} (class mode, {metadata['model']})"
@@ -1960,7 +2039,7 @@ class Supervisor:
             path.write_text(json.dumps({"branch": branch, "commit": commit, "claims": [symbols[a] for a in addresses],
                                         "summary": f"Class mode: {', '.join(symbols[a] for a in addresses)} in {class_files[-1]}",
                                         "attempts": metadata.get("attempts", 1), "minutes": round(metadata.get("minutes", 0), 4),
-                                        "class_job": metadata["job"], "model": metadata["model"]}, indent=2) + "\n")
+                                        "class_job": metadata["job"], "model": metadata["model"], "shared_header_job": True, "solo": True, "preserve_exact": True}, indent=2) + "\n")
             self.class_pending = path
             log_event(self.database, "submission", f"{path.stem}: rides the next periodic full check")
             self.retire(proposal, None)
@@ -1979,8 +2058,15 @@ class Supervisor:
             self.restore_integration()
             base = git(INTEGRATION, "rev-parse", "HEAD")
             reject = None
-            stale = [f for f in class_files if git(INTEGRATION, "rev-parse", f"{base}:{f}", check=False)
-                     != git(INTEGRATION, "rev-parse", f"{job_base}:{f}", check=False)]
+            violations = shared_type_violations(INTEGRATION, base,
+                {f: (proposal / f).read_text(errors="replace") for f in class_files if (proposal / f).is_file()})
+            if violations:
+                log_event(self.database, "reject", f"{proposal.name}: shared type policy: {violations}")
+                execute(self.database, "UPDATE jobs SET status='failed', leased_by=NULL WHERE id=?", (metadata["job"],))
+                self.retire(proposal, "rejected")
+                return
+            stale = [f for f in class_files if git(INTEGRATION, "rev-parse", "--verify", f"{base}:{f}", check=False)
+                     != git(INTEGRATION, "rev-parse", "--verify", f"{job_base}:{f}", check=False)]
             current = {r["start"]: r for r in load_rows(INTEGRATION / MAP)}
             if stale:
                 reject = f"{stale} changed on main since the job started"
@@ -1989,6 +2075,7 @@ class Supervisor:
             if not reject:
                 for relative in class_files:
                     if (proposal / relative).exists():
+                        (INTEGRATION / relative).parent.mkdir(parents=True, exist_ok=True)
                         shutil.copy2(proposal / relative, INTEGRATION / relative)
                 set_map_rows(INTEGRATION, {a: ("M", symbols[a]) for a in addresses})
                 git(INTEGRATION, "add", "--", str(MAP), *class_files)
@@ -2151,7 +2238,9 @@ class Supervisor:
         merge_base = git(INTEGRATION, "merge-base", target_commit(), commit)
         changed = git(INTEGRATION, "diff", "--name-only", merge_base, commit).splitlines()
         forbidden = [p for p in changed if p == "project/ledger.csv" or
-                     (p.startswith(str(FACTORY_SOURCE_DIRECTORY) + "/") and not branch.startswith(CLEANUP_PREFIX))]
+                     (p.startswith(str(FACTORY_SOURCE_DIRECTORY) + "/") and not branch.startswith(CLEANUP_PREFIX)
+                      and not (branch.startswith("integrator/") and request.get("operator_approved"))
+                      and not (branch.startswith("class/") and request.get("class_job") and request.get("shared_header_job")))]
         if forbidden:
             raise SubmissionDecision({"outcome": "rejected", "reason": f"lanes may not change {forbidden}"})
         oracle = [p for p in changed if p == "data/config.json" or any(p == o or p.startswith(o) for o in ORACLE_PATHS)]
@@ -2166,6 +2255,10 @@ class Supervisor:
                 if extra:
                     raise SubmissionDecision({"outcome": "rejected", "reason": f"map.csv changes need their own evidence commit"
                                               f" (rule 2); {revision[:9]} also changes {extra}"})
+        violations = shared_type_violations(INTEGRATION, merge_base,
+            {p: git(INTEGRATION, "show", f"{commit}:{p}", check=False) for p in changed})
+        if violations:
+            raise SubmissionDecision({"outcome": "rejected", "reason": f"shared type policy: {violations}"})
         before = git(INTEGRATION, "rev-parse", "HEAD")
         merge = subprocess.run(["git", "-C", str(INTEGRATION), "merge", "--no-ff", "-q", "-m",
                                 f"Merge {branch} (submission {name})", commit], capture_output=True, text=True)
@@ -2293,7 +2386,7 @@ class Supervisor:
             duplicates = duplicate_definitions(INTEGRATION) if built and riders else {}
             doubled = {path: offending_duplicates(duplicates, change_stems(INTEGRATION, info["changed"])) for path, info in riders}
             doubled = {path: found for path, found in doubled.items() if found}
-            cleanup = any(info["branch"].startswith(CLEANUP_PREFIX) for _, info in riders)
+            cleanup = any(info["branch"].startswith(CLEANUP_PREFIX) or info["request"].get("preserve_exact") for _, info in riders)
             if cleanup and built and lost:
                 # Owner guard: a cleanup branch may lose no O row. Rows main loses on its own are demoted first and
                 # the branch waits a cycle; any loss beyond main's rejects it.
