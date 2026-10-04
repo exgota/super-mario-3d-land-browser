@@ -6724,7 +6724,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0022AC0C,          ,0x0022AC18,          ,O,f,fn_0022AC0C,
 0x0022AC18,          ,0x0022AC28,          ,O,f,fn_0022AC18,
 0x0022AC28,0x0022AC40,0x0022AC44,          ,U,f,,
-0x0022AC44,          ,0x0022AC50,          ,U,f,,
+0x0022AC44,          ,0x0022AC50,          ,O,f,fn_0022AC44,
 0x0022AC50,0x0022AC8C,0x0022AC90,          ,U,f,,
 0x0022AC90,          ,0x0022ACBC,          ,U,f,,
 0x0022ACBC,0x0022AD3C,0x0022AD40,          ,U,f,,
