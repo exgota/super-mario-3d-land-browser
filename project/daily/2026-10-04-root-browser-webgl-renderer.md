@@ -45,3 +45,18 @@ reference interface, all12uncompressed formats match768texels. ETC/World1-1
 coverage remains open. Observer IO affects fps;1209984audio underruns remain.
 Own browser/server closed after evidence. Private state cache/uniform-buffer/
 full-clear target reusec74f470d builds5commands; short regression replay is next.
+
+State cache/UBO/full-clear reuse passes720unchanged GPU images and raises steady
+throughput28.20925/s. Hardware depth and direct-combiner candidates show no gain
+and stay private. A synthetic buffer probe identifies large in-use vertex storage:
+exact-payload orphaning lowers60draws20.1855to3.78325ms, then actual short360
+reaches54.31896/s steady. Raw lighting/fog table caching reaches58.84189/s steady,
+24.80290/s whole warm replay. All720GPU images remain identical to specialized
+GPU; original input/PCM/CPU and21shader logs pass. Top costs are unclassified
+outside bridge66.22%, GPU readback16.35%, setup7.47%. Private8msframe pump reaches
+58.51288Canvas updates/s. Steady p95/p99 are35.110/38.660ms with bimodal pacing;
+51whole-run intervals exceed50ms. Wasm heap growth0,419968audio underrun frames.
+No synchronized audio or World1-1 speed claim. Comparison60499aaa56a98609.
+All own short-run browsers/servers closed after evidence.128-case isolated lighting
+oracle built; GPU comparison next. Runtime optimizations remain private pending
+feature/coherence validation. GPU branch remains unfinished and unsubmitted.

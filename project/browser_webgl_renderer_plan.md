@@ -69,10 +69,14 @@ RGB; correcting that independently verified decoder error closes most color loss
 All12uncompressed formats match768reference texels/3072channels. ETC compression,
 World1-1 lighting and visual equivalence remain unverified. Full-frame observer
 IO affects timing. Audio has1209984underrun frames, so synchronized play has not
-passed. A private state cache/uniform buffer/full-clear target reuse candidate
-c74f470d builds in5commands; its short replay is next. Software remains unchanged.
-The preview worker currently polls one screen frame every25ms, a40Hz delivery
-ceiling. Faster presentation delivery is required and has not yet been implemented.
+passed. The retained private state-cache/uniform-buffer/full-clear reuse candidate passes
+short360, whole18.77199/s and steady28.20925/s. Buffer orphaning removes the
+large in-use vertex-storage hazard; synthetic60draws fall20.1855to3.78325ms.
+Actual vertex-streaming replay preserves720GPU frames and reaches54.31896/s
+in the steady window. Cached raw lighting/fog tables then reach58.84189/s.
+Software remains unchanged. The private presentation worker polls every8ms;
+its bounded Canvas observation reaches58.51288updates/s. Public worker still
+has25ms polling; the tested optimizations have not been published as runtime code.
 
 Root owns the draw bridge, independent shaders, render targets, texture cache,
 memory synchronization, browser build and actual replay. Existing CPU vertex
@@ -107,3 +111,32 @@ Check each converted texel against the existing software decoder on bounded
 retained texture inputs. All samples/images stay ignored/local. Write an
 independent implementation from format specifications, without copying GPL
 decoder code. Record tested formats, hashes, dimensions and remaining gaps.
+
+## Latest measured candidate, 2026-10-04 02:34 Eastern
+
+Private lookup-cache revision2 uses the unchanged360movie,720RGBA observer and
+exclusive180..360profile. Whole359intervals take14.474114816seconds,24.80289845/s;
+steady180..360takes16.9947ms/frame,58.84189027/s. Outside bridge11.2543ms(66.22%)
+is unclassified, color readback/GPU wait2.7778ms(16.35%), draw configuration1.2703ms
+(7.47%). Readback fell from16.2818ms after vertex buffer orphaning. Per-draw LUT
+conversion fell after comparing/caching the raw tables. No software arithmetic changed.
+Every720frame is byte-identical to the corrected specialized GPU. Original HID,
+audio timing, PCM, CPU counts/fallbacks and all21shader compile/link logs pass;
+unsupported states count0only within this short menu scope. Comparison SHA-256
+60499aaa56a98609728f2ee3407d4483996a5ad5578c3a59062a10e1d23ce350.
+
+Steady nearest-rank p50/p95/p99 are6.150/35.110/38.660ms, maximum39.925ms.
+Cadence is bimodal, so this is not smooth60Hz acceptance. Across the complete
+warm replay,51intervals exceed50ms, maximum638.355ms. Wasm heap stays1073741824
+bytes, observed growth0; JavaScript collection remains unmeasured. First Canvas
+writes across178unique stream updates measure58.51288/s. Producer-to-Canvas
+p95 is34.630ms, not input-to-display latency or physical scanout. All216000source
+audio frames are accepted/consumed, with419968underrun frames. Synchronized audio
+and World1-1 speed remain unverified. Existing receipts, source snapshots, rejected
+hardware-depth/direct-combiner candidates and failed diagnostics remain local.
+
+An isolated existing-software lighting oracle now emits128cases covering eight
+lighting models, both geometric factors, LUT signedness and normal mapping.
+GPU readback comparison is next. ETC1/ETC1A4 valid-block oracle/GPU verification
+is a remaining self-contained diagnostic piece, estimated2–3hours of work that
+could overlap lighting work. No second agent has been started or assigned.

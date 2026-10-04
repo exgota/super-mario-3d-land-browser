@@ -129,13 +129,13 @@ closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
 d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
 Owner now directs independently written WebGL2 play renderer; software tuning
 stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
-GPU profile180..360: draw setup30.577ms(37.59%), readback27.270(33.52%),
-outside bridge16.411(20.17%). Specialized360runs9.58136/s; all720frame identities,
-HID/PCM/CPU pass. Mean RGB error0.16590top/0.17185bottom,21shader logs pass.
-Private target reuse/state cache candidatec74f470d builds; replay pending. Color
-coherence only; depth/shared-target gaps open. project/browser_webgl_renderer_plan.md.
+GPU lookup-cache360: whole24.8029/s, steady180..36058.8419/s; Canvas58.5129/s.
+Costs: outside bridge11.254ms(66.22%), readback2.778(16.35%), setup1.270(7.47%).
+All720frames equal specialized GPU; HID/PCM/CPU and21shader logs pass. Steady
+p95/p9935.110/38.660ms, bimodal pacing. Wasm heap growth0;419968audio underrun
+frames. Lighting probe128cases built; GPU check next. Depth/alias gaps open.
 
-1. Measure private state cache/full-clear target reuse on unchanged short360.
+1. Compare isolated GPU lighting/ETC against reference; complete observed coverage.
 2. Complete trace-scoped GPU features, depth/texture coherence and60Hz delivery.
 3. Observe original World1-1 movie start-to-goal with Azahar state, frame percentiles,
    heap/pauses, audio underruns and input-to-display latency in the same run.
