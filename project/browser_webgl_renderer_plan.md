@@ -6,6 +6,16 @@ are out of scope. Software rendering remains unchanged as the exactness path.
 GPU play acceptance reports per-frame visual difference and short-replay fps.
 No subagents or delegated tasks. Root topic branches go through the integrator.
 
+Owner approves WebGL2 on the advisor's recommendation on2026-10-04; the delivery
+plan records the superseded WebGPU proposal. WebGPU follows only if measured
+speed needs it. Whole-level acceptance is one original-movie start-to-goal GPU
+run with Azahar state comparison, frame-time percentiles, Wasm heap growth and
+pauses, audio underruns and input-to-display latency. Separate long exactness
+replays stop. Short360 remains the regression gate. Diagnostic shader compile/
+link logs and unsupported-state counts are required; skipped draws never pass.
+The pinned mw2-recompiled design is an ideas-only reference, linked in the
+delivery plan. First-use cache warming needs measurement beyond async creation.
+
 The measured original recorded cadence is 59.83122493939037 submissions/second
 of guest time. Software startup profiling attributes 85.738% of instrumented
 wall time to rasterization and worker wait. CPU timings include timer overhead;

@@ -22,3 +22,11 @@ source snapshots remain local. Color RAM coherence exists; depth/shared-target
 coherence and World1-1 visual error/fps remain unverified. A private bridge cost
 profile over180..360 is running. First GPU browser/server closed after exports.
 No GPU submission or performance improvement claim.
+
+Owner approval "ok sounds great! go for it" relayed by advisor. WebGL2 decision
+and combined whole-level acceptance recorded in the delivery plan. Pinned
+mw2-recompiled rendering documentation read for ideas only, no code copied.
+Two diagnostic exports fail at completion: unsupported JS file-open mode, then
+worker-local JS filesystem path unavailable. Both failed browser observations,
+builders/modules remain local. Revision3 returns the JS report to the existing
+C++ file export. Short all-presentation observer prepared; software unchanged.

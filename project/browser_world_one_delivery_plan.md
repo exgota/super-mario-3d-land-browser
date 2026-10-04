@@ -7,6 +7,27 @@ phones and hosting are excluded. The active GPU plan is
 lane work estimates, not current delivery promises. Recorded October3, updated
 October4,2026.
 
+## Owner-approved renderer decision, October 4, 2026
+
+The owner chooses WebGL2 on the advisor's recommendation, replacing the earlier
+WebGPU proposal. Approval relayed verbatim: "ok sounds great! go for it". The
+decision rationale is the Mini's working Metal/ANGLE path, native ETC support,
+desktop browser portability and avoiding additional renderer migration time.
+Actual WebGL2/ETC capability is verified in T3 on this Mini; support in every
+desktop browser and the time saved are decision rationale, not measured coverage.
+WebGPU may follow only if measured speed requires it. Phones and hosting remain
+out of scope. The initial GPU short360 result is9.18597warm presentations/second;
+the recorded original cadence is59.83122/second. Visual and speed acceptance
+remain pending. Software rendering stays unchanged as the exactness reference.
+
+GPU play acceptance combines the existing whole-level requirement with one
+original-input-movie World1-1 start-to-goal GPU browser run and Azahar state
+comparison. In that same run, retain frame-time percentiles, Wasm heap growth
+and pauses, audio underruns, and input-to-display latency. Keep short360 as the
+regression gate. This replaces separate long exactness replays. A visibly reached
+goal, grounded state comparison and measured runtime evidence are all required;
+a completed presentation count or skipped draw does not earn success.
+
 ## Current rendering boundary
 
 The verified browser module executes the statically recompiled ARM CPU, console
@@ -14,7 +35,10 @@ services and software PICA renderer inside WebAssembly. A browser worker reads
 its actual generated RGBA, and the page displays those pixels with Canvas 2D.
 The local server serves runtime files and comparison sidecars and receives
 exported evidence. It does not render game pixels or serve the owner's dump.
-Azahar runs separately as the reference. WebGPU rendering is not implemented.
+Azahar runs separately as the reference. The independent WebGL2 prototype now
+executes the short360 movie and produces its own browser pixels. Background
+color and bottom-screen shading still differ substantially. It is not yet an
+accepted visual or real-time play path. WebGPU rendering is not implemented.
 The retired compiler closure has now been reconstructed with historical byte
 identity. A fresh module exists. Actual default360 replay and normal360 replay
 passed original input/PCM/pixels/framebuffers; default also passed the full GPU
@@ -62,11 +86,21 @@ changes the estimate; it does not earn a milestone or a substitute success.
 ## Renderer implementation plan
 
 Keep the ARM execution and console-service layers in WebAssembly. Translate
-PICA200 command state, shader execution and rasterization into a browser WebGPU
+PICA200 command state, shader execution and rasterization into a browser WebGL2
 service, outside the decompiled game files. Use Azahar's existing software
 renderer as the native oracle. Measure CPU, rasterization, readback and frame
 copy costs before choosing optimizations. The browser software renderer supplies
 a current correctness baseline, not a proven real-time performance baseline.
+
+Design references supply ideas only. No GPL renderer implementation is copied.
+The pinned [mw2-recompiled rendering design at5855c754](https://github.com/paulcombal/mw2-recompiled/blob/5855c754f2515f8ca0033a2ce2b0897c3fbaa7e2/docs/rendering.md)
+informs draw-time guest-state resolution, complete pipeline keys, memory-write
+invalidation and cache warming. PICA behavior must be measured independently;
+Xenos-specific assumptions do not establish PICA behavior. Async creation alone
+does not remove first-use stutter. A diagnostic WebGL2 build must retain every
+generated shader's compile/link logs and count unsupported states by reason.
+Skipped draws cannot count as successful rendering. Cache warming must be
+measured at actual first use, including driver work after program linking.
 
 Address-based source replacement remains the port architecture. The matching
 ARMCC build stays authoritative. The current browser module does not establish
@@ -85,7 +119,7 @@ monitored output,200000files,256MiB per file and15GiB free floor. No goal credit
 The browser closure is now recovered:23archives, the Node main object, full
 Node wasm and full browser wasm match historical hashes. Recovery remains
 separate from new browser runtime verification. The active family is
-root/browser-gameplay-session. Selected limit <=60000 presentations, provider
+root/browser-webgl-renderer. Selected limit <=60000 presentations, provider
 wall <=3600 seconds and audio <=256MiB. Ordinary mode exports no GPU/PICA files.
 Its session completion earns no complete replay or goal claim.
 
