@@ -14,6 +14,11 @@ public:
     void BeginRun();
     bool BeforeInstruction(Context& context, std::uint32_t address,
                            std::uint32_t count, std::int64_t downcount, bool halted);
+    bool ContinueInstruction() {
+        if (!active || remaining == 0) return false;
+        --remaining;
+        return true;
+    }
     bool Complete(Context& context, std::uint32_t next_address,
                   std::int64_t downcount, bool halted);
     bool ResolveBoundary(Context& context, std::uint32_t next_address,
@@ -21,7 +26,9 @@ public:
     void ChargePriorityReplacement(Context& context, std::uint32_t count,
                                    std::int64_t downcount, bool halted);
     std::uint64_t TakePendingTicks();
-    std::uint64_t Instructions() const { return instructions; }
+    std::uint64_t Instructions() const {
+        return instructions + (active ? active->instruction_count - remaining : 0);
+    }
     void ClearVisited();
 private:
     struct Record {

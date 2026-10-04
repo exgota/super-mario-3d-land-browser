@@ -174,6 +174,8 @@ void StaticArmBackend::Run() {
 void StaticArmBackend::Step() { ExecutionBoundary("unsupported_single_step"); throw std::runtime_error("static CPU cannot single-step a translated basic block"); }
 void StaticArmBackend::ChargeBlock(u32 address, u32 instructions, u64 ticks) {
     current_instruction = address;
+    if (!trace && !write_observation && !execution_observation && instructions == 1 &&
+        schedule->ContinueInstruction()) return;
     if (write_observation) {
         instruction_context.valid = false;
         instruction_context.address = address;
@@ -439,8 +441,14 @@ Code StaticArmBackend::Lookup(Context* c, u32 a) {
     return cpu.FindCode(a);
 }
 Code StaticArmBackend::FindCode(u32 address) const {
+    static thread_local std::array<u32, 1024> cached_indices{};
+    auto& cached_index = cached_indices[((address >> 1) ^ (address >> 11)) & 1023];
+    if (cached_index < entry_count && entries[cached_index].address == address)
+        return entries[cached_index].code;
     auto* end = entries + entry_count;
     auto* found = std::lower_bound(entries, end, address, [](const Entry& entry, u32 value) { return entry.address < value; });
-    return found != end && found->address == address ? found->code : nullptr;
+    if (found == end || found->address != address) return nullptr;
+    cached_index = static_cast<u32>(found - entries);
+    return found->code;
 }
 }

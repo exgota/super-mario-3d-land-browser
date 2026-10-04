@@ -91,10 +91,21 @@ std::uint64_t NativeBlockSchedule::Descriptor(const Context& context, std::uint3
 }
 const NativeBlockSchedule::Record& NativeBlockSchedule::Find(std::uint32_t address, std::uint32_t mode) const {
     const auto key = (std::uint64_t(mode) << 32) | address;
-    const auto found = std::lower_bound(records.begin(), records.end(), key,
-        [](const Record& record, std::uint64_t target) { return record.Key() < target; });
-    if (found == records.end() || found->Key() != key)
-        throw std::runtime_error("missing native scheduling descriptor at " + std::to_string(address));
+    // Validate indices against this table. Reused object or allocation addresses
+    // cannot retain a descriptor or pointer from another module.
+    static thread_local std::array<std::uint32_t, 1024> cached_indices{};
+    auto& cached_index = cached_indices[((address >> 1) ^ (address >> 11) ^ (mode >> 16)) & 1023];
+    const Record* found;
+    if (cached_index < records.size() && records[cached_index].Key() == key) {
+        found = &records[cached_index];
+    } else {
+        const auto position = std::lower_bound(records.begin(), records.end(), key,
+            [](const Record& record, std::uint64_t target) { return record.Key() < target; });
+        if (position == records.end() || position->Key() != key)
+            throw std::runtime_error("missing native scheduling descriptor at " + std::to_string(address));
+        cached_index = static_cast<std::uint32_t>(position - records.begin());
+        found = &*position;
+    }
     if (found->flags & Unsupported)
         throw std::runtime_error("unsupported native scheduling terminal at " + std::to_string(address));
     return *found;
@@ -142,6 +153,7 @@ bool NativeBlockSchedule::Complete(Context& context, std::uint32_t next_address,
     if (!active) return downcount > static_cast<std::int64_t>(pending_ticks) && !halted;
     if (remaining) throw std::runtime_error("native control left a stock block before its last instruction");
     const auto* completed = active; active = nullptr;
+    instructions += completed->instruction_count;
     pending_ticks += completed->pass_cycles;
     return TerminalPermits(*completed, 0, context, Descriptor(context, next_address), downcount, halted);
 }
@@ -171,7 +183,7 @@ bool NativeBlockSchedule::BeforeInstruction(Context& context, std::uint32_t addr
     }
     if (count != 1 || count > remaining)
         throw std::runtime_error("atomic source replacement needs a resumable scheduling adapter at " + std::to_string(address));
-    --remaining; instructions += count;
+    --remaining;
     return true;
 }
 bool NativeBlockSchedule::ResolveBoundary(Context& context, std::uint32_t next_address,
@@ -189,13 +201,13 @@ void NativeBlockSchedule::ChargePriorityReplacement(Context& context, std::uint3
     // A slice ending inside this atomic adapter is explicitly unsupported.
     Context shadow = context;
     const auto input = context.r[0];
-    const auto before = instructions;
+    const auto before = Instructions();
     auto address = std::uint32_t(0x0010766C);
     for (;;) {
         shadow.exit = EXIT_NONE;
         if (!BeforeInstruction(shadow, address, 1, downcount, halted)) {
             if (shadow.exit == EXIT_UNWIND) { address = shadow.r[15]; continue; }
-            if (instructions == before) {
+            if (Instructions() == before) {
                 context.r[15] = shadow.r[15]; context.exit = shadow.exit; return;
             }
             throw std::runtime_error("priority source replacement crossed a scheduling slice; resumable adapter required");
@@ -209,7 +221,7 @@ void NativeBlockSchedule::ChargePriorityReplacement(Context& context, std::uint3
         if (address == 0x00107678 || address == 0x00107690) break;
         address = address == 0x00107670 && static_cast<std::int32_t>(input) < 32 ? 0x0010767C : address + 4;
     }
-    if (instructions - before != count || remaining)
+    if (Instructions() - before != count || remaining)
         throw std::runtime_error("priority source scheduling path extent differs");
     context.n = shadow.n; context.z = shadow.z; context.c = shadow.c; context.v = shadow.v;
 }
