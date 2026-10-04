@@ -118,12 +118,19 @@ Shared host has10cores/load14.14/swap1711.94MiB; no speed-change attribution.
 World1-1 loaded visibly and the original bridge endpoint completed. No goal.
 Its browser/server closed after export. Synthetic quaternion normalization proves
 native-order FMA equality across1048576inputs, but actual pixel attribution is
-unverified. Private normalization candidate063ccbaf,152434842bytes, adds only
-that order atop3d95c0e0;3build commands pass with protected/member preservation.
-It now replays the same9000movie in T3tab_1 through8768, output
-build/browser_normalization_server_9000. Audio started before first rendered frame.
-One browser run, no delegates. All32pause seals remain unchanged.
+unverified. Private normalization candidate063ccbaf completed the same9000movie:
+top RGBA remains5456cf28, the same21pixels; every other comparison passes.
+Comparisondea65273, warm8999intervals1992.011sec,4.5175/sec. Browser/server closed.
 Baseline and all failed evidence remain sealed. Gameplay submission stays held.
+Separate synthetic public lighting-object comparison runs1048576inputs,
+identical normalized-quaternion/view digest2e68b3491f53a8aa, but7color cases differ
+between native and Wasm. Receipt575c229c. This exposes a residual lighting
+difference. Explicit native-order lighting reductions alone leave5synthetic cases;
+adding native-order quaternion cross products closes all1048576color cases.
+Receipt2b14cbfa. New private lighting moduled98dc22c,152435067bytes, links in
+3commands with unrelated-member/input preservation. It replays the unchanged
+9000movie through8769 in T3tab_1; audio started before the first rendered frame.
+All32pause seals unchanged. One browser, no delegates. Actual21-pixel result pending.
 
 1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
    document finite controls/session reruns, push and submit this family with no claims.

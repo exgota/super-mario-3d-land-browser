@@ -102,6 +102,18 @@ Two initial tiny native builds selected incompatible command-line SDK stubs.
 The successful run pins the Xcode compiler/linker and MacOSX26.5 SDK already
 recorded in the audio diagnostic. No machine settings changed.
 
+The preserved native/Wasm public `ComputeFragmentsColors` objects were also
+executed on 1,048,576 synthetic directional-diffuse inputs. Explicit native-order
+normalized quaternion and view input digest agrees, `2e68b3491f53a8aa`.
+Seven color cases differ; native output digest is `88d694778b54a241`, Wasm output
+is `be7a853dabbb5e47`. Outputs use the unchanged lighting objects. Receipt is
+`575c229c475903f47b1d19a25783cda812b5d77d7b0d28f293fe650d7606a40c`.
+The fixture required the documented BitField Assign API, extraction of the
+retired Wasm object from its preserved archive, and the original common/Boost
+logging link dependencies. Failed attempts and the final six passing commands
+remain local. This is a synthetic residual lighting difference, not attribution
+for the movie's remaining pixels or complete lighting-mode coverage.
+
 The first server closed after exports. The public combined depth/audio/fog
 build `3d95c0e0` completed the same movie in T3. It corrects one former pixel;
 21 former pixels remain, with no new different pixels. HID/audio timing, PCM,
@@ -124,15 +136,41 @@ adds only the isolated quaternion-normalization order. All three build commands
 pass, with unaffected archive-member and protected-input preservation. Wasm is
 152,434,842 bytes, SHA-256
 `063ccbafacdcbbeaa7a606cd3d052c70bd7b294e0ac3cef3e2686b0b70d3ee7c`.
-It now runs the same movie/profile in T3 tab `tab_1`, through port 8768. Audio
-started before the first rendered frame. One browser replay is active. The
-first differing rendered frame, actual pixel operands, playable speed, goal
-and Section 7 remain unverified. Submission stays held until the gap closes.
+Its same-movie replay completed. Top RGBA is unchanged from the depth candidate,
+with the same 21 pixels differing. All other comparisons and CPU counts pass.
+Comparison SHA-256 is
+`dea65273b67a824a82510fbf5dce385fb5ac7daf57f4fb82acb9cf9e1fd1ab6b`.
+Warm 8,999 intervals take 1,992.011 seconds, 4.5175 presentations/second.
+The normalization browser/server closed after exports.
+
+An isolated lighting reduction candidate decreases the synthetic different-color
+cases from seven to five, fixing four old cases and introducing two. It is not
+used in a browser. Adding native-object-order quaternion cross products and
+rotation closes all 1,048,576 synthetic directional-diffuse color cases. Both
+targets produce `88d694778b54a241`. Receipt SHA-256 is
+`2b14cbfa14a16e3290d02afa9d49eb798d19d4cf1a2b6a9970ff68361b83e682`;
+patch SHA-256 is
+`98992caa67af1e05738777243573ccc8fd669987d8192a53511300e51058d7e1`.
+Native reduction sites 0x4d8/0x4dc/0x4fc/0x500/0xa54/0xa60/0xa9c/0xaa4 and
+cross-product sites 0x1e8/0x1f0/0x1f8/0x218/0x220/0x228 establish the orders.
+LUT and distance-attenuation arithmetic and broad lighting-mode equality remain
+outside this fixture's coverage.
+
+A private full-module candidate adds this lighting source to the sealed
+normalization module. Three commands pass, preserving every unrelated archive
+member and protected input. Wasm is 152,435,067 bytes, SHA-256
+`d98dc22cccc47eafce2c22ab603c38df7c0a219e2ce4954d666344bde0f3e882`.
+It now runs the same movie/profile in T3 tab `tab_1`, through port 8769. Audio
+started before the first rendered frame. One browser replay is active. Actual
+pixel operands, first differing rendered frame, playable speed, goal and Section 7
+remain unverified. Submission stays held until the gap closes.
 
 Private evidence resides under this worktree's ignored `build/` directories:
 `graphics_arithmetic_resume`, `graphics_depth_resume`, `graphics_normalization_resume`,
+`graphics_lighting_resume`,
 `browser_arithmetic_module_candidate`, `browser_depth_module_candidate`,
 `browser_native_arithmetic_module`, `browser_arithmetic_server_9000`,
 `browser_native_arithmetic_server_9000`, `browser_normalization_module_candidate`,
-and `browser_normalization_server_9000`.
+`browser_normalization_server_9000`, `browser_lighting_module_candidate`,
+and `browser_lighting_server_9000`.
 No game-derived payload or gameplay image belongs in Git.

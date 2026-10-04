@@ -118,3 +118,21 @@ New private quaternion candidate063ccbaf,152434842bytes, links in3commands,
 preserving all unrelated members/inputs. Same9000movie/profile now replays in
 T3tab_1 through8768, audio started before first rendered frame. All32pause seals
 remain unchanged. No goal/performance/Section7 claim; submission remains held.
+
+Synthetic preserved public lighting-object comparison ran1048576directional
+diffuse cases with identical explicit native-order normalized quaternion/view
+digest2e68b3491f53a8aa. Seven output color cases differ, native88d694778b54a241,
+Wasmbe7a853dabbb5e47. Receipt575c229c. No actual pixel attribution or broad
+lighting-mode credit. Fixture uses documented Assign API, preserved retired
+Wasm-object archive and original common/Boost link dependencies. Failed attempts
+retained; final6commands pass.
+
+Normalization9000replay completed, comparisondea65273. Top RGBA remains5456cf28,
+the same21pixels; all other comparisons and CPU counts pass. Warm8999intervals
+1992.011sec,4.5175/sec. Browser/server closed after export. Reduction-only lighting
+candidate leaves5synthetic different colors, including2new cases, and is unused
+in a browser. Adding native-order quaternion cross products/rotation closes all
+1048576synthetic directional-diffuse colors, receipt2b14cbfa. Private full module
+d98dc22c,152435067bytes, links in3commands with unrelated-member/input preservation.
+Same9000movie/profile now replays in T3tab_1 through8769, audio started before
+first rendered frame. Actual21-pixel result remains pending. Submission held.
