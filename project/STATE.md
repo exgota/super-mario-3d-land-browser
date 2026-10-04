@@ -95,9 +95,7 @@ No factory restart/settings. Aquinas absent/archived; no delegated work.
 
 Pro layout/update proposals remain conditional. Typed state comparison is unproved.
 Passive minimum-tick observer family stays parked.
-
 ## Next tasks, in order
-
 Owner priority update October 3: "Real-time play now outranks the last pixels."
 The former exactness submission hold is superseded. First submission rejected
 only the add/add delivery-plan merge; latest main merged on Root and plan resolved. Table replaya099324c finished:
@@ -110,7 +108,6 @@ and failed evidence preserved. Fragment observer/native consumer built, never ru
 and parked. Do not run further full-length exactness replays.
 Submission covers ready gameplay/session tooling and public audio/fog/depth only;
 matching claims zero, residual21pixels disclosed. Goal/Section7 remain unverified.
-
 Original recorded window has601VBlanks/top submissions, median4481136ticks;
 measured cadence59.83122493939037/sec of guest time. Physical hardware timing and
 unique frame count are not observed. Current throughput needs about12.87times gain.
@@ -133,12 +130,10 @@ Top RGB MAE140.2144/255,97.91%pixels>8;402shader logs pass,unsupported0.
 HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
 Wasm heap growth0;12227328audio underrun frames. World profile recovered later; see current checkpoint.
 Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
-
 1. Build/measure GPU-owned draw proxy with R3 cache/ring and R2 CPU candidate.
 2. Wire R1 GPU-owned immutable work and CPU completion barriers after API review.
 3. M1 human1-1 with sound in Mini Chrome/Safari; then M2 peer, then iPhone.
    No factory submission/migration now. Web contract queued; no playable artifact.
-
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
 rank-O adapter coverage remain unverified. Matching throughput zero.
@@ -152,5 +147,4 @@ R4 queue reachesWorld14.4311/s, first eligible12.3644s, lower load; cache integr
 Copied6364save/120s still reaches intro; no fast-entry claim. Exact gates exception-only.
 Audio c46e0e8 integrated default-off asd36ce04b; actual game regression pending.
 Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
-
 Root pipeline smoke 2026-10-04: combined O3/raw GPU/ring/shared-Wasm worker build passes native Chrome functional boot. GPU owner em-pthread-5 submits 2671 draws, no fallback/unsupported states, and natural Stop joins cleanly. Shared JSON decoder fix integrated at 0c0dacb6. Result: build/runtime_measurements/20261004T141731400030_01de787a/receipt.json. World speed remains pending R4 fast entry. Only frame-time runs require exclusivity; functional checks/builds run nice5 without tokens.

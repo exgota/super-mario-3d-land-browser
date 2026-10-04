@@ -209,6 +209,18 @@ def enqueue(args):
         raise ValueError('Smoke boot cannot admit a frame-time measurement')
     elif navigation.get('strategy') not in ('calibration', 'smoke') and (not navigation.get('map_anchor') or not navigation.get('world_anchor')):
         raise ValueError('World navigation requires both observed scene anchors')
+    if navigation.get('map_input_steps'):
+        if args.operation != 'functional-boot' or not navigation.get('map_anchor') or not navigation.get('completion_anchor'):
+            raise ValueError('Map actions require a functional boot and observed map/completion anchors')
+        allowed = {'KeyZ', 'KeyX', 'Enter', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'}
+        steps = navigation['map_input_steps']
+        if not isinstance(steps, list) or len(steps) > 64:
+            raise ValueError('Map input step count exceeds its bound')
+        for step in steps:
+            if step.get('code') not in allowed or any(
+                    not isinstance(step.get(field, default), int) or not 0 <= step.get(field, default) <= 10000
+                    for field, default in [('held_milliseconds', 300), ('settle_milliseconds', 1500)]):
+                raise ValueError('Map input step differs from ordinary bounded controls')
     QUEUE.mkdir(parents=True, exist_ok=True)
     identifier = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '_' + uuid.uuid4().hex[:8]
     job = {'schema': 1, 'identifier': identifier, 'lane': args.lane, 'state': 'functional_pending' if args.operation == 'functional-boot' else 'queued', 'queued_utc': timestamp(),
@@ -246,6 +258,18 @@ def navigation_script(recipe):
   return error/expected.length<=specification.maximum_mean_error;
  };
  const record = () => {state.elapsedSeconds=(performance.now()-started)/1000;state.frame=page.previewFrameObservation();};
+ const mapAction = async () => {
+  for(const code of held)key(code,false);
+  state.stage='map_action';state.map_action_performed=true;
+  await sleep(1200);
+  for(const step of recipe.map_input_steps) {
+   if(state.cancelled)return;
+   await press(step.code,step.held_milliseconds ?? 300);
+   state.events.push({code:step.code,elapsedSeconds:(performance.now()-started)/1000});
+   await sleep(step.settle_milliseconds ?? 1500);
+  }
+ };
+ const actionFinished = () => state.map_action_performed && anchor(recipe.completion_anchor);
  state.stop=()=>{state.cancelled=true;for(const code of held)key(code,false);};
  canvas.focus();
  try {
@@ -263,6 +287,11 @@ def navigation_script(recipe):
    let index=0,previousButtons=0,previousDirection='';
    state.stage='recorded_navigation';state.guest_tick_offset=String(shift);
    while(!state.cancelled && performance.now()-started<recipe.deadline_seconds*1000) {
+    if(recipe.map_input_steps && !state.map_action_performed && anchor(recipe.map_anchor))await mapAction();
+    if(state.map_action_performed) {
+     if(actionFinished()){state.stage='completed_map_action';state.complete=true;break;}
+     record();await sleep(50);continue;
+    }
     const frame=page.previewFrameObservation();
     if(frame) while(index<recipe.events.length && BigInt(frame.sampled_ticks)>=BigInt(recipe.events[index].ticks)+shift) {
      const event=recipe.events[index++];
@@ -279,10 +308,12 @@ def navigation_script(recipe):
   } else {
   while(!state.cancelled && performance.now()-started<recipe.deadline_seconds*1000) {
    if(document.body.dataset.captureState==='failed') throw new Error(document.querySelector('#capture-error').textContent);
-   if(anchor(recipe.world_anchor)) {state.stage='world';state.complete=true;break;}
+   if(actionFinished()){state.stage='completed_map_action';state.complete=true;break;}
+   if(!recipe.map_input_steps && anchor(recipe.world_anchor)) {state.stage='world';state.complete=true;break;}
    if(state.stage==='title_story' && anchor(recipe.map_anchor)) {
     state.stage='map';state.events.push({stage:'map',elapsedSeconds:(performance.now()-started)/1000});
-    await sleep(1200);await press('ArrowRight',800);await sleep(2000);await press('KeyZ',800);state.stage='entering';
+    if(recipe.map_input_steps)await mapAction();
+    else {await sleep(1200);await press('ArrowRight',800);await sleep(2000);await press('KeyZ',800);state.stage='entering';}
    } else if(state.stage==='title_story') {
     await press('KeyZ');
     if(recipe.press_start && performance.now()-started>recipe.start_after_seconds*1000) {await sleep(500);await press('Enter');}
