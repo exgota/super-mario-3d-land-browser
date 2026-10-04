@@ -1412,3 +1412,18 @@ Only missing names change; all ranks/types/pools/boundaries stay unchanged. No n
 ## Observed squat action address intake, 2026-10-03
 
 The operator reviewed the name-only map evidence from dot/root-19df5c. Original caller 0x0019E4D4 passes the same receiver to 0x0019DF5C and ignores its result. The receiver contains an independently allocated eight-byte state record at offset0x18, allocated by constructor0x0019E5D4; virtual predicate calls use slots0x08 and0x24 from service-prefix pointers, and animator queries use the existing interface. The existing complete row0x003B1534..0x003B1540 contains SquatStart and remains imported. Seven neutral fn_/dat_ names change; no ranks, types, pools or boundaries change. Receiver and service types are observed prefixes, not complete original class identities.
+
+## 2026-10-04: Texture parameter setter address names
+
+Name the existing 0039053C function row fn_0039053C, the existing four-byte
+003E3154 data row dat_003E3154, and the existing eight-byte 003E3180 data row
+dat_003E3180. The complete unchanged root interval is 0039053C..00390820,
+with pool start 0039080C. Pool entries at 0039080C and 00390810 point to
+003E3154 and 003E3180; the root loads the current state/manager pointer
+from each. These are address labels, not recovered original SDK names.
+No row bounds, ranks, types, section identities, or original input changed.
+Fresh main has no accepted declarations for these two data symbols or root.
+Independent constructors 0028B290/0028B1E0 allocate and clear 0x78/0x1CC;
+cleanup 0010705C/00107068 consumes a plane at +0x34, while
+001070A0..001070C8 consumes six planes with 0x44 stride. The private
+observed header preserves distinct 2D/cube payload types.
