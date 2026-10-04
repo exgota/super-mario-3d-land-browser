@@ -25,7 +25,7 @@ EM_JS(int, AdmitBrowserGpuRenderWorker, (std::uint32_t* control), {
         globalThis.initializeBrowserGpuWorker({
             memoryBuffer: HEAPU8.buffer, controlByteOffset: control,
             createRenderer: globalThis.createBrowserWebGlRenderer,
-            rendererOptions: {convertTexture: globalThis.convertPicaTexture},
+            rendererOptions: {convertTexture: globalThis.convertPicaTexture, gpuWorkerOwner: true},
         });
         return 1;
     } catch (error) {
