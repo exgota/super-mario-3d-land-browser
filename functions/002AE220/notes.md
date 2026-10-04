@@ -6,3 +6,5 @@ The concrete allocator route uses accepted fn_00255678 as void*(void*, void*).
 Next: establish the collection-entry construction/insertion path and actual live slot
 contracts before choosing its source interface. An unused result alone is insufficient.
 No missing-row or C++ impossibility claim; fresh independent proof can release this hold.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

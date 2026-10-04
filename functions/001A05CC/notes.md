@@ -8,3 +8,5 @@ No independently grounded semantic correction; no predicate/representation tunin
 UTF-16 storage and local literals are ordinary source, with no invented data row.
 The LayoutActor getter and observed live appear contract remain coherent.
 No exact credit. Preserve this capped form; shared header ownership is released.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

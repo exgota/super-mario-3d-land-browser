@@ -8,3 +8,5 @@ temporary placement and registers. No independently grounded semantic correction
 No flags, manual no-ops, register shaping or alternate compiler rescue.
 Existing MTX33/MTX34 layouts and VEC3 remain coherent; old capped bodies untouched.
 Source/header extraction is retained for evidence, not an exact delivery.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

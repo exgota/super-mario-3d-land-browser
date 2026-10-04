@@ -10,3 +10,5 @@ Differences include the larger frame, generated shift-helper calls and table pla
 Next idea: none without new independent evidence; preserve this one-form cap.
 No fake rows, forced sections, byte/library stand-ins, flags or compiler rescue.
 The old unaccepted 00395114 quotient-only import needs future ABI reconciliation.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

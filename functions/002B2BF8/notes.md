@@ -7,3 +7,5 @@ Callback-visible entry/dispatch reloads, null-resource exit and final tail remai
 No independent distinct-field evidence justifies manual unrolling; no retry.
 Root semantic return spelling stays unproved; observed pointer exits are preserved.
 No shared header, copied vtable, flags, registers or original data were changed.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

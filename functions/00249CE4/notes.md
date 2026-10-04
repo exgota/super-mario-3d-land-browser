@@ -7,3 +7,5 @@ The current re-screen made no new source, build or checker attempt.
 Its ordinary tail-call ABI is expressible; fallthrough emission is not proof of a bad map.
 Next idea: none without materially new evidence beyond the same sub/multScalarAdd repair.
 Preserve the two-form cap; do not reconstruct a lost attempt as a fresh first form.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

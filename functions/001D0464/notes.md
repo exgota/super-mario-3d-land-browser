@@ -9,3 +9,5 @@ but unchanged fast-float mode emits GT. This difference is retained explicitly.
 No independently grounded retry; no flags/register/stack-size rescue.
 Shared source/header family with sibling; do not replay either capped form.
 Source for both collision siblings is stored under functions/001CFCB0/.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.

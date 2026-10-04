@@ -9,3 +9,5 @@ register/frame choices and literal sharing. No independently grounded third form
 Pre-existing Factory facade inconsistency is documented and untouched.
 First form source/object/provenance and linked outputs are separately retained.
 No fake data row, alias, assembly, compiler/flag rescue or exact credit.
+
+Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.
