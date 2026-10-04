@@ -3,6 +3,7 @@
 
 namespace Memory { class MemorySystem; }
 namespace Pica { class PicaCore; struct DisplayTransferConfig; }
+namespace SwRenderer { class RendererSoftware; }
 
 namespace Port {
 bool ResolveBrowserWebGlRenderSurface(std::uint32_t address, std::uint32_t width,
@@ -15,4 +16,5 @@ bool BrowserWebGlDisplayFrameHandled(std::uint64_t renderer_frame);
 void FlushBrowserWebGlDisplayRegion(std::uint32_t address, std::uint32_t bytes);
 void InvalidateBrowserWebGlDisplayRegion(std::uint32_t address, std::uint32_t bytes);
 void FlushBrowserWebGlDisplaySurfaces();
+void PrepareBrowserWebGlFinalScreens(SwRenderer::RendererSoftware& renderer);
 }

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "GameplaySession.h"
+#ifdef __EMSCRIPTEN__
 #include "browser/BrowserWebGlDisplaySurface.h"
+#endif
 #include <array>
 #include <atomic>
 #include <charconv>
@@ -129,8 +131,10 @@ void ExportFinalScreens(const VideoCore::RendererBase& renderer, const Pica::Pic
                         Memory::MemorySystem& memory) {
     const auto* software = dynamic_cast<const SwRenderer::RendererSoftware*>(&renderer);
     if (!software) throw std::runtime_error("gameplay final export requires the software renderer");
+#ifdef __EMSCRIPTEN__
     Port::FlushBrowserWebGlDisplaySurfaces();
-    const_cast<SwRenderer::RendererSoftware*>(software)->PrepareRenderTarget();
+    Port::PrepareBrowserWebGlFinalScreens(*const_cast<SwRenderer::RendererSoftware*>(software));
+#endif
     struct ScreenExport {
         const std::uint8_t* rgba = nullptr;
         const std::uint8_t* framebuffer = nullptr;
