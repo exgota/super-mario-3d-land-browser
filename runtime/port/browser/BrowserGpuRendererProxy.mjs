@@ -2,7 +2,6 @@
 (() => {
     globalThis.browserGpuPipelineEnabled = true;
     const rendererFactory = globalThis.createBrowserWebGlRenderer;
-    const encoder = new TextEncoder();
     const equalWords = (left, right) => {
         if (left.length !== right.length) return false;
         for (let index = 0; index < left.length; ++index)
@@ -16,6 +15,7 @@
             this.surfaceDescriptions = new Map();
             this.acceptedPrograms = new Map();
             this.acceptedProgramEntries = [];
+            this.resourceRetention = globalThis.createBrowserGpuResourceRetention();
             this.triangles = new Float32Array(22 * 65535);
             this.triangleComponents = 0;
             this.statistics = {};
@@ -33,32 +33,17 @@
         }
         submit(kind, sections = [], resultCapacity = 0, wait = false) {
             if (this.closed) throw new Error('GPU renderer proxy is closed');
-            const binary = [];
-            const encodeValue = value => {
-                if (ArrayBuffer.isView(value)) {
-                    const elementType = value instanceof Uint8Array ? 'uint8' :
-                        value instanceof Uint32Array ? 'uint32' : value instanceof Float32Array ? 'float32' : null;
-                    if (!elementType) throw new Error('Unsupported GPU packet element type');
-                    const sectionId = 256 + binary.length;
-                    binary.push([sectionId, new Uint8Array(value.buffer, value.byteOffset, value.byteLength)]);
-                    return {sectionId, elementType, elementCount: value.length};
-                }
-                if (Array.isArray(value)) return value.map(encodeValue);
-                if (value && typeof value === 'object')
-                    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, encodeValue(item)]));
-                return value;
-            };
-            const payload = sections.map(([tag, value]) => [tag,
-                tag === 3 ? new Uint8Array(value.buffer, value.byteOffset, value.byteLength) :
-                encoder.encode(JSON.stringify(encodeValue(value)))]).concat(binary);
-            let bytes = 40 + payload.length * 16;
-            const align = value => Math.ceil(value / 8) * 8;
-            for (const [, data] of payload) bytes = align(bytes) + data.byteLength;
-            if (bytes + resultCapacity > 32 * 1024 * 1024)
-                throw new Error('GPU render packet exceeds queue capacity');
-            const pointer = _malloc(bytes);
-            if (!pointer) throw new Error('GPU packet allocation failed');
+            const publication = this.resourceRetention.prepare(kind, sections);
+            let pointer = 0;
             try {
+                const payload = publication.sections;
+                let bytes = 40 + payload.length * 16;
+                const align = value => Math.ceil(value / 8) * 8;
+                for (const [, data] of payload) bytes = align(bytes) + data.byteLength;
+                if (bytes + resultCapacity > 32 * 1024 * 1024)
+                    throw new Error('GPU render packet exceeds queue capacity');
+                pointer = _malloc(bytes);
+                if (!pointer) throw new Error('GPU packet allocation failed');
                 const packet = new Uint8Array(HEAPU8.buffer, pointer, bytes);
                 packet.fill(0);
                 const header = new DataView(packet.buffer, packet.byteOffset, packet.byteLength);
@@ -81,9 +66,10 @@
                     offset += data.byteLength;
                 });
                 const resultBytes = _BrowserGpuRendererSubmit(pointer, bytes, resultCapacity, Number(wait));
+                publication.commit();
                 return resultCapacity ? HEAPU8.slice(_BrowserGpuRendererResultPointer(),
                     _BrowserGpuRendererResultPointer() + resultBytes) : null;
-            } finally { _free(pointer); }
+            } finally { publication.abort(); if (pointer) _free(pointer); }
         }
         beginDraw(configuration) {
             this.endDraw();
@@ -203,12 +189,14 @@
             this.presentationStatistics = record.presentationStatistics;
             this.presentationUnsupportedStates = record.presentationUnsupportedStates;
             this.presentationTransportStatistics = record.presentationTransportStatistics;
+            this.resourceRetentionStatistics = {cpu: this.resourceRetention.statistics, gpu: record.resourceRetentionStatistics};
         }
         close() {
             if (this.closed) return;
             this.endDraw();
             this.submit(15, [], 0, true);
             _BrowserGpuRendererShutdown();
+            this.resourceRetention.clear();
             this.closed = true;
         }
     }
