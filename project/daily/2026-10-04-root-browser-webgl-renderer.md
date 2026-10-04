@@ -217,3 +217,19 @@ R1 immutable queue/CPU completion source is prepared, no live overlap yet.
 Working low-confidence forecast6–12hours to first measured60fpsChrome World,
 10–20hours total to full human Chrome/Safari start-to-goal with sound. Re-estimate
 at the first live candidate result; no gains are assumed from parallelism.
+
+At08:56ET, R2 sourcef6d782f integrated locally asebc92658. Primary diagnostic
+14.48605/s, median78.935/p99137.125ms, under lower load than before, supplies
+no causal speed claim. R3 source72850803 integrated as8c30b09d; native hook/
+selected module remain unbuilt. All974 retained draws generate56variants, actual
+driver/rendering/speed pending. R1 native probe fails at mismatched Apple SDK/linker;
+owned helper absence verified, no concurrency/overlap claim.
+
+Shared queuec15997b0 automates file/audio/control admission and normal held input,
+retains unchanged10+30second collector and original user/movie/module identities.
+First120second Start/A entry calibration reaches the story, fails World entry,
+cleanup passes. All107 approved GameData files match; no map-start save exists.
+Recorded common navigation381changes plus local World anchor is ready for R4,
+first World admission unproved, cold-story deadline600seconds. Under2min unproved.
+Routine360/exact capture comparisons are now exception-only for broken rendering.
+Software reference and explicit human Chrome/Safari M1 remain. No factory/migration.

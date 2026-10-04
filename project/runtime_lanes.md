@@ -52,11 +52,11 @@ input. Root applies and validates them. Do not edit another lane's files.
 
 | Lane | Exclusive writable paths | Immediate implementation target |
 | --- | --- | --- |
-| R1, `root/runtime-pipelining` | `runtime/port/browser/BrowserGpuCommandQueue.cpp`, `.h`; `BrowserGpuWorker.mjs`; `BrowserRuntimeWorkerTransport.mjs`; `BrowserGpuScheduling.cpp`, `.h`; `BrowserGpuPipeline.cpp`, `.h`; `project/runtime_pipelining_report.md` | Bounded immutable draw/state queue, worker handoff and GSP completion/barrier model. Queue overlap first, with an opt-in admission boundary. |
+| R1, `root/runtime-pipelining` | `runtime/port/browser/BrowserGpuCommandQueue.cpp`, `.h`; `BrowserGpuWorker.mjs`; `BrowserRuntimeWorkerTransport.mjs`; `BrowserGpuScheduling.cpp`, `.h`; `BrowserGpuPipeline.cpp`, `.h`; `BrowserGpuRenderPacket.cpp`, `.h`; `project/runtime_pipelining_report.md` | Bounded immutable draw/state queue, worker handoff and GSP completion/barrier model. Queue overlap first, with an opt-in admission boundary. |
 | R2, `root/runtime-translated-code` | `runtime/port/StaticArmBackend.cpp`, `.h`; `NativeBlockSchedule.cpp`, `.h`; `NativeExecution.cpp`; `NativeTiming.c`, `.h`; `TranslatedFunctionModule.cpp`, `.h`; `runtime/port/webassembly_translation/CMakeLists.txt`; `tools/static_recompiler/src/main.rs`; `tools/static_recompiler/build_runtime_cpu_candidate.py`; `project/runtime_translated_code_report.md` | Remove disabled timing overhead from play, improve CPU compile/dispatch/memory helpers. Generated translations remain ignored/local. |
 | R3, `root/runtime-gpu-vertex` | `runtime/port/browser/PicaWebGlVertexShader.mjs`; `BrowserWebGlVertexSubmission.cpp`, `.h`; `PicaWebGlDrawCache.mjs`; `project/runtime_gpu_vertex_report.md` | Raw PICA program/input execution in WebGL2, bypass CPU vertex shader and repeated output conversion. Root wires shared renderer and command processor. |
 | R4, `root/runtime-startup-audio` | `runtime/port/browser/BrowserRuntimeInitialization.mjs`; `BrowserWorkerFileCache.mjs`; `BrowserSurfaceCoherence.cpp`, `.h`; `BrowserInputIdentity.cpp`; `BrowserCaptureWorker.mjs`; `BrowserCapturePage.mjs`; `BrowserStreamedAudio.mjs`; `BrowserAudioWorklet.mjs`; `BrowserAudioFileStream.mjs`; `project/runtime_startup_audio_report.md` | Startup loading/compile/pool admission, continuous original audio and live visual coherence. Existing default-off Audio candidate is integrated; no duplicate implementation. |
-| Root | All other runtime paths; especially `BrowserWebGlBridge.cpp`, `.h`, `BrowserWebGlRenderer.mjs`, `PicaWebGlShaders.mjs`, `PicaWebGlShaderSpecialization.mjs`, `BrowserExecutionEntry.cpp`, `BrowserFrameOutput.cpp`, `.h`, `GameplaySession.cpp`, `.h`; shared build/server and measurement tools; `project/STATE.md`, this contract | Wire shared interfaces, finish live clear check, integrate and measure wins, preserve software reference and short regression gate. |
+| Root | All other runtime paths; especially `BrowserWebGlBridge.cpp`, `.h`, `BrowserWebGlRenderer.mjs`, `PicaWebGlShaders.mjs`, `PicaWebGlShaderSpecialization.mjs`, `BrowserExecutionEntry.cpp`, `BrowserFrameOutput.cpp`, `.h`, `GameplaySession.cpp`, `.h`; shared build/server and measurement tools; `project/STATE.md`, this contract | Wire shared interfaces, integrate and measure wins, preserve software reference and investigate observed regressions. |
 
 Lane-local ignored build recipes and outputs are writable in the lane worktree.
 Existing-platform source overlays remain local; submit authored source or an exact
@@ -80,6 +80,19 @@ interrupt delivery are explicit ordered barriers. Do not signal completion befor
 the required work/coherent memory is available. Root wires existing GPU::Execute
 and GSP platform adapters after R1 supplies the exact hook/barrier proposal.
 Keep queue bytes and in-flight frame count bounded and report input latency.
+
+The first R1 opt-in integration may queue immutable prepared draw state plus R3
+raw vertex descriptors to the GPU pthread. This moves draw/vertex execution first;
+whole PICA command parsing remains a later ownership/snapshot step. It does not
+claim complete PICA relocation or a measured overlap gain. R1's owned RenderPacket
+builder/view supplies bounded little-endian tagged sections, owned bytes and strict
+missing/duplicate/overlap rejection. Root assigns draw-state and vertex sections and
+wires Execute, CPU completion and readback barriers. No second Wasm/context owner.
+For a new shader/state key, GPU preflight and one sequence fence must complete
+before CPU fallback inputs are released or the draw is acknowledged. Cache its
+accepted status for later asynchronous draws. Rejected draws retain CPU vertex
+fallback and submit their output through the same GPU owner. Completion callbacks
+stage CPU actions after draining and never reenter Submit.
 
 R2 preserves the existing `Context`/`Host`/translated-entry ABI, guest ticks,
 instruction charging, SVC/budget exits and memory-observer behavior. CPU provider
@@ -148,8 +161,9 @@ Free disk below12GB blocks build admission and is a stop/report condition.
 The common plain-Chrome baseline completed and Root released token
 `613b6c6384f6451a964970d94690be7f` after its owned Guest window and server closed.
 Source edits and reserved candidate builds are released for R1–R4. R2's first
-one-object CPU candidate has initial build/measurement priority, then R4's
-JavaScript file-cache candidate. No lane repeats the identical common before-run.
+one-object CPU candidate has initial build/measurement priority. A bounded R3
+native-object compile (maximum30seconds) may follow its full cleanup if R4 has not
+yet reserved; R4's JavaScript file-cache measurement then remains next. No lane repeats the identical common before-run.
 Verify the clone's module/input seals and cite the shared receipt. Reserve every
 candidate measurement and retain its own source/load/cleanup evidence.
 
@@ -197,8 +211,57 @@ World host load samples7.8677/7.4468/7.4263 (one-minute). Diagnostic only, not M
 This is the common R1–R4 before-run, not a causal comparison with older T3 timing.
 Receipt: build/browser_performance_resume/runtime_lanes_chrome_baseline_receipt.json,
 SHA2568c8626446661973aa2582ea24c136027fb3a1e1533c2b8e5ce68925fd7c73383.
-Shared script SHA25687120b74aa9624cddca830e16750b4968ecaa4d13a05b4bb55cc71601c3c5e08.
+Historical shared script SHA25687120b74aa9624cddca830e16750b4968ecaa4d13a05b4bb55cc71601c3c5e08.
 Instrumented8.649/s and menu readings remain excluded from the live baseline.
+
+### Queued candidate measurements
+
+Current shared script SHA256
+`c15997b00981fda0170e176a3c5e80bec92b3437dbfb12b774caabb1c933753f`.
+The collector expression is unchanged, SHA256
+`52d5deb2852d51bdbed7e34f160d5e8da91c150f6088bab01b6725b221b2c9a6`.
+The original script is retained at
+`build/browser_performance_resume/measure_live_world_one_common_baseline.py`.
+
+Submit with the absolute shared script:
+
+```sh
+python3 measure_live_world_one.py enqueue --lane R4 --repository /absolute/lane/worktree \
+  --module /absolute/lane/worktree/build/candidate --server /absolute/owned/server.py \
+  --navigation /absolute/root/worktree/build/browser_performance_resume/world_entry_queue_recipe.json
+python3 measure_live_world_one.py run-queue
+python3 measure_live_world_one.py queue-status
+```
+
+The runner must be fully detached. It acquires the same build/measurement arbiter,
+runs queued jobs in filename order and never steals a reservation. A held arbiter
+returns waiting without starting a browser; run the queue again after handback.
+Each job seals its manifest, module/Wasm, server, original movie/schedule and every
+initial user file. The selected server recipe determines served page/worker assets,
+whose complete input inventory is retained by that server. Local manifest paths
+may be relocated, preserving original manifest and unchanged binary hashes.
+Only one runner holds runner.lock. Output and failure receipts remain ignored.
+
+File selection, trusted Run/audio clicks and controller admission use the existing
+pinned installed-Chrome BrowserSession policy. Normal page keyboard handlers drive
+the shared recorded-navigation recipe. Its381 changes come from the successful
+common run's delivered input history, scheduled against guest ticks. Circle input
+uses the corresponding held cardinal direction; it is not an exact input replay.
+No runtime hook, binary save edit, RAM continuation or changed user tree is needed.
+An observed stopwatch image anchor admits the stationary World timing window;
+saved screens still require visual review and do not earn human acceptance.
+The unchanged collector warms10seconds then measures30seconds, audio over40seconds.
+The runner records load, source/browser/origin/isolation, initialization diagnostics,
+entry duration, observation/analysis, natural Stop and independently verified owned
+browser/server cleanup before releasing its token. Partial cleanup retains the lock.
+
+Recipe SHA256047a597302f99d8b93b36e1806be0b89c9fdeacfab31c1b993fb3c0aba9fd4d5.
+The first120second normal Start/A calibration reached the story and failed entry,
+with verified cleanup. Under-two-minute entry is not established. All107 existing
+approved GameData files are identical; there is no proved map-start save. The cold
+story recipe has a600second deadline. Its first queued World admission remains a
+diagnostic gate, not a successful timing claim. R4 retains next browser priority.
+Compare changed entry conditions separately from startup/cache or frame-time gains.
 
 Root's R3 hook candidate extracts PrepareBrowserWebGlDraw(memory,pica) without
 OutputVertex conversion. Separate selected-source revisions are
@@ -221,7 +284,11 @@ Send Root and orchestrator a SPEED REPORT with exact commit, source/artifact has
 live median/p99/fps before/after, load/resource receipt, changed behavior, next step
 and specific blocker. A source-only or synthetic report labels unmeasured gameplay.
 Root reviews and integrates exact lane commits. No lane merges Root/main or submits
-to factory. Keep the unchanged software renderer and existing360regression gate.
+to factory. Keep the unchanged software renderer as the reference. Following the
+latest advisor measurement-throughput direction, routine360 and byte-exact capture
+comparisons are parked. Run a bounded reference comparison only when a lane's
+change actually breaks rendering. Live World correctness, compile/link coverage,
+honest unsupported-state counts and human M1 remain required.
 Generated shaders need every compile/link log and explicit unsupported-state counts.
 
 M1 stays human World1-1 start to goal with sound in plain Chrome AND Safari on

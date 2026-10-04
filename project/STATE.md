@@ -134,7 +134,7 @@ HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
 Wasm heap growth0;12227328audio underrun frames. World profile recovered later; see current checkpoint.
 Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
 
-1. Integrate measured R2/R4 wins and R3 raw-vertex hook; ownership:runtime_lanes.md.
+1. Finish queued World entry/R4 cache run, then build R3 raw-vertex hook.
 2. Wire R1 GPU-owned immutable work and CPU completion barriers after API review.
 3. M1 human1-1 with sound in Mini Chrome/Safari; then M2 peer, then iPhone.
    No factory submission/migration now. Web contract queued; no playable artifact.
@@ -145,6 +145,8 @@ rank-O adapter coverage remain unverified. Matching throughput zero.
 Common Chrome before8c862644:12.83759/s,median87.1475ms,p99159.06ms; visibleWorld.
 Audio40s adds1060096underruns; source6195.2/s. Load1min7.426..7.868,diagnostic only.
 1GiB/zero growth, first eligible27.5444s;402shader logs pass. M1 still fails.
-Owned baseline helpers closed. R2 reserved first after-run, R4 cache follows.
+R2 source locally integratedebc92658; R3 source8c30b09d, shared hook unbuilt.
+Queuec15997b0 uses normal input/unchanged40s collector.120s entry failed, cleanup passed.
+Cold-story recorded navigation600s remains unproved; R4 runs next. Exact gates exception-only.
 Audio c46e0e8 integrated default-off asd36ce04b; actual game regression pending.
 Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
