@@ -49,7 +49,7 @@ The final goal is M2: 100% of the game's code byte-exact. The project is not fin
 - **Toolchain commands.** Run `. ./development_environment.sh` first. Then `python make.py eu` builds, `python tools/check.py <symbol>` checks one function and updates its rank, `python tools/diff.py <symbol>` shows the assembly diff, and `python tools/progress.py` prints the totals.
 - **How a function enters the build.** The linker only pulls in functions whose rank in `map.csv` is not `U`. To work on a function, set its rank to `M`, build, then let `check.py` set the true rank. Ranks: `O` matching, `m` minor mismatch, `M` mismatch, `U` not attempted. Only `check.py` may set `O`. These rank edits stay in a local scratch build. Only the integrator commits rank changes (rule 13).
 - **First project-verified match:** `nn::os::detail::ConvertSvcToLibraryPriority` at 0x0010766C, in `lib/CtrSDK/sources/os_Priority.cpp`, compiled with ARMCC 4.0 build 902 (the module's configured compiler). This proves the build, diff and check pipeline end to end.
-- **Compiler build for game code is unresolved.** RE-Pepper's config uses ARMCC 4.1 build 791 for game code. decomp.me preset 8 ("Super Mario 3D Land") uses 4.1 build 894. Nothing has tested this yet, because `Game` and `lib/al` are disabled in `data/config.json` and their headers depend on the removed sead. Settling it is M0.
+- **Compiler builds are established by the recorded M0 comparison.** `Game` and `lib/al` use ARMCC 4.1 build 791; `lib/CtrSDK` uses ARMCC 4.0 build 902, with the configured module flags. Identical committed sources and headers distinguish 791 from 894: sensor lookup is 84 versus 80 bytes, effect-reference helper `fn_001C5A88` is 44 versus 40, and player helper `fn_001BB19C` is 40 versus 36. See [validated compiler notes](compiler_notes.md#compiler-and-acceptance), [the discriminator sources](compiler_probe_functions.csv), and the “M0 compiler milestone” evidence in [the decision record](decisions.md).
 - **Older project:** RedPepper (https://github.com/3dsdecomp/RedPepper). Its `Source/` and `Library/` material is permitted as reference and committed source under rule 7. Pin the source commit, record its stated provenance, and verify layouts and function bytes against this project's target and checker.
 - **Upstream tool quirks:** `make.py --split` has a typo (`True7`) and will crash. `progress.py` counts all 28,043 map rows as "Total Functions". Fix tool bugs when they block you, in separate commits.
 - **Machine:** Mac mini, Apple M4, 16 GB RAM, about 19 GB of free disk. Sleep is disabled. Clean `build/` before disk gets tight.
@@ -141,8 +141,8 @@ You will lose context. Threads compact, sessions end, and the machine restarts. 
 Done on 2026-10-01: repository, native toolchain, clean-room baseline, first clean match (see Section 3).
 Remaining:
 1. Use and extend shared sead headers from pinned reference sources under rule 7. Reconcile target layouts and preserve accepted functions; if wholesale library restoration conflicts, migrate type by type. Never copy an existing shared type into a translation-unit-local definition.
-2. Enable `lib/al` and `Game` in `data/config.json` one file at a time until both compile.
-3. Pick at least 3 small game functions. Match them under 4.1 build 791, then rebuild under 4.1 build 894 (set `"compiler"` in `data/config.json`). Record which build matches in `project/decisions.md`. If both match, keep looking for a function that tells them apart.
+
+Completed: `Game` and `lib/al` are enabled and compile. The three-function M0 comparison selected ARMCC 4.1 build 791 over 894; the SDK retains 4.0 build 902. Preserve the configured flags and follow the [compiler evidence](compiler_notes.md#compiler-and-acceptance).
 
 ### Phase 1: pilot (exit M1)
 1. Choose 50 unmatched game functions: 20 small leaf functions, 20 medium functions, and 10 large or branch-heavy ones.
