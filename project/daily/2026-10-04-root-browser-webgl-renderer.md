@@ -233,3 +233,13 @@ Recorded common navigation381changes plus local World anchor is ready for R4,
 first World admission unproved, cold-story deadline600seconds. Under2min unproved.
 Routine360/exact capture comparisons are now exception-only for broken rendering.
 Software reference and explicit human Chrome/Safari M1 remain. No factory/migration.
+
+At09:28ET, actual plain Chrome raw-GPU World run completes:19.03594939/s,
+median54.9925/p99111.395ms,570intervals. All1264409eligible draws use GPU
+vertices with0fallback/invalid/guardreject and1011shader logs pass. Worldgeometry
+visible. Load1min11.8984/10.5791, audio40s897536underruns; diagnostic, M1 fails.
+Navigation412.04068s, queue-admission entry456.35725s. Owned cleanup complete.
+R3memo/wordloop/ring and R4cache integrated; R1 corrected native check passes
+5.8463s, actual executor source integrated. Root sender/CPU completion bridge
+prepared, GPU-owner module next. Copied Steve6364save still shows opening story
+in R2 ordinary120s entry attempt; no World/CPUO3timing result. No flag edits.

@@ -145,10 +145,7 @@ bool Overlaps(std::uint32_t first, std::uint32_t bytes, std::uint32_t address, s
 }
 }
 
-void Port::DrawBrowserWebGlTriangle(Memory::MemorySystem& memory, Pica::PicaCore& pica,
-                                   const Pica::OutputVertex& first,
-                                   const Pica::OutputVertex& second,
-                                   const Pica::OutputVertex& third) {
+void Port::PrepareBrowserWebGlDraw(Memory::MemorySystem& memory, Pica::PicaCore& pica) {
     const auto& registers = pica.regs.internal;
     if (!draw_open) {
         auto& surface = GetSurface(memory, registers.framebuffer);
@@ -202,6 +199,13 @@ void Port::DrawBrowserWebGlTriangle(Memory::MemorySystem& memory, Pica::PicaCore
             lighting.data(), lighting_revision, fog.data(), fog_revision);
         draw_open = true;
     }
+}
+
+void Port::DrawBrowserWebGlTriangle(Memory::MemorySystem& memory, Pica::PicaCore& pica,
+                                   const Pica::OutputVertex& first,
+                                   const Pica::OutputVertex& second,
+                                   const Pica::OutputVertex& third) {
+    PrepareBrowserWebGlDraw(memory, pica);
     std::array<float, 66> data{};
     const std::array<const Pica::OutputVertex*, 3> vertices{&first, &second, &third};
     for (unsigned index = 0; index < 3; ++index) {

@@ -4,7 +4,7 @@ Issued by Root on 2026-10-04. This is Root's implementation contract under the
 owner's 60 fps direction. It does not change M1 or authorize deployment, migration,
 factory work, main changes, game-data commits or additional agents.
 
-## Frozen starting point and actual live artifact
+## Starting point and actual live artifact
 
 All four lanes start at `d36ce04bc054de600aa547461e5c4d5bfbb23a9c` on their own
 `root/runtime-*` branches. Root integrates wins into `root/browser-webgl-renderer`.
@@ -40,7 +40,9 @@ Current uncommitted clear inputs, relative to Root worktree:
 | `build/browser_performance_resume/serve_browser_execution_fast_frames.py` | Existing local diagnostic server |
 
 Additional shader/cache/decoder dependencies are named in the manifest link command.
-Read and retain their hashes. Do not silently use the older committed renderer.
+Use the selected link recipe. Do not silently use the older committed renderer.
+Current coordination needs one commit and one measurement JSON. Do not produce
+new source seal files or rehash historical evidence.
 No runtime migration is implied by this working boundary. It is not a deploy-ready
 directory or the final source-only migration boundary.
 
@@ -308,3 +310,18 @@ blockers. Neither assumption is measured yet. Source-only recon has established
 specific changes, not performance gains. Re-estimate at the first candidate live
 measurement, within90minutes of this contract for the initial feasibility report.
 Do not divide the old estimate by four or subtract instrumented category totals.
+
+## Current integration checkpoint
+
+Raw GPU vertices ran in plain Chrome World1-1:19.03595 displayed updates/s,
+median54.9925ms,p99111.395ms; all1264409eligible draws used raw vertices, zero
+fallbacks,1011shader logs pass. Load1min11.8984/10.5791 makes this diagnostic.
+Audio40s still adds897536underruns. One result: `build/runtime_measurements/20261004T131750353522_1591068a/analysis.json`.
+R3 exact-fragment memo/word loop and vertex UBO ring are integrated but unmeasured.
+R4 immutable-file cache is integrated;125ms play buffering remains its next candidate.
+R1 executor is integrated, actual GPU-owned draw proxy/native retirement is being
+built. First admission preserves a CPU fence before existing P3D callbacks.
+This overlaps prepared draws within a command list; complete translated-CPU/GPU
+overlap still needs delayed CPU completion wiring. No skipped-draw success.
+The6364ordinary copied save still shows the intro in the120s R2 entry test.
+Do not rerun that failed recipe unchanged or edit save flags.
