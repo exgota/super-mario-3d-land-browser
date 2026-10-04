@@ -3913,7 +3913,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001B979C,0x001B98D8,0x001B996C,          ,U,f,,
 0x001B996C,0x001B9980,0x001B9984,          ,O,f,fn_001B996C,
 0x001B9984,          ,0x001B9994,          ,O,f,fn_001B9984,
-0x001B9994,          ,0x001B99B4,          ,U,f,,
+0x001B9994,          ,0x001B99B4,          ,O,f,fn_001B9994,
 0x001B99B4,          ,0x001B99C4,          ,O,f,fn_001B99B4,
 0x001B99C4,0x001B99DC,0x001B99E0,          ,U,f,,
 0x001B99E0,          ,0x001B99EC,          ,O,f,fn_001B99E0,
