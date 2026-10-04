@@ -8135,7 +8135,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00260F10,          ,0x00260F3C,          ,U,f,,
 0x00260F3C,          ,0x00260F50,          ,U,f,,
 0x00260F50,0x00260F98,0x00260F9C,          ,U,f,,
-0x00260F9C,          ,0x00260FA8,          ,U,f,,
+0x00260F9C,          ,0x00260FA8,          ,O,f,fn_00260F9C,
 0x00260FA8,          ,0x00260FC4,          ,U,f,,
 0x00260FC4,          ,0x00261008,          ,U,f,,
 0x00261008,0x002610D8,0x002610EC,          ,U,f,_ZN2al6CameraC1EPKc,
