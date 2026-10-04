@@ -1,94 +1,134 @@
-# Root World 1-1 bridge continuation ownership
+# Root browser gameplay session state
 
-Root owns root/world-one-bridge-continuation, frozen origin/main
-ca0c6b0fd2824b87851e783571cea219ea79e5f0. Ownership precedes implementation.
-Only integrator moves main/ranks/ledger. No matching build input, Game/lib/
-Factory/protected checker edits. Implementation patch expected empty.
-Matching claims/new translated bytes0; linked recompiled bytes2,437,712.
-Root only port. Layout/type/update questions go to Pro. One existing helper,
-no reviewers or unrelated harness work. Aquinas absent/closed. Requested
-xhigh was requested for this newly delivered owner turn. No account setting
-change is claimed.
-
-Scope: another finite natural raw input recording, its own-movie native replay,
-strict declared-window/full-input/audio/pixel comparison and exact input seals.
-Reuse immutable accepted window provider/module/schedule/comparers. Do not
-seek/splice movies, continue RAM, decode saves or join cold boots by pointers.
-Keep the unchanged72-state input prefix; append only explicit raw held states.
-Actual bridge progress, jump/goal and typed completed-update state are unknown.
-
-Accepted current prerequisite: root/world-one-control-window7b8af488d accepted
-849f5fab5c745fb2481edfc630da331e4f210abe, verdict
-.integrator/results/root-world-one-control-window-7b8af488d.json, no build
-inputs/claims/matched bytes. Originalc9240a3b/nativee2d61c86 strict0d61b734/
-post64805bbc pass52,060PICA/263,115,680bytes and all declared raw platform
-observations. Actual W1-1 final path/bridge image timer478/coins0, both
-fallbacks0. Full-prefix GPU and Section7 state are not credited.
-
-Selected next bounds: inclusive8400..9000,2400provider/2460outerseconds,
-512MiBPICA/1GiBmonitoredoutput/200000files/256MiBfile/15GiBfreefloor/
-2spoll/core disabled. Aggregate ceilings are monitored, not quotas.
-Use an ordinary private copy of immutable stock7800 final disk profile, as
-in the accepted preceding family. Its metadata/profile remain; old unused
-startup PICA is retired and outside the new input closure. New original
-must record its own movie and initial snapshot. Native replays only those.
-
-Ten completed own scratch retirements:5,127,185sealed files/40,817,074,176
-measured allocated bytes, not net disk gain. Source/dump/receipts/hashes/
-profiles/movies/snapshots/pixels/PCM/metadata/current providers/module/
-schedule/canonical360 raw and active inputs preserved. Selectedremaining0.
-Fresh receipt verification26515744; free23.8GB after previous full/post pass.
-No factory restart/settings change. Historical retired raw needs regeneration.
-
-Canonical360 entry and separate exit Pro witnesses full/post/mechanical pass.
-Entry123ae668 lacks exit/resumption/store. Exit0c62e9c4 has actual return/store/
-first-word-read but missing construction ancestry and conservative boundary
-predicate gaps. Actual translated-return snapshots match; accepted hook
-invalidate=false. Existing false reports remain unchanged. Exit-boundary packet e4a30ef4 queued byte-identically after14file pins/6source
-excerpts/17+4+6raw-record and complete snapshot checks. Existingfalse stays.
-New entry-gap answer supports only opaque sampled initialization facts.
-The original-body question2f675f4d is queued. Root rechecked16original/13new
-file pins,1,072original words/4unchangedmap rows and37verbatim exitrecords.
-The metadata-shape read failure was retained; source/capture/reports unchanged.
-The one existing helper is finishing its previously assigned passive tick
-selector in a separate family, then stopping. Its source review/build is parked.
-Pro entry-gap packet11315d00 is queued. No layouts or actor/update claims.
-
-## Ordered delivery work
+Root owns `root/browser-gameplay-session`, frozen origin/main
+`96773182c9a4b23005dc39b9a661580619c841f2`. Only the integrator moves main,
+ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
+Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 
 Owner target: browser World 1-1 start to goal by Wednesday, October 7, 2026,
-Eastern. Cutoff time unspecified. See project/browser_world_one_delivery_plan.md.
-Browser pixels are already drawn by the in-browser WebAssembly software PICA
-renderer and displayed by Canvas 2D. The local server does not render them.
-WebGPU is not implemented; sustained playable performance is unverified.
+Eastern. Cutoff unspecified. Ordered estimates in
+project/browser_world_one_delivery_plan.md are estimates, not promises.
+Step1 bridge evidence submitted and accepted. Step2 resumed by the owner in T3
+Code on October 3. No subagents, delegated tasks or Codex relay for Root. No reorder.
+Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
 
-1. Bridge replay/comparison/post-preservation now pass. Submit this zero-claim
-   evidence family, then watch its verdict while starting the next source family.
-2. Full-level browser session/required controls/bounded recording and actual
-   CPU/render/frame-delivery measurement. Estimate 6–12 hours.
-3. Browser WebGPU PICA rendering and measured performance fixes. Estimate
-   24–48 hours, highest uncertainty.
-4. Natural complete World 1-1 reference route and port replay. Estimate 8–16 hours.
-5. Grounded Section 7 player/camera/RNG/timer/coins comparisons using Pro
-   proposals, whole-level suite. Estimate 12–24 hours, answer-dependent.
-6. Browser goal/controls/sound regression and runnable handoff. Estimate 6–12 hours.
+## Actual rendering boundary
 
-Total estimated 57–113 hours, not a promise. WebGPU coverage and browser CPU
-speed are the largest schedule risks. Existing source replacement interface
-remains by address; complete current rank-O adapter coverage remains open.
+The browser executes the static ARM CPU/HLE/software PICA renderer in WebAssembly.
+Canvas2D displays its own generated RGBA. The local server serves files/sidecars
+and receives exports; it does not render game pixels or serve the owner's dump.
+Fresh module exists and actual browser execution passed below. WebGPU is absent.
+Sustained playable speed, complete level and synchronized audio remain unverified.
 
-Original bridge8400..9000 completed0, receiptd9af0ef9, all footers and
-source/private profile preserved. Actual image: first bridge wooden crates,
-timer464/coins0/lives4. Native add80b7f/strictf7a7b3ca/post632111b0 pass, all
-declared observations/source preserved and both CPU fallbacks zero. No typed
-jump/update/goal claim. Submission and integrator verdict are pending.
-The exit-boundary Pro answer is available and remains a conditional proposal;
-it preserves the old false validator and does not prove construction ancestry.
+## Completed step2 checks
 
-Milestones1..4 retain accepted finite scope.5/6 remain in progress. Typed
-controlled player/lifetime/completed-update position/velocity/state/camera/
-RNG/timer/coins, goal and whole-level replay remain open. Browser sustained
-performance, physical mobile, synchronized continuous sound, saves and all
-rank-O address replacement adapters remain open. Matching throughput0.
+Retired archive closure reconstructed from preserved recorded recipes:
+23 archives/1327 platform objects, Node main object, seven browser objects,
+full Node/browser wasm byte-identical to historical hashes. Public recovery
+receipt86fe74de and frontend recovery2b49b5b3 preserve all source/provider inputs.
+Final module dedf5b6d87089194a3aa1fa62c4c581d987c5619262f1ea4e57d367b08402feb,
+152434537 bytes. All16commands pass; only GPU/headless/audio observer members
+change. Original CPU provider and address replacement interface preserved.
+Complete current-main rank-O adapter coverage remains unverified.
 
-Current measured free bytes 21809340416 at 2026-10-03T16:22:14.322673+00:00.
+Actual default360 replay passed strict full GPU/PICA/HID/PCM/software pixel and
+framebuffer comparisons, file/snapshot preservation, actual Canvas and WebAudio,
+desktop/mobile screenshots and owned-browser closure. Result30c0d844,
+comparison792df528. Total observed100.99sec includes loading/export.
+
+Selected normal360 replay passed exact original HID/PCM/final RGBA/framebuffer,
+movie delivery and snapshots without GPU/PICA files. CPU0 393977876 instructions,
+CPU1zero, both fallbacks0. Actual AudioWorklet output hash and every source packet
+match original stereo PCM, source grows after consumption starts. Postcheckd26d92bf.
+359 presentation intervals41.223sec, about8.7presentations/sec for startup only;
+first eligible frame51.141sec, final export0.850ms. No playable speed claim.
+
+Actual normal record/Stop passed all12 standard button bits pressed/released,
+four circle directions, pointer/keyboard buttons, focus release, touch, complete
+ordinary HID movie, neutral final poll, native accepted Stop/natural final export,
+actual Canvas and cleanup.527HID polls, CPU0 336382126, CPU1zero, fallbacks0.
+Result2e2387f9. Initial test failed only a delayed transient Stopping UI assertion;
+its completed capture remains sealed and corrected actual test passed.
+
+Kernel UID inventory resolves historical nodePID10204 reused by root ssh.
+No unrelated process touched. Existing lifecycle controls passed success/failure/
+timeout/owner death/partial launch/recovery/one visible admission and preservation,
+resultbe8eb818. Linux path unchanged. Required empty registry directories retained.
+Browser paths now allow bounded internal ASCII spaces so ordinary saved profile
+`sdmc/Nintendo 3DS` loads unchanged. Traversal/absolute/empty/prototype paths refused.
+
+## Paused execution and limits
+
+Completed browser replay9000 from original bridge initial_user_state/movie is in
+build/browser_world_one_verification_9000 against browser_world_one_server_9000.
+Movief2d7574c, unchanged ordinary user state. No RAM continuation or pointer join.
+Private verifier/build/browser_session_preparation/verify_browser_world_one_9000.py.
+The9000run completed at44,048,217,034ticks/renderer9101; CPU0exact4313017982,
+CPU1zero/fallbacks0. Actual bridge scene observed. HID/audio timing/bottom screen
+exact, top22pixels and1PCM sample differ. Report6ce92d93 records first differences.
+Cause/branch specificity unverified; submission held. Both capture/browser closed.
+Audio numerical candidate sealed; actual failing-block attribution remains unverified.
+No matching/main regression established; accepted default360 still passes.
+
+Normal controls/session <=60000 presentations, wall<=3600sec, audio<=256MiB,
+final screens<=160MiB, export<=2GiB. Request/frame histories bounded; complete
+HID/movie/PCM retained. Stop waits for the next natural frame and joins the runtime.
+Selected path writes no per-command PICA/GPU files. Default capture remains separate.
+
+Byte-identical active-module function index symbol map recovered by a bounded link,
+receipt35d67e7e. Duplicate wasm retired,8.53MB symbol map retained. This supplies
+names for profiling only. First10sec profile sampled startup file reads, not gameplay. Actual steady rendering costs remain pending. The360 profiled replay itself passed.
+
+## Evidence and retention
+
+Bridge e431761ab accepted at de8c5810, originald9af0ef9/nativeadd80b7f,
+strictf7a7b3ca/post632111b0. Native duplicate51972PICA payloads retired after hashes,
+original reference raw retained; rerunning native raw equality needs regeneration.
+Both bridge screens/input/PCM exact, CPU0 4313017982/CPU1zero/fallbacks0. No goal,
+typed player/control/update or full-prefix GPU equality credit.
+
+Own completed compiler duplicates/profiles retired only after source/hash and
+closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PCM,
+9000 comparison inputs and raw evidence, accepted providers and all sealed receipts preserved.
+Free disk measured below. No factory restart/settings. Aquinas absent/archived.
+All helpers idle; graphics diagnosis sealed. No reviewers or unrelated work.
+
+Pro handles layout/type/update proposals. Exit-boundary answer is conditional,
+construction ancestry unproved; original-return/dispatch question remains queued.
+Passive minimum-tick observer family parked until state comparison step.
+
+## Next tasks, in order
+
+Owner priority update October 3: "Real-time play now outranks the last pixels."
+The former exactness submission hold is superseded. First submission rejected
+only the add/add delivery-plan merge; latest main merged on Root and plan resolved. Table replaya099324c finished:
+all PCM/HID/audio timing/bottom outputs/CPU counts and Canvas/audio delivery pass;
+top5456cf28 remains the same21pixels. Comparison6e7d56dc. Warm8999intervals
+1935.995sec,4.6483/sec. Browser and identity-verified server closed after exports.
+Public audio/fog/depth3d95c0e0 corrected the PCM sample and one former pixel.
+Private normalization/lighting candidates add no pixel correction. All original
+and failed evidence preserved. Fragment observer/native consumer built, never run,
+and parked. Do not run further full-length exactness replays.
+Submission covers ready gameplay/session tooling and public audio/fog/depth only;
+matching claims zero, residual21pixels disclosed. Goal/Section7 remain unverified.
+
+Original recorded window has601VBlanks/top submissions, median4481136ticks;
+measured cadence59.83122493939037/sec of guest time. Physical hardware timing and
+unique frame count are not observed. Current throughput needs about12.87times gain.
+Five-second native process sample cannot name Wasm costs. JavaScript profiler is
+blocked by document policy and absent in workers. Top-three shares pending.
+Current order and evidence: project/browser_performance_plan.md.
+
+1. Submit ready work through the integrator with the21pixels recorded and parked.
+2. Profile short runs. Report top three costs/frame, measured shares and expected
+   gain per proposed change. Use unchanged360replay as exactness regression gate.
+3. Optimize port runtime for real-time input/audio on this Mac mini; then observe
+   ordinary browser World1-1 start-to-goal at the measured original cadence.
+4. Grounded Section7 state comparison remains a separate acceptance gap.
+
+Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
+Section7, sustained speed, synchronized audio, saves, physical mobile and complete
+rank-O adapter coverage remain unverified. Matching throughput zero.
+Pause free bytes20802355200. T3 goal active. All52old browser registrations inactive;
+31older identity-verified own servers stopped.
+Public360final verifier passed13e6104d; gameplay family held and unsubmitted.
