@@ -2040,7 +2040,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0015ED24,0x0015EF80,0x0015EF90,          ,U,f,,
 0x0015EF90,0x0015EFA0,0x0015EFA4,          ,O,f,fn_0015EF90,
 0x0015EFA4,0x0015EFD8,0x0015EFF0,          ,U,f,,
-0x0015EFF0,0x0015F00C,0x0015F010,          ,U,f,,
+0x0015EFF0,0x0015F00C,0x0015F010,          ,O,f,fn_0015EFF0,
 0x0015F010,0x0015F218,0x0015F224,          ,U,f,,
 0x0015F224,0x0015F588,0x0015F5AC,          ,U,f,,
 0x0015F5AC,          ,0x0015F5D8,          ,U,f,,
