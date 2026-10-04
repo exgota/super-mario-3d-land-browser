@@ -341,3 +341,9 @@ R3 additionally owns `PicaWebGlPresentation.mjs` and
 readback. Root owns display-transfer/address mapping and actual guest-read
 coherence barriers. R1 owns ordered transport/admission through the existing
 GPU owner. R4 owns worker/page bitmap painting after the fast-entry task.
+
+## Resume after T3 restart
+
+Paused on root/browser-webgl-renderer after fd6aad35; all Root browser/server/build/measurement helpers are absent and the primary arbiter has no reservation.
+Latest World result:20.399159/s,48.01ms median/119.555ms p99; revision3 reached intact World in72.391s but still RGBA and aborted at Natural Stop, receipt build/runtime_measurements/20261004T153534080114_5706fa8a/receipt.json.
+Next: run the already-built, unlaunched build/browser_gpu_presentation_candidate_revision_4 functional diagnostic to capture abort/transfer reasons, fix bitmap/Stop, then link R2 b33cea6a archive and measure once with R4 f260 saved-map reference/entry_node_anchor recipe.

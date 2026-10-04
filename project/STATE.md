@@ -48,19 +48,18 @@ Requires shared tool's entry_node_anchor support. Wait for W1-1 node before A.
 Original movie preserved. Both natural Stop/browser/server cleanup passed.
 Changed initial-save conditions are explicit. No startup-cache causality claimed.
 
-## In flight and next tasks
+## Paused at owner request, 2026-10-04
 
-1. R3 Ring job20261004T142041616072_28b246fc runs via the shared FIFO with that
-   reference/recipe. No competing Root timing run. Functional work may run nice5.
-2. Root build/browser_gpu_presentation_candidate_revision_2 passed14.3023s build.
-   Includes latest CPU/raw pipeline, GPU display aliases, ordered bitmap compositor,
-   true guest-read materialization, final-screen refresh and lazy readback storage.
-   Actual game transport/orientation/coherence/speed are unverified.
-   R4 owns page/outer-worker crop paint, bitmap close/ack and displayed-frame metadata.
-   Integrate its small commit, then one functional game smoke before World timing.
-3. R1 reduces immutable per-draw packet copies with bounded content-verified resource
-   retention. Root owns CPU proxy wiring. R2 continues measured translated scheduling
-   costs. R3 owns shader/cache/presentation. See project/runtime_lanes.md.
+Root has no active browser, server, build or measurement runner. Primary reservation
+is absent. R1–R4/Web/orchestrator received the explicit restart pause.
+Source fd6aad35 adds bounded native display-transfer diagnostics and preserves failed
+runtime logs. Revision4 build passed3.5211s and has not been launched.
+Revision3 functional job20261004T153534080114_5706fa8a reached intact World in72.3911s,
+but still published RGBA frames and aborted at Natural Stop. Browser cleanup passed,
+final inventories empty, owned server absent. No new speed or bitmap-success claim.
+Next work is recorded in project/runtime_lanes.md, Resume after T3 restart.
+R1 retention94c28cb2 and R4 bitmap paint527cad1c are integrated. R2 scheduler b33cea6a
+archive is ready but not integrated. No source migration/factory submission/deployment.
 
 GPU presentation supports only complete unscaled tiled-to-linear transfers and
 explicit pixel formats. Unsupported requests take the coherent software path.
