@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "BrowserFrameOutput.h"
+#include "BrowserWebGlDisplaySurface.h"
 
 #include <array>
 #include <atomic>
@@ -53,6 +54,7 @@ void Port::SampleBrowserFrameOutput() {
     auto& renderer = system.GPU().Renderer();
     const auto frame = renderer.GetCurrentFrame();
     if (!frame) return;
+    if (Port::BrowserWebGlDisplayFrameHandled(frame)) return;
     if (frame == last_frame) { ++duplicate_polls; return; }
     if (frame < last_frame) {
         ++geometry_errors;

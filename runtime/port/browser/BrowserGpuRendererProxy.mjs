@@ -162,6 +162,19 @@
             this.surfaces.set(String(key), surface);
             return result.length ? result : null;
         }
+        copyDisplaySurface(configuration) {
+            this.endDraw();
+            const result = this.submit(16, [[1, configuration]], 1, true);
+            if (result.length !== 1 || ![0, 1].includes(result[0]))
+                throw new Error('GPU display transfer returned an invalid status');
+            if (result[0]) {
+                const key = String(configuration.destinationSurfaceIdentifier);
+                const description = {width: configuration.width, height: configuration.height, dirty: true};
+                this.surfaceDescriptions.set(key, description);
+                this.surfaces.set(key, description);
+            }
+            return result[0];
+        }
         clearSurface(key, color, depthStencil) {
             this.endDraw();
             this.ensureDrawState();
@@ -187,6 +200,9 @@
                 invalidatePhysicalRange: this.invalidateVertexRange};
             this.gl.stateCacheStatistics = record.stateCacheStatistics;
             this.workerAdmission = record.workerAdmission;
+            this.presentationStatistics = record.presentationStatistics;
+            this.presentationUnsupportedStates = record.presentationUnsupportedStates;
+            this.presentationTransportStatistics = record.presentationTransportStatistics;
         }
         close() {
             if (this.closed) return;
