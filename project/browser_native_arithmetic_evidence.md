@@ -172,21 +172,30 @@ Native sites 0x640/0x6d0/0x1b98 establish distance and LUT interpolation FMA.
 Adding only those two expression orders closes every broader fixture color case,
 receipt SHA-256
 `65b152190e576962d14ae30c2110e26df22b3e926bbcf3a49c8af9766b2b91d1`.
-This later table candidate is unused in the active browser replay. Finite synthetic
-coverage does not establish actual pixel attribution or all parameter combinations.
+Finite synthetic coverage does not establish actual pixel attribution or all
+parameter combinations.
 Its separate full module builds in three passing commands with unrelated-member
 and protected-input preservation. Wasm is 152,435,097 bytes, SHA-256
 `a099324c477fdd9ac07773a556465cf2f205fe2e08d8584b978fc8c74f8bc8bb`.
-It is unrun.
+It now runs the unchanged movie/profile in T3 tab `tab_1`, through port 8770.
+Audio was enabled at startup; the first post-enable sampled renderer frame is 14.
+One browser replay is active. No pre-first-frame playback claim for this run.
 
-A private full-module candidate adds this lighting source to the sealed
+A private full-module candidate adds the earlier rotation/reduction source to the sealed
 normalization module. Three commands pass, preserving every unrelated archive
 member and protected input. Wasm is 152,435,067 bytes, SHA-256
 `d98dc22cccc47eafce2c22ab603c38df7c0a219e2ce4954d666344bde0f3e882`.
-It now runs the same movie/profile in T3 tab `tab_1`, through port 8769. Audio
-started before the first rendered frame. One browser replay is active. Actual
-pixel operands, first differing rendered frame, playable speed, goal and Section 7
-remain unverified. Submission stays held until the gap closes.
+Its unchanged-movie replay completed. Top RGBA remains `5456cf28`, the same
+21 differing pixels. Full PCM/HID/audio timing/bottom RGBA/framebuffer and CPU
+counts pass, as do Canvas identity and all source-packet consumption checks.
+Comparison SHA-256 is
+`06fea916a8859d8e281f33a21fe2c9ee5bf144b5f45790b87584c94f631e4387`.
+Warm 8,999 intervals take 2,047.338 seconds, 4.3955 presentations/second.
+World 1-1 and the original bridge endpoint were visibly observed. Its browser
+and identity-verified server closed after exports. Both candidate manifests'
+2,803 protected inputs still agree. Actual pixel operands, first differing
+rendered frame, playable speed, goal and Section 7 remain unverified.
+Submission stays held until the gap closes.
 
 Private evidence resides under this worktree's ignored `build/` directories:
 `graphics_arithmetic_resume`, `graphics_depth_resume`, `graphics_normalization_resume`,
@@ -195,5 +204,6 @@ Private evidence resides under this worktree's ignored `build/` directories:
 `browser_native_arithmetic_module`, `browser_arithmetic_server_9000`,
 `browser_native_arithmetic_server_9000`, `browser_normalization_module_candidate`,
 `browser_normalization_server_9000`, `browser_lighting_module_candidate`,
-and `browser_lighting_server_9000`.
+`browser_lighting_server_9000`, `browser_lighting_table_module_candidate`,
+and `browser_lighting_table_server_9000`.
 No game-derived payload or gameplay image belongs in Git.

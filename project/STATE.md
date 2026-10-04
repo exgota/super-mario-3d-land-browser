@@ -109,8 +109,7 @@ archive members and protected inputs preserve. Wasm326eb1de,152434816bytes.
 The audio/fog9000replay completed: all9884160PCM channel samples, HID/audio timing,
 bottom RGBA/framebuffer, movie/profile delivery and actual Canvas/audio consumption
 pass. Top RGBA remains the exact earlier mismatching hash,22pixels. CPU04313017982,
-CPU1zero, fallbacks0. Comparisonec47ee93. Warm8999intervals2049.132sec,4.3916/sec.
-Its server closed after exports. Combined public depth/audio/fog build3d95c0e0
+CPU1zero, fallbacks0. Comparisonec47ee93. Warm8999intervals2049.132sec,4.3916/sec. Its server closed after exports. Combined public depth/audio/fog build3d95c0e0
 completed the same9000movie. One former pixel is corrected;21previous pixels
 remain, no new pixels. HID/audio timing/PCM/bottom RGBA/framebuffer and CPU counts
 still agree. Comparison2283d069, warm8999intervals2158.828sec,4.1685/sec.
@@ -127,12 +126,13 @@ identical normalized-quaternion/view digest2e68b3491f53a8aa, but7color cases dif
 between native and Wasm. Receipt575c229c. This exposes a residual lighting
 difference. Explicit native-order lighting reductions alone leave5synthetic cases;
 adding native-order quaternion cross products closes all1048576color cases.
-Receipt2b14cbfa. New private lighting moduled98dc22c,152435067bytes, links in
-3commands with unrelated-member/input preservation. It replays the unchanged
-9000movie through8769 in T3tab_1; audio started before the first rendered frame.
-All32pause seals unchanged. One browser, no delegates. Actual21-pixel result pending.
+Receipt2b14cbfa. Private lighting moduled98dc22c completed the9000movie:
+top RGBA remains5456cf28, the same21pixels. All other comparisons/CPU counts pass.
+Comparison06fea916, warm8999intervals2047.338sec,4.3955/sec. Browser/server closed.
 Broader lighting fixture292original/40rotation differences closes with LUT/distance
-FMA, receipt65b15219. Separate table modulea099324c builds in3commands and is unrun.
+FMA, receipt65b15219. Separate table modulea099324c builds in3commands, preserving
+all2803inputs. Same9000movie through8770 in T3tab_1, sound's first post-enable
+sampled frame14. One browser, no delegates. Pixel result pending. All32pause seals unchanged.
 
 1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
    document finite controls/session reruns, push and submit this family with no claims.
@@ -144,6 +144,6 @@ FMA, receipt65b15219. Separate table modulea099324c builds in3commands and is un
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
 rank-O adapter coverage remain unverified. Matching throughput zero.
-Pause free bytes20802355200. Owner-started T3 goal is active. All52 historical root
-browser registrations inactive;31 older identity-verified own servers stopped.
+Pause free bytes20802355200. T3 goal active. All52old browser registrations inactive;
+31older identity-verified own servers stopped.
 Public360final verifier passed13e6104d; gameplay family held and unsubmitted.

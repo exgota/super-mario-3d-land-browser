@@ -22,9 +22,10 @@ at the bridge crates. The resumed audio/fog candidate now matches all9884160PCM
 channel samples, input/timing/CPU counts and the bottom screen. Combined
 depth/audio/fog corrects one former pixel;21remain, no new pixels. The private
 quaternion-normalization replay leaves the same21pixels unchanged. A native-order
-lighting candidate matches1048576synthetic directional-diffuse colors and now
-replays the original movie in the owner-started T3 thread. Its final comparison
-is pending; this family stays held.
+lighting rotation/reduction replay leaves the same21pixels unchanged. Broader
+native-order table/distance arithmetic matches1048576synthetic lighting cases
+and now replays the original movie in the owner-started T3 thread. Its final
+comparison is pending; this family stays held.
 The measured normal startup presentation rate is about8.7/sec after first frame;
 the resumed audio/fog9000prefix averages4.3916/sec across8999warm intervals;
 the depth candidate averages4.1685/sec on a shared10core host with load14.14,

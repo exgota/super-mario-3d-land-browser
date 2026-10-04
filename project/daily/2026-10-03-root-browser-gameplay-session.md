@@ -147,3 +147,13 @@ Its full modulea099324c,152435097bytes, links in3commands with unrelated-member/
 input preservation and is unrun. Read-only native-window inspection observes
 procedural textures disabled at all decoded draw triggers, receipt9d1e9f8f.
 The unobserved-prefix/interrupt limits remain; no procedural-texture patch.
+
+Lighting rotation/reduction9000movie completed, comparison06fea916. Top RGBA
+remains5456cf28, the same21pixels; all other comparisons/CPU counts pass. Canvas
+identity/source packets/all4942080stereo consumption pass. Warm8999intervals
+2047.338sec,4.3955/sec. World1-1 and bridge endpoint visibly observed. Browser
+and identity-verified server closed after exports. Both arithmetic builds retain
+all2803protected inputs. Table candidatea099324c now replays the unchanged9000
+movie/profile through8770 in T3tab_1. Audio enabled at startup; first post-enable
+sampled renderer frame14. Pre-first-frame sound is not claimed for this run.
+One browser, no delegates. Pixel comparison pending; gameplay submission held.
