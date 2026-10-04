@@ -170,7 +170,7 @@ def _darwin_executable(pid: int) -> str:
     ctypes.set_errno(0)
     count = process_library.proc_pidpath(pid, buffer, len(buffer))
     if count <= 0:
-        raise _system_failure("proc_pidpath")
+        raise _system_failure("proc_pidpath", allow_absent=True)
     if count >= len(buffer) or b"\0" not in buffer.raw:
         raise _InspectionFailure("proc_pidpath", "Executable path was truncated")
     path = os.fsdecode(buffer.value)
@@ -616,6 +616,17 @@ def owned_session_processes(registration: dict) -> dict:
         arguments = process_arguments(pid)
         if arguments["state"] == "absent":
             continue
+        if (arguments["identity"]["state"] == "present" and
+                arguments["identity"]["status"] in ("zombie", "dead")):
+            continue
+        if arguments["state"] != "present":
+            # A process may exit between identity and argv reads. Retry once,
+            # retaining permission/format failures unless absence is confirmed.
+            arguments = process_arguments(pid)
+            if arguments["state"] == "absent" or (
+                    arguments["identity"]["state"] == "present" and
+                    arguments["identity"]["status"] in ("zombie", "dead")):
+                continue
         if arguments["state"] != "present":
             result["errors"].append({"pid": pid, "operation": "candidate_arguments",
                                      "error": arguments["error"]})
