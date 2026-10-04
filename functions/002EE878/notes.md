@@ -1,13 +1,9 @@
-Claims: none. fn_002EE878 is capped after two ordinary source forms.
-Complete sizes: 792 then 788 versus 756 bytes; both normal builds succeeded.
-Canonical closure passed before size refusal; both actual full-section diffs ran.
-Three baseline objects are unchanged and all four accepted checks remain O-to-O.
-Second form uses independently proved fixed-record/color-field semantics and
-pre-store selection snapshots; the normal record copy inlines without a helper.
-Remaining misses: command grouping, vector load/store lowering, scheduling,
-register/frame choices and literal sharing. No independently grounded third form.
-Pre-existing Factory facade inconsistency is documented and untouched.
-First form source/object/provenance and linked outputs are separately retained.
-No fake data row, alias, assembly, compiler/flag rescue or exact credit.
-
-Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.
+Claims: none.
+2EE878 stopped after eight total forms, target 756 bytes. Best is form 8, 728 bytes, full-interval score 5675.
+Historical form 1 was 792 bytes; its original proof is unavailable. Restored form 2 was not a new form.
+Measured forms 2–8: 788/16980, 776/13900, 784/13295, 748/8825, 736/6385, 728/9540, 728/5675 (bytes/score).
+Form 8 keeps explicit blend-index snapshots and sequential command writes. All forms and prior best source retained.
+Canonical source closure passes; complete section size refuses. Actual strict full diff verified all bytes and provenance.
+Three baseline objects remain byte-identical; four accepted checks pass for every measured form.
+Differences remain in register allocation, load ordering, paired command stores and template-copy emission.
+No ninth form under the current budget. No exact or functional-equivalence claim.
