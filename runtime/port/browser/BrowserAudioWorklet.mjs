@@ -5,6 +5,7 @@ const CHANNELS = 2;
 const CAPACITY_FRAMES = 65536;
 const MAXIMUM_PACKET_FRAMES = 2048;
 const MAXIMUM_SOURCE_FRAMES = 64 * 1024 * 1024 / 4;
+const MAXIMUM_GAMEPLAY_SOURCE_FRAMES = 256 * 1024 * 1024 / 4;
 const MAXIMUM_OBSERVATION_FRAMES = 1048576;
 const PROGRESS_INTERVAL_SECONDS = 0.1;
 
@@ -16,12 +17,15 @@ class OriginalStreamedAudioProcessor extends AudioWorkletProcessor {
     constructor(options) {
         super();
         const metadata = options.processorOptions;
+        const maximumSourceFrames = metadata?.maximum_source_frames ?? MAXIMUM_SOURCE_FRAMES;
         if (!metadata || typeof metadata.capture_identifier !== 'string' || !metadata.capture_identifier.length ||
             metadata.sample_rate !== SOURCE_RATE || metadata.channels !== CHANNELS || sampleRate !== SOURCE_RATE ||
             !nonnegativeInteger(metadata.observation_maximum_frames) ||
-            metadata.observation_maximum_frames > MAXIMUM_OBSERVATION_FRAMES)
+            metadata.observation_maximum_frames > MAXIMUM_OBSERVATION_FRAMES ||
+            (maximumSourceFrames !== MAXIMUM_SOURCE_FRAMES && maximumSourceFrames !== MAXIMUM_GAMEPLAY_SOURCE_FRAMES))
             throw new Error('The streamed sound processor metadata is invalid.');
         this.captureIdentifier = metadata.capture_identifier;
+        this.maximumSourceFrames = maximumSourceFrames;
         this.storage = new Int16Array(CAPACITY_FRAMES * CHANNELS);
         this.observationMaximumFrames = metadata.observation_maximum_frames;
         this.observation = this.observationMaximumFrames ?
@@ -94,7 +98,7 @@ class OriginalStreamedAudioProcessor extends AudioWorkletProcessor {
             !Number.isSafeInteger(message.sample_frames) || message.sample_frames < 1 ||
             message.sample_frames > MAXIMUM_PACKET_FRAMES || !(message.pcm instanceof ArrayBuffer) ||
             message.pcm.byteLength !== message.sample_frames * CHANNELS * 2 ||
-            this.acceptedSourceFrames + message.sample_frames > MAXIMUM_SOURCE_FRAMES ||
+            this.acceptedSourceFrames + message.sample_frames > this.maximumSourceFrames ||
             this.bufferedFrames + message.sample_frames > CAPACITY_FRAMES ||
             (this.observationMaximumFrames &&
                 this.acceptedSourceFrames + message.sample_frames > this.observationMaximumFrames)) {

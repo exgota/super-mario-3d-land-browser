@@ -412,13 +412,16 @@ def process_arguments(pid: int) -> dict:
     return result
 
 
-def process_identifiers() -> dict:
+def process_identifiers(*, uid: int | None = None) -> dict:
     """Return bounded PID identifiers only. This performs no CLI/session inventory."""
     try:
+        if uid is not None and (type(uid) is not int or not 0 <= uid < 1 << 32):
+            raise _InspectionFailure("proc_identifiers", "Invalid effective UID filter")
         if sys.platform == "darwin":
             process_library, _ = _darwin_libraries()
+            selection, selection_information = (1, 0) if uid is None else (4, uid)  # PROC_ALL_PIDS / PROC_UID_ONLY
             ctypes.set_errno(0)
-            required = process_library.proc_listpids(1, 0, None, 0)  # PROC_ALL_PIDS
+            required = process_library.proc_listpids(selection, selection_information, None, 0)
             if required <= 0:
                 raise _system_failure("proc_listpids_size")
             capacity = max(1024, required // ctypes.sizeof(ctypes.c_int) + 1024)
@@ -427,7 +430,7 @@ def process_identifiers() -> dict:
                     raise _InspectionFailure("proc_listpids", "PID enumeration exceeds its bound")
                 buffer = (ctypes.c_int * capacity)()
                 ctypes.set_errno(0)
-                count = process_library.proc_listpids(1, 0, buffer, ctypes.sizeof(buffer))
+                count = process_library.proc_listpids(selection, selection_information, buffer, ctypes.sizeof(buffer))
                 if count <= 0:
                     raise _system_failure("proc_listpids")
                 if count % ctypes.sizeof(ctypes.c_int) or count > ctypes.sizeof(buffer):
@@ -439,6 +442,8 @@ def process_identifiers() -> dict:
             else:
                 raise _InspectionFailure("proc_listpids", "PID enumeration kept changing size")
         elif sys.platform == "linux":
+            if uid is not None:
+                raise _InspectionFailure("proc_identifiers", "Kernel UID enumeration is available only on Darwin")
             _linux_proc_visibility()
             identifiers = []
             try:
@@ -583,12 +588,18 @@ def owned_session_processes(registration: dict) -> dict:
         result["errors"].append({"operation": "validate_registration", "errno": None,
                                  "message": str(problem)})
         return result
-    inventory = process_identifiers()
+    inventory = process_identifiers(uid=uid) if sys.platform == "darwin" else process_identifiers()
     if inventory["state"] != "present":
         result.update(state="uncertain", errors=[inventory["error"]])
         return result
     result["state"] = "complete"
-    for pid in sorted(set(inventory["pids"]) | observed_pids):
+    # The kernel UID list excludes a historical PID now reused by another user.
+    # Reintroducing every old PID would turn an unrelated protected process into
+    # an owned candidate. Every listed candidate still needs identity/argv checks.
+    candidates = set(inventory["pids"])
+    if sys.platform != "darwin":
+        candidates |= observed_pids
+    for pid in sorted(candidates):
         observation = process_identity(pid)
         if observation["state"] == "absent" or (observation["uid"] is not None and observation["uid"] != uid):
             continue

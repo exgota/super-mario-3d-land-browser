@@ -33,6 +33,26 @@
         <label for="game-file">Game file</label>
         <input id="game-file" type="file" accept=".3ds" aria-describedby="file-help">
         <p id="file-help">Choose the approved EU .3ds file.</p>
+        <label for="session-mode">Run mode</label>
+        <select id="session-mode">
+          <option value="capture">Short capture</option>
+          <option value="gameplay">Gameplay session</option>
+        </select>
+        <fieldset id="gameplay-selection" hidden>
+          <legend>Session limits</legend>
+          <label for="gameplay-input-mode">Input</label>
+          <select id="gameplay-input-mode">
+            <option value="record">Record live controls</option>
+            <option value="replay">Replay the selected movie</option>
+          </select>
+          <div class="session-limits">
+            <div><label for="gameplay-presentations">Presentations</label>
+              <input id="gameplay-presentations" type="number" min="1" max="60000" step="1" value="60000" inputmode="numeric"></div>
+            <div><label for="gameplay-wall-seconds">Time limit, seconds</label>
+              <input id="gameplay-wall-seconds" type="number" min="1" max="3600" step="1" value="3600" inputmode="numeric"></div>
+          </div>
+          <p id="gameplay-selection-help">Stop saves the final screens at the next natural presentation. Replay keeps live controls off.</p>
+        </fieldset>
         <button id="run-preview" type="submit" disabled>Run preview</button>
       </form>
       <div class="feedback">
@@ -43,6 +63,24 @@
         <button id="hold-a" type="button" aria-pressed="false" aria-describedby="live-button-help" hidden disabled>Hold A</button>
         <p id="live-button-help" hidden>Hold the button, or use Space while it has focus.</p>
       </div>
+      <fieldset id="gameplay-buttons" aria-describedby="gameplay-buttons-help" hidden disabled>
+        <legend>Controller</legend>
+        <div class="gameplay-button-grid">
+          <button type="button" data-hid-bit="0" aria-pressed="false">A</button>
+          <button type="button" data-hid-bit="1" aria-pressed="false">B</button>
+          <button type="button" data-hid-bit="10" aria-pressed="false">X</button>
+          <button type="button" data-hid-bit="11" aria-pressed="false">Y</button>
+          <button type="button" data-hid-bit="9" aria-pressed="false">L</button>
+          <button type="button" data-hid-bit="8" aria-pressed="false">R</button>
+          <button type="button" data-hid-bit="2" aria-pressed="false">Select</button>
+          <button type="button" data-hid-bit="3" aria-pressed="false">Start</button>
+          <button type="button" data-hid-bit="6" aria-pressed="false">Up</button>
+          <button type="button" data-hid-bit="7" aria-pressed="false">Down</button>
+          <button type="button" data-hid-bit="5" aria-pressed="false">Left</button>
+          <button type="button" data-hid-bit="4" aria-pressed="false">Right</button>
+        </div>
+        <p id="gameplay-buttons-help">Focus a game screen or controller. Z/X: A/B. A/S: Y/X. Q/W: L/R. Enter: Start. Shift: Select. I/J/K/L: D-pad. Arrow keys: circle pad.</p>
+      </fieldset>
       <fieldset id="circle-pad" aria-describedby="circle-pad-help" hidden disabled>
         <legend>Circle pad</legend>
         <div class="circle-directions">
