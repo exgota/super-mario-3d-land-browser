@@ -2,21 +2,19 @@
 
 namespace {
 struct Vec3;
-extern "C" void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vec3&, const Vec3&, float);
-extern "C" void _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(Vec3&, const Vec3&, const Vec3&);
 
 struct Vec3 {
     nn::math::VEC3 components;
     Vec3 operator*(float scalar) const {
         Vec3 result;
-        _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(result, *this, scalar);
+        sead::Vector3CalcCtr<float>::multScalar(result.components, components, scalar);
         return result;
     }
     void operator-=(const Vec3& other) {
         sead::Vector3CalcCtr<float>::sub(components, components, other.components);
     }
     void operator+=(const Vec3& other) {
-        _ZN4sead14Vector3CalcCtrIfE3addERN2nn4math4VEC3ERKS4_S7_(*this, *this, other);
+        sead::Vector3CalcCtr<float>::add(components, components, other.components);
     }
 };
 struct Body {

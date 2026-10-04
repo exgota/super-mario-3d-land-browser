@@ -1,9 +1,9 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 
 struct Vector3 {
-    float x;
-    float y;
-    float z;
+    nn::math::VEC3 components;
 };
 
 struct Parameters {
@@ -38,7 +38,6 @@ void _ZN2al9hideModelEPNS_9LiveActorE(Actor*);
 void fn_00277AF0(Actor*);
 const Vector3& _ZN2al11getVelocityEPKNS_9LiveActorE(const Actor*);
 void fn_0027D5C4(Vector3*);
-void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vector3&, const Vector3&, float);
 void fn_00279AC0(Actor*, const Vector3&);
 void fn_00279e5c(Actor*, float);
 bool _ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi(const Actor*, int);
@@ -51,7 +50,7 @@ namespace {
 
 inline Vector3 operator*(const Vector3& vector, float scalar) {
     Vector3 result;
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(result, vector, scalar);
+    sead::Vector3CalcCtr<float>::multScalar(result.components, vector.components, scalar);
     return result;
 }
 
@@ -73,4 +72,10 @@ extern "C" void fn_003600F8(void*, const NerveContext* context) {
         _ZN2al15setVelocityZeroEPNS_9LiveActorE(actor);
         actor->kill();
     }
+}
+
+namespace {
+typedef char VectorStorageSizeCheck[sizeof(Vector3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vector3, components) == 0 ? 1 : -1];
+
 }
