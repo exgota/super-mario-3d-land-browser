@@ -3,8 +3,10 @@
 Root resumed the owner-paused port lane in T3 Code on October 3, 2026. The
 pushed gameplay checkpoint is `0d8e5cc53ea947a704370b7f8d618eb6a4e66277`.
 All 32 sealed checkpoint records retain their recorded size and SHA-256.
-The gameplay family remains held and unsubmitted. Matching claims and newly
-translated bytes are zero. Main, ranks, ledger and matching sources are unchanged.
+The gameplay family was held during exactness diagnosis. The owner's October 3
+priority update permits submission with the remaining pixels recorded and parked.
+Matching claims and newly translated bytes are zero. Main, ranks, ledger and
+matching sources are unchanged.
 
 ## Observed portability differences
 
@@ -177,9 +179,17 @@ parameter combinations.
 Its separate full module builds in three passing commands with unrelated-member
 and protected-input preservation. Wasm is 152,435,097 bytes, SHA-256
 `a099324c477fdd9ac07773a556465cf2f205fe2e08d8584b978fc8c74f8bc8bb`.
-It now runs the unchanged movie/profile in T3 tab `tab_1`, through port 8770.
+Its unchanged-movie replay completed through port 8770 in T3 tab `tab_1`.
 Audio was enabled at startup; the first post-enable sampled renderer frame is 14.
-One browser replay is active. No pre-first-frame playback claim for this run.
+Top RGBA remains `5456cf28`, the same 21 differing pixels. All PCM channel samples,
+HID/audio timing, bottom RGBA/framebuffer, Canvas identity, source packet identities,
+and all 4,942,080 consumed stereo frames pass. CPU0 executes 4,313,017,982 guest
+instructions; CPU1 zero; both fallbacks zero. Comparison SHA-256 is
+`6e7d56dc72122f49a0b8a8bfad2ba612379131019bb134d5be2e9018894be834`.
+Warm 8,999 intervals take 1,935.995 seconds, 4.6483 presentations/second.
+World 1-1 and the original bridge endpoint were visible. No goal credit.
+The browser and identity-verified server closed after exports, server exit 130.
+No pre-first-frame playback claim for this run.
 
 A private full-module candidate adds the earlier rotation/reduction source to the sealed
 normalization module. Three commands pass, preserving every unrelated archive
@@ -195,7 +205,13 @@ World 1-1 and the original bridge endpoint were visibly observed. Its browser
 and identity-verified server closed after exports. Both candidate manifests'
 2,803 protected inputs still agree. Actual pixel operands, first differing
 rendered frame, playable speed, goal and Section 7 remain unverified.
-Submission stays held until the gap closes.
+The former exactness submission hold is superseded by the owner's October 3
+priority update: submit ready work, record and park residual pixels, then profile
+short runs for real-time play. The public audio/fog/depth overlay is ready;
+the later normalization/lighting candidates remain private diagnostic artifacts.
+A bounded fragment observer and native consumer were prepared and built but
+never run. They are parked. No further long exactness replay is authorized.
+See `project/browser_performance_plan.md` for the current order and measured target.
 
 Private evidence resides under this worktree's ignored `build/` directories:
 `graphics_arithmetic_resume`, `graphics_depth_resume`, `graphics_normalization_resume`,

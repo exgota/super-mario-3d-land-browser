@@ -157,3 +157,23 @@ all2803protected inputs. Table candidatea099324c now replays the unchanged9000
 movie/profile through8770 in T3tab_1. Audio enabled at startup; first post-enable
 sampled renderer frame14. Pre-first-frame sound is not claimed for this run.
 One browser, no delegates. Pixel comparison pending; gameplay submission held.
+
+Table9000replay completed, comparison6e7d56dc. Top5456cf28 retains the same21pixels;
+all PCM/HID/audio timing/bottom outputs/CPU counts and Canvas/audio delivery pass.
+Warm8999intervals1935.995sec,4.6483/sec. World1-1/bridge visibly observed, no goal.
+Browser and identity-verified server67909 closed after exports, exit130. All32pause
+evidence seals and all2786public arithmetic module inputs preserve.
+
+Owner priority update: "Real-time play now outranks the last pixels." Submit ready
+work, record and park the21pixels, and use short measured performance runs with
+the360exactness gate. No further full-length exactness replay. Private fragment
+observer/native consumer built, never run, parked. Ready submission includes the
+gameplay/session family and public audio/fog/depth overlay, no matching claims.
+Private normalization/lighting candidates stay diagnostic only.
+
+Original window records601VBlanks/top submissions, median4481136guest ticks;
+both measured cadences59.83122493939037/sec of guest time. Hardware timing and
+unique frames are unobserved. Native five-second T3 process sample leaves Wasm
+functions unnamed; no named cost shares yet. JavaScript profiler is disabled by
+document policy and unavailable in workers. Next is bounded runtime timing during
+a short replay. Current order is project/browser_performance_plan.md.

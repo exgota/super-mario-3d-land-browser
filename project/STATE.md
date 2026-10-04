@@ -99,47 +99,31 @@ Passive minimum-tick observer family parked until state comparison step.
 
 ## Next tasks, in order
 
-Resume verified pushed0d8e5cc53 and all32 sealed evidence entries unchanged.
-Fresh synthetic native/Wasm arithmetic cases prove explicit native-order fog FMA
-and pairwise float reduction agree across1048576cases. Actual pixel attribution
-remains unknown; float reduction is excluded from the provider candidate because
-the known clipping/interpolation paths usef24. A separate candidate replaces only
-audio gain ramps/stereo downmix and fog FMA. All7build commands passed, unchanged
-archive members and protected inputs preserve. Wasm326eb1de,152434816bytes.
-The audio/fog9000replay completed: all9884160PCM channel samples, HID/audio timing,
-bottom RGBA/framebuffer, movie/profile delivery and actual Canvas/audio consumption
-pass. Top RGBA remains the exact earlier mismatching hash,22pixels. CPU04313017982,
-CPU1zero, fallbacks0. Comparisonec47ee93. Warm8999intervals2049.132sec,4.3916/sec. Its server closed after exports. Combined public depth/audio/fog build3d95c0e0
-completed the same9000movie. One former pixel is corrected;21previous pixels
-remain, no new pixels. HID/audio timing/PCM/bottom RGBA/framebuffer and CPU counts
-still agree. Comparison2283d069, warm8999intervals2158.828sec,4.1685/sec.
-Shared host has10cores/load14.14/swap1711.94MiB; no speed-change attribution.
-World1-1 loaded visibly and the original bridge endpoint completed. No goal.
-Its browser/server closed after export. Synthetic quaternion normalization proves
-native-order FMA equality across1048576inputs, but actual pixel attribution is
-unverified. Private normalization candidate063ccbaf completed the same9000movie:
-top RGBA remains5456cf28, the same21pixels; every other comparison passes.
-Comparisondea65273, warm8999intervals1992.011sec,4.5175/sec. Browser/server closed.
-Baseline and all failed evidence remain sealed. Gameplay submission stays held.
-Separate synthetic public lighting-object comparison runs1048576inputs,
-identical normalized-quaternion/view digest2e68b3491f53a8aa, but7color cases differ
-between native and Wasm. Receipt575c229c. This exposes a residual lighting
-difference. Explicit native-order lighting reductions alone leave5synthetic cases;
-adding native-order quaternion cross products closes all1048576color cases.
-Receipt2b14cbfa. Private lighting moduled98dc22c completed the9000movie:
-top RGBA remains5456cf28, the same21pixels. All other comparisons/CPU counts pass.
-Comparison06fea916, warm8999intervals2047.338sec,4.3955/sec. Browser/server closed.
-Broader lighting fixture292original/40rotation differences closes with LUT/distance
-FMA, receipt65b15219. Separate table modulea099324c builds in3commands, preserving
-all2803inputs. Same9000movie through8770 in T3tab_1, sound's first post-enable
-sampled frame14. One browser, no delegates. Pixel result pending. All32pause seals unchanged.
+Owner priority update October 3: "Real-time play now outranks the last pixels."
+The former exactness submission hold is superseded. Table replaya099324c finished:
+all PCM/HID/audio timing/bottom outputs/CPU counts and Canvas/audio delivery pass;
+top5456cf28 remains the same21pixels. Comparison6e7d56dc. Warm8999intervals
+1935.995sec,4.6483/sec. Browser and identity-verified server closed after exports.
+Public audio/fog/depth3d95c0e0 corrected the PCM sample and one former pixel.
+Private normalization/lighting candidates add no pixel correction. All original
+and failed evidence preserved. Fragment observer/native consumer built, never run,
+and parked. Do not run further full-length exactness replays.
+Submission covers ready gameplay/session tooling and public audio/fog/depth only;
+matching claims zero, residual21pixels disclosed. Goal/Section7 remain unverified.
 
-1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
-   document finite controls/session reruns, push and submit this family with no claims.
-2. Browser WebGPU PICA rendering/performance,24–48h highest uncertainty; then
-   natural original start-to-goal route and port replay,8–16h.
-3. Grounded Section7 player/camera/RNG/timer/coins with Pro,12–24h; final whole-level
-   browser goal/live controls/sound/runnable handoff,6–12h.
+Original recorded window has601VBlanks/top submissions, median4481136ticks;
+measured cadence59.83122493939037/sec of guest time. Physical hardware timing and
+unique frame count are not observed. Current throughput needs about12.87times gain.
+Five-second native process sample cannot name Wasm costs. JavaScript profiler is
+blocked by document policy and absent in workers. Top-three shares pending.
+Current order and evidence: project/browser_performance_plan.md.
+
+1. Submit ready work through the integrator with the21pixels recorded and parked.
+2. Profile short runs. Report top three costs/frame, measured shares and expected
+   gain per proposed change. Use unchanged360replay as exactness regression gate.
+3. Optimize port runtime for real-time input/audio on this Mac mini; then observe
+   ordinary browser World1-1 start-to-goal at the measured original cadence.
+4. Grounded Section7 state comparison remains a separate acceptance gap.
 
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
