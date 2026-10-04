@@ -4014,7 +4014,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001BC634,          ,0x001BC658,          ,U,f,,
 0x001BC658,          ,0x001BC728,          ,U,f,,
 0x001BC728,0x001BC7F8,0x001BC800,          ,U,f,,
-0x001BC800,          ,0x001BC820,          ,U,f,,
+0x001BC800,          ,0x001BC820,          ,O,f,fn_001BC800,
 0x001BC820,0x001BC898,0x001BC8A0,          ,U,f,,
 0x001BC8A0,0x001BCA28,0x001BCA5C,          ,U,f,,
 0x001BCA5C,          ,0x001BCA74,          ,O,f,fn_001BCA5C,
