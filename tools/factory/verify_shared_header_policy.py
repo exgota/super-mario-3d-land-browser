@@ -14,6 +14,8 @@ spec.loader.exec_module(module)
 results = {}
 with tempfile.TemporaryDirectory(prefix='shared-header-verification-') as directory:
     root = pathlib.Path(directory)
+    module.LOGS = root / "logs"
+    module.LOGS.mkdir()
     def git(*args):
         return subprocess.check_output(['git', '-C', str(root), *args], text=True).strip()
     def write(path, text):
