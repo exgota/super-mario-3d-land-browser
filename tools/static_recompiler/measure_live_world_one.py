@@ -313,7 +313,15 @@ def navigation_script(recipe):
    if(state.stage==='title_story' && anchor(recipe.map_anchor)) {
     state.stage='map';state.events.push({stage:'map',elapsedSeconds:(performance.now()-started)/1000});
     if(recipe.map_input_steps)await mapAction();
-    else {await sleep(1200);await press('ArrowRight',800);await sleep(2000);await press('KeyZ',800);state.stage='entering';}
+    else {
+     await sleep(1200);await press('ArrowRight',800);await sleep(2000);
+     if(!recipe.entry_node_anchor)await press('KeyZ',800);
+     state.stage='entering';
+    }
+   } else if(state.stage==='entering' && recipe.entry_node_anchor && anchor(recipe.entry_node_anchor)) {
+    await press('KeyZ',800);
+    state.events.push({stage:'entry_node',code:'KeyZ',elapsedSeconds:(performance.now()-started)/1000});
+    await sleep(1500);
    } else if(state.stage==='title_story') {
     await press('KeyZ');
     if(recipe.press_start && performance.now()-started>recipe.start_after_seconds*1000) {await sleep(500);await press('Enter');}
