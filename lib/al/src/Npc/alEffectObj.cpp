@@ -13,18 +13,6 @@ extern "C" void fn_0027BEA0( al::IUseEffectKeeper* effectUser, const char* name,
 extern "C" void fn_002796C0( al::IUseEffectKeeper* effectUser, const char* name );
 extern "C" int fn_00262810( al::IUseAudioKeeper* audioUser, const sead::SafeString& name, int parameter );
 
-namespace
-{
-struct EffectArchivePathBuffer
-{
-        void* mVirtualTable;
-        char* mStringTop;
-        int mBufferSize;
-        char mBuffer[ 128 ];
-};
-}
-
-extern "C" const sead::SafeString& fn_0028CB38( EffectArchivePathBuffer& path, const char* format, ... );
 extern "C" bool fn_0032F3C8( const sead::SafeString& archive );
 extern "C" void fn_001EBDDC( al::LiveActor* actor, const al::ActorInitInfo& info, const char* objectName );
 extern "C" const char dat_003B142C[];
@@ -74,8 +62,7 @@ void EffectObj::control()
 
 void EffectObjFunction::initActorEffectObj( EffectObj* actor, const ActorInitInfo& info, const char* objectName )
 {
-        EffectArchivePathBuffer archivePath;
-        if ( ::fn_0032F3C8( ::fn_0028CB38( archivePath, dat_003B142C, objectName ) ) )
+        if ( ::fn_0032F3C8( StringTmp<128>( dat_003B142C, objectName ) ) )
                 initActor( actor, info );
         else
                 initActorWithArchiveName( actor, info, dat_003B1440 );

@@ -21,6 +21,10 @@ public:
         }
 };
 
+// The 128-byte specialization is provided by the original constructor.
+template <>
+StringTmp<128>::StringTmp( const char* format, ... );
+
 const char* getBaseName( const char* name );
 const char* createStringIfInStack( const char* str );
 bool        isEqualString( const char* s1, const char* s2 );

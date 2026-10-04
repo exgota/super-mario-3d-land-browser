@@ -1,8 +1,5 @@
-namespace al {
-struct HitSensor;
-void sendMsg41(HitSensor*, HitSensor*);
-void sendMsgEnemyAttack(HitSensor*, HitSensor*);
-}
+#include <nn/types.h>
+#include <LiveActor/alSensorMsg.h>
 
 extern "C" void fn_0027D540(void*, al::HitSensor* arg1, al::HitSensor* arg2) {
     al::sendMsg41(arg2, arg1);

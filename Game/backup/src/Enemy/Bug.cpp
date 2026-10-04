@@ -1,4 +1,5 @@
 #include <LiveActor/alActorInitializationImports.h>
+#include <LiveActor/alActorActionParameters.h>
 #include "Enemy/Bug.h"
 #include "Enemy/EnemyStateBlowDown.h"
 #include "Enemy/EnemyStateHipDropDown.h"
@@ -26,25 +27,26 @@ extern "C" const BugInitialNerve dat_003F1F08;
 extern "C" const BugBlowDownNerve dat_003F1F2C;
 extern "C" const BugHipDropDownNerve dat_003F1F28;
 extern "C" void fn_00270FC4( al::LiveActor* actor, float amount, int direction );
-extern "C" const char* fn_0026C984( const al::LiveActor* actor, const char* action );
 extern "C" void fn_0027CF20( al::LiveActor* actor, const al::ActorInitInfo& info, int mode );
 extern "C" void fn_002535C8( al::LiveActor* actor, bool enabled );
 extern "C" const sead::Vector3f& fn_00273DE0( const al::LiveActor* actor, int index );
 extern "C" void fn_00273BD4( al::LiveActor* actor, const sead::Vector3f& offset, int index );
 
-struct BugActionNames
+struct BugActionParameters
 {
-        const char* mWait;
-        const char* mMoveFar;
-        const char* mMoveNear;
+        const float* mWait;
+        const float* mMoveFar;
+        const float* mMoveNear;
 
-        explicit BugActionNames( const al::LiveActor* actor )
+        explicit BugActionParameters( const al::LiveActor* actor )
         {
                 mWait = fn_0026C984( actor, "Wait" );
                 mMoveFar = fn_0026C984( actor, "MoveFar" );
                 mMoveNear = fn_0026C984( actor, "MoveNear" );
         }
 };
+
+static_assert( sizeof( BugActionParameters ) == 0x0C, "Bug action parameter pointer bundle" );
 
 namespace
 {
@@ -68,7 +70,7 @@ void Bug::init( const al::ActorInitInfo& info )
         al::initNerve( this, &dat_003F1F08, 2 );
         fn_00270FC4( this, 80.0f, 1 );
         BugTranslationCopy( mStartTrans ).set( al::getTrans( this ) );
-        mActionNames = new BugActionNames( this );
+        mActionParameters = new BugActionParameters( this );
         mBlowDownState = new EnemyStateBlowDown( this, nullptr, nullptr, 0 );
         al::initNerveState( this, mBlowDownState, &dat_003F1F2C, "state::BlowDown" );
         mHipDropDownState = new EnemyStateHipDropDown( this, nullptr, nullptr );
