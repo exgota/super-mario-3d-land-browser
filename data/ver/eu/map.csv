@@ -7106,7 +7106,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00242E10,          ,0x00242E1C,          ,O,f,fn_00242E10,
 0x00242E1C,          ,0x00242E24,          ,O,f,fn_00242E1C,
 0x00242E24,          ,0x00242ED0,          ,U,f,,
-0x00242ED0,          ,0x00242EDC,          ,U,f,,
+0x00242ED0,          ,0x00242EDC,          ,O,f,fn_00242ED0,
 0x00242EDC,          ,0x00242EF4,          ,U,f,,
 0x00242EF4,          ,0x00242EFC,          ,O,f,fn_00242EF4,
 0x00242EFC,          ,0x00242F08,          ,O,f,fn_00242EFC,
