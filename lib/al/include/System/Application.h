@@ -11,6 +11,7 @@ class MapObjActor;
 class SceneObjHolder;
 class SystemKit;
 } // namespace al
+
 class PlayerActor;
 class RootTask;
 
@@ -77,3 +78,5 @@ namespace al
 Application* getApplication();
 
 } // namespace al
+
+extern "C" RootTask* fn_0028E678( const Application* application );
