@@ -1,9 +1,11 @@
 # Browser World 1-1 delivery plan
 
-The owner requested a browser build that plays World 1-1 from start to goal by
-Wednesday. The working date is Wednesday, October 7, 2026, America/New_York.
-The owner has not specified a cutoff time. Estimates below are elapsed lane work
-and verification estimates, not delivery promises. Recorded October 3, 2026.
+The current owner target is a real-time World1-1 clip in a desktop browser tab
+as soon as possible. The October4 instruction removes the former demo date;
+phones and hosting are excluded. The active GPU plan is
+`browser_webgl_renderer_plan.md`. Earlier estimates below are historical elapsed
+lane work estimates, not current delivery promises. Recorded October3, updated
+October4,2026.
 
 ## Current rendering boundary
 

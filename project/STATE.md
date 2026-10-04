@@ -1,15 +1,15 @@
 # Root browser gameplay session state
 
-Root owns `root/browser-frame-performance`; next GPU branch is root/browser-webgl-renderer.
+Root owns `root/browser-webgl-renderer`; performanceca9953f3 accepted53edcf73.
 Gameplay c31443e29 was accepted
 at8f5d2c9d with21pixels disclosed and parked. Implementation baseline origin/main
 `96773182c9a4b23005dc39b9a661580619c841f2`. Only the integrator moves main,
 ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
 Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 
-Owner target: browser World 1-1 start to goal by Wednesday, October 7, 2026,
-Eastern. Cutoff unspecified. Ordered estimates in
-project/browser_world_one_delivery_plan.md are estimates, not promises.
+Owner target: real-time World1-1 desktop browser clip as soon as possible.
+Wednesday target removed October4; phones/hosting out of scope. GPU work:
+project/browser_webgl_renderer_plan.md. Estimates are not promises.
 Step1 bridge evidence submitted and accepted. Step2 resumed by the owner in T3
 Code on October 3. No subagents, delegated tasks or Codex relay for Root. No reorder.
 Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
@@ -129,7 +129,9 @@ closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
 d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
 Owner now directs independently written WebGL2 play renderer; software tuning
 stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
-Current order and evidence: project/browser_performance_plan.md.
+GPU41e08919 links6commands; actual short360run at8775is active. Color coherence
+only, depth/shared-target gaps open. Independent shader/triangle probe passes.
+Current order/evidence: project/browser_webgl_renderer_plan.md.
 
 1. Inventory preserved World1-1 PICA features, then build independent WebGL2 play.
 2. Measure per-frame visual error and fps against software on short360replay.
