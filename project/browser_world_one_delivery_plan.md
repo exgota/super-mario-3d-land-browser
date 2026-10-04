@@ -17,8 +17,14 @@ The retired compiler closure has now been reconstructed with historical byte
 identity. A fresh module exists. Actual default360 replay and normal360 replay
 passed original input/PCM/pixels/framebuffers; default also passed the full GPU
 stream comparison. All12 standard buttons and natural Stop passed actual browser
-HID/movie delivery. The capped9000presentation browser World1-1 replay completed at the bridge crates. Input/timing/CPU counts match, but22top pixels and1PCM sample differ. Its exact comparison failed, and this family is held while portability is diagnosed.
-The measured normal startup presentation rate is about8.7/sec after first frame; the9000prefix averages4.51/sec,
+HID/movie delivery. The capped9000presentation browser World1-1 replay completed
+at the bridge crates. The resumed audio/fog candidate now matches all9884160PCM
+channel samples, input/timing/CPU counts and the bottom screen, but22top pixels
+still differ. The combined depth/audio/fog candidate is replaying the original
+movie in the owner-started T3 thread. Its final comparison is pending; this
+family stays held.
+The measured normal startup presentation rate is about8.7/sec after first frame;
+the resumed9000prefix averages4.3916/sec across8999warm intervals,
 well below playable speed; separate execution-cost measurements remain pending.
 
 The accepted finite browser execution result remains available at
@@ -74,8 +80,8 @@ root/browser-gameplay-session. Selected limit <=60000 presentations, provider
 wall <=3600 seconds and audio <=256MiB. Ordinary mode exports no GPU/PICA files.
 Its session completion earns no complete replay or goal claim.
 
-One existing implementation helper owns scoped worker/page controls; root owns
-C++/build and actual browser verification. The passive minimum-tick observer
+Root now owns C++/build and actual browser verification in its owner-started T3
+thread. No subagents, delegated tasks or Codex relay are used. The passive minimum-tick observer
 family remains parked until grounded state comparison needs it. No new reviewer
 or unrelated harness work is started.
 Pro receives layout and typed update questions. Only the integrator moves main,

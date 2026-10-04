@@ -66,25 +66,50 @@ original movie/profile, and failed capture remain intact.
 
 ## Actual browser observation and remaining gate
 
-One bounded 9,000-presentation unchanged-movie replay is running in T3-owned
-tab `tab_1`. It uses the earlier audio/fog-only candidate, SHA-256 `326eb1de`,
-with no depth patch. The native file chooser selects the preserved local dump.
-The local server serves no dump and generates no game pixels.
+The first 9,000-presentation unchanged-movie replay completed in T3-owned
+tab `tab_1`. It used the earlier audio/fog-only candidate, SHA-256 `326eb1de`,
+with no depth patch. The native file chooser selected the preserved local dump.
+The local server served no dump and generated no game pixels.
 
 At renderer frame 2079, passive streamed-source observation reads left -5128
 and right -3628 at sample frame 1,099,311, matching the original capture.
 The prior browser value was right -3627. The observer copies the two source
 samples before forwarding the unchanged packet to the existing audio player.
-This establishes correction of that sample, not equality of the whole PCM.
+The subsequent complete exported PCM agrees at every channel sample.
 
-The full unchanged-movie replay, all final screens/framebuffers, complete PCM,
-HID/timing, actual Canvas, source packet consumption, and preservation still
-must pass. The public combined depth build is unrun. The first differing rendered
-frame, actual pixel operands, playable speed, goal and Section 7 remain unverified.
-Submission stays held until the comparison gap closes.
+All 9,884,160 PCM channel samples, HID/audio timing, bottom RGBA/framebuffer,
+movie/profile delivery, actual Canvas identity, all source-packet identities,
+and consumption of 4,942,080 stereo frames pass. CPU0 executes 4,313,017,982
+guest instructions; CPU1 zero; both fallbacks zero. The top RGBA retains the
+exact previous mismatching hash, with 22 different pixels. Warm 8,999 intervals
+take 2,049.132 seconds, 4.3916 presentations/second. Audio is correct but slow
+execution causes underruns; synchronized continuous sound is unverified.
+
+Comparison SHA-256 is
+`ec47ee9378da1f77b1867f911a590222d9b781dd9967f543612e8585e64a326e`.
+The first local checker invocation refused relative paths; the wrapper now
+resolves them before calling the unchanged strict input/movie comparators.
+No expected input, tolerance or captured file changed.
+
+An additional isolated quaternion-normalization diagnostic tests 1,048,576
+synthetic inputs against native object sites 0x865c/0x8664/0x866c. Native original
+and explicit native-order normalized-result digests both equal
+`d5634ba0901e84d1`; Wasm original equals `51badfcf0b02362b`, while explicit
+native order agrees with native. Separate rounding changes 129,684 lengths and
+467,452 normalized components. This expression is outside the current patch;
+actual differing-pixel operands and lighting activation remain unverified.
+Two initial tiny native builds selected incompatible command-line SDK stubs.
+The successful run pins the Xcode compiler/linker and MacOSX26.5 SDK already
+recorded in the audio diagnostic. No machine settings changed.
+
+The first server closed after exports. The public combined depth/audio/fog
+build `3d95c0e0` now runs the same movie in the same T3-owned tab, through a new
+server on port 8767. Only one browser replay is active. The first differing
+rendered frame, actual pixel operands, playable speed, goal and Section 7 remain
+unverified. Submission stays held until the comparison gap closes.
 
 Private evidence resides under this worktree's ignored `build/` directories:
-`graphics_arithmetic_resume`, `graphics_depth_resume`,
+`graphics_arithmetic_resume`, `graphics_depth_resume`, `graphics_normalization_resume`,
 `browser_arithmetic_module_candidate`, `browser_depth_module_candidate`,
 `browser_native_arithmetic_module`, and `browser_arithmetic_server_9000`.
 No game-derived payload or gameplay image belongs in Git.

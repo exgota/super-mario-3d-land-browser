@@ -106,10 +106,14 @@ remains unknown; float reduction is excluded from the provider candidate because
 the known clipping/interpolation paths usef24. A separate candidate replaces only
 audio gain ramps/stereo downmix and fog FMA. All7build commands passed, unchanged
 archive members and protected inputs preserve. Wasm326eb1de,152434816bytes.
-One bounded9000unchanged-movie replay is active in the T3-owned tabtab_1, using
-build/browser_arithmetic_server_9000 on8766. Runtime module/output is new and
-ignored; baseline/failed evidence remain sealed. Native file chooser selected the
-preserved owner dump. Gameplay submission remains held pending actual comparison.
+The audio/fog9000replay completed: all9884160PCM channel samples, HID/audio timing,
+bottom RGBA/framebuffer, movie/profile delivery and actual Canvas/audio consumption
+pass. Top RGBA remains the exact earlier mismatching hash,22pixels. CPU04313017982,
+CPU1zero, fallbacks0. Comparisonec47ee93. Warm8999intervals2049.132sec,4.3916/sec.
+Its server closed after exports. The combined public depth/audio/fog build3d95c0e0
+is now replaying the same9000movie in T3tab_1 through8767, output
+build/browser_native_arithmetic_server_9000. One browser run, no delegates.
+Baseline and all failed evidence remain sealed. Gameplay submission stays held.
 
 1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
    document finite controls/session reruns, push and submit this family with no claims.

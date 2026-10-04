@@ -87,3 +87,20 @@ streamed-source observation shows sampleframe1099311right=-3628, matching the
 reference rather than prior browser-3627. Full PCM/pixel equality remains pending.
 Separate unrun depth candidate links in3commands, wasmd03a179f,152434828bytes.
 No matching claim, main/rank/ledger edit or accepted World1-1/performance credit.
+
+The audio/fog9000movie completed, comparisonec47ee93. Complete PCM9884160channel
+samples now agrees, as do HID/audio timing, bottom RGBA/framebuffer, ordinary
+movie/profile delivery, actual Canvas and all4942080stereo source-frame
+consumption. Top RGBA retains exactly the earlier22-pixel difference. CPU0
+4313017982/CPU1zero/fallbacks0. Warm8999intervals2049.132sec,4.3916/sec; sound
+underruns remain. First server closed after export. Combined public depth/audio/
+fog module3d95c0e0 links in9commands and is now replaying the same9000movie in
+T3tab_1 on8767. Old evidence/provider inputs remain intact. Submission held.
+
+Additional1048576-case synthetic quaternion normalization isolates native-object
+FMA at0x865c/0x8664/0x866c. Explicit native order agrees with native original and
+Wasm; separate rounding changes129684lengths/467452components. Current candidate
+does not patch this expression. Actual pixel operands/lighting remain unverified.
+Two tiny native compile attempts picked incompatible command-line SDK stubs;
+the successful run pins the recorded Xcode MacOSX26.5SDK/compiler/linker. No
+machine setting changed. Evidence remains in ignoredgraphics_normalization_resume.
