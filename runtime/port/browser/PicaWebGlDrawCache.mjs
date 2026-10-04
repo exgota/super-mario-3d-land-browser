@@ -2,7 +2,11 @@
 // The owning renderer supplies the unchanged fragment shader and fixed-function state.
 (() => {
     'use strict';
-    const sameValues = (left, right) => left?.length === right?.length && left.every((value, index) => value === right[index]);
+    const sameValues = (left, right) => {
+        if (left?.length !== right?.length) return false;
+        for (let index = 0; index < left.length; ++index) if (left[index] !== right[index]) return false;
+        return true;
+    };
     const equalBytes = (left, right) => {
         if (left.byteLength !== right.byteLength) return false;
         for (let index = 0; index < left.byteLength; ++index) if (left[index] !== right[index]) return false;
@@ -25,6 +29,7 @@
             this.programs = new Map();
             this.translations = new Map();
             this.translationEntries = 0;
+            this.fragmentSemantics = new Map();
             this.resources = new Map();
             this.resourceBytes = 0;
             this.uniformBuffer = context.createBuffer();
@@ -216,6 +221,15 @@
             floats.set(descriptor.defaultAttributes, 404);
             return bytes;
         }
+        consumedOutputSemantics(fragmentSource) {
+            let semantics = this.fragmentSemantics.get(fragmentSource);
+            if (semantics) this.fragmentSemantics.delete(fragmentSource);
+            else semantics = Object.freeze(globalThis.consumedPicaVertexSemantics(fragmentSource));
+            this.fragmentSemantics.set(fragmentSource, semantics);
+            while (this.fragmentSemantics.size > this.maximumPrograms)
+                this.fragmentSemantics.delete(this.fragmentSemantics.keys().next().value);
+            return semantics;
+        }
         prepare(descriptor, fragmentSource) {
             try {
                 if (!Number.isInteger(descriptor.vertexCount) || descriptor.vertexCount <= 0 || descriptor.vertexCount % 3 ||
@@ -223,7 +237,7 @@
                     return this.unsupported('PICA draw is not a complete GS-disabled triangle list');
                 if (typeof fragmentSource !== 'string' || !fragmentSource) return this.unsupported('Current fragment source is missing');
                 const translation = this.translation({...descriptor,
-                    consumedOutputSemantics:globalThis.consumedPicaVertexSemantics(fragmentSource)});
+                    consumedOutputSemantics:this.consumedOutputSemantics(fragmentSource)});
                 if (!translation.supported) return this.unsupported(translation.diagnostics.join('; '));
                 const samplerCount = translation.uniforms.samplers.length;
                 if (samplerCount > this.maximumVertexSamplers || this.textureUnitBase + samplerCount > this.maximumCombinedSamplers ||
@@ -279,7 +293,7 @@
         dispose() {
             for (const key of this.resources.keys()) this.removeResource(key);
             for (const entry of this.programs.values()) if (entry.program) this.gl.deleteProgram(entry.program);
-            this.programs.clear(); this.translations.clear();
+            this.programs.clear(); this.translations.clear(); this.fragmentSemantics.clear();
             this.translationEntries = 0;
             this.gl.deleteBuffer(this.uniformBuffer); this.gl.deleteVertexArray(this.vertexArray);
             this.uniformBytes = null;
