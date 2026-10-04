@@ -12,6 +12,11 @@ protected:
         LiveActor* const mHost;
 
 public:
+        LiveActor* getHost() const
+        {
+                return mHost;
+        }
+
         ActorStateBase( const char* name, LiveActor* host ) : NerveStateBase( name ), mHost( host )
         {
         }

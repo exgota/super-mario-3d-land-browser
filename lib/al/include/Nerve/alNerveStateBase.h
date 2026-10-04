@@ -16,6 +16,11 @@ public:
                 return mIsDead;
         }
 
+        inline void setDead( bool isDead )
+        {
+                mIsDead = isDead;
+        }
+
 public:
         virtual void init();
         virtual void appear();
