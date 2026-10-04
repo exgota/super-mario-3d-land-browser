@@ -7837,7 +7837,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00258964,          ,0x00258984,          ,U,f,,
 0x00258984,          ,0x002589B0,          ,U,f,,
 0x002589B0,          ,0x002589EC,          ,O,f,_ZN2al28updateNerveStateAndNextNerveEPNS_9IUseNerveEPKNS_5NerveE,
-0x002589EC,          ,0x002589F8,          ,U,f,,
+0x002589EC,          ,0x002589F8,          ,O,f,fn_002589EC,
 0x002589F8,0x00258A50,0x00258A54,          ,U,f,,
 0x00258A54,          ,0x00258AEC,          ,U,f,,
 0x00258AEC,          ,0x00258B1C,          ,U,f,,
