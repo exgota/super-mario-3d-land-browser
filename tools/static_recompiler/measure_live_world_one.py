@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coordinate runtime builds and collect comparable live World 1-1 measurements."""
+"""Run functional boots and serialize live World 1-1 frame-time measurements."""
 import argparse
 import base64
 import datetime
@@ -189,20 +189,14 @@ def enqueue(args):
     manifest = json.loads((module / 'build_manifest.json').read_text())
     if not manifest.get('passed') or not manifest.get('gameplay_session_supported'):
         raise ValueError('Candidate is not a linked gameplay module')
-    seals = {str(module / 'build_manifest.json'): digest(module / 'build_manifest.json'), str(server): digest(server),
-             str(reference / 'input_movie.ctm'): digest(reference / 'input_movie.ctm'),
-             str(DEFAULT_SCHEDULE): digest(DEFAULT_SCHEDULE)}
     for key in ('module', 'wasm'):
         path = Path(manifest[key]).resolve()
-        if path.parent != module or digest(path) != manifest[key + '_sha256']:
-            raise ValueError('Candidate module identity differs')
-        seals[str(path)] = manifest[key + '_sha256']
+        if path.parent != module or not path.is_file():
+            raise ValueError('Candidate module path differs or is missing')
     initial = reference / 'initial_user_state'
     for path in sorted(initial.rglob('*')):
         if path.is_symlink():
             raise ValueError('Reference tree contains a symbolic link')
-        if path.is_file():
-            seals[str(path)] = digest(path)
     if not any(path.is_file() for path in initial.rglob('*')):
         raise ValueError('Reference tree is empty')
     navigation = json.loads(args.navigation.read_text()) if args.navigation else {'schema': 1, 'strategy': 'calibration', 'deadline_seconds': 120}
@@ -211,13 +205,17 @@ def enqueue(args):
     if navigation.get('strategy') == 'recorded_navigation':
         if not navigation.get('events') or not navigation.get('world_anchor'):
             raise ValueError('Recorded navigation requires delivered input changes and an observed World anchor')
-    elif navigation.get('strategy') != 'calibration' and (not navigation.get('map_anchor') or not navigation.get('world_anchor')):
+    elif navigation.get('strategy') == 'smoke' and args.operation != 'functional-boot':
+        raise ValueError('Smoke boot cannot admit a frame-time measurement')
+    elif navigation.get('strategy') not in ('calibration', 'smoke') and (not navigation.get('map_anchor') or not navigation.get('world_anchor')):
         raise ValueError('World navigation requires both observed scene anchors')
     QUEUE.mkdir(parents=True, exist_ok=True)
     identifier = datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '_' + uuid.uuid4().hex[:8]
-    job = {'schema': 1, 'identifier': identifier, 'lane': args.lane, 'state': 'queued', 'queued_utc': timestamp(),
+    job = {'schema': 1, 'identifier': identifier, 'lane': args.lane, 'state': 'functional_pending' if args.operation == 'functional-boot' else 'queued', 'queued_utc': timestamp(),
            'repository': str(repository), 'module': str(module), 'server': str(server), 'reference': str(reference),
-           'input_seals': seals, 'navigation': navigation, 'measurement_protocol': '10second warmup plus30second displayed-frame window;40second audio'}
+           'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repository, text=True).strip(),
+           'functional_only': args.operation == 'functional-boot', 'navigation': navigation,
+           'measurement_protocol': 'functional boot only' if args.operation == 'functional-boot' else '10second warmup plus30second displayed-frame window;40second audio'}
     write_json(QUEUE / (identifier + '.json'), job)
     return job
 
@@ -251,7 +249,14 @@ def navigation_script(recipe):
  state.stop=()=>{state.cancelled=true;for(const code of held)key(code,false);};
  canvas.focus();
  try {
-  if(recipe.strategy==='recorded_navigation') {
+  if(recipe.strategy==='smoke') {
+   while(!state.cancelled && performance.now()-started<recipe.deadline_seconds*1000) {
+    record();
+    if(state.frame){state.stage='first_frame';state.complete=true;break;}
+    if(document.body.dataset.captureState==='failed')throw new Error(document.querySelector('#capture-error').textContent);
+    await sleep(50);
+   }
+  } else if(recipe.strategy==='recorded_navigation') {
    const codes=['KeyZ','KeyX','ShiftLeft','Enter','KeyL','KeyJ','KeyI','KeyK','KeyW','KeyQ','KeyS','KeyA'];
    const initial=page.previewFrameObservation();if(!initial)throw new Error('No displayed frame before navigation');
    const shift=BigInt(initial.sampled_ticks)-BigInt(recipe.events[0].ticks);
@@ -295,11 +300,8 @@ def run_job(job_path):
     from browser_session_policy import BrowserSession
     from browser_process_identity import process_identity, identity_matches
     job = json.loads(job_path.read_text())
-    for path, expected in job['input_seals'].items():
-        if digest(Path(path)) != expected:
-            raise RuntimeError('Queued input changed: ' + path)
-    admitted = reservation('reserve', job['lane'], 'measurement')
-    token = admitted['token']
+    functional = job.get('functional_only', False)
+    token = None if functional else reservation('reserve', job['lane'], 'measurement')['token']
     output = ROOT / 'build/runtime_measurements' / job['identifier']
     output.mkdir(parents=True)
     server_output = Path(job['repository']) / 'build/runtime_measurements' / (job['identifier'] + '_server')
@@ -374,14 +376,15 @@ def run_job(job_path):
                 raise RuntimeError(state.get('error', 'World entry did not complete'))
             job['browser_identity'] = evaluate(browser, '() => ({userAgent:navigator.userAgent,origin:location.origin,crossOriginIsolated,secureContext:isSecureContext})')
             job['startup_diagnostics'] = evaluate(browser, 'async () => {const page=await import("/BrowserCapturePage.mjs");return typeof page.runtimeInitializationObservation==="function"?page.runtimeInitializationObservation():null;}')
-            evaluate(browser, '() => ' + browser_script())
-            for _ in range(3):
-                time.sleep(15)
-                resource_samples.append(resources())
-                write_json(output / 'resources.json', resource_samples)
-            observation = evaluate(browser, '() => window.liveWorldMeasurement')
-            write_json(output / 'observation.json', observation)
-            write_json(output / 'analysis.json', analyze(observation))
+            if not functional:
+                evaluate(browser, '() => ' + browser_script())
+                for _ in range(3):
+                    time.sleep(15)
+                    resource_samples.append(resources())
+                    write_json(output / 'resources.json', resource_samples)
+                observation = evaluate(browser, '() => window.liveWorldMeasurement')
+                write_json(output / 'observation.json', observation)
+                write_json(output / 'analysis.json', analyze(observation))
             browser.run(['run-code', 'async(page)=>{await page.locator("#run-preview").click();await page.waitForFunction(()=>["complete","failed"].includes(document.body.dataset.captureState),null,{timeout:90000});}'], timeout=100)
             job['final_browser_state'] = evaluate(browser, '() => ({state:document.body.dataset.captureState,identifier:document.body.dataset.captureIdentifier,error:document.querySelector("#capture-error").textContent})')
             if job['final_browser_state']['state'] != 'complete':
@@ -407,7 +410,8 @@ def run_job(job_path):
             server_absent = server.poll() is not None and identity_matches(server_identity) is False
         job.update(ended_utc=timestamp(), browser_cleanup=browser_cleanup, server_absence_observed=server_absent)
         if server_absent and ((not browser_attempted) or (browser_cleanup is not None and browser_cleanup.get('passed') is True)):
-            job['release'] = reservation('release', token=token)
+            if token is not None:
+                job['release'] = reservation('release', token=token)
         else:
             job['cleanup_blocker'] = 'Reservation retained because owned helper absence is unproved'
         write_json(job_path, job)
@@ -419,12 +423,14 @@ def run_queue():
     QUEUE.mkdir(parents=True, exist_ok=True)
     with (QUEUE / 'runner.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        for path in sorted(QUEUE.glob('*.json')):
-            job = json.loads(path.read_text())
-            if job.get('state') != 'queued':
-                continue
+        while True:
+            pending = [path for path in sorted(QUEUE.glob('*.json'))
+                       if json.loads(path.read_text()).get('state') == 'queued']
+            if not pending:
+                break
             if reservation('status')['reservation']:
-                return {'state': 'waiting', 'reason': 'Existing build or measurement reservation'}
+                return {'state': 'waiting', 'reason': 'Existing frame-time measurement'}
+            path = pending[0]
             result = run_job(path)
             print(json.dumps({'job': str(path), 'state': result['state'], 'output': result['output']}), flush=True)
             if result.get('cleanup_blocker'):
@@ -433,7 +439,7 @@ def run_queue():
 
 
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('operation', choices=('status', 'reserve', 'sample', 'release', 'browser-script', 'analyze', 'enqueue', 'run-queue', 'queue-status'))
+parser.add_argument('operation', choices=('status', 'reserve', 'sample', 'release', 'browser-script', 'analyze', 'enqueue', 'functional-boot', 'run-queue', 'queue-status'))
 parser.add_argument('--lane')
 parser.add_argument('--kind', choices=('measurement', 'build'))
 parser.add_argument('--token')
@@ -452,12 +458,15 @@ elif args.operation == 'analyze':
     report = analyze(observation)
     args.output.write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report))
-elif args.operation == 'enqueue':
+elif args.operation in ('enqueue', 'functional-boot'):
     if not args.module or not args.lane:
         raise ValueError('Specify lane and module')
     job = enqueue(args)
-    print(json.dumps({'identifier':job['identifier'], 'lane':job['lane'], 'state':job['state'],
-                      'job':str(QUEUE / (job['identifier'] + '.json'))}))
+    if args.operation == 'functional-boot':
+        print(json.dumps(run_job(QUEUE / (job['identifier'] + '.json'))))
+    else:
+        print(json.dumps({'identifier':job['identifier'], 'lane':job['lane'], 'state':job['state'],
+                          'job':str(QUEUE / (job['identifier'] + '.json'))}))
 elif args.operation == 'run-queue':
     print(json.dumps(run_queue()))
 elif args.operation == 'queue-status':

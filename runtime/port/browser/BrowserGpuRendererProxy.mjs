@@ -103,7 +103,7 @@
             if (!this.configuration) throw new Error('GPU draw state is unavailable');
             if (this.configurationPending) {
                 this.submit(2, [[1, this.configuration]]);
-                this.publishedDrawState();
+                this.configurationPending = false;
             }
         }
         tryDrawVertexBatch(descriptor) {
@@ -133,7 +133,7 @@
                     previous.splice(previous.indexOf(expired), 1);
                     if (!previous.length) this.acceptedPrograms.delete(expired.key);
                 }
-                this.publishedDrawState();
+                this.configurationPending = true;
             }
             if (!entry.accepted) return false;
             this.submit(3, [[1, this.configuration], [2, descriptor]]);
@@ -150,20 +150,23 @@
             if (!this.triangleComponents) return;
             this.ensureDrawState();
             this.submit(11, [[3, this.triangles.subarray(0, this.triangleComponents)]]);
+            this.publishedDrawState();
             this.triangleComponents = 0;
         }
         readSurface(key) {
             this.endDraw();
             this.ensureDrawState();
-            const surface = this.surfaces.get(String(key));
+            const surface = this.surfaceDescriptions.get(String(key));
             if (!surface) return null;
             const result = this.submit(7, [[1, {surfaceId: String(key)}]], surface.width * surface.height * 4, true);
+            this.surfaces.set(String(key), surface);
             return result.length ? result : null;
         }
         clearSurface(key, color, depthStencil) {
             this.endDraw();
             this.ensureDrawState();
             this.submit(5, [[1, {surfaceId: String(key), color, depthStencil}]], 0, true);
+            this.surfaces.set(String(key), this.surfaceDescriptions.get(String(key)));
         }
         deleteSurface(key) {
             this.endDraw();

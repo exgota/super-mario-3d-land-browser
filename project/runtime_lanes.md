@@ -141,33 +141,34 @@ Cap63489, default0, explicit starvation, Chrome synthetic no measured buffering
 gain and Safari untested remain its limits. Use loopback HTTP for current work.
 No localhost certificate creation or trust change is requested.
 
-## One measurement and build arbiter
+## Frame-time measurement queue
 
 Root-owned shared script:
-`tools/static_recompiler/measure_live_world_one.py`, always invoked by its absolute
-Root-worktree path. Shared state is outside lane clones at
+`tools/static_recompiler/measure_live_world_one.py`, invoked by its absolute
+Root-worktree path. Shared state remains at
 `/Users/exgota/super-mario-3d-land-browser/build/runtime_coordination`.
 
-`reserve --lane R1 --kind measurement` returns an ownership token. Any existing
-reservation refuses admission. `reserve --lane R2 --kind build` uses the same
-exclusive reservation, so no runtime-lane build overlaps a measurement. Build
-commands run nice5 with a fully detached supervisor. Keep one heavy build active
-at a time across these lanes initially. Source inspection and editing need no lock.
-`sample --token TOKEN` records timestamped load, exact Python/script factory
-classification and sanitized process CPU/RSS/nice. Sample before/after and every
-15seconds of the live window. `release --token TOKEN` records the final sample and
-releases only that token. Release after owned browser/build helpers have stopped.
-No stale-lock stealing or signalling another lane. Send Root a stuck reservation.
-Free disk below12GB blocks build admission and is a stop/report condition.
+Only frame-time measurements require exclusive admission. Functional browser
+checks, shader compilation, smoke boots, entry preparation and bounded builds
+run at nice 5 without a token or time window. They must stop their own helpers.
+Record concurrent load with timing; functional work does not certify performance.
+No lane signals another lane's processes. Free disk below 12 GB remains a stop
+condition for builds. Source editing continues while measurement jobs wait.
 
-The common plain-Chrome baseline completed and Root released token
-`613b6c6384f6451a964970d94690be7f` after its owned Guest window and server closed.
-Source edits and reserved candidate builds are released for R1–R4. R2's first
-one-object CPU candidate has initial build/measurement priority. A bounded R3
-native-object compile (maximum30seconds) may follow its full cleanup if R4 has not
-yet reserved; R4's JavaScript file-cache measurement then remains next. No lane repeats the identical common before-run.
-Verify the clone's module/input seals and cite the shared receipt. Reserve every
-candidate measurement and retain its own source/load/cleanup evidence.
+The queue owns measurement admission and cleanup. Lanes submit a candidate path,
+then use one shared runner. It rescans after each job so later submissions drain
+in the same process. Do not reserve a separate browser token. A failed functional
+check may be retried when ready, without obtaining a window.
+
+R4's sole current task is ordinary boot to World 1-1 in under two minutes. It
+checks exact-title savedata/extdata and file-slot selection or supplies normal
+scripted inputs. It does not edit save bytes. The copied Steve save still plays
+the opening story in native Azahar and the browser. It is not a proved intro skip.
+R4 supplies one working recipe to every lane before the next speed comparison.
+
+`functional-boot` uses the same pinned plain-Chrome lifecycle and launch recipe,
+without a frame-time collector or exclusive token. A local navigation recipe
+with strategy `smoke` observes the first displayed frame and stops normally.
 
 `browser-script` prints the browser-evaluate expression for the shared collector.
 It observes displayed renderer-frame changes at8ms, warms10seconds and records
@@ -235,14 +236,13 @@ python3 measure_live_world_one.py run-queue
 python3 measure_live_world_one.py queue-status
 ```
 
-The runner must be fully detached. It acquires the same build/measurement arbiter,
-runs queued jobs in filename order and never steals a reservation. A held arbiter
-returns waiting without starting a browser; run the queue again after handback.
-Each job seals its manifest, module/Wasm, server, original movie/schedule and every
-initial user file. The selected server recipe determines served page/worker assets,
-whose complete input inventory is retained by that server. Local manifest paths
-may be relocated, preserving original manifest and unchanged binary hashes.
-Only one runner holds runner.lock. Output and failure receipts remain ignored.
+The runner must be fully detached. It serializes frame-time jobs in filename
+order. A held frame-time reservation returns waiting without starting another
+measurement. Record the Git commit and one result JSON. Do not produce new seal
+files or rehash historical evidence. Runtime game identity validation remains
+unchanged. Local manifest paths may be relocated. The selected server must accept
+outputs beneath the lane's build directory. Only one runner holds runner.lock.
+Output and failure receipts remain ignored.
 
 File selection, trusted Run/audio clicks and controller admission use the existing
 pinned installed-Chrome BrowserSession policy. Normal page keyboard handlers drive
@@ -282,9 +282,8 @@ closes the draw before an accelerated return. R3 owns raw vertex/resource code.
 
 ## Integration and acceptance
 
-Send Root and orchestrator a SPEED REPORT with exact commit, source/artifact hashes,
-live median/p99/fps before/after, load/resource receipt, changed behavior, next step
-and specific blocker. A source-only or synthetic report labels unmeasured gameplay.
+Send Root the commit and one measurement JSON with live median/p99/fps, load,
+changed behavior and any concrete blocker. Report material milestones to the orchestrator. A source-only or synthetic report labels unmeasured gameplay.
 Root reviews and integrates exact lane commits. No lane merges Root/main or submits
 to factory. Keep the unchanged software renderer as the reference. Following the
 latest advisor measurement-throughput direction, routine360 and byte-exact capture
@@ -325,3 +324,20 @@ This overlaps prepared draws within a command list; complete translated-CPU/GPU
 overlap still needs delayed CPU completion wiring. No skipped-draw success.
 The6364ordinary copied save still shows the intro in the120s R2 entry test.
 Do not rerun that failed recipe unchanged or edit save flags.
+
+## Current GPU worker and presentation boundary
+
+The combined candidate `build/browser_gpu_pipeline_candidate` links R2's O3
+adapter/scheduler, R3 raw vertices, memoization and uniform ring, and R1's shared
+Wasm GPU executor. All six build commands passed. Actual browser admission and
+World speed remain unmeasured. Root stages draw configuration and binds it once
+after raw-program preparation, with lazy output-program setup on CPU fallback.
+CPU command-list interrupt sites fence ordered draw completion. This first stage
+permits prepared draw overlap inside command lists; full CPU/GSP overlap is pending.
+
+R3 additionally owns `PicaWebGlPresentation.mjs` and
+`BrowserWebGlPresentation.cpp/.h`. It composes mapped GPU surfaces into one
+400 by 480 bitmap, with explicit unsupported fallback and no normal-frame
+readback. Root owns display-transfer/address mapping and actual guest-read
+coherence barriers. R1 owns ordered transport/admission through the existing
+GPU owner. R4 owns worker/page bitmap painting after the fast-entry task.
