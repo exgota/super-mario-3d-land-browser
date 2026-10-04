@@ -524,7 +524,9 @@ def shared_type_violations(worktree, base, proposed):
             if not path.is_file():
                 continue
             text = path.read_text(errors="replace")
-        for name in source_type_definitions(text):
+        aliases = re.findall(r"\busing\s+([A-Za-z_]\w*)\s*=", text)
+        aliases += re.findall(r"\btypedef\b[^;{}]*\b([A-Za-z_]\w*)\s*;", text)
+        for name in set(source_type_definitions(text)) | set(aliases):
             known[name].append(relative)
     violations = []
     for relative, text in proposed.items():
@@ -2025,6 +2027,7 @@ class Supervisor:
                     "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>")
             for relative in class_files:
                 if (proposal / relative).exists():
+                    (INTEGRATION / relative).parent.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(proposal / relative, INTEGRATION / relative)
             git(INTEGRATION, "add", "--", *class_files)
             git(INTEGRATION, "commit", "-q", "-m", f"Write {', '.join(symbols[a] for a in addresses)} in {class_files[-1]} (class mode, {metadata['model']})"
@@ -2072,6 +2075,7 @@ class Supervisor:
             if not reject:
                 for relative in class_files:
                     if (proposal / relative).exists():
+                        (INTEGRATION / relative).parent.mkdir(parents=True, exist_ok=True)
                         shutil.copy2(proposal / relative, INTEGRATION / relative)
                 set_map_rows(INTEGRATION, {a: ("M", symbols[a]) for a in addresses})
                 git(INTEGRATION, "add", "--", str(MAP), *class_files)

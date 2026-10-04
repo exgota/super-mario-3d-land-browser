@@ -25,7 +25,7 @@ with tempfile.TemporaryDirectory(prefix='shared-header-verification-') as direct
     git('config', 'user.name', 'Verification')
     header = 'lib/example/include/SharedRecord.h'
     implementation = 'Game/backup/src/Factory/fn_00100000.cpp'
-    write(header, 'namespace example { struct SharedRecord { int value; }; }\n')
+    write(header, 'namespace example { struct SharedRecord { int value; }; typedef SharedRecord SharedAlias; }\n')
     write('Game/backup/src/Existing.cpp', 'namespace { struct SharedRecord { int legacy; }; }\n')
     write('data/ver/eu/map.csv', 'Start,Pool,End,Section,Rank,Type,Symbol,SectionName\n0x00100000,,0x00100004,,U,f,fn_00100000,\n')
     git('add', '.'); git('commit', '-qm', 'Isolated fixture')
@@ -36,6 +36,7 @@ with tempfile.TemporaryDirectory(prefix='shared-header-verification-') as direct
     assert not module.shared_type_violations(root, base, {implementation: '// struct SharedRecord { };\nconst char* x="struct SharedRecord { }";\nstruct SharedRecord;\n'})
     assert not module.shared_type_violations(root, base, {'Game/backup/src/Existing.cpp': 'namespace { struct SharedRecord { int legacy; }; }\n'})
     assert module.shared_type_violations(root, base, {'lib/example/include/NewRecord.h':'struct NewRecord { int value; };', implementation:'struct NewRecord { int value; };'})
+    assert module.shared_type_violations(root, base, {implementation: 'struct SharedAlias { int value; };'})
     results['duplicate_rejected_shared_use_and_forward_allowed_legacy_preserved'] = True
     write(header, 'namespace example { struct SharedRecord { int value; int extension; }; }\n')
     write('lib/example/include/NewRecord.hpp', 'struct NewRecord { int value; };\n')
@@ -66,6 +67,16 @@ with tempfile.TemporaryDirectory(prefix='shared-header-verification-') as direct
     assert retired == [(proposal, 'rejected')]
     assert git('rev-parse', 'main') == base
     results['batch_bypass_rejected_before_build_ref_unchanged'] = True
+    supervisor.database.execute('CREATE TABLE jobs(id INTEGER,status TEXT,leased_by TEXT)')
+    supervisor.database.execute("INSERT INTO jobs VALUES(1,'proposed',NULL)")
+    metadata = json.loads((proposal / 'matched.json').read_text())
+    metadata.update(job=1, base=base, class_files=[implementation])
+    (proposal / 'matched.json').write_text(json.dumps(metadata))
+    supervisor.integrate_class(proposal)
+    supervisor.submit_class_proposal(proposal)
+    assert retired[-2:] == [(proposal, 'rejected'), (proposal, 'rejected')]
+    assert git('rev-parse', 'main') == base
+    results['class_and_escalation_bypasses_rejected_before_build'] = True
     # Source submissions use the same gate, independently of the worker proposal format.
     git('checkout', '-qb', 'integrator/rejected-type', base)
     write('Game/backup/src/NewSource.cpp', duplicate)
