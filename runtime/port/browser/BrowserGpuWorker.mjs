@@ -162,7 +162,11 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         if (!bytes.byteLength || bytes.byteLength % (66 * 4) !== 0)
             throw new Error('GPU output triangle section must contain complete float22 triangles');
         const vertices = new Float32Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 4);
-        renderer.beginDraw(configuration());
+        // The CPU proxy may publish DrawState separately before triangle bytes.
+        // That configuration already owns copies beyond queue retirement.
+        const drawConfiguration = sections.has(1) ? configuration() : renderer.currentDrawConfiguration;
+        if (!drawConfiguration) throw new Error('GPU output triangles require prepared draw state');
+        renderer.beginDraw({...drawConfiguration, preparedVertexProgram: null});
         for (let offset = 0; offset < vertices.length; offset += 66)
             renderer.appendTriangle(vertices.subarray(offset, offset + 66));
         renderer.endDraw();
