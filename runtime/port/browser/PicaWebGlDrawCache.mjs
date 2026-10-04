@@ -33,6 +33,11 @@
             this.resources = new Map();
             this.resourceBytes = 0;
             this.uniformBuffer = context.createBuffer();
+            this.uniformBufferCapacity = 1024 * 1024;
+            this.uniformBufferAlignment = context.getParameter(context.UNIFORM_BUFFER_OFFSET_ALIGNMENT);
+            this.uniformBufferAllocated = false;
+            this.uniformBufferOffset = 0;
+            this.nextUniformBufferOffset = 0;
             this.vertexArray = context.createVertexArray();
             this.uniformBytes = null;
             this.shaderDiagnostics = [];
@@ -42,7 +47,8 @@
             this.unsupportedStates = Object.create(null);
             this.statistics = {draws: 0, vertices: 0, translations: 0, programHits: 0,
                 resourceHits: 0, resourceUploads: 0, resourceInvalidations: 0,
-                uniformHits: 0, uniformUploads: 0, uploadedBytes: 0, fallbackDraws: 0};
+                uniformHits: 0, uniformUploads: 0, uniformStorageAllocations: 0,
+                uploadedBytes: 0, fallbackDraws: 0};
         }
         unsupported(reason) {
             this.unsupportedStates[reason] = (this.unsupportedStates[reason] ?? 0) + 1;
@@ -266,13 +272,24 @@
             gl.useProgram(prepared.program); gl.bindVertexArray(this.vertexArray);
             gl.bindBuffer(gl.UNIFORM_BUFFER, this.uniformBuffer);
             if (!this.uniformBytes || !equalBytes(this.uniformBytes, prepared.uniformBytes)) {
-                // Orphan changed storage. Previously submitted draws retain their original uniforms.
-                gl.bufferData(gl.UNIFORM_BUFFER, prepared.uniformBytes, gl.STREAM_DRAW);
+                const stride = Math.ceil(prepared.uniformBytes.byteLength / this.uniformBufferAlignment) *
+                    this.uniformBufferAlignment;
+                // Append aligned packets. Orphan on wrap so earlier draws keep their storage.
+                if (!this.uniformBufferAllocated || this.nextUniformBufferOffset + stride > this.uniformBufferCapacity) {
+                    gl.bufferData(gl.UNIFORM_BUFFER, this.uniformBufferCapacity, gl.STREAM_DRAW);
+                    this.uniformBufferAllocated = true;
+                    this.nextUniformBufferOffset = 0;
+                    ++this.statistics.uniformStorageAllocations;
+                }
+                this.uniformBufferOffset = this.nextUniformBufferOffset;
+                gl.bufferSubData(gl.UNIFORM_BUFFER, this.uniformBufferOffset, prepared.uniformBytes);
+                this.nextUniformBufferOffset += stride;
                 this.uniformBytes = prepared.uniformBytes;
                 ++this.statistics.uniformUploads;
                 this.statistics.uploadedBytes += prepared.uniformBytes.byteLength;
             } else ++this.statistics.uniformHits;
-            gl.bindBufferBase(gl.UNIFORM_BUFFER, this.uniformBlockBinding, this.uniformBuffer);
+            gl.bindBufferRange(gl.UNIFORM_BUFFER, this.uniformBlockBinding, this.uniformBuffer,
+                this.uniformBufferOffset, prepared.uniformBytes.byteLength);
             for (let index = 0; index < prepared.resources.length; ++index) {
                 const unit = this.textureUnitBase + index;
                 gl.activeTexture(gl.TEXTURE0 + unit); gl.bindSampler(unit, null);
