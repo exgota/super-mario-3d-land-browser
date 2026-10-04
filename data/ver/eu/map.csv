@@ -8028,7 +8028,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0025DDD0,          ,0x0025DDE0,          ,U,f,,
 0x0025DDE0,          ,0x0025DDE8,          ,O,f,fn_0025DDE0,
 0x0025DDE8,          ,0x0025DE34,          ,U,f,,
-0x0025DE34,          ,0x0025DE40,          ,U,f,,
+0x0025DE34,          ,0x0025DE40,          ,O,f,fn_0025DE34,
 0x0025DE40,0x0025DE60,0x0025DE7C,          ,U,f,,
 0x0025DE7C,          ,0x0025DEA4,          ,U,f,,
 0x0025DEA4,          ,0x0025DECC,          ,U,f,,
