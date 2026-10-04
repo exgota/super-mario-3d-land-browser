@@ -102,12 +102,25 @@ StaticArmBackend::~StaticArmBackend() {
 #endif
 }
 
+void StaticArmBackend::RefreshMemoryPages() {
+    context.read_pages = context.write_pages = callback_pages.data();
+    if (trace || write_observation || execution_observation) return;
+    const auto current_page_table = memory.GetCurrentPageTable();
+    if (current_page_table) {
+        // This is the live array. Remapping, watchpoints and rasterizer cache
+        // invalidation update its cells rather than a copied page snapshot.
+        // Non-Memory pages remain null and use the existing host callbacks.
+        context.read_pages = context.write_pages = current_page_table->GetPointerArray().data();
+    }
+}
+
 void StaticArmBackend::Run() {
     ExecutionBoundary("run_entry");
     if (write_observation) instruction_context.valid = false;
     if (break_flag || timer->GetDowncount() <= 0) { ExecutionBoundary("run_not_entered"); return; }
     if (cpsr_control & 0x0600FE00u)
         throw std::runtime_error("native scheduling does not support CPSR IT or big-endian state");
+    RefreshMemoryPages();
     reschedule = false;
     schedule->BeginRun();
     // The stock CPU exposes accumulated completed-block ticks at SVC and Run return.
@@ -140,6 +153,7 @@ void StaticArmBackend::Run() {
                 try { ExecutionBoundary("supervisor_call_exception_visibility_gap"); } catch (...) {}
                 throw;
             }
+            RefreshMemoryPages();
             ExecutionBoundary("supervisor_call_return_visibility_gap");
             if (!schedule->Complete(context, context.r[15] | context.thumb, timer->GetDowncount(), reschedule)) {
                 timer->AddTicks(schedule->TakePendingTicks());

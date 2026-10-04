@@ -58,6 +58,7 @@ protected:
 private:
     void InitializeModule(Core::System& system, const TranslatedFunctionModule& module,
                           const std::filesystem::path& schedule_path);
+    void RefreshMemoryPages();
     static u8 Read8(Context*, u32);
     static u16 Read16(Context*, u32);
     static u32 Read32(Context*, u32);
