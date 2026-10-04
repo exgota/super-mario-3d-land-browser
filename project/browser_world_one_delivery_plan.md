@@ -19,12 +19,13 @@ passed original input/PCM/pixels/framebuffers; default also passed the full GPU
 stream comparison. All12 standard buttons and natural Stop passed actual browser
 HID/movie delivery. The capped9000presentation browser World1-1 replay completed
 at the bridge crates. The resumed audio/fog candidate now matches all9884160PCM
-channel samples, input/timing/CPU counts and the bottom screen, but22top pixels
-still differ. The combined depth/audio/fog candidate is replaying the original
-movie in the owner-started T3 thread. Its final comparison is pending; this
-family stays held.
+channel samples, input/timing/CPU counts and the bottom screen. Combined
+depth/audio/fog corrects one former pixel;21remain, no new pixels. The private
+quaternion-normalization candidate is replaying the original movie in the
+owner-started T3 thread. Its final comparison is pending; this family stays held.
 The measured normal startup presentation rate is about8.7/sec after first frame;
-the resumed9000prefix averages4.3916/sec across8999warm intervals,
+the resumed audio/fog9000prefix averages4.3916/sec across8999warm intervals;
+the depth candidate averages4.1685/sec on a shared10core host with load14.14,
 well below playable speed; separate execution-cost measurements remain pending.
 
 The accepted finite browser execution result remains available at

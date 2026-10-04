@@ -110,9 +110,19 @@ The audio/fog9000replay completed: all9884160PCM channel samples, HID/audio timi
 bottom RGBA/framebuffer, movie/profile delivery and actual Canvas/audio consumption
 pass. Top RGBA remains the exact earlier mismatching hash,22pixels. CPU04313017982,
 CPU1zero, fallbacks0. Comparisonec47ee93. Warm8999intervals2049.132sec,4.3916/sec.
-Its server closed after exports. The combined public depth/audio/fog build3d95c0e0
-is now replaying the same9000movie in T3tab_1 through8767, output
-build/browser_native_arithmetic_server_9000. One browser run, no delegates.
+Its server closed after exports. Combined public depth/audio/fog build3d95c0e0
+completed the same9000movie. One former pixel is corrected;21previous pixels
+remain, no new pixels. HID/audio timing/PCM/bottom RGBA/framebuffer and CPU counts
+still agree. Comparison2283d069, warm8999intervals2158.828sec,4.1685/sec.
+Shared host has10cores/load14.14/swap1711.94MiB; no speed-change attribution.
+World1-1 loaded visibly and the original bridge endpoint completed. No goal.
+Its browser/server closed after export. Synthetic quaternion normalization proves
+native-order FMA equality across1048576inputs, but actual pixel attribution is
+unverified. Private normalization candidate063ccbaf,152434842bytes, adds only
+that order atop3d95c0e0;3build commands pass with protected/member preservation.
+It now replays the same9000movie in T3tab_1 through8768, output
+build/browser_normalization_server_9000. Audio started before first rendered frame.
+One browser run, no delegates. All32pause seals remain unchanged.
 Baseline and all failed evidence remain sealed. Gameplay submission stays held.
 
 1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,

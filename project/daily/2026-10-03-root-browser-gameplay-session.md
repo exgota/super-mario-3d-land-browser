@@ -104,3 +104,17 @@ does not patch this expression. Actual pixel operands/lighting remain unverified
 Two tiny native compile attempts picked incompatible command-line SDK stubs;
 the successful run pins the recorded Xcode MacOSX26.5SDK/compiler/linker. No
 machine setting changed. Evidence remains in ignoredgraphics_normalization_resume.
+
+Combined public depth/audio/fog9000movie completed, comparison2283d069.
+One previous pixel is corrected;21previous pixels remain, no new pixels.
+Complete PCM/HID/audio timing/bottom RGBA/framebuffer/CPU counts agree. Actual
+Canvas/source packets/all4942080stereo consumption pass. Warm8999intervals
+2158.828sec,4.1685/sec. Shared host10cores/load14.14/swap1711.94MiB; no arithmetic
+speed attribution. World1-1 loaded visibly and the bridge endpoint completed.
+Read-only native-window command decoder sees lighting/fog at draw commands;
+2100interrupt stop conditions are unknown from unobserved prefix, so execution
+counts and pixel attribution remain unproved. Browser/server closed after export.
+New private quaternion candidate063ccbaf,152434842bytes, links in3commands,
+preserving all unrelated members/inputs. Same9000movie/profile now replays in
+T3tab_1 through8768, audio started before first rendered frame. All32pause seals
+remain unchanged. No goal/performance/Section7 claim; submission remains held.

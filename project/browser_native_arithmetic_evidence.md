@@ -103,13 +103,36 @@ The successful run pins the Xcode compiler/linker and MacOSX26.5 SDK already
 recorded in the audio diagnostic. No machine settings changed.
 
 The first server closed after exports. The public combined depth/audio/fog
-build `3d95c0e0` now runs the same movie in the same T3-owned tab, through a new
-server on port 8767. Only one browser replay is active. The first differing
-rendered frame, actual pixel operands, playable speed, goal and Section 7 remain
-unverified. Submission stays held until the comparison gap closes.
+build `3d95c0e0` completed the same movie in T3. It corrects one former pixel;
+21 former pixels remain, with no new different pixels. HID/audio timing, PCM,
+bottom RGBA/framebuffer and CPU counts still agree. Final Canvas identity,
+all source-packet identities and all stereo consumption counts pass. Top RGBA
+is `5456cf28ca955265ce7d3d0d1ad585f3b06c87f697d4f88b1480d4b50bb2ab24`.
+Comparison is `2283d06974582f881c50ca8712add0e4b14a51068a6150769f03ddc70882624c`.
+Warm 8,999 intervals take 2,158.828 seconds, 4.1685 presentations/second.
+A shared-host snapshot records 10 cores, load 14.14 and 1711.94 MiB swap used.
+No speed change is attributed to arithmetic. World 1-1 was visibly loaded,
+and the unchanged movie completed its bridge endpoint. No goal credit.
+
+Read-only inspection decodes 51,972 native-window PICA list payloads, including
+lighting/fog enabled at draw commands. The prefix is unobserved and 2,100
+interrupt-stop conditions are unknown, so these are decoded command counts,
+not complete execution counts or actual pixel attribution.
+
+The depth browser/server closed after exports. A separate private candidate
+adds only the isolated quaternion-normalization order. All three build commands
+pass, with unaffected archive-member and protected-input preservation. Wasm is
+152,434,842 bytes, SHA-256
+`063ccbafacdcbbeaa7a606cd3d052c70bd7b294e0ac3cef3e2686b0b70d3ee7c`.
+It now runs the same movie/profile in T3 tab `tab_1`, through port 8768. Audio
+started before the first rendered frame. One browser replay is active. The
+first differing rendered frame, actual pixel operands, playable speed, goal
+and Section 7 remain unverified. Submission stays held until the gap closes.
 
 Private evidence resides under this worktree's ignored `build/` directories:
 `graphics_arithmetic_resume`, `graphics_depth_resume`, `graphics_normalization_resume`,
 `browser_arithmetic_module_candidate`, `browser_depth_module_candidate`,
-`browser_native_arithmetic_module`, and `browser_arithmetic_server_9000`.
+`browser_native_arithmetic_module`, `browser_arithmetic_server_9000`,
+`browser_native_arithmetic_server_9000`, `browser_normalization_module_candidate`,
+and `browser_normalization_server_9000`.
 No game-derived payload or gameplay image belongs in Git.
