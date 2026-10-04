@@ -237,6 +237,24 @@ native browser admission and matched game after-run are pending. No browser has
 been launched by R1. Root's arbiter remains mandatory for heavy compilation and
 every browser run. R2's first after-run and R4's cache after-run have priority.
 
+Root admitted one bounded native/Wasm verification slot while its entry queue
+remained source-only. Token `6db2c8d706d140b7bc50d61b82346ad7` was reserved and
+released. The detached nice5 supervisor completed in3.0172457seconds, exit1, at
+native linking. Xcode clang21/ld1267 automatically selected the newer CLT
+MacOSX27.0 SDK; its TAPI parser rejects that SDK's `arm64e.x1` stub architecture.
+The native source compile reached linking, but the concurrency executable and
+four Wasm object compiles did not run. An independent PID/process-group scan
+observed supervisor71557, builder71558 and compiler/group71565 absent before release.
+
+The ignored builder now pins `xcrun --sdk macosx --find clang++` and the matching
+`xcrun --sdk macosx --show-sdk-path` via per-invocation `-isysroot`. Read-only
+`clang -###` resolves the Xcode MacOSX26.5 SDK without executing compilation/linking.
+No global toolchain setting changed. The total helper deadline is50seconds,
+including SDK discovery, below the admitted60second ceiling. All original build,
+resource, linker and exit evidence is retained under
+`build/runtime_pipelining_verification/`, including the exact revision1 builder.
+The corrected retry is parked until a new admitted gap; no R1 reservation is held.
+
 Next: bounded native concurrency checks, source/object seals, then Root's opt-in
 adapter wiring. Root retains the software reference and selects rendering-regression
 checks when needed. Candidate gameplay uses the shared
