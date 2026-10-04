@@ -8,7 +8,8 @@ Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 Owner target: browser World 1-1 start to goal by Wednesday, October 7, 2026,
 Eastern. Cutoff unspecified. Ordered estimates in
 project/browser_world_one_delivery_plan.md are estimates, not promises.
-Step1 bridge evidence submitted and accepted. Step2 paused by owner for Mac restart. No automatic resume. No reorder.
+Step1 bridge evidence submitted and accepted. Step2 resumed by the owner in T3
+Code on October 3. No subagents, delegated tasks or Codex relay for Root. No reorder.
 Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
 
 ## Actual rendering boundary
@@ -98,6 +99,18 @@ Passive minimum-tick observer family parked until state comparison step.
 
 ## Next tasks, in order
 
+Resume verified pushed0d8e5cc53 and all32 sealed evidence entries unchanged.
+Fresh synthetic native/Wasm arithmetic cases prove explicit native-order fog FMA
+and pairwise float reduction agree across1048576cases. Actual pixel attribution
+remains unknown; float reduction is excluded from the provider candidate because
+the known clipping/interpolation paths usef24. A separate candidate replaces only
+audio gain ramps/stereo downmix and fog FMA. All7build commands passed, unchanged
+archive members and protected inputs preserve. Wasm326eb1de,152434816bytes.
+One bounded9000unchanged-movie replay is active in the T3-owned tabtab_1, using
+build/browser_arithmetic_server_9000 on8766. Runtime module/output is new and
+ignored; baseline/failed evidence remain sealed. Native file chooser selected the
+preserved owner dump. Gameplay submission remains held pending actual comparison.
+
 1. Finish step2 actual browser World1-1 replay and measured CPU/render/frame cost,
    document finite controls/session reruns, push and submit this family with no claims.
 2. Browser WebGPU PICA rendering/performance,24–48h highest uncertainty; then
@@ -108,6 +121,6 @@ Passive minimum-tick observer family parked until state comparison step.
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
 rank-O adapter coverage remain unverified. Matching throughput zero.
-Current free bytes 20802355200. No own active goal. All52 root browser registrations
-inactive;31 older identity-verified own servers stopped, current360server closed.
+Pause free bytes20802355200. Owner-started T3 goal is active. All52 historical root
+browser registrations inactive;31 older identity-verified own servers stopped.
 Public360final verifier passed13e6104d; gameplay family held and unsubmitted.

@@ -62,3 +62,28 @@ identity-verified own servers.52root browser registrations have no active
 owner/client/daemon/browser. All helpers idle. No new submission, goal or automatic
 resume. Checkpoint project/root_pause_checkpoint_2026-10-03.md records first known
 differences, hashes, exact reproduction commands and next step. Free20.80GB.
+
+## Owner resume in T3 Code
+
+Root resumed in the owner-started T3 thread without subagents, delegated tasks
+or codex_relay.py. Pushed0d8e5cc53 and all32 checkpoint evidence entries verify.
+No prior own browser/server/verifier process remained. Work stays on
+root/browser-gameplay-session. The gameplay family remains held and unsubmitted.
+
+Fresh1048576-case native/Wasm synthetic graphics execution confirms the native
+ARM64 pairwise float reduction and native-object fog FMA order. Explicit native
+order agrees across targets. Fog yields55 integer-color differences; float
+reduction yields311519bit differences. Float reduction is excluded from the
+provider candidate because the known clipping/interpolation paths usef24.
+Separate depth execution confirms native-object barycentric/depth FMA order,
+with111060synthetic depth24 differences and explicit cross-target equality.
+These cases do not identify actual movie pixel operands.
+
+The isolated audio/fog candidate links in7successful commands, wasm326eb1de,
+152434816bytes, preserving every unrelated archive member and protected input.
+One9000unchanged-movie replay runs in T3tab_1 through the normal local server;
+native file chooser selects the preserved owner dump. At renderer2079, passive
+streamed-source observation shows sampleframe1099311right=-3628, matching the
+reference rather than prior browser-3627. Full PCM/pixel equality remains pending.
+Separate unrun depth candidate links in3commands, wasmd03a179f,152434828bytes.
+No matching claim, main/rank/ledger edit or accepted World1-1/performance credit.

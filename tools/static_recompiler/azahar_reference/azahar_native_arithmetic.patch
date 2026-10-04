@@ -1,0 +1,97 @@
+--- a/src/audio_core/hle/source.cpp
++++ b/src/audio_core/hle/source.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include <algorithm>
+ #include <array>
++#include <cmath>
+ #include "audio_core/codec.h"
+ #include "audio_core/hle/common.h"
+ #include "audio_core/hle/source.h"
+@@ -40,13 +41,13 @@
+     for (std::size_t samplei = 0; samplei < samples_per_frame; samplei++) {
+         const float progress = static_cast<float>(samplei) * ramp_scale;
+         const float gain0 =
+-            ramp_active ? ramp_start[0] + (gains[0] - ramp_start[0]) * progress : gains[0];
++            ramp_active ? std::fma(gains[0] - ramp_start[0], progress, ramp_start[0]) : gains[0];
+         const float gain1 =
+-            ramp_active ? ramp_start[1] + (gains[1] - ramp_start[1]) * progress : gains[1];
++            ramp_active ? std::fma(gains[1] - ramp_start[1], progress, ramp_start[1]) : gains[1];
+         const float gain2 =
+-            ramp_active ? ramp_start[2] + (gains[2] - ramp_start[2]) * progress : gains[2];
++            ramp_active ? std::fma(gains[2] - ramp_start[2], progress, ramp_start[2]) : gains[2];
+         const float gain3 =
+-            ramp_active ? ramp_start[3] + (gains[3] - ramp_start[3]) * progress : gains[3];
++            ramp_active ? std::fma(gains[3] - ramp_start[3], progress, ramp_start[3]) : gains[3];
+ 
+         // Conversion from stereo (current_frame) to quadraphonic (dest) occurs here.
+         dest[samplei][0] += static_cast<s32>(gain0 * current_frame[samplei][0]);
+--- a/src/audio_core/hle/mixers.cpp
++++ b/src/audio_core/hle/mixers.cpp
+@@ -3,6 +3,7 @@
+ // Refer to the license.txt file included.
+ 
+ #include <algorithm>
++#include <cmath>
+ #include <cstddef>
+ #include "audio_core/hle/mixers.h"
+ #include "common/assert.h"
+@@ -156,8 +157,10 @@
+             [gain](const std::array<s16, 2>& accumulator,
+                    const std::array<s32, 4>& sample) -> std::array<s16, 2> {
+                 // Downmix to stereo
+-                s16 left = ClampToS16(static_cast<s32>(gain * sample[0] + gain * sample[2]));
+-                s16 right = ClampToS16(static_cast<s32>(gain * sample[1] + gain * sample[3]));
++                s16 left = ClampToS16(static_cast<s32>(
++                    std::fma(gain, static_cast<float>(sample[0]), gain * sample[2])));
++                s16 right = ClampToS16(static_cast<s32>(
++                    std::fma(gain, static_cast<float>(sample[1]), gain * sample[3])));
+                 // Mix into current frame
+                 return AddAndClampToS16(accumulator, {left, right});
+             });
+--- a/src/video_core/renderer_software/sw_rasterizer.cpp
++++ b/src/video_core/renderer_software/sw_rasterizer.cpp
+@@ -3,6 +3,7 @@
+ // Refer to the license.txt file included.
+ 
+ #include <boost/container/static_vector.hpp>
++#include <cmath>
+ #include "common/logging/log.h"
+ #include "common/microprofile.h"
+ #include "common/quaternion.h"
+@@ -333,8 +334,9 @@
+ 
+                 // interpolated_z = z / w
+                 const float interpolated_z_over_w =
+-                    (v0.screenpos[2].ToFloat32() * w0 + v1.screenpos[2].ToFloat32() * w1 +
+-                     v2.screenpos[2].ToFloat32() * w2) /
++                    std::fma(v2.screenpos[2].ToFloat32(), static_cast<float>(w2),
++                             std::fma(v0.screenpos[2].ToFloat32(), static_cast<float>(w0),
++                                      v1.screenpos[2].ToFloat32() * w1)) /
+                     wsum;
+ 
+                 // Not fully accurate. About 3 bits in precision are missing.
+@@ -343,7 +345,7 @@
+                     f24::FromRaw(regs.rasterizer.viewport_depth_range).ToFloat32();
+                 const float depth_offset =
+                     f24::FromRaw(regs.rasterizer.viewport_depth_near_plane).ToFloat32();
+-                float depth = interpolated_z_over_w * depth_scale + depth_offset;
++                float depth = std::fma(interpolated_z_over_w, depth_scale, depth_offset);
+ 
+                 // Potentially switch to W-Buffer
+                 if (regs.rasterizer.depthmap_enable ==
+@@ -819,11 +821,11 @@
+         const f32 fog_i = std::clamp(floorf(fog_index), 0.0f, 127.0f);
+         const f32 fog_f = fog_index - fog_i;
+         const auto& fog_lut_entry = pica.fog.lut[static_cast<u32>(fog_i)];
+-        f32 fog_factor = fog_lut_entry.ToFloat() + fog_lut_entry.DiffToFloat() * fog_f;
++        f32 fog_factor = std::fma(fog_lut_entry.DiffToFloat(), fog_f, fog_lut_entry.ToFloat());
+         fog_factor = std::clamp(fog_factor, 0.0f, 1.0f);
+         for (u32 i = 0; i < 3; i++) {
+-            combiner_output[i] = static_cast<u8>(fog_factor * combiner_output[i] +
+-                                                 (1.0f - fog_factor) * fog_color[i]);
++            combiner_output[i] = static_cast<u8>(std::fma(fog_factor, static_cast<float>(combiner_output[i]),
++                                                          (1.0f - fog_factor) * fog_color[i]));
+         }
+     }
+ }
