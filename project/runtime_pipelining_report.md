@@ -1,6 +1,6 @@
 # Runtime pipelining candidate
 
-R1, `root/runtime-pipelining`, frozen base
+R1, `root/runtime-pipelining`, base
 `d36ce04bc054de600aa547461e5c4d5bfbb23a9c`. Implementation is opt-in. The selected
 game has not yet moved its PICA execution to this pipeline. Root owns that wiring.
 
@@ -9,6 +9,32 @@ Existing Azahar interfaces and the pinned Emscripten runtime are design referenc
 No renderer implementation was copied. No new license is selected here. Existing
 third-party license declarations remain intact. Repository licensing is the owner's
 decision.
+
+## Concrete prepared-draw hook
+
+Root starts `BrowserGpuPipeline(limits, complete)` only when its runtime flag is
+enabled, before the CPU worker creates a renderer. This constructor starts the
+shared-Wasm GPU pthread and uses `ExecuteBrowserGpuRenderPacket` directly. Link all
+four native pipeline objects and both worker files as pre-JS in the selected
+module. No extra worker URL or Wasm instance is needed.
+
+The GPU decoder calls the selected renderer for prepared state, accepted raw
+draws, fallback float22 triangles, preflight, color readback, fills, invalidation,
+deletion, diagnostics, device barriers and shutdown. Tags1/2 contain configuration
+and descriptor JSON; tag3 contains float22 triangles. A JSON binary reference is
+`{sectionId:256, elementType:"uint32", elementCount:512}`; supported element types
+are `uint8`, `uint32` and `float32`. Referenced sections start at256. All referenced
+arrays are copied before renderer retention. Preflight returns one supported byte;
+rejection after accepted publication is fatal. Readback returns copied pixel bytes,
+or zero when no surface is dirty. Control JSON uses `surfaceId`; clear also uses
+`color`/`depthStencil`; invalidation uses `physicalAddress`/`bytes`.
+
+Existing command values1..10 are retained. Values11..15 are `TriangleBatch`,
+`VertexProgramPreflight`, `SurfaceDeletion`, `RendererDiagnostics` and
+`RendererShutdown`. Root supplies boolean `preflightVertexBatch`, `deleteSurface`
+and `close`. CPU completion remains staged and non-reentrant. Eleven mocked
+command-routing/array-lifetime checks and JS syntax pass. Native checks and actual
+browser guest overlap remain pending the admitted slots.
 
 ## Common before-run
 

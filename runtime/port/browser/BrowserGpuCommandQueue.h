@@ -27,6 +27,11 @@ enum class BrowserGpuCommandKind : std::uint32_t {
     CacheInvalidation,
     Presentation,
     Barrier,
+    TriangleBatch,
+    VertexProgramPreflight,
+    SurfaceDeletion,
+    RendererDiagnostics,
+    RendererShutdown,
 };
 
 struct BrowserGpuQueueLimits {

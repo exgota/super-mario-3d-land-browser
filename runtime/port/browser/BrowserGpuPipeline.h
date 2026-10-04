@@ -6,6 +6,12 @@
 
 namespace Port {
 
+// Default browser Execute hook. The owned worker decoder copies retained arrays
+// and calls the selected renderer on its owning pthread, returning result bytes.
+std::size_t ExecuteBrowserGpuRenderPacket(const BrowserGpuCommandHeader& header,
+                                        std::span<const std::uint8_t> payload,
+                                        std::span<std::uint8_t> result);
+
 class BrowserGpuPipeline {
 public:
     // Execute runs only on the GPU worker. It writes into the reserved result
@@ -18,6 +24,9 @@ public:
                                         std::span<const std::uint8_t>)>;
 
     BrowserGpuPipeline(BrowserGpuQueueLimits limits, Execute execute, Complete complete);
+    // Opt-in renderer pipeline. Root links the worker decoder and selected
+    // renderer as pre-JS, so generated pthreads load the identical adapter.
+    BrowserGpuPipeline(BrowserGpuQueueLimits limits, Complete complete);
     // Lifecycle and completion operations, including destruction, belong to CPU.
     ~BrowserGpuPipeline();
     BrowserGpuPipeline(const BrowserGpuPipeline&) = delete;

@@ -11,7 +11,7 @@ constexpr std::size_t HeaderBytes = 40, DirectoryEntryBytes = 16, SectionAlignme
 
 bool ValidKind(Port::BrowserGpuCommandKind kind) {
     return kind >= Port::BrowserGpuCommandKind::PicaCommandList &&
-           kind <= Port::BrowserGpuCommandKind::Barrier;
+           kind <= Port::BrowserGpuCommandKind::RendererShutdown;
 }
 
 std::size_t PaddedBytes(std::size_t bytes, std::size_t maximum_bytes) {
