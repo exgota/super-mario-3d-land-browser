@@ -185,6 +185,9 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         const bytes = new TextEncoder().encode(JSON.stringify({schemaVersion: 1,
             workerAdmission: globalThis.browserGpuWorkerAdmission,
             rendererStatistics: renderer.statistics,
+            stateCacheStatistics: renderer.gl.stateCacheStatistics ?? {},
+            vertexStatistics: renderer.vertexDrawCache?.statistics ?? {},
+            vertexShaderPrograms: renderer.vertexDrawCache?.programs?.size ?? 0,
             shaderDiagnostics: renderer.shaderDiagnostics ?? [],
             unsupportedStates: renderer.unsupportedStates ?? {},
             shaderPrograms: renderer.shaderPrograms?.size ?? 0}) + '\n');
