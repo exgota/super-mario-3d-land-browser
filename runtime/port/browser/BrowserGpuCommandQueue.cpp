@@ -39,7 +39,7 @@ std::uint64_t BrowserGpuCommandQueue::TryPublish(
     BrowserGpuCommandKind kind, std::uint64_t frame_identifier, std::uint64_t submission_ticks,
     std::span<const std::uint8_t> payload, std::size_t result_capacity_bytes) {
     RequireProducer();
-    if (kind < BrowserGpuCommandKind::PicaCommandList || kind > BrowserGpuCommandKind::RendererShutdown)
+    if (kind < BrowserGpuCommandKind::PicaCommandList || kind > BrowserGpuCommandKind::DisplayTransfer)
         throw std::invalid_argument("Unknown GPU command kind");
     if (payload.size() > limits.maximum_bytes ||
         result_capacity_bytes > limits.maximum_bytes - payload.size())

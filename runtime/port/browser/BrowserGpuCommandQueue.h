@@ -32,6 +32,7 @@ enum class BrowserGpuCommandKind : std::uint32_t {
     SurfaceDeletion,
     RendererDiagnostics,
     RendererShutdown,
+    DisplayTransfer,
 };
 
 struct BrowserGpuQueueLimits {

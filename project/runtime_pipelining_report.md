@@ -1,8 +1,9 @@
 # Runtime pipelining candidate
 
 R1, `root/runtime-pipelining`, base
-`d36ce04bc054de600aa547461e5c4d5bfbb23a9c`. Implementation is opt-in. The selected
-game has not yet moved its PICA execution to this pipeline. Root owns that wiring.
+`d36ce04bc054de600aa547461e5c4d5bfbb23a9c`. Implementation is opt-in. Root's
+combined O3/raw-vertex candidate now executes prepared draws on the shared-Wasm
+GPU pthread. PICA command parsing and GSP/kernel mutations remain on CPU.
 
 All ten new implementation files are independently authored for this work.
 Existing Azahar interfaces and the pinned Emscripten runtime are design references.
@@ -31,10 +32,45 @@ or zero when no surface is dirty. Control JSON uses `surfaceId`; clear also uses
 
 Existing command values1..10 are retained. Values11..15 are `TriangleBatch`,
 `VertexProgramPreflight`, `SurfaceDeletion`, `RendererDiagnostics` and
-`RendererShutdown`. Root supplies boolean `preflightVertexBatch`, `deleteSurface`
-and `close`. CPU completion remains staged and non-reentrant. Eleven mocked
-command-routing/array-lifetime checks and JS syntax pass. Native checks and actual
-browser guest overlap remain pending the admitted slots.
+`RendererShutdown`. Value16 is `DisplayTransfer`. Root supplies boolean
+`preflightVertexBatch`, `deleteSurface` and `close`. CPU completion remains staged
+and non-reentrant. Native concurrency and all four Wasm objects passed. Actual
+World overlap and frame-time comparison remain unmeasured.
+
+## Ordered GPU presentation
+
+R3's native `submitBrowserWebGlPresentation(descriptor)` sends a copied tag1 JSON
+packet on kind9 with its exact renderer-frame and sampled-tick metadata. The CPU
+flushes pending fallback triangles before publication. One synchronous result byte
+reports Unsupported0, Submitted1 or Dropped2. Root's native queue retires it on CPU.
+The GPU calls the same owner's `createPicaWebGlPresentation(renderer,{publishFrame})`.
+No guest/PICA/kernel callback executes on the GPU.
+
+The publisher uses the selected Emscripten6.0.10 command9 Module-handler channel.
+Its handler is installed by the pre-JS transport in the existing outer worker.
+An initial shared-cell handshake requires an installed paint receiver. Missing
+receiver admission returns Unsupported, preserving Root's coherent fallback.
+There is no second worker, Wasm instance, generated worker rewrite or new origin.
+
+R4 installs `installBrowserWebGlPresentationReceiver({publishFrame})` after module
+initialization and before guest startup. The callback receives R3's public bitmap
+packet plus `[bitmap]`, forwards it to the page, and returns true only after transfer.
+R4 calls `receiver.acknowledge(sequence)` after paint or explicit page drop, and
+`receiver.close()` during failure/Stop teardown. These operations call no native
+export. Only ImageBitmap is transferred; acknowledgement cells remain shared.
+Two pending bitmap credits match Root's two-frame bound. A full credit set returns
+Dropped before composition. Repeated/stale acknowledgements cannot free a new slot.
+SharedArrayBuffer wrapper identity is not used as shared-memory identity.
+
+Kind16/tag1 carries `{sourceSurfaceIdentifier,destinationSurfaceIdentifier,width,
+height,colorFormat,flipVertically}`. Its one synchronous byte reports numeric0/1
+from the same presentation instance's `copyDisplaySurface`. Display-transfer alias
+copy is independent of bitmap admission. Root owns physical aliases, guest-read
+materialization and actual display-transfer/presentation call sites.
+
+Diagnostics include presentation shader logs and separate presentation, unsupported
+and transport counters. Stop disposes presentation resources and closes admission
+before releasing the GPU context. Native browser presentation remains unverified.
 
 ## Common before-run
 
@@ -248,20 +284,17 @@ The helpers are pre-JS in every generated pthread, but only the pipeline GPU thr
 calls initialization. PICA/renderer execution is on that worker, not a separate JS
 draw worker. Headers/routes belong to Root and Web; exact `127.0.0.1:<owned port>`
 origin must be retained for page, outer worker, module, Wasm and pthread workers.
-Web's source/HTTP isolation contract is ready. Page plus worker native admission,
-actual shared-Wasm/GL ownership and gameplay acceptance remain unmeasured.
+Web's source/HTTP isolation contract is ready. Root's actual native Chrome smoke
+verified shared-Wasm/GL ownership. World gameplay acceptance remains unmeasured.
 
 ## Validation and next integration
 
-Both new JavaScript files pass Node syntax checks. Eleven mocked JavaScript fixture
-cases pass. The initial fixture caught an invalid Uint32Array Atomics.notify call;
-the redundant notification was removed because native consumer-ready notification
-already wakes CPU. Original failure and corrected source hashes are retained in
-`build/runtime_pipelining_verification/`. These fixtures do not establish native
-browser isolation or WebGL acceptance. Native concurrency, Wasm build,
-native browser admission and matched game after-run are pending. No browser has
-been launched by R1. Root's arbiter remains mandatory for heavy compilation and
-every browser run. R2's first after-run and R4's cache after-run have priority.
+Both owned JavaScript files pass syntax checks. Fourteen mocked presentation and
+array-lifetime cases pass, including a decoder that rejects shared views, genuine
+structured-cloned SharedArrayBuffer wrappers, two-credit backpressure, transfer
+failure, malformed status, downstream drop and Stop. They do not establish native
+browser bitmap presentation. The check is recorded in the existing single
+`build/runtime_pipelining_verification/verification_receipt.json`.
 
 Root admitted one bounded native/Wasm verification slot while its entry queue
 remained source-only. Token `6db2c8d706d140b7bc50d61b82346ad7` was reserved and
@@ -279,11 +312,27 @@ No global toolchain setting changed. The total helper deadline is50seconds,
 including SDK discovery, below the admitted60second ceiling. All original build,
 resource, linker and exit evidence is retained under
 `build/runtime_pipelining_verification/`, including the exact revision1 builder.
-The corrected retry is parked until a new admitted gap; no R1 reservation is held.
+The corrected retry passed native concurrency and all four Wasm objects in
+5.8463seconds. CPU progresses while a GPU job is outstanding, immutable copies
+survive source changes, CPU FIFO retirement stays bounded and failure joins the
+worker. No R1 reservation/helper remains. Functional checks run nice5 without a
+token; only frame-time measurements require Root's exclusive shared runner.
 
-Next: bounded native concurrency checks, source/object seals, then Root's opt-in
-adapter wiring. Root retains the software reference and selects rendering-regression
-checks when needed. Candidate gameplay uses the shared
-shared World collector, an owned reservation and a matched plain-Chrome stationary
-World 1-1 after-run with original audio. Report observed overlap separately from
-frame speed. No M1 or 60 fps claim is made.
+The presentation/kind16 extension passed the native concurrency/packet probe and
+all four Wasm object compiles in7.6297seconds. Packet kind16 is accepted and
+kind17 rejects. The detached nice5 supervisor and all six command processes were
+independently observed absent. Fourteen mocked transport/array cases passed again.
+
+Root's first live pipeline smoke reached a displayed frame, then Stop failed
+because TextDecoder rejected a SharedArrayBuffer view. Correction fa07bf40 copies
+JSON section bytes to an ordinary Uint8Array before decoding, preserving referenced
+array copies. The actual corrected smoke passed in plain Chrome: GPU owner
+em-pthread-5, WebGL2 OffscreenCanvas, shared atomic admission,2671raw batches,
+26382vertices, zero fallback/invalid/guard rejects and12passing shader logs. Title
+rendered; natural Stop joined GPU/context cleanup, browser/server closed.
+Receipt: Root `build/runtime_measurements/20261004T141731400030_01de787a/receipt.json`.
+This establishes real GPU-owned prepared draws, not World performance.
+
+Next: Root links ordered presentation and display aliases, R4 proves ordinary
+fast World entry and paints/acknowledges bitmap crops, then one combined World run
+uses the unchanged shared collector with original audio. No M1 or60fps claim.

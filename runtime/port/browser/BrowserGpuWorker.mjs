@@ -151,7 +151,32 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         renderer.vertexDrawCache?.invalidatePhysicalRange(range.physicalAddress, range.bytes);
         return 0;
     }
-    case 9: // Presentation.
+    case 9: { // Ordered presentation, after all earlier GPU draws.
+        if (!count && !resultBytes) {
+            renderer.endDraw(); renderer.gl.finish(); return 0;
+        }
+        if (count !== 1 || !sections.has(1) || resultBytes !== 1)
+            throw new Error('GPU presentation needs one owned descriptor and one admission byte');
+        const descriptor = decodeSection(1);
+        if (descriptor.rendererFrame !== command.frameIdentifier.toString() ||
+            descriptor.sampledTicks !== command.submissionTicks.toString())
+            throw new Error('GPU presentation metadata differs from its queue record');
+        if (typeof globalThis.createPicaWebGlPresentation !== 'function') {
+            command.result[0] = 0; return 1;
+        }
+        const publisher = globalThis.browserGpuPresentationPublisher ??=
+            globalThis.initializeBrowserGpuPresentationPublisher(memoryBuffer);
+        if (!publisher.ready()) { command.result[0] = 0; return 1; }
+        if (!publisher.hasCapacity()) {
+            publisher.noteBackpressure(); command.result[0] = 2; return 1;
+        }
+        const presentation = globalThis.browserGpuPresentation ??=
+            globalThis.createPicaWebGlPresentation(renderer, {publishFrame: publisher.publishFrame});
+        const status = presentation.present(descriptor);
+        if (![0, 1, 2].includes(status)) throw new Error('GPU presentation returned an invalid admission status');
+        command.result[0] = status;
+        return 1;
+    }
     case 10: // Explicit device barrier.
         if (count || resultBytes) throw new Error('GPU device barrier must have no sections or result');
         renderer.endDraw();
@@ -186,12 +211,17 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         return 0;
     case 14: { // RendererDiagnostics. CPU owns file output after retirement.
         renderer.collectVertexDiagnostics?.();
+        const presentation = globalThis.browserGpuPresentation;
+        if (presentation) renderer.shaderDiagnostics.push(...presentation.takeShaderDiagnostics());
         const bytes = new TextEncoder().encode(JSON.stringify({schemaVersion: 1,
             workerAdmission: globalThis.browserGpuWorkerAdmission,
             rendererStatistics: renderer.statistics,
             stateCacheStatistics: renderer.gl.stateCacheStatistics ?? {},
             vertexStatistics: renderer.vertexDrawCache?.statistics ?? {},
             vertexShaderPrograms: renderer.vertexDrawCache?.programs?.size ?? 0,
+            presentationStatistics: presentation?.statistics ?? {},
+            presentationUnsupportedStates: presentation?.unsupportedStates ?? {},
+            presentationTransportStatistics: globalThis.browserGpuPresentationPublisher?.statistics ?? {},
             shaderDiagnostics: renderer.shaderDiagnostics ?? [],
             unsupportedStates: renderer.unsupportedStates ?? {},
             shaderPrograms: renderer.shaderPrograms?.size ?? 0}) + '\n');
@@ -203,8 +233,34 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         if (count || resultBytes) throw new Error('GPU renderer shutdown has unexpected payload');
         renderer.endDraw();
         renderer.gl.finish();
+        globalThis.browserGpuPresentation?.dispose();
+        globalThis.browserGpuPresentationPublisher?.close();
         renderer.close();
         return 0;
+    case 16: { // Ordered GPU-only DisplayTransfer into an owner-mapped alias.
+        if (count !== 1 || !sections.has(1) || resultBytes !== 1)
+            throw new Error('GPU display transfer needs one descriptor and one supported-status byte');
+        const request = decodeSection(1);
+        if (!['sourceSurfaceIdentifier', 'destinationSurfaceIdentifier', 'width', 'height'].every(field =>
+            Number.isInteger(request[field]) && request[field] > 0 && request[field] <= 0xffffffff) ||
+            !Number.isInteger(request.colorFormat) || request.colorFormat < 0 || request.colorFormat > 4 ||
+            typeof request.flipVertically !== 'boolean')
+            throw new Error('GPU display transfer descriptor is invalid');
+        if (typeof globalThis.createPicaWebGlPresentation !== 'function') {
+            command.result[0] = 0; return 1;
+        }
+        const presentation = globalThis.browserGpuPresentation ??=
+            globalThis.createPicaWebGlPresentation(renderer, {publishFrame(packet, transfer) {
+                const publisher = globalThis.browserGpuPresentationPublisher ??=
+                    globalThis.initializeBrowserGpuPresentationPublisher(memoryBuffer);
+                return publisher.publishFrame(packet, transfer);
+            }});
+        renderer.endDraw();
+        const supported = presentation.copyDisplaySurface?.(request) ?? 0;
+        if (![0, 1].includes(supported)) throw new Error('GPU display transfer must return supported status zero or one');
+        command.result[0] = supported;
+        return 1;
+    }
     default:
         throw new Error('GPU render command is outside the prepared-draw stage: ' + command.kind);
     }
@@ -213,6 +269,8 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
 globalThis.releaseBrowserGpuWorker = function() {
     const renderer = globalThis.browserWebGlRenderer;
     if (!globalThis.browserGpuWorkerAdmission) return;
+    globalThis.browserGpuPresentation?.dispose();
+    globalThis.browserGpuPresentationPublisher?.close();
     if (renderer && !renderer.gl.isContextLost()) {
         renderer.endDraw();
         renderer.gl.finish();
@@ -220,4 +278,6 @@ globalThis.releaseBrowserGpuWorker = function() {
     }
     delete globalThis.browserWebGlRenderer;
     delete globalThis.browserGpuWorkerAdmission;
+    delete globalThis.browserGpuPresentation;
+    delete globalThis.browserGpuPresentationPublisher;
 };
