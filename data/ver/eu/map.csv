@@ -2885,7 +2885,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00187A24,          ,0x00187A2C,          ,O,f,fn_00187A24,
 0x00187A2C,0x00187A5C,0x00187A60,          ,U,f,,
 0x00187A60,0x00187A94,0x00187A98,          ,U,f,,
-0x00187A98,          ,0x00187AB8,          ,U,f,,
+0x00187A98,          ,0x00187AB8,          ,O,f,fn_00187A98,
 0x00187AB8,0x00187C74,0x00187CBC,          ,O,f,_ZN18CounterCollectCoin7collectEi,
 0x00187CBC,0x00187CD8,0x00187CDC,          ,O,f,fn_00187CBC,
 0x00187CDC,0x00187D8C,0x00187DC8,          ,U,f,,
