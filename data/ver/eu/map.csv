@@ -8482,7 +8482,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026A958,          ,0x0026A9B8,          ,U,f,,
 0x0026A9B8,          ,0x0026A9D4,          ,O,f,fn_0026A9B8,
 0x0026A9D4,          ,0x0026A9F0,          ,U,f,,
-0x0026A9F0,          ,0x0026A9FC,          ,U,f,,
+0x0026A9F0,          ,0x0026A9FC,          ,O,f,fn_0026A9F0,
 0x0026A9FC,          ,0x0026AA60,          ,U,f,fn_0026a9fc,
 0x0026AA60,          ,0x0026AA7C,          ,O,f,fn_0026AA60,
 0x0026AA7C,          ,0x0026AA88,          ,U,f,,
