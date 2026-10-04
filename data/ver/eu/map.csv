@@ -8466,7 +8466,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0026974C,          ,0x00269790,          ,U,f,,
 0x00269790,          ,0x002697D0,          ,O,f,_ZN2al7lerpVecEPN4sead7Vector3IfEERKS2_S5_f,
 0x002697D0,0x002697F8,0x002697FC,          ,U,f,,
-0x002697FC,          ,0x00269808,          ,U,f,,
+0x002697FC,          ,0x00269808,          ,O,f,fn_002697FC,
 0x00269808,0x00269834,0x00269838,          ,U,f,,
 0x00269838,0x002698A0,0x002698AC,          ,U,f,,
 0x002698AC,          ,0x002698B8,          ,U,f,,
