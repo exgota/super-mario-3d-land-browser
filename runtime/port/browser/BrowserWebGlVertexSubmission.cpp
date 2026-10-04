@@ -11,6 +11,10 @@
 #include "core/memory.h"
 #include "video_core/pica/pica_core.h"
 
+namespace Port {
+void FlushBrowserWebGlDisplayRegion(std::uint32_t address, std::uint32_t bytes);
+}
+
 namespace {
 using Word = std::uint32_t;
 constexpr Word missing_buffer = std::numeric_limits<Word>::max();
@@ -90,6 +94,7 @@ bool PhysicalRange(Memory::MemorySystem& memory, std::uint64_t address,
         ++statistics.invalid_memory_ranges;
         return false;
     }
+    Port::FlushBrowserWebGlDisplayRegion(static_cast<Word>(address), static_cast<Word>(bytes));
     result = {static_cast<Word>(address),
         static_cast<Word>(reinterpret_cast<std::uintptr_t>(reference.GetPtr())),
         static_cast<Word>(bytes), 0};
