@@ -1,13 +1,16 @@
-Claims: none. fn_0039053C remains nonexact, capped at two meaningful forms.
-Closest attempt: owner-specific form 2, 744 complete bytes versus 740 original.
-Normal build succeeded on c3f8f42a3203421a294d268141454a80361e38b3.
-Canonical checker rejected complete section size; full upstream asm-differ ran.
-Concrete 2D/cube dispatch and border conversions now correspond structurally.
-Remaining differences: manager/default selection lowering, scalar-case placement,
-prologue scheduling and registers. No grounded semantic third form identified.
-Next idea: none without new independent evidence; do not tune registers or order.
-Form 1 was historically 492 bytes; its original compiler evidence is unavailable.
-Form 1 source was hash-verified, backed up and restored before this distinct form.
-Do not replay either capped form after reset. No exact delivery or rank credit.
-
-Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.
+Local result: fn_0039053C is scratch exact, pending the final fresh-main delivery gate. No delivery claim.
+Form 5 passes the canonical project checker: complete 740-byte interval is byte exact.
+Five total forms used. Historical form 1 was 492/740; restored form 2 was
+CURRENT 1825 and 744/740. Form 3: 960 and 740/740; form 4: 320 and 744/740.
+Form 5: 55 and 740/740 in compact-address strict-v3 diagnostic; canonical exact
+comparison at original addresses overrides the diagnostic score.
+Normal project build and canonical source/provenance closure pass under unchanged
+SDK ARMCC 4.0/902. Strict v3 covers all 185/185 words, including pools, with
+archive/ELF identity and both data relocations verified. No further forms needed.
+Final plain-C++ changes scope manager lookup per target, use typed pointer-slot
+selection for 2D, reverse the cube conditional, reorder scalar cases and combine
+the dirty-bit shift expression. No shared headers, Factory source, flags or pragmas changed.
+Original compiler evidence for historical forms 1/2 was not recovered; the form 2
+reproduction is a restoration baseline, not a new form. All current forms retained.
+No exact-family publication, final fresh-main check, integration or accepted-byte credit is claimed here.
+The measured header precedes a pending include-guard-only delivery cleanup and recheck.

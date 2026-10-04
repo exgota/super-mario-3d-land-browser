@@ -32,12 +32,10 @@ struct TextureStorage {
 
     bool setIntegerParameter(int parameter, const int* values) {
         switch (parameter) {
-        case 0x2800: parameters.magnification = values[0]; break;
         case 0x2801: parameters.minification = values[0]; break;
+        case 0x2800: parameters.magnification = values[0]; break;
         case 0x2802: parameters.wrapS = values[0]; break;
         case 0x2803: parameters.wrapT = values[0]; break;
-        case 0x813A: parameters.minimumLod = values[0]; break;
-        case 0x8191: parameters.rawParameter = static_cast<u8>(values[0]); break;
         case 0x8501: parameters.lodBias = static_cast<float>(values[0]); break;
         case 0x1004:
             parameters.border[0] = Parameters::clampBorder(values[0]);
@@ -45,6 +43,8 @@ struct TextureStorage {
             parameters.border[2] = Parameters::clampBorder(values[2]);
             parameters.border[3] = Parameters::clampBorder(values[3]);
             break;
+        case 0x813A: parameters.minimumLod = values[0]; break;
+        case 0x8191: parameters.rawParameter = static_cast<u8>(values[0]); break;
         default: return false;
         }
         return true;
