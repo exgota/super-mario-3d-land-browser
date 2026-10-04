@@ -215,7 +215,8 @@ void main() {
                 }
                 this.configureCopy(destination.framebuffer, width, height);
                 gl.bindTexture(gl.TEXTURE_2D, source.colorTexture);
-                gl.uniform4i(this.uniforms.SourceRectangle, 0, 0, width, height);
+                // Render-surface texture rows run opposite the physical transfer rows.
+                gl.uniform4i(this.uniforms.SourceRectangle, 0, source.height - height, width, height);
                 gl.uniform1i(this.uniforms.Rotation, 0);
                 gl.uniform1i(this.uniforms.VerticalFlip, flipVertically ? 1 : 0);
                 gl.uniform1i(this.uniforms.ColorFormat, colorFormat);
