@@ -81,7 +81,13 @@ void NativeBlockSchedule::BeginRun() {
     if (active || pending_ticks) throw std::runtime_error("unfinished previous native scheduling slice");
     return_stack = {}; return_pointer = 0;
 }
-void NativeBlockSchedule::ClearVisited() { visited.clear(); }
+void NativeBlockSchedule::ClearVisited() {
+    for (const auto descriptor : visited) {
+        const auto mode = static_cast<std::uint32_t>(descriptor >> 32);
+        Find(static_cast<std::uint32_t>(descriptor) | (mode & 1), mode & ModeMask).reserved = 0;
+    }
+    visited.clear();
+}
 std::uint64_t NativeBlockSchedule::TakePendingTicks() {
     const auto ticks = pending_ticks; pending_ticks = 0; return ticks;
 }
@@ -126,26 +132,30 @@ bool NativeBlockSchedule::Condition(const Context& context, std::uint32_t condit
 bool NativeBlockSchedule::TerminalPermits(const Record& record, std::uint32_t index,
                                         const Context& context, std::uint64_t next,
                                         std::int64_t downcount, bool halted) {
-    const auto& terminal = terminals[record.node_offset + index];
     const bool time_remaining = downcount > static_cast<std::int64_t>(pending_ticks);
-    switch (terminal.kind) {
-    case 1: // Checked links test cycles even when their target is already linked.
-    case 2:
-        if (terminal.next != next) throw std::runtime_error("native branch disagrees with scheduling terminal");
-        return (terminal.kind == 2 && visited.contains(next)) ||
-               (time_remaining && (visited.contains(next) || !halted));
-    case 3: {
-        const auto entry = return_stack[return_pointer];
-        return_pointer = (return_pointer + 7) & 7;
-        return (entry.direct && entry.descriptor == next) || (time_remaining && !halted);
-    }
-    case 4: case 5: return time_remaining && !halted;
-    case 6:
-        return !halted && TerminalPermits(record, terminal.else_index, context, next, downcount, halted);
-    case 8:
-        return TerminalPermits(record, Condition(context, terminal.condition) ? terminal.then_index : terminal.else_index,
-                               context, next, downcount, halted);
-    default: throw std::runtime_error("unsupported native scheduling terminal node");
+    for (;;) {
+        const auto& terminal = terminals[record.node_offset + index];
+        switch (terminal.kind) {
+        case 1: // Checked links test cycles even when their target is already linked.
+        case 2:
+            if (terminal.next != next) throw std::runtime_error("native branch disagrees with scheduling terminal");
+            if (time_remaining && !halted) return true;
+            return (terminal.kind == 2 || time_remaining) && visited.contains(next);
+        case 3: {
+            const auto entry = return_stack[return_pointer];
+            return_pointer = (return_pointer + 7) & 7;
+            return (entry.direct && entry.descriptor == next) || (time_remaining && !halted);
+        }
+        case 4: case 5: return time_remaining && !halted;
+        case 6:
+            if (halted) return false;
+            index = terminal.else_index;
+            break;
+        case 8:
+            index = Condition(context, terminal.condition) ? terminal.then_index : terminal.else_index;
+            break;
+        default: throw std::runtime_error("unsupported native scheduling terminal node");
+        }
     }
 }
 bool NativeBlockSchedule::Complete(Context& context, std::uint32_t next_address,
@@ -163,8 +173,11 @@ bool NativeBlockSchedule::BeforeInstruction(Context& context, std::uint32_t addr
     if (!ResolveBoundary(context, tagged, downcount, halted)) return false;
     if (!active) {
         const auto& record = Find(tagged, *context.fpscr & ModeMask);
-        visited.insert(Descriptor(context, tagged));
-        if (!Condition(context, record.condition)) {
+        if (!record.reserved) {
+            visited.insert(Descriptor(context, tagged));
+            record.reserved = 1;
+        }
+        if (record.condition != 14 && !Condition(context, record.condition)) {
             if (!record.failed_address || record.failure_instruction_count == 0)
                 throw std::runtime_error("missing conditional-failure scheduling path");
             pending_ticks += record.failure_cycles;
@@ -172,7 +185,7 @@ bool NativeBlockSchedule::BeforeInstruction(Context& context, std::uint32_t addr
             context.thumb = record.failed_address & 1;
             context.r[15] = record.failed_address & ~std::uint32_t(1);
             context.exit = downcount > static_cast<std::int64_t>(pending_ticks) &&
-                           (visited.contains(record.failed_descriptor) || !halted) ? EXIT_UNWIND : EXIT_BUDGET;
+                           (!halted || visited.contains(record.failed_descriptor)) ? EXIT_UNWIND : EXIT_BUDGET;
             return false;
         }
         active = &record; remaining = record.instruction_count;

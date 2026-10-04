@@ -35,7 +35,10 @@ private:
         std::uint32_t address, mode, end_address, condition, failed_address;
         std::uint32_t pass_cycles, failure_cycles, instruction_count, flags, push_address;
         std::uint64_t end_descriptor, failed_descriptor, push_descriptor;
-        std::uint32_t failure_instruction_count, node_offset, node_count, reserved;
+        std::uint32_t failure_instruction_count, node_offset, node_count;
+        // The serialized reserved word must be zero. Reuse that storage for
+        // runtime visitation without changing the record or scheduler layout.
+        mutable std::uint32_t reserved;
         std::uint64_t Key() const { return (std::uint64_t(mode) << 32) | address; }
     };
     struct Terminal {
