@@ -27,7 +27,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00100108,0x00100154,0x0010015C,          ,U,f,nnMain,
 0x0010015C,0x00100188,0x00100190,          ,U,f,nninitCallStaticInitializers,
 0x00100190,0x001001D4,0x001001DC,          ,U,f,nninitLocale,
-0x001001DC,          ,0x001001FC,          ,U,f,nninitSetup,
+0x001001DC,          ,0x001001FC,          ,O,f,nninitSetup,
 0x001001FC,0x00100254,0x0010025C,          ,U,f,_ZN2nn6applet3CTR6detail10InitializeEj,
 0x0010025C,0x0010030C,0x00100318,          ,U,f,_ZN11Application14createInstanceEPN4sead4HeapE,
 0x00100318,0x00100350,0x00100354,          ,U,f,_ZN11Application3runEv,
