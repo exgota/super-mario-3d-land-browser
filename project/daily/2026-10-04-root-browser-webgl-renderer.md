@@ -117,3 +117,103 @@ Owner-thread counter validation passes. All11categories nonzero; unchanged720
 GPU images and original HID/timing/PCM/CPU/ownCanvas/audio consumption. Gate
 receipt9ef5a550. Capture module revision4selected; bounded World run started
 04:48:47ET with900second bound. Actual World attribution remains pending.
+
+At05:18ET, the first7800 capture is preserved as an export failure, no usable
+World cost report. Revision5 saves the profile first and retains bounded profile
+text on failure. Adjacent capture intervals7798..7800 pass the revised synthetic
+replayer and explicit empty/incomplete rejection; receipt22eb78a8. The unchanged
+original-movie retry is active, capture_a67c3871ef8b401c9b21824c936aadaa on8797,
+900-second bound. No World gain or acceptance claim. Bare factory.py operands
+were missed by the old resource classifier; correction marks52 original absence
+samples unproven. New observer sees driverPID72896 and excludes reservation
+helper37924. Steve05:02..05:07 and Web05:07..05:09 handed back; no game workload
+from Web. All unrelated processes remain untouched. Source-only migration,
+deployment, deferred Web hooks and factory submission remain deferred.
+
+At05:56ET, second World retry failed at the ordinary64KiB metadata parser. Its
+fail-safe retained actual World profile110intervals: PICA/CPU vertices32.803%,
+translated game28.920%, triangle preparation11.360%. Millions of timer scopes
+and host contention(load5.02..8.44) remain included. Factory72896seen throughout.
+Third retry passed worker validation but the page rejected GPU trace presence.
+No complete capture exported; all failures remain sealed. Own servers closed.
+Private page/worker diagnostic boundary now requires bounded complete nonempty
+World capture while preserving normal360trace absence and all unearned-claim
+refusals. Nine boundary checks pass; synthetic real transfer passes230291bytes,
+chunks/screens/shutdown, receipt a8664f8d. No game or M1 credit. Fourth bounded
+unchanged movie diagnostic started05:55:45ET on8800 with same revision5module.
+Steve05:27..05:32handback received; no M3acceptance inferred. No factory action,
+migration, upload, new delegated work or CPU strategy change.
+
+At06:38ET, fourth World capture completed. Metadata556d3b8e and binary519c4c37
+preserve299draws/57456triangles. IsolatedGPU replay executes all draws and passes
+21color/depth/stencil comparisons exactly,108shader logs pass, unsupported0.
+Corrected software client writes the internal register bank, replacing the invalid
+outer-bank comparison. All9depth/stencil targets match; top read RGB MAE0.01314,
+21pixels>8; final target MAE0.91811. These pixel gaps stay parked. Capture profile
+is instrumented and contention affected: PICA/CPU vertices38.593ms(33.379%),
+translated execution32.295ms(27.931%), triangle preparation13.529ms(11.701%).
+8.649/s is diagnostic, with millions of timer scopes. No clean baseline claim.
+
+Exact selected bridge plus existing software fill API passes a synthetic VRAM
+fill: depth0xffffff/stencil0, bridge clear1.0. Original guest command requests
+that depth; captured target1 seed/three depth clears instead carry0.0650424996.
+One isolated in-memory intended-depth experiment restores World geometry/HUD.
+It correctly fails captured-output equality; original sealed inputs unchanged.
+Cause remains unproven, no runtime fix or M1 claim. Diagnostic closed before
+06:43:47cutoff. Local evidence in build/browser_performance_resume includes
+world_depth_seed_experiment_observation.json and fill_boundary_probe_revision_3.
+Initial compile and malformed-report failures remain sealed.
+
+Next is live World baseline with cost timers disabled, then supplied-depth boundary
+and measured-cost changes, retaining360gate. Low-confidence estimates8–16hours
+live30fps/24–48hours live60fps include rendering/input/audio, plus4–8hours human
+Chrome/Safari start-to-goal gates. No subtractive gain promises. Approved ordinary
+Audio lane owns only BrowserStreamedAudio.mjs, BrowserAudioWorklet.mjs and its
+report; Root does not touch them. Source-only preparation window06:40–06:42ET
+released for its synthetic browser audio checks, with real load/cleanup handback.
+No game/browser measurement during that window. No factory action or migration.
+
+At07:15ET, uninstrumented live World baseline is complete and owned helpers closed.
+388display intervals give12.946839/s, conventional median57.392500ms, p95142.975ms,
+72.423%over33ms. Native same-frame cadence12.912699/s, conventional median75.257568ms;
+144.180176ms is upper-middle, not conventional median. Revised analysis preserves
+the earlier sealed labels. Peak heap1GiB, growth0. First eligible43.290455s excludes
+page admission. Longer World observation, not the30second display window, has
+2084864audio underrun frames. Rendering/throughput/audio/startup all fail M1.
+Timestamped load and exact-script classification limits retained. No clean headline.
+
+Command-defined complete RGBA8/D24S8 fills use the guest32bit uniform value, with
+partial/unsupported invalidation unchanged. Canonical360 passes720unchanged GPU
+images and7final GPU-baseline outputs. Original HID/audio timing/PCM exact,
+CPU0 393977876/CPU1zero/fallbacks0,21shader logs pass,unsupported0. Software pixel
+differences remain. Receipt c8948b9c. Owned8803tab/server closed before source changes.
+World impact remains unverified; bounded live-control visual run starts07:14:56ET
+on8804 with600second bound. No additional full draw capture or exactness replay.
+
+Reviewed Audio lane c46e0e8 integrated locally asd36ce04b, exactly its three paths.
+Default buffering remains zero. Source syntax/diff checks pass. Chrome synthetic
+default and buffered both had zero underruns; no improvement inferred. Deliberate
+starvation remains14464. Safari admission failed, no Safari audio test. Actual game
+software360/default audio and human gates remain open. No push/factory/migration.
+
+At07:49ET, the common native plain-Chrome World baseline completed. Command-defined
+fill restores visible Mario, ground, trees, blocks, castle and HUD. Actual stationary
+World display384intervals:12.83759275/s, conventional median87.1475ms,p99159.06ms,
+74.479%over33ms. Native same-frame12.82624244/s,median75.2425537ms,p99186.89014ms.
+Audio full40seconds adds247808source frames (6195.2/s) and1060096underrun frames.
+Peak1GiB,zero growth; first eligible27.5444seconds from runtime admission.
+402shader logs pass,unsupported0. Load1min7.8677/7.4468/7.4263, diagnostic only.
+Receipt8c862644 and local World PNG preserve evidence. First setup24-frame failure
+is retained. Owned Guest window/server closed, token613b6c released; no human gate.
+
+Four owner-launched ordinary R1–R4 lanes now implement the ownership/interface
+contract in runtime_lanes.md. No children or delegated tasks. Old Audio83f is
+completed/retired; R4 owns continuing audio, default0. Loopback HTTP only, no
+certificate/trust change. R2's one-object old-ABI live page-array binding builds
+in4.35seconds at unchangedO1; live after-run remains pending. R4 sourcef4d9df7c
+proposes bounded immutable WORKERFS cache/initialization, unmeasured gameplay.
+R3 raw-program cache and Root shared state hook are in source preparation.
+R1 immutable queue/CPU completion source is prepared, no live overlap yet.
+Working low-confidence forecast6–12hours to first measured60fpsChrome World,
+10–20hours total to full human Chrome/Safari start-to-goal with sound. Re-estimate
+at the first live candidate result; no gains are assumed from parallelism.

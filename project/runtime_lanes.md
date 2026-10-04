@@ -24,8 +24,8 @@ with all cost-profile enable/save calls disabled and no draw capture linked.
 Complete-target fills derive RGBA8/D24S8 state from the actual guest32bit command,
 not a forced depth constant. Its canonical360 gate preserves720GPU images and
 all7final GPU-baseline outputs, original HID/PCM/timing and CPU instruction counts.
-World effect is not yet verified. Four existing software/GPU visual-output gaps
-remain. Receipt: `build/browser_performance_resume/command_fill_short_gate_receipt.json`.
+The common plain-Chrome World run visibly restores ground, Mario, trees, blocks,
+castle and HUD. Four existing software/GPU visual-output gaps remain. Receipt: `build/browser_performance_resume/command_fill_short_gate_receipt.json`.
 
 Current uncommitted clear inputs, relative to Root worktree:
 
@@ -116,6 +116,16 @@ initialization operation; Root owns its worker call site. Keep URL boot, RomFS
 overlay and persistence hooks deferred. Ordinary Chrome/Safari audio admission
 uses a real gesture, no automation-policy or browser-security setting changes.
 
+The old Audio thread `mcp:83f08952-217f-48a1-aefc-168a91d5aa7d` is completed and
+retired from continuing runtime work. Its final source commit is
+`c46e0e8050b2443ad9e2123d2099db269a373203`, integrated asd36ce04b. No new ownership
+or restart is assigned to that thread. R4 is the sole continuing writer of all
+listed audio files. Retain `project/root_audio_pacing_report.md` and its exact
+handoff at `/Users/exgota/.t3/worktrees/super-mario-3d-land-browser/root-browser-audio-pacing/build/audio_pacing/final_handoff.json`.
+Cap63489, default0, explicit starvation, Chrome synthetic no measured buffering
+gain and Safari untested remain its limits. Use loopback HTTP for current work.
+No localhost certificate creation or trust change is requested.
+
 ## One measurement and build arbiter
 
 Root-owned shared script:
@@ -135,13 +145,13 @@ releases only that token. Release after owned browser/build helpers have stopped
 No stale-lock stealing or signalling another lane. Send Root a stuck reservation.
 Free disk below12GB blocks build admission and is a stop/report condition.
 
-Root currently holds the measurement reservation. The bounded live visual run
-ended at a story prompt before World entry when coordination took priority. It
-supplies no World clear validation or new World baseline.
-Root will collect one common unchanged live baseline for R1–R4 before their first
-edits. This consolidates the four identical before-runs. Lanes verify module/input
-seals against their clone and cite that receipt. Each candidate then gets its own
-reserved before/after comparison against that common baseline. No competing boot.
+The common plain-Chrome baseline completed and Root released token
+`613b6c6384f6451a964970d94690be7f` after its owned Guest window and server closed.
+Source edits and reserved candidate builds are released for R1–R4. R2's first
+one-object CPU candidate has initial build/measurement priority, then R4's
+JavaScript file-cache candidate. No lane repeats the identical common before-run.
+Verify the clone's module/input seals and cite the shared receipt. Reserve every
+candidate measurement and retain its own source/load/cleanup evidence.
 
 `browser-script` prints the browser-evaluate expression for the shared collector.
 It observes displayed renderer-frame changes at8ms, warms10seconds and records
@@ -154,27 +164,56 @@ conditions, World identity, heap and start/end resources beside the report. Nati
 presentation telemetry remains a separate corroboration. Do not call menu fps,
 instrumented timing, replay-only evidence or a synthetic fixture human acceptance.
 
-Last visual URL: `http://127.0.0.1:8804/`, Root-owned T3 Chromium tab7, record
-60000presentations/600second bound, default audio buffering zero. This is diagnostic
-and is not plain Chrome/Safari human M1. Other threads do not control or start
-another session at this URL. Root distributes live observations. After this check,
-the shared fresh baseline uses plain Chrome on the same selected module and source
-seals, same original initial tree, live held controls and active original audio.
+Common baseline used `http://127.0.0.1:8805/` in native plain Chrome Guest mode.
+That owned window/server is now closed. The earlier T3 Chromium8804 story run
+stopped before World and supplies no World validation. Choose a new owned output
+and port for each candidate. Do not reuse another lane's live tab.
 
-Launch recipe uses the selected module, local server above, schedule
-`build/root_native_block_scheduling/build/block_scheduled_native/block_schedule.bin`
-in the primary checkout, and reference `build/browser_session_preparation/server_reference_9000`
-in Root worktree. The movie supplies the initial clock only in record mode.
-Full local dump size536870912, SHA256c83f9175208b3d60898d3a6d60451bee3108521e409cace362f63b46dda8c976.
-It is mounted as the owner's ordinary local File, never uploaded to the server.
-Use the server/resource command recorded in
-`build/browser_performance_resume/command_fill_live_world_resources.json` as the
-exact launch argument inventory. Choose a new owned output/port for each run.
+The exact baseline launch command is retained in
+`build/browser_performance_resume/runtime_lanes_chrome_baseline_resources.json`.
+It uses the selected module, FastFrames server, original block_schedule.bin from
+primary build/root_native_block_scheduling/build/block_scheduled_native, and
+Root's build/browser_session_preparation/server_reference_9000. Record mode uses
+the movie only for the initial clock. Presentation bound60000, wall bound900seconds,
+stream audio/frame output enabled. Full local dump size536870912, SHA256
+c83f9175208b3d60898d3a6d60451bee3108521e409cace362f63b46dda8c976.
+It stays an ordinary local File, never uploaded to the server.
 
-Latest completed cost-timers-off World diagnostic baseline: display12.946839/s,
-median57.392500ms, p99152.515ms; native12.912699/s, median75.257568ms. These are
-shared-load diagnostic measurements. Instrumented8.649/s is not a clean baseline.
-Analysis: `build/browser_performance_resume/live_world_baseline_analysis_revision_2.json`.
+Baseline navigation uses held KeyZ/A300ms every2seconds for title/story prompts,
+stopped at the World map. Hold ArrowRight800ms, wait until Mario settles on the
+World1-1 red node, then hold KeyZ800ms to enter. An A during map motion was ignored.
+Dispatch through the ordinary canvas/page input handlers, release all input and
+measure stationary Mario. Sound starts/resumes through a real page gesture.
+Confirm the actual World image before the shared10second warmup/30second window;
+close DevTools during that window. The collector itself remains unchanged.
+
+Common before:384display intervals,12.8375927508updates/s, conventional median
+87.1475ms, p99159.06ms,74.479%over33ms. Native same-frame384intervals separately
+measure12.8262424419/s, median75.2425537ms,p99186.8901367ms. The full40second audio
+observation adds247808source frames (6195.2/s) and1060096underrun frames.
+Peak heap1GiB, zero growth; first eligible27.5444seconds from runtime admission,
+excluding earlier page/download/navigation.402shader logs pass, unsupported0.
+World host load samples7.8677/7.4468/7.4263 (one-minute). Diagnostic only, not M1.
+This is the common R1–R4 before-run, not a causal comparison with older T3 timing.
+Receipt: build/browser_performance_resume/runtime_lanes_chrome_baseline_receipt.json,
+SHA2568c8626446661973aa2582ea24c136027fb3a1e1533c2b8e5ce68925fd7c73383.
+Shared script SHA25687120b74aa9624cddca830e16750b4968ecaa4d13a05b4bb55cc71601c3c5e08.
+Instrumented8.649/s and menu readings remain excluded from the live baseline.
+
+Root's R3 hook candidate extracts PrepareBrowserWebGlDraw(memory,pica) without
+OutputVertex conversion. Separate selected-source revisions are
+build/browser_performance_resume/vertex_submission_webgl_bridge.cpp/.h and
+vertex_submission_webgl_renderer.mjs. They are not built or measured yet.
+Root-owned renderer.tryDrawVertexBatch(descriptor) uses R3's
+createPicaWebGlDrawCache(gl,{textureUnitBase:8,uniformBlockBinding:1,...}).
+cache.prepare(descriptor, specializedFragmentSource) returns supported/program/
+uniforms/vertexCount/resources. Root reapplies complete fragment configuration
+against that program, then cache.draw(prepared). Only a submitted draw marks dirty
+and adds draw/triangle statistics. Explicit false restores CPU-fallback state and
+counts the reason; generated compile/link records enter the exported diagnostics.
+Root's native hook allows GS-disabled List0/Shader3, empty assembler, complete
+triangle counts and no pending inverted winding. It preserves delay charging and
+closes the draw before an accelerated return. R3 owns raw vertex/resource code.
 
 ## Integration and acceptance
 
@@ -191,8 +230,14 @@ post-load audio underruns, controllable Mario<20seconds, peak heap and short loc
 recordings. First measured60fps World is a development checkpoint, not full M1.
 Then peer. No30fps first share. Migration/deployment remain deferred.
 
-Estimate pending lane recon: the first critical checkpoint is R1 barrier feasibility,
-R2 optimization/CPU budget and R3 raw vertex-program coverage, reported within the
-first90minutes of this contract. No measured parallelism gain exists yet. Root will
-revise the hours-to60 estimate from those results, rather than divide the previous
-estimate by four or promise subtractive gains from instrumented costs.
+Working estimate after initial lane recon:6–12hours to first measured60fps live
+World1-1 in Chrome,10–20hours total to human Chrome/Safari start-to-goal M1 with
+sound. Confidence is low. This includes usable World rendering, continuous input
+and original audio; the first measured60checkpoint is not full M1. Critical path
+is R3's seven observed vertex-program/control-flow families plus Root hook wiring,
+R2's actual CPU budget and R1's coherent barriers. Assume R2 reaches a CPU budget
+with enough margin and R3 removes per-vertex CPU work without driver/compiler
+blockers. Neither assumption is measured yet. Source-only recon has established
+specific changes, not performance gains. Re-estimate at the first candidate live
+measurement, within90minutes of this contract for the initial feasibility report.
+Do not divide the old estimate by four or subtract instrumented category totals.

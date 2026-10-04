@@ -7,15 +7,16 @@ ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes
 Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 
 Owner target: real-time World1-1 desktop browser clip as soon as possible.
-No Wednesday deadline, phones or hosting. GPU:browser_webgl_renderer_plan.md.
+No Wednesday deadline. Shareable build follows Mini M1, then peer and iPhone.
+GPU:browser_webgl_renderer_plan.md; deferred Web/migration work stays outside M1.
 Step1 bridge evidence submitted and accepted. Step2 resumed by the owner in T3
 Code on October 3. No subagents, delegated tasks or Codex relay for Root. No reorder.
 Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
 
 ## Actual rendering boundary
 
-The browser executes the static ARM CPU/HLE/software PICA renderer in WebAssembly.
-Canvas2D displays its own generated RGBA. The local server serves files/sidecars
+The browser executes static ARM CPU/HLE in WebAssembly. Selected WebGL2 handles
+fragment rendering; CPU still shades vertices. Software stays the reference path. The local server serves files/sidecars
 and receives exports; it does not render game pixels or serve the owner's dump.
 Fresh module exists and actual browser execution passed below. WebGPU is absent.
 Sustained playable speed, complete level and synchronized audio remain unverified.
@@ -29,7 +30,7 @@ receipt86fe74de and frontend recovery2b49b5b3 preserve all source/provider input
 Final module dedf5b6d87089194a3aa1fa62c4c581d987c5619262f1ea4e57d367b08402feb,
 152434537 bytes. All16commands pass; only GPU/headless/audio observer members
 change. Original CPU provider and address replacement interface preserved.
-Complete current-main rank-O adapter coverage remains unverified.
+Current-main rank-O adapter coverage remains unverified.
 
 Actual default360 replay passed strict full GPU/PICA/HID/PCM/software pixel and
 framebuffer comparisons, file/snapshot preservation, actual Canvas and WebAudio,
@@ -92,9 +93,8 @@ closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PC
 9000 comparison inputs and raw evidence, accepted providers and all sealed receipts preserved.
 No factory restart/settings. Aquinas absent/archived; no delegated work.
 
-Pro handles layout/type/update proposals. Exit-boundary answer is conditional,
-construction ancestry unproved; original-return/dispatch question remains queued.
-Passive minimum-tick observer family parked until state comparison step.
+Pro layout/update proposals remain conditional. Typed state comparison is unproved.
+Passive minimum-tick observer family stays parked.
 
 ## Next tasks, in order
 
@@ -119,13 +119,10 @@ blocked by document policy and absent in workers. Actual bounded180..360profile
 passes all7original360outputs, comparisond07bc02d. Measured ms/frame: triangle
 clipping/rasterization wait86.327(85.738%), translated execution8.986(8.924%),
 outerCPUdispatch2.510(2.493%). CPU scopes contain estimated3.6ms/frame timing
-overhead; calibration is not a same-load subtraction proof. First scanline batch
-candidate passes360but raster time rises112.898ms/frame; rejected, not shipped.
-Its comparisonb75c09d8 and unpublished drafts remain local. Both browsers/servers
-closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
+overhead; calibration is not a same-load subtraction proof. First scanline batch rises112.898ms/frame despite360pass, rejected and retained. Per-file rasterizerO3/contract-off passes360, comparison
 d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
 Owner now directs independently written WebGL2 play renderer; software tuning
-stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
+stops. Private queue/wait timer parked. No GPL renderer copied.
 GPU lookup-cache360 reaches58.8419/s steady, only menu;720frames unchanged.
 Independent lighting fixes pass128cases exactly; ETC passes5376texels exactly.
 Latest play telemetry360 retains720GPU frames/HID/PCM/CPU and21shader log passes,
@@ -134,16 +131,20 @@ Actual original-movie7800 reaches World1-1 but fails visually: blue top/Mario,
 missing level geometry. Late7680..7800only9.3694/s; p95/p99260.25/287.68ms.
 Top RGB MAE140.2144/255,97.91%pixels>8;402shader logs pass,unsupported0.
 HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
-Wasm heap growth0;12227328audio underrun frames. World costs not profiled yet.
+Wasm heap growth0;12227328audio underrun frames. World profile recovered later; see current checkpoint.
 Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
 
-1. Seed readback70464pixels exact; capture/replay World interval and actual costs.
-2. Fix World rendering/startup/audio. Retain360gate and load/process evidence.
+1. Integrate measured R2/R4 wins and R3 raw-vertex hook; ownership:runtime_lanes.md.
+2. Wire R1 GPU-owned immutable work and CPU completion barriers after API review.
 3. M1 human1-1 with sound in Mini Chrome/Safari; then M2 peer, then iPhone.
    No factory submission/migration now. Web contract queued; no playable artifact.
 
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
 rank-O adapter coverage remain unverified. Matching throughput zero.
-Pause free bytes20802355200. T3 goal active. All own replay browsers/servers closed.
+Common Chrome before8c862644:12.83759/s,median87.1475ms,p99159.06ms; visibleWorld.
+Audio40s adds1060096underruns; source6195.2/s. Load1min7.426..7.868,diagnostic only.
+1GiB/zero growth, first eligible27.5444s;402shader logs pass. M1 still fails.
+Owned baseline helpers closed. R2 reserved first after-run, R4 cache follows.
+Audio c46e0e8 integrated default-off asd36ce04b; actual game regression pending.
 Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
