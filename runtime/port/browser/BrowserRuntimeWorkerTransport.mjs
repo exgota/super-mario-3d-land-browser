@@ -34,6 +34,142 @@ globalThis.postBrowserRuntimeSharedMemory = function(worker, workerUrl, packet, 
     return admission;
 };
 
+// Only these immutable inputs may use retained references. Raw vertex/index
+// buffers, uniforms, registers and surface seeds keep their per-packet copies.
+globalThis.isBrowserGpuRetainedResourceField = function(tag, path, root) {
+    return tag === 1 && path.length === 3 && path[0] === 'textures' &&
+        /^[0-2]$/.test(path[1]) && path[2] === 'data' && root.textures?.[path[1]]?.enabled === true ||
+        tag === 2 && path.length === 1 && ['programWords', 'swizzleWords'].includes(path[0]);
+};
+
+// CPU-owned immutable snapshots. The caller commits only after native Submit
+// accepts the packet. Resource definitions/releases share that packet's order.
+globalThis.createBrowserGpuResourceRetention = function({maximumBytes = 32 * 1024 * 1024,
+    maximumEntries = 128} = {}) {
+    if (!Number.isSafeInteger(maximumBytes) || maximumBytes < 0 || maximumBytes > 32 * 1024 * 1024 ||
+        !Number.isInteger(maximumEntries) || maximumEntries < 0 || maximumEntries > 128)
+        throw new Error('GPU resource retention exceeds the admitted queue limits');
+    const entries = new Map(), buckets = new Map(), encoder = new TextEncoder();
+    let retainedBytes = 0, nextResourceIdentifier = 1, activePublication = false;
+    const statistics = {publishedResources: 0, reusedResources: 0, releasedResources: 0,
+        publishedResourceBytes: 0, avoidedResourceBytes: 0, comparedBytes: 0,
+        retainedBytes: 0, retainedEntries: 0, peakRetainedBytes: 0};
+    function equalBytes(source, owned) {
+        if (source.byteLength !== owned.byteLength) return false;
+        let offset = 0;
+        if (source.byteOffset % 4 === 0) {
+            const count = Math.floor(source.byteLength / 4);
+            const left = new Uint32Array(source.buffer, source.byteOffset, count);
+            const right = new Uint32Array(owned.buffer, owned.byteOffset, count);
+            for (let index = 0; index < count; ++index) {
+                if (left[index] !== right[index]) { statistics.comparedBytes += (index + 1) * 4; return false; }
+            }
+            offset = count * 4;
+        }
+        for (; offset < source.byteLength; ++offset) {
+            if (source[offset] !== owned[offset]) { statistics.comparedBytes += offset + 1; return false; }
+        }
+        statistics.comparedBytes += source.byteLength;
+        return true;
+    }
+    function removeEntry(entry) {
+        entries.delete(entry.identifier);
+        const bucket = buckets.get(entry.key);
+        bucket.splice(bucket.indexOf(entry), 1);
+        if (!bucket.length) buckets.delete(entry.key);
+    }
+    return {statistics, prepare(kind, sourceSections) {
+        if (activePublication) throw new Error('GPU resource publication cannot reenter');
+        activePublication = true;
+        const definitions = [], additions = [], releases = new Set(), used = new Map(), binary = [];
+        let pendingBytes = retainedBytes, pendingEntries = entries.size;
+        let nextIdentifier = nextResourceIdentifier, reusedBytes = 0, reuseCount = 0, settled = false;
+        function abort() { if (!settled) { settled = true; activePublication = false; } }
+        function addBinary(bytes) {
+            const sectionId = 256 + binary.length;
+            binary.push([sectionId, bytes]);
+            return sectionId;
+        }
+        function retainedReference(value, elementType, tag, path, root) {
+            if (![2, 3, 11, 12].includes(kind) ||
+                !globalThis.isBrowserGpuRetainedResourceField(tag, path, root) ||
+                elementType !== (tag === 1 ? 'uint8' : 'uint32') ||
+                !value.byteLength || value.byteLength > maximumBytes || !maximumEntries) return null;
+            const source = new Uint8Array(value.buffer, value.byteOffset, value.byteLength);
+            const identity = tag === 1 ? root.textures[path[1]].key : root.programIdentity;
+            const key = JSON.stringify([tag === 1 ? 'texture' : path[0], String(identity), elementType, value.length]);
+            let entry = (buckets.get(key) ?? []).find(candidate =>
+                !releases.has(candidate.identifier) && equalBytes(source, candidate.bytes));
+            entry ??= additions.find(candidate => candidate.key === key && equalBytes(source, candidate.bytes));
+            if (entry) { ++reuseCount; reusedBytes += source.byteLength; }
+            else {
+                // Earlier references in this packet are pinned. Later inputs may
+                // be sent inline if this packet itself fills the retention bound.
+                for (const candidate of entries.values()) {
+                    if (pendingBytes + source.byteLength <= maximumBytes && pendingEntries < maximumEntries) break;
+                    if (used.has(candidate.identifier) || releases.has(candidate.identifier)) continue;
+                    releases.add(candidate.identifier); pendingBytes -= candidate.bytes.byteLength; --pendingEntries;
+                }
+                if (pendingBytes + source.byteLength > maximumBytes || pendingEntries >= maximumEntries) return null;
+                if (nextIdentifier > 0xffffffff) throw new Error('GPU retained resource identifiers are exhausted');
+                entry = {identifier: nextIdentifier++, key, elementType, elementCount: value.length,
+                    bytes: new Uint8Array(source)};
+                additions.push(entry); pendingBytes += entry.bytes.byteLength; ++pendingEntries;
+                definitions.push({resourceIdentifier: entry.identifier, elementType, elementCount: value.length,
+                    sectionId: addBinary(entry.bytes)});
+            }
+            used.set(entry.identifier, entry);
+            return {retainedResourceIdentifier: entry.identifier, elementType, elementCount: value.length};
+        }
+        function encodeValue(value, tag, path, root) {
+            if (ArrayBuffer.isView(value)) {
+                const elementType = value instanceof Uint8Array ? 'uint8' : value instanceof Uint32Array ? 'uint32' :
+                    value instanceof Float32Array ? 'float32' : null;
+                if (!elementType) throw new Error('Unsupported GPU packet element type');
+                const retained = retainedReference(value, elementType, tag, path, root);
+                return retained ?? {sectionId: addBinary(new Uint8Array(value.buffer, value.byteOffset, value.byteLength)),
+                    elementType, elementCount: value.length};
+            }
+            if (Array.isArray(value)) return value.map((item, index) => encodeValue(item, tag, [...path, String(index)], root));
+            if (value && typeof value === 'object')
+                return Object.fromEntries(Object.entries(value).map(([key, item]) =>
+                    [key, encodeValue(item, tag, [...path, key], root)]));
+            return value;
+        }
+        try {
+            if (sourceSections.some(([tag]) => tag === 4)) throw new Error('GPU resource directory tag is reserved');
+            const sections = sourceSections.map(([tag, value]) => [tag, tag === 3 ?
+                new Uint8Array(value.buffer, value.byteOffset, value.byteLength) :
+                encoder.encode(JSON.stringify(encodeValue(value, tag, [], value)))]);
+            if (definitions.length || releases.size) sections.push([4, encoder.encode(JSON.stringify({schemaVersion: 1,
+                resourceDefinitions: definitions, resourceReleases: [...releases]}))]);
+            sections.push(...binary);
+            return {sections, commit() {
+                if (settled) throw new Error('GPU resource publication has already settled');
+                for (const identifier of releases) removeEntry(entries.get(identifier));
+                for (const entry of additions) {
+                    entries.set(entry.identifier, entry);
+                    const bucket = buckets.get(entry.key) ?? []; bucket.push(entry); buckets.set(entry.key, bucket);
+                }
+                // Map insertion order implements bounded least-recently-used eviction.
+                for (const [identifier, entry] of used) { entries.delete(identifier); entries.set(identifier, entry); }
+                retainedBytes = pendingBytes; nextResourceIdentifier = nextIdentifier;
+                statistics.publishedResources += additions.length; statistics.reusedResources += reuseCount;
+                statistics.releasedResources += releases.size;
+                statistics.publishedResourceBytes += additions.reduce((sum, entry) => sum + entry.bytes.byteLength, 0);
+                statistics.avoidedResourceBytes += reusedBytes;
+                statistics.retainedBytes = retainedBytes; statistics.retainedEntries = entries.size;
+                statistics.peakRetainedBytes = Math.max(statistics.peakRetainedBytes, retainedBytes);
+                settled = true; activePublication = false;
+            }, abort};
+        } catch (error) { abort(); throw error; }
+    }, clear() {
+        if (activePublication) throw new Error('GPU resources cannot clear during publication');
+        entries.clear(); buckets.clear(); retainedBytes = 0;
+        statistics.retainedBytes = 0; statistics.retainedEntries = 0;
+    }};
+};
+
 // Presentation uses the selected Emscripten 6.0.10 CMD_CALL_HANDLER channel.
 // Its existing parent handler invokes Module[handler](...args). Only the bitmap
 // is transferred. The acknowledgement cells are structured-shared, never moved.

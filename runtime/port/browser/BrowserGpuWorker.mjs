@@ -40,7 +40,8 @@ globalThis.initializeBrowserGpuWorker = function({memoryBuffer, controlByteOffse
 
 // Called only by the native Execute hook, after native packet validation. All
 // renderer calls run in this pthread. Borrowed result storage lasts this call;
-// every configuration/descriptor array retained by the renderer is copied.
+// configuration/descriptor arrays are owned copies. Immutable registered
+// resources can be reused after packet retirement, never borrowed from guest RAM.
 globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByteOffset,
     payloadByteOffset, payloadBytes, resultByteOffset, resultBytes}) {
     globalThis.requireBrowserRuntimeWorkerIsolation(memoryBuffer);
@@ -88,28 +89,86 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
             if (!bytes) throw new Error('Required GPU render packet section is missing: ' + tag);
             return bytes;
         }, result: new Uint8Array(memoryBuffer, resultByteOffset, resultBytes)});
-    function decodeValue(value) {
+    const decodeJsonSection = tag => JSON.parse(new TextDecoder('utf-8', {fatal: true})
+        .decode(new Uint8Array(command.section(tag))));
+    const retained = globalThis.browserGpuRetainedResources ??= {entries: new Map(), bytes: 0,
+        lastResourceIdentifier: 0, statistics: {publishedResources: 0, releasedResources: 0,
+            resolvedReferences: 0, copiedResourceBytes: 0, retainedBytes: 0, retainedEntries: 0, peakRetainedBytes: 0}};
+    function binaryArray(sectionId, elementType, elementCount) {
+        const types = {uint8: Uint8Array, uint32: Uint32Array, float32: Float32Array};
+        const ArrayType = Object.hasOwn(types, elementType) ? types[elementType] : null;
+        if (!Number.isInteger(sectionId) || sectionId < 256 || sectionId > 0xffffffff ||
+            !Number.isInteger(elementCount) || elementCount < 0 || elementCount > 0xffffffff || !ArrayType)
+            throw new Error('Invalid GPU binary section reference');
+        const bytes = command.section(sectionId);
+        if (bytes.byteLength !== elementCount * ArrayType.BYTES_PER_ELEMENT ||
+            bytes.byteOffset % ArrayType.BYTES_PER_ELEMENT !== 0)
+            throw new Error('GPU binary section element count or alignment differs');
+        return new ArrayType(new ArrayType(bytes.buffer, bytes.byteOffset, elementCount));
+    }
+    if (sections.has(4)) {
+        if (![2, 3, 11, 12].includes(command.kind)) throw new Error('GPU resources require prepared draw submission');
+        const directory = decodeJsonSection(4);
+        if (directory?.schemaVersion !== 1 || Object.keys(directory).length !== 3 ||
+            !Array.isArray(directory.resourceDefinitions) || !Array.isArray(directory.resourceReleases) ||
+            directory.resourceDefinitions.length > 128 || directory.resourceReleases.length > 128)
+            throw new Error('GPU retained resource directory is invalid');
+        const pending = new Map(retained.entries), released = new Set();
+        let bytes = retained.bytes, lastIdentifier = retained.lastResourceIdentifier, copiedBytes = 0;
+        for (const identifier of directory.resourceReleases) {
+            if (!Number.isInteger(identifier) || identifier <= 0 || identifier > 0xffffffff ||
+                released.has(identifier) || !pending.has(identifier))
+                throw new Error('GPU resource release references an unknown or repeated identifier');
+            bytes -= pending.get(identifier).array.byteLength; pending.delete(identifier); released.add(identifier);
+        }
+        for (const definition of directory.resourceDefinitions) {
+            const {resourceIdentifier, sectionId, elementType, elementCount} = definition;
+            if (Object.keys(definition).length !== 4 || !Number.isInteger(resourceIdentifier) ||
+                resourceIdentifier <= lastIdentifier || resourceIdentifier > 0xffffffff ||
+                !['uint8', 'uint32'].includes(elementType) || !Number.isInteger(elementCount) || elementCount <= 0 ||
+                elementCount > 0xffffffff)
+                throw new Error('GPU resource definition has an invalid identity or element type');
+            if (pending.size >= 128 || bytes + elementCount * (elementType === 'uint8' ? 1 : 4) > 32 * 1024 * 1024)
+                throw new Error('GPU retained resources exceed the admitted queue limits');
+            const array = binaryArray(sectionId, elementType, elementCount);
+            bytes += array.byteLength; copiedBytes += array.byteLength;
+            pending.set(resourceIdentifier, {elementType, elementCount, array}); lastIdentifier = resourceIdentifier;
+            if (pending.size > 128 || bytes > 32 * 1024 * 1024)
+                throw new Error('GPU retained resources exceed the admitted queue limits');
+        }
+        retained.entries = pending; retained.bytes = bytes; retained.lastResourceIdentifier = lastIdentifier;
+        retained.statistics.publishedResources += directory.resourceDefinitions.length;
+        retained.statistics.releasedResources += directory.resourceReleases.length;
+        retained.statistics.copiedResourceBytes += copiedBytes;
+        retained.statistics.retainedBytes = bytes; retained.statistics.retainedEntries = pending.size;
+        retained.statistics.peakRetainedBytes = Math.max(retained.statistics.peakRetainedBytes, bytes);
+    }
+    function decodeValue(value, tag, path, root) {
         if (value === null || typeof value !== 'object') return value;
+        if (Object.hasOwn(value, 'retainedResourceIdentifier')) {
+            const {retainedResourceIdentifier, elementType, elementCount} = value;
+            if (!Number.isInteger(retainedResourceIdentifier) || retainedResourceIdentifier <= 0 ||
+                retainedResourceIdentifier > 0xffffffff || Object.keys(value).length !== 3 ||
+                ![2, 3, 11, 12].includes(command.kind) ||
+                !globalThis.isBrowserGpuRetainedResourceField(tag, path, root) ||
+                elementType !== (tag === 1 ? 'uint8' : 'uint32'))
+                throw new Error('GPU retained reference is outside the immutable resource fields');
+            const resource = retained.entries.get(retainedResourceIdentifier);
+            if (!resource || resource.elementType !== elementType || resource.elementCount !== elementCount)
+                throw new Error('GPU retained resource is missing or differs from its declared type/count');
+            ++retained.statistics.resolvedReferences;
+            return resource.array;
+        }
         if (Object.hasOwn(value, 'sectionId')) {
             const {sectionId, elementType, elementCount} = value;
-            if (!Number.isInteger(sectionId) || sectionId < 256 || sectionId > 0xffffffff ||
-                !Number.isInteger(elementCount) || elementCount < 0 || elementCount > 0xffffffff ||
-                Object.keys(value).length !== 3)
-                throw new Error('Invalid GPU binary section reference');
-            const types = {uint8: Uint8Array, uint32: Uint32Array, float32: Float32Array};
-            const ArrayType = Object.hasOwn(types, elementType) ? types[elementType] : null;
-            if (!ArrayType) throw new Error('Unknown GPU binary section element type');
-            const bytes = command.section(sectionId);
-            if (bytes.byteLength !== elementCount * ArrayType.BYTES_PER_ELEMENT ||
-                bytes.byteOffset % ArrayType.BYTES_PER_ELEMENT !== 0)
-                throw new Error('GPU binary section element count or alignment differs');
-            return new ArrayType(new ArrayType(bytes.buffer, bytes.byteOffset, elementCount));
+            if (Object.keys(value).length !== 3) throw new Error('Invalid GPU binary section reference');
+            return binaryArray(sectionId, elementType, elementCount);
         }
-        if (Array.isArray(value)) return value.map(decodeValue);
-        return Object.fromEntries(Object.entries(value).map(([key, field]) => [key, decodeValue(field)]));
+        if (Array.isArray(value)) return value.map((field, index) => decodeValue(field, tag, [...path, String(index)], root));
+        return Object.fromEntries(Object.entries(value).map(([key, field]) =>
+            [key, decodeValue(field, tag, [...path, key], root)]));
     }
-    const decodeSection = tag => decodeValue(JSON.parse(
-        new TextDecoder('utf-8', {fatal: true}).decode(new Uint8Array(command.section(tag)))));
+    const decodeSection = tag => { const value = decodeJsonSection(tag); return decodeValue(value, tag, [], value); };
     function configuration() {
         const value = decodeSection(1);
         if (!(value.registers instanceof Uint32Array) || value.registers.length !== 512 ||
@@ -222,6 +281,7 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
             presentationStatistics: presentation?.statistics ?? {},
             presentationUnsupportedStates: presentation?.unsupportedStates ?? {},
             presentationTransportStatistics: globalThis.browserGpuPresentationPublisher?.statistics ?? {},
+            resourceRetentionStatistics: retained.statistics,
             shaderDiagnostics: renderer.shaderDiagnostics ?? [],
             unsupportedStates: renderer.unsupportedStates ?? {},
             shaderPrograms: renderer.shaderPrograms?.size ?? 0}) + '\n');
@@ -236,6 +296,7 @@ globalThis.executeBrowserGpuRenderCommand = function({memoryBuffer, metadataByte
         globalThis.browserGpuPresentation?.dispose();
         globalThis.browserGpuPresentationPublisher?.close();
         renderer.close();
+        delete globalThis.browserGpuRetainedResources;
         return 0;
     case 16: { // Ordered GPU-only DisplayTransfer into an owner-mapped alias.
         if (count !== 1 || !sections.has(1) || resultBytes !== 1)
@@ -280,4 +341,5 @@ globalThis.releaseBrowserGpuWorker = function() {
     delete globalThis.browserGpuWorkerAdmission;
     delete globalThis.browserGpuPresentation;
     delete globalThis.browserGpuPresentationPublisher;
+    delete globalThis.browserGpuRetainedResources;
 };

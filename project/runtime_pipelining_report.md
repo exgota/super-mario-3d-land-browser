@@ -34,8 +34,56 @@ Existing command values1..10 are retained. Values11..15 are `TriangleBatch`,
 `VertexProgramPreflight`, `SurfaceDeletion`, `RendererDiagnostics` and
 `RendererShutdown`. Value16 is `DisplayTransfer`. Root supplies boolean
 `preflightVertexBatch`, `deleteSurface` and `close`. CPU completion remains staged
-and non-reentrant. Native concurrency and all four Wasm objects passed. Actual
-World overlap and frame-time comparison remain unmeasured.
+and non-reentrant. Native concurrency and all four Wasm objects passed. Root's
+integrated World measurement is recorded below. Whole-PICA relocation remains
+unfinished.
+
+## Bounded immutable resource retention
+
+The CPU transport's `createBrowserGpuResourceRetention().prepare(kind, sections)`
+returns encoded `sections` and transactional `commit()`/`abort()` operations. Root
+commits only after native Submit accepts the packet. Allocation, encoding and
+publication failures abort. The exact Root proxy patch is the local ignored input
+`build/runtime_pipelining_overlap/gpu_renderer_proxy_resource_retention.patch`.
+Root's preflight method, including full program/swizzle, fragment, layout and raw
+byte-extent checks, is unchanged.
+
+Only enabled texture `data` in configuration tag1 and descriptor tag2's
+`programWords`/`swizzleWords` are retained. Texture/program identities select
+candidate buckets; exact current bytes are compared against owned CPU snapshots
+before every reuse. Addresses, hashes and revisions cannot authorize a hit.
+Changed content receives a new identifier even at the same address with the same
+identity. Raw vertex/index buffers, uniforms, registers and seeds keep their
+existing per-packet snapshots and validation. The worker rejects retained
+references outside the three admitted fields.
+
+Tag4 contains `{schemaVersion:1, resourceDefinitions:[{resourceIdentifier,
+sectionId,elementType,elementCount}], resourceReleases:[resourceIdentifier]}`.
+Binary sections remain at256 and above. A retained JSON reference is
+`{retainedResourceIdentifier,elementType,elementCount}`. Identifiers are positive
+uint32, monotonic and never reused. Definitions/releases execute in packet order
+before draw decoding. Missing, retired, repeated, mismatched or over-capacity
+resources fail explicitly. GPU definitions copy into ordinary owned arrays once;
+later draws resolve those arrays without another shared-packet copy. Renderer
+references remain valid after registry eviction because they own ordinary arrays.
+
+Each owner admits at most128 entries and32MiB of registered bytes. CPU eviction is
+least recently used; resources already referenced by the current packet are pinned.
+Inputs that cannot fit alongside those pins travel inline. Registry ownership is
+bounded independently of the renderer's existing caches. Ordered Stop clears both
+registries after renderer close. Kind14 exports `resourceRetentionStatistics`,
+and the proxy exposes CPU and GPU counters for actual packet cost observation.
+
+The targeted real-source check uses Root's exact proxy serialization and R1's
+executor with a mocked native queue/renderer. Its representative draw has three
+texture extents262144/65536/16384 bytes and4096 program/swizzle words each. Original
+packet386142 bytes, first retained packet386710, repeated packet9294. It removes
+376832 repeated resource payload bytes while raw vertex/index sections remain.
+This is a fixture result, not an observed gameplay payload or speed gain. Nine
+behavioral checks pass, including same-address writes, failed publication, bounded
+eviction, retained-reference rejection, index extent rejection and Stop. The prior
+fourteen presentation transport checks also pass. One result remains
+`build/runtime_pipelining_verification/verification_receipt.json`.
 
 ## Ordered GPU presentation
 
@@ -78,15 +126,26 @@ Root's sealed, visually confirmed stationary World 1-1 in plain Chrome supplies
 the shared before-run. Original stereo audio is active, startup buffering is zero.
 Ten seconds warm up, followed by thirty seconds of displayed intervals:
 
-| Measure | Before | R1 after |
+| Measure | Before | Integrated after |
 | --- | ---: | ---: |
-| Display updates/second | 12.8375927508 | Unmeasured |
-| Conventional median interval | 87.1475 ms | Unmeasured |
-| Nearest-rank p99 interval | 159.06 ms | Unmeasured |
-| Intervals | 384 | Unmeasured |
-| Over 33 ms | 74.4792% | Unmeasured |
+| Display updates/second | 12.8375927508 | 20.3991591273 |
+| Conventional median interval | 87.1475 ms | 48.01 ms |
+| Nearest-rank p99 interval | 159.06 ms | 119.555 ms |
+| Intervals | 384 | 611 |
+| Over 33 ms | 74.4792% | 59.0835% |
 | Same-frame native updates/second | 12.8262424419 | Unmeasured |
-| Full 40-second audio underrun delta | 1,060,096 source frames | Unmeasured |
+| Full 40-second audio underrun delta | 1,060,096 source frames | 849,152 source frames |
+
+Root's combined descriptor-cache CPU/raw GPU/uniform-ring/prepared-draw pthread
+run is `build/runtime_measurements/20261004T145822796727_b709642e/analysis.json`.
+The unchanged collector ran2026-10-04 15:02:55.185 through15:03:35.185 UTC. Root
+visually confirmed Mario, ground, trees, blocks, castle and HUD. Entry80.664s used
+R4's ordinary twenty-file map save with f260GameData and anchored120s recipe.
+This explicitly changes the entry reference from the common before-run. Root
+reports in-window one-minute load7.1929/7.6494; R3 functional GL overlapped early
+warmup and other host work was present. Cleanup and token release passed. This is
+an integrated diagnostic, not an isolated R1 gain or60fps/M1 result. Resource
+retention and GPU bitmap presentation are not in this measured artifact.
 
 Collector window: 2026-10-04 11:42:04.796 through 11:42:44.797 UTC. Actual-window
 one-minute load samples: 7.86767578125, 7.44677734375, 7.42626953125. No runtime-lane
