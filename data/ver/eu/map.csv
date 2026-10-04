@@ -4665,7 +4665,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001D3EA8,0x001D3F54,0x001D3F58,          ,U,f,,
 0x001D3F58,          ,0x001D3F64,          ,O,f,fn_001D3F58,
 0x001D3F64,0x001D4010,0x001D4014,          ,U,f,,
-0x001D4014,0x001D4030,0x001D4034,          ,U,f,,
+0x001D4014,0x001D4030,0x001D4034,          ,O,f,fn_001D4014,
 0x001D4034,          ,0x001D40C8,          ,U,f,,
 0x001D40C8,          ,0x001D413C,          ,U,f,,
 0x001D413C,          ,0x001D4164,          ,U,f,,
