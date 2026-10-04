@@ -181,8 +181,9 @@ void main() {
                     width > this.maximumViewport[0] || height > this.maximumViewport[1])
                     throw new Error('Unsupported GPU display-surface copy descriptor');
                 const source = this.renderer.surfaces.get(String(sourceSurfaceIdentifier));
-                if (!source?.colorTexture || source.width !== width || source.height !== height)
-                    throw new Error('GPU display-surface copy requires an available full-extent unscaled source');
+                if (!source?.colorTexture || source.width !== width || !Number.isInteger(source.height) ||
+                    source.height < height || source.height > this.maximumExtent)
+                    throw new Error('GPU display-surface copy requires an available unscaled source with sufficient rows');
                 const key = String(destinationSurfaceIdentifier);
                 let destination = this.renderer.surfaces.get(key);
                 for (const [aliasKey, alias] of this.aliasSurfaces)
