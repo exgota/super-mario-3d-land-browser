@@ -75,9 +75,11 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
   Evidence: restored function notes. Ordinary owner-header extraction/correction is not automatically a driver blocker when the matching family can preserve its affected accepted cohort.
 
 - **Spin-attack state constructor:** root `0026C780` (516; three historical forms, no new form).
-  `0028CB38` has unrelated anonymous formatted-buffer receivers in ordinary `alEffectObj.cpp` and `KoopaPillar.cpp`; reconcile the real SafeString buffer API and preserve O31B45C/O12DE18.
-  `0026C984` is declared const-char output in `Bug.cpp`, but consumers36C43C/19A204/19A228/36C394 read four-float records; reconcile payload ownership and preserve O2D4544. Both root+1C/+20 are Matrix34 pointers, including the value transported through s16.
-  `dat_003F2E90` is imported as anonymous Nerve in accepted `Factory/fn_0026CD08.cpp`; reconcile ordinary Nerve/IUseNerve contracts and preserve O26CD08. Evidence: `preflight/root-26c780-revisit/preflight.md`.
+  Real-reference/current-source review identifies `al::StringTmp<128>` for `0028CB38`; migrate both private formatting owners in alEffectObj.cpp/KoopaPillar.cpp together, with coherent constructor/map identity. Do not invent another receiver facade.
+  `0026C984` returns numeric payloads for all three Bug fields; a shared const-float-pointer contract is supported. Both fallback rows are40 bytes, so no fixed16-byte record allocation is claimed.
+  `0026CD08` receives the spin state through IUseNerve, not LiveActor; reuse ordinary Nerve/HitSensor contracts and preserve the singleton. Its host actor is at state+0C.
+  Minimum direct scope is4objects/9O definitions; editing alStringUtil.h expands to29objects/144O. Existing sensor-message void/bool declarations in group0027D540 are a separate consistency issue adding1object/2O if explicitly repaired.
+  The collection is now proved to be an existing LiveActorGroup base, with no header change. A bounded five-owner repair is authorized with up to30objects/146O preservation; it is not yet cleared. Sibling singleton3F2E8C's integer thunk remains a separate state-method issue.
 
 - **Scene-service 8 entry:** root `0019C888` (520; two historical forms). Original four-byte wrapper19C884 forwards a live receiver, read at root+0C immediately; accepted `group_00189160.cpp` declares both entries as no-argument unsigned functions. Reconcile actual receiver/wrapper contracts and preserve that owner and separate fallthrough boundary; return spelling remains unproved.
 

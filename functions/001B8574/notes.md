@@ -1,9 +1,9 @@
-Claims: none. Historical capped nonexact target 0x001B8574, 692 bytes.
-Recorded attempted section sizes: 692.
-Attempt count: 1 form.
-Closest source, original objects and compiler evidence are unavailable in the current workspace.
-These are recovered historical status facts, not a fresh build or verification.
-Differences: exact bytes were not achieved; no additional detailed claim is reconstructed here.
-Next idea: none without new independent evidence; preserve the cap and do not replay lost forms.
-
-Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.
+Claims: none. Stopped at eight total forms, including one unavailable historical form; no ninth form.
+Best freshly scored source is form 8: score 815, 700/692 bytes, canonical M, zero new matched bytes.
+Scores for new forms 2–8: 3148, 2720, 1120, 1343, 1075, 1343, 815; the historical score remains unknown.
+All authored forms and complete-interval proofs are retained locally.
+The repaired fn_001B4708 remains canonical O; eight sentinel objects preserve code/data except embedded worktree-path metadata.
+Remaining differences are child-receiver moves and first-append register allocation.
+This source depends on the unaccepted count-first repair at public a3fe9ded33e16b0702beea152e8a1fffa886d575, based on main 31d93976.
+Best source head: af34e4c591b34fe1731135086c2415f2162b1c5c. No exact delivery or main acceptance is claimed.
+Next: retain this best source and await any materially new evidence or owner direction; the current form budget is exhausted.
