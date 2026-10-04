@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 import {AudioFileStream} from './BrowserAudioFileStream.mjs';
+import {beginRuntimeInitialization} from './BrowserRuntimeInitialization.mjs';
+import {createWorkerFileCache} from './BrowserWorkerFileCache.mjs';
 const ChunkBytes = 64 * 1024;
 const MaximumFiles = 16384;
 const MaximumDirectoryEntries = 32768;
@@ -23,6 +25,10 @@ let phase = 'created';
 let started = false;
 let descriptor;
 let module;
+let initialization;
+let fileCache;
+let admissionObservation;
+let firstPreviewObservation;
 let nextTransferIdentifier = 0;
 let pendingTransfer;
 let audioStream;
@@ -214,6 +220,7 @@ function fail(error) {
     if (phase === 'failed' || phase === 'closed') return;
     const failedPhase = phase;
     phase = 'failed';
+    initialization?.cancel(error);
     clearInterval(buttonTimer);
     clearInterval(gameplayTimer);
     clearInterval(circleTimer);
@@ -231,9 +238,15 @@ function fail(error) {
         pendingTransfer = undefined;
     }
     send({type: 'capture_failed', phase: failedPhase, message: String(error?.message ?? error),
-          stdout, stderr});
+          stdout, stderr, runtime_initialization: initializationObservation()});
     // The page owns the independent watchdog and abnormal worker disposal.
     // Never label abrupt termination as a successful C++ shutdown.
+}
+
+function initializationObservation() {
+    return {initialization: initialization?.observation() ?? null,
+        file_cache: fileCache?.observation() ?? null,
+        admission: admissionObservation ?? null, first_preview: firstPreviewObservation ?? null};
 }
 
 function stopAudio(error = new Error('Streamed sound was stopped')) {
@@ -344,7 +357,13 @@ function copyPreviewFrame() {
             const rgba = ownedHeapCopy(module._BrowserFrameOutputPixels(lease, sequence, screenIdentifier), bytes);
             return {screen_identifier: screenIdentifier, width, height, rgba};
         });
-        return {sequence, renderer_frame: rendererFrame, sampled_ticks: sampledTicks, screens};
+        if (sequence === 1) {
+            initialization.checkpoint('first_preview_copied');
+            firstPreviewObservation = {initialization: initialization.observation(),
+                file_cache: fileCache?.observation() ?? null};
+        }
+        return {sequence, renderer_frame: rendererFrame, sampled_ticks: sampledTicks, screens,
+            ...(sequence === 1 ? {runtime_initialization: initializationObservation()} : {})};
     } finally {
         if (sequence !== undefined)
             requireCondition(module._BrowserFrameOutputRelease(lease, sequence) === 0, 'Preview lease release failed');
@@ -880,6 +899,7 @@ async function finish(status) {
     const validation = gameplay() ? validateGameplaySession(files) : validateEvents(files);
     const {outcome, presentation, entries} = validation;
     const observations = validateObservations(presentation, entries);
+    observations.runtime_initialization = initializationObservation();
     if (audioObservation) {
         requireCondition(!audioObservation.enabled || audioObservation.state === 'stopped' ||
             audioObservation.sample_frames === observations.audio?.sample_frames,
@@ -956,6 +976,7 @@ async function finish(status) {
     for (let index = 0; index < files.length; ++index) await exportFile(files[index], index);
     await acknowledged({type: 'capture_completed', exit_status: status, outcome, files: files.length});
     phase = 'closed';
+    fileCache?.dispose();
     send({type: 'shutdown_complete'});
     self.close();
 }
@@ -973,9 +994,7 @@ async function start(value) {
     requireCondition(url.origin === self.location.origin && ['http:', 'https:'].includes(url.protocol) &&
                      !url.username && !url.password && !url.hash, 'Module URL must be same-origin');
     phase = 'initializing';
-    const factory = (await import(url.href)).default;
-    requireCondition(typeof factory === 'function', 'Generated ES module has no default factory');
-    module = await factory({noInitialRun: true, thisProgram: 'root_port_browser_capture',
+    initialization = beginRuntimeInitialization(url.href, {noInitialRun: true, thisProgram: 'root_port_browser_capture',
         locateFile: name => new URL(name, url).href,
         preRun: [instance => {
             instance.FS.mkdir('/owned');
@@ -993,6 +1012,8 @@ async function start(value) {
                     parent = child;
                 }
             }
+            if (gameplay()) fileCache = createWorkerFileCache(instance,
+                descriptor.validated_inputs.map(input => `/owned/${input.path}`));
             if (gameplay()) {
                 for (const name of Object.keys(instance.ENV)) if (name.startsWith('ROOT_PORT_')) delete instance.ENV[name];
                 instance.ENV.ROOT_PORT_GAMEPLAY_SESSION_PRESENTATIONS = String(descriptor.options.gameplay_session_presentations);
@@ -1025,13 +1046,16 @@ async function start(value) {
         onAbort: reason => fail(new Error(`Runtime aborted: ${reason}`)),
         onExit: status => { void finish(status).catch(fail); }
     });
+    module = await initialization.ready;
     requireCondition(phase !== 'failed', 'Module initialization failed');
     phase = 'identifying';
+    initialization.checkpoint('input_identity_started');
     for (const input of descriptor.validated_inputs) {
         const status = module.ccall('BrowserInputIdentityValidateSha256', 'number',
             ['string', 'string', 'number'], [`/owned/${input.path}`, input.expected_sha256, input.expected_bytes]);
         requireCondition(status === 0, `Input identity failed for ${input.path}, status ${status}`);
     }
+    initialization.checkpoint('input_identity_completed');
     if (descriptor.options.live_circle_pad_capture) {
         circleControls = {before_install: {
             neutral: module._BrowserCirclePadInputSetPosition(0, 0),
@@ -1064,7 +1088,10 @@ async function start(value) {
         audioStream = gameplay() ? new AudioFileStream(module.FS, descriptor.capture_identifier, deliver, () => phase, MaximumGameplayAudioBytes) :
             new AudioFileStream(module.FS, descriptor.capture_identifier, deliver, () => phase);
     }
-    send({type: 'capture_started'});
+    initialization.checkpoint('runtime_admitted');
+    admissionObservation = {initialization: initialization.observation(),
+        file_cache: fileCache?.observation() ?? null};
+    send({type: 'capture_started', runtime_initialization: initializationObservation()});
     phase = 'running';
     // In the pinned SDK this launches the proxy pthread. It is not completion.
     const arguments_ = ['/owned/block_schedule.bin', '/owned/dump.3ds', '/capture'];
@@ -1082,7 +1109,7 @@ async function start(value) {
             const frame = copyPreviewFrame();
             if (frame) frameTask = transferPreviewFrame(frame).catch(fail).finally(() => { frameTask = undefined; });
         } catch (error) { fail(error); }
-    }, 25);
+    }, 8);
     if (gameplay()) gameplayTimer = setInterval(() => {
         if (phase !== 'running') return;
         try {

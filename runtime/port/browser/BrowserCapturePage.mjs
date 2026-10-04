@@ -36,6 +36,7 @@ let session;
 let completedAudio;
 let streamedAudioPlayer;
 let latestPreviewFrame;
+let latestInitializationObservation;
 let captureNote;
 const heldSources = new Set();
 
@@ -430,6 +431,9 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) relea
 export function capturedAudio() { return completedAudio; }
 export function streamedAudio() { return streamedAudioPlayer; }
 export function previewFrameObservation() { return latestPreviewFrame && structuredClone(latestPreviewFrame); }
+export function runtimeInitializationObservation() {
+    return latestInitializationObservation && structuredClone(latestInitializationObservation);
+}
 
 function drawScreens(screens, preview = false) {
     for (const [index, screen] of screens.entries()) {
@@ -551,6 +555,7 @@ async function receive(active, message) {
     requireCondition(message.schema_version === 1 && message.capture_identifier === active.identifier,
                      'The preview worker returned an invalid session.');
     if (message.type === 'capture_started') {
+        latestInitializationObservation = message.runtime_initialization;
         status.textContent = gameplay() && active.stopRequested ? 'Stop requested. Waiting for a natural presentation.' :
             gameplay() ? recording() ? 'Running the gameplay session. Controls are starting…' :
             'Running the gameplay movie. Live controls are off.' : recording() ?
@@ -720,6 +725,7 @@ async function receive(active, message) {
         drawScreens(message.screens, true);
         touchAvailability();
         active.previewCount = message.sequence;
+        if (message.runtime_initialization) latestInitializationObservation = message.runtime_initialization;
         latestPreviewFrame = {sequence: message.sequence, renderer_frame: message.renderer_frame,
             sampled_ticks: message.sampled_ticks, screens: message.screens.map(({rgba, ...screen}) =>
                 ({...screen, bytes: rgba.byteLength}))};
@@ -737,7 +743,10 @@ async function receive(active, message) {
         active.worker.postMessage({schema_version:1, type:'acknowledge_preview',
             capture_identifier:active.identifier, sequence:message.sequence});
     }
-    else if (message.type === 'capture_failed') throw new Error(message.message);
+    else if (message.type === 'capture_failed') {
+        latestInitializationObservation = message.runtime_initialization;
+        throw new Error(message.message);
+    }
     else if (message.type === 'capture_manifest') {
         hideGameplayButtons();
         hideButton();
@@ -745,6 +754,7 @@ async function receive(active, message) {
         hideTouch();
         requireCondition(!active.manifest, 'The capture manifest was repeated.');
         active.manifest = message;
+        latestInitializationObservation = message.observations?.runtime_initialization;
         if (runOptions().audio_capture) {
             const metadata = message.observations?.audio;
             requireCondition(metadata?.relative_path === 'audio_pcm_s16le.bin' && metadata.channels === 2 &&
@@ -853,6 +863,7 @@ form.addEventListener('submit', async event => {
         hideTouch();
         touchPoint = {x:160, y:120};
         latestPreviewFrame = undefined;
+        latestInitializationObservation = undefined;
         const file = input.files[0];
         requireCondition(configuration && file, 'Choose your approved EU game file.');
         const options = selectedOptions();
