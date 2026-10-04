@@ -5148,7 +5148,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E2DF0,          ,0x001E2DF4,          ,O,f,_ZN2al14NerveStateBase7controlEv,
 0x001E2DF4,0x001E2F6C,0x001E2F84,          ,U,f,,
 0x001E2F84,0x001E305C,0x001E3060,          ,U,f,,
-0x001E3060,          ,0x001E3080,          ,U,f,,
+0x001E3060,          ,0x001E3080,          ,O,f,fn_001E3060,
 0x001E3080,0x001E30D0,0x001E30E8,          ,U,f,,
 0x001E30E8,          ,0x001E30EC,          ,O,f,fn_001E30E8,
 0x001E30EC,0x001E3120,0x001E3130,          ,U,f,,
