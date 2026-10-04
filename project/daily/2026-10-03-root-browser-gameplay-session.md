@@ -177,3 +177,16 @@ unique frames are unobserved. Native five-second T3 process sample leaves Wasm
 functions unnamed; no named cost shares yet. JavaScript profiler is disabled by
 document policy and unavailable in workers. Next is bounded runtime timing during
 a short replay. Current order is project/browser_performance_plan.md.
+Root performance: the unchanged short replay passes under bounded frame timing,
+comparison d07bc02d. The 180..360 window measures rasterization/worker wait
+86.327 ms/frame (85.738%), translated execution 8.986 (8.924%), and outer CPU
+dispatch 2.510 (2.493%). Empty-scope calibration estimates 3.6 ms/frame of CPU
+instrumentation overhead, without a same-load subtraction proof. Original
+recorded cadence is 59.8312 submissions/sec of guest time, not physical timing.
+Private row batching and per-file O3 both pass360 but show no gain. Comparisons
+b75c09d8 and d76930cc retain failed performance evidence. No software change ships.
+Owner steering now directs an independent WebGL2 play renderer. Software tuning
+stops, software remains the exactness path, and a compiled queue/wait timer stays
+unrun. GPU work inventories existing World1-1 traces and will report per-frame
+visual error/fps and first-frame/full-speed estimates. No GPL renderer code is
+copied. No matching claims, main/rank/ledger edits or subagents.
