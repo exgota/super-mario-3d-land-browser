@@ -129,15 +129,16 @@ closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
 d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
 Owner now directs independently written WebGL2 play renderer; software tuning
 stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
-GPU41e08919 actual360finishes9.18597/s, originalHID/PCM/CPUcounts pass. Final RGB
-error60.3416top/56.1195bottom; per-frame pending. Private GPU profile is running.
-Color coherence only; depth/shared-target gaps open. Shader/triangle probe passes.
-Current order/evidence: project/browser_webgl_renderer_plan.md.
+GPU profile180..360: draw setup30.577ms(37.59%), readback27.270(33.52%),
+outside bridge16.411(20.17%). Specialized360runs9.58136/s; all720frame identities,
+HID/PCM/CPU pass. Mean RGB error0.16590top/0.17185bottom,21shader logs pass.
+Private target reuse/state cache candidatec74f470d builds; replay pending. Color
+coherence only; depth/shared-target gaps open. project/browser_webgl_renderer_plan.md.
 
-1. Inventory preserved World1-1 PICA features, then build independent WebGL2 play.
-2. Measure per-frame visual error and fps against software on short360replay.
-3. Observe live browser World1-1 start-to-goal at original cadence, input/audio.
-4. Grounded Section7 state comparison remains a separate acceptance gap.
+1. Measure private state cache/full-clear target reuse on unchanged short360.
+2. Complete trace-scoped GPU features, depth/texture coherence and60Hz delivery.
+3. Observe original World1-1 movie start-to-goal with Azahar state, frame percentiles,
+   heap/pauses, audio underruns and input-to-display latency in the same run.
 
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete

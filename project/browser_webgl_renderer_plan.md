@@ -49,8 +49,30 @@ The independently authored shaders compile/link and an8x8GPU triangle readback
 passes. Prototype41e08919 links6commands. Two interface compile failures
 and their independent source snapshots remain local. Color RAM synchronization
 is implemented; depth RAM coherence and shared-depth-target behavior remain open.
-A private diagnostic build samples bridge/JavaScript costs over180..360; it
-preserves prototype arithmetic and scheduling. No GPU performance gain established.
+A private diagnostic build preserves prototype arithmetic and scheduling. Its
+180..360 interval measures81.3448ms/frame: draw configuration30.5771ms(37.589%),
+color readback/GPU wait27.2703ms(33.524%), outside bridge16.4109ms(20.174%).
+JavaScript target creation takes9.759ms/frame within draw setup, not an additional
+share. Outside bridge work is not separately attributed to translated execution.
+Proposed gains overlap: specialized shaders20–40ms, target reuse5–9ms and cached
+draw state5–15ms/frame. These are estimates requiring replay measurement.
+
+The specialized360 candidate completes9.5813574151warm presentations/second,
+359intervals37.468594944seconds. First eligible presentation42.332695040seconds.
+Every720screen frame identity, original input/audio timing/PCM, static CPU counts,
+own Canvas output and216000consumed audio frames pass. All21generated shader
+compile/link records pass; unsupported states count0within this short run.
+Against unchanged software frames, mean RGB absolute error is0.165898top and
+0.171846bottom on0..255; mean fractions with any RGB channel error>8are0.3677%
+and0.0843%. Final errors0.128188top/0.158620bottom. A8/A4textures required zero
+RGB; correcting that independently verified decoder error closes most color loss.
+All12uncompressed formats match768reference texels/3072channels. ETC compression,
+World1-1 lighting and visual equivalence remain unverified. Full-frame observer
+IO affects timing. Audio has1209984underrun frames, so synchronized play has not
+passed. A private state cache/uniform buffer/full-clear target reuse candidate
+c74f470d builds in5commands; its short replay is next. Software remains unchanged.
+The preview worker currently polls one screen frame every25ms, a40Hz delivery
+ceiling. Faster presentation delivery is required and has not yet been implemented.
 
 Root owns the draw bridge, independent shaders, render targets, texture cache,
 memory synchronization, browser build and actual replay. Existing CPU vertex
