@@ -2302,7 +2302,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x0016D028,          ,0x0016D070,          ,U,f,,
 0x0016D070,          ,0x0016D0E8,          ,U,f,,
 0x0016D0E8,          ,0x0016D114,          ,U,f,,
-0x0016D114,          ,0x0016D134,          ,U,f,,
+0x0016D114,          ,0x0016D134,          ,O,f,fn_0016D114,
 0x0016D134,          ,0x0016D184,          ,U,f,,
 0x0016D184,          ,0x0016D1D0,          ,U,f,,
 0x0016D1D0,          ,0x0016D1DC,          ,O,f,fn_0016D1D0,
