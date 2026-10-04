@@ -344,6 +344,6 @@ GPU owner. R4 owns worker/page bitmap painting after the fast-entry task.
 
 ## Resume after T3 restart
 
-Paused on root/browser-webgl-renderer after fd6aad35; all Root browser/server/build/measurement helpers are absent and the primary arbiter has no reservation.
-Latest World result:20.399159/s,48.01ms median/119.555ms p99; revision3 reached intact World in72.391s but still RGBA and aborted at Natural Stop, receipt build/runtime_measurements/20261004T153534080114_5706fa8a/receipt.json.
-Next: run the already-built, unlaunched build/browser_gpu_presentation_candidate_revision_4 functional diagnostic to capture abort/transfer reasons, fix bitmap/Stop, then link R2 b33cea6a archive and measure once with R4 f260 saved-map reference/entry_node_anchor recipe.
+Resumed on root/browser-webgl-renderer; b33cea6a integrated058360b4 and R3 crop orientation integrated2bc52539. No stale primary reservation existed after restart.
+Latest combined World job52ab5f7f:29.472379/s,32.415ms median/65.115ms p99,665984audio underruns/full40s; lower load3.9873/4.3643, diagnostic; normal Stop and cleanup pass.
+Next: finish revision7 functional bitmap/Stop diagnostic(job7c264427), resolve native termination/actual LCD aliases, then hand one corrected candidate to R1/R3 for shared FIFO measurement. No routine360 or exact capture work.

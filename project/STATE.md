@@ -48,25 +48,34 @@ Requires shared tool's entry_node_anchor support. Wait for W1-1 node before A.
 Original movie preserved. Both natural Stop/browser/server cleanup passed.
 Changed initial-save conditions are explicit. No startup-cache causality claimed.
 
-## Paused at owner request, 2026-10-04
+## Resumed runtime integration, 2026-10-04
 
-Root has no active browser, server, build or measurement runner. Primary reservation
-is absent. R1–R4/Web/orchestrator received the explicit restart pause.
-Source fd6aad35 adds bounded native display-transfer diagnostics and preserves failed
-runtime logs. Revision4 build passed3.5211s and has not been launched.
-Revision3 functional job20261004T153534080114_5706fa8a reached intact World in72.3911s,
-but still published RGBA frames and aborted at Natural Stop. Browser cleanup passed,
-final inventories empty, owned server absent. No new speed or bitmap-success claim.
-Next work is recorded in project/runtime_lanes.md, Resume after T3 restart.
-R1 retention94c28cb2 and R4 bitmap paint527cad1c are integrated. R2 scheduler b33cea6a
-archive is ready but not integrated. No source migration/factory submission/deployment.
+R2 scheduler b33cea6a is integrated as058360b4. Its actual plain-Chrome combined
+World job20261004T162526427146_52ab5f7f completed:29.472379/s, conventional
+median32.415ms,p9965.115ms,49.264% over33ms across883display intervals.
+World geometry/HUD is present. Entry62.595s. Original audio643072source frames
+and665984underruns across the full40s. Window1minload3.9873/4.3643, versus
+7.1929/7.6494 for the preceding48.01ms result. Concurrent host work remains.
+This is a diagnostic integrated result, not an isolated causal gain or M1.
+Natural Stop complete; browser/client/daemon inventories empty, server absent,
+reservation released. One result:build/runtime_measurements/20261004T162526427146_52ab5f7f/analysis.json.
 
-GPU presentation supports only complete unscaled tiled-to-linear transfers and
-explicit pixel formats. Unsupported requests take the coherent software path.
-Guest reads/writes materialize aliases through cached-page callbacks. Do not remove
-those barriers to inflate speed. Normal frame readback removal is not proved yet.
-Keep software reference. Routine360 and byte-exact captures are parked; run a
-bounded comparison only if a change actually breaks rendering.
+The bitmap/retention closure revision5 reached intact World in62.235s but still
+used RGBA and aborted after requested_stop. The ordinary b33 renderer stops
+cleanly. Corrected R3 cropped-copy commits a35e4a44/eece56ad are integrated as
+d2e7480d/2bc52539. Root f4a1c145 accepts equal-width bounded height cropping and
+adds changed-framebuffer/native termination diagnostics. Revision7 relink passed
+3.405s. A functional World/Stop check is active, without a frame-time collector.
+If successful, hand this same corrected combined candidate to R1/R3 for one FIFO
+measurement. No source migration/factory submission/deployment.
+
+GPU presentation supports unscaled equal-width tiled-to-linear transfers,
+including bounded cropped height and explicit pixel formats. Unsupported requests
+take the coherent software path. Guest reads/writes materialize aliases through
+cached-page callbacks. Keep those barriers. Actual bitmap-frame delivery and
+normal frame readback removal are not proved yet. Keep software reference.
+Routine360 and byte-exact captures are parked; use a bounded comparison only
+if a change actually breaks rendering.
 
 ## Other retained evidence and limits
 
