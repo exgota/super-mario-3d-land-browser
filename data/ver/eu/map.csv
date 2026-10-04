@@ -8252,7 +8252,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00263B70,          ,0x00263B94,          ,U,f,,
 0x00263B94,          ,0x00263BB8,          ,U,f,,
 0x00263BB8,0x00263C04,0x00263C0C,          ,U,f,,
-0x00263C0C,0x00263C14,0x00263C18,          ,U,f,,
+0x00263C0C,0x00263C14,0x00263C18,          ,O,f,fn_00263C0C,
 0x00263C18,0x00263CE0,0x00263CE8,          ,U,f,,
 0x00263CE8,          ,0x00263D04,          ,O,f,fn_00263CE8,
 0x00263D04,0x00263DD8,0x00263DDC,          ,U,f,,
