@@ -11,6 +11,9 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
 - Named real-header reference repositories are now owner-authorized. An available header alone does not clear a conflicting accepted caller; preserve its cohort when proposing a coherent repair.
 - For a direct call with unused result, a qualified reconstructed void declaration is admissible when parameters and side effects are grounded, with no hidden-result ABI or conflicting accepted declaration. Original return spelling remains unknown. The old return-only uncertainty for001C9970 should be re-screened on that basis; unresolved live virtual/callback contracts remain separate.
 
+- Count-first array contract repair is published at `a3fe9ded33e16b0702beea152e8a1fffa886d575` on `dot/count-first-array-contract-delivery-31d93976`: existing1B4708 preserves260bytes; public PtrArray remains unchanged. Operator-approved main intake is pending before dependent exact delivery.
+- Counted-list insertion repair tried three plain-C++ forms, all12/16bytes for both accepted wrappers. Two consecutive no-closer results stopped it; the2323E8 prerequisite remains unresolved and2C55E4 has no new matching form.
+
 ## Known live declaration conflicts
 
 - **Vector add/multScalar:** roots `001D8D8C`, `0023FEE0`, `0017974C`, `0026BAB0` (780), `00173790` and `002D8F3C` (784).

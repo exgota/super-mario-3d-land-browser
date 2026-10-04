@@ -1,10 +1,9 @@
-Claims: none. Shared list-contract repair is unfinished; it has not cleared a matching blocker.
-Candidate 1 uses a neutral counted-list/node header and distinct element-owner prefixes in group_0022A6D4.cpp.
-Binary evidence supports three live insertion inputs; original library/type/return spelling remains unclaimed.
-Both pristine accepted wrappers passed O-to-O, 16 bytes each, on main31d93976.
-The coherent candidate builds but each wrapper shrinks to12 bytes and fails canonical size preservation.
-The compiler eliminates a temporary address copy;1098 other project objects remain byte-identical.
-One candidate used; pinned object diff versus canonical-exact baseline scores120 per wrapper, aggregate240; linked diff refused relaxed tail NOP.
-Plain-C++ variants may continue within eight total and two-no-closer rules; canonical O remains mandatory.
-No dummy fourth argument, compiler flag, checker or rank changes are authorized.
-Next: retain best source and measure bounded preservation variants; publish no cleared proposal unless both accepted wrappers remain O.
+Claims: none. Shared list-contract repair stopped without preserving the accepted wrappers; no blocker is cleared.
+Three ordinary C++ forms used; best remains form1 at91579a4688f49ad523376e280efbed234b5ee296.
+All three produce12-byte wrappers versus16-byte originals, and both canonical preservation checks fail.
+Pinned object-diff scores remain120 each, aggregate240 with8-byte total gap; forms2/3 are two consecutive no-closer outcomes.
+The strict linked-image diagnostic refused linker-relaxed tail NOP; object diffs compare against same-tree canonical-exact baseline.
+All1098 other objects remain byte-identical; original map bytes are restored.
+The neutral list/node header and distinct owner prefixes claim no recovered library identity or original return spelling.
+No dummy fourth argument, flags, checker, main or ledger changes; ordinary dot intake still rejects the Factory edit.
+Next: keep affected matching roots blocked and retain this best failed source for future independently supported repair work.
