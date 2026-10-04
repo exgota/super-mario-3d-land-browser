@@ -1801,8 +1801,11 @@ class Supervisor:
         while not (self.stopping and self.integration_queue.empty()):
             if (not self.halted and time.time() - self.last_sync > SYNC_INTERVAL_SECONDS
                     and time.time() >= self.next_sync_retry_at):
-                self.sync_with_timeout_recovery()
-                continue
+                if not self.sync_with_timeout_recovery():
+                    continue
+                if self.stopping and self.integration_queue.empty():
+                    continue
+                # Even a sync longer than its interval must give queued proposals a turn.
             batch = self.collect_batch()
             if self.halted:
                 continue  # the proposals stay on disk and are queued again when the supervisor restarts
