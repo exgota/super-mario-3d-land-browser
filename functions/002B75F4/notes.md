@@ -1,1 +1,9 @@
-Claims: none. 2B75F4 new form 5 is building on cd0c0225 with unchanged SDK902 carrier. Four historical forms remain counted; historical best540/540 nonexact, old source/proof/score unavailable. Current binary-derived Drawer prefix uses general float4 uniform storage, with the stopped21503C color type retained as a compatible alias. Real-header lookup found no Drawer header; no upstream source copied. Helper244164 uses an explicitly reconstructed void side-effect contract; original return spelling unknown. No new size/score yet; up to eight total forms, two consecutive no-closer stop.
+Claims: none.
+2B75F4 stops at seven total forms after two consecutive no-closer outcomes.
+Four historical forms remain counted; source/proof/score unavailable, historical best 540/540 nonexact.
+Fresh forms 5–7: 456/8345, 872/10635, 528/9495 (bytes/whole-interval score), target 540.
+Best-score source is form 5; form 7 has the closest fresh size and is retained separately.
+Canonical source closure passes, size comparison refuses; actual complete diffs and provenance verified.
+General UniformVector4f storage corrects the old color-only interpretation compatibly; stopped 21503C body untouched.
+No real Drawer header was recovered from authorized reference trees, and no upstream source was copied.
+244164 uses a reconstructed void side-effect declaration; original return spelling unknown. No exact delivery.
