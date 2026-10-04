@@ -1,11 +1,13 @@
 # Browser World 1-1 delivery plan
 
-The current owner target is a real-time World1-1 clip in a desktop browser tab
-as soon as possible. The October4 instruction removes the former demo date;
-phones and hosting are excluded. The active GPU plan is
-`browser_webgl_renderer_plan.md`. Earlier estimates below are historical elapsed
-lane work estimates, not current delivery promises. Recorded October3, updated
-October4,2026.
+The owner now targets a shareable playable World1-1 build for personal use and
+friends. On October4 the owner says "lets get it good enough to be on the vercel
+deployment, playable on native browser, mac mini, macbook neo, iphone if they so
+please". The advisor prioritizes Mini Chrome/Safari, then the MacBook, then iPhone.
+The former Wednesday date is removed. Root continues the existing runtime
+worktree; Web owns the site and deployment. No upload is authorized by this plan.
+The active GPU plan is `browser_webgl_renderer_plan.md`. Earlier estimates below
+are historical lane estimates, not delivery promises. Updated October4,2026.
 
 ## Owner-approved renderer decision, October 4, 2026
 
@@ -15,8 +17,8 @@ decision rationale is the Mini's working Metal/ANGLE path, native ETC support,
 desktop browser portability and avoiding additional renderer migration time.
 Actual WebGL2/ETC capability is verified in T3 on this Mini; support in every
 desktop browser and the time saved are decision rationale, not measured coverage.
-WebGPU may follow only if measured speed requires it. Phones and hosting remain
-out of scope. The initial GPU short360 result is9.18597warm presentations/second;
+WebGPU may follow only if measured speed requires it. Device and hosting scope
+is updated above; Root does not own the deployment. The initial GPU short360 result is9.18597warm presentations/second;
 the recorded original cadence is59.83122/second. Visual and speed acceptance
 remain pending. Software rendering stays unchanged as the exactness reference.
 
@@ -27,6 +29,38 @@ and pauses, audio underruns, and input-to-display latency. Keep short360 as the
 regression gate. This replaces separate long exactness replays. A visibly reached
 goal, grounded state comparison and measured runtime evidence are all required;
 a completed presentation count or skipped draw does not earn success.
+
+## Active milestone order and acceptance
+
+The orchestrator's M1 gate is a human playing World1-1 start-to-goal with sound
+in plain Chrome and Safari on the Mini: median displayed interval<=16.9ms,
+<1%intervals>33ms after the first10seconds, zero post-load audio underruns,
+<20seconds to controllable Mario, retained peak heap and short local recordings.
+Replay, machine and shader measurements prepare this gate; they are not human
+play evidence. Short360 remains the regression gate and software stays unchanged.
+The combined original-movie/Azahar state comparison above remains a preparation
+requirement; its9000prefix has not yet reached the goal.
+
+M2 follows on `ssh peer`, with measured memory and evenly paced declared30fps
+allowed if60fps does not fit. iPhone follows the first share and higher-priority
+work. URL loading, RomFS overlay and save persistence are a deferred Web contract;
+only M1-required continuous execution, held input and audio are on Root's current
+critical path. Web reconstructs and verifies the full original File, so no trimmed
+image runtime hook is needed. No deploy-ready runtime artifact exists yet.
+
+Factory wind-down remains outside Root's scope. Do not signal, restart, modify
+or submit to factory while this work is separate. Every new measurement retains
+timestamped machine load and read-only factory process observations. Factory-
+contention diagnostics identify costs but cannot certify M1 or headline fps.
+Acceptance waits for observed absence of `factory.py`. Earlier runs lack such
+absence evidence and remain diagnostics; missing geometry is a rendering failure.
+
+The new private playable repository holds source only. Root has read its README
+and AGENTS. Do not copy runtime source for migration during M1. After M1, identify
+the exact selected source-only commit/file boundary before migration. Built Wasm,
+schedule, game-derived translations, game files and local capture payloads stay
+outside commits. Only the orchestrator merges the new main. Owner confirmation
+of the exact upload manifest remains required before deployment.
 
 ## Current rendering boundary
 

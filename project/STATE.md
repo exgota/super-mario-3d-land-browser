@@ -137,10 +137,10 @@ HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
 Wasm heap growth0;12227328audio underrun frames. World costs not profiled yet.
 Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
 
-1. Stencil permission64cases pass;360gate unchanged. Capture World state/costs.
-2. Fix World rendering, depth/texture coherence and measured60Hz bottlenecks.
-3. Observe original World1-1 movie start-to-goal with Azahar state, frame percentiles,
-   heap/pauses, audio underruns and input-to-display latency in the same run.
+1. Seed readback70464pixels exact; capture/replay World interval and actual costs.
+2. Fix World rendering/startup/audio. Retain360gate and load/process evidence.
+3. M1 human1-1 with sound in Mini Chrome/Safari; then M2 peer, then iPhone.
+   No factory submission/migration now. Web contract queued; no playable artifact.
 
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete

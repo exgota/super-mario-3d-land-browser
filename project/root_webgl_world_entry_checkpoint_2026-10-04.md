@@ -10,6 +10,35 @@ Branch: `root/browser-webgl-renderer`. GPU family remains unfinished/unsubmitted
 Gameplay accepted8f5d2c9d, performance documentation accepted53edcf73. Preserved
 pause0d8e5cc53ea947a704370b7f8d618eb6a4e66277is an ancestor. Matching claims zero.
 
+## Active scope update, October4 at04:30 ET
+
+The owner now targets a shareable playable build. M1 is human World1-1 play with
+sound in Mini Chrome/Safari, under the delivery plan's interval/startup/audio/heap
+thresholds. M2 follows on peer; iPhone is lower priority. Replay evidence prepares
+human acceptance. Continuous play/input/audio remain Root work; URL/overlay/save
+contract integration waits through M1/M2. Web reconstructs the complete original
+File. No deploy-ready runtime artifact or final migration boundary exists.
+
+Factory wind-down stays untouched. No submission during this separate M1 work.
+New diagnostics retain timestamped load/factory-process evidence; acceptance and
+headline fps wait for observed factory absence. Historical measurements below
+lack absence evidence and do not certify M1. Root runtime stays in this worktree.
+Source-only migration follows a selected M1 boundary; nothing copied today.
+
+GPU seed readback now passes70464fixture pixels across four sizes, including all
+stencil values and24bit depth boundaries, repeated reads and GL state restoration.
+Local receipt `build/browser_performance_resume/browser_webgl_surface_seed_receipt.json`,
+SHA-256c2278987920c3d405ea2d8ce9f08bd7f8c5b5aadd253001618ac140cf915f83e.
+Original probe did not retain machine load; this is graphics correctness evidence.
+
+The first World draw-capture build compiled its bridge then failed an owned
+source anchor. The failed directory/receipt remains. A corrected private builder
+and bounded GPU replayer are prepared; synthetic replay verification is next.
+The new profiler separates translated execution, CPU dispatch, supervisor calls
+and PICA commands, in addition to seven GPU bridge costs. PICA still includes
+existing CPU vertex processing. Profile7680..7790precedes seed/capture7799..7800.
+No actual World cost attribution or visual improvement is claimed yet.
+
 ## Observed boundary
 
 Independent lighting rules pass128isolated software-oracle cases exactly.
@@ -71,3 +100,13 @@ heap/pauses, audio underruns and input-to-display latency.
 A clean optional parallel piece is isolated lighting fixtures for rotated
 quaternions, back-facing lights and signed LUT boundaries, in new private files.
 Estimated overlap saving2–3hours. No agent has been started or assigned.
+
+
+At04:48ET: owner-thread profiler passes its short validation, all11categories
+nonzero and exclusive sums within the measured window. All720GPU images/HID/
+PCM/CPU/ownCanvas/audio consumption remain unchanged. Counter gate receipt
+9ef5a550871a372d3486504550994ac45c59fc40e5d7bfe02b197575d905780d.
+Selected diagnostic `build/browser_world_draw_capture_module_candidate_revision_4`.
+The bounded7800World capture is now running on8796, capture
+`capture_5ce53d119a9849a8ab3b5a3ec36a81f0`.900seconds; profile7680..7790,
+capture7799..7800. Retain load/process/RSS/nice evidence. No acceptance claim.

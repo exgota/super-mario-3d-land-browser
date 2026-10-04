@@ -1,10 +1,12 @@
 # Independent WebGL2 browser play renderer
 
-Owner steering on October 4 removes the Wednesday target. Deliver a real-time
-World 1-1 clip in a desktop browser tab as soon as possible. Phones and hosting
-are out of scope. Software rendering remains unchanged as the exactness path.
-GPU play acceptance reports per-frame visual difference and short-replay fps.
-No subagents or delegated tasks. Root topic branches go through the integrator.
+Owner steering on October4 removes the Wednesday target and now requests a
+shareable playable build. Active order: human Mini Chrome/Safari World1-1 play,
+then MacBook measurement, then iPhone. Web owns the site; Root owns runtime.
+M1 human-play thresholds and factory-contention rules are recorded in the delivery
+plan. Software remains unchanged as the exactness path. Short360 reports visual
+error and stays the regression gate. No subagents or delegated tasks. Root topic
+branches are preserved; factory submission is held during the separate M1 work.
 
 Owner approves WebGL2 on the advisor's recommendation on2026-10-04; the delivery
 plan records the superseded WebGPU proposal. WebGPU follows only if measured

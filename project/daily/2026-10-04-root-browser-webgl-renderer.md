@@ -83,3 +83,37 @@ images/input/PCM/CPU/ownCanvas/audio consumption and21shader logs. Comparison
 7a240f2c. Menu steady49.5436/s,p95/p9944.515/51.855ms,485376underrun frames.
 World impact unverified. All own browser/server/compiler helpers closed. Next
 is isolated complete World framebuffer/draw capture and actual World profiling.
+
+
+Owner scope now targets a shareable personal/friends build. M1 human Chrome/
+Safari on the Mini precedes peer and iPhone. Deployment and source-only migration
+remain separate; no runtime migration, factory action or submission. Web's exact
+proposed contract is queued, full original File reconstruction belongs to Web.
+Only M1 continuous execution/input/audio belongs on the active runtime path.
+
+Seed reader passes70464pixels, including24bit depth boundaries/all stencil values
+and restored GL state; receiptc2278987. Bounded capture/replay synthetic fixture
+passes3draws, two intermediate reads, clear/new-target/delete/clean-read and final
+color/depth/stencil/dirty state. Receipta906d104. No game-speed/World-equivalence
+claim. First capture build anchor failure retained; revision2links but its360
+profile exposes zero counters because main-runtime predicate rejects execution
+worker. All720GPU images/input/PCM/CPU/ownCanvas remain identical. Comparison
+world_draw_capture_short_gate_regression_comparison.json, all21shader logs pass;
+216000source audio frames consumed,538752underrun frames. Zero counters are
+unusable cost evidence. Execution-window owner thread binding and acquire/release
+publication are now linked; its short validation is running before World capture.
+
+New helpers use detached sessions. Timestamped load/factory/busiest-process/RSS/
+nice evidence is retained. First logger's truncated ps comm field made absence
+unreliable; correction receipt preserves this explicitly. Wide arguments fix it.
+Factory still present in new samples; load roughly10–15. Diagnostics remain
+contention-affected. Factory absence alone cannot certify M1, with other project
+lanes also active. All unrelated processes remain untouched. Resource windows:
+Steve04:23..04:33handed back04:31:45; Web04:33..04:35handed back with failed
+Chrome check and Safari driver's10second overrun, no Safari browser run. Next
+Steve five-minute window follows Root's bounded World measurement, then Web.
+
+Owner-thread counter validation passes. All11categories nonzero; unchanged720
+GPU images and original HID/timing/PCM/CPU/ownCanvas/audio consumption. Gate
+receipt9ef5a550. Capture module revision4selected; bounded World run started
+04:48:47ET with900second bound. Actual World attribution remains pending.
