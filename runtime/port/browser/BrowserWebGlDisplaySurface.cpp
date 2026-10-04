@@ -8,6 +8,8 @@
 #include <array>
 #include <cstdint>
 #include <cstdio>
+#include <cstdlib>
+#include <exception>
 #include <limits>
 #include <map>
 #include <stdexcept>
@@ -110,12 +112,12 @@ bool Port::TransferBrowserWebGlDisplaySurface(Memory::MemorySystem& memory,
         unsigned(configuration.is_texture_copy.Value()), unsigned(configuration.scaling.Value()),
         unsigned(configuration.flip_vertically.Value()));
     if (!PresentationEnabled() || configuration.input_linear || configuration.dont_swizzle ||
-        configuration.crop_input_lines || configuration.block_32 || configuration.is_texture_copy ||
+        configuration.block_32 || configuration.is_texture_copy ||
         configuration.scaling != Pica::DisplayTransferConfig::NoScale ||
         configuration.input_width != configuration.output_width ||
-        configuration.input_height != configuration.output_height ||
+        configuration.input_height < configuration.output_height ||
         configuration.output_format.Value() > Pica::PixelFormat::RGBA4) return false;
-    const std::uint32_t width = configuration.input_width, height = configuration.input_height;
+    const std::uint32_t width = configuration.output_width, height = configuration.output_height;
     const auto address = configuration.GetPhysicalOutputAddress();
     const auto format = static_cast<std::uint32_t>(configuration.output_format.Value());
     const std::uint64_t bytes = std::uint64_t(width) * height * Pica::BytesPerPixel(configuration.output_format);
@@ -127,7 +129,8 @@ bool Port::TransferBrowserWebGlDisplaySurface(Memory::MemorySystem& memory,
         std::uint64_t(address) + bytes > std::numeric_limits<std::uint32_t>::max() ||
         !memory.IsValidPhysicalAddress(address) || !memory.IsValidPhysicalAddress(address + bytes - 1)) return false;
     std::uint32_t source;
-    if (!ResolveBrowserWebGlRenderSurface(configuration.GetPhysicalInputAddress(), width, height,
+    if (!ResolveBrowserWebGlRenderSurface(configuration.GetPhysicalInputAddress(),
+        configuration.input_width, configuration.input_height,
         static_cast<std::uint32_t>(configuration.input_format.Value()), source)) return false;
     FinishBrowserWebGlDraw();
     auto found = display_surfaces.find(address);
@@ -154,11 +157,26 @@ bool Port::TransferBrowserWebGlDisplaySurface(Memory::MemorySystem& memory,
 
 bool Port::PresentBrowserWebGlDisplayFrame(Memory::MemorySystem&, Pica::PicaCore& pica,
     std::uint64_t renderer_frame, std::uint64_t sampled_ticks) {
+    static const bool diagnostic_termination = [] {
+        std::set_terminate([] {
+            try { if (std::current_exception()) std::rethrow_exception(std::current_exception()); }
+            catch (const std::exception& error) { std::fprintf(stderr, "browser native termination: %s\n", error.what()); }
+            catch (...) { std::fprintf(stderr, "browser native termination: non-standard exception\n"); }
+            std::abort();
+        });
+        return true;
+    }();
+    (void)diagnostic_termination;
     if (!PresentationEnabled() || pica.regs_lcd.color_fill_top.is_enabled ||
         pica.regs_lcd.color_fill_bottom.is_enabled) return false;
     std::array<BrowserWebGlPresentationScreen, 2> screens;
     static unsigned diagnostic_frames = 0;
-    if (diagnostic_frames++ < 8) {
+    static std::array<std::uint32_t, 4> last_framebuffer_addresses;
+    const std::array<std::uint32_t, 4> addresses{pica.regs.framebuffer_config[0].address_left1,
+        pica.regs.framebuffer_config[0].address_left2, pica.regs.framebuffer_config[1].address_left1,
+        pica.regs.framebuffer_config[1].address_left2};
+    if (addresses != last_framebuffer_addresses && diagnostic_frames++ < 12) {
+        last_framebuffer_addresses = addresses;
         for (unsigned index = 0; index < 2; ++index) {
             const auto& fb = pica.regs.framebuffer_config[index];
             std::fprintf(stderr, "browser display framebuffer screen=%u active=%u address=%08x:%08x height=%u stride=%u format=%u aliases=%zu\n",
