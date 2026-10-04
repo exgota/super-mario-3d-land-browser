@@ -1391,3 +1391,55 @@ Name only the four existing unnamed PackunFlower/Tenten function rows documented
 ## Shared interface cleanup batch, 2026-10-02
 
 The driver combines verified vector-operation source `35f7dc7bf2838f3fb484d877732056c65d166f04` and actor-distance source `444b007a68bba2126e10aaf69b6c691a93c65de2` on frozen main `19344b65b93cebeb2d13387ab45f244bc93a6dba`. All eleven final source/header files are byte-identical to the independently checked families. One acceptance pass avoids repeated full regression work. The standalone evidence retains each original ABI observation and its uncertainty. This is source contract maintenance with zero new matching credit.
+
+## 2026-10-03: Plant initializer name at 0x002F9060
+
+Name the unchanged 612-byte function row `_ZN5Plant4initERKN2al13ActorInitInfoE`. The primary vtable at 0x003D26B4 points to it in init slot +4. Constructor 0x002F92C4 calls the accepted MapObjActor constructor and installs that vtable; it initializes quaternion +0x60, actor/state pointers +0x70/+0x74, and integer fields +0x78/+0x7C. Plant remains an explicitly inferred class name from the initializer's archive and item-prefix strings, not an independently recovered factory identity. No extent, rank, data row, or helper identity changes.
+## 2026-10-03: BalanceTruck movement-power helper identity
+
+Name only the unchanged 536-byte U row at 0x0026D6C0 as `_ZN12BalanceTruck15updateMovePowerEv`. The class identity is supported by the BalanceTruck factory and constructor 0x00135420, which calls MapObjActor and installs 0x003C6BDC. Creator 0x003966DC allocates 0xB4 at 0x003966E8 and calls that constructor at 0x00396704. Callers 0x00134364, 0x00134E0C and 0x001351C0 agree on the receiver and fields at 0x88/0x8C, 0x90/0x94 and 0xB0. The method name is descriptive reconstruction, not recovered original C++ spelling. No rank, boundary, data row or helper identity changes. This refreshes the already published dot/root-26d6c0 proposal without claiming another matched root.
+## Dot Nokonoko-family message address evidence
+- 00315C6C: neutral entry fn_00315C6C, primary vtable003D4018 slot+0x34 at003D404C; constructor3165D4/creator39887C establish ordinary MapObjActor base and0x88 extent. Predecessor returns315C28 before pool.
+- 0027A5FC: neutral imported step<=threshold query fn_0027A5FC, call315D10 uses real IUseNerve and threshold8.
+- 0031CD28: neutral shell activation fn_0031CD28, call315D50 passes shell+64, ordinary position/quaternion references and0.0f; constructor27ABF4 confirms shell actor base.
+- 003F2288: existing4-byte nerve row dat_003F2288; static constructor380F00 installs table003BBEE4.
+- 003F228C: existing4-byte nerve row dat_003F228C; static constructor380F0C installs table003BBEF4.
+- 003F2290: existing4-byte nerve row dat_003F2290; static constructor380F18 installs table003BBF04.
+- 003F2294: existing4-byte nerve row dat_003F2294; static constructor380F24 installs table003BBF14.
+Only missing names change; all ranks/types/pools/boundaries stay unchanged. No nerve table/body is reconstructed by these imports.
+
+
+## Observed squat action address intake, 2026-10-03
+
+The operator reviewed the name-only map evidence from dot/root-19df5c. Original caller 0x0019E4D4 passes the same receiver to 0x0019DF5C and ignores its result. The receiver contains an independently allocated eight-byte state record at offset0x18, allocated by constructor0x0019E5D4; virtual predicate calls use slots0x08 and0x24 from service-prefix pointers, and animator queries use the existing interface. The existing complete row0x003B1534..0x003B1540 contains SquatStart and remains imported. Seven neutral fn_/dat_ names change; no ranks, types, pools or boundaries change. Receiver and service types are observed prefixes, not complete original class identities.
+
+
+## Texture parameter setter address intake, 2026-10-03
+
+Driver independently reviewed the name-only evidence from dot/root-39053c-exact. Original pool entries at 0039080C and 00390810 point to existing four-byte row003E3154 and eight-byte row003E3180. The function keeps its existing0039053C..00390820 interval and0039080C pool start. Add neutral fn_/dat_ address labels only; no rank, boundary, type or pool changes. Independent allocation/clear paths at0028B290 and0028B1E0 use78hex and1CChex bytes; cleanup at0010705C uses image storage at34hex, while001070A0..001070C8 walks six44hex-byte planes. These observations support the proposal's distinct2D/cube storage extents, not original class names or complete type recovery. Original EU executable SHA256e1d7e188ff88467df776c17cec45c44857fadf5b699944baa8cddcae7d939e64 verified locally.
+
+
+## 2026-10-03: Owner permits previously excluded reference material
+
+The user relayed these owner words verbatim, after the advisor had discussed takedown risk:
+
+> IDK WHY I PUT THAT IN THE BRIEF WTFFFF pls use leaked nintendo material idgaf abt that sorta stuff, i want the world to have this code, inline asm was iffy cuz that just feels like a patch not an actual decomp
+
+> okay it's fine to push! drop 'clean' from the readme and get after it
+
+On preventing duplicate placeholder types:
+
+> okay that's fine, ill go with ur recommendation here! whatever is fastest and most efficient
+
+This supersedes the previous provenance exclusion in BRIEF rule 7. Leaked or unclear-provenance material is allowed as reference and committed source. This decision makes no representation that third-party rights have been transferred. The unchanged assembly prohibition, game-data exclusion, canonical checker and integrator acceptance remain binding. No imported upstream match label is accepted without local verification. These references are initially source-only, outside the build. Restoring libraries must preserve every accepted root, or fall back to coherent type-by-type migrations. Workers must reuse and extend shared headers; the integrator must reject newly introduced translation-unit-local copies of known shared types. Historical decisions remain historical.
+
+The following provenance descriptions paraphrase each pinned repository's own README. Missing disclosure is recorded as unknown, not as a clean-room claim.
+
+- [RE-Pepper/sead_ctr](https://github.com/RE-Pepper/sead_ctr/tree/c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6), commit `c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6`: README says it derives from 3dsdecomp/sead and references libpia_pead.a downloaded from debugging.games; it says SDK origin is uncertain and credits open-ead/sead.
+- [RE-Pepper/ctrsdk](https://github.com/RE-Pepper/ctrsdk/tree/82b1d4e162d69b434afb6aa0c2638eab90d959e1), commit `82b1d4e162d69b434afb6aa0c2638eab90d959e1`: README says it derives from 3dsdecomp/ctrsdk and references a debug binary from a purchased, dumped hard drive discarded by an active game studio.
+- [RE-Pepper/NintendoWare_ctr](https://github.com/RE-Pepper/NintendoWare_ctr/tree/fafdae23115f077f61ba63f5f7f2b4f4f1539ca7), commit `fafdae23115f077f61ba63f5f7f2b4f4f1539ca7`: README says it references a debug binary from a purchased, dumped hard drive discarded by an active game studio.
+- [3dsdecomp/sead](https://github.com/3dsdecomp/sead/tree/67454e68a413dbc37911236322acbb3e517e5291), commit `67454e68a413dbc37911236322acbb3e517e5291`: README credits open-ead/sead and requires sibling 3dsdecomp/nnsdk; it gives no further source-provenance account.
+- [3dsdecomp/nnsdk](https://github.com/3dsdecomp/nnsdk/tree/d50a4b89d13c929d2438abf92e5a48f039efffbf), commit `d50a4b89d13c929d2438abf92e5a48f039efffbf`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
+- [3dsdecomp/RedPepper-Headers](https://github.com/3dsdecomp/RedPepper-Headers/tree/f8329a61dc3b7e1f72127c2b77acac010a58b061), commit `f8329a61dc3b7e1f72127c2b77acac010a58b061`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
+- [3dsdecomp/LibMessageStudio](https://github.com/3dsdecomp/LibMessageStudio/tree/8c4c16e9ab676713f1ddd4632172fa0dd231228e), commit `8c4c16e9ab676713f1ddd4632172fa0dd231228e`: No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin.
+- [3dsdecomp/RedPepper](https://github.com/3dsdecomp/RedPepper/tree/6bd828b729f2442d18e7a586b6858a5fc6aeb6cd), commit `6bd828b729f2442d18e7a586b6858a5fc6aeb6cd`: README describes an EU Super Mario 3D Land decompilation and credits open-ead/sead; it gives no further source-provenance account.

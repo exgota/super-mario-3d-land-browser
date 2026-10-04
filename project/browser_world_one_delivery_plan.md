@@ -24,8 +24,9 @@ depth/audio/fog corrects one former pixel;21remain, no new pixels. The private
 quaternion-normalization replay leaves the same21pixels unchanged. A native-order
 lighting rotation/reduction replay leaves the same21pixels unchanged. Broader
 native-order table/distance arithmetic matches1048576synthetic lighting cases
-and now replays the original movie in the owner-started T3 thread. Its final
-comparison is pending; this family stays held.
+and completed the original movie in the owner-started T3 thread. It retains the
+same21pixels, all other comparisons pass. The owner has parked this residual gap
+and authorized ready-work submission. Current order: browser_performance_plan.md.
 The measured normal startup presentation rate is about8.7/sec after first frame;
 the resumed audio/fog9000prefix averages4.3916/sec across8999warm intervals;
 the depth candidate averages4.1685/sec on a shared10core host with load14.14,
@@ -39,7 +40,7 @@ Subsequent accepted families add streamed frames, live A/circle-pad/touch input
 and original PCM consumption. They do not establish sustained playable speed,
 World 1-1 completion, or synchronized continuous sound.
 
-## Ordered remaining work
+## Earlier ordered estimates
 
 | Order | Work | Estimate | Exit evidence |
 | --- | --- | --- | --- |
@@ -50,7 +51,9 @@ World 1-1 completion, or synchronized continuous sound.
 | 5 | Complete Section 7 player, camera, RNG, timer and coin comparisons using verified Pro proposals | 12–24 hours, answer-dependent | Grounded player/update selection, same-input fixed-update observations and passing whole-level regression suite |
 | 6 | Verify whole-level browser play, live controls and sound through the goal, then deliver the runnable browser handoff | 6–12 hours | Actual browser reaches goal, rerunnable suite and preserved inputs, explicit runtime/source split and documented local setup |
 
-Total estimate is approximately 57–113 hours. WebGPU coverage and browser CPU
+These earlier estimates are retained from the main-side plan. The October 3
+owner priority in `project/browser_performance_plan.md` supersedes their order.
+The earlier total estimate was approximately 57–113 hours. WebGPU coverage and browser CPU
 speed are the largest schedule risks. A measured failure or missing evidence
 changes the estimate; it does not earn a milestone or a substitute success.
 

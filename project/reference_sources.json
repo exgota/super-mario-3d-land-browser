@@ -1,0 +1,79 @@
+{
+  "approved_on": "2026-10-03",
+  "sources": [
+    {
+      "name": "re_pepper_sead",
+      "repository": "RE-Pepper/sead_ctr",
+      "url": "https://github.com/RE-Pepper/sead_ctr",
+      "commit": "c0f95fb9c697ffc5f82fcf0b4046459a82cb5fb6",
+      "readmes": [
+        "README.md"
+      ],
+      "provenance": "README says it derives from 3dsdecomp/sead and references libpia_pead.a downloaded from debugging.games; it says SDK origin is uncertain and credits open-ead/sead."
+    },
+    {
+      "name": "re_pepper_ctrsdk",
+      "repository": "RE-Pepper/ctrsdk",
+      "url": "https://github.com/RE-Pepper/ctrsdk",
+      "commit": "82b1d4e162d69b434afb6aa0c2638eab90d959e1",
+      "readmes": [
+        "README.md"
+      ],
+      "provenance": "README says it derives from 3dsdecomp/ctrsdk and references a debug binary from a purchased, dumped hard drive discarded by an active game studio."
+    },
+    {
+      "name": "re_pepper_nintendo_ware",
+      "repository": "RE-Pepper/NintendoWare_ctr",
+      "url": "https://github.com/RE-Pepper/NintendoWare_ctr",
+      "commit": "fafdae23115f077f61ba63f5f7f2b4f4f1539ca7",
+      "readmes": [
+        "README.md"
+      ],
+      "provenance": "README says it references a debug binary from a purchased, dumped hard drive discarded by an active game studio."
+    },
+    {
+      "name": "third_dimension_sead",
+      "repository": "3dsdecomp/sead",
+      "url": "https://github.com/3dsdecomp/sead",
+      "commit": "67454e68a413dbc37911236322acbb3e517e5291",
+      "readmes": [
+        "README.md"
+      ],
+      "provenance": "README credits open-ead/sead and requires sibling 3dsdecomp/nnsdk; it gives no further source-provenance account."
+    },
+    {
+      "name": "third_dimension_nnsdk",
+      "repository": "3dsdecomp/nnsdk",
+      "url": "https://github.com/3dsdecomp/nnsdk",
+      "commit": "d50a4b89d13c929d2438abf92e5a48f039efffbf",
+      "readmes": [],
+      "provenance": "No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin."
+    },
+    {
+      "name": "red_pepper_headers",
+      "repository": "3dsdecomp/RedPepper-Headers",
+      "url": "https://github.com/3dsdecomp/RedPepper-Headers",
+      "commit": "f8329a61dc3b7e1f72127c2b77acac010a58b061",
+      "readmes": [],
+      "provenance": "No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin."
+    },
+    {
+      "name": "message_studio",
+      "repository": "3dsdecomp/LibMessageStudio",
+      "url": "https://github.com/3dsdecomp/LibMessageStudio",
+      "commit": "8c4c16e9ab676713f1ddd4632172fa0dd231228e",
+      "readmes": [],
+      "provenance": "No root README exists at this pin. Provenance is unspecified by a README; do not infer clean origin."
+    },
+    {
+      "name": "red_pepper",
+      "repository": "3dsdecomp/RedPepper",
+      "url": "https://github.com/3dsdecomp/RedPepper",
+      "commit": "6bd828b729f2442d18e7a586b6858a5fc6aeb6cd",
+      "readmes": [
+        "README.md"
+      ],
+      "provenance": "README describes an EU Super Mario 3D Land decompilation and credits open-ead/sead; it gives no further source-provenance account."
+    }
+  ]
+}
