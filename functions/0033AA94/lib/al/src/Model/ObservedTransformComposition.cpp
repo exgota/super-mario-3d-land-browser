@@ -29,25 +29,23 @@ extern "C" void fn_0033AA94(void*, nn::math::MTX34* output, nn::math::VEC3* outp
         nn::math::VEC3 translation = {
             local->matrix.m[0][3], local->matrix.m[1][3], local->matrix.m[2][3]
         };
-        if (local->flags & 0x80) {
-            if (parentLocal->flags & 0x200) {
-                fn_00216360(output, &parentComposed->matrix, &translation);
-            } else {
-                translateWithParentScale(output, &parentComposed->matrix,
-                    parentLocal->scale, &translation);
-            }
+        unsigned rotationMissing = 0x80 & ~local->flags;
+        unsigned scaleMissing = 0x200 & ~parentLocal->flags;
+        if (!rotationMissing && !scaleMissing) {
+            fn_00216360(output, &parentComposed->matrix, &translation);
+        } else if (rotationMissing && !scaleMissing) {
+            fn_00216360(output, &parentComposed->matrix, &translation);
+            fn_00224AD0(output, output, &local->matrix);
+        } else if (!rotationMissing && scaleMissing) {
+            translateWithParentScale(output, &parentComposed->matrix,
+                parentLocal->scale, &translation);
         } else {
-            if (parentLocal->flags & 0x200) {
-                fn_00216360(output, &parentComposed->matrix, &translation);
-                fn_00224AD0(output, output, &local->matrix);
-            } else {
-                translateWithParentScale(output, &parentComposed->matrix,
-                    parentLocal->scale, &translation);
-                fn_00224AD0(output, output, &local->matrix);
-            }
+            translateWithParentScale(output, &parentComposed->matrix,
+                parentLocal->scale, &translation);
+            fn_00224AD0(output, output, &local->matrix);
         }
     }
-    if (parentComposed->flags & 0x200) {
+    if ((0x200 & ~parentComposed->flags) == 0) {
         outputScale->x = local->scale.x;
         outputScale->y = local->scale.y;
         outputScale->z = local->scale.z;

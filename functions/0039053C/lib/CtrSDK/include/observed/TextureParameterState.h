@@ -1,4 +1,5 @@
-#pragma once
+#ifndef OBSERVED_TEXTURE_PARAMETER_STATE_H
+#define OBSERVED_TEXTURE_PARAMETER_STATE_H
 #include <nn/types.h>
 
 namespace observed_texture {
@@ -84,3 +85,5 @@ static_assert(offsetof(Parameters, rawParameter) == 0x30, "raw byte");
 }
 extern observed_texture::StatePrefix* dat_003E3154;
 extern observed_texture::ManagerGlobal dat_003E3180;
+
+#endif

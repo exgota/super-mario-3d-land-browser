@@ -1,16 +1,10 @@
-Local result: fn_0039053C is scratch exact, pending the final fresh-main delivery gate. No delivery claim.
-Form 5 passes the canonical project checker: complete 740-byte interval is byte exact.
-Five total forms used. Historical form 1 was 492/740; restored form 2 was
-CURRENT 1825 and 744/740. Form 3: 960 and 740/740; form 4: 320 and 744/740.
-Form 5: 55 and 740/740 in compact-address strict-v3 diagnostic; canonical exact
-comparison at original addresses overrides the diagnostic score.
-Normal project build and canonical source/provenance closure pass under unchanged
-SDK ARMCC 4.0/902. Strict v3 covers all 185/185 words, including pools, with
-archive/ELF identity and both data relocations verified. No further forms needed.
-Final plain-C++ changes scope manager lookup per target, use typed pointer-slot
-selection for 2D, reverse the cube conditional, reorder scalar cases and combine
-the dirty-bit shift expression. No shared headers, Factory source, flags or pragmas changed.
-Original compiler evidence for historical forms 1/2 was not recovered; the form 2
-reproduction is a restoration baseline, not a new form. All current forms retained.
-No exact-family publication, final fresh-main check, integration or accepted-byte credit is claimed here.
-The measured header precedes a pending include-guard-only delivery cleanup and recheck.
+Published exact proposal: fn_0039053C, 740 bytes, pending integrator acceptance.
+Branch dot/root-39053c-exact, public head a1a46ca98237873ad0416519d7bbecf3d0b40bf9.
+Public source commit db28d8ae499e61f8c493445d18e304c6614bf5c8; separate address-name evidence commit follows.
+The public tree 256e86884bb59b3fc6ed284020b58808e6a64193 equals the locally tested final tree.
+Fresh main 238bbbec rebase, normal build and canonical complete-interval checker passed before publication.
+Five forms used; restored form2 score1825/744bytes, form3 960/740, form4 320/744, form5 canonical exact740.
+Compact-address strict-v3 score55 is diagnostic; canonical original-address equality is the exact gate.
+All185/185 words, provenance/archive/ELF and two data relocations verified; only the claimed function is defined.
+This backup has the final include-guard header; delivery-only cleanup retained exactness without a sixth form.
+SDK ARMCC4.0/902 and flags unchanged. Final source is frozen; no accepted-byte credit until integration.
