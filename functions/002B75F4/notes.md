@@ -1,9 +1,1 @@
-Claims: none. Historical capped target 002B75F4, 540 original bytes.
-Four forms; best complete section 540 bytes, still nonexact.
-The earlier provisional-module question is not a zero-form history.
-This is recovered historical status, not a fresh build or verification.
-Later source and compiled evidence are unavailable in the current workspace.
-Next idea: none without new independent evidence and reconciliation of prior attempts.
-Preserve the recorded cap; uncertainty never resets the attempt count to zero.
-
-Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.
+Claims: none. 2B75F4 new form 5 is building on cd0c0225 with unchanged SDK902 carrier. Four historical forms remain counted; historical best540/540 nonexact, old source/proof/score unavailable. Current binary-derived Drawer prefix uses general float4 uniform storage, with the stopped21503C color type retained as a compatible alias. Real-header lookup found no Drawer header; no upstream source copied. Helper244164 uses an explicitly reconstructed void side-effect contract; original return spelling unknown. No new size/score yet; up to eight total forms, two consecutive no-closer stop.

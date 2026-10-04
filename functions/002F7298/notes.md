@@ -1,4 +1,9 @@
-Claims: none. Two historical forms remain counted; old source/proof/score is unavailable. Explicitly new form 3 is the current measured baseline: 564 versus 572 bytes, score 2885, source closure passes then size refusal. Form 4 is building with revised ordinary branch placement. Up to eight total forms; two consecutive no-closer stop.
-Two unavailable historical forms remain counted; this is explicitly new source from current evidence, not recovered best source.
-Fresh form3 score establishes a new comparison baseline, with no claimed comparability to the missing old score.
-Next idea: ordinary trigger-block and optional reaction-actor branch structure.
+Claims: none.
+2F7298 stops after eight total forms and two consecutive no-closer results.
+Two historical forms remain counted; source/proof/score unavailable. Historical best: 572/572 with one conditional-target difference.
+Fresh forms 3–8: 564/2885, 560/1430, 560/1430, 572/1225, 572/1225, 572/1225 (bytes/score).
+Supported best is free-function form 6. Canonical m; source closure and full strict diff pass.
+Register allocation and false-return placement differ; current source does not restore the unavailable historical near-match.
+Form 7 emitted an unowned 152-byte vtable and five inherited leaves; no guessed map owners. It is not the supported best.
+Final form 8 returns to the free-function model and defines only the root. Best form 6 and all new forms/proof retained.
+No ninth form under the current budget. No exact delivery.

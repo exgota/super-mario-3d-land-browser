@@ -1,8 +1,12 @@
-Claims: none. One known reopened historical form; earlier unpublished history remains uncertain.
-Fresh form1 reproduced496/556 bytes, score12560, with generated memclr closure refusal.
-Form2 uses an ordinary countdown clear loop:516/556 bytes, score12615, canonical source closure now passes.
-Validity improvement outranks score; form2 is the measured best, with zero consecutive no-closer forms.
-The physical48-byte matrix row430C68..430C98 is independently bounded; nominal owner remains unknown.
-Fresh current proof is retained; restoring source did not restore old compiler proof.
-Next: ordinary SRT setter/const-reference vector temporaries, with no helper bypass or checker changes.
-Up to eight forms in this bounded continuation, two consecutive no-closer stop, plain C++ only.
+Claims: none. Target fn_0029A73C spans 0029A73C..0029A968, 556 bytes.
+Eight forms in this bounded continuation; earlier unpublished history remains uncertain.
+Verified WIP source was restored; historical compiled proof was not recovered.
+Form 1: 496 bytes / score 12560, canonical __aeabi_memclr source-closure refusal.
+Forms 2–8 (bytes/score): 516/12615, 516/12615, 432/9795, 432/9795, 436/9715, 440/9255, 440/9450.
+Forms 2–8 pass source closure, then fail complete-section size; best is form 7.
+The fixed comparison prioritizes closure validity, then full CURRENT score, then size gap.
+Guarded best form 7 passed final normal build/link/export; canonical M, 440/556 bytes.
+Strict v3 verifies the full 139/110-word comparison and provenance; final object equals form 7.
+Only the target is emitted; neutral 430C68..430C98 bounds have separate physical-layout evidence.
+Map bytes restored; no ranks, tools, flags, shared APIs or Factory files committed; no exact claim.
+Final head 474661e2d11af10d150f197c1ed70c014eefa6a4; no ninth form or silent reset for a future real-layout revisit.

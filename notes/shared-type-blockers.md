@@ -37,7 +37,8 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
 - **State, service accessor and animator:** root `00173790` (784).
   Factory `fn_001BAD90.cpp` imports the root with private State/Holder/Body; `fn_00173698.cpp` defines private Motion/MotionState/MotionControl. Shared accessor `0026E1DC` is inconsistently declared Settings*() in `fn_00171BE0.cpp`, Limit*() in `fn_001BAD90.cpp`, and void(Motion*) in `fn_00173698.cpp`, although the retained body evidence establishes a parameterless pointer accessor.
   Migrate those owner contracts. `Player/PlayerAnimator.h` declares `IUsePlayerAnimator::v_8()` without the live SafeString argument used at `001737F8`/`00173970`/`0017398C`, targeting `0014F488`; correct the real interface and preserve its users. Other concrete service targets remain unresolved separately.
-  Evidence: recovered `173790` preflight and current owners.
+  `0019EBAC` (524; at least two historical forms) is another dependent: call19EBBC consumes the parameterless accessor result as a vtable receiver; vector calls19ED50/19ED6C/19ED9C also depend on the add/multScalar repair.
+  Evidence: recovered `173790` preflight, current owners and `preflight/root-0019EBAC-revisit/preflight.md`.
 
 - **Texture format, dimensions and release arguments:** root `002FA29C` (780).
   Factory `fn_002FA294.cpp` imports root argument 2 as void*; retained call evidence establishes a scalar format byte at +60. Dimension helpers `0021DEFC`/`0021DEC8` return 16-bit integer dimensions but are declared void* by `group_0021DEC0.cpp`/`group_00374CE8.cpp`, affecting accepted wrappers `0021DEC0`/`0021DEF4`/`00374CE8`/`00374CF0`.
@@ -64,10 +65,17 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
   `00158D70`: private Object in Factory `fn_00265C2C.cpp` and DispatchObject returned by `00265E80` in `group_00277674.cpp`; unify actual interfaces and preserve owners. `00229434`: `fn_00229370.cpp` exposes float* for a mixed-layout track and reads float members at +34+4*index; correct the receiver API, not a cast-only adapter.
   Evidence: restored function notes. Ordinary owner-header extraction/correction is not automatically a driver blocker when the matching family can preserve its affected accepted cohort.
 
+- **Spin-attack state constructor:** root `0026C780` (516; three historical forms, no new form).
+  `0028CB38` has unrelated anonymous formatted-buffer receivers in ordinary `alEffectObj.cpp` and `KoopaPillar.cpp`; reconcile the real SafeString buffer API and preserve O31B45C/O12DE18.
+  `0026C984` is declared const-char output in `Bug.cpp`, but consumers36C43C/19A204/19A228/36C394 read four-float records; reconcile payload ownership and preserve O2D4544. Both root+1C/+20 are Matrix34 pointers, including the value transported through s16.
+  `dat_003F2E90` is imported as anonymous Nerve in accepted `Factory/fn_0026CD08.cpp`; reconcile ordinary Nerve/IUseNerve contracts and preserve O26CD08. Evidence: `preflight/root-26c780-revisit/preflight.md`.
+
+- **Scene-service 8 entry:** root `0019C888` (520; two historical forms). Original four-byte wrapper19C884 forwards a live receiver, read at root+0C immediately; accepted `group_00189160.cpp` declares both entries as no-argument unsigned functions. Reconcile actual receiver/wrapper contracts and preserve that owner and separate fallthrough boundary; return spelling remains unproved.
+
 ## Unresolved contracts, not established shared-declaration mismatches
 
 - `002E8628` (784): actual non-null callback target/return at `002E88A0` remains unproved; `002AE220`: collection-entry slot +4 targets at `002AE2AC`/`002AE3F0` remain unproved. Establish actual target contracts before declaration choice; unused results do not establish void.
 - `001C9970`: `0025F980` and `0027C52C` original return types remain unestablished; no conflicting accepted import was found. This uncertainty is separate from coherent CollisionParts/KCollisionServer/matrix owner-layout work that the family may perform with fresh preservation; that owner work alone is not a driver-only blocker.
 - `002C2C00` (792) is source-admissible: accepted void() `002C6374` in Factory `group_002C1F24.cpp` conflicts only if implementing the separate callback's two-argument slot. This root transports the callback representation and does not call/redeclare that slot; do not block or broaden it for this issue.
-- Pure missing-data holds and compiler/size mismatches are excluded. `002F46F0`, `001BBFAC`, `0021503C` and equal-size near misses have no established shared-declaration blocker from these records. Earlier vector sub/multScalarAdd prerequisites for `00249CE4` were already repaired; do not restore them as current holds.
+- Pure missing-data holds and compiler/size mismatches are excluded. `002F46F0`, `001BBFAC` and `0021503C` have no established shared-declaration blocker from these records. Earlier vector sub/multScalarAdd prerequisites for `00249CE4` were already repaired; do not restore them as current holds.
 - Owner-authorized plain-C++ iteration remains available up to eight forms, stopping early after two consecutive no-closer forms or a concrete blocker. Historical attempt counts/results remain evidence; former assistant-imposed one/few-form restrictions are superseded.
