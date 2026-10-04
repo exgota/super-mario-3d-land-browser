@@ -56,6 +56,7 @@ The 780-tier and 00119644/00122144 call observations were recovered from the coo
 
 - **Time storage and intrusive-list insertion:** roots `0021BFB0` and `002BCE68` (788).
   `0021BFB0` needs `0021A5E0` for an eight-byte time output; Factory `group_0010CAB0.cpp` defines it with anonymous pointer Pair. Reconcile storage/API ownership and preserve all 21 accepted group definitions, including the genuine `0021A5BC` fallthrough boundary.
+  `002C55E4` (516 bytes, four historical forms) is another dependent: call `002C5764` supplies three inputs; callee `002323E8` overwrites r3 before reading it. No new source form; preserve the same accepted callers below.
   `002BCE68` makes six three-input calls to `002323E8`; Factory `group_0022A6D4.cpp` declares four Ptr inputs. Reconcile the real three-input insertion contract and preserve accepted `0022A6D4`/`002B5590`. Existing list-dtor void*(void*) APIs in `group_00298380.cpp` are reusable; their returns are not unknown.
   Evidence: `preflight/root-21bfb0/preflight.md`, `preflight/root-2bce68/preflight.md`.
 

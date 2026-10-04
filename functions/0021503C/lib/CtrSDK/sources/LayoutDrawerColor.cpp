@@ -11,12 +11,10 @@ extern "C" void fn_0021503C(nw::lyt::Drawer* drawer, const unsigned* colors,
             const unsigned char* bytes = reinterpret_cast<const unsigned char*>(&colors[vertex]);
             for (int channel = 0; channel < 4; ++channel)
                 converted[vertex].component[channel] = static_cast<float>(bytes[channel]) * channelScale;
-            if (allWhite) {
-                for (int previous = 0; previous < vertex; ++previous) {
-                    for (int channel = 0; channel < 3; ++channel)
-                        converted[previous].component[channel] = 1.0f;
-                    converted[previous].component[3] = opacity;
-                }
+            for (int previous = 0; allWhite && previous < vertex; ++previous) {
+                for (int channel = 0; channel < 3; ++channel)
+                    converted[previous].component[channel] = 1.0f;
+                converted[previous].component[3] = opacity;
             }
             allWhite = false;
             converted[vertex].component[3] *= opacity;

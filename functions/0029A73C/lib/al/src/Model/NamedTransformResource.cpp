@@ -37,7 +37,11 @@ extern "C" observed_named_transform_resource::Record* fn_0029A73C(
     using namespace observed_named_transform_resource;
     Record* record = static_cast<Record*>(allocator->dispatch->allocate(allocator, sizeof(Record), 4));
     unsigned char* bytes = reinterpret_cast<unsigned char*>(record);
-    for (unsigned i = 0; i < sizeof(Record); ++i) bytes[i] = 0;
+    unsigned remaining = sizeof(Record);
+    do {
+        --remaining;
+        *bytes++ = 0;
+    } while (remaining);
     record->type = 0x40000422;
     record->signature = 0x4e465443;
     record->version = 0x07010000;
