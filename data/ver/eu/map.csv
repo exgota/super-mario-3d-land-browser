@@ -7543,7 +7543,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x00251AA4,0x00251B48,0x00251B50,          ,U,f,,
 0x00251B50,          ,0x00251BB0,          ,U,f,,
 0x00251BB0,          ,0x00251C08,          ,U,f,,
-0x00251C08,          ,0x00251C14,          ,U,f,,
+0x00251C08,          ,0x00251C14,          ,O,f,fn_00251C08,
 0x00251C14,          ,0x00251C4C,          ,U,f,,
 0x00251C4C,          ,0x00251C70,          ,U,f,,
 0x00251C70,          ,0x00251C84,          ,O,f,_ZN2al19getCourseSelectHeapEv,
