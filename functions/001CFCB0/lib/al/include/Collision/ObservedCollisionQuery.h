@@ -42,7 +42,8 @@ struct Ring {
     Iterator end() { Iterator it = {this, count}; return it; }
     void push(const Contact& value) {
         if (count >= capacity) return;
-        int position = head + count++;
+        int position = count++;
+        position += head;
         if (position >= capacity) position -= capacity;
         data[position] = value;
     }

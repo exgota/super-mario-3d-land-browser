@@ -1,13 +1,8 @@
-Claims: none. fn_001CFCB0 capped after one ordinary source form.
-Normal build succeeded on 238bbbec; complete 736 versus756 bytes.
-Canonical closure passes then size rejects; actual full-section diff verified.
-Fresh existing-owner baseline preserved whole KCollisionServer object unchanged;
-accepted 1D0970/1D09D0 both remain O-to-O. No shared-source regression observed.
-Differences: frame/initialization, vector lowering, iterator reloads and scheduling.
-Original VFP HI admits unordered height; source !(height<=0) expresses it,
-but unchanged fast-float mode emits GT. This difference is retained explicitly.
-No independently grounded retry; no flags/register/stack-size rescue.
-Shared source/header family with sibling; do not replay either capped form.
-Source for both collision siblings is stored under functions/001CFCB0/.
-
-Current owner policy (2026-10-03 23:57 UTC) supersedes earlier stop rules: up to eight total forms, with diff-guided plain-C++ variations allowed. Stop early only after two consecutive forms get no closer or a real blocker. Retain measured history and best source; prior assistant stopping points are not owner caps.
+Claims: none. Both collision siblings stopped after six total forms under the two-no-closer rule.
+Per-root scores:7863,6843,6012,4125,4125,5146; best form4 is752/756bytes for each.
+Forms5 and6 did not improve; no form7 started. Best rebuilt object is identical to its retained measurement.
+The sole existing consumer object and both accepted roots1D0970/1D09D0 preserve.
+Full canonical size refusals and strict complete-section diagnostics are retained locally.
+Remaining limits include HI/GT height handling and premature shift-output use; no semantic-equivalence claim.
+Shared source/header lives under functions/001CFCB0 and defines both sibling roots.
+All forms are retained, scratch ranks restored and shared-header ownership released. No exact delivery.
