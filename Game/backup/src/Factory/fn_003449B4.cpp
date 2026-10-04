@@ -1,5 +1,7 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
-struct Vec3 { float x, y, z; };
+struct Vec3 { nn::math::VEC3 components; };
 struct Quat { float x, y, z, w; };
 struct EffectController;
 struct Actor {
@@ -21,7 +23,6 @@ extern "C" {
 bool _ZN2al11isFirstStepEPKNS_9IUseNerveE(const Actor*);
 void _ZN2al11startActionEPNS_9LiveActorEPKc(Actor*, const char*);
 void fn_0027A6D4(Actor*, const char*, const Vec3*);
-void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vec3&, const Vec3&, float);
 void fn_00279AC0(Actor*, const Vec3&);
 void fn_00279e5c(Actor*, float);
 bool _ZN2al6isStepEPNS_9IUseNerveEi(Actor*, int);
@@ -43,7 +44,7 @@ extern "C" void fn_003449B4(const void*, Spine* spine) {
     }
     Vec3 velocity;
     Vec3 scaled;
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(scaled, actor->direction, 2.0f);
+    sead::Vector3CalcCtr<float>::multScalar(scaled.components, actor->direction.components, 2.0f);
     velocity = scaled;
     fn_00279AC0(actor, velocity);
     fn_00279e5c(actor, 0.99f);
@@ -56,4 +57,10 @@ extern "C" void fn_003449B4(const void*, Spine* spine) {
         _ZN2al25startHitReactionDisappearEPKNS_9LiveActorE(actor);
         actor->kill();
     }
+}
+
+namespace {
+typedef char VectorStorageSizeCheck[sizeof(Vec3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vec3, components) == 0 ? 1 : -1];
+typedef char ActorLayoutCheck[offsetof(Actor, position) == 0x70 && offsetof(Actor, direction) == 0x7C && offsetof(Actor, controller) == 0x94 ? 1 : -1];
 }

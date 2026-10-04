@@ -1,9 +1,11 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 struct Actor;
 struct Nerve;
 struct Spine { Actor* actor; };
 struct Vec3 {
-    float x, y, z;
+    nn::math::VEC3 components;
     Vec3& operator*=(float scalar);
 };
 }
@@ -14,7 +16,6 @@ void _ZN2al11startActionEPNS_9LiveActorEPKc(Actor*, const char*);
 bool _ZN2al11isActionEndEPKNS_9LiveActorE(const Actor*);
 const Vec3& _ZN2al10getRailDirEPKNS_9LiveActorE(const Actor*);
 bool _ZN2al10isLoopRailEPKNS_9LiveActorE(const Actor*);
-void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vec3&, const Vec3&, float);
 void fn_0027A5DC(Vec3&, const Actor*);
 bool fn_0027A724(const Vec3&, const Vec3&, float);
 void _ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE(Actor*, const Nerve*);
@@ -44,7 +45,13 @@ extern "C" void fn_0034D9AC(const Nerve*, const Spine* spine) {
 
 namespace {
 inline Vec3& Vec3::operator*=(float scalar) {
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(*this, *this, scalar);
+    sead::Vector3CalcCtr<float>::multScalar(components, components, scalar);
     return *this;
 }
+}
+
+namespace {
+typedef char VectorStorageSizeCheck[sizeof(Vec3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vec3, components) == 0 ? 1 : -1];
+
 }

@@ -29,7 +29,6 @@ const Vector3& _ZN2al8getTransEPKNS_9LiveActorE(const Actor*);
 bool fn_0027D5C4(Vector3&);
 void _ZN2al15setVelocityZeroEPNS_9LiveActorE(Actor*);
 void fn_0027C0C8(Actor*, const Vector3&);
-void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vector3&, const Vector3&, float);
 void _ZN2al11setVelocityEPNS_9LiveActorERKN4sead7Vector3IfEE(Actor*, const Vector3&);
 bool fn_00279ED4(const Actor*, int);
 bool _ZN2al18isGreaterEqualStepEPKNS_9IUseNerveEi(const Actor*, int);
@@ -46,7 +45,7 @@ inline Vector3 Vector3::operator-(const Vector3& other) const {
 }
 inline Vector3 Vector3::operator*(float scale) const {
     Vector3 result;
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(result, *this, scale);
+    sead::Vector3CalcCtr<float>::multScalar(result.components, components, scale);
     return result;
 }
 }

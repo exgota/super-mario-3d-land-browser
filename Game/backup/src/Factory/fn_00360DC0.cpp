@@ -1,16 +1,18 @@
+#include <math/seadVectorCalcCtr.h>
+
 namespace {
 struct Vec3 {
-    float x, y, z;
+    nn::math::VEC3 components;
     Vec3() {}
-    Vec3(float a, float b, float c) : x(a), y(b), z(c) {}
-    Vec3(const Vec3& v) : x(v.x), y(v.y), z(v.z) {}
+    Vec3(float a, float b, float c) { components.x = a; components.y = b; components.z = c; }
+    Vec3(const Vec3& v) { components.x = v.components.x; components.y = v.components.y; components.z = v.components.z; }
 };
 struct VectorWork {
     Vec3 velocity;
     Vec3 negative;
     Vec3 scaled;
     VectorWork(const Vec3& direction)
-        : negative(-direction.x, -direction.y, -direction.z) {}
+        : negative(-direction.components.x, -direction.components.y, -direction.components.z) {}
 };
 struct Actor {
     char reserved[0x68];
@@ -27,7 +29,6 @@ struct Nerve {};
 extern "C" {
 bool _ZN2al11isFirstStepEPKNS_9IUseNerveE(const Actor*);
 void fn_0025E50C(Actor*, float);
-void _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(Vec3&, const Vec3&, float);
 void fn_00279AC0(Actor*, const Vec3&);
 Vec3* _ZN2al11getVelocityEPKNS_9LiveActorE(const Actor*);
 bool fn_0026F71C(const Vec3&, float);
@@ -43,7 +44,7 @@ extern "C" void fn_00360DC0(const Nerve*, const Spine* spine) {
         fn_0025E50C(actor, 85.0f);
     float scalar = **actor->acceleration;
     VectorWork work(actor->direction);
-    _ZN4sead14Vector3CalcCtrIfE10multScalarERN2nn4math4VEC3ERKS4_f(work.scaled, work.negative, scalar);
+    sead::Vector3CalcCtr<float>::multScalar(work.scaled.components, work.negative.components, scalar);
     work.velocity = work.scaled;
     fn_00279AC0(actor, work.velocity);
     if (fn_0026F71C(*_ZN2al11getVelocityEPKNS_9LiveActorE(actor), 0.001f)
@@ -51,4 +52,11 @@ extern "C" void fn_00360DC0(const Nerve*, const Spine* spine) {
         _ZN2al15setVelocityZeroEPNS_9LiveActorE(actor);
         _ZN2al8setNerveEPNS_9IUseNerveEPKNS_5NerveE(actor, &dat_003F3474);
     }
+}
+
+namespace {
+typedef char VectorStorageSizeCheck[sizeof(Vec3) == 12 ? 1 : -1];
+typedef char VectorStorageOffsetCheck[offsetof(Vec3, components) == 0 ? 1 : -1];
+typedef char VectorWorkLayoutCheck[offsetof(VectorWork, velocity) == 0 && offsetof(VectorWork, negative) == 12 && offsetof(VectorWork, scaled) == 24 && sizeof(VectorWork) == 36 ? 1 : -1];
+typedef char ActorDirectionOffsetCheck[offsetof(Actor, direction) == 0x74 ? 1 : -1];
 }
