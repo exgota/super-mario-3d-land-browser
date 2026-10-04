@@ -1,12 +1,9 @@
+#include <nn/math/math_MatrixStorage.h>
+
 namespace nn
 {
 namespace math
 {
-
-struct MTX34
-{
-        float m[ 3 ][ 4 ];
-};
 
 struct MTX44
 {
