@@ -33,8 +33,10 @@ used-format coverage. Unknown inherited prefix bits are disclosed in inventory.
 
 T3's actual worker exposes WebGL2 through ANGLE Metal on Apple M4, native ETC1
 and ETC compression, and a16384texture-size limit. Capability is not game speed.
-The initial estimate is8–16hours to a first GPU World1-1 frame and24–48hours to
-verify full-speed play. These are engineering estimates, not measured promises.
+The initial estimate was8–16hours to a first usable GPU World1-1 frame and
+24–48hours to verify full-speed play. The first World-entry run now fails visually
+and measures9.37/s. Those estimates need revision after World cost attribution;
+the menu timings do not establish the World CPU or GPU budget.
 The first actual GPU short360 replay completes in T3 at9.185970796140145 warm
 presentations/second,359intervals39.081334784seconds. First eligible presentation
 takes75.328185088seconds. This startup/menu run is not World1-1 speed. Original
@@ -90,12 +92,10 @@ Format references: [Khronos ETC1 specification](https://registry.khronos.org/Ope
 [3dbrew texture storage](https://www.3dbrew.org/wiki/CGFX#TXOB), and
 [3dbrew PICA registers](https://3dbrew.org/wiki/GPU/Internal_Registers).
 
-## Potential independent parallel piece
+## Independent texture conversion contract
 
-PICA texture conversion can live alone in
-`runtime/port/browser/PicaTextureConversion.mjs`, without touching Root's bridge,
-renderer or build files. No second agent has been started or assigned by Root.
-Estimated critical-path saving:2–4hours if completed during bridge/shader work.
+Root has completed the formerly proposed parallel texture-conversion piece.
+No second agent was started or assigned. The isolated conversion contract is:
 
 Contract: `convertPicaTexture({format, width, height, data})` accepts an integer
 PICA format, positive dimensions, and a Uint8Array of the exact observed texture
@@ -135,8 +135,48 @@ audio frames are accepted/consumed, with419968underrun frames. Synchronized audi
 and World1-1 speed remain unverified. Existing receipts, source snapshots, rejected
 hardware-depth/direct-combiner candidates and failed diagnostics remain local.
 
-An isolated existing-software lighting oracle now emits128cases covering eight
-lighting models, both geometric factors, LUT signedness and normal mapping.
-GPU readback comparison is next. ETC1/ETC1A4 valid-block oracle/GPU verification
-is a remaining self-contained diagnostic piece, estimated2–3hours of work that
-could overlap lighting work. No second agent has been started or assigned.
+## World-entry result, October 4, 2026
+
+Independent lighting rules now match all128software-oracle cases exactly. The
+initial shader failed120cases; both observations remain local. Coverage includes
+eight models, geometric factors, selected signed inputs and normal mapping.
+Rotated quaternions, back-facing lights and signed LUT boundaries remain open.
+Native ETC1/ETC1A4 readbacks match5376texels/21504channels across24valid fixtures,
+including all modifier tables, differential/individual blocks, flip modes,
+multiple tiles and alpha nibbles. No GPL decoder or GPU implementation was copied.
+Provenance receipt26657d7b seals sources, fixtures and actual browser observations.
+
+Latest short360 telemetry candidate preserves all720specialized GPU images,
+original HID/timing/PCM/CPU counts and21shader logs. Steady180..36053.6499/s,
+p95/p9939.795/44.585ms, heap growth0 and497920audio underrun frames. Comparison
+ba4d15a9. Changes remain private; software is unchanged.
+
+The same candidate's bounded original-movie7800prefix reaches World1-1. It is
+a failed graphics run: top blue, Mario silhouette, level geometry/HUD absent.
+Final top RGB MAE140.2144/255,97.91%pixels exceed8channel error; bottom MAE1.1164.
+Whole warm15.6275/s, late7680..7800window9.3694/s, mean106.730ms/frame,
+p95/p99260.25/287.68ms. Wasm heap stays1GiB with zero observed growth;
+JavaScript collection pauses remain unmeasured. All4285760source audio frames
+are consumed, with12227328underrun frames. Input-to-display latency is unmeasured.
+All402shader compile/link records pass and unsupported count0. This does not
+earn visual-equivalence credit. Original HID/timing/PCM and CPU03693917823,
+CPU1zero/fallbacks0agree.18of20snapshot files match; CEC mailbox and reference
+capture log differ. Counts and PCM do not satisfy the Azahar state gate.
+Observation6f905b2744b37f1a7b3790dff2dace4b3b665eea94a829f2d8a52d04cf07bc9c,
+receiptc2baabff95c35dbc0e9a2a6a3372e8e3d90deb48383dd4514610698c83382d63.
+All images/audio/captures remain ignored/local. Own browser/server are closed.
+
+That run's180..360profile covers startup, not World. Top costs per frame there:
+unclassified outside bridge46.948ms(59.84%), draw configuration17.637ms(22.48%),
+triangle preparation4.976ms(6.34%). World top-three costs and gains remain
+unmeasured. Next: verify stencil write permission against the software oracle,
+capture an isolated World draw stream with complete initial state, and profile
+the actual World window. Reuse that capture for graphics fixes, avoiding repeated
+opening-sequence boots. The original9000movie still ends at bridge crates;
+a verified start-to-goal movie/state comparison remains necessary.
+
+A clean potential parallel diagnostic piece is expanding isolated lighting
+fixtures to rotated quaternions, back-facing lights and signed LUT boundaries.
+It can use new ignored fixture/probe files without touching Root's renderer,
+bridge or builders. Estimated overlap saving2–3hours, not a measured promise.
+No second agent has been started or assigned.

@@ -36,9 +36,15 @@ its actual generated RGBA, and the page displays those pixels with Canvas 2D.
 The local server serves runtime files and comparison sidecars and receives
 exported evidence. It does not render game pixels or serve the owner's dump.
 Azahar runs separately as the reference. The independent WebGL2 prototype now
-executes the short360 movie and produces its own browser pixels. Background
-color and bottom-screen shading still differ substantially. It is not yet an
-accepted visual or real-time play path. WebGPU rendering is not implemented.
+executes the short360 movie and produces its own browser pixels. The corrected
+short run has low visual error and approaches60Hz only in the steady menu window.
+The original-movie7800prefix reaches World1-1 but fails visually, with a blue
+top screen, missing level geometry and9.3694presentations/second in7680..7800.
+Top RGB mean absolute error140.2144/255;97.91%pixels exceed8channel error.
+All402shader compile/link records pass, demonstrating that shader validation
+alone does not establish correct draw semantics. The GPU play path is unaccepted.
+World cost attribution, coherence and synchronized audio remain unresolved.
+WebGPU rendering is not implemented.
 The retired compiler closure has now been reconstructed with historical byte
 identity. A fresh module exists. Actual default360 replay and normal360 replay
 passed original input/PCM/pixels/framebuffers; default also passed the full GPU

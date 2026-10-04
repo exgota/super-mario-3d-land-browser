@@ -57,6 +57,21 @@ outside bridge66.22%, GPU readback16.35%, setup7.47%. Private8msframe pump reach
 58.51288Canvas updates/s. Steady p95/p99 are35.110/38.660ms with bimodal pacing;
 51whole-run intervals exceed50ms. Wasm heap growth0,419968audio underrun frames.
 No synchronized audio or World1-1 speed claim. Comparison60499aaa56a98609.
-All own short-run browsers/servers closed after evidence.128-case isolated lighting
-oracle built; GPU comparison next. Runtime optimizations remain private pending
-feature/coherence validation. GPU branch remains unfinished and unsubmitted.
+All own short-run browsers/servers closed after evidence. Independent lighting
+rules now match128oracle cases exactly; native ETC readbacks match5376texels
+across24fixtures. Provenance26657d7b. Both initial failing lighting observation
+and corrected observation preserved. No GPL renderer/decoder implementation copied.
+Play telemetry candidate short360 preserves720GPU frames and original input,
+PCM/CPU counts,21shader logs;53.6499/s steady and497920audio underrun frames.
+Comparisonba4d15a9. Runtime optimizations remain private pending coherence checks.
+
+Original7800movie prefix reaches World1-1 but GPU visual acceptance fails. Top
+blue, Mario silhouette and level geometry/HUD absent. Late7680..7800throughput
+9.3694/s, p95/p99260.25/287.68ms; top RGB MAE140.2144/255,97.91%pixels>8.
+402shader compile/link records pass,unsupported0. HID/timing/PCM/CPU counts match
+original;18of20snapshot files equal,CEC/log differ. Heap growth0;12227328audio
+underrun frames. Observation6f905b27,receiptc2baabff. No goal/state/latency proof.
+Own server/browser closed after evidence. This replaces menu-based performance
+inference;8–16/24–48hour estimates need revision after actual World profiling.
+Next: verify stencil permission, capture isolated World state and measure its
+costs before another graphics iteration. GPU branch unfinished and unsubmitted.

@@ -1,15 +1,13 @@
 # Root browser gameplay session state
 
 Root owns `root/browser-webgl-renderer`; performanceca9953f3 accepted53edcf73.
-Gameplay c31443e29 was accepted
-at8f5d2c9d with21pixels disclosed and parked. Implementation baseline origin/main
+Gameplay c31443e29 accepted8f5d2c9d with21pixels parked. Baseline origin/main
 `96773182c9a4b23005dc39b9a661580619c841f2`. Only the integrator moves main,
 ranks and ledger. No Game/lib/config/map/Factory/protected matching-tool changes.
 Matching claims/new translated bytes zero. Linked recompiled bytes 2,437,712.
 
 Owner target: real-time World1-1 desktop browser clip as soon as possible.
-Wednesday target removed October4; phones/hosting out of scope. GPU work:
-project/browser_webgl_renderer_plan.md. Estimates are not promises.
+No Wednesday deadline, phones or hosting. GPU:browser_webgl_renderer_plan.md.
 Step1 bridge evidence submitted and accepted. Step2 resumed by the owner in T3
 Code on October 3. No subagents, delegated tasks or Codex relay for Root. No reorder.
 Checkpoint: project/root_pause_checkpoint_2026-10-03.md.
@@ -92,8 +90,7 @@ typed player/control/update or full-prefix GPU equality credit.
 Own completed compiler duplicates/profiles retired only after source/hash and
 closed-owner proofs. Original dump/code/profiles/movies/reference raw/screens/PCM,
 9000 comparison inputs and raw evidence, accepted providers and all sealed receipts preserved.
-Free disk measured below. No factory restart/settings. Aquinas absent/archived.
-All helpers idle; graphics diagnosis sealed. No reviewers or unrelated work.
+No factory restart/settings. Aquinas absent/archived; no delegated work.
 
 Pro handles layout/type/update proposals. Exit-boundary answer is conditional,
 construction ancestry unproved; original-return/dispatch question remains queued.
@@ -129,20 +126,24 @@ closed after exports. Per-file rasterizerO3/contract-off passes360, comparison
 d76930cc, but profile8.779/s establishes no gain. Candidate stays private.
 Owner now directs independently written WebGL2 play renderer; software tuning
 stops. Private queue/wait timer built, never run, parked. No GPL renderer copied.
-GPU lookup-cache360: whole24.8029/s, steady180..36058.8419/s; Canvas58.5129/s.
-Costs: outside bridge11.254ms(66.22%), readback2.778(16.35%), setup1.270(7.47%).
-All720frames equal specialized GPU; HID/PCM/CPU and21shader logs pass. Steady
-p95/p9935.110/38.660ms, bimodal pacing. Wasm heap growth0;419968audio underrun
-frames. Lighting probe128cases built; GPU check next. Depth/alias gaps open.
+GPU lookup-cache360 reaches58.8419/s steady, only menu;720frames unchanged.
+Independent lighting fixes pass128cases exactly; ETC passes5376texels exactly.
+Latest play telemetry360 retains720GPU frames/HID/PCM/CPU and21shader log passes,
+53.6499/s steady, bimodal pacing and497920audio underrun frames. Private drafts.
+Actual original-movie7800 reaches World1-1 but fails visually: blue top/Mario,
+missing level geometry. Late7680..7800only9.3694/s; p95/p99260.25/287.68ms.
+Top RGB MAE140.2144/255,97.91%pixels>8;402shader logs pass,unsupported0.
+HID/timing/PCM/CPU counts exact;18of20snapshot files equal,CEC/log differ.
+Wasm heap growth0;12227328audio underrun frames. World costs not profiled yet.
+Comparison6f905b27 observation/c2baabff receipt preserved; browser/server closed.
 
-1. Compare isolated GPU lighting/ETC against reference; complete observed coverage.
-2. Complete trace-scoped GPU features, depth/texture coherence and60Hz delivery.
+1. Verify stencil write permission; capture isolated World draw state and costs.
+2. Fix World rendering, depth/texture coherence and measured60Hz bottlenecks.
 3. Observe original World1-1 movie start-to-goal with Azahar state, frame percentiles,
    heap/pauses, audio underruns and input-to-display latency in the same run.
 
 Milestones1..4 retain finite accepted scopes.5/6 in progress. Whole-level goal,
 Section7, sustained speed, synchronized audio, saves, physical mobile and complete
 rank-O adapter coverage remain unverified. Matching throughput zero.
-Pause free bytes20802355200. T3 goal active. All52old browser registrations inactive;
-31older identity-verified own servers stopped.
+Pause free bytes20802355200. T3 goal active. All own replay browsers/servers closed.
 Gameplay family accepted8f5d2c9d; no new matching bytes. Performance in progress.
