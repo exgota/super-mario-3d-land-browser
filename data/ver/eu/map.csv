@@ -5106,7 +5106,7 @@ Start     ,Pool      ,End       ,Section   ,Rank,Type,Symbol,SectionName
 0x001E222C,0x001E2248,0x001E224C,          ,U,f,,
 0x001E224C,          ,0x001E2250,          ,O,f,fn_001E224C,
 0x001E2250,0x001E228C,0x001E2294,          ,U,f,,
-0x001E2294,          ,0x001E22B4,          ,U,f,,
+0x001E2294,          ,0x001E22B4,          ,O,f,fn_001E2294,
 0x001E22B4,          ,0x001E22C0,          ,O,f,fn_001E22B4,
 0x001E22C0,          ,0x001E22D8,          ,U,f,,
 0x001E22D8,0x001E22FC,0x001E2300,          ,U,f,,
